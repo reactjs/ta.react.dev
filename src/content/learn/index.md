@@ -1,16 +1,16 @@
 ---
-title: Quick Start
+title: விரைவான தொடக்க வழிகாட்டி
 ---
 
 <Intro>
 
-Welcome to the React documentation! This page will give you an introduction to the 80% of React concepts that you will use on a daily basis.
+React இன் ஆவணத்திற்கு உங்களை வரவேற்கிறோம்! இந்தப் பக்கம் நீங்கள் அன்றாடம் பயன்படுத்தும் React இன் 80% கருத்துக்களைப் பற்றிய அறிமுகத்தை உங்களுக்கு வழங்கும்.
 
 </Intro>
 
 <YouWillLearn>
 
-- How to create and nest components
+- How to create and nest கூறுகள் (components)
 - How to add markup and styles
 - How to display data
 - How to render conditions and lists
