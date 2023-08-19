@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 /*
  * Copyright (c) Facebook, Inc. and its affiliates.
  */

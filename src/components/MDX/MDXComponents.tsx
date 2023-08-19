@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 /*
  * Copyright (c) Facebook, Inc. and its affiliates.
  */
@@ -177,7 +178,9 @@ function YouWillLearn({
   children: any;
   isChapter?: boolean;
 }) {
-  let title = isChapter ? 'இந்த அத்தியாயத்தில் நீங்கள் கற்றுக்கொள்ள போவது' : 'நீங்கள் கற்றுக்கொள்ள போவது';
+  let title = isChapter
+    ? 'இந்த அத்தியாயத்தில் நீங்கள் கற்றுக்கொள்ள போவது'
+    : 'நீங்கள் கற்றுக்கொள்ள போவது';
   return <SimpleCallout title={title}>{children}</SimpleCallout>;
 }
 
