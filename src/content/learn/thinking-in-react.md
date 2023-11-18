@@ -1,18 +1,18 @@
 ---
-title: Thinking in React
+title: React வழியில் சிந்தனை
 ---
 
 <Intro>
 
-React can change how you think about the designs you look at and the apps you build. When you build a user interface with React, you will first break it apart into pieces called *components*. Then, you will describe the different visual states for each of your components. Finally, you will connect your components together so that the data flows through them. In this tutorial, we’ll guide you through the thought process of building a searchable product data table with React.
+நீங்கள் பார்க்கும் வடிவமைப்புகள் மற்றும் நீங்கள் உருவாக்கும் பயன்பாடுகள் பற்றி நீங்கள் எப்படி நினைக்கிறீர்கள் என்பதை React மாற்றலாம். நீங்கள் React மூலம் ஒரு பயனர் இடைமுகத்தை உருவாக்கும்போது, ​​முதலில் அதை *components* எனப்படும் துண்டுகளாகப் பிரிப்பீர்கள். பின்னர், உங்கள் ஒவ்வொரு கூறுகளுக்கும் வெவ்வேறு காட்சி நிலைகளை விவரிப்பீர்கள். இறுதியாக, உங்கள் *components* ஒன்றாக இணைப்பீர்கள், இதனால் data அவற்றின் வழியாகப் பாய்கிறது. இந்த டுடோரியலில், React மூலம் தேடக்கூடிய தயாரிப்பு தரவு அட்டவணையை உருவாக்குவதற்கான சிந்தனை செயல்முறையின் மூலம் நாங்கள் உங்களுக்கு வழிகாட்டுவோம்.
 
 </Intro>
 
 ## Start with the mockup {/*start-with-the-mockup*/}
 
-Imagine that you already have a JSON API and a mockup from a designer.
+உங்களிடம் ஏற்கனவே JSON API மற்றும் வடிவமைப்பாளரிடமிருந்து ஒரு mock உள்ளது என்று கற்பனை செய்து பாருங்கள்.
 
-The JSON API returns some data that looks like this:
+JSON API இது போன்ற சில data வழங்குகிறது:
 
 ```json
 [
@@ -25,17 +25,17 @@ The JSON API returns some data that looks like this:
 ]
 ```
 
-The mockup looks like this:
+mockup இது போல் தெரிகிறது:
 
 <img src="/images/docs/s_thinking-in-react_ui.png" width="300" style={{margin: '0 auto'}} />
 
-To implement a UI in React, you will usually follow the same five steps.
+In React, UI ஐ செயல்படுத்த, நீங்கள் வழக்கமாக அதே ஐந்து படிகளைப் பின்பற்றுவீர்கள்.
 
-## Step 1: Break the UI into a component hierarchy {/*step-1-break-the-ui-into-a-component-hierarchy*/}
+## Step 1: UI ஐ ஒரு component படிநிலையாக உடைக்கவும் {/*step-1-break-the-ui-into-a-component-hierarchy*/}
 
-Start by drawing boxes around every component and subcomponent in the mockup and naming them. If you work with a designer, they may have already named these components in their design tool. Ask them!
+மொக்கப்பில் உள்ள ஒவ்வொரு components மற்றும் subcomponents சுற்றி பெட்டிகளை வரைந்து அவற்றை பெயரிடுவதன் மூலம் தொடங்கவும். நீங்கள் ஒரு வடிவமைப்பாளருடன் பணிபுரிந்தால், அவர்கள் ஏற்கனவே இந்த கூறுகளை தங்கள் வடிவமைப்பு கருவியில் பெயரிட்டிருக்கலாம். அவர்களிடம் கேளுங்கள்!
 
-Depending on your background, you can think about splitting up a design into components in different ways:
+உங்கள் பின்னணியைப் பொறுத்து, ஒரு வடிவமைப்பை வெவ்வேறு வழிகளில் components பிரிப்பது பற்றி நீங்கள் சிந்திக்கலாம்:
 
 * **Programming**--use the same techniques for deciding if you should create a new function or object. One such technique is the [single responsibility principle](https://en.wikipedia.org/wiki/Single_responsibility_principle), that is, a component should ideally only do one thing. If it ends up growing, it should be decomposed into smaller subcomponents. 
 * **CSS**--consider what you would make class selectors for. (However, components are a bit less granular.)
