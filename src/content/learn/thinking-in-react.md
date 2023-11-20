@@ -37,7 +37,7 @@ In React, UI ஐ செயல்படுத்த, நீங்கள் வழ
 
 உங்கள் பின்னணியைப் பொறுத்து, ஒரு வடிவமைப்பை வெவ்வேறு வழிகளில் components பிரிப்பது பற்றி நீங்கள் சிந்திக்கலாம்:
 
-* **Programming**--use the same techniques for deciding if you should create a new function or object. One such technique is the [single responsibility principle](https://en.wikipedia.org/wiki/Single_responsibility_principle), that is, a component should ideally only do one thing. If it ends up growing, it should be decomposed into smaller subcomponents. 
+* **Programming**--நீங்கள் ஒரு புதிய செயல்பாடு அல்லது பொருளை உருவாக்க வேண்டுமா என்பதை தீர்மானிக்க அதே நுட்பங்களைப் பயன்படுத்தவும். அத்தகைய ஒரு நுட்பம் [single responsibility principle](https://en.wikipedia.org/wiki/Single_responsibility_principle), அதாவது, ஒரு components ஒரு காரியத்தை மட்டுமே செய்ய வேண்டும். அது வளர்ந்து முடிந்தால், அது subcomponents சிதைக்கப்பட வேண்டும்.
 * **CSS**--consider what you would make class selectors for. (However, components are a bit less granular.)
 * **Design**--consider how you would organize the design's layers.
 
