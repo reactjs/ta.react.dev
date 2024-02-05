@@ -15,27 +15,31 @@ March 22, 2024. In-person in Paris, France + Remote (hybrid)
 
 [Website](https://react.paris/) - [Twitter](https://twitter.com/BeJS_) - [LinkedIn](https://www.linkedin.com/events/7150816372074192900/comments/)
 
-<<<<<<< HEAD
-=======
 ### Epic Web Conf 2024 {/*epic-web-2024*/}
 April 10 - 11, 2024. In-person in Park City, UT, USA
 
 [Website](https://www.epicweb.dev/conf) - [YouTube](https://www.youtube.com/@EpicWebDev)
 
->>>>>>> 2372ecf920ac4cda7c900f9ac7f9c0cd4284f281
 ### React Miami 2024 {/*react-miami-2024*/}
 April 19 - 20, 2024. In-person in Miami, FL, USA
 
 [Website](https://reactmiami.com/) - [Twitter](https://twitter.com/ReactMiamiConf)
 
-<<<<<<< HEAD
-=======
+### React Connection 2024 {/*react-connection-2024*/}
+April 22, 2024. In-person in Paris, France 
+
+[Website](https://reactconnection.io/) - [Twitter](https://twitter.com/ReactConn)
+
+### React Native Connection 2024 {/*react-native-connection-2024*/}
+April 23, 2024. In-person in Paris, France 
+
+[Website](https://reactnativeconnection.io/) - [Twitter](https://twitter.com/ReactNativeConn)
+
 ### React Conf 2024 {/*react-conf-2024*/}
 May 15 - 16, 2024. In-person in Henderson, NV, USA + remote
 
 [Website](https://conf.react.dev) - [Twitter](https://twitter.com/reactjs)
 
->>>>>>> 2372ecf920ac4cda7c900f9ac7f9c0cd4284f281
 ### App.js Conf 2024 {/*appjs-conf-2024*/}
 May 22 - 24, 2024. In-person in Kraków, Poland + remote
 
