@@ -629,7 +629,7 @@
     dequal "^2.0.2"
     outvariant "1.4.0"
     static-browser-server "1.0.3"
-
+    
 "@codesandbox/sandpack-react@2.13.5":
   version "2.13.5"
   resolved "https://registry.yarnpkg.com/@codesandbox/sandpack-react/-/sandpack-react-2.13.5.tgz#bc4b3fe43b74fdb011f69d3d9a117415110c709e"
