@@ -1,25 +1,25 @@
 ---
-title: Installation
+title: நிறுவல்
 ---
 
 <Intro>
 
-React has been designed from the start for gradual adoption. You can use as little or as much React as you need. Whether you want to get a taste of React, add some interactivity to an HTML page, or start a complex React-powered app, this section will help you get started.
+React ஆரம்பத்திலிருந்தே படிப்படியாக ஏற்றுக்கொள்ளும் வகையில் வடிவமைக்கப்பட்டுள்ளது. உங்களுக்குத் தேவையான அளவு Reactஐ பயன்படுத்திக்கொள்ளலாம். நீங்கள் React இன் சுவையைப் பெற விரும்பினாலும், ஒரு HTML பக்கத்திற்கு சில ஊடாடலைச் (interactivity) சேர்க்கவும் அல்லது சிக்கலான React-இயங்கும் பயன்பாட்டை (powered app) தொடங்க விரும்பினாலும், இந்தப் பகுதி உங்களுக்குத் தொடங்க உதவும்.
 
 </Intro>
 
 <YouWillLearn isChapter={true}>
 
-* [How to start a new React project](/learn/start-a-new-react-project)
-* [How to add React to an existing project](/learn/add-react-to-an-existing-project)
-* [How to set up your editor](/learn/editor-setup)
-* [How to install React Developer Tools](/learn/react-developer-tools)
+* [புதிய React திட்டத்தை (project) எவ்வாறு தொடங்குவது](/learn/start-a-new-react-project)
+* [ஏற்கனவேயுள்ள திட்டத்திற்கு (existing project) Reactஐ எவ்வாறு சேர்ப்பது](/learn/add-react-to-an-existing-project)
+* [தொகுப்பை (editor) எப்படி அமைப்பது](/learn/editor-setup)
+* [React டெவலப்பர் (developer) கருவிகளை எவ்வாறு நிறுவுவது](/learn/react-developer-tools)
 
 </YouWillLearn>
 
-## Try React {/*try-react*/}
+## Reactஐ முயற்சிக்க {/*try-react*/}
 
-You don't need to install anything to play with React. Try editing this sandbox!
+React உடன் விளையாட நீங்கள் எதையும் நிறுவ (install) வேண்டியதில்லை. இந்த sandboxஐ திருத்த முயற்சிக்கவும்!
 
 <Sandpack>
 
@@ -35,23 +35,24 @@ export default function App() {
 
 </Sandpack>
 
-You can edit it directly or open it in a new tab by pressing the "Fork" button in the upper right corner.
+மேல் வலது மூலையில் உள்ள "fork" பொத்தானை (button) அழுத்துவதன் மூலம் நீங்கள் அதை நேரடியாகத் திருத்தலாம் அல்லது புதிய தாவலில் (tab) திறக்கலாம்.
 
-Most pages in the React documentation contain sandboxes like this. Outside of the React documentation, there are many online sandboxes that support React: for example, [CodeSandbox](https://codesandbox.io/s/new), [StackBlitz](https://stackblitz.com/fork/react), or [CodePen.](https://codepen.io/pen?&editors=0010&layout=left&prefill_data_id=3f4569d1-1b11-4bce-bd46-89090eed5ddb)
+React ஆவணத்தில் (documentation) உள்ள பெரும்பாலான பக்கங்கள் இது போன்ற sandboxஐ கொண்டிருக்கின்றன. React ஆவணங்களுக்கு வெளியே, Reactஐ ஆதரிக்கும் பல ஆன்லைன் sandbox கள் உள்ளன: உதாரணமாக, [CodeSandbox](https://codesandbox.io/s/new), [StackBlitz](https://stackblitz.com/fork/react), அல்லது [CodePen.](https://codepen.io/pen?&editors=0010&layout=left&prefill_data_id=3f4569d1-1b11-4bce-bd46-89090eed5ddb)
 
-### Try React locally {/*try-react-locally*/}
+### தங்கள் கணினியில் (locally) reactஐ பயன்படுத்த {/*try-react-locally*/}
 
-To try React locally on your computer, [download this HTML page.](https://gist.githubusercontent.com/gaearon/0275b1e1518599bbeafcde4722e79ed1/raw/db72dcbf3384ee1708c4a07d3be79860db04bff0/example.html) Open it in your editor and in your browser!
+தங்கள் கணினியில் (locally) Reactஐ பயன்படுத்த, [இந்த HTML பக்கத்தைப் பதிவிறக்கவும்.](https://gist.githubusercontent.com/gaearon/0275b1e1518599bbeafcde4722e79ed1/raw/db72dcbf3384ee1708c4a07d3be79860db04bff0/example.html) அதை உங்கள் editorலும் உலாவியிலும் (browser) திறக்கவும்!
 
-## Start a new React project {/*start-a-new-react-project*/}
+## புதிய React திட்டத்தைத்(project) தொடங்கவும் {/*start-a-new-react-project*/}
 
-If you want to build an app or a website fully with React, [start a new React project.](/learn/start-a-new-react-project)
+நீங்கள் react மூலம் ஒரு app அல்லது இணையதளத்தை (website) முழுமையாக உருவாக்க விரும்பினால், [புதிய react திட்டத்தைத் தொடங்கவும்.](/learn/start-a-new-react-project)
+ஏற்கனவே உள்ள திட்டத்திற்கு எதிர்வினையைச் 
 
-## Add React to an existing project {/*add-react-to-an-existing-project*/}
+## ஏற்கனவேயுள்ள திட்டத்திற்கு (existing project) reactஐ சேர்க்க {/*add-react-to-an-existing-project*/}
 
-If want to try using React in your existing app or a website, [add React to an existing project.](/learn/add-react-to-an-existing-project)
+உங்கள் தற்போதைய app அல்லது இணையதளத்தில் (website) reactஐ பயன்படுத்த முயற்சிக்க விரும்பினால், [ஏற்கனவேயுள்ள திட்டத்திற்கு  (existing project) reactஐ சேர்க்க.](/learn/add-react-to-an-existing-project)
 
-## Next steps {/*next-steps*/}
+## அடுத்த கட்டங்கள் {/*next-steps*/}
 
-Head to the [Quick Start](/learn) guide for a tour of the most important React concepts you will encounter every day.
+ஒவ்வொரு நாளும் நீங்கள் சந்திக்கும் மிக முக்கியமான react கருத்துகளின் (concepts) சுற்றுப்பயணத்திற்கு [விரைவு தொடக்க வழிகாட்டிக்குச்](/learn) செல்லவும்..
 
