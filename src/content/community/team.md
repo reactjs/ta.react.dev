@@ -66,13 +66,8 @@ Current members of the React team are listed in alphabetical order below.
     Ricky majored in theoretical math and somehow found himself on the React Native team for a couple years before joining the React team. When he's not programming you can find him snowboarding, biking, climbing, golfing, or closing GitHub issues that do not match the issue template.
 </TeamMember>
 
-<<<<<<< HEAD
-<TeamMember name="Samuel Susla" permalink="samuel-susla" photo="/images/team/sam.jpg" github="sammy-SC" twitter="SamuelSusla" threads="samuelsusla" title="Engineer at Meta">
-    Samuel’s interest in programming started with the movie Matrix. He still has Matrix screen saver. Before working on React, he was focused on writing iOS apps. Outside of work, Samuel enjoys playing beach volleyball, squash, badminton and spending time with his family.
-=======
 <TeamMember name="Ruslan Lesiutin" permalink="ruslan-lesiutin" photo="/images/team/lesiutin.jpg" github="hoxyq" twitter="ruslanlesiutin" threads="lesiutin" title="Engineer at Meta">
     Ruslan's introduction to UI programming started when he was a kid by manually editing HTML templates for his custom gaming forums. Somehow, he ended up majoring in Computer Science. He enjoys music, games, and memes. Mostly memes.
->>>>>>> 9e1f5cd590fd066e72dda9022237bee30b499951
 </TeamMember>
 
 <TeamMember name="Sathya Gunasekaran " permalink="sathya-gunasekaran" photo="/images/team/sathya.jpg" github="gsathya" twitter="_gsathya" threads="gsathya.03" title="Engineer at Meta">
