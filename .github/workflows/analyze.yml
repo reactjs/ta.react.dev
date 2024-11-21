@@ -20,12 +20,6 @@ jobs:
           cache: yarn
           cache-dependency-path: yarn.lock
 
-<<<<<<< HEAD
-      - name: Install dependencies
-        uses: bahmutov/npm-install@v1.7.10
-        with:
-          install-command: yarn
-=======
       - name: Restore cached node_modules
         uses: actions/cache@v4
         with:
@@ -34,7 +28,6 @@ jobs:
 
       - name: Install deps
         run: yarn install --frozen-lockfile
->>>>>>> b214f78433756914ec32526dda48e76176dbf4fc
 
       - name: Restore next build
         uses: actions/cache@v4
