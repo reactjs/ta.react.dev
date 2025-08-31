@@ -1,16 +1,16 @@
 ---
-title: Installation
+title: நிறுவல்
 ---
 
 <Intro>
 
-React has been designed from the start for gradual adoption. You can use as little or as much React as you need. Whether you want to get a taste of React, add some interactivity to an HTML page, or start a complex React-powered app, this section will help you get started.
+ரியாக்ட் ஆரம்பத்திலிருந்தே படிப்படியான தழுவலுக்காக வடிவமைக்கப்பட்டது. உங்களுக்கு தேவையான அளவுக்கு குறைவாகவோ அதிகமாகவோ ரியாக்டை பயன்படுத்தலாம். ரியாக்டை சற்று முயன்று பார்க்க வேண்டுமா, ஒரு HTML பக்கத்திற்கு ஊடாடும் தன்மை (இன்டராக்டிவிட்டி) சேர்க்க வேண்டுமா, அல்லது ரியாக்ட் மூலம் இயக்கப்படும் ஒரு சிக்கலான செயலியைத் தொடங்க வேண்டுமா—இந்தப் பகுதி உங்களை ஆரம்பிக்க உதவும்.
 
 </Intro>
 
-## Try React {/*try-react*/}
+## ரியாக்டை முயற்சிக்கவும் {/*try-react*/}
 
-You don't need to install anything to play with React. Try editing this sandbox!
+ரியாக்டை முயற்சித்து பார்க்க எதையும் நிறுவ வேண்டியதில்லை. இந்த sandbox‑ஐத் திருத்தி முயற்சிக்கவும்!
 
 <Sandpack>
 
@@ -26,34 +26,33 @@ export default function App() {
 
 </Sandpack>
 
-You can edit it directly or open it in a new tab by pressing the "Fork" button in the upper right corner.
+நேரடியாக இதைத் திருத்தலாம், அல்லது மேல் வலது கோணத்தில் உள்ள “Fork” பொத்தானை அழுத்தி புதிய தாவலில் திறக்கலாம்.
 
-Most pages in the React documentation contain sandboxes like this. Outside of the React documentation, there are many online sandboxes that support React: for example, [CodeSandbox](https://codesandbox.io/s/new), [StackBlitz](https://stackblitz.com/fork/react), or [CodePen.](https://codepen.io/pen?template=QWYVwWN)
+ரியாக்ட் ஆவணங்களில் பெரும்பாலான பக்கங்களில் இப்படியான sandbox‑கள் இருக்கும். ரியாக்ட் ஆவணங்களுக்கு அப்பாலும், ரியாக்டை ஆதரிக்கும் பல ஆன்லைன் sandbox‑கள் உள்ளன: உதாரணமாக, [CodeSandbox](https://codesandbox.io/s/new), [StackBlitz](https://stackblitz.com/fork/react), அல்லது [CodePen.](https://codepen.io/pen?template=QWYVwWN)
 
-To try React locally on your computer, [download this HTML page.](https://gist.githubusercontent.com/gaearon/0275b1e1518599bbeafcde4722e79ed1/raw/db72dcbf3384ee1708c4a07d3be79860db04bff0/example.html) Open it in your editor and in your browser!
+உங்கள் கணினியில் லோகலாக ரியாக்டை முயற்சிக்க, [இந்த HTML பக்கத்தைப் பதிவிறக்கவும்.](https://gist.githubusercontent.com/gaearon/0275b1e1518599bbeafcde4722e79ed1/raw/db72dcbf3384ee1708c4a07d3be79860db04bff0/example.html) அதை உங்கள் திருத்தியில் (editor) மற்றும் உலாவியில் (browser) திறக்கவும்!
 
-## Creating a React App {/*creating-a-react-app*/}
+## ரியாக்ட் செயலியை உருவாக்குதல் {/*creating-a-react-app*/}
 
-If you want to start a new React app, you can [create a React app](/learn/creating-a-react-app) using a recommended framework.
+புதிய ரியாக்ட் செயலியைத் தொடங்க விரும்பினால், பரிந்துரைக்கப்பட்ட ஒரு framework‑ஐ பயன்படுத்தி [ரியாக்ட் செயலியை உருவாக்கலாம்](/learn/creating-a-react-app).
 
-## Build a React App from Scratch {/*build-a-react-app-from-scratch*/}
+## ஆரம்பத்திலிருந்து ரியாக்ட் செயலி உருவாக்குதல் {/*build-a-react-app-from-scratch*/}
 
-If a framework is not a good fit for your project, you prefer to build your own framework, or you just want to learn the basics of a React app you can [build a React app from scratch](/learn/build-a-react-app-from-scratch).
+ஒரு framework உங்கள் திட்டத்துக்கு சரியாகப் பொருந்தவில்லையென்றால், உங்கள் சொந்த framework‑ஐ உருவாக்க விரும்பினால், அல்லது ரியாக்ட் செயலியின் அடிப்படைகளைப் புரிந்து கொள்ள வேண்டுமென்றால், நீங்கள் [ஆரம்பத்திலிருந்து ஒரு ரியாக்ட் செயலியை உருவாக்கலாம்](/learn/build-a-react-app-from-scratch).
 
-## Add React to an existing project {/*add-react-to-an-existing-project*/}
+## இருக்கும் திட்டத்தில் ரியாக்ட் சேர்த்தல் {/*add-react-to-an-existing-project*/}
 
-If want to try using React in your existing app or a website, you can [add React to an existing project.](/learn/add-react-to-an-existing-project)
+நீங்கள் ஏற்கனவே உள்ள உங்கள் செயலி அல்லது இணையதளத்தில் ரியாக்டை பயன்படுத்தி முயற்சிக்க விரும்பினால், [இருக்கும் திட்டத்தில் ரியாக்டைச் சேர்க்கலாம்](/learn/add-react-to-an-existing-project).
 
 
 <Note>
 
-#### Should I use Create React App? {/*should-i-use-create-react-app*/}
+#### Create React App‑ஐ பயன்படுத்தலாமா? {/*should-i-use-create-react-app*/}
 
-No. Create React App has been deprecated. For more information, see [Sunsetting Create React App](/blog/2025/02/14/sunsetting-create-react-app).
+இல்லை. Create React App ஓய்வு பெறப்பட்டுள்ளது (deprecated). மேலும் விவரங்களுக்கு, [Create React App ஓய்வு பெறுதல்](/blog/2025/02/14/sunsetting-create-react-app) பதிவைப் பார்க்கவும்.
 
 </Note>
 
-## Next steps {/*next-steps*/}
+## அடுத்த படிகள் {/*next-steps*/}
 
-Head to the [Quick Start](/learn) guide for a tour of the most important React concepts you will encounter every day.
-
+நீங்கள் தினமும் சந்திக்கும் முக்கிய ரியாக்ட் கருத்துக்களை வேகமாக அறிந்து கொள்ள [விரைவு தொடக்கம்](/learn) வழிகாட்டியைப் பார்க்கவும்.
