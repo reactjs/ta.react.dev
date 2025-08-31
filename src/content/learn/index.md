@@ -1,54 +1,54 @@
 ---
-title: விரைவான தொடக்கத்திற்கான வழிகாட்டி
+title: விரைவான தொடக்கம்
 ---
 
 <Intro>
 
-React இன் ஆவணத்திற்கு உங்களை வரவேற்கிறோம்! இந்தப் பக்கம் நீங்கள் அன்றாடம் பயன்படுத்தும் React இன் 80% கருத்துக்களைப் பற்றிய அறிமுகத்தை உங்களுக்கு வழங்கும்.
+ரியாக்ட் ஆவணங்களுக்கு வரவேற்கிறோம்! இந்தப் பக்கம், நீங்கள் தினசரி பயன்படுத்தும் ரியாக்ட் கருத்துக்களில் 80% குறித்து ஒரு அறிமுகத்தை வழங்கும்.
 
 </Intro>
 
 <YouWillLearn>
 
-- How to create and nest கூறுகள் (components)
-- How to add markup and styles
-- How to display data
-- How to render conditions and lists
-- How to respond to events and update the screen
-- How to share data between components
+- காம்போனென்டுகளை உருவாக்கி உறையிடுவது எப்படி
+- மார்க்அப் மற்றும் ஸ்டைல்களைச் சேர்ப்பது எப்படி
+- தரவை காட்டுவது எப்படி
+- நிபந்தனைகள் மற்றும் பட்டியல்களை ரெண்டர் செய்வது எப்படி
+- நிகழ்வுகளுக்கு பதிலளித்து திரையைப் புதுப்பிப்பது எப்படி
+- காம்போனென்டுகளுக்கு இடையில் தரவைப் பகிர்வது எப்படி
 
 </YouWillLearn>
 
-## Creating and nesting components {/*components*/}
+## காம்போனென்டுகளை உருவாக்குதல் மற்றும் உறையிடுதல் {/*components*/}
 
-React apps are made out of *components*. A component is a piece of the UI (user interface) that has its own logic and appearance. A component can be as small as a button, or as large as an entire page.
+ரியாக்ட் செயலிகள் *காம்போனென்டுகள்* கொண்டு உருவாக்கப்பட்டவை. ஒரு காம்போனென்ட் என்பது UI (பயனர் இடைமுகம்) இன் ஒரு பகுதி; அதற்குத் தனது சுயமான தார்க்கிகமும் தோற்றமும் இருக்கும். ஒரு காம்போனென்ட் ஒரு பொத்தானைப் போலச் சிறியதாக இருக்கலாம், அல்லது ஒரு முழுப் பக்கத்தைப் போலப் பெரியதாக இருக்கலாம்.
 
-React components are JavaScript functions that return markup:
+ரியாக்ட் காம்போனென்டுகள் மார்க்அப்பைத் திருப்பி தரும் JavaScript செயல்பாடுகள்:
 
 ```js
 function MyButton() {
   return (
-    <button>I'm a button</button>
+    <button>நான் ஒரு பொத்தான்</button>
   );
 }
 ```
 
-Now that you've declared `MyButton`, you can nest it into another component:
+இப்போது நீங்கள் `MyButton`-ஐ அறிவித்துள்ளதால், அதை வேறு ஒரு காம்போனென்டின் உள்ளே உறையிடலாம்:
 
 ```js {5}
 export default function MyApp() {
   return (
     <div>
-      <h1>Welcome to my app</h1>
+      <h1>என் செயலிக்கு வரவேற்பு</h1>
       <MyButton />
     </div>
   );
 }
 ```
 
-Notice that `<MyButton />` starts with a capital letter. That's how you know it's a React component. React component names must always start with a capital letter, while HTML tags must be lowercase.
+`<MyButton />` பெரிய எழுத்தால் தொடங்குவதை கவனிக்கவும். அதுவே அது ரியாக்ட் காம்போனென்ட் என்பதை அறிய உதவும். ரியாக்ட் காம்போனென்ட் பெயர்கள் எப்போதும் பெரிய எழுத்தால் தொடங்க வேண்டும்; ஆனால் HTML குறிச்சொற்கள் சிறிய எழுத்தில் இருக்க வேண்டும்.
 
-Have a look at the result:
+விளைவைக் காணுங்கள்:
 
 <Sandpack>
 
@@ -56,7 +56,7 @@ Have a look at the result:
 function MyButton() {
   return (
     <button>
-      I'm a button
+      நான் ஒரு பொத்தான்
     </button>
   );
 }
@@ -64,7 +64,7 @@ function MyButton() {
 export default function MyApp() {
   return (
     <div>
-      <h1>Welcome to my app</h1>
+      <h1>என் செயலிக்கு வரவேற்பு</h1>
       <MyButton />
     </div>
   );
@@ -73,36 +73,36 @@ export default function MyApp() {
 
 </Sandpack>
 
-The `export default` keywords specify the main component in the file. If you're not familiar with some piece of JavaScript syntax, [MDN](https://developer.mozilla.org/en-US/docs/web/javascript/reference/statements/export) and [javascript.info](https://javascript.info/import-export) have great references.
+`export default` என்ற முக்கியச்சொற்கள், இந்த கோப்பிலுள்ள முக்கிய காம்போனென்டை குறிப்பிடுகின்றன. சில JavaScript வடிவமுறைகள் உங்களுக்கு பரிச்சயமில்லையென்றால், [MDN](https://developer.mozilla.org/en-US/docs/web/javascript/reference/statements/export) மற்றும் [javascript.info](https://javascript.info/import-export) சிறந்த குறிப்புகளைக் கொண்டுள்ளன.
 
-## Writing markup with JSX {/*writing-markup-with-jsx*/}
+## JSX மூலம் மார்க்அப் எழுதுதல் {/*writing-markup-with-jsx*/}
 
-The markup syntax you've seen above is called *JSX*. It is optional, but most React projects use JSX for its convenience. All of the [tools we recommend for local development](/learn/installation) support JSX out of the box.
+மேலே நீங்கள் பார்த்த மார்க்அப் வடிவமைப்பு *JSX* என்று அழைக்கப்படுகிறது. இது கட்டாயமல்ல, ஆனால் அதன் வசதிக்காக பெரும்பாலான ரியாக்ட் திட்டங்கள் JSX-ஐப் பயன்படுத்துகின்றன. [லோகல் டெவலப்மெண்டுக்கு நாங்கள் பரிந்துரைக்கும் கருவிகள்](/learn/installation) அனைத்தும் JSX-ஐ உடனடியாக ஆதரிக்கின்றன.
 
-JSX is stricter than HTML. You have to close tags like `<br />`. Your component also can't return multiple JSX tags. You have to wrap them into a shared parent, like a `<div>...</div>` or an empty `<>...</>` wrapper:
+JSX, HTML-ஐ விடக் கடுமையானது. `<br />` போன்ற குறிச்சொற்களை நீங்கள் மூடவேண்டும். மேலும், உங்கள் காம்போனென்ட் பல JSX குறிச்சொற்களை நேரடியாக திருப்ப முடியாது. அவற்றை ஒரு பொதுவான பெற்றோரின் உள்ளே, `<div>...</div>` அல்லது காலியான `<>...</>` உலரப்பரப்பில் சுற்றிக்கொள்ள வேண்டும்:
 
 ```js {3,6}
 function AboutPage() {
   return (
     <>
       <h1>About</h1>
-      <p>Hello there.<br />How do you do?</p>
+      <p>வணக்கம்.<br />நீங்கள் எப்படி இருக்கிறீர்கள்?</p>
     </>
   );
 }
 ```
 
-If you have a lot of HTML to port to JSX, you can use an [online converter.](https://transform.tools/html-to-jsx)
+HTML-இல் இருந்து JSX-ஆக மாற்ற வேண்டியவை அதிகமாக இருந்தால், நீங்கள் ஒரு [ஆன்லைன் மாற்றியை](https://transform.tools/html-to-jsx) பயன்படுத்தலாம்.
 
-## Adding styles {/*adding-styles*/}
+## ஸ்டைல்களைச் சேர்த்தல் {/*adding-styles*/}
 
-In React, you specify a CSS class with `className`. It works the same way as the HTML [`class`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/class) attribute:
+ரியாக்டில், நீங்கள் CSS வகுப்பை `className` மூலம் குறிப்பிடுகிறீர்கள். இது HTML இன் [`class`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/class) பண்புக்கூற்றைப் போலவே செயல்படுகிறது:
 
 ```js
 <img className="avatar" />
 ```
 
-Then you write the CSS rules for it in a separate CSS file:
+பிறகு அதற்கான CSS விதிகளை தனி CSS கோப்பில் எழுதுங்கள்:
 
 ```css
 /* In your CSS */
@@ -111,11 +111,11 @@ Then you write the CSS rules for it in a separate CSS file:
 }
 ```
 
-React does not prescribe how you add CSS files. In the simplest case, you'll add a [`<link>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link) tag to your HTML. If you use a build tool or a framework, consult its documentation to learn how to add a CSS file to your project.
+CSS கோப்புகளை எப்படி சேர்ப்பது என்பதை ரியாக்ட் நிர்ணயிக்கவில்லை. எளிய நிலையில், உங்கள் HTML-க்கு ஒரு [`<link>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link) குறிச்சொல்லைச் சேர்ப்பீர்கள். நீங்கள் ஒரு build tool அல்லது framework பயன்படுத்தினால், உங்கள் திட்டத்தில் CSS கோப்பைச் சேர்ப்பது எப்படி என்பதை அதன் ஆவணங்களில் பார்க்கவும்.
 
-## Displaying data {/*displaying-data*/}
+## தரவை காட்டுதல் {/*displaying-data*/}
 
-JSX lets you put markup into JavaScript. Curly braces let you "escape back" into JavaScript so that you can embed some variable from your code and display it to the user. For example, this will display `user.name`:
+JSX, JavaScript-உள்ளே மார்க்அப்பை இட அனுமதிக்கிறது. சுருள்வளைவுகள் மூலம் நீங்கள் மீண்டும் JavaScript-க்கு "சென்று", உங்கள் கோடிலுள்ள ஒரு வேரியபிளின் மதிப்பை உள்ளடக்கி, அதை பயனருக்கு காட்டலாம். உதாரணமாக, இது `user.name`-ஐக் காட்டும்:
 
 ```js {3}
 return (
@@ -125,7 +125,7 @@ return (
 );
 ```
 
-You can also "escape into JavaScript" from JSX attributes, but you have to use curly braces *instead of* quotes. For example, `className="avatar"` passes the `"avatar"` string as the CSS class, but `src={user.imageUrl}` reads the JavaScript `user.imageUrl` variable value, and then passes that value as the `src` attribute:
+JSX பண்புக்கூறுகளிலிருந்தும் நீங்கள் JavaScript-க்கு "செல்ல"லாம், ஆனால் அப்போது குறிக்கோடுகளுக்குப் பதிலாக சுருள்வளைவுகளைப் பயன்படுத்த வேண்டும். உதாரணமாக, `className="avatar"` என்பது `"avatar"` என்ற string-ஐ CSS class-ஆக அனுப்புகிறது; ஆனால் `src={user.imageUrl}` என்பது JavaScript-இலுள்ள `user.imageUrl` வேரியபிளின் மதிப்பைப் படித்து, அதை `src` பண்புக்கூற்றாக அனுப்புகிறது:
 
 ```js {3,4}
 return (
@@ -136,7 +136,7 @@ return (
 );
 ```
 
-You can put more complex expressions inside the JSX curly braces too, for example, [string concatenation](https://javascript.info/operators#string-concatenation-with-binary):
+மேலும் சிக்கலான வெளிப்பாடுகளையும் JSX சுருள்வளைவுகளுக்குள் இடலாம்; உதாரணமாக, [string சேர்த்தல்](https://javascript.info/operators#string-concatenation-with-binary):
 
 <Sandpack>
 
@@ -154,7 +154,7 @@ export default function Profile() {
       <img
         className="avatar"
         src={user.imageUrl}
-        alt={'Photo of ' + user.name}
+        alt={user.name + ' -ன் படம்'}
         style={{
           width: user.imageSize,
           height: user.imageSize
@@ -177,11 +177,11 @@ export default function Profile() {
 
 </Sandpack>
 
-In the above example, `style={{}}` is not a special syntax, but a regular `{}` object inside the `style={ }` JSX curly braces. You can use the `style` attribute when your styles depend on JavaScript variables.
+மேலுள்ள எடுத்துக்காட்டில், `style={{}}` என்பது ஒரு சிறப்பு வடிவமுறை அல்ல; அது `style={ }` JSX சுருள்வளைவுகளுக்குள் உள்ள ஒரு சாதாரண `{}` பொருள். உங்கள் ஸ்டைல்கள் JavaScript வேரியபிள்களின் மதிப்புகளில் சார்ந்திருக்கும் போது `style` பண்புக்கூற்றைப் பயன்படுத்தலாம்.
 
-## Conditional rendering {/*conditional-rendering*/}
+## நிபந்தனை ரெண்டரிங் {/*conditional-rendering*/}
 
-In React, there is no special syntax for writing conditions. Instead, you'll use the same techniques as you use when writing regular JavaScript code. For example, you can use an [`if`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/if...else) statement to conditionally include JSX:
+ரியாக்டில் நிபந்தனைகளை எழுதுவதற்கு தனியான வடிவமுறை இல்லை. அதற்குப் பதிலாக, சாதாரண JavaScript கோடை எழுதும் போது பயன்படுத்தும் அதே நுட்பங்களை இங்கும் பயன்படுத்தலாம். உதாரணமாக, [`if`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/if...else) அறிக்கையைப் பயன்படுத்தி, நிபந்தனைப்படி JSX-ஐக் கலந்து கொள்ளலாம்:
 
 ```js
 let content;
@@ -197,7 +197,7 @@ return (
 );
 ```
 
-If you prefer more compact code, you can use the [conditional `?` operator.](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator) Unlike `if`, it works inside JSX:
+நீங்கள் மேலும் சுருக்கமான கோடைக் விரும்பினால், [நிபந்தனை `?` இயக்கியை](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator) பயன்படுத்தலாம். `if`-க்கு மாறாக, இது JSX-ன் உள்ளேயே வேலை செய்யும்:
 
 ```js
 <div>
@@ -209,7 +209,7 @@ If you prefer more compact code, you can use the [conditional `?` operator.](htt
 </div>
 ```
 
-When you don't need the `else` branch, you can also use a shorter [logical `&&` syntax](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_AND#short-circuit_evaluation):
+`else` கிளை தேவையில்லையெனில், மேலும் சுருக்கமான [தார்க்கிக `&&` வடிவமுறையை](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_AND#short-circuit_evaluation) பயன்படுத்தலாம்:
 
 ```js
 <div>
@@ -217,13 +217,13 @@ When you don't need the `else` branch, you can also use a shorter [logical `&&` 
 </div>
 ```
 
-All of these approaches also work for conditionally specifying attributes. If you're unfamiliar with some of this JavaScript syntax, you can start by always using `if...else`.
+இந்த அணுகுமுறைகள் அனைத்தும், நிபந்தனைப்படி attribute-களை குறிப்பிடுவதற்கும் வேலை செய்கின்றன. இந்த JavaScript வடிவமுறைகளில் சில உங்களுக்கு பரிச்சயமில்லையென்றால், முதலில் எப்போதும் `if...else`-ஐப் பயன்படுத்தி தொடங்கலாம்.
 
-## Rendering lists {/*rendering-lists*/}
+## பட்டியல்களை ரெண்டர் செய்தல் {/*rendering-lists*/}
 
-You will rely on JavaScript features like [`for` loop](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for) and the [array `map()` function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) to render lists of components.
+காம்போனென்டுகளின் பட்டியலை ரெண்டர் செய்ய, நீங்கள் JavaScript-இன் [`for` loop](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for) மற்றும் [array `map()` செயல்பாடு](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) போன்ற அம்சங்களை நம்புவீர்கள்.
 
-For example, let's say you have an array of products:
+உதாரணமாக, உங்களிடம் ஒரு பொருட்களின் வரிசை (array) இருப்பதாக வைத்துக்கொள்வோம்:
 
 ```js
 const products = [
@@ -233,7 +233,7 @@ const products = [
 ];
 ```
 
-Inside your component, use the `map()` function to transform an array of products into an array of `<li>` items:
+உங்கள் காம்போனென்டின் உள்ளே, `map()` செயல்பாட்டை பயன்படுத்தி, பொருட்களின் வரிசையை `<li>` உருப்படிகளின் வரிசையாக மாற்றுங்கள்:
 
 ```js
 const listItems = products.map(product =>
@@ -247,7 +247,7 @@ return (
 );
 ```
 
-Notice how `<li>` has a `key` attribute. For each item in a list, you should pass a string or a number that uniquely identifies that item among its siblings. Usually, a key should be coming from your data, such as a database ID. React uses your keys to know what happened if you later insert, delete, or reorder the items.
+`<li>`-க்கு ஒரு `key` attribute இருப்பதை கவனியுங்கள். பட்டியலின் ஒவ்வொரு உருப்படிக்கும், அதன் உடன்பிறப்புகளுக்குள் அதை தனித்தனியாக அடையாளப்படுத்தும் ஒரு string அல்லது எண்ணைப் பாஸ் செய்ய வேண்டும். பொதுவாக, ஒரு key உங்கள் தரவிலிருந்து (உதாரணமாக, database ID) வர வேண்டும். நீங்கள் பின்னர் உருப்படிகளைச் சேர்த்தாலும், நீக்கினாலும், மறுவரிசைப்படுத்தினாலும் என்ன நிகழ்ந்தது என்பதை ரியாக்ட் உங்கள் keys மூலம் அறியும்.
 
 <Sandpack>
 
@@ -278,37 +278,37 @@ export default function ShoppingList() {
 
 </Sandpack>
 
-## Responding to events {/*responding-to-events*/}
+## நிகழ்வுகளுக்கு பதிலளித்தல் {/*responding-to-events*/}
 
-You can respond to events by declaring *event handler* functions inside your components:
+உங்கள் காம்போனென்டுகளின் உள்ளே *event handler* செயல்பாடுகளை அறிவித்து, நிகழ்வுகளுக்கு பதிலளிக்கலாம்:
 
 ```js {2-4,7}
 function MyButton() {
   function handleClick() {
-    alert('You clicked me!');
+    alert('நீங்கள் என்னை சொடுக்கினீர்கள்!');
   }
 
   return (
     <button onClick={handleClick}>
-      Click me
+      என்னை சொடுக்கவும்
     </button>
   );
 }
 ```
 
-Notice how `onClick={handleClick}` has no parentheses at the end! Do not _call_ the event handler function: you only need to *pass it down*. React will call your event handler when the user clicks the button.
+`onClick={handleClick}`-க்கு முடிவில் வளைவுக்குறிகள் (parentheses) இல்லையென்பதை கவனியுங்கள்! event handler செயல்பாட்டை _அழைக்க_ வேண்டாம்; அதை *அப்படியே பாஸ்* செய்தால் போதும். பயனர் பொத்தானை சொடுக்கும் போது, ரியாக்ட் உங்கள் event handler-ஐ அழைக்கும்.
 
-## Updating the screen {/*updating-the-screen*/}
+## திரையைப் புதுப்பித்தல் {/*updating-the-screen*/}
 
-Often, you'll want your component to "remember" some information and display it. For example, maybe you want to count the number of times a button is clicked. To do this, add *state* to your component.
+பல நேரங்களில், உங்கள் காம்போனென்ட் சில தகவலை "நினைத்துக் கொண்டு" அதை காட்ட வேண்டும். உதாரணமாக, ஒரு பொத்தானை எத்தனை முறை சொடுக்கப்பட்டது என்பதை எண்ண விரும்பலாம். இதைச் செய்ய, உங்கள் காம்போனென்டில் *state* சேர்க்கவும்.
 
-First, import [`useState`](/reference/react/useState) from React:
+முதலில், ரியாக்டிலிருந்து [`useState`](/reference/react/useState)-ஐ import செய்யவும்:
 
 ```js
 import { useState } from 'react';
 ```
 
-Now you can declare a *state variable* inside your component:
+இப்போது, உங்கள் காம்போனென்டின் உள்ளே ஒரு *state வேரியபிளை* அறிவிக்கலாம்:
 
 ```js
 function MyButton() {
@@ -316,9 +316,9 @@ function MyButton() {
   // ...
 ```
 
-You’ll get two things from `useState`: the current state (`count`), and the function that lets you update it (`setCount`). You can give them any names, but the convention is to write `[something, setSomething]`.
+`useState`-இலிருந்து நீங்கள் இரண்டு விஷயங்களைப் பெறுவீர்கள்: நடப்பு state (`count`), மற்றும் அதை மேம்படுத்த அனுமதிக்கும் செயல்பாடு (`setCount`). அவற்றிற்கு நீங்கள் எந்தப் பெயர்களையும் கொடுக்கலாம்; வழக்கமாக `[ஏதோ ஒன்று, setஏதோ ஒன்று]` என்ற வடிவத்தில் எழுதுவார்கள்.
 
-The first time the button is displayed, `count` will be `0` because you passed `0` to `useState()`. When you want to change state, call `setCount()` and pass the new value to it. Clicking this button will increment the counter:
+பொத்தான் முதல் முறை காட்டப்படும் போது, நீங்கள் `useState()`-க்கு `0`-ஐப் பாஸ் செய்துள்ளதால், `count` மதிப்பு `0` ஆக இருக்கும். state-ஐ மாற்ற வேண்டுமெனில், `setCount()`-ஐ அழைத்து புதிய மதிப்பைப் பாஸ் செய்யவும். இந்த பொத்தானை சொடுக்குவது கவுன்டரை ஒரு அளவு அதிகரிக்கும்:
 
 ```js {5}
 function MyButton() {
@@ -330,15 +330,15 @@ function MyButton() {
 
   return (
     <button onClick={handleClick}>
-      Clicked {count} times
+      {count} முறை சொடுக்கப்பட்டது
     </button>
   );
 }
 ```
 
-React will call your component function again. This time, `count` will be `1`. Then it will be `2`. And so on.
+ரியாக்ட் உங்கள் காம்போனென்ட் செயல்பாட்டை மீண்டும் அழைக்கும். அப்போதோ, `count` `1` ஆகும். அதன் பின்னர் `2`. இப்படிப் தொடரும்.
 
-If you render the same component multiple times, each will get its own state. Click each button separately:
+அதே காம்போனென்டை பல முறை ரெண்டர் செய்தால், ஒவ்வொன்றுக்கும் தனித்தனி state இருக்கும். ஒவ்வொரு பொத்தானையும் தனித்தனியாக சொடுக்கிப் பாருங்கள்:
 
 <Sandpack>
 
@@ -348,7 +348,7 @@ import { useState } from 'react';
 export default function MyApp() {
   return (
     <div>
-      <h1>Counters that update separately</h1>
+      <h1>தனித்தனியாகப் புதுப்பிக்கும் கவுன்டர்கள்</h1>
       <MyButton />
       <MyButton />
     </div>
@@ -364,7 +364,7 @@ function MyButton() {
 
   return (
     <button onClick={handleClick}>
-      Clicked {count} times
+      {count} முறை சொடுக்கப்பட்டது
     </button>
   );
 }
@@ -379,59 +379,59 @@ button {
 
 </Sandpack>
 
-Notice how each button "remembers" its own `count` state and doesn't affect other buttons.
+ஒவ்வொரு பொத்தானும் தன் `count` state-ஐ "நினைத்துக்" கொண்டு, மற்ற பொத்தான்களை பாதிக்காததை கவனியுங்கள்.
 
-## Using Hooks {/*using-hooks*/}
+## Hooks-ஐ பயன்படுத்துதல் {/*using-hooks*/}
 
-Functions starting with `use` are called *Hooks*. `useState` is a built-in Hook provided by React. You can find other built-in Hooks in the [API reference.](/reference/react) You can also write your own Hooks by combining the existing ones.
+`use` என்று தொடங்கும் செயல்பாடுகள் *Hooks* என்று அழைக்கப்படுகின்றன. `useState` என்பது ரியாக்ட் வழங்கும் உட்கட்டமைக்கப்பட்ட Hook. மற்ற உட்கட்டமைக்கப்பட்ட Hooks-களை [API குறிப்பில்](/reference/react) காணலாம். இயங்கிவரும் Hooks-களை ஒன்றுசேர்த்தும், உங்கள் சொந்த Hooks-களையும் எழுதலாம்.
 
-Hooks are more restrictive than other functions. You can only call Hooks *at the top* of your components (or other Hooks). If you want to use `useState` in a condition or a loop, extract a new component and put it there.
+Hooks, பிற செயல்பாடுகளை விட கட்டுப்பாடுகளுடன் இருக்கும். நீங்கள் Hooks-ஐ உங்கள் காம்போனென்ட்களின் (அல்லது வேறு Hooks-களின்) *முதல் மட்டத்தில்* மட்டுமே அழைக்கலாம். `useState`-ஐ ஒரு நிபந்தனை அல்லது loop-இல் பயன்படுத்த வேண்டுமெனில், புதிய காம்போனென்டை பிரித்து அதில் இடவும்.
 
-## Sharing data between components {/*sharing-data-between-components*/}
+## காம்போனென்டுகளுக்கிடையில் தரவைப் பகிர்தல் {/*sharing-data-between-components*/}
 
-In the previous example, each `MyButton` had its own independent `count`, and when each button was clicked, only the `count` for the button clicked changed:
+முந்தைய உதாரணத்தில், ஒவ்வொரு `MyButton`-க்கும் தனித்தனி `count` இருந்தது; ஒவ்வொரு பொத்தானையும் சொடுக்கும் போது, அந்தப் பொத்தானின் `count` மட்டுமே மாறியது:
 
 <DiagramGroup>
 
-<Diagram name="sharing_data_child" height={367} width={407} alt="Diagram showing a tree of three components, one parent labeled MyApp and two children labeled MyButton. Both MyButton components contain a count with value zero.">
+<Diagram name="sharing_data_child" height={367} width={407} alt="மூன்று காம்போனென்டுகளைக் கொண்ட மர வடிவ விளக்கம்: MyApp என்று பெயரிடப்பட்ட ஒரு பெற்றோர், MyButton என்று பெயரிடப்பட்ட இரண்டு குழந்தைகள். இரண்டு MyButton காம்போனென்டுகளிலும் count மதிப்பு பூஜ்ஜியம்.">
 
-Initially, each `MyButton`'s `count` state is `0`
+ஆரம்பத்தில், ஒவ்வொரு `MyButton`-னும் `count` state `0` ஆகும்
 
 </Diagram>
 
-<Diagram name="sharing_data_child_clicked" height={367} width={407} alt="The same diagram as the previous, with the count of the first child MyButton component highlighted indicating a click with the count value incremented to one. The second MyButton component still contains value zero." >
+<Diagram name="sharing_data_child_clicked" height={367} width={407} alt="முந்தையதையே போன்ற வரைபடம்; முதல் MyButton குழந்தையின் count ஒரு சொடுக்கலின் காரணமாக ஒன்றாக அதிகரித்துள்ளது. இரண்டாம் MyButton இன் மதிப்பு இன்னும் பூஜ்ஜியம்." >
 
-The first `MyButton` updates its `count` to `1`
+முதல் `MyButton` தன் `count`-ஐ `1` ஆகப் புதுப்பிக்கிறது
 
 </Diagram>
 
 </DiagramGroup>
 
-However, often you'll need components to *share data and always update together*.
+ஆனால், பல நேரங்களில் காம்போனென்டுகள் *தரவைப் பகிர்ந்து எப்போதும் ஒன்றாகப் புதுப்பிக்க* வேண்டியிருக்கும்.
 
-To make both `MyButton` components display the same `count` and update together, you need to move the state from the individual buttons "upwards" to the closest component containing all of them.
+இரண்டு `MyButton` காம்போனென்டுகளும் ஒரே `count`-ஐக் காட்டி, ஒன்றாகப் புதுப்பிக்க வேண்டுமெனில், அந்த state-ஐ ஒவ்வொரு பொத்தானிலிருந்தும் "மேலே" கொண்டு, அவற்றை எல்லாம் உள்ளடக்கியுள்ள அருகிலுள்ள காம்போனென்டுக்கு நகர்த்த வேண்டும்.
 
-In this example, it is `MyApp`:
+இந்த உதாரணத்தில், அது `MyApp`:
 
 <DiagramGroup>
 
-<Diagram name="sharing_data_parent" height={385} width={410} alt="Diagram showing a tree of three components, one parent labeled MyApp and two children labeled MyButton. MyApp contains a count value of zero which is passed down to both of the MyButton components, which also show value zero." >
+<Diagram name="sharing_data_parent" height={385} width={410} alt="மூன்று காம்போனென்டுகளின் மரம்: MyApp என்ற பெற்றோர், MyButton என்ற இரண்டு குழந்தைகள். MyApp-இல் count மதிப்பு பூஜ்ஜியம்; அது இரு MyButton களுக்கும் கீழிறக்கப்பட்டுள்ளது, அவற்றிலும் பூஜ்ஜியம் காட்டப்படுகிறது." >
 
-Initially, `MyApp`'s `count` state is `0` and is passed down to both children
+ஆரம்பத்தில், `MyApp`-ன் `count` state `0`; அது இரு குழந்தைகளுக்கும் கீழிறக்கப்படுகிறது
 
 </Diagram>
 
-<Diagram name="sharing_data_parent_clicked" height={385} width={410} alt="The same diagram as the previous, with the count of the parent MyApp component highlighted indicating a click with the value incremented to one. The flow to both of the children MyButton components is also highlighted, and the count value in each child is set to one indicating the value was passed down." >
+<Diagram name="sharing_data_parent_clicked" height={385} width={410} alt="முந்தையதையே போன்ற வரைபடம்; பெற்றோர் MyApp இன் count ஒரு சொடுக்கலால் ஒன்றாக உயர்ந்துள்ளது. அந்த மதிப்பு இரு MyButton குழந்தைகளுக்கும் கீழிறக்கப்பட்டதால், அவற்றிலும் count ஒன்று ஆகிறது." >
 
-On click, `MyApp` updates its `count` state to `1` and passes it down to both children
+சொடுக்கும் போது, `MyApp` தன் `count` state-ஐ `1` ஆக மாற்றி, இரு குழந்தைகளுக்கும் கீழிறக்குகிறது
 
 </Diagram>
 
 </DiagramGroup>
 
-Now when you click either button, the `count` in `MyApp` will change, which will change both of the counts in `MyButton`. Here's how you can express this in code.
+இப்போது எந்தப் பொத்தானையும் சொடுக்கினாலும், `MyApp`-இலுள்ள `count` மாறும்; அதனால் இரு `MyButton` களிலும் உள்ள count-களும் மாறும். இதை கோடில் இவ்வாறு வெளிப்படுத்தலாம்.
 
-First, *move the state up* from `MyButton` into `MyApp`:
+முதலில், `MyButton`-லிருந்து state-ஐ *மேலே நகர்த்தி* `MyApp`-இல் வையுங்கள்:
 
 ```js {2-6,18}
 export default function MyApp() {
@@ -443,7 +443,7 @@ export default function MyApp() {
 
   return (
     <div>
-      <h1>Counters that update separately</h1>
+      <h1>தனித்தனியாகப் புதுப்பிக்கும் கவுன்டர்கள்</h1>
       <MyButton />
       <MyButton />
     </div>
@@ -456,7 +456,7 @@ function MyButton() {
 
 ```
 
-Then, *pass the state down* from `MyApp` to each `MyButton`, together with the shared click handler. You can pass information to `MyButton` using the JSX curly braces, just like you previously did with built-in tags like `<img>`:
+பிறகு, பகிரப்பட்ட click handler-உடன் சேர்த்து, `MyApp`-இலிருந்து ஒவ்வொரு `MyButton`-க்கும் state-ஐ *கீழிறக்குங்கள்*. `<img>` போன்ற உட்கட்டமைக்கப்பட்ட குறிச்சொற்களுடன் செய்ததுபோலவே, JSX சுருள்வளைவுகளைப் பயன்படுத்தி `MyButton`-க்கு தகவலைப் பாஸ் செய்யலாம்:
 
 ```js {11-12}
 export default function MyApp() {
@@ -468,7 +468,7 @@ export default function MyApp() {
 
   return (
     <div>
-      <h1>Counters that update together</h1>
+      <h1>ஒன்றாகப் புதுப்பிக்கும் கவுன்டர்கள்</h1>
       <MyButton count={count} onClick={handleClick} />
       <MyButton count={count} onClick={handleClick} />
     </div>
@@ -476,21 +476,21 @@ export default function MyApp() {
 }
 ```
 
-The information you pass down like this is called _props_. Now the `MyApp` component contains the `count` state and the `handleClick` event handler, and *passes both of them down as props* to each of the buttons.
+இவ்வாறு நீங்கள் கீழிறக்கும் தகவலை _props_ என்று அழைக்கின்றனர். இப்போது `MyApp` காம்போனென்ட் `count` state-ஐயும் `handleClick` event handler-யையும் கொண்டுள்ளது; இரண்டையும் ஒவ்வொரு பொத்தானுக்கும் *props-ஆக கீழிறக்குகிறது*.
 
-Finally, change `MyButton` to *read* the props you have passed from its parent component:
+இறுதியாக, பெற்றோர் காம்போனென்டில் இருந்து கீழிறக்கப்பட்ட props-ஐ *படிக்கும்* வகையில் `MyButton`-ஐ மாற்றுங்கள்:
 
 ```js {1,3}
 function MyButton({ count, onClick }) {
   return (
     <button onClick={onClick}>
-      Clicked {count} times
+      {count} முறை சொடுக்கப்பட்டது
     </button>
   );
 }
 ```
 
-When you click the button, the `onClick` handler fires. Each button's `onClick` prop was set to the `handleClick` function inside `MyApp`, so the code inside of it runs. That code calls `setCount(count + 1)`, incrementing the `count` state variable. The new `count` value is passed as a prop to each button, so they all show the new value. This is called "lifting state up". By moving state up, you've shared it between components.
+பொத்தானைச் சொடுக்கும்போது, `onClick` handler இயங்கும். ஒவ்வொரு பொத்தானிலும் `onClick` prop `MyApp`-இலுள்ள `handleClick` செயல்பாட்டில் அமைக்கப்பட்டுள்ளது; எனவே அதன் உள்ளேயுள்ள கோடு இயங்கும். அந்தக் கோடு `setCount(count + 1)`-ஐ அழைத்து, `count` state-ஐ ஒரு அளவு உயர்த்தும். புதிய `count` மதிப்பு ஒவ்வொரு பொத்தானுக்கும் prop-ஆக கீழிறக்கப்படும்; ஆகவே அனைத்தும் புதிய மதிப்பை காட்டும். இதையே "state-ஐ மேலே தூக்குதல்" (lifting state up) என்கிறோம். state-ஐ மேலே நகர்த்துவதன் மூலம், அதை காம்போனென்டுகளுக்கு இடையே பகிர்ந்துள்ளீர்கள்.
 
 <Sandpack>
 
@@ -506,7 +506,7 @@ export default function MyApp() {
 
   return (
     <div>
-      <h1>Counters that update together</h1>
+      <h1>ஒன்றாகப் புதுப்பிக்கும் கவுன்டர்கள்</h1>
       <MyButton count={count} onClick={handleClick} />
       <MyButton count={count} onClick={handleClick} />
     </div>
@@ -516,7 +516,7 @@ export default function MyApp() {
 function MyButton({ count, onClick }) {
   return (
     <button onClick={onClick}>
-      Clicked {count} times
+      {count} முறை சொடுக்கப்பட்டது
     </button>
   );
 }
@@ -531,8 +531,8 @@ button {
 
 </Sandpack>
 
-## Next Steps {/*next-steps*/}
+## அடுத்த படிகள் {/*next-steps*/}
 
-By now, you know the basics of how to write React code!
+இப்போது வரை, ரியாக்ட் கோடெழுதும் அடிப்படைகளை நீங்கள் கற்றிருக்கிறீர்கள்!
 
-Check out the [Tutorial](/learn/tutorial-tic-tac-toe) to put them into practice and build your first mini-app with React.
+இவற்றை நடைமுறையில் பயன்படுத்திப் பார்க்கவும்; ரியாக்டில் உங்கள் முதல் சிறிய செயலியை உருவாக்கவும் [பயிற்சியை](/learn/tutorial-tic-tac-toe) பாருங்கள்.
