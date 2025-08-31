@@ -1,236 +1,236 @@
 {
-  "title": "Learn React",
+  "title": "ரியாக்ட் கற்றுக்கொள்ளுங்கள்",
   "path": "/learn",
   "routes": [
     {
       "hasSectionHeader": true,
-      "sectionHeader": "GET STARTED"
+      "sectionHeader": "தொடங்குங்கள்"
     },
     {
-      "title": "Quick Start",
+      "title": "விரைவான தொடக்கம்",
       "path": "/learn",
       "routes": [
         {
-          "title": "Tutorial: Tic-Tac-Toe",
+          "title": "பயிற்சி: டிக்-டாக்-டோ",
           "path": "/learn/tutorial-tic-tac-toe"
         },
         {
-          "title": "Thinking in React",
+          "title": "ரியாக்டில் சிந்திப்பது",
           "path": "/learn/thinking-in-react"
         }
       ]
     },
     {
-      "title": "Installation",
+      "title": "நிறுவல்",
       "path": "/learn/installation",
       "routes": [
         {
-          "title": "Creating a React App",
+          "title": "ஒரு ரியாக்ட் பயன்பாட்டை உருவாக்குதல்",
           "path": "/learn/creating-a-react-app"
         },
         {
-          "title": "Build a React App from Scratch",
+          "title": "அடிப்படையிலிருந்து ஒரு ரியாக்ட் பயன்பாட்டை உருவாக்குதல்",
           "path": "/learn/build-a-react-app-from-scratch"
         },
         {
-          "title": "Add React to an Existing Project",
+          "title": "நடப்பு திட்டத்தில் ரியாக்டைச் சேர்த்தல்",
           "path": "/learn/add-react-to-an-existing-project"
         }
       ]
     },
     {
-      "title": "Setup",
+      "title": "அமைப்பு",
       "path": "/learn/setup",
       "routes": [
         {
-          "title": "Editor Setup",
+          "title": "எடிட்டர் அமைப்பு",
           "path": "/learn/editor-setup"
         },
         {
-          "title": "Using TypeScript",
+          "title": "டைப் ஸ்கிரிப்டைப் பயன்படுத்துதல்",
           "path": "/learn/typescript"
         },
         {
-          "title": "React Developer Tools",
+          "title": "ரியாக்ட் டெவலப்பர் கருவிகள்",
           "path": "/learn/react-developer-tools"
         }
       ]
     },
     {
-      "title": "React Compiler",
+      "title": "ரியாக்ட் கம்பைலர்",
       "path": "/learn/react-compiler",
       "canary": true,
       "routes": [
         {
-          "title": "Introduction",
+          "title": "அறிமுகம்",
           "path": "/learn/react-compiler/introduction"
         },
         {
-          "title": "Installation",
+          "title": "நிறுவல்",
           "path": "/learn/react-compiler/installation"
         },
         {
-          "title": "Incremental Adoption",
+          "title": "படிப்படையான தழுவல்",
           "path": "/learn/react-compiler/incremental-adoption"
         },
         {
-          "title": "Debugging and Troubleshooting",
+          "title": "பிழைத்திருத்தம் மற்றும் சிக்கல் தீர்க்குதல்",
           "path": "/learn/react-compiler/debugging"
         }
       ]
     },
     {
       "hasSectionHeader": true,
-      "sectionHeader": "LEARN REACT"
+      "sectionHeader": "ரியாக்ட் கற்றல்"
     },
     {
-      "title": "Describing the UI",
+      "title": "பயனர் இடைமுகத்தை விவரித்தல்",
       "tags": [],
       "path": "/learn/describing-the-ui",
       "routes": [
         {
-          "title": "Your First Component",
+          "title": "உங்கள் முதல் காம்போனென்ட்",
           "path": "/learn/your-first-component"
         },
         {
-          "title": "Importing and Exporting Components",
+          "title": "காம்போனென்ட்களை இறக்குமதி மற்றும் ஏற்றுமதி செய்வது",
           "path": "/learn/importing-and-exporting-components"
         },
         {
-          "title": "Writing Markup with JSX",
+          "title": "JSX மூலம் மார்க்அப் எழுதுதல்",
           "path": "/learn/writing-markup-with-jsx"
         },
         {
-          "title": "JavaScript in JSX with Curly Braces",
+          "title": "JSX இல் சுருள் சுள்ளிகளுடன் JavaScript",
           "path": "/learn/javascript-in-jsx-with-curly-braces"
         },
         {
-          "title": "Passing Props to a Component",
+          "title": "ஒரு காம்போனென்டுக்கு ப்ராப்ஸை அனுப்புதல்",
           "path": "/learn/passing-props-to-a-component"
         },
         {
-          "title": "Conditional Rendering",
+          "title": "நிபந்தனை ரெண்டரிங்",
           "path": "/learn/conditional-rendering"
         },
         {
-          "title": "Rendering Lists",
+          "title": "பட்டியல்களை ரெண்டர் செய்வது",
           "path": "/learn/rendering-lists"
         },
         {
-          "title": "Keeping Components Pure",
+          "title": "காம்போனென்ட்களை தூயதாக வைத்தல்",
           "path": "/learn/keeping-components-pure"
         },
         {
-          "title": "Your UI as a Tree",
+          "title": "உங்கள் UI ஐ மரமாகக் கருதுதல்",
           "path": "/learn/understanding-your-ui-as-a-tree"
         }
       ]
     },
     {
-      "title": "Adding Interactivity",
+      "title": "இணக்கத்தைச் சேர்த்தல்",
       "path": "/learn/adding-interactivity",
       "tags": [],
       "routes": [
         {
-          "title": "Responding to Events",
+          "title": "நிகழ்வுகளுக்கு பதிலளித்தல்",
           "path": "/learn/responding-to-events"
         },
         {
-          "title": "State: A Component's Memory",
+          "title": "நிலை: ஒரு காம்போனென்டின் நினைவு",
           "path": "/learn/state-a-components-memory"
         },
         {
-          "title": "Render and Commit",
+          "title": "ரெண்டர் மற்றும் கமிட்",
           "path": "/learn/render-and-commit"
         },
         {
-          "title": "State as a Snapshot",
+          "title": "நிலையை ஸ்னாப்ஷாட் போலக் கருதுதல்",
           "path": "/learn/state-as-a-snapshot"
         },
         {
-          "title": "Queueing a Series of State Updates",
+          "title": "நிலை புதுப்பிப்புகளை வரிசைப்படுத்துதல்",
           "path": "/learn/queueing-a-series-of-state-updates"
         },
         {
-          "title": "Updating Objects in State",
+          "title": "நிலையில் உள்ள பொருட்களை புதுப்பித்தல்",
           "path": "/learn/updating-objects-in-state"
         },
         {
-          "title": "Updating Arrays in State",
+          "title": "நிலையில் உள்ள அரெய்களை புதுப்பித்தல்",
           "path": "/learn/updating-arrays-in-state"
         }
       ]
     },
     {
-      "title": "Managing State",
+      "title": "நிலையை நிர்வகித்தல்",
       "path": "/learn/managing-state",
       "tags": ["intermediate"],
       "routes": [
         {
-          "title": "Reacting to Input with State",
+          "title": "உள்ளீட்டிற்கு நிலையுடன் பதிலளித்தல்",
           "path": "/learn/reacting-to-input-with-state"
         },
         {
-          "title": "Choosing the State Structure",
+          "title": "நிலையின் அமைப்பைத் தேர்வு செய்தல்",
           "path": "/learn/choosing-the-state-structure"
         },
         {
-          "title": "Sharing State Between Components",
+          "title": "காம்போனென்ட்களுக்கிடையில் நிலையைப் பகிர்வு",
           "path": "/learn/sharing-state-between-components"
         },
         {
-          "title": "Preserving and Resetting State",
+          "title": "நிலையைப் பாதுகாத்தல் மற்றும் மீட்டமைத்தல்",
           "path": "/learn/preserving-and-resetting-state"
         },
         {
-          "title": "Extracting State Logic into a Reducer",
+          "title": "நிலை தர்க்கத்தை ரெட்யூசருக்குள் பிரித்தெடுத்தல்",
           "path": "/learn/extracting-state-logic-into-a-reducer"
         },
         {
-          "title": "Passing Data Deeply with Context",
+          "title": "காண்டெக்ஸ்ட் மூலம் ஆழமாக தரவை அனுப்புதல்",
           "path": "/learn/passing-data-deeply-with-context"
         },
         {
-          "title": "Scaling Up with Reducer and Context",
+          "title": "ரெட்யூசரும் காண்டெக்ஸ்டும் கொண்டு அளவூட்டல்",
           "path": "/learn/scaling-up-with-reducer-and-context"
         }
       ]
     },
     {
-      "title": "Escape Hatches",
+      "title": "தவிர்க்கும் வழிகள்",
       "path": "/learn/escape-hatches",
       "tags": ["advanced"],
       "routes": [
         {
-          "title": "Referencing Values with Refs",
+          "title": "Refs மூலம் மதிப்புகளை குறித்தல்",
           "path": "/learn/referencing-values-with-refs"
         },
         {
-          "title": "Manipulating the DOM with Refs",
+          "title": "Refs மூலம் DOM ஐ மாற்றியமைத்தல்",
           "path": "/learn/manipulating-the-dom-with-refs"
         },
         {
-          "title": "Synchronizing with Effects",
+          "title": "எஃபெக்ட்களுடன் ஒருங்கிணைத்தல்",
           "path": "/learn/synchronizing-with-effects"
         },
         {
-          "title": "You Might Not Need an Effect",
+          "title": "உங்களுக்கு எஃபெக்ட் தேவைப்படாமலும் இருக்கலாம்",
           "path": "/learn/you-might-not-need-an-effect"
         },
         {
-          "title": "Lifecycle of Reactive Effects",
+          "title": "ரியாக்டிவ் எஃபெக்ட்களின் வாழ்க்கைச் சுழற்சி",
           "path": "/learn/lifecycle-of-reactive-effects"
         },
         {
-          "title": "Separating Events from Effects",
+          "title": "நிகழ்வுகளை எஃபெக்ட்களிலிருந்து பிரித்தல்",
           "path": "/learn/separating-events-from-effects"
         },
         {
-          "title": "Removing Effect Dependencies",
+          "title": "எஃபெக்ட் சார்புகளை நீக்குதல்",
           "path": "/learn/removing-effect-dependencies"
         },
         {
-          "title": "Reusing Logic with Custom Hooks",
+          "title": "Custom Hooks மூலம் தர்க்கத்தை மீண்டும் பயன்படுத்துதல்",
           "path": "/learn/reusing-logic-with-custom-hooks"
         }
       ]
