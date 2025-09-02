@@ -1,7 +1,7 @@
 ---
-title: Special Props Warning
+title: சிறப்பு ப்ராப்ஸ் எச்சரிக்கை
 ---
 
-Most props on a JSX element are passed on to the component, however, there are two special props (`ref` and `key`) which are used by React, and are thus not forwarded to the component.
+ஒரு `JSX` எலெமென்டில் உள்ள பெரும்பாலான ப்ராப்ஸ்கள் அந்த காம்பொனன்டிற்கே அனுப்பப்படுகின்றன; ஆனால், ரியாக்ட் பயன்படுத்தும் இரண்டு சிறப்பு ப்ராப்ஸ்கள் (`ref` மற்றும் `key`) உள்ளன. அவை காம்பொனன்டிற்கு அனுப்பப்பட மாட்டது.
 
-For instance, you can't read `props.key` from a component. If you need to access the same value within the child component, you should pass it as a different prop (ex: `<ListItemWrapper key={result.id} id={result.id} />` and read `props.id`). While this may seem redundant, it's important to separate app logic from hints to React.
+உதாரணமாக, ஒரு காம்பொனன்டில் இருந்து `props.key` ஐ நீங்கள் படிக்க முடியாது. அதே மதிப்பை குழந்தை காம்பொனன்டின் உள்ளே அணுக வேண்டுமெனில், அதை வேறு ஒரு ப்ராப் ஆக அனுப்ப வேண்டும் (உதா: `<ListItemWrapper key={result.id} id={result.id} />` என்று கொடுத்து பின்னர் `props.id` ஐப் படிக்கவும்). இது தேவையற்றதாகத் தோன்றினாலும், ஆப் லாஜிக்கை ரியாக்டுக்கு கொடுக்கப்படும் குறிப்புகளிலிருந்து பிரித்துவைப்பது முக்கியம்.
