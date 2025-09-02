@@ -1,6 +1,6 @@
 ---
 id: home
-title: React
+title: ரியாக்ட்
 permalink: index.html
 ---
 
