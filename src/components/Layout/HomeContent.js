@@ -154,7 +154,7 @@ export function HomeContent() {
               size="lg"
               className="w-full sm:w-auto justify-center"
               label="API குறிப்புகள்">
-              API குறிப்புகள்
+              API குறிப்பு
             </ButtonLink>
           </div>
         </div>
