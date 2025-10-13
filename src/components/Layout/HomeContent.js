@@ -1,4 +1,14 @@
+<<<<<<< HEAD
 /* eslint-disable @next/next/no-img-element */
+=======
+/**
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+>>>>>>> 0d05d9b6ef0f115ec0b96a2726ab0699a9ebafe1
 /*
  * Copyright (c) Facebook, Inc. and its affiliates.
  */
