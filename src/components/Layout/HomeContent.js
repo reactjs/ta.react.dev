@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-/* eslint-disable @next/next/no-img-element */
-=======
 /**
  * Copyright (c) Meta Platforms, Inc. and affiliates.
  *
@@ -8,7 +5,6 @@
  * LICENSE file in the root directory of this source tree.
  */
 
->>>>>>> f8c81a0f4f8e454c850f0c854ad054b32313345c
 /*
  * Copyright (c) Facebook, Inc. and its affiliates.
  */
