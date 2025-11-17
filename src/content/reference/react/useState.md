@@ -4,7 +4,7 @@ title: useState
 
 <Intro>
 
-`useState` is a React Hook that lets you add a [state variable](/learn/state-a-components-memory) to your component.
+`useState` என்பது உங்கள் காம்போனென்டில் ஒரு [ஸ்டேட் வெரியபிளை](/learn/state-a-components-memory) சேர்க்க உதவும் ரியாக்ட் ஹூக்.
 
 ```js
 const [state, setState] = useState(initialState)
@@ -16,11 +16,11 @@ const [state, setState] = useState(initialState)
 
 ---
 
-## Reference {/*reference*/}
+## குறிப்புகள் {/*reference*/}
 
 ### `useState(initialState)` {/*usestate*/}
 
-Call `useState` at the top level of your component to declare a [state variable.](/learn/state-a-components-memory)
+உங்கள் காம்போனென்ட்டின் மேல் மட்டத்தில் `useState` ஐ அழைத்து ஒரு [ஸ்டேட் வெரியபிளை](/learn/state-a-components-memory) அறிவிக்கவும்.
 
 ```js
 import { useState } from 'react';
@@ -32,32 +32,32 @@ function MyComponent() {
   // ...
 ```
 
-The convention is to name state variables like `[something, setSomething]` using [array destructuring.](https://javascript.info/destructuring-assignment)
+ஸ்டேட் வெரியபிள்களுக்கு `[something, setSomething]` என்ற முறையில் [அரே டிஸ்ட்ரக்சரிங்](https://javascript.info/destructuring-assignment) பயன்படுத்தி பெயரிடுவது வழக்கம்.
 
-[See more examples below.](#usage)
+[#usage பகுதியில் மேலும் உதாரணங்கள் உள்ளன.](#usage)
 
-#### Parameters {/*parameters*/}
+#### அளவுருக்கள் {/*parameters*/}
 
-* `initialState`: The value you want the state to be initially. It can be a value of any type, but there is a special behavior for functions. This argument is ignored after the initial render.
-  * If you pass a function as `initialState`, it will be treated as an _initializer function_. It should be pure, should take no arguments, and should return a value of any type. React will call your initializer function when initializing the component, and store its return value as the initial state. [See an example below.](#avoiding-recreating-the-initial-state)
+* `initialState`: ஆரம்பத்தில் ஸ்டேட் எந்த மதிப்பாக இருக்கவேண்டும் என்று நீங்கள் தருவது. இது எந்த வகை (type) மதிப்பும் ஆகலாம்; ஆனால் ஃபங்க்ஷன் (function) க்கு தனியான நடத்தை உண்டு. தொடக்க ரெண்டர் (initial render) ஆகியதும் இந்த ஆர்க்யூமென்ட் புறக்கணிக்கப்படும்.
+  * நீங்கள் `initialState` ஆக ஒரு ஃபங்க்ஷனை அனுப்பினால், அது _இனிஷலைஸர் ஃபங்க்ஷன்_ ஆகக் கருதப்படும். அது பியூர் (pure) ஆக இருக்க வேண்டும், எந்த ஆர்க்யூமென்ட்களையும் எடுக்கக்கூடாது, மேலும் எந்த வகையினதும் மதிப்பை ரிட்டர்ன் செய்ய வேண்டும். காம்போனென்டை இனிஷலைஸ் செய்யும் போது ரியாக்ட் உங்கள் இனிஷலைஸர் ஃபங்க்ஷனை அழைத்து, அதன் ரிட்டர்ன் மதிப்பை ஆரம்ப ஸ்டேடாக சேமிக்கும். [கீழே ஒரு உதாரணம்.](#avoiding-recreating-the-initial-state)
 
-#### Returns {/*returns*/}
+#### திருப்பும் மதிப்புகள் {/*returns*/}
 
-`useState` returns an array with exactly two values:
+`useState` இரண்டு மதிப்புகள் கொண்ட ஒரு அரேவைத் திருப்பும்:
 
-1. The current state. During the first render, it will match the `initialState` you have passed.
-2. The [`set` function](#setstate) that lets you update the state to a different value and trigger a re-render.
+1. தற்போதைய ஸ்டேட். முதல் ரெண்டரில், இது நீங்கள் கொடுத்த `initialState` உடன் பொருந்தும்.
+2. ஸ்டேட்டை மாற்றி மறுபடியும் ரெண்டர் நடைபெற [`set` ஃபங்க்ஷன்](#setstate).
 
-#### Caveats {/*caveats*/}
+#### கவனிக்க வேண்டியவை {/*caveats*/}
 
-* `useState` is a Hook, so you can only call it **at the top level of your component** or your own Hooks. You can't call it inside loops or conditions. If you need that, extract a new component and move the state into it.
-* In Strict Mode, React will **call your initializer function twice** in order to [help you find accidental impurities.](#my-initializer-or-updater-function-runs-twice) This is development-only behavior and does not affect production. If your initializer function is pure (as it should be), this should not affect the behavior. The result from one of the calls will be ignored.
+* `useState` ஒரு ஹூக் என்பதால், அதை **உங்கள் காம்போனென்ட்டின் மேல் மட்டத்தில்** அல்லது உங்கள் சொந்த ஹூக்களில் மட்டுமே அழைக்க முடியும். லூப் அல்லது கண்டிஷன்களுக்குள் அழைக்க முடியாது. அப்படி தேவைப்பட்டால், புதிய காம்போனென்ட் ஒன்றை பிரித்து, அந்த ஸ்டேட்டை அதில் நகர்த்தவும்.
+* ஸ்ட்ரிக்ட் மோடில் (Strict Mode), ரியாக்ட் **உங்கள் இனிஷலைஸர் ஃபங்க்ஷனை இருமுறை** அழைக்கும்; இது [தற்செயலான “இம்ப்யூரிட்டி”யை கண்டுபிடிக்க உதவ](#my-initializer-or-updater-function-runs-twice) செய்யப்படும். இது டெவலப்மெண்ட்-க்கு மட்டும்; புரொடக்ஷனில் பாதிப்பு இல்லை. உங்கள் இனிஷலைஸர் ஃபங்க்ஷன் பியூர் என்றால் (அப்படித்தான் இருக்க வேண்டும்), இதனால் நடத்தை பாதிக்கப்படாது. அழைப்புகளில் ஒன்றின் விளைவு புறக்கணிக்கப்படும்.
 
 ---
 
-### `set` functions, like `setSomething(nextState)` {/*setstate*/}
+### `set` ஃபங்க்ஷன்கள், `setSomething(nextState)` போன்றவை {/*setstate*/}
 
-The `set` function returned by `useState` lets you update the state to a different value and trigger a re-render. You can pass the next state directly, or a function that calculates it from the previous state:
+`useState` திருப்பும் `set` ஃபங்க்ஷன், ஸ்டேட்டை மாற்றி மறுபடியும் ரெண்டரைத் தூண்டும். நீங்கள் அடுத்த ஸ்டேட்டை நேரடியாகவோ, அல்லது முந்தைய ஸ்டேட்டிலிருந்து அதை கணக்கிடும் ஒரு ஃபங்க்ஷனையோ அனுப்பலாம்:
 
 ```js
 const [name, setName] = useState('Edward');
@@ -68,36 +68,36 @@ function handleClick() {
   // ...
 ```
 
-#### Parameters {/*setstate-parameters*/}
+#### அளவுருக்கள் {/*setstate-parameters*/}
 
-* `nextState`: The value that you want the state to be. It can be a value of any type, but there is a special behavior for functions.
-  * If you pass a function as `nextState`, it will be treated as an _updater function_. It must be pure, should take the pending state as its only argument, and should return the next state. React will put your updater function in a queue and re-render your component. During the next render, React will calculate the next state by applying all of the queued updaters to the previous state. [See an example below.](#updating-state-based-on-the-previous-state)
+* `nextState`: ஸ்டேட் எதுவாக இருக்கவேண்டும் என்று நீங்கள் தரும் மதிப்பு. எந்த வகையும் ஆகலாம்; ஆனால் ஃபங்க்ஷன்களுக்கு தனியான நடத்து உண்டு.
+  * நீங்கள் `nextState` ஆக ஒரு ஃபங்க்ஷனை அனுப்பினால், அது _அப்டேடர் ஃபங்க்ஷன்_ ஆகக் கருதப்படும். அது பியூர் ஆக இருக்க வேண்டும், ஒரே ஆர்க்யூமென்ட் ஆக பண்டிங் ஸ்டேட்டை (pending state) மட்டும் எடுக்க வேண்டும், மேலும் அடுத்த ஸ்டேட்டை ரிட்டர்ன் செய்ய வேண்டும். ரியாக்ட் உங்கள் அப்டேடரை க்யூவில் வைத்து, உங்கள் காம்போனென்ட்டை மறுபடியும் ரெண்டர் செய்யும். அடுத்த ரெண்டரில், க்யூவில் உள்ள எல்லா அப்டேடர்களையும் முந்தைய ஸ்டேட்டில் பயன்படுத்தி அடுத்த ஸ்டேட்டை கணக்கிடும். [கீழே உதாரணம்.](#updating-state-based-on-the-previous-state)
 
-#### Returns {/*setstate-returns*/}
+#### திருப்பும் மதிப்பு {/*setstate-returns*/}
 
-`set` functions do not have a return value.
+`set` ஃபங்க்ஷன்களுக்கு ரிட்டர்ன் மதிப்பு இல்லை.
 
-#### Caveats {/*setstate-caveats*/}
+#### கவனிக்க வேண்டியவை {/*setstate-caveats*/}
 
-* The `set` function **only updates the state variable for the *next* render**. If you read the state variable after calling the `set` function, [you will still get the old value](#ive-updated-the-state-but-logging-gives-me-the-old-value) that was on the screen before your call.
+* `set` ஃபங்க்ஷன் **அடுத்த ரெண்டருக்கான ஸ்டேட் வெரியபிளை மட்டுமே அப்டேட் செய்கிறது**. `set` ஐ அழைத்தவுடன் ஸ்டேட்டை வாசித்தால், [இன்னும் பழைய மதிப்பே கிடைக்கும்](#ive-updated-the-state-but-logging-gives-me-the-old-value) — அதாவது அழைப்புக்கு முன் திரையில் இருந்த மதிப்பு.
 
-* If the new value you provide is identical to the current `state`, as determined by an [`Object.is`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is) comparison, React will **skip re-rendering the component and its children.** This is an optimization. Although in some cases React may still need to call your component before skipping the children, it shouldn't affect your code.
+* நீங்கள் கொடுக்கும் புதிய மதிப்பு, தற்போதைய `state` உடன் [`Object.is`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is) ஒப்பீட்டின்படி முழுக் கூடுதல் (identical) என்றால், ரியாக்ட் **அந்த காம்போனென்ட் மற்றும் அதன் சைல்ட்களை ரெண்டர் செய்வதைத் தவிர்த்து விடும்.** இது ஒரு ஆப்டிமைசெஷன்.
 
-* React [batches state updates.](/learn/queueing-a-series-of-state-updates) It updates the screen **after all the event handlers have run** and have called their `set` functions. This prevents multiple re-renders during a single event. In the rare case that you need to force React to update the screen earlier, for example to access the DOM, you can use [`flushSync`.](/reference/react-dom/flushSync)
+* ரியாக்ட் [ஸ்டேட் அப்டேட்களை பேட்ச் செய்கிறது.](/learn/queueing-a-series-of-state-updates) அதாவது **அனைத்து இவென்ட் ஹாண்ட்லர்கள் முடிந்து** அவர்கள் `set` ஃபங்க்ஷன்களை அழைத்த பின் தான் திரையை அப்டேட் செய்யும். இதனால் ஒரு சிங்கிள் இவென்டில் பல ரெண்டர்களைத் தவிர்க்கலாம். அரிதாக, நீங்கள் திரையை உடனடியாக அப்டேட் செய்யத் திணிக்க வேண்டுமெனில் (உதாரணமாக DOM ஐ அணுக), [`flushSync`](/reference/react-dom/flushSync) பயன்படுத்தலாம்.
 
-* The `set` function has a stable identity, so you will often see it omitted from Effect dependencies, but including it will not cause the Effect to fire. If the linter lets you omit a dependency without errors, it is safe to do. [Learn more about removing Effect dependencies.](/learn/removing-effect-dependencies#move-dynamic-objects-and-functions-inside-your-effect)
+* `set` ஃபங்க்ஷனின் அடையாளம் (identity) ஸ்டேபிள். அதனால் அது Effect டெபெண்டென்ஸிகளில் பல நேரங்களில் விலக்கப்படும். அதை சேர்த்தாலும் Effect தேவையில்லாமல் ஃபயர் ஆகாது. லின்டர் ஏதேனும் டெபெண்டென்ஸியை பிழையில்லாமல் விட்டு விட அனுமதித்தால், அது பாதுகாப்பானதே. [Effect டெபெண்டென்ஸிகளை எவ்வாறு குறைப்பது என்பதைப் படிக்கவும்.](/learn/removing-effect-dependencies#move-dynamic-objects-and-functions-inside-your-effect)
 
-* Calling the `set` function *during rendering* is only allowed from within the currently rendering component. React will discard its output and immediately attempt to render it again with the new state. This pattern is rarely needed, but you can use it to **store information from the previous renders**. [See an example below.](#storing-information-from-previous-renders)
+* ரெண்டர் ஆகும் நேரத்தில் `set` ஃபங்க்ஷனை அழைப்பது, தற்போதைய ரெண்டர் செய்யப்படும் காம்போனென்ட்டுக்கு மட்டும் அனுமதிக்கப்படுகிறது. ரியாக்ட் அந்த அவுட்புட்டை கழித்து, புதிய ஸ்டேட்டுடன் உடனே மீண்டும் ரெண்டர் செய்யும். இது அரிதாகவே தேவைப்படும்; இருந்தாலும் **முந்தைய ரெண்டர்களிலிருந்து தகவலை சேமிக்க** இதைப் பயன்படுத்தலாம். [கீழே உதாரணம்.](#storing-information-from-previous-renders)
 
-* In Strict Mode, React will **call your updater function twice** in order to [help you find accidental impurities.](#my-initializer-or-updater-function-runs-twice) This is development-only behavior and does not affect production. If your updater function is pure (as it should be), this should not affect the behavior. The result from one of the calls will be ignored.
+* ஸ்ட்ரிக்ட் மோடில், ரியாக்ட் **உங்கள் அப்டேடர் ஃபங்க்ஷனை இருமுறை** அழைக்கும் — [தற்செயலான “இம்ப்யூரிட்டி”களை கண்டுபிடிக்க உதவ](#my-initializer-or-updater-function-runs-twice). இது டெவலப்மெண்டில் மட்டுமே நடக்கும்; புரொடக்ஷனில் பாதிப்பு இல்லை. உங்கள் அப்டேடர் பியூர் என்றால் நடத்தை பாதிக்காது. இரண்டு அழைப்புகளில் ஒன்றின் விளைவு புறக்கணிக்கப்படும்.
 
 ---
 
-## Usage {/*usage*/}
+## பயன்பாடு {/*usage*/}
 
-### Adding state to a component {/*adding-state-to-a-component*/}
+### ஒரு காம்போனென்டில் ஸ்டேட்டைச் சேர்ப்பது {/*adding-state-to-a-component*/}
 
-Call `useState` at the top level of your component to declare one or more [state variables.](/learn/state-a-components-memory)
+ஒரு அல்லது அதற்கு மேற்பட்ட [ஸ்டேட் வெரியபிள்களை](/learn/state-a-components-memory) அறிவிக்க உங்கள் காம்போனென்ட்டின் மேல் மட்டத்தில் `useState` ஐ அழைக்கவும்.
 
 ```js [[1, 4, "age"], [2, 4, "setAge"], [3, 4, "42"], [1, 5, "name"], [2, 5, "setName"], [3, 5, "'Taylor'"]]
 import { useState } from 'react';
@@ -108,14 +108,14 @@ function MyComponent() {
   // ...
 ```
 
-The convention is to name state variables like `[something, setSomething]` using [array destructuring.](https://javascript.info/destructuring-assignment)
+ஸ்டேட் வெரியபிள்களுக்கு `[something, setSomething]` என்ற பெயரிடும் முறையை [அரே டிஸ்ட்ரக்சரிங்](https://javascript.info/destructuring-assignment) மூலம் பின்பற்றுவது வழக்கம்.
 
-`useState` returns an array with exactly two items:
+`useState` நிர்வகிக்கும் இந்த ஸ்டேட்டிற்கு இரண்டு பொருட்கள் கொண்ட அரே திரும்பும்:
 
-1. The <CodeStep step={1}>current state</CodeStep> of this state variable, initially set to the <CodeStep step={3}>initial state</CodeStep> you provided.
-2. The <CodeStep step={2}>`set` function</CodeStep> that lets you change it to any other value in response to interaction.
+1. இந்த ஸ்டேட் வெரியபிளின் <CodeStep step={1}>தற்போதைய ஸ்டேட்</CodeStep> — <CodeStep step={3}>ஆரம்ப ஸ்டேட்</CodeStep> மூலம் தொடங்கும்.
+2. இடைமுக தொடர்புகளுக்குப் பதிலளிக்க அதை மாற்ற உதவும் <CodeStep step={2}>`set` ஃபங்க்ஷன்</CodeStep>.
 
-To update what’s on the screen, call the `set` function with some next state:
+திரையில் காண்பதை மாற்ற, `set` ஃபங்க்ஷனை அடுத்த ஸ்டேட்டுடன் அழைக்கவும்:
 
 ```js [[2, 2, "setName"]]
 function handleClick() {
@@ -123,11 +123,11 @@ function handleClick() {
 }
 ```
 
-React will store the next state, render your component again with the new values, and update the UI.
+ரியாக்ட் அடுத்த ஸ்டேட்டை சேமித்து, புதிய மதிப்புகளுடன் உங்கள் காம்போனென்ட்டை மீண்டும் ரெண்டர் செய்து UI-ஐ அப்டேட் செய்யும்.
 
 <Pitfall>
 
-Calling the `set` function [**does not** change the current state in the already executing code](#ive-updated-the-state-but-logging-gives-me-the-old-value):
+`set` ஃபங்க்ஷனை அழைப்பது [ஏற்கனவே இயங்கிக் கொண்டிருக்கும் கோடில் இருக்கும் தற்போதைய ஸ்டேட்டை **மாற்றாது**](#ive-updated-the-state-but-logging-gives-me-the-old-value):
 
 ```js {3}
 function handleClick() {
@@ -136,15 +136,15 @@ function handleClick() {
 }
 ```
 
-It only affects what `useState` will return starting from the *next* render.
+இந்த மாற்றம் *அடுத்த* ரெண்டர் முதல் `useState` திருப்பும் மதிப்பில் மட்டுமே பிரதிபலிக்கும்.
 
 </Pitfall>
 
-<Recipes titleText="Basic useState examples" titleId="examples-basic">
+<Recipes titleText="அடிப்படை useState உதாரணங்கள்" titleId="examples-basic">
 
-#### Counter (number) {/*counter-number*/}
+#### கவுண்டர் (எண்) {/*counter-number*/}
 
-In this example, the `count` state variable holds a number. Clicking the button increments it.
+இந்த உதாரணத்தில், `count` என்ற ஸ்டேட் வெரியபிள் ஒரு எண்ணை வைத்திருக்கிறது. பட்டனை சொடுக்கும்போது அது ஒரு யூனிட்டால் அதிகரிக்கும்.
 
 <Sandpack>
 
@@ -170,9 +170,9 @@ export default function Counter() {
 
 <Solution />
 
-#### Text field (string) {/*text-field-string*/}
+#### உரை புலம் (ஸ்ட்ரிங்) {/*text-field-string*/}
 
-In this example, the `text` state variable holds a string. When you type, `handleChange` reads the latest input value from the browser input DOM element, and calls `setText` to update the state. This allows you to display the current `text` below.
+இந்த உதாரணத்தில், `text` என்ற ஸ்டேட் வெரியபிள் ஒரு ஸ்ட்ரிங்கை வைத்திருக்கிறது. நீங்கள் தட்டச்சு செய்யும்போது, `handleChange` ப்ரவுசர் இன்புட் DOM எலிமென்டிலிருந்து சமீபத்திய மதிப்பை வாசித்து, ஸ்டேட்டை அப்டேட் செய்ய `setText` ஐ அழைக்கும். இதனால் தற்போதைய `text` ஐ கீழே காட்ட முடியும்.
 
 <Sandpack>
 
@@ -202,9 +202,9 @@ export default function MyInput() {
 
 <Solution />
 
-#### Checkbox (boolean) {/*checkbox-boolean*/}
+#### செக்பாக்ஸ் (பூலியன்) {/*checkbox-boolean*/}
 
-In this example, the `liked` state variable holds a boolean. When you click the input, `setLiked` updates the `liked` state variable with whether the browser checkbox input is checked. The `liked` variable is used to render the text below the checkbox.
+இந்த உதாரணத்தில், `liked` என்ற ஸ்டேட் வெரியபிள் ஒரு பூலியன் மதிப்பை வைத்திருக்கிறது. நீங்கள் இன்புட்-ஐ சொடுக்கும்போது, ப்ரவுசர் செக்பாக்ஸ் தேர்ந்தெடுக்கப்பட்டதா என்பதை வைத்து `setLiked` `liked` ஸ்டேட்டை அப்டேட் செய்யும். அந்த `liked` மதிப்பு செக்பாக்ஸின் கீழே உள்ள உரையை ரெண்டர் செய்ய பயன்படுத்தப்படும்.
 
 <Sandpack>
 
@@ -238,9 +238,9 @@ export default function MyCheckbox() {
 
 <Solution />
 
-#### Form (two variables) {/*form-two-variables*/}
+#### படிவம் (இரண்டு வெரியபிள்கள்) {/*form-two-variables*/}
 
-You can declare more than one state variable in the same component. Each state variable is completely independent.
+ஒரே காம்போனென்ட்டில் ஒன்றுக்கு மேற்பட்ட ஸ்டேட் வெரியபிள்களை அறிவிக்கலாம். ஒவ்வொரு ஸ்டேட் வெரியபிளும் முற்றிலும் சுயாதீனமானது.
 
 <Sandpack>
 
@@ -278,9 +278,9 @@ button { display: block; margin-top: 10px; }
 
 ---
 
-### Updating state based on the previous state {/*updating-state-based-on-the-previous-state*/}
+### முந்தைய ஸ்டேட்டை அடிப்படையாகக் கொண்டு அப்டேட் செய்வது {/*updating-state-based-on-the-previous-state*/}
 
-Suppose the `age` is `42`. This handler calls `setAge(age + 1)` three times:
+`age` `42` என்று கொள்வோம். இந்த ஹாண்ட்லர் `setAge(age + 1)` ஐ மூன்று முறை அழைக்கிறது:
 
 ```js
 function handleClick() {
@@ -290,9 +290,9 @@ function handleClick() {
 }
 ```
 
-However, after one click, `age` will only be `43` rather than `45`! This is because calling the `set` function [does not update](/learn/state-as-a-snapshot) the `age` state variable in the already running code. So each `setAge(age + 1)` call becomes `setAge(43)`.
+ஆனால், ஒரு முறை சொடுக்கிய பிறகு, `age` `45` ஆகாமல் `43` ஆக மட்டுமே இருக்கும்! காரணம், `set` ஃபங்க்ஷனை அழைப்பது ஏற்கனவே ஓடிக்கொண்டிருக்கும் கோடில் உள்ள `age` ஸ்டேட் வெரியபிளை [அப்போதே அப்டேட் செய்யாது](/learn/state-as-a-snapshot). ஆகவே ஒவ்வொரு `setAge(age + 1)` அழைப்பும் `setAge(43)` ஆகிவிடுகிறது.
 
-To solve this problem, **you may pass an *updater function*** to `setAge` instead of the next state:
+இதற்கு தீர்வாக, அடுத்த ஸ்டேட்டை நேரடியாக அனுப்புவதற்கு பதிலாக, **ஒரு *அப்டேடர் ஃபங்க்ஷனை*** `setAge` க்கு அனுப்பலாம்:
 
 ```js [[1, 2, "a", 0], [2, 2, "a + 1"], [1, 3, "a", 0], [2, 3, "a + 1"], [1, 4, "a", 0], [2, 4, "a + 1"]]
 function handleClick() {
@@ -302,39 +302,39 @@ function handleClick() {
 }
 ```
 
-Here, `a => a + 1` is your updater function. It takes the <CodeStep step={1}>pending state</CodeStep> and calculates the <CodeStep step={2}>next state</CodeStep> from it.
+இங்கு `a => a + 1` உங்கள் அப்டேடர் ஃபங்க்ஷன். அது <CodeStep step={1}>பண்டிங் ஸ்டேட்டை</CodeStep> எடுத்து அதிலிருந்து <CodeStep step={2}>அடுத்த ஸ்டேட்டை</CodeStep> கணக்கிடுகிறது.
 
-React puts your updater functions in a [queue.](/learn/queueing-a-series-of-state-updates) Then, during the next render, it will call them in the same order:
+ரியாக்ட் உங்கள் அப்டேடர்களை ஒரு [க்யூவில்](/learn/queueing-a-series-of-state-updates) வைக்கும். அடுத்த ரெண்டரில், அதே வரிசையில் அவற்றை அழைக்கும்:
 
-1. `a => a + 1` will receive `42` as the pending state and return `43` as the next state.
-1. `a => a + 1` will receive `43` as the pending state and return `44` as the next state.
-1. `a => a + 1` will receive `44` as the pending state and return `45` as the next state.
+1. `a => a + 1` க்கு பண்டிங் ஸ்டேடாக `42` கிடைக்கும்; அது அடுத்த ஸ்டேடாக `43` ஐ ரிட்டர்ன் செய்யும்.
+1. `a => a + 1` க்கு பண்டிங் `43`; அடுத்தது `44`.
+1. `a => a + 1` க்கு பண்டிங் `44`; அடுத்தது `45`.
 
-There are no other queued updates, so React will store `45` as the current state in the end.
+வேறு அப்டேட்கள் க்யூவில் இல்லாததால், இறுதியில் ரியாக்ட் `45` ஐ தற்போதைய ஸ்டேடாக சேமிக்கும்.
 
-By convention, it's common to name the pending state argument for the first letter of the state variable name, like `a` for `age`. However, you may also call it like `prevAge` or something else that you find clearer.
+வழக்கமாக, பண்டிங் ஸ்டேட் ஆர்க்யூமென்ட்டிற்கு அந்த ஸ்டேட் வெரியபிளின் முதல் எழுத்தை பெயராக (உதா: `age` க்கு `a`) பயன்படுத்துவார்கள். இல்லை என்றால் `prevAge` போன்ற தெளிவான பெயரையும் பயன்படுத்தலாம்.
 
-React may [call your updaters twice](#my-initializer-or-updater-function-runs-twice) in development to verify that they are [pure.](/learn/keeping-components-pure)
+டெவலப்மெண்டில் அவை [பியூர்](/learn/keeping-components-pure) என்பதை உறுதிப்படுத்த ரியாக்ட் [உங்கள் அப்டேடர்களை இருமுறை அழைக்கலாம்](#my-initializer-or-updater-function-runs-twice).
 
 <DeepDive>
 
-#### Is using an updater always preferred? {/*is-using-an-updater-always-preferred*/}
+#### எப்போதும் அப்டேடரைப் பயன்படுத்த வேண்டுமா? {/*is-using-an-updater-always-preferred*/}
 
-You might hear a recommendation to always write code like `setAge(a => a + 1)` if the state you're setting is calculated from the previous state. There is no harm in it, but it is also not always necessary.
+முந்தைய ஸ்டேட்டிலிருந்து புதிய ஸ்டேட்டை கணக்கிடும்போது `setAge(a => a + 1)` போல எப்போதும் எழுத வேண்டும் என்ற பரிந்துரையை நீங்கள் கேட்கலாம். இதில் தீங்கு ஏதும் இல்லை; ஆனால் எப்போதும் அவசியமுமில்லை.
 
-In most cases, there is no difference between these two approaches. React always makes sure that for intentional user actions, like clicks, the `age` state variable would be updated before the next click. This means there is no risk of a click handler seeing a "stale" `age` at the beginning of the event handler.
+பல சமயங்களில், இரு முறைகளிலும் பெரிய வித்தியாசம் இருக்காது. திட்டமிட்ட யூசர் செயல்களில் (உதா: கிளிக்), அடுத்த கிளிக்கிற்கு முன் `age` ஸ்டேட் அப்டேட் ஆகியிருக்கும் என்பதை ரியாக்ட் உறுதிப்படுத்தும். அதனால் ஹாண்ட்லர் தொடக்கத்தில் “ஸ்டேல்” `age` பார்க்கும் ஆபத்து இல்லை.
 
-However, if you do multiple updates within the same event, updaters can be helpful. They're also helpful if accessing the state variable itself is inconvenient (you might run into this when optimizing re-renders).
+ஆனால் ஒரே இவென்டில் பல அப்டேட்கள் செய்தால், அப்டேடர்கள் உதவிகரமானவை. ஸ்டேட் வெரியபிளை நேரடியாக அணுகுவதைத் தவிர்க்க வேண்டிய ஆப்டிமைசேஷன்களில் இதுவும் வசதியாக இருக்கும்.
 
-If you prefer consistency over slightly more verbose syntax, it's reasonable to always write an updater if the state you're setting is calculated from the previous state. If it's calculated from the previous state of some *other* state variable, you might want to combine them into one object and [use a reducer.](/learn/extracting-state-logic-into-a-reducer)
+தொடர்ச்சியான ஸ்டைலை (consistency) விரும்பினால், முந்தைய ஸ்டேட்டிலிருந்து கணக்கிடும் நேரங்களில் எப்போதும் அப்டேடரை எழுதுவது நியாயம். வேறு ஒரு ஸ்டேட் வெரியபிளின் முந்தைய ஸ்டேட்டிலிருந்து கணக்கிட வேண்டுமானால், அவற்றை ஒரே ஆப்ஜெக்டாக இணைத்து [ஒரு ரெட்யூசரைப் பயன்படுத்தலாம்.](/learn/extracting-state-logic-into-a-reducer)
 
 </DeepDive>
 
-<Recipes titleText="The difference between passing an updater and passing the next state directly" titleId="examples-updater">
+<Recipes titleText="அப்டேடரை அனுப்புவது vs அடுத்த ஸ்டேட்டை நேரடியாக அனுப்புவது" titleId="examples-updater">
 
-#### Passing the updater function {/*passing-the-updater-function*/}
+#### அப்டேடர் ஃபங்க்ஷனை அனுப்புவது {/*passing-the-updater-function*/}
 
-This example passes the updater function, so the "+3" button works.
+இந்த உதாரணத்தில் அப்டேடர் ஃபங்க்ஷன் அனுப்பப்படுவதால் "+3" பட்டன் சரியாக செயல்படும்.
 
 <Sandpack>
 
@@ -373,9 +373,9 @@ h1 { display: block; margin: 10px; }
 
 <Solution />
 
-#### Passing the next state directly {/*passing-the-next-state-directly*/}
+#### அடுத்த ஸ்டேட்டை நேரடியாக அனுப்புவது {/*passing-the-next-state-directly*/}
 
-This example **does not** pass the updater function, so the "+3" button **doesn't work as intended**.
+இந்த உதாரணத்தில் அப்டேடர் ஃபங்க்ஷன் **அனுப்பப்படவில்லை**, அதனால் "+3" பட்டன் **எதிர்பார்த்தபடி செயல்படாது**.
 
 <Sandpack>
 
@@ -418,16 +418,16 @@ h1 { display: block; margin: 10px; }
 
 ---
 
-### Updating objects and arrays in state {/*updating-objects-and-arrays-in-state*/}
+### ஸ்டேட்டில் ஆப்ஜெக்ட்களையும் அரேகளையும் அப்டேட் செய்வது {/*updating-objects-and-arrays-in-state*/}
 
-You can put objects and arrays into state. In React, state is considered read-only, so **you should *replace* it rather than *mutate* your existing objects**. For example, if you have a `form` object in state, don't mutate it:
+ஸ்டேட்டில் ஆப்ஜெக்ட்களையும் அரேகளையும் வைத்திருக்கலாம். ரியாக்டில் ஸ்டேட் ரீட்-ஒண்லி எனக் கருதப்படுகிறது; எனவே **இருக்கும் ஆப்ஜெக்ட்களை *ம்யூட்டேட்* செய்வதற்குப் பதிலாக *ரீப்ளேஸ்* செய்ய வேண்டும்**. உதாரணமாக, ஸ்டேட்டில் `form` என்ற ஆப்ஜெக்ட் இருந்தால், அதை ம்யூட்டேட் செய்யாதீர்கள்:
 
 ```js
 // 🚩 Don't mutate an object in state like this:
 form.firstName = 'Taylor';
 ```
 
-Instead, replace the whole object by creating a new one:
+அதற்கு பதிலாக, புதிய ஆப்ஜெக்ட்டை உருவாக்கி முழுவதையும் ரீப்ளேஸ் செய்யவும்:
 
 ```js
 // ✅ Replace state with a new object
@@ -437,13 +437,13 @@ setForm({
 });
 ```
 
-Read [updating objects in state](/learn/updating-objects-in-state) and [updating arrays in state](/learn/updating-arrays-in-state) to learn more.
+[ஸ்டேட்டில் ஆப்ஜெக்ட்களை அப்டேட் செய்வது](/learn/updating-objects-in-state) மற்றும் [ஸ்டேட்டில் அரேகளை அப்டேட் செய்வது](/learn/updating-arrays-in-state) பற்றி மேலும் படிக்கவும்.
 
-<Recipes titleText="Examples of objects and arrays in state" titleId="examples-objects">
+<Recipes titleText="ஸ்டேட்டில் ஆப்ஜெக்ட்கள் மற்றும் அரேகள் — உதாரணங்கள்" titleId="examples-objects">
 
-#### Form (object) {/*form-object*/}
+#### படிவம் (ஆப்ஜெக்ட்) {/*form-object*/}
 
-In this example, the `form` state variable holds an object. Each input has a change handler that calls `setForm` with the next state of the entire form. The `{ ...form }` spread syntax ensures that the state object is replaced rather than mutated.
+இந்த உதாரணத்தில், `form` என்ற ஸ்டேட் வெரியபிள் ஒரு ஆப்ஜெக்டை வைத்திருக்கிறது. ஒவ்வொரு இன்புடிற்கும் `setForm` ஐ அழைக்கும் மாற்ற ஹாண்ட்லர் இருக்கும்; அது முழு படிவத்தின் அடுத்த ஸ்டேட்டை அனுப்பும். `{ ...form }` என்ற ஸ்பிரெடு சிண்டாக்ஸ், ஸ்டேட் ஆப்ஜெக்ட் ம்யூட்டேட் செய்யப்படாமல் ரீப்ளேஸ் செய்யப்படுவதை உறுதிசெய்கிறது.
 
 <Sandpack>
 
@@ -514,9 +514,9 @@ input { margin-left: 5px; }
 
 <Solution />
 
-#### Form (nested object) {/*form-nested-object*/}
+#### படிவம் (நெஸ்டட் ஆப்ஜெக்ட்) {/*form-nested-object*/}
 
-In this example, the state is more nested. When you update nested state, you need to create a copy of the object you're updating, as well as any objects "containing" it on the way upwards. Read [updating a nested object](/learn/updating-objects-in-state#updating-a-nested-object) to learn more.
+இந்த உதாரணத்தில் ஸ்டேட் மேலும் நெஸ்டட் ஆக இருக்கிறது. நெஸ்டட் ஸ்டேட்டை அப்டேட் செய்யும்போது, நீங்கள் அப்டேட் செய்யும் ஆப்ஜெக்ட்டின் நகலை உருவாக்க வேண்டும்; அதைப் “கொண்டிருக்கும்” மேல்மட்ட ஆப்ஜெக்ட்களுக்கும் நகல் தேவை. மேலும் அறிய [நெஸ்டட் ஆப்ஜெக்டை அப்டேட் செய்வது](/learn/updating-objects-in-state#updating-a-nested-object) படிக்கவும்.
 
 <Sandpack>
 
@@ -626,9 +626,9 @@ img { width: 200px; height: 200px; }
 
 <Solution />
 
-#### List (array) {/*list-array*/}
+#### பட்டியல் (அரே) {/*list-array*/}
 
-In this example, the `todos` state variable holds an array. Each button handler calls `setTodos` with the next version of that array. The `[...todos]` spread syntax, `todos.map()` and `todos.filter()` ensure the state array is replaced rather than mutated.
+இந்த உதாரணத்தில், `todos` என்ற ஸ்டேட் வெரியபிள் ஒரு அரேவை வைத்திருக்கிறது. ஒவ்வொரு பட்டன் ஹாண்ட்லரும் அந்த அரேவின் அடுத்த பதிப்புடன் `setTodos` ஐ அழைக்கும். `[...todos]` ஸ்பிரெடு சிண்டாக்ஸ், `todos.map()` மற்றும் `todos.filter()` ஆகியவை ஸ்டேட் அரே ம்யூட்டேட் செய்யப்படாமல் ரீப்ளேஸ் செய்யப்படுவதை உறுதிசெய்கின்றன.
 
 <Sandpack>
 
@@ -793,9 +793,9 @@ ul, li { margin: 0; padding: 0; }
 
 <Solution />
 
-#### Writing concise update logic with Immer {/*writing-concise-update-logic-with-immer*/}
+#### Immer உடன் சுருக்கமான அப்டேட் லாஜிக் எழுதுவது {/*writing-concise-update-logic-with-immer*/}
 
-If updating arrays and objects without mutation feels tedious, you can use a library like [Immer](https://github.com/immerjs/use-immer) to reduce repetitive code. Immer lets you write concise code as if you were mutating objects, but under the hood it performs immutable updates:
+ம்யூட்டேஷன் இல்லாமல் அரேக்கள் மற்றும் ஆப்ஜெக்ட்களை அப்டேட் செய்வது சிரமமாக இருந்தால், [Immer](https://github.com/immerjs/use-immer) போன்ற லைப்ரரியை பயன்படுத்தி மீள்மீண்டும் எழுத வேண்டிய கோடை குறைக்கலாம். Immer, நீங்கள் ஆப்ஜெக்ட்களை ம்யூட்டேட் செய்கிறீர்கள் போல சுருக்கமாக எழுத அனுமதிக்கும்; ஆனால் உட்புறத்தில் அது இம்மியூட்டபிள் அப்டேட்களைச் செய்கிறது:
 
 <Sandpack>
 
@@ -884,9 +884,9 @@ function ItemList({ artworks, onToggle }) {
 
 ---
 
-### Avoiding recreating the initial state {/*avoiding-recreating-the-initial-state*/}
+### ஆரம்ப ஸ்டேட்டை மீண்டும் உருவாக்குவதைத் தவிர்ப்பது {/*avoiding-recreating-the-initial-state*/}
 
-React saves the initial state once and ignores it on the next renders.
+ரியாக்ட் ஆரம்ப ஸ்டேட்டை ஒருமுறை சேமித்து, அடுத்த ரெண்டர்களில் அதை புறக்கணிக்கிறது.
 
 ```js
 function TodoList() {
@@ -894,9 +894,9 @@ function TodoList() {
   // ...
 ```
 
-Although the result of `createInitialTodos()` is only used for the initial render, you're still calling this function on every render. This can be wasteful if it's creating large arrays or performing expensive calculations.
+`createInitialTodos()` இன் விளைவு ஆரம்ப ரெண்டருக்கே தேவையாக இருந்தாலும், நீங்கள் ஒவ்வொரு ரெண்டரிலும் இந்த ஃபங்க்ஷனை அழைக்கிறீர்கள். இது பெரிய அரேகளை உருவாக்கினாலோ, அதிக செலவான கணக்கீடுகளைச் செய்தாலோ வீணாகும்.
 
-To solve this, you may **pass it as an _initializer_ function** to `useState` instead:
+இதற்கு, அதை `useState` க்கு **ஒரு _இனிஷலைஸர்_ ஃபங்க்ஷனாக** அனுப்பலாம்:
 
 ```js
 function TodoList() {
@@ -904,15 +904,15 @@ function TodoList() {
   // ...
 ```
 
-Notice that you’re passing `createInitialTodos`, which is the *function itself*, and not `createInitialTodos()`, which is the result of calling it. If you pass a function to `useState`, React will only call it during initialization.
+இங்கே நீங்கள் அனுப்புவது `createInitialTodos()` அழைப்பின் விளைவு அல்ல; *ஃபங்க்ஷன் தானே* (`createInitialTodos`). ஒரு ஃபங்க்ஷனை `useState` க்கு அனுப்பினால், ரியாக்ட் அதை இனிஷலைஸேஷன் சமயத்தில் மட்டுமே அழைக்கும்.
 
-React may [call your initializers twice](#my-initializer-or-updater-function-runs-twice) in development to verify that they are [pure.](/learn/keeping-components-pure)
+டெவலப்மெண்டில், அவை [பியூர்](/learn/keeping-components-pure) என்பதை உறுதிப்படுத்த ரியாக்ட் [உங்கள் இனிஷலைஸர்களை இருமுறை அழைக்கலாம்](#my-initializer-or-updater-function-runs-twice).
 
 <Recipes titleText="The difference between passing an initializer and passing the initial state directly" titleId="examples-initializer">
 
-#### Passing the initializer function {/*passing-the-initializer-function*/}
+#### இனிஷலைஸர் ஃபங்க்ஷனை அனுப்புவது {/*passing-the-initializer-function*/}
 
-This example passes the initializer function, so the `createInitialTodos` function only runs during initialization. It does not run when component re-renders, such as when you type into the input.
+இந்த உதாரணத்தில் இனிஷலைஸர் ஃபங்க்ஷன் அனுப்பப்பட்டதால், `createInitialTodos` இனிஷலைஸேஷன் சமயத்தில் மட்டும் ஓடும். நீங்கள் இன்புடில் தட்டச்சு செய்தால் போன்ற ரீரெண்டர்களில் அது ஓடாது.
 
 <Sandpack>
 
@@ -963,9 +963,9 @@ export default function TodoList() {
 
 <Solution />
 
-#### Passing the initial state directly {/*passing-the-initial-state-directly*/}
+#### ஆரம்ப ஸ்டேட்டை நேரடியாக அனுப்புவது {/*passing-the-initial-state-directly*/}
 
-This example **does not** pass the initializer function, so the `createInitialTodos` function runs on every render, such as when you type into the input. There is no observable difference in behavior, but this code is less efficient.
+இந்த உதாரணத்தில் இனிஷலைஸர் ஃபங்க்ஷன் **அனுப்பப்படவில்லை**. அதனால் `createInitialTodos` ஒவ்வொரு ரெண்டரிலும் (உதா: நீங்கள் இன்புடில் தட்டச்சு செய்யும்போது) ஓடும். நடத்தில் வேறுபாடு தெரியாவிட்டாலும், இந்த கோடு குறைத்திறனுடையது.
 
 <Sandpack>
 
@@ -1020,13 +1020,13 @@ export default function TodoList() {
 
 ---
 
-### Resetting state with a key {/*resetting-state-with-a-key*/}
+### `key` மூலம் ஸ்டேட்டை ரீசெட் செய்வது {/*resetting-state-with-a-key*/}
 
-You'll often encounter the `key` attribute when [rendering lists.](/learn/rendering-lists) However, it also serves another purpose.
+பட்டியலை [ரெண்டர் செய்வதில்](/learn/rendering-lists) `key` அட்ரிப்யூட்டைப் பெரும்பாலும் பார்க்கலாம். ஆனால் இதற்கு வேறு ஒரு பயனும் உண்டு.
 
-You can **reset a component's state by passing a different `key` to a component.** In this example, the Reset button changes the `version` state variable, which we pass as a `key` to the `Form`. When the `key` changes, React re-creates the `Form` component (and all of its children) from scratch, so its state gets reset.
+ஒரு காம்போனென்ட்டுக்கு வேறு `key` ஒன்றை அனுப்புவதன் மூலம் அதன் ஸ்டேட்டை **ரீசெட்** செய்யலாம். இந்த உதாரணத்தில், Reset பட்டன் `version` என்ற ஸ்டேட் வெரியபிளை மாற்றுகிறது; அதை `Form` க்கு `key` ஆக அனுப்புகிறோம். `key` மாறும்போது, ரியாக்ட் `Form` காம்போனென்ட்டை (அதன் சைல்டுகளுடன்) புதியதாக உருவாக்குகிறது; இதனால் ஸ்டேட் ரீசெட் ஆகிறது.
 
-Read [preserving and resetting state](/learn/preserving-and-resetting-state) to learn more.
+மேலும் அறிய [ஸ்டேட்டை காக்கவும்/ரீசெட் செய்யவும்](/learn/preserving-and-resetting-state) படிக்கவும்.
 
 <Sandpack>
 
@@ -1071,19 +1071,19 @@ button { display: block; margin-bottom: 20px; }
 
 ---
 
-### Storing information from previous renders {/*storing-information-from-previous-renders*/}
+### முந்தைய ரெண்டர்களிலிருந்து தகவலைச் சேமிப்பது {/*storing-information-from-previous-renders*/}
 
-Usually, you will update state in event handlers. However, in rare cases you might want to adjust state in response to rendering -- for example, you might want to change a state variable when a prop changes.
+பொதுவாக, ஸ்டேட்டை இவென்ட் ஹாண்ட்லர்களில் அப்டேட் செய்வீர்கள். ஆனால் அரிதாக, ரெண்டரிங்குக்கு பதிலளிக்க ஸ்டேட்டை சரிசெய்ய வேண்டிய நிலை வரும் — உதா: ஒரு ப்ராப் மாறும்போது ஸ்டேட் வெரியபிளை மாற்ற வேண்டுமானால்.
 
-In most cases, you don't need this:
+பெரும்பாலும், இதைத் தேவையில்லை:
 
-* **If the value you need can be computed entirely from the current props or other state, [remove that redundant state altogether.](/learn/choosing-the-state-structure#avoid-redundant-state)** If you're worried about recomputing too often, the [`useMemo` Hook](/reference/react/useMemo) can help.
-* If you want to reset the entire component tree's state, [pass a different `key` to your component.](#resetting-state-with-a-key)
-* If you can, update all the relevant state in the event handlers.
+* **தேவையான மதிப்பு தற்போதைய ப்ராப்ஸ் அல்லது வேறு ஸ்டேட்டிலிருந்து முழுமையாக கணக்கிடக்கூடியதாக இருந்தால், அந்த மீதியான ஸ்டேட்டைத் தானே [நீக்கிவிடுங்கள்.](/learn/choosing-the-state-structure#avoid-redundant-state)** மீண்டும் மீண்டும் கணக்கிடுவது குறித்து கவலைப்பட்டால், [`useMemo` ஹூக்](/reference/react/useMemo) உதவும்.
+* முழு காம்போனென்ட் ட்ரீயின் ஸ்டேட்டை ரீசெட் செய்ய [உங்கள் காம்போனென்டுக்கு வேறு `key` ஒன்றை அனுப்புங்கள்.](#resetting-state-with-a-key)
+* முடிந்தால், தொடர்புடைய அனைத்து ஸ்டேட்டையும் இவென்ட் ஹாண்ட்லர்களிலேயே அப்டேட் செய்யுங்கள்.
 
-In the rare case that none of these apply, there is a pattern you can use to update state based on the values that have been rendered so far, by calling a `set` function while your component is rendering.
+மேற்கண்டவற்றில் ஒன்றும் பொருந்தாத அரிதான சூழலில், உங்கள் காம்போனென்ட் ரெண்டர் ஆகிக்கொண்டிருக்கும் போது `set` ஃபங்க்ஷனை அழைத்து, இதுவரை ரெண்டர் செய்யப்பட்ட மதிப்புகளை அடிப்படையாகக் கொண்டு ஸ்டேட்டை அப்டேட் செய்யும் ஒரு பாடர்னை பயன்படுத்தலாம்.
 
-Here's an example. This `CountLabel` component displays the `count` prop passed to it:
+இதோ ஒரு உதாரணம். இந்த `CountLabel` காம்போனென்ட், அதற்கு அனுப்பப்படும் `count` ப்ராபை காட்டுகிறது:
 
 ```js src/CountLabel.js
 export default function CountLabel({ count }) {
@@ -1091,7 +1091,7 @@ export default function CountLabel({ count }) {
 }
 ```
 
-Say you want to show whether the counter has *increased or decreased* since the last change. The `count` prop doesn't tell you this -- you need to keep track of its previous value. Add the `prevCount` state variable to track it. Add another state variable called `trend` to hold whether the count has increased or decreased. Compare `prevCount` with `count`, and if they're not equal, update both `prevCount` and `trend`. Now you can show both the current count prop and *how it has changed since the last render*.
+கடந்த மாறுதலிலிருந்து கவுண்டர் *அதிகரித்ததா, குறைந்ததா* என்பதை காட்ட வேண்டுமென்றால்? `count` ப்ராப் அதை சொல்லாது — அதன் முந்தைய மதிப்பை நீங்கள் நினைவில் வைத்திருக்க வேண்டும். அதைக் கண்காணிக்க `prevCount` என்ற ஸ்டேட் வெரியபிளைச் சேர்க்கவும். மேலும், அதிகரித்ததா குறைந்ததா என்பதைக் காட்ட `trend` என்ற மற்றொரு ஸ்டேட் வெரியபிளைச் சேர்க்கவும். `prevCount` மற்றும் `count` ஐ ஒப்பிட்டு, ஒத்தில்லையெனில் இரண்டையும் அப்டேட் செய்யவும். இப்போது தற்போதைய count ப்ராபையும், அது *கடந்த ரெண்டரிலிருந்து எவ்வாறு மாறியது* என்பதையும் காட்ட முடியும்.
 
 <Sandpack>
 
@@ -1140,17 +1140,17 @@ button { margin-bottom: 10px; }
 
 </Sandpack>
 
-Note that if you call a `set` function while rendering, it must be inside a condition like `prevCount !== count`, and there must be a call like `setPrevCount(count)` inside of the condition. Otherwise, your component would re-render in a loop until it crashes. Also, you can only update the state of the *currently rendering* component like this. Calling the `set` function of *another* component during rendering is an error. Finally, your `set` call should still [update state without mutation](#updating-objects-and-arrays-in-state) -- this doesn't mean you can break other rules of [pure functions.](/learn/keeping-components-pure)
+குறிப்பு: ரெண்டரிங் சமயத்தில் `set` ஃபங்க்ஷனை அழைத்தால், அது `prevCount !== count` போன்ற கண்டிஷன் உள்ளேயே இருக்க வேண்டும்; மேலும் அந்த கண்டிஷனுக்குள் `setPrevCount(count)` போன்ற அழைப்பும் இருக்க வேண்டும். இல்லையெனில், உங்கள் காம்போனென்ட் தொடர்ச்சியாக ரீரெண்டர் ஆகி க்ராஷ் ஆகும். மேலும், இவ்வாறு அப்டேட் செய்ய இயல்வது *தற்போது ரெண்டர் ஆகும்* காம்போனென்ட்டின் ஸ்டேட்டையே. ரெண்டரிங் சமயத்தில் *வேறு* காம்போனென்ட்டின் `set` ஃபங்க்ஷனை அழைப்பது பிழை. கடைசியாக, உங்கள் `set` அழைப்பு இன்னும் [ம்யூட்டேஷன் இல்லாமல் ஸ்டேட்டை அப்டேட் செய்யவே](#updating-objects-and-arrays-in-state) வேண்டும் — இது [பியூர் ஃபங்க்ஷன்களின்](/learn/keeping-components-pure) விதிகளை மீறலாம் என்பதல்ல.
 
-This pattern can be hard to understand and is usually best avoided. However, it's better than updating state in an effect. When you call the `set` function during render, React will re-render that component immediately after your component exits with a `return` statement, and before rendering the children. This way, children don't need to render twice. The rest of your component function will still execute (and the result will be thrown away). If your condition is below all the Hook calls, you may add an early `return;` to restart rendering earlier.
+இந்த பாடர்னை புரிந்து கொள்வது சற்று கடினம்; பொதுவாகத் தவிர்ப்பதே நல்லது. இருந்தாலும், இது Effect-ல் ஸ்டேட்டை அப்டேட் செய்வதைக் காட்டிலும் மேல். ரெண்டரிங் சமயத்தில் `set` அழைத்தால், உங்கள் காம்போனென்ட் `return` ஆனவுடன் உடனே (சைல்ட்களை ரெண்டர் செய்யும் முன்னர்) ரியாக்ட் அதை மீண்டும் ரெண்டர் செய்யும். இதனால் சைல்ட்கள் இரண்டு முறை ரெண்டர் ஆக வேண்டியதில்லை. உங்கள் காம்போனென்ட் ஃபங்க்ஷனின் மீதியெல்லாம் ஓடும் (ஆனால் அதன் விளைவு தூக்கி எறியப்படும்). உங்கள் கண்டிஷன் எல்லா ஹூக் அழைப்புகளுக்கும் கீழே இருந்தால், தொடக்கத்திலேயே `return;` ஒன்றை சேர்த்து ரெண்டரிங்கை மீண்டும் ஆரம்பிக்கலாம்.
 
 ---
 
-## Troubleshooting {/*troubleshooting*/}
+## பழுது பார்த்தல் {/*troubleshooting*/}
 
-### I've updated the state, but logging gives me the old value {/*ive-updated-the-state-but-logging-gives-me-the-old-value*/}
+### நான் ஸ்டேட்டை அப்டேட் செய்தேன், ஆனால் லோகில் பழைய மதிப்பு தான் வருகிறது {/*ive-updated-the-state-but-logging-gives-me-the-old-value*/}
 
-Calling the `set` function **does not change state in the running code**:
+`set` ஃபங்க்ஷனை அழைப்பது **ஓடிக்கொண்டிருக்கும் கோடில் ஸ்டேட்டை மாற்றாது**:
 
 ```js {4,5,8}
 function handleClick() {
@@ -1165,9 +1165,9 @@ function handleClick() {
 }
 ```
 
-This is because [states behaves like a snapshot.](/learn/state-as-a-snapshot) Updating state requests another render with the new state value, but does not affect the `count` JavaScript variable in your already-running event handler.
+இது [ஸ்டேட் ஒரு ஸ்நாப்ஷாட் போல நடப்பதனால்](/learn/state-as-a-snapshot). ஸ்டேட்டை அப்டேட் செய்வது புதிய ஸ்டேட்டுடன் இன்னொரு ரெண்டரை கோருவதுதான்; ஏற்கனவே இயங்கும் இந்த இவென்ட் ஹாண்ட்லரில் உள்ள `count` ஜாவாஸ்கிரிப்ட் வெரியபிளை அது பாதிக்காது.
 
-If you need to use the next state, you can save it in a variable before passing it to the `set` function:
+அடுத்த ஸ்டேட்டை பயன்படுத்த வேண்டுமெனில், அதை `set` க்கு அனுப்புவதற்கு முன் ஒரு வெரியபிளில் சேமிக்கலாம்:
 
 ```js
 const nextCount = count + 1;
@@ -1179,16 +1179,16 @@ console.log(nextCount); // 1
 
 ---
 
-### I've updated the state, but the screen doesn't update {/*ive-updated-the-state-but-the-screen-doesnt-update*/}
+### நான் ஸ்டேட்டை அப்டேட் செய்தேன், ஆனால் திரை அப்டேட் ஆகவில்லை {/*ive-updated-the-state-but-the-screen-doesnt-update*/}
 
-React will **ignore your update if the next state is equal to the previous state,** as determined by an [`Object.is`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is) comparison. This usually happens when you change an object or an array in state directly:
+[`Object.is`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is) ஒப்பீட்டின்படி **அடுத்த ஸ்டேட் முந்தைய ஸ்டேட்டுக்கு சமமாக இருந்தால்**, ரியாக்ட் உங்கள் அப்டேட்டை புறக்கணிக்கும். இது பொதுவாக ஸ்டேட்டில் உள்ள ஆப்ஜெக்ட் அல்லது அரேவை நேரடியாக மாற்றும்போது நடக்கும்:
 
 ```js
 obj.x = 10;  // 🚩 Wrong: mutating existing object
 setObj(obj); // 🚩 Doesn't do anything
 ```
 
-You mutated an existing `obj` object and passed it back to `setObj`, so React ignored the update. To fix this, you need to ensure that you're always [_replacing_ objects and arrays in state instead of _mutating_ them](#updating-objects-and-arrays-in-state):
+நீங்கள் இருக்கும் `obj` ஆப்ஜெக்டை ம்யூட்டேட் செய்து அதை மீண்டும் `setObj` க்கு அனுப்பியதால், ரியாக்ட் அப்டேட்டை புறக்கணித்தது. இதை சரி செய்ய, ஸ்டேட்டில் உள்ள ஆப்ஜெக்ட்களையும் அரேகளையும் எப்போதும் [_ம்யூட்டேட்_ செய்யாமல் _ரீப்ளேஸ்_](#updating-objects-and-arrays-in-state) செய்வதை உறுதிப்படுத்துங்கள்:
 
 ```js
 // ✅ Correct: creating a new object
@@ -1200,9 +1200,9 @@ setObj({
 
 ---
 
-### I'm getting an error: "Too many re-renders" {/*im-getting-an-error-too-many-re-renders*/}
+### எனக்கு “Too many re-renders” என்ற பிழை வருகிறது {/*im-getting-an-error-too-many-re-renders*/}
 
-You might get an error that says: `Too many re-renders. React limits the number of renders to prevent an infinite loop.` Typically, this means that you're unconditionally setting state *during render*, so your component enters a loop: render, set state (which causes a render), render, set state (which causes a render), and so on. Very often, this is caused by a mistake in specifying an event handler:
+இந்த மாதிரி ஒரு பிழை வந்துகிடைக்கும்: `Too many re-renders. React limits the number of renders to prevent an infinite loop.` பொதுவாக, நீங்கள் ரெண்டரிங் சமயத்தில் கண்டிஷன் இல்லாமல் ஸ்டேட்டை அமைத்துவிட்டீர்கள் என்பதைக் குறிக்கும். இதனால் உங்கள் காம்போனென்ட் லூப்பில் சிக்கி விடும்: render → set state (render) → render → set state (render) ... போன்றதாக. இது பெரும்பாலும் இவென்ட் ஹாண்ட்லரை குறிப்பிடும் முறையில் உள்ள தவறால் ஏற்படும்:
 
 ```js {1-2}
 // 🚩 Wrong: calls the handler during render
@@ -1215,13 +1215,13 @@ return <button onClick={handleClick}>Click me</button>
 return <button onClick={(e) => handleClick(e)}>Click me</button>
 ```
 
-If you can't find the cause of this error, click on the arrow next to the error in the console and look through the JavaScript stack to find the specific `set` function call responsible for the error.
+இந்த பிழையின் காரணத்தை கண்டுபிடிக்க முடியவில்லை என்றால், கான்சோலில் இருக்கும் பிழை அருகே உள்ள அம்பை சொடுக்கி, ஜாவாஸ்கிரிப்ட் ஸ்டாக்கில் எந்த `set` அழைப்பே காரணமெனத் தேடுங்கள்.
 
 ---
 
-### My initializer or updater function runs twice {/*my-initializer-or-updater-function-runs-twice*/}
+### என் இனிஷலைஸர் அல்லது அப்டேடர் ஃபங்க்ஷன் இரண்டு முறை ஓடுகிறது {/*my-initializer-or-updater-function-runs-twice*/}
 
-In [Strict Mode](/reference/react/StrictMode), React will call some of your functions twice instead of once:
+[ஸ்ட்ரிக்ட் மோடில்](/reference/react/StrictMode), ரியாக்ட் சில ஃபங்க்ஷன்களை ஒருமுறை பதிலாக இரண்டு முறை அழைக்கும்:
 
 ```js {2,5-6,11-12}
 function TodoList() {
@@ -1241,11 +1241,11 @@ function TodoList() {
   // ...
 ```
 
-This is expected and shouldn't break your code.
+இது எதிர்பார்க்கப்பட்டதே; உங்கள் கோடை கெடுப்பதில்லை.
 
-This **development-only** behavior helps you [keep components pure.](/learn/keeping-components-pure) React uses the result of one of the calls, and ignores the result of the other call. As long as your component, initializer, and updater functions are pure, this shouldn't affect your logic. However, if they are accidentally impure, this helps you notice the mistakes.
+இந்த நடத்தை **டெவலப்மெண்டில் மட்டும்** நடக்கும்; இது [காம்போனென்ட்களை பியூர் வைத்திருக்க](/learn/keeping-components-pure) உதவுகிறது. ரியாக்ட் இரண்டு அழைப்புகளில் ஒன்றின் விளைவையே பயன்படுத்தி, மற்றதைக் கவனிக்காது. உங்கள் காம்போனென்ட், இனிஷலைஸர், அப்டேடர் ஃபங்க்ஷன்கள் பியூர் ஆக இருந்தால், உங்கள் லாஜிக் பாதிக்கப்படாது. தவறுதலாக இம்ப்யூர் ஆக இருந்தால், இந்த நடத்தை அவற்றை புலப்படுத்த உதவும்.
 
-For example, this impure updater function mutates an array in state:
+உதாரணமாக, இந்த இம்ப்யூர் அப்டேடர் ஸ்டேட்டில் உள்ள ஒரு அரேவை ம்யூட்டேட் செய்கிறது:
 
 ```js {2,3}
 setTodos(prevTodos => {
@@ -1254,7 +1254,7 @@ setTodos(prevTodos => {
 });
 ```
 
-Because React calls your updater function twice, you'll see the todo was added twice, so you'll know that there is a mistake. In this example, you can fix the mistake by [replacing the array instead of mutating it](#updating-objects-and-arrays-in-state):
+ரியாக்ட் உங்கள் அப்டேடரை இரண்டு முறை அழைக்கும் போது, todo இரண்டு முறை சேர்க்கப்பட்டிருப்பதைப் பார்க்கலாம்; இதனால் பிழை இருப்பது புரியும். இந்த உதாரணத்தில், [அரேவை ம்யூட்டேட் செய்வதற்கு பதிலாக ரீப்ளேஸ் செய்வதன் மூலம்](#updating-objects-and-arrays-in-state) பிழையை சரி செய்யலாம்:
 
 ```js {2,3}
 setTodos(prevTodos => {
@@ -1263,15 +1263,15 @@ setTodos(prevTodos => {
 });
 ```
 
-Now that this updater function is pure, calling it an extra time doesn't make a difference in behavior. This is why React calling it twice helps you find mistakes. **Only component, initializer, and updater functions need to be pure.** Event handlers don't need to be pure, so React will never call your event handlers twice.
+இப்போது இந்த அப்டேடர் பியூர் ஆனதால், அதை ஒரு முறை கூடுதலாக அழைத்தாலும் நடத்தில் மாற்றம் இல்லை. அதனால்தான் ரியாக்ட் இருமுறை அழைப்பது பிழைகளை கண்டுபிடிக்க உதவுகிறது. **பியூர் ஆக இருக்க வேண்டியது காம்போனென்ட், இனிஷலைஸர், அப்டேடர் ஃபங்க்ஷன்களே.** இவென்ட் ஹாண்ட்லர்கள் பியூர் ஆக வேண்டியதில்லை; ரியாக்ட் அவற்றை இருமுறை அழைக்காது.
 
-Read [keeping components pure](/learn/keeping-components-pure) to learn more.
+மேலும் அறிய [காம்போனென்ட்களை பியூர் வைத்திருப்பது](/learn/keeping-components-pure) படிக்கவும்.
 
 ---
 
-### I'm trying to set state to a function, but it gets called instead {/*im-trying-to-set-state-to-a-function-but-it-gets-called-instead*/}
+### ஒரு ஃபங்க்ஷனை ஸ்டேட்டில் வைக்க முயற்சிக்கிறேன், ஆனால் அது அழைக்கப்படுகிறது {/*im-trying-to-set-state-to-a-function-but-it-gets-called-instead*/}
 
-You can't put a function into state like this:
+இப்படி ஒரு ஃபங்க்ஷனை ஸ்டேட்டில் வைக்க முடியாது:
 
 ```js
 const [fn, setFn] = useState(someFunction);
@@ -1281,7 +1281,7 @@ function handleClick() {
 }
 ```
 
-Because you're passing a function, React assumes that `someFunction` is an [initializer function](#avoiding-recreating-the-initial-state), and that `someOtherFunction` is an [updater function](#updating-state-based-on-the-previous-state), so it tries to call them and store the result. To actually *store* a function, you have to put `() =>` before them in both cases. Then React will store the functions you pass.
+நீங்கள் ஃபங்க்ஷனை அனுப்புவதால், `someFunction` ஐ ரியாக்ட் [இனிஷலைஸர் ஃபங்க்ஷன்](#avoiding-recreating-the-initial-state) என்றும், `someOtherFunction` ஐ [அப்டேடர் ஃபங்க்ஷன்](#updating-state-based-on-the-previous-state) என்றும் கருதும்; அதனால் அவற்றை அழைத்து விளைவுகளைச் சேமிக்க முயலும். உண்மையில் ஒரு ஃபங்க்ஷனை *சேமிக்க*, இரண்டிலும் முன்னால் `() =>` சேர்க்க வேண்டும். அப்போது ரியாக்ட் நீங்கள் அனுப்பும் ஃபங்க்ஷன்களைச் சேமிக்கும்.
 
 ```js {1,4}
 const [fn, setFn] = useState(() => someFunction);
