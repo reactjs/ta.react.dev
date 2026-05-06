@@ -81,6 +81,8 @@ export const Seo = withRouter(
         <meta property="fb:app_id" content="623268441017527" />
         <meta property="og:type" key="og:type" content="website" />
         <meta property="og:url" key="og:url" content={canonicalUrl} />
+        <meta property="og:locale" content="ta_LK" />
+        <meta property="og:locale:alternate" content="ta_IN" />
         {title != null && (
           <meta property="og:title" content={pageTitle} key="og:title" />
         )}

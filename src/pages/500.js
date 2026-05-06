@@ -20,15 +20,15 @@ export default function NotFound() {
     <Page
       toc={[]}
       routeTree={sidebarLearn}
-      meta={{title: 'Something Went Wrong'}}>
+      meta={{title: 'ஏதோ தவறு நடந்துவிட்டது'}}>
       <MaxWidth>
         <Intro>
-          <P>Something went very wrong.</P>
-          <P>Sorry about that.</P>
+          <P>ஏதோ தவறு நடந்துவிட்டது.</P>
+          <P>இதற்கு வருந்துகிறோம்.</P>
           <P>
-            If you’d like, please{' '}
+            உங்களுக்கு விருப்பமென்றால், தயவுசெய்து  {' '}
             <A href="https://github.com/reactjs/react.dev/issues/new">
-              report a bug.
+            ஒரு முறையீட்டை புகாரளிக்கவும்.
             </A>
           </P>
         </Intro>
