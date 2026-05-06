@@ -27,7 +27,7 @@ export default function NotFound() {
           <P>இதற்கு வருந்துகிறோம்.</P>
           <P>
             உங்களுக்கு விருப்பமென்றால், தயவுசெய்து  {' '}
-            <A href="https://github.com/reactjs/react.dev/issues/new">
+            <A href="https://github.com/reactjs/ta.react.dev/issues/new">
             ஒரு முறையீட்டை புகாரளிக்கவும்.
             </A>
           </P>
