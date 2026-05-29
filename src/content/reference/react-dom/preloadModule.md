@@ -4,13 +4,13 @@ title: preloadModule
 
 <Note>
 
-[React-based frameworks](/learn/creating-a-react-app) frequently handle resource loading for you, so you might not have to call this API yourself. Consult your framework's documentation for details.
+[React அடிப்படையிலான frameworks](/learn/creating-a-react-app) பெரும்பாலும் resource loading-ஐ உங்களுக்குப் பதிலாக கையாளும், எனவே இந்த API-யை நீங்களே அழைக்க வேண்டியிருக்காமல் இருக்கலாம். விவரங்களுக்கு உங்கள் framework-இன் documentation-ஐப் பாருங்கள்.
 
 </Note>
 
 <Intro>
 
-`preloadModule` lets you eagerly fetch an ESM module that you expect to use.
+`preloadModule`, நீங்கள் பயன்படுத்தப் போகிறீர்கள் என்று எதிர்பார்க்கும் ESM module ஒன்றை முன்கூட்டியே fetch செய்ய உதவுகிறது.
 
 ```js
 preloadModule("https://example.com/module.js", {as: "script"});
@@ -26,7 +26,7 @@ preloadModule("https://example.com/module.js", {as: "script"});
 
 ### `preloadModule(href, options)` {/*preloadmodule*/}
 
-To preload an ESM module, call the `preloadModule` function from `react-dom`.
+ESM module ஒன்றை preload செய்ய, `react-dom`-இலிருந்து `preloadModule` function-ஐ அழைக்கவும்.
 
 ```js
 import { preloadModule } from 'react-dom';
@@ -38,37 +38,37 @@ function AppRoot() {
 
 ```
 
-[See more examples below.](#usage)
+[மேலும் உதாரணங்களை கீழே பார்க்கவும்.](#usage)
 
-The `preloadModule` function provides the browser with a hint that it should start downloading the given module, which can save time.
+கொடுக்கப்பட்ட module-ஐ download செய்யத் தொடங்க வேண்டும் என்ற hint-ஐ `preloadModule` function browser-க்கு வழங்குகிறது; இது நேரத்தைச் சேமிக்கலாம்.
 
 #### Parameters {/*parameters*/}
 
-* `href`: a string. The URL of the module you want to download.
-* `options`: an object. It contains the following properties:
-  *  `as`: a required string. It must be `'script'`.
-  *  `crossOrigin`: a string. The [CORS policy](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/crossorigin) to use. Its possible values are `anonymous` and `use-credentials`.
-  *  `integrity`: a string. A cryptographic hash of the module, to [verify its authenticity](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity).
-  *  `nonce`: a string. A cryptographic [nonce to allow the module](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/nonce) when using a strict Content Security Policy.
+* `href`: ஒரு string. Download செய்ய விரும்பும் module-இன் URL.
+* `options`: ஒரு object. இது பின்வரும் properties-ஐக் கொண்டுள்ளது:
+  *  `as`: அவசியமான string. இது `'script'` ஆக இருக்க வேண்டும்.
+  *  `crossOrigin`: ஒரு string. பயன்படுத்த வேண்டிய [CORS policy](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/crossorigin). இதன் சாத்தியமான values `anonymous` மற்றும் `use-credentials`.
+  *  `integrity`: ஒரு string. Module-இன் [நம்பகத்தன்மையை சரிபார்க்க](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity) அதன் cryptographic hash.
+  *  `nonce`: ஒரு string. கடுமையான Content Security Policy பயன்படுத்தும்போது [module-ஐ அனுமதிக்க cryptographic nonce](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/nonce).
 
 
 #### Returns {/*returns*/}
 
-`preloadModule` returns nothing.
+`preloadModule` எதையும் return செய்யாது.
 
 #### Caveats {/*caveats*/}
 
-* Multiple calls to `preloadModule` with the same `href` have the same effect as a single call.
-* In the browser, you can call `preloadModule` in any situation: while rendering a component, in an Effect, in an event handler, and so on.
-* In server-side rendering or when rendering Server Components, `preloadModule` only has an effect if you call it while rendering a component or in an async context originating from rendering a component. Any other calls will be ignored.
+* அதே `href`-உடன் `preloadModule`-ஐ பலமுறை அழைப்பது, ஒருமுறை அழைப்பதற்குச் சமமான விளைவையே தரும்.
+* Browser-இல் எந்த சூழலிலும் `preloadModule`-ஐ அழைக்கலாம்: component render ஆகும்போது, Effect-இல், event handler-இல், மற்றும் இதுபோன்ற இடங்களில்.
+* Server-side rendering-இல் அல்லது Server Components render செய்யும்போது, component render ஆகும் நேரத்தில் அல்லது component render-இலிருந்து தொடங்கிய async context-இல் அழைத்தால் மட்டுமே `preloadModule` விளைவளிக்கும். மற்ற எல்லா calls-உம் புறக்கணிக்கப்படும்.
 
 ---
 
 ## Usage {/*usage*/}
 
-### Preloading when rendering {/*preloading-when-rendering*/}
+### Render செய்யும்போது preloading {/*preloading-when-rendering*/}
 
-Call `preloadModule` when rendering a component if you know that it or its children will use a specific module.
+அந்த component அல்லது அதன் children குறிப்பிட்ட module ஒன்றைப் பயன்படுத்தும் என்பது தெரிந்திருந்தால், component render செய்யும்போது `preloadModule`-ஐ அழைக்கவும்.
 
 ```js
 import { preloadModule } from 'react-dom';
@@ -79,11 +79,11 @@ function AppRoot() {
 }
 ```
 
-If you want the browser to start executing the module immediately (rather than just downloading it), use [`preinitModule`](/reference/react-dom/preinitModule) instead. If you want to load a script that isn't an ESM module, use [`preload`](/reference/react-dom/preload).
+Browser module-ஐ download செய்வதோடு மட்டும் இல்லாமல் உடனே execute செய்யத் தொடங்க வேண்டும் என விரும்பினால், அதற்கு பதிலாக [`preinitModule`](/reference/react-dom/preinitModule)-ஐப் பயன்படுத்துங்கள். ESM module அல்லாத script ஒன்றை load செய்ய விரும்பினால், [`preload`](/reference/react-dom/preload)-ஐப் பயன்படுத்துங்கள்.
 
-### Preloading in an event handler {/*preloading-in-an-event-handler*/}
+### Event handler-இல் preloading {/*preloading-in-an-event-handler*/}
 
-Call `preloadModule` in an event handler before transitioning to a page or state where the module will be needed. This gets the process started earlier than if you call it during the rendering of the new page or state.
+Module தேவைப்படும் page அல்லது state-க்கு மாறுவதற்கு முன், event handler-இல் `preloadModule`-ஐ அழைக்கவும். புதிய page அல்லது state render ஆகும் போது அழைப்பதை விட, இது செயல்முறையை முன்கூட்டியே தொடங்குகிறது.
 
 ```js
 import { preloadModule } from 'react-dom';

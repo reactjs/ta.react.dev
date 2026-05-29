@@ -4,7 +4,7 @@ title: startTransition
 
 <Intro>
 
-`startTransition` lets you render a part of the UI in the background.
+`startTransition`, UI-யின் ஒரு பகுதியை background-இல் render செய்ய உதவுகிறது.
 
 ```js
 startTransition(action)
@@ -20,7 +20,7 @@ startTransition(action)
 
 ### `startTransition(action)` {/*starttransition*/}
 
-The `startTransition` function lets you mark a state update as a Transition.
+`startTransition` function, state update ஒன்றை Transition ஆகக் குறிக்க உதவுகிறது.
 
 ```js {7,9}
 import { startTransition } from 'react';
@@ -37,39 +37,39 @@ function TabContainer() {
 }
 ```
 
-[See more examples below.](#usage)
+[மேலும் உதாரணங்களை கீழே பார்க்கவும்.](#usage)
 
 #### Parameters {/*parameters*/}
 
-* `action`: A function that updates some state by calling one or more [`set` functions](/reference/react/useState#setstate). React calls `action` immediately with no parameters and marks all state updates scheduled synchronously during the `action` function call as Transitions. Any async calls awaited in the `action` will be included in the transition, but currently require wrapping any `set` functions after the `await` in an additional `startTransition` (see [Troubleshooting](/reference/react/useTransition#react-doesnt-treat-my-state-update-after-await-as-a-transition)). State updates marked as Transitions will be [non-blocking](#marking-a-state-update-as-a-non-blocking-transition) and [will not display unwanted loading indicators.](/reference/react/useTransition#preventing-unwanted-loading-indicators).
+* `action`: ஒன்று அல்லது அதற்கு மேற்பட்ட [`set` functions](/reference/react/useState#setstate)-ஐ அழைத்து சில state-ஐ update செய்யும் function. React `action`-ஐ எந்த parameters-மும் இல்லாமல் உடனே அழைத்து, `action` function call நடக்கும் போது synchronously schedule செய்யப்படும் அனைத்து state updates-ஐ Transitions ஆகக் குறிக்கும். `action`-இல் `await` செய்யப்படும் async calls transition-இல் சேர்க்கப்படும், ஆனால் தற்போது `await`-க்கு பிறகு வரும் எந்த `set` functions-ஐயும் கூடுதல் `startTransition`-இல் wrap செய்ய வேண்டும் ([Troubleshooting](/reference/react/useTransition#react-doesnt-treat-my-state-update-after-await-as-a-transition)-ஐப் பார்க்கவும்). Transitions ஆகக் குறிக்கப்பட்ட state updates [non-blocking](#marking-a-state-update-as-a-non-blocking-transition) ஆக இருக்கும்; மேலும் [தேவையற்ற loading indicators-ஐ காட்டாது.](/reference/react/useTransition#preventing-unwanted-loading-indicators)
 
 #### Returns {/*returns*/}
 
-`startTransition` does not return anything.
+`startTransition` எதையும் return செய்யாது.
 
 #### Caveats {/*caveats*/}
 
-* `startTransition` does not provide a way to track whether a Transition is pending. To show a pending indicator while the Transition is ongoing, you need [`useTransition`](/reference/react/useTransition) instead.
+* Transition pending ஆக உள்ளதா என்பதை track செய்ய `startTransition` வழி வழங்காது. Transition நடைபெறும்போது pending indicator ஒன்றைக் காட்ட வேண்டுமெனில், அதற்கு பதிலாக [`useTransition`](/reference/react/useTransition) தேவை.
 
-* You can wrap an update into a Transition only if you have access to the `set` function of that state. If you want to start a Transition in response to some prop or a custom Hook return value, try [`useDeferredValue`](/reference/react/useDeferredValue) instead.
+* அந்த state-இன் `set` function-ஐ அணுக முடிந்தால் மட்டுமே update ஒன்றை Transition ஆக wrap செய்ய முடியும். ஏதேனும் prop அல்லது custom Hook return value-க்கு பதிலாக Transition ஒன்றைத் தொடங்க விரும்பினால், அதற்கு பதிலாக [`useDeferredValue`](/reference/react/useDeferredValue)-ஐ முயற்சிக்கவும்.
 
-* The function you pass to `startTransition` is called immediately, marking all state updates that happen while it executes as Transitions. If you try to perform state updates in a `setTimeout`, for example, they won't be marked as Transitions.
+* `startTransition`-க்கு pass செய்யும் function உடனே அழைக்கப்படும்; அது இயங்கும் போது நிகழும் அனைத்து state updates-ஐ Transitions ஆகக் குறிக்கும். உதாரணமாக, `setTimeout`-இல் state updates செய்ய முயன்றால், அவை Transitions ஆகக் குறிக்கப்படாது.
 
-* You must wrap any state updates after any async requests in another `startTransition` to mark them as Transitions. This is a known limitation that we will fix in the future (see [Troubleshooting](/reference/react/useTransition#react-doesnt-treat-my-state-update-after-await-as-a-transition)).
+* எந்த async requests-க்கும் பிறகு வரும் state updates-ஐ Transitions ஆகக் குறிக்க அவற்றை மற்றொரு `startTransition`-இல் wrap செய்ய வேண்டும். இது அறியப்பட்ட வரம்பு; எதிர்காலத்தில் இதை சரிசெய்வோம் ([Troubleshooting](/reference/react/useTransition#react-doesnt-treat-my-state-update-after-await-as-a-transition)-ஐப் பார்க்கவும்).
 
-* A state update marked as a Transition will be interrupted by other state updates. For example, if you update a chart component inside a Transition, but then start typing into an input while the chart is in the middle of a re-render, React will restart the rendering work on the chart component after handling the input state update.
+* Transition ஆகக் குறிக்கப்பட்ட state update, பிற state updates-ஆல் interrupt செய்யப்படும். உதாரணமாக, Transition உள்ளே chart component ஒன்றை update செய்தபின், chart re-render நடந்து கொண்டிருக்கும்போது input ஒன்றில் type செய்யத் தொடங்கினால், input state update-ஐ கையாள்ந்த பிறகு React chart component-இன் rendering பணியை மீண்டும் தொடங்கும்.
 
-* Transition updates can't be used to control text inputs.
+* Text inputs-ஐ control செய்ய Transition updates-ஐப் பயன்படுத்த முடியாது.
 
-* If there are multiple ongoing Transitions, React currently batches them together. This is a limitation that may be removed in a future release.
+* பல Transitions ஒரே நேரத்தில் நடைபெற்று கொண்டிருந்தால், React தற்போது அவற்றை ஒன்றாக batch செய்கிறது. இது எதிர்கால release-இல் நீக்கப்படக்கூடிய வரம்பு.
 
 ---
 
 ## Usage {/*usage*/}
 
-### Marking a state update as a non-blocking Transition {/*marking-a-state-update-as-a-non-blocking-transition*/}
+### State update ஒன்றை non-blocking Transition ஆகக் குறித்தல் {/*marking-a-state-update-as-a-non-blocking-transition*/}
 
-You can mark a state update as a *Transition* by wrapping it in a `startTransition` call:
+State update ஒன்றை `startTransition` call-இல் wrap செய்வதன் மூலம் அதை *Transition* ஆகக் குறிக்கலாம்:
 
 ```js {7,9}
 import { startTransition } from 'react';
@@ -86,14 +86,14 @@ function TabContainer() {
 }
 ```
 
-Transitions let you keep the user interface updates responsive even on slow devices.
+Slow devices-ல்கூட user interface updates responsive ஆக இருக்க Transitions உதவுகின்றன.
 
-With a Transition, your UI stays responsive in the middle of a re-render. For example, if the user clicks a tab but then change their mind and click another tab, they can do that without waiting for the first re-render to finish.
+Transition பயன்படுத்தும்போது, re-render நடந்து கொண்டிருக்கும்போதும் உங்கள் UI responsive ஆகவே இருக்கும். உதாரணமாக, user ஒரு tab-ஐ click செய்துவிட்டு உடனே மனம் மாறி மற்றொரு tab-ஐ click செய்தால், முதல் re-render முடிவதற்காக காத்திருக்காமல் அதைச் செய்ய முடியும்.
 
 <Note>
 
-`startTransition` is very similar to [`useTransition`](/reference/react/useTransition), except that it does not provide the `isPending` flag to track whether a Transition is ongoing. You can call `startTransition` when `useTransition` is not available. For example, `startTransition` works outside components, such as from a data library.
+`startTransition` என்பது [`useTransition`](/reference/react/useTransition)-க்கு மிகவும் ஒத்தது; ஆனால் Transition நடைபெறுகிறதா என்பதை track செய்ய `isPending` flag-ஐ வழங்காது. `useTransition` கிடைக்காத இடங்களில் `startTransition`-ஐ அழைக்கலாம். உதாரணமாக, data library போன்ற components-க்கு வெளியே `startTransition` வேலை செய்கிறது.
 
-[Learn about Transitions and see examples on the `useTransition` page.](/reference/react/useTransition)
+[`useTransition` பக்கத்தில் Transitions பற்றி அறிந்து உதாரணங்களைப் பாருங்கள்.](/reference/react/useTransition)
 
 </Note>

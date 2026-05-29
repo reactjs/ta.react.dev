@@ -5,7 +5,7 @@ title: <StrictMode>
 
 <Intro>
 
-`<StrictMode>` lets you find common bugs in your components early during development.
+`<StrictMode>` development காலத்திலேயே உங்கள் components-இல் பொதுவான bugs-ஐ கண்டுபிடிக்க உதவுகிறது.
 
 
 ```js
@@ -24,7 +24,7 @@ title: <StrictMode>
 
 ### `<StrictMode>` {/*strictmode*/}
 
-Use `StrictMode` to enable additional development behaviors and warnings for the component tree inside:
+உள்ளிருக்கும் component tree-க்கு கூடுதல் development behaviors மற்றும் warnings enable செய்ய `StrictMode` பயன்படுத்துங்கள்:
 
 ```js
 import { StrictMode } from 'react';
@@ -38,33 +38,33 @@ root.render(
 );
 ```
 
-[See more examples below.](#usage)
+[மேலும் examples-ஐ கீழே பார்க்கவும்.](#usage)
 
-Strict Mode enables the following development-only behaviors:
+Strict Mode பின்வரும் development-only behaviors-ஐ enable செய்கிறது:
 
-- Your components will [re-render an extra time](#fixing-bugs-found-by-double-rendering-in-development) to find bugs caused by impure rendering.
-- Your components will [re-run Effects an extra time](#fixing-bugs-found-by-re-running-effects-in-development) to find bugs caused by missing Effect cleanup.
-- Your components will [re-run refs callbacks an extra time](#fixing-bugs-found-by-re-running-ref-callbacks-in-development) to find bugs caused by missing ref cleanup.
-- Your components will [be checked for usage of deprecated APIs.](#fixing-deprecation-warnings-enabled-by-strict-mode)
+- Impure rendering காரணமாக வரும் bugs-ஐ கண்டுபிடிக்க உங்கள் components [கூடுதலாக ஒருமுறை re-render](#fixing-bugs-found-by-double-rendering-in-development) ஆகும்.
+- Missing Effect cleanup காரணமாக வரும் bugs-ஐ கண்டுபிடிக்க உங்கள் components [Effects-ஐ கூடுதலாக ஒருமுறை re-run](#fixing-bugs-found-by-re-running-effects-in-development) செய்யும்.
+- Missing ref cleanup காரணமாக வரும் bugs-ஐ கண்டுபிடிக்க உங்கள் components [ref callbacks-ஐ கூடுதலாக ஒருமுறை re-run](#fixing-bugs-found-by-re-running-ref-callbacks-in-development) செய்யும்.
+- Deprecated APIs பயன்படுத்தப்படுகிறதா என்று உங்கள் components [check செய்யப்படும்.](#fixing-deprecation-warnings-enabled-by-strict-mode)
 
 #### Props {/*props*/}
 
-`StrictMode` accepts no props.
+`StrictMode` props ஏற்காது.
 
 #### Caveats {/*caveats*/}
 
-* There is no way to opt out of Strict Mode inside a tree wrapped in `<StrictMode>`. This gives you confidence that all components inside `<StrictMode>` are checked. If two teams working on a product disagree whether they find the checks valuable, they need to either reach consensus or move `<StrictMode>` down in the tree.
+* `<StrictMode>`-இல் wrap செய்யப்பட்ட tree-க்குள் Strict Mode-இலிருந்து opt out செய்ய வழியில்லை. இதனால் `<StrictMode>`-க்குள் உள்ள எல்லா components-உம் check செய்யப்படுகின்றன என்ற நம்பிக்கை கிடைக்கும். ஒரு product-இல் வேலை செய்யும் இரண்டு teams இந்த checks பயனுள்ளதா என்பதைப் பற்றி ஒத்துக் கொள்ளவில்லை என்றால், அவர்கள் consensus அடைய வேண்டும் அல்லது `<StrictMode>`-ஐ tree-இல் கீழே நகர்த்த வேண்டும்.
 
 ---
 
 ## Usage {/*usage*/}
 
-### Enabling Strict Mode for entire app {/*enabling-strict-mode-for-entire-app*/}
+### முழு app-க்கும் Strict Mode இயக்குதல் {/*enabling-strict-mode-for-entire-app*/}
 
-Strict Mode enables extra development-only checks for the entire component tree inside the `<StrictMode>` component. These checks help you find common bugs in your components early in the development process.
+`<StrictMode>` component-க்குள் உள்ள முழு component tree-க்கும் Strict Mode கூடுதல் development-only checks enable செய்கிறது. Development process ஆரம்பத்திலேயே உங்கள் components-இல் பொதுவான bugs-ஐ கண்டுபிடிக்க இந்த checks உதவுகின்றன.
 
 
-To enable Strict Mode for your entire app, wrap your root component with `<StrictMode>` when you render it:
+முழு app-க்கும் Strict Mode enable செய்ய, root component-ஐ render செய்யும்போது அதை `<StrictMode>`-ஆல் wrap செய்யுங்கள்:
 
 ```js {6,8}
 import { StrictMode } from 'react';
@@ -78,28 +78,28 @@ root.render(
 );
 ```
 
-We recommend wrapping your entire app in Strict Mode, especially for newly created apps. If you use a framework that calls [`createRoot`](/reference/react-dom/client/createRoot) for you, check its documentation for how to enable Strict Mode.
+முழு app-ஐ Strict Mode-இல் wrap செய்ய பரிந்துரைக்கிறோம், குறிப்பாக புதிதாக உருவாக்கப்பட்ட apps-க்கு. உங்களுக்காக [`createRoot`](/reference/react-dom/client/createRoot) call செய்யும் framework பயன்படுத்தினால், Strict Mode enable செய்வது எப்படி என்பதை அதன் documentation-ல் பார்க்கவும்.
 
-Although the Strict Mode checks **only run in development,** they help you find bugs that already exist in your code but can be tricky to reliably reproduce in production. Strict Mode lets you fix bugs before your users report them.
+Strict Mode checks **development-இல் மட்டுமே run** ஆனாலும், production-இல் நம்பகமாக reproduce செய்ய கடினமான, ஏற்கனவே உங்கள் code-இல் இருக்கும் bugs-ஐ கண்டுபிடிக்க உதவுகின்றன. Users report செய்வதற்கு முன் bugs-ஐ fix செய்ய Strict Mode உதவுகிறது.
 
 <Note>
 
-Strict Mode enables the following checks in development:
+Strict Mode development-இல் பின்வரும் checks-ஐ enable செய்கிறது:
 
-- Your components will [re-render an extra time](#fixing-bugs-found-by-double-rendering-in-development) to find bugs caused by impure rendering.
-- Your components will [re-run Effects an extra time](#fixing-bugs-found-by-re-running-effects-in-development) to find bugs caused by missing Effect cleanup.
-- Your components will [re-run ref callbacks an extra time](#fixing-bugs-found-by-re-running-ref-callbacks-in-development) to find bugs caused by missing ref cleanup.
-- Your components will [be checked for usage of deprecated APIs.](#fixing-deprecation-warnings-enabled-by-strict-mode)
+- Impure rendering காரணமாக வரும் bugs-ஐ கண்டுபிடிக்க உங்கள் components [கூடுதலாக ஒருமுறை re-render](#fixing-bugs-found-by-double-rendering-in-development) ஆகும்.
+- Missing Effect cleanup காரணமாக வரும் bugs-ஐ கண்டுபிடிக்க உங்கள் components [Effects-ஐ கூடுதலாக ஒருமுறை re-run](#fixing-bugs-found-by-re-running-effects-in-development) செய்யும்.
+- Missing ref cleanup காரணமாக வரும் bugs-ஐ கண்டுபிடிக்க உங்கள் components [ref callbacks-ஐ கூடுதலாக ஒருமுறை re-run](#fixing-bugs-found-by-re-running-ref-callbacks-in-development) செய்யும்.
+- Deprecated APIs பயன்படுத்தப்படுகிறதா என்று உங்கள் components [check செய்யப்படும்.](#fixing-deprecation-warnings-enabled-by-strict-mode)
 
-**All of these checks are development-only and do not impact the production build.**
+**இந்த checks அனைத்தும் development-only; production build-ஐ பாதிக்காது.**
 
 </Note>
 
 ---
 
-### Enabling Strict Mode for a part of the app {/*enabling-strict-mode-for-a-part-of-the-app*/}
+### App-ன் ஒரு பகுதிக்கு Strict Mode இயக்குதல் {/*enabling-strict-mode-for-a-part-of-the-app*/}
 
-You can also enable Strict Mode for any part of your application:
+உங்கள் application-ன் எந்த பகுதியிற்கும் Strict Mode enable செய்யலாம்:
 
 ```js {7,12}
 import { StrictMode } from 'react';
@@ -120,31 +120,31 @@ function App() {
 }
 ```
 
-In this example, Strict Mode checks will not run against the `Header` and `Footer` components. However, they will run on `Sidebar` and `Content`, as well as all of the components inside them, no matter how deep.
+இந்த example-இல், Strict Mode checks `Header` மற்றும் `Footer` components மீது run ஆகாது. ஆனால் `Sidebar` மற்றும் `Content` மீதும், அவற்றுக்குள் எவ்வளவு ஆழமாக இருந்தாலும் உள்ள எல்லா components மீதும் run ஆகும்.
 
 <Note>
 
-When `StrictMode` is enabled for a part of the app, React will only enable behaviors that are possible in production. For example, if `<StrictMode>` is not enabled at the root of the app, it will not [re-run Effects an extra time](#fixing-bugs-found-by-re-running-effects-in-development) on initial mount, since this would cause child effects to double fire without the parent effects, which cannot happen in production.
+App-ன் ஒரு பகுதிக்கு `StrictMode` enable செய்யப்பட்டால், production-இல் சாத்தியமான behaviors-ஐ மட்டுமே React enable செய்யும். உதாரணமாக, app root-இல் `<StrictMode>` enable செய்யப்படவில்லை என்றால், initial mount-இல் அது [Effects-ஐ கூடுதலாக ஒருமுறை re-run](#fixing-bugs-found-by-re-running-effects-in-development) செய்யாது; ஏனெனில் parent effects இல்லாமல் child effects double fire ஆக இது காரணமாகும், அது production-இல் நடக்க முடியாது.
 
 </Note>
 
 ---
 
-### Fixing bugs found by double rendering in development {/*fixing-bugs-found-by-double-rendering-in-development*/}
+### Development-இல் double rendering மூலம் கண்டுபிடிக்கப்படும் bugs-ஐ சரிசெய்தல் {/*fixing-bugs-found-by-double-rendering-in-development*/}
 
-[React assumes that every component you write is a pure function.](/learn/keeping-components-pure) This means that React components you write must always return the same JSX given the same inputs (props, state, and context).
+[நீங்கள் எழுதும் ஒவ்வொரு component-உம் pure function என்று React கருதுகிறது.](/learn/keeping-components-pure) இதன் பொருள், நீங்கள் எழுதும் React components ஒரே inputs (props, state, context) கொடுக்கப்பட்டால் எப்போதும் அதே JSX-ஐ return செய்ய வேண்டும்.
 
-Components breaking this rule behave unpredictably and cause bugs. To help you find accidentally impure code, Strict Mode calls some of your functions (only the ones that should be pure) **twice in development.** This includes:
+இந்த விதியை மீறும் components கணிக்க முடியாதபடி நடந்து bugs ஏற்படுத்தும். தவறுதலாக impure ஆன code-ஐ கண்டுபிடிக்க உதவ, Strict Mode உங்கள் சில functions-ஐ (pure ஆக இருக்க வேண்டியவற்றை மட்டும்) **development-இல் இருமுறை call செய்கிறது.** இதில் அடங்குபவை:
 
-- Your component function body (only top-level logic, so this doesn't include code inside event handlers)
-- Functions that you pass to [`useState`](/reference/react/useState), [`set` functions](/reference/react/useState#setstate), [`useMemo`](/reference/react/useMemo), or [`useReducer`](/reference/react/useReducer)
-- Some class component methods like [`constructor`](/reference/react/Component#constructor), [`render`](/reference/react/Component#render), [`shouldComponentUpdate`](/reference/react/Component#shouldcomponentupdate) ([see the whole list](https://reactjs.org/docs/strict-mode.html#detecting-unexpected-side-effects))
+- உங்கள் component function body (top-level logic மட்டும்; எனவே event handlers-க்குள் உள்ள code இதில் சேராது)
+- [`useState`](/reference/react/useState), [`set` functions](/reference/react/useState#setstate), [`useMemo`](/reference/react/useMemo), அல்லது [`useReducer`](/reference/react/useReducer)-க்கு நீங்கள் pass செய்யும் functions
+- [`constructor`](/reference/react/Component#constructor), [`render`](/reference/react/Component#render), [`shouldComponentUpdate`](/reference/react/Component#shouldcomponentupdate) போன்ற சில class component methods ([முழு பட்டியலை பார்க்கவும்](https://reactjs.org/docs/strict-mode.html#detecting-unexpected-side-effects))
 
-If a function is pure, running it twice does not change its behavior because a pure function produces the same result every time. However, if a function is impure (for example, it mutates the data it receives), running it twice tends to be noticeable (that's what makes it impure!) This helps you spot and fix the bug early.
+ஒரு function pure என்றால், அதை இருமுறை run செய்தாலும் அதன் behavior மாறாது; ஏனெனில் pure function ஒவ்வொரு முறையும் அதே result தரும். ஆனால் ஒரு function impure என்றால் (உதாரணமாக, அது பெறும் data-வை mutate செய்தால்), அதை இருமுறை run செய்வது தெளிவாக தெரியும் (அதுவே அதை impure ஆக்குகிறது!) இதனால் bug-ஐ ஆரம்பத்திலேயே கண்டுபிடித்து fix செய்ய முடியும்.
 
-**Here is an example to illustrate how double rendering in Strict Mode helps you find bugs early.**
+**Strict Mode-இல் double rendering bugs-ஐ ஆரம்பத்திலேயே கண்டுபிடிக்க எப்படி உதவுகிறது என்பதை விளக்கும் example இதோ.**
 
-This `StoryTray` component takes an array of `stories` and adds one last "Create Story" item at the end:
+இந்த `StoryTray` component `stories` array-ஐ எடுத்து, முடிவில் கடைசி "Story உருவாக்கு" item ஒன்றை சேர்க்கிறது:
 
 <Sandpack>
 
@@ -163,8 +163,8 @@ import { useState } from 'react';
 import StoryTray from './StoryTray.js';
 
 let initialStories = [
-  {id: 0, label: "Ankit's Story" },
-  {id: 1, label: "Taylor's Story" },
+  {id: 0, label: "Ankit-ன் Story" },
+  {id: 1, label: "Taylor-ன் Story" },
 ];
 
 export default function App() {
@@ -186,7 +186,7 @@ export default function App() {
 ```js src/StoryTray.js active
 export default function StoryTray({ stories }) {
   const items = stories;
-  items.push({ id: 'create', label: 'Create Story' });
+  items.push({ id: 'create', label: 'Story உருவாக்கு' });
   return (
     <ul>
       {items.map(story => (
@@ -222,9 +222,9 @@ li {
 
 </Sandpack>
 
-There is a mistake in the code above. However, it is easy to miss because the initial output appears correct.
+மேலுள்ள code-இல் ஒரு தவறு உள்ளது. ஆனால் initial output சரியாகத் தோன்றுவதால் அதை தவறவிடுவது சாத்தியம்.
 
-This mistake will become more noticeable if the `StoryTray` component re-renders multiple times. For example, let's make the `StoryTray` re-render with a different background color whenever you hover over it:
+`StoryTray` component பல முறை re-render ஆனால் இந்த தவறு மேலும் தெளிவாக தெரியும். உதாரணமாக, அதன் மேல் hover செய்யும் ஒவ்வொரு முறையும் வேறு background color உடன் `StoryTray` re-render ஆகும்படி செய்வோம்:
 
 <Sandpack>
 
@@ -243,8 +243,8 @@ import { useState } from 'react';
 import StoryTray from './StoryTray.js';
 
 let initialStories = [
-  {id: 0, label: "Ankit's Story" },
-  {id: 1, label: "Taylor's Story" },
+  {id: 0, label: "Ankit-ன் Story" },
+  {id: 1, label: "Taylor-ன் Story" },
 ];
 
 export default function App() {
@@ -269,7 +269,7 @@ import { useState } from 'react';
 export default function StoryTray({ stories }) {
   const [isHover, setIsHover] = useState(false);
   const items = stories;
-  items.push({ id: 'create', label: 'Create Story' });
+  items.push({ id: 'create', label: 'Story உருவாக்கு' });
   return (
     <ul
       onPointerEnter={() => setIsHover(true)}
@@ -311,20 +311,20 @@ li {
 
 </Sandpack>
 
-Notice how every time you hover over the `StoryTray` component, "Create Story" gets added to the list again. The intention of the code was to add it once at the end. But `StoryTray` directly modifies the `stories` array from the props. Every time `StoryTray` renders, it adds "Create Story" again at the end of the same array. In other words, `StoryTray` is not a pure function--running it multiple times produces different results.
+`StoryTray` component மீது hover செய்யும் ஒவ்வொரு முறையும் "Story உருவாக்கு" மீண்டும் list-க்கு சேர்க்கப்படுவதை கவனியுங்கள். Code-ன் நோக்கம் அதை முடிவில் ஒருமுறை மட்டும் சேர்ப்பதே. ஆனால் `StoryTray` props-இலிருந்து வந்த `stories` array-ஐ நேரடியாக modify செய்கிறது. `StoryTray` render ஆகும் ஒவ்வொரு முறையும், அதே array-ன் முடிவில் "Story உருவாக்கு" மீண்டும் சேர்க்கப்படுகிறது. வேறு வார்த்தைகளில், `StoryTray` pure function அல்ல--அதை பல முறை run செய்தால் வெவ்வேறு results கிடைக்கும்.
 
-To fix this problem, you can make a copy of the array, and modify that copy instead of the original one:
+இந்த பிரச்சினையை fix செய்ய, array-ன் copy ஒன்றை உருவாக்கி, original array-க்கு பதிலாக அந்த copy-ஐ modify செய்யலாம்:
 
 ```js {2}
 export default function StoryTray({ stories }) {
-  const items = stories.slice(); // Clone the array
+  const items = stories.slice(); // Array-ஐ clone செய்
   // ✅ Good: Pushing into a new array
-  items.push({ id: 'create', label: 'Create Story' });
+  items.push({ id: 'create', label: 'Story உருவாக்கு' });
 ```
 
-This would [make the `StoryTray` function pure.](/learn/keeping-components-pure) Each time it is called, it would only modify a new copy of the array, and would not affect any external objects or variables. This solves the bug, but you had to make the component re-render more often before it became obvious that something is wrong with its behavior.
+இது [`StoryTray` function-ஐ pure ஆக்கும்.](/learn/keeping-components-pure) அது call செய்யப்படும் ஒவ்வொரு முறையும், array-ன் புதிய copy-ஐ மட்டுமே modify செய்யும்; எந்த external objects அல்லது variables-ஐயும் பாதிக்காது. இது bug-ஐ தீர்க்கிறது, ஆனால் அதன் behavior-இல் ஏதோ தவறு இருப்பது தெளிவாகத் தெரியும் முன் component அதிகமாக re-render ஆக வேண்டியிருந்தது.
 
-**In the original example, the bug wasn't obvious. Now let's wrap the original (buggy) code in `<StrictMode>`:**
+**Original example-இல் bug தெளிவாக தெரியவில்லை. இப்போது original (buggy) code-ஐ `<StrictMode>`-இல் wrap செய்வோம்:**
 
 <Sandpack>
 
@@ -348,8 +348,8 @@ import { useState } from 'react';
 import StoryTray from './StoryTray.js';
 
 let initialStories = [
-  {id: 0, label: "Ankit's Story" },
-  {id: 1, label: "Taylor's Story" },
+  {id: 0, label: "Ankit-ன் Story" },
+  {id: 1, label: "Taylor-ன் Story" },
 ];
 
 export default function App() {
@@ -371,7 +371,7 @@ export default function App() {
 ```js src/StoryTray.js active
 export default function StoryTray({ stories }) {
   const items = stories;
-  items.push({ id: 'create', label: 'Create Story' });
+  items.push({ id: 'create', label: 'Story உருவாக்கு' });
   return (
     <ul>
       {items.map(story => (
@@ -407,7 +407,7 @@ li {
 
 </Sandpack>
 
-**Strict Mode *always* calls your rendering function twice, so you can see the mistake right away** ("Create Story" appears twice). This lets you notice such mistakes early in the process. When you fix your component to render in Strict Mode, you *also* fix many possible future production bugs like the hover functionality from before:
+**Strict Mode உங்கள் rendering function-ஐ *எப்போதும்* இருமுறை call செய்கிறது; எனவே தவறை உடனே பார்க்க முடியும்** ("Story உருவாக்கு" இருமுறை தோன்றுகிறது). இதனால் இத்தகைய தவறுகளை process ஆரம்பத்திலேயே கவனிக்க முடியும். உங்கள் component Strict Mode-இல் render ஆகுமாறு fix செய்தால், முன்னிருந்த hover functionality போன்ற பல சாத்தியமான future production bugs-ஐயும் *அதே நேரத்தில்* fix செய்கிறீர்கள்:
 
 <Sandpack>
 
@@ -431,8 +431,8 @@ import { useState } from 'react';
 import StoryTray from './StoryTray.js';
 
 let initialStories = [
-  {id: 0, label: "Ankit's Story" },
-  {id: 1, label: "Taylor's Story" },
+  {id: 0, label: "Ankit-ன் Story" },
+  {id: 1, label: "Taylor-ன் Story" },
 ];
 
 export default function App() {
@@ -456,8 +456,8 @@ import { useState } from 'react';
 
 export default function StoryTray({ stories }) {
   const [isHover, setIsHover] = useState(false);
-  const items = stories.slice(); // Clone the array
-  items.push({ id: 'create', label: 'Create Story' });
+  const items = stories.slice(); // Array-ஐ clone செய்
+  items.push({ id: 'create', label: 'Story உருவாக்கு' });
   return (
     <ul
       onPointerEnter={() => setIsHover(true)}
@@ -499,29 +499,29 @@ li {
 
 </Sandpack>
 
-Without Strict Mode, it was easy to miss the bug until you added more re-renders. Strict Mode made the same bug appear right away. Strict Mode helps you find bugs before you push them to your team and to your users.
+Strict Mode இல்லாமல், மேலும் re-renders சேர்க்கும் வரை bug-ஐ தவறவிடுவது நேரடியாக இருந்தது. Strict Mode அதே bug-ஐ உடனே தோன்றச் செய்தது. உங்கள் team-க்கும் users-க்கும் push செய்வதற்கு முன் bugs-ஐ கண்டுபிடிக்க Strict Mode உதவுகிறது.
 
-[Read more about keeping components pure.](/learn/keeping-components-pure)
+[Components pure ஆக வைத்திருப்பது பற்றி மேலும் வாசிக்கவும்.](/learn/keeping-components-pure)
 
 <Note>
 
-If you have [React DevTools](/learn/react-developer-tools) installed, any `console.log` calls during the second render call will appear slightly dimmed. React DevTools also offers a setting (off by default) to suppress them completely.
+[React DevTools](/learn/react-developer-tools) installed இருந்தால், second render call-இல் வரும் `console.log` calls சற்று dimmed ஆகத் தோன்றும். அவற்றை முழுமையாக suppress செய்ய React DevTools ஒரு setting-ஐயும் வழங்குகிறது (default ஆக off).
 
 </Note>
 
 ---
 
-### Fixing bugs found by re-running Effects in development {/*fixing-bugs-found-by-re-running-effects-in-development*/}
+### Development-இல் Effects re-run செய்வதால் கண்டுபிடிக்கப்படும் bugs-ஐ சரிசெய்தல் {/*fixing-bugs-found-by-re-running-effects-in-development*/}
 
-Strict Mode can also help find bugs in [Effects.](/learn/synchronizing-with-effects)
+Strict Mode [Effects](/learn/synchronizing-with-effects)-இல் bugs கண்டுபிடிக்கவும் உதவும்.
 
-Every Effect has some setup code and may have some cleanup code. Normally, React calls setup when the component *mounts* (is added to the screen) and calls cleanup when the component *unmounts* (is removed from the screen). React then calls cleanup and setup again if its dependencies changed since the last render.
+ஒவ்வொரு Effect-க்கும் சில setup code இருக்கும்; cleanup code-உம் இருக்கலாம். பொதுவாக, component *mount* ஆகும் போது (screen-க்கு சேர்க்கப்படும் போது) React setup call செய்கிறது; component *unmount* ஆகும் போது (screen-இலிருந்து நீக்கப்படும் போது) cleanup call செய்கிறது. கடைசி render-இலிருந்து dependencies மாறியிருந்தால், React cleanup மற்றும் setup-ஐ மீண்டும் call செய்கிறது.
 
-When Strict Mode is on, React will also run **one extra setup+cleanup cycle in development for every Effect.** This may feel surprising, but it helps reveal subtle bugs that are hard to catch manually.
+Strict Mode on ஆக இருந்தால், React ஒவ்வொரு Effect-க்கும் **development-இல் கூடுதலாக ஒரு setup+cleanup cycle** run செய்யும். இது ஆச்சரியமாகத் தோன்றலாம், ஆனால் manually பிடிக்க கடினமான subtle bugs-ஐ வெளிப்படுத்த உதவுகிறது.
 
-**Here is an example to illustrate how re-running Effects in Strict Mode helps you find bugs early.**
+**Strict Mode-இல் Effects re-run செய்வது bugs-ஐ ஆரம்பத்திலேயே கண்டுபிடிக்க எப்படி உதவுகிறது என்பதை விளக்கும் example இதோ.**
 
-Consider this example that connects a component to a chat:
+Component ஒன்றை chat-க்கு connect செய்யும் இந்த example-ஐ கவனியுங்கள்:
 
 <Sandpack>
 
@@ -547,7 +547,7 @@ export default function ChatRoom() {
     const connection = createConnection(serverUrl, roomId);
     connection.connect();
   }, []);
-  return <h1>Welcome to the {roomId} room!</h1>;
+  return <h1>{roomId} room-க்கு வரவேற்கிறோம்!</h1>;
 }
 ```
 
@@ -558,12 +558,12 @@ export function createConnection(serverUrl, roomId) {
   // A real implementation would actually connect to the server
   return {
     connect() {
-      console.log('✅ Connecting to "' + roomId + '" room at ' + serverUrl + '...');
+      console.log('✅ "' + roomId + '" room-க்கு ' + serverUrl + '-இல் connect செய்கிறது...');
       connections++;
       console.log('Active connections: ' + connections);
     },
     disconnect() {
-      console.log('❌ Disconnected from "' + roomId + '" room at ' + serverUrl);
+      console.log('❌ "' + roomId + '" room-இலிருந்து ' + serverUrl + '-இல் disconnect செய்யப்பட்டது');
       connections--;
       console.log('Active connections: ' + connections);
     }
@@ -578,9 +578,9 @@ button { margin-left: 10px; }
 
 </Sandpack>
 
-There is an issue with this code, but it might not be immediately clear.
+இந்த code-இல் ஒரு issue உள்ளது, ஆனால் அது உடனடியாக தெளிவாகத் தெரியாமல் இருக்கலாம்.
 
-To make the issue more obvious, let's implement a feature. In the example below, `roomId` is not hardcoded. Instead, the user can select the `roomId` that they want to connect to from a dropdown. Click "Open chat" and then select different chat rooms one by one. Keep track of the number of active connections in the console:
+Issue-ஐ தெளிவாக காட்ட, ஒரு feature implement செய்வோம். கீழுள்ள example-இல், `roomId` hardcoded இல்லை. அதற்கு பதிலாக, user dropdown-இலிருந்து connect செய்ய விரும்பும் `roomId`-ஐ select செய்யலாம். "Chat-ஐ திற" click செய்து, பிறகு வெவ்வேறு chat rooms-ஐ ஒன்றன்பின் ஒன்றாக select செய்யுங்கள். Console-இல் active connections எண்ணிக்கையை கவனியுங்கள்:
 
 <Sandpack>
 
@@ -606,7 +606,7 @@ function ChatRoom({ roomId }) {
     connection.connect();
   }, [roomId]);
 
-  return <h1>Welcome to the {roomId} room!</h1>;
+  return <h1>{roomId} room-க்கு வரவேற்கிறோம்!</h1>;
 }
 
 export default function App() {
@@ -615,7 +615,7 @@ export default function App() {
   return (
     <>
       <label>
-        Choose the chat room:{' '}
+        Chat room-ஐ தேர்ந்தெடுக்கவும்:{' '}
         <select
           value={roomId}
           onChange={e => setRoomId(e.target.value)}
@@ -626,7 +626,7 @@ export default function App() {
         </select>
       </label>
       <button onClick={() => setShow(!show)}>
-        {show ? 'Close chat' : 'Open chat'}
+        {show ? 'Chat-ஐ மூடு' : 'Chat-ஐ திற'}
       </button>
       {show && <hr />}
       {show && <ChatRoom roomId={roomId} />}
@@ -642,12 +642,12 @@ export function createConnection(serverUrl, roomId) {
   // A real implementation would actually connect to the server
   return {
     connect() {
-      console.log('✅ Connecting to "' + roomId + '" room at ' + serverUrl + '...');
+      console.log('✅ "' + roomId + '" room-க்கு ' + serverUrl + '-இல் connect செய்கிறது...');
       connections++;
       console.log('Active connections: ' + connections);
     },
     disconnect() {
-      console.log('❌ Disconnected from "' + roomId + '" room at ' + serverUrl);
+      console.log('❌ "' + roomId + '" room-இலிருந்து ' + serverUrl + '-இல் disconnect செய்யப்பட்டது');
       connections--;
       console.log('Active connections: ' + connections);
     }
@@ -662,7 +662,7 @@ button { margin-left: 10px; }
 
 </Sandpack>
 
-You'll notice that the number of open connections always keeps growing. In a real app, this would cause performance and network problems. The issue is that [your Effect is missing a cleanup function:](/learn/synchronizing-with-effects#step-3-add-cleanup-if-needed)
+Open connections எண்ணிக்கை தொடர்ந்து அதிகரித்துக்கொண்டே இருப்பதை கவனிப்பீர்கள். உண்மையான app-இல், இது performance மற்றும் network பிரச்சினைகளை ஏற்படுத்தும். Issue என்னவென்றால், [உங்கள் Effect-இல் cleanup function இல்லை:](/learn/synchronizing-with-effects#step-3-add-cleanup-if-needed)
 
 ```js {4}
   useEffect(() => {
@@ -672,9 +672,9 @@ You'll notice that the number of open connections always keeps growing. In a rea
   }, [roomId]);
 ```
 
-Now that your Effect "cleans up" after itself and destroys the outdated connections, the leak is solved. However, notice that the problem did not become visible until you've added more features (the select box).
+இப்போது உங்கள் Effect தன்னைத்தானே "clean up" செய்து outdated connections-ஐ destroy செய்வதால் leak தீர்கிறது. ஆனால், மேலும் features (select box) சேர்க்கும் வரை பிரச்சினை visible ஆகவில்லை என்பதை கவனியுங்கள்.
 
-**In the original example, the bug wasn't obvious. Now let's wrap the original (buggy) code in `<StrictMode>`:**
+**Original example-இல் bug தெளிவாக தெரியவில்லை. இப்போது original (buggy) code-ஐ `<StrictMode>`-இல் wrap செய்வோம்:**
 
 <Sandpack>
 
@@ -705,7 +705,7 @@ export default function ChatRoom() {
     const connection = createConnection(serverUrl, roomId);
     connection.connect();
   }, []);
-  return <h1>Welcome to the {roomId} room!</h1>;
+  return <h1>{roomId} room-க்கு வரவேற்கிறோம்!</h1>;
 }
 ```
 
@@ -716,12 +716,12 @@ export function createConnection(serverUrl, roomId) {
   // A real implementation would actually connect to the server
   return {
     connect() {
-      console.log('✅ Connecting to "' + roomId + '" room at ' + serverUrl + '...');
+      console.log('✅ "' + roomId + '" room-க்கு ' + serverUrl + '-இல் connect செய்கிறது...');
       connections++;
       console.log('Active connections: ' + connections);
     },
     disconnect() {
-      console.log('❌ Disconnected from "' + roomId + '" room at ' + serverUrl);
+      console.log('❌ "' + roomId + '" room-இலிருந்து ' + serverUrl + '-இல் disconnect செய்யப்பட்டது');
       connections--;
       console.log('Active connections: ' + connections);
     }
@@ -736,9 +736,9 @@ button { margin-left: 10px; }
 
 </Sandpack>
 
-**With Strict Mode, you immediately see that there is a problem** (the number of active connections jumps to 2). Strict Mode runs an extra setup+cleanup cycle for every Effect. This Effect has no cleanup logic, so it creates an extra connection but doesn't destroy it. This is a hint that you're missing a cleanup function.
+**Strict Mode உடன், பிரச்சினை இருப்பதை உடனே பார்க்கிறீர்கள்** (active connections எண்ணிக்கை 2 ஆக தாவுகிறது). Strict Mode ஒவ்வொரு Effect-க்கும் கூடுதல் setup+cleanup cycle run செய்கிறது. இந்த Effect-க்கு cleanup logic இல்லை; எனவே இது extra connection உருவாக்குகிறது, ஆனால் அதை destroy செய்யாது. இது cleanup function missing என்பதற்கான hint.
 
-Strict Mode lets you notice such mistakes early in the process. When you fix your Effect by adding a cleanup function in Strict Mode, you *also* fix many possible future production bugs like the select box from before:
+இத்தகைய தவறுகளை process ஆரம்பத்திலேயே கவனிக்க Strict Mode உதவுகிறது. Strict Mode-இல் cleanup function சேர்த்து Effect-ஐ fix செய்தால், முன்னிருந்த select box போன்ற பல சாத்தியமான future production bugs-ஐயும் *அதே நேரத்தில்* fix செய்கிறீர்கள்:
 
 <Sandpack>
 
@@ -770,7 +770,7 @@ function ChatRoom({ roomId }) {
     return () => connection.disconnect();
   }, [roomId]);
 
-  return <h1>Welcome to the {roomId} room!</h1>;
+  return <h1>{roomId} room-க்கு வரவேற்கிறோம்!</h1>;
 }
 
 export default function App() {
@@ -779,7 +779,7 @@ export default function App() {
   return (
     <>
       <label>
-        Choose the chat room:{' '}
+        Chat room-ஐ தேர்ந்தெடுக்கவும்:{' '}
         <select
           value={roomId}
           onChange={e => setRoomId(e.target.value)}
@@ -790,7 +790,7 @@ export default function App() {
         </select>
       </label>
       <button onClick={() => setShow(!show)}>
-        {show ? 'Close chat' : 'Open chat'}
+        {show ? 'Chat-ஐ மூடு' : 'Chat-ஐ திற'}
       </button>
       {show && <hr />}
       {show && <ChatRoom roomId={roomId} />}
@@ -806,12 +806,12 @@ export function createConnection(serverUrl, roomId) {
   // A real implementation would actually connect to the server
   return {
     connect() {
-      console.log('✅ Connecting to "' + roomId + '" room at ' + serverUrl + '...');
+      console.log('✅ "' + roomId + '" room-க்கு ' + serverUrl + '-இல் connect செய்கிறது...');
       connections++;
       console.log('Active connections: ' + connections);
     },
     disconnect() {
-      console.log('❌ Disconnected from "' + roomId + '" room at ' + serverUrl);
+      console.log('❌ "' + roomId + '" room-இலிருந்து ' + serverUrl + '-இல் disconnect செய்யப்பட்டது');
       connections--;
       console.log('Active connections: ' + connections);
     }
@@ -826,22 +826,22 @@ button { margin-left: 10px; }
 
 </Sandpack>
 
-Notice how the active connection count in the console doesn't keep growing anymore.
+Console-இல் active connection count இனி தொடர்ந்து அதிகரிக்கவில்லை என்பதை கவனியுங்கள்.
 
-Without Strict Mode, it was easy to miss that your Effect needed cleanup. By running *setup → cleanup → setup* instead of *setup* for your Effect in development, Strict Mode made the missing cleanup logic more noticeable.
+Strict Mode இல்லாமல், உங்கள் Effect-க்கு cleanup தேவை என்பதை தவறவிடுவது நேரடியாக இருந்தது. Development-இல் உங்கள் Effect-க்கு *setup* மட்டும் run செய்வதற்குப் பதிலாக *setup → cleanup → setup* run செய்வதால், missing cleanup logic-ஐ Strict Mode தெளிவாக காட்டியது.
 
-[Read more about implementing Effect cleanup.](/learn/synchronizing-with-effects#how-to-handle-the-effect-firing-twice-in-development)
+[Effect cleanup implement செய்வது பற்றி மேலும் வாசிக்கவும்.](/learn/synchronizing-with-effects#how-to-handle-the-effect-firing-twice-in-development)
 
 ---
-### Fixing bugs found by re-running ref callbacks in development {/*fixing-bugs-found-by-re-running-ref-callbacks-in-development*/}
+### Development-இல் ref callbacks re-run செய்வதால் கண்டுபிடிக்கப்படும் bugs-ஐ சரிசெய்தல் {/*fixing-bugs-found-by-re-running-ref-callbacks-in-development*/}
 
-Strict Mode can also help find bugs in [callbacks refs.](/learn/manipulating-the-dom-with-refs)
+Strict Mode [callback refs](/learn/manipulating-the-dom-with-refs)-இலுள்ள bugs கண்டுபிடிக்கவும் உதவும்.
 
-Every callback `ref` has some setup code and may have some cleanup code. Normally, React calls setup when the element is *created* (is added to the DOM) and calls cleanup when the element is *removed* (is removed from the DOM).
+ஒவ்வொரு callback `ref`-க்கும் சில setup code இருக்கும்; cleanup code-உம் இருக்கலாம். பொதுவாக, element *created* ஆகும் போது (DOM-க்கு சேர்க்கப்படும் போது) React setup call செய்கிறது; element *removed* ஆகும் போது (DOM-இலிருந்து நீக்கப்படும் போது) cleanup call செய்கிறது.
 
-When Strict Mode is on, React will also run **one extra setup+cleanup cycle in development for every callback `ref`.** This may feel surprising, but it helps reveal subtle bugs that are hard to catch manually.
+Strict Mode on ஆக இருந்தால், React ஒவ்வொரு callback `ref`-க்கும் **development-இல் கூடுதலாக ஒரு setup+cleanup cycle** run செய்யும். இது ஆச்சரியமாகத் தோன்றலாம், ஆனால் manually பிடிக்க கடினமான subtle bugs-ஐ வெளிப்படுத்த உதவுகிறது.
 
-Consider this example, which allows you to select an animal and then scroll to one of them. Notice when you switch from "Cats" to "Dogs", the console logs show that the number of animals in the list keeps growing, and the "Scroll to" buttons stop working:
+ஒரு பட்டியலில் இருந்து item வகையை select செய்து, அவற்றில் ஒன்றுக்கு scroll செய்ய அனுமதிக்கும் இந்த example-ஐ கவனியுங்கள். "Neo" மற்றும் "Millie" இடையே switch செய்தால், list-இல் items எண்ணிக்கை தொடர்ந்து அதிகரிப்பதை console logs காட்டும்; மேலும் "இங்கு scroll செய்" buttons வேலை செய்யாமல் போகும்:
 
 <Sandpack>
 
@@ -884,7 +884,7 @@ export default function CatFriends() {
       </nav>
       <hr />
       <nav>
-        <span>Scroll to:</span>{cats.map((cat, index) => (
+        <span>இங்கு scroll செய்:</span>{cats.map((cat, index) => (
           <button key={cat.src} onClick={() => scrollToCat(index)}>
             {index}
           </button>
@@ -899,9 +899,9 @@ export default function CatFriends() {
                 const list = itemsRef.current;
                 const item = {cat: cat, node};
                 list.push(item);
-                console.log(`✅ Adding cat to the map. Total cats: ${list.length}`);
+                console.log(`✅ Map-க்கு item சேர்க்கிறது. மொத்த items: ${list.length}`);
                 if (list.length > 10) {
-                  console.log('❌ Too many cats in the list!');
+                  console.log('❌ List-இல் items மிக அதிகம்!');
                 }
                 return () => {
                   // 🚩 No cleanup, this is a bug!
@@ -960,9 +960,9 @@ li {
 </Sandpack>
 
 
-**This is a production bug!** Since the ref callback doesn't remove animals from the list in the cleanup, the list of animals keeps growing. This is a memory leak that can cause performance problems in a real app, and breaks the behavior of the app.
+**இது production bug!** Ref callback cleanup-இல் items-ஐ list-இலிருந்து remove செய்யாததால், items list தொடர்ந்து அதிகரிக்கிறது. இது உண்மையான app-இல் performance பிரச்சினைகளை ஏற்படுத்தக்கூடிய memory leak; மேலும் app behavior-ஐ உடைக்கிறது.
 
-The issue is the ref callback doesn't cleanup after itself:
+Issue என்னவென்றால், ref callback தன்னைத்தானே cleanup செய்யவில்லை:
 
 ```js {6-8}
 <li
@@ -977,7 +977,7 @@ The issue is the ref callback doesn't cleanup after itself:
 </li>
 ```
 
-Now let's wrap the original (buggy) code in `<StrictMode>`:
+இப்போது original (buggy) code-ஐ `<StrictMode>`-இல் wrap செய்வோம்:
 
 <Sandpack>
 
@@ -1025,7 +1025,7 @@ export default function CatFriends() {
       </nav>
       <hr />
       <nav>
-        <span>Scroll to:</span>{cats.map((cat, index) => (
+        <span>இங்கு scroll செய்:</span>{cats.map((cat, index) => (
           <button key={cat.src} onClick={() => scrollToCat(index)}>
             {index}
           </button>
@@ -1040,9 +1040,9 @@ export default function CatFriends() {
                 const list = itemsRef.current;
                 const item = {cat: cat, node};
                 list.push(item);
-                console.log(`✅ Adding cat to the map. Total cats: ${list.length}`);
+                console.log(`✅ Map-க்கு item சேர்க்கிறது. மொத்த items: ${list.length}`);
                 if (list.length > 10) {
-                  console.log('❌ Too many cats in the list!');
+                  console.log('❌ List-இல் items மிக அதிகம்!');
                 }
                 return () => {
                   // 🚩 No cleanup, this is a bug!
@@ -1100,9 +1100,9 @@ li {
 
 </Sandpack>
 
-**With Strict Mode, you immediately see that there is a problem**. Strict Mode runs an extra setup+cleanup cycle for every callback ref. This callback ref has no cleanup logic, so it adds refs but doesn't remove them. This is a hint that you're missing a cleanup function.
+**Strict Mode உடன், பிரச்சினை இருப்பதை உடனே பார்க்கிறீர்கள்**. Strict Mode ஒவ்வொரு callback ref-க்கும் கூடுதல் setup+cleanup cycle run செய்கிறது. இந்த callback ref-க்கு cleanup logic இல்லை; எனவே இது refs சேர்க்கிறது, ஆனால் அவற்றை remove செய்யாது. இது cleanup function missing என்பதற்கான hint.
 
-Strict Mode lets you eagerly find mistakes in callback refs. When you fix your callback by adding a cleanup function in Strict Mode, you *also* fix many possible future production bugs like the "Scroll to" bug from before:
+Callback refs-இல் உள்ள தவறுகளை விரைவாக கண்டுபிடிக்க Strict Mode உதவுகிறது. Strict Mode-இல் cleanup function சேர்த்து callback-ஐ fix செய்தால், முன் இருந்த "இங்கு scroll செய்" bug போன்ற பல சாத்தியமான future production bugs-ஐயும் *அதே நேரத்தில்* fix செய்கிறீர்கள்:
 
 <Sandpack>
 
@@ -1150,7 +1150,7 @@ export default function CatFriends() {
       </nav>
       <hr />
       <nav>
-        <span>Scroll to:</span>{cats.map((cat, index) => (
+        <span>இங்கு scroll செய்:</span>{cats.map((cat, index) => (
           <button key={cat.src} onClick={() => scrollToCat(index)}>
             {index}
           </button>
@@ -1165,13 +1165,13 @@ export default function CatFriends() {
                 const list = itemsRef.current;
                 const item = {cat: cat, node};
                 list.push(item);
-                console.log(`✅ Adding cat to the map. Total cats: ${list.length}`);
+                console.log(`✅ Map-க்கு item சேர்க்கிறது. மொத்த items: ${list.length}`);
                 if (list.length > 10) {
-                  console.log('❌ Too many cats in the list!');
+                  console.log('❌ List-இல் items மிக அதிகம்!');
                 }
                 return () => {
                   list.splice(list.indexOf(item), 1);
-                  console.log(`❌ Removing cat from the map. Total cats: ${itemsRef.current.length}`);
+                  console.log(`❌ Map-இலிருந்து item நீக்குகிறது. மொத்த items: ${itemsRef.current.length}`);
                 }
               }}
             >
@@ -1226,26 +1226,26 @@ li {
 
 </Sandpack>
 
-Now on inital mount in StrictMode, the ref callbacks are all setup, cleaned up, and setup again:
+இப்போது StrictMode-இல் initial mount போது, ref callbacks அனைத்தும் setup செய்யப்படுகின்றன, cleanup செய்யப்படுகின்றன, பின்னர் மீண்டும் setup செய்யப்படுகின்றன:
 
 ```
 ...
-✅ Adding animal to the map. Total animals: 10
+✅ Map-க்கு item சேர்க்கிறது. மொத்த items: 10
 ...
-❌ Removing animal from the map. Total animals: 0
+❌ Map-இலிருந்து item நீக்குகிறது. மொத்த items: 0
 ...
-✅ Adding animal to the map. Total animals: 10
+✅ Map-க்கு item சேர்க்கிறது. மொத்த items: 10
 ```
 
-**This is expected.** Strict Mode confirms that the ref callbacks are cleaned up correctly, so the size never grows above the expected amount. After the fix, there are no memory leaks, and all the features work as expected.
+**இது எதிர்பார்க்கப்பட்டதே.** Ref callbacks சரியாக cleaned up ஆகின்றன என்பதை Strict Mode உறுதி செய்கிறது; எனவே size எதிர்பார்த்த அளவை மீறி வளராது. Fix பிறகு, memory leaks இல்லை, மேலும் எல்லா features-உம் எதிர்பார்த்தபடி வேலை செய்கின்றன.
 
-Without Strict Mode, it was easy to miss the bug until you clicked around to app to notice broken features. Strict Mode made the bugs appear right away, before you push them to production.
+Strict Mode இல்லாமல், app-இல் பல இடங்களில் click செய்து broken features கவனிக்கும் வரை bug-ஐ தவறவிடுவது நேரடியாக இருந்தது. Production-க்கு push செய்வதற்கு முன் bugs உடனே தோன்றும்படி Strict Mode செய்தது.
 
 ---
-### Fixing deprecation warnings enabled by Strict Mode {/*fixing-deprecation-warnings-enabled-by-strict-mode*/}
+### Strict Mode காட்டும் deprecation warnings-ஐ சரிசெய்தல் {/*fixing-deprecation-warnings-enabled-by-strict-mode*/}
 
-React warns if some component anywhere inside a `<StrictMode>` tree uses one of these deprecated APIs:
+`<StrictMode>` tree-க்குள் எங்காவது உள்ள component இந்த deprecated APIs-இல் ஒன்றை பயன்படுத்தினால் React warn செய்யும்:
 
-* `UNSAFE_` class lifecycle methods like [`UNSAFE_componentWillMount`](/reference/react/Component#unsafe_componentwillmount). [See alternatives.](https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html#migrating-from-legacy-lifecycles)
+* [`UNSAFE_componentWillMount`](/reference/react/Component#unsafe_componentwillmount) போன்ற `UNSAFE_` class lifecycle methods. [Alternatives-ஐ பார்க்கவும்.](https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html#migrating-from-legacy-lifecycles)
 
-These APIs are primarily used in older [class components](/reference/react/Component) so they rarely appear in modern apps.
+இந்த APIs முதன்மையாக பழைய [class components](/reference/react/Component)-இல் பயன்படுத்தப்படுகின்றன; எனவே modern apps-இல் அரிதாகவே தோன்றும்.

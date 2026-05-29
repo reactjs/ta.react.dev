@@ -4,9 +4,9 @@ title: <Fragment> (<>...</>)
 
 <Intro>
 
-`<Fragment>`, often used via `<>...</>` syntax, lets you group elements without a wrapper node.
+அடிக்கடி `<>...</>` syntax மூலம் பயன்படுத்தப்படும் `<Fragment>`, wrapper node இல்லாமல் elements-ஐ group செய்ய உதவுகிறது.
 
-<Canary> Fragments can also accept refs, which enable interacting with underlying DOM nodes without adding wrapper elements. See reference and usage below.</Canary>
+<Canary> Fragments refs-ஐயும் accept செய்ய முடியும்; wrapper elements சேர்க்காமல் underlying DOM nodes உடன் interact செய்ய இது உதவுகிறது. Reference மற்றும் usage-ஐ கீழே பார்க்கவும்.</Canary>
 
 ```js
 <>
@@ -21,58 +21,58 @@ title: <Fragment> (<>...</>)
 
 ---
 
-## Reference {/*reference*/}
+## குறிப்பு {/*reference*/}
 
 ### `<Fragment>` {/*fragment*/}
 
-Wrap elements in `<Fragment>` to group them together in situations where you need a single element. Grouping elements in `Fragment` has no effect on the resulting DOM; it is the same as if the elements were not grouped. The empty JSX tag `<></>` is shorthand for `<Fragment></Fragment>` in most cases.
+ஒரே element தேவைப்படும் சூழல்களில் elements-ஐ ஒன்றாக group செய்ய அவற்றை `<Fragment>`-இல் wrap செய்யுங்கள். `Fragment`-இல் elements-ஐ group செய்வதால் resulting DOM-இல் எந்த மாற்றமும் இல்லை; elements group செய்யப்படாதது போலவே இருக்கும். பெரும்பாலான சூழல்களில் empty JSX tag `<></>` என்பது `<Fragment></Fragment>`-க்கு shorthand.
 
 #### Props {/*props*/}
 
-- **optional** `key`: Fragments declared with the explicit `<Fragment>` syntax may have [keys.](/learn/rendering-lists#keeping-list-items-in-order-with-key)
-- <CanaryBadge />  **optional** `ref`: A ref object (e.g. from [`useRef`](/reference/react/useRef)) or [callback function](/reference/react-dom/components/common#ref-callback). React provides a `FragmentInstance` as the ref value that implements methods for interacting with the DOM nodes wrapped by the Fragment.
+- **optional** `key`: Explicit `<Fragment>` syntax மூலம் declare செய்யப்பட்ட Fragments-க்கு [keys](/learn/rendering-lists#keeping-list-items-in-order-with-key) இருக்கலாம்.
+- <CanaryBadge />  **optional** `ref`: Ref object (எ.கா. [`useRef`](/reference/react/useRef)-இலிருந்து) அல்லது [callback function](/reference/react-dom/components/common#ref-callback). Fragment wrap செய்துள்ள DOM nodes உடன் interact செய்ய methods implement செய்யும் `FragmentInstance`-ஐ ref value ஆக React வழங்கும்.
 
 ### <CanaryBadge /> FragmentInstance {/*fragmentinstance*/}
 
-When you pass a ref to a fragment, React provides a `FragmentInstance` object with methods for interacting with the DOM nodes wrapped by the fragment:
+ஒரு fragment-க்கு ref pass செய்தால், fragment wrap செய்துள்ள DOM nodes உடன் interact செய்ய methods கொண்ட `FragmentInstance` object-ஐ React வழங்கும்:
 
 **Event handling methods:**
-- `addEventListener(type, listener, options?)`: Adds an event listener to all first-level DOM children of the Fragment.
-- `removeEventListener(type, listener, options?)`: Removes an event listener from all first-level DOM children of the Fragment.
-- `dispatchEvent(event)`: Dispatches an event to a virtual child of the Fragment to call any added listeners and can bubble to the DOM parent.
+- `addEventListener(type, listener, options?)`: Fragment-ன் அனைத்து first-level DOM children-க்கும் event listener சேர்க்கிறது.
+- `removeEventListener(type, listener, options?)`: Fragment-ன் அனைத்து first-level DOM children-இலிருந்தும் event listener அகற்றுகிறது.
+- `dispatchEvent(event)`: சேர்க்கப்பட்ட listeners-ஐ call செய்ய Fragment-ன் virtual child-க்கு event dispatch செய்கிறது; மேலும் DOM parent-க்கு bubble ஆகலாம்.
 
 **Layout methods:**
-- `compareDocumentPosition(otherNode)`: Compares the document position of the Fragment with another node.
-  - If the Fragment has children, the native `compareDocumentPosition` value is returned.
-  - Empty Fragments will attempt to compare positioning within the React tree and include `Node.DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC`.
-  - Elements that have a different relationship in the React tree and DOM tree due to portaling or other insertions are `Node.DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC`.
-- `getClientRects()`: Returns a flat array of `DOMRect` objects representing the bounding rectangles of all children.
-- `getRootNode()`: Returns the root node containing the Fragment's parent DOM node.
+- `compareDocumentPosition(otherNode)`: Fragment-ன் document position-ஐ மற்றொரு node உடன் compare செய்கிறது.
+  - Fragment-க்கு children இருந்தால், native `compareDocumentPosition` value return செய்யப்படும்.
+  - Empty Fragments React tree-க்குள் positioning-ஐ compare செய்ய முயன்று `Node.DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC`-ஐ சேர்க்கும்.
+  - Portaling அல்லது பிற insertions காரணமாக React tree மற்றும் DOM tree-இல் வேறுபட்ட relationship கொண்ட elements `Node.DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC` ஆகும்.
+- `getClientRects()`: அனைத்து children-ன் bounding rectangles-ஐ represent செய்யும் `DOMRect` objects-ன் flat array-ஐ return செய்கிறது.
+- `getRootNode()`: Fragment-ன் parent DOM node-ஐ கொண்ட root node-ஐ return செய்கிறது.
 
 **Focus management methods:**
-- `focus(options?)`: Focuses the first focusable DOM node in the Fragment. Focus is attempted on nested children depth-first.
-- `focusLast(options?)`: Focuses the last focusable DOM node in the Fragment. Focus is attempted on nested children depth-first.
-- `blur()`: Removes focus if `document.activeElement` is within the Fragment.
+- `focus(options?)`: Fragment-இல் உள்ள முதல் focusable DOM node-ஐ focus செய்கிறது. Nested children மீது depth-first முறையில் focus முயற்சி செய்யப்படும்.
+- `focusLast(options?)`: Fragment-இல் உள்ள கடைசி focusable DOM node-ஐ focus செய்கிறது. Nested children மீது depth-first முறையில் focus முயற்சி செய்யப்படும்.
+- `blur()`: `document.activeElement` Fragment-க்குள் இருந்தால் focus-ஐ அகற்றுகிறது.
 
 **Observer methods:**
-- `observeUsing(observer)`: Starts observing the Fragment's DOM children with an IntersectionObserver or ResizeObserver.
-- `unobserveUsing(observer)`: Stops observing the Fragment's DOM children with the specified observer.
+- `observeUsing(observer)`: IntersectionObserver அல்லது ResizeObserver மூலம் Fragment-ன் DOM children-ஐ observe செய்யத் தொடங்குகிறது.
+- `unobserveUsing(observer)`: குறிப்பிட்ட observer மூலம் Fragment-ன் DOM children-ஐ observe செய்வதை நிறுத்துகிறது.
 
 #### Caveats {/*caveats*/}
 
-- If you want to pass `key` to a Fragment, you can't use the `<>...</>` syntax. You have to explicitly import `Fragment` from `'react'` and render `<Fragment key={yourKey}>...</Fragment>`.
+- Fragment-க்கு `key` pass செய்ய விரும்பினால், `<>...</>` syntax பயன்படுத்த முடியாது. `'react'`-இலிருந்து `Fragment`-ஐ explicit-ஆக import செய்து `<Fragment key={yourKey}>...</Fragment>` render செய்ய வேண்டும்.
 
-- React does not [reset state](/learn/preserving-and-resetting-state) when you go from rendering `<><Child /></>` to `[<Child />]` or back, or when you go from rendering `<><Child /></>` to `<Child />` and back. This only works a single level deep: for example, going from `<><><Child /></></>` to `<Child />` resets the state. See the precise semantics [here.](https://gist.github.com/clemmy/b3ef00f9507909429d8aa0d3ee4f986b)
+- `<><Child /></>` render செய்வதிலிருந்து `[<Child />]`-க்கு அல்லது மீண்டும் அதற்கு செல்லும்போதோ, `<><Child /></>` render செய்வதிலிருந்து `<Child />`-க்கு அல்லது மீண்டும் அதற்கு செல்லும்போதோ React [state-ஐ reset செய்யாது](/learn/preserving-and-resetting-state). இது ஒரே level ஆழத்திற்கே வேலை செய்கிறது: உதாரணமாக, `<><><Child /></></>`-இலிருந்து `<Child />`-க்கு சென்றால் state reset ஆகும். துல்லியமான semantics-ஐ [இங்கே](https://gist.github.com/clemmy/b3ef00f9507909429d8aa0d3ee4f986b) பார்க்கவும்.
 
-- <CanaryBadge /> If you want to pass `ref` to a Fragment, you can't use the `<>...</>` syntax. You have to explicitly import `Fragment` from `'react'` and render `<Fragment ref={yourRef}>...</Fragment>`.
+- <CanaryBadge /> Fragment-க்கு `ref` pass செய்ய விரும்பினால், `<>...</>` syntax பயன்படுத்த முடியாது. `'react'`-இலிருந்து `Fragment`-ஐ explicit-ஆக import செய்து `<Fragment ref={yourRef}>...</Fragment>` render செய்ய வேண்டும்.
 
 ---
 
-## Usage {/*usage*/}
+## பயன்பாடு {/*usage*/}
 
-### Returning multiple elements {/*returning-multiple-elements*/}
+### பல elements return செய்தல் {/*returning-multiple-elements*/}
 
-Use `Fragment`, or the equivalent `<>...</>` syntax, to group multiple elements together. You can use it to put multiple elements in any place where a single element can go. For example, a component can only return one element, but by using a Fragment you can group multiple elements together and then return them as a group:
+பல elements-ஐ ஒன்றாக group செய்ய `Fragment` அல்லது அதற்கு equivalent ஆன `<>...</>` syntax-ஐப் பயன்படுத்துங்கள். ஒரே element செல்லக்கூடிய எந்த இடத்திலும் பல elements வைக்க இதைப் பயன்படுத்தலாம். உதாரணமாக, ஒரு component ஒரே element மட்டும் return செய்ய முடியும்; ஆனால் Fragment பயன்படுத்தி பல elements-ஐ ஒன்றாக group செய்து, பின்னர் அவற்றை group ஆக return செய்யலாம்:
 
 ```js {3,6}
 function Post() {
@@ -85,7 +85,7 @@ function Post() {
 }
 ```
 
-Fragments are useful because grouping elements with a Fragment has no effect on layout or styles, unlike if you wrapped the elements in another container like a DOM element. If you inspect this example with the browser tools, you'll see that all `<h1>` and `<article>` DOM nodes appear as siblings without wrappers around them:
+Fragments பயனுள்ளவை; ஏனெனில் DOM element போன்ற மற்றொரு container-இல் wrap செய்வதைப் போல அல்லாமல், Fragment மூலம் elements group செய்வதால் layout அல்லது styles மீது எந்த தாக்கமும் இல்லை. Browser tools மூலம் இந்த உதாரணத்தை inspect செய்தால், அனைத்து `<h1>` மற்றும் `<article>` DOM nodes-உம் wrappers இல்லாமல் siblings ஆக தோன்றுவதைப் பார்க்கலாம்:
 
 <Sandpack>
 
@@ -125,9 +125,9 @@ function PostBody({ body }) {
 
 <DeepDive>
 
-#### How to write a Fragment without the special syntax? {/*how-to-write-a-fragment-without-the-special-syntax*/}
+#### Special syntax இல்லாமல் Fragment எழுதுவது எப்படி? {/*how-to-write-a-fragment-without-the-special-syntax*/}
 
-The example above is equivalent to importing `Fragment` from React:
+மேலுள்ள உதாரணம் React-இலிருந்து `Fragment` import செய்வதற்கு equivalent:
 
 ```js {1,5,8}
 import { Fragment } from 'react';
@@ -142,15 +142,15 @@ function Post() {
 }
 ```
 
-Usually you won't need this unless you need to [pass a `key` to your `Fragment`.](#rendering-a-list-of-fragments)
+உங்கள் `Fragment`-க்கு [`key` pass செய்ய](#rendering-a-list-of-fragments) வேண்டியதில்லையெனில், பொதுவாக இது தேவையில்லை.
 
 </DeepDive>
 
 ---
 
-### Assigning multiple elements to a variable {/*assigning-multiple-elements-to-a-variable*/}
+### பல elements-ஐ variable-க்கு assign செய்தல் {/*assigning-multiple-elements-to-a-variable*/}
 
-Like any other element, you can assign Fragment elements to variables, pass them as props, and so on:
+மற்ற எந்த element போலவும், Fragment elements-ஐ variables-க்கு assign செய்யலாம், props ஆக pass செய்யலாம், போன்றவை:
 
 ```js
 function CloseDialog() {
@@ -170,9 +170,9 @@ function CloseDialog() {
 
 ---
 
-### Grouping elements with text {/*grouping-elements-with-text*/}
+### Text உடன் elements-ஐ group செய்தல் {/*grouping-elements-with-text*/}
 
-You can use `Fragment` to group text together with components:
+Components உடன் text-ஐ group செய்ய `Fragment` பயன்படுத்தலாம்:
 
 ```js
 function DateRangePicker({ start, end }) {
@@ -189,9 +189,9 @@ function DateRangePicker({ start, end }) {
 
 ---
 
-### Rendering a list of Fragments {/*rendering-a-list-of-fragments*/}
+### Fragments பட்டியலை render செய்தல் {/*rendering-a-list-of-fragments*/}
 
-Here's a situation where you need to write `Fragment` explicitly instead of using the `<></>` syntax. When you [render multiple elements in a loop](/learn/rendering-lists), you need to assign a `key` to each element. If the elements within the loop are Fragments, you need to use the normal JSX element syntax in order to provide the `key` attribute:
+`<></>` syntax பயன்படுத்துவதற்குப் பதிலாக `Fragment`-ஐ explicit-ஆக எழுத வேண்டிய சூழல் இதோ. நீங்கள் [loop-இல் பல elements render செய்யும்போது](/learn/rendering-lists), ஒவ்வொரு element-க்கும் `key` assign செய்ய வேண்டும். Loop-க்குள் உள்ள elements Fragments என்றால், `key` attribute வழங்க normal JSX element syntax பயன்படுத்த வேண்டும்:
 
 ```js {3,6}
 function Blog() {
@@ -204,7 +204,7 @@ function Blog() {
 }
 ```
 
-You can inspect the DOM to verify that there are no wrapper elements around the Fragment children:
+Fragment children சுற்றிலும் wrapper elements இல்லை என்பதை உறுதிசெய்ய DOM-ஐ inspect செய்யலாம்:
 
 <Sandpack>
 
@@ -242,9 +242,9 @@ function PostBody({ body }) {
 
 ---
 
-### <CanaryBadge /> Using Fragment refs for DOM interaction {/*using-fragment-refs-for-dom-interaction*/}
+### <CanaryBadge /> DOM interaction-க்கு Fragment refs பயன்படுத்துதல் {/*using-fragment-refs-for-dom-interaction*/}
 
-Fragment refs allow you to interact with the DOM nodes wrapped by a Fragment without adding extra wrapper elements. This is useful for event handling, visibility tracking, focus management, and replacing deprecated patterns like `ReactDOM.findDOMNode()`.
+Fragment refs, கூடுதல் wrapper elements சேர்க்காமல் Fragment wrap செய்துள்ள DOM nodes உடன் interact செய்ய அனுமதிக்கின்றன. Event handling, visibility tracking, focus management, மற்றும் `ReactDOM.findDOMNode()` போன்ற deprecated patterns-ஐ மாற்றுவதற்கு இது பயனுள்ளதாகும்.
 
 ```js
 import { Fragment } from 'react';
@@ -262,9 +262,9 @@ function ClickableFragment({ children, onClick }) {
 ```
 ---
 
-### <CanaryBadge /> Tracking visibility with Fragment refs {/*tracking-visibility-with-fragment-refs*/}
+### <CanaryBadge /> Fragment refs மூலம் visibility track செய்தல் {/*tracking-visibility-with-fragment-refs*/}
 
-Fragment refs are useful for visibility tracking and intersection observation. This enables you to monitor when content becomes visible without requiring the child Components to expose refs:
+Visibility tracking மற்றும் intersection observation-க்கு Fragment refs பயனுள்ளவை. Child Components refs expose செய்ய வேண்டிய அவசியமின்றி, content எப்போது visible ஆகிறது என்பதை monitor செய்ய இது உதவுகிறது:
 
 ```js {19,21,31-34}
 import { Fragment, useRef, useLayoutEffect } from 'react';
@@ -305,13 +305,13 @@ function MyComponent() {
 }
 ```
 
-This pattern is an alternative to Effect-based visibility logging, which is an anti-pattern in most cases. Relying on Effects alone does not guarantee that the rendered Component is observable by the user.
+இந்த pattern Effect-based visibility logging-க்கு மாற்று; அது பெரும்பாலான சூழல்களில் anti-pattern. Effects மட்டும் நம்புவது, rendered Component user-க்கு observable ஆக இருப்பதை guarantee செய்யாது.
 
 ---
 
-### <CanaryBadge /> Focus management with Fragment refs {/*focus-management-with-fragment-refs*/}
+### <CanaryBadge /> Fragment refs மூலம் focus management {/*focus-management-with-fragment-refs*/}
 
-Fragment refs provide focus management methods that work across all DOM nodes within the Fragment:
+Fragment refs, Fragment-க்குள் உள்ள அனைத்து DOM nodes முழுவதும் வேலை செய்யும் focus management methods-ஐ வழங்குகின்றன:
 
 ```js
 import { Fragment, useRef } from 'react';
@@ -325,4 +325,4 @@ function FocusFragment({ children }) {
 }
 ```
 
-The `focus()` method focuses the first focusable element within the Fragment, while `focusLast()` focuses the last focusable element.
+`focus()` method Fragment-க்குள் உள்ள முதல் focusable element-ஐ focus செய்கிறது; `focusLast()` கடைசி focusable element-ஐ focus செய்கிறது.

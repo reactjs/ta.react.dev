@@ -3,47 +3,47 @@ title: Incremental Adoption
 ---
 
 <Intro>
-React Compiler can be adopted incrementally, allowing you to try it on specific parts of your codebase first. This guide shows you how to gradually roll out the compiler in existing projects.
+React Compiler-ஐ incremental-ஆக adopt செய்யலாம்; முதலில் உங்கள் codebase-ன் குறிப்பிட்ட பகுதிகளில் முயற்சிக்க இது அனுமதிக்கிறது. Existing projects-இல் compiler-ஐ படிப்படியாக rollout செய்வது எப்படி என்பதை இந்த guide காட்டுகிறது.
 </Intro>
 
 <YouWillLearn>
 
-* Why incremental adoption is recommended
-* Using Babel overrides for directory-based adoption
-* Using the "use memo" directive for opt-in compilation
-* Using the "use no memo" directive to exclude components
-* Runtime feature flags with gating
-* Monitoring your adoption progress
+* Incremental adoption ஏன் பரிந்துரைக்கப்படுகிறது
+* Directory-based adoption-க்கு Babel overrides பயன்படுத்துதல்
+* Opt-in compilation-க்கு "use memo" directive பயன்படுத்துதல்
+* Components-ஐ exclude செய்ய "use no memo" directive பயன்படுத்துதல்
+* Gating உடன் runtime feature flags
+* உங்கள் adoption progress-ஐ monitor செய்தல்
 
 </YouWillLearn>
 
-## Why Incremental Adoption? {/*why-incremental-adoption*/}
+## Incremental adoption ஏன்? {/*why-incremental-adoption*/}
 
-React Compiler is designed to optimize your entire codebase automatically, but you don't have to adopt it all at once. Incremental adoption gives you control over the rollout process, letting you test the compiler on small parts of your app before expanding to the rest.
+React Compiler உங்கள் முழு codebase-ஐ தானாக optimize செய்ய வடிவமைக்கப்பட்டுள்ளது; ஆனால் அதை ஒரே நேரத்தில் முழுவதும் adopt செய்ய வேண்டியதில்லை. Incremental adoption rollout process மீது control தருகிறது; app-ன் சிறிய பகுதிகளில் compiler-ஐ test செய்து, பிறகு மீதிப் பகுதிகளுக்கு விரிவாக்கலாம்.
 
-Starting small helps you build confidence in the compiler's optimizations. You can verify that your app behaves correctly with compiled code, measure performance improvements, and identify any edge cases specific to your codebase. This approach is especially valuable for production applications where stability is critical.
+சிறியதாக தொடங்குவது compiler optimizations மீது நம்பிக்கை உருவாக்க உதவும். Compiled code உடன் உங்கள் app சரியாக behave செய்கிறதா என்பதை verify செய்யலாம், performance improvements-ஐ measure செய்யலாம், உங்கள் codebase-க்கு specific ஆன edge cases-ஐ identify செய்யலாம். Stability critical ஆன production applications-க்கு இந்த approach மிகவும் பயனுள்ளதாகும்.
 
-Incremental adoption also makes it easier to address any Rules of React violations the compiler might find. Instead of fixing violations across your entire codebase at once, you can tackle them systematically as you expand compiler coverage. This keeps the migration manageable and reduces the risk of introducing bugs.
+Compiler கண்டுபிடிக்கக்கூடிய Rules of React violations-ஐ address செய்வதையும் incremental adoption உதவுகிறது. முழு codebase முழுவதும் violations-ஐ ஒரே நேரத்தில் fix செய்வதற்கு பதிலாக, compiler coverage விரிவடையும் போதெல்லாம் அவற்றை systematic-ஆக tackle செய்யலாம். இதனால் migration manageable ஆகும்; bugs introduce செய்யும் risk குறையும்.
 
-By controlling which parts of your code get compiled, you can also run A/B tests to measure the real-world impact of the compiler's optimizations. This data helps you make informed decisions about full adoption and demonstrates the value to your team.
+உங்கள் code-ன் எந்த பகுதிகள் compile செய்யப்பட வேண்டும் என்பதை control செய்வதன் மூலம், compiler optimizations-ன் real-world impact-ஐ measure செய்ய A/B tests-யும் run செய்யலாம். இந்த data, full adoption பற்றிய informed decisions எடுக்கவும் உங்கள் team-க்கு value-வை demonstrate செய்யவும் உதவும்.
 
-## Approaches to Incremental Adoption {/*approaches-to-incremental-adoption*/}
+## Incremental adoption-க்கு அணுகுமுறைகள் {/*approaches-to-incremental-adoption*/}
 
-There are three main approaches to adopt React Compiler incrementally:
+React Compiler-ஐ incremental-ஆக adopt செய்ய மூன்று முக்கிய approaches உள்ளன:
 
-1. **Babel overrides** - Apply the compiler to specific directories
-2. **Opt-in with "use memo"** - Only compile components that explicitly opt in
-3. **Runtime gating** - Control compilation with feature flags
+1. **Babel overrides** - குறிப்பிட்ட directories-க்கு compiler apply செய்தல்
+2. **"use memo" மூலம் opt-in** - Explicit ஆக opt in செய்கிற components-ஐ மட்டுமே compile செய்தல்
+3. **Runtime gating** - Feature flags மூலம் compilation-ஐ control செய்தல்
 
-All approaches allow you to test the compiler on specific parts of your application before full rollout.
+முழு rollout-க்கு முன், இந்த எல்லா approaches-யும் உங்கள் application-ன் குறிப்பிட்ட பகுதிகளில் compiler-ஐ test செய்ய அனுமதிக்கின்றன.
 
-## Directory-Based Adoption with Babel Overrides {/*directory-based-adoption*/}
+## Babel overrides உடன் directory அடிப்படையிலான adoption {/*directory-based-adoption*/}
 
-Babel's `overrides` option lets you apply different plugins to different parts of your codebase. This is ideal for gradually adopting React Compiler directory by directory.
+Babel-ன் `overrides` option உங்கள் codebase-ன் வெவ்வேறு பகுதிகளுக்கு வெவ்வேறு plugins apply செய்ய அனுமதிக்கிறது. Directory by directory ஆக React Compiler-ஐ gradual-ஆக adopt செய்ய இது சிறந்தது.
 
-### Basic Configuration {/*basic-configuration*/}
+### Basic configuration {/*basic-configuration*/}
 
-Start by applying the compiler to a specific directory:
+Compiler-ஐ ஒரு குறிப்பிட்ட directory-க்கு apply செய்து தொடங்குங்கள்:
 
 ```js
 // babel.config.js
@@ -62,9 +62,9 @@ module.exports = {
 };
 ```
 
-### Expanding Coverage {/*expanding-coverage*/}
+### Coverage-ஐ விரிவாக்குதல் {/*expanding-coverage*/}
 
-As you gain confidence, add more directories:
+நம்பிக்கை அதிகரிக்கும்போது, மேலும் directories சேர்க்கவும்:
 
 ```js
 // babel.config.js
@@ -89,9 +89,9 @@ module.exports = {
 };
 ```
 
-### With Compiler Options {/*with-compiler-options*/}
+### Compiler options உடன் {/*with-compiler-options*/}
 
-You can also configure compiler options per override:
+ஒவ்வொரு override-க்கும் compiler options configure செய்யலாம்:
 
 ```js
 // babel.config.js
@@ -119,15 +119,15 @@ module.exports = {
 ```
 
 
-## Opt-in Mode with "use memo" {/*opt-in-mode-with-use-memo*/}
+## "use memo" உடன் opt-in mode {/*opt-in-mode-with-use-memo*/}
 
-For maximum control, you can use `compilationMode: 'annotation'` to only compile components and hooks that explicitly opt in with the `"use memo"` directive.
+அதிகபட்ச control-க்கு, `"use memo"` directive மூலம் explicit ஆக opt in செய்யும் components மற்றும் hooks-ஐ மட்டுமே compile செய்ய `compilationMode: 'annotation'` பயன்படுத்தலாம்.
 
 <Note>
-This approach gives you fine-grained control over individual components and hooks. It's useful when you want to test the compiler on specific components without affecting entire directories.
+இந்த approach individual components மற்றும் hooks மீது fine-grained control தருகிறது. முழு directories-ஐ பாதிக்காமல் குறிப்பிட்ட components-இல் compiler-ஐ test செய்ய விரும்பும்போது இது பயனுள்ளதாகும்.
 </Note>
 
-### Annotation Mode Configuration {/*annotation-mode-configuration*/}
+### Annotation mode அமைப்பு {/*annotation-mode-configuration*/}
 
 ```js
 // babel.config.js
@@ -140,13 +140,13 @@ module.exports = {
 };
 ```
 
-### Using the Directive {/*using-the-directive*/}
+### Directive-ஐ பயன்படுத்துதல் {/*using-the-directive*/}
 
-Add `"use memo"` at the beginning of functions you want to compile:
+Compile செய்ய விரும்பும் functions-ன் தொடக்கத்தில் `"use memo"` சேர்க்கவும்:
 
 ```js
 function TodoList({ todos }) {
-  "use memo"; // Opt this component into compilation
+  "use memo"; // இந்த component-ஐ compilation-க்கு opt in செய்க
 
   const sortedTodos = todos.slice().sort();
 
@@ -160,28 +160,28 @@ function TodoList({ todos }) {
 }
 
 function useSortedData(data) {
-  "use memo"; // Opt this hook into compilation
+  "use memo"; // இந்த hook-ஐ compilation-க்கு opt in செய்க
 
   return data.slice().sort();
 }
 ```
 
-With `compilationMode: 'annotation'`, you must:
-- Add `"use memo"` to every component you want optimized
-- Add `"use memo"` to every custom hook
-- Remember to add it to new components
+`compilationMode: 'annotation'` உடன், நீங்கள் செய்ய வேண்டியது:
+- Optimize செய்ய விரும்பும் ஒவ்வொரு component-க்கும் `"use memo"` சேர்க்கவும்
+- ஒவ்வொரு custom hook-க்கும் `"use memo"` சேர்க்கவும்
+- புதிய components-க்கு அதைச் சேர்க்க மறக்காதீர்கள்
 
-This gives you precise control over which components are compiled while you evaluate the compiler's impact.
+Compiler-ன் impact-ஐ evaluate செய்யும் போது, எந்த components compile செய்யப்பட வேண்டும் என்பதில் இது துல்லியமான control தருகிறது.
 
-## Runtime Feature Flags with Gating {/*runtime-feature-flags-with-gating*/}
+## Gating உடன் runtime feature flags பயன்படுத்துதல் {/*runtime-feature-flags-with-gating*/}
 
-The `gating` option enables you to control compilation at runtime using feature flags. This is useful for running A/B tests or gradually rolling out the compiler based on user segments.
+`gating` option, feature flags பயன்படுத்தி runtime-இல் compilation-ஐ control செய்ய அனுமதிக்கிறது. A/B tests run செய்ய அல்லது user segments அடிப்படையில் compiler-ஐ gradual-ஆக rollout செய்ய இது பயனுள்ளதாகும்.
 
-### How Gating Works {/*how-gating-works*/}
+### Gating எப்படி வேலை செய்கிறது {/*how-gating-works*/}
 
-The compiler wraps optimized code in a runtime check. If the gate returns `true`, the optimized version runs. Otherwise, the original code runs.
+Compiler optimized code-ஐ runtime check ஒன்றில் wrap செய்கிறது. Gate `true` return செய்தால், optimized version run ஆகும். இல்லையெனில் original code run ஆகும்.
 
-### Gating Configuration {/*gating-configuration*/}
+### Gating configuration {/*gating-configuration*/}
 
 ```js
 // babel.config.js
@@ -197,9 +197,9 @@ module.exports = {
 };
 ```
 
-### Implementing the Feature Flag {/*implementing-the-feature-flag*/}
+### Feature flag implement செய்தல் {/*implementing-the-feature-flag*/}
 
-Create a module that exports your gating function:
+உங்கள் gating function-ஐ export செய்யும் module ஒன்றை உருவாக்கவும்:
 
 ```js
 // ReactCompilerFeatureFlags.js
@@ -209,17 +209,17 @@ export function isCompilerEnabled() {
 }
 ```
 
-## Troubleshooting Adoption {/*troubleshooting-adoption*/}
+## Adoption பிரச்சினைகளைச் சரிசெய்தல் {/*troubleshooting-adoption*/}
 
-If you encounter issues during adoption:
+Adoption நடக்கும் போது issues சந்தித்தால்:
 
-1. Use `"use no memo"` to temporarily exclude problematic components
-2. Check the [debugging guide](/learn/react-compiler/debugging) for common issues
-3. Fix Rules of React violations identified by the ESLint plugin
-4. Consider using `compilationMode: 'annotation'` for more gradual adoption
+1. Problematic components-ஐ தற்காலிகமாக exclude செய்ய `"use no memo"` பயன்படுத்தவும்
+2. பொதுவான issues-க்கு [debugging guide](/learn/react-compiler/debugging)-ஐ பார்க்கவும்
+3. ESLint plugin identify செய்த Rules of React violations-ஐ fix செய்யவும்
+4. மேலும் gradual adoption-க்கு `compilationMode: 'annotation'` பயன்படுத்துவது பற்றி பரிசீலிக்கவும்
 
-## Next Steps {/*next-steps*/}
+## அடுத்த steps {/*next-steps*/}
 
-- Read the [configuration guide](/reference/react-compiler/configuration) for more options
-- Learn about [debugging techniques](/learn/react-compiler/debugging)
-- Check the [API reference](/reference/react-compiler/configuration) for all compiler options
+- கூடுதல் options-க்கு [configuration guide](/reference/react-compiler/configuration)-ஐ படிக்கவும்
+- [Debugging techniques](/learn/react-compiler/debugging) பற்றி அறியவும்
+- எல்லா compiler options-க்கும் [API reference](/reference/react-compiler/configuration)-ஐ பார்க்கவும்

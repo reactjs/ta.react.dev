@@ -4,7 +4,7 @@ title: useImperativeHandle
 
 <Intro>
 
-`useImperativeHandle` is a React Hook that lets you customize the handle exposed as a [ref.](/learn/manipulating-the-dom-with-refs)
+`useImperativeHandle` என்பது [ref](/learn/manipulating-the-dom-with-refs) ஆக expose செய்யப்படும் handle-ஐ customize செய்ய உதவும் React Hook.
 
 ```js
 useImperativeHandle(ref, createHandle, dependencies?)
@@ -16,11 +16,11 @@ useImperativeHandle(ref, createHandle, dependencies?)
 
 ---
 
-## Reference {/*reference*/}
+## குறிப்பு {/*reference*/}
 
 ### `useImperativeHandle(ref, createHandle, dependencies?)` {/*useimperativehandle*/}
 
-Call `useImperativeHandle` at the top level of your component to customize the ref handle it exposes:
+உங்கள் component expose செய்யும் ref handle-ஐ customize செய்ய, component-ன் top level-இல் `useImperativeHandle`-ஐ call செய்யுங்கள்:
 
 ```js
 import { useImperativeHandle } from 'react';
@@ -34,33 +34,33 @@ function MyInput({ ref }) {
   // ...
 ```
 
-[See more examples below.](#usage)
+[மேலும் உதாரணங்களை கீழே பார்க்கவும்.](#usage)
 
 #### Parameters {/*parameters*/}
 
-* `ref`: The `ref` you received as a prop to the `MyInput` component.
+* `ref`: `MyInput` component-க்கு prop ஆக நீங்கள் பெற்ற `ref`.
 
-* `createHandle`: A function that takes no arguments and returns the ref handle you want to expose. That ref handle can have any type. Usually, you will return an object with the methods you want to expose.
+* `createHandle`: Arguments எதையும் ஏற்காமல், expose செய்ய வேண்டிய ref handle-ஐ return செய்யும் function. அந்த ref handle எந்த type ஆகவும் இருக்கலாம். பொதுவாக, expose செய்ய வேண்டிய methods கொண்ட object-ஐ return செய்வீர்கள்.
 
-* **optional** `dependencies`: The list of all reactive values referenced inside of the `createHandle` code. Reactive values include props, state, and all the variables and functions declared directly inside your component body. If your linter is [configured for React](/learn/editor-setup#linting), it will verify that every reactive value is correctly specified as a dependency. The list of dependencies must have a constant number of items and be written inline like `[dep1, dep2, dep3]`. React will compare each dependency with its previous value using the [`Object.is`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is) comparison. If a re-render resulted in a change to some dependency, or if you omitted this argument, your `createHandle` function will re-execute, and the newly created handle will be assigned to the ref.
+* **optional** `dependencies`: `createHandle` code-க்குள் reference செய்யப்படும் அனைத்து reactive values-ன் பட்டியல். Reactive values-ல் props, state, மற்றும் உங்கள் component body-க்குள் நேரடியாக declare செய்யப்பட்ட அனைத்து variables மற்றும் functions அடங்கும். உங்கள் linter [React-க்காக configure செய்யப்பட்டிருந்தால்](/learn/editor-setup#linting), ஒவ்வொரு reactive value-உம் dependency ஆக சரியாக குறிப்பிடப்பட்டுள்ளதா என்பதை அது verify செய்யும். Dependencies பட்டியல் நிலையான எண்ணிக்கையிலான items கொண்டிருக்க வேண்டும், மேலும் `[dep1, dep2, dep3]` போல inline-ஆக எழுதப்பட வேண்டும். React ஒவ்வொரு dependency-யையும் அதன் முந்தைய value-உடன் [`Object.is`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is) comparison மூலம் ஒப்பிடும். Re-render காரணமாக dependency ஒன்று மாறியிருந்தால், அல்லது இந்த argument-ஐ நீங்கள் விடுத்திருந்தால், உங்கள் `createHandle` function மீண்டும் execute ஆகி, புதிதாக உருவாக்கப்பட்ட handle ref-க்கு assign செய்யப்படும்.
 
 <Note>
 
-Starting with React 19, [`ref` is available as a prop.](/blog/2024/12/05/react-19#ref-as-a-prop) In React 18 and earlier, it was necessary to get the `ref` from [`forwardRef`.](/reference/react/forwardRef)
+React 19 முதல், [`ref` prop ஆக கிடைக்கிறது](/blog/2024/12/05/react-19#ref-as-a-prop). React 18 மற்றும் அதற்கு முன், [`forwardRef`](/reference/react/forwardRef)-இலிருந்து `ref` பெறுவது அவசியமாக இருந்தது.
 
 </Note>
 
 #### Returns {/*returns*/}
 
-`useImperativeHandle` returns `undefined`.
+`useImperativeHandle` `undefined` return செய்கிறது.
 
 ---
 
-## Usage {/*usage*/}
+## பயன்பாடு {/*usage*/}
 
-### Exposing a custom ref handle to the parent component {/*exposing-a-custom-ref-handle-to-the-parent-component*/}
+### Parent component-க்கு custom ref handle expose செய்தல் {/*exposing-a-custom-ref-handle-to-the-parent-component*/}
 
-To expose a DOM node to the parent element, pass in the `ref` prop to the node.
+Parent element-க்கு DOM node expose செய்ய, அந்த node-க்கு `ref` prop-ஐ pass செய்யுங்கள்.
 
 ```js {2}
 function MyInput({ ref }) {
@@ -68,7 +68,7 @@ function MyInput({ ref }) {
 };
 ```
 
-With the code above, [a ref to `MyInput` will receive the `<input>` DOM node.](/learn/manipulating-the-dom-with-refs) However, you can expose a custom value instead. To customize the exposed handle, call `useImperativeHandle` at the top level of your component:
+மேலுள்ள code-இல், [`MyInput`-க்கு கொடுக்கப்படும் ref `<input>` DOM node-ஐ பெறும்](/learn/manipulating-the-dom-with-refs). ஆனால் அதற்கு பதிலாக custom value expose செய்யலாம். Expose செய்யப்படும் handle-ஐ customize செய்ய, உங்கள் component-ன் top level-இல் `useImperativeHandle`-ஐ call செய்யுங்கள்:
 
 ```js {4-8}
 import { useImperativeHandle } from 'react';
@@ -84,9 +84,9 @@ function MyInput({ ref }) {
 };
 ```
 
-Note that in the code above, the `ref` is no longer passed to the `<input>`.
+மேலுள்ள code-இல், `ref` இனி `<input>`-க்கு pass செய்யப்படவில்லை என்பதை கவனியுங்கள்.
 
-For example, suppose you don't want to expose the entire `<input>` DOM node, but you want to expose two of its methods: `focus` and `scrollIntoView`. To do this, keep the real browser DOM in a separate ref. Then use `useImperativeHandle` to expose a handle with only the methods that you want the parent component to call:
+உதாரணமாக, முழு `<input>` DOM node-ஐ expose செய்ய விரும்பவில்லை; ஆனால் அதன் இரண்டு methods: `focus` மற்றும் `scrollIntoView` மட்டும் expose செய்ய விரும்புகிறீர்கள் என்று வைத்துக் கொள்ளுங்கள். இதை செய்ய, உண்மையான browser DOM-ஐ தனி ref-இல் வைத்திருக்கவும். பின்னர் parent component call செய்ய வேண்டும் என்று நீங்கள் விரும்பும் methods மட்டும் கொண்ட handle-ஐ expose செய்ய `useImperativeHandle`-ஐப் பயன்படுத்துங்கள்:
 
 ```js {7-14}
 import { useRef, useImperativeHandle } from 'react';
@@ -109,7 +109,7 @@ function MyInput({ ref }) {
 };
 ```
 
-Now, if the parent component gets a ref to `MyInput`, it will be able to call the `focus` and `scrollIntoView` methods on it. However, it will not have full access to the underlying `<input>` DOM node.
+இப்போது parent component `MyInput`-க்கு ref பெற்றால், அதில் `focus` மற்றும் `scrollIntoView` methods-ஐ call செய்ய முடியும். ஆனால் underlying `<input>` DOM node-க்கு முழு access இருக்காது.
 
 <Sandpack>
 
@@ -170,9 +170,9 @@ input {
 
 ---
 
-### Exposing your own imperative methods {/*exposing-your-own-imperative-methods*/}
+### உங்கள் சொந்த imperative methods-ஐ expose செய்தல் {/*exposing-your-own-imperative-methods*/}
 
-The methods you expose via an imperative handle don't have to match the DOM methods exactly. For example, this `Post` component exposes a `scrollAndFocusAddComment` method via an imperative handle. This lets the parent `Page` scroll the list of comments *and* focus the input field when you click the button:
+Imperative handle மூலம் expose செய்யும் methods DOM methods-க்கு துல்லியமாக match ஆக வேண்டியதில்லை. உதாரணமாக, இந்த `Post` component imperative handle மூலம் `scrollAndFocusAddComment` method-ஐ expose செய்கிறது. Button-ஐ click செய்யும்போது, parent `Page` comments பட்டியலை scroll செய்யவும் input field-ஐ focus செய்யவும் இது அனுமதிக்கிறது:
 
 <Sandpack>
 
@@ -285,8 +285,8 @@ export default AddComment;
 
 <Pitfall>
 
-**Do not overuse refs.** You should only use refs for *imperative* behaviors that you can't express as props: for example, scrolling to a node, focusing a node, triggering an animation, selecting text, and so on.
+**Refs-ஐ அதிகமாகப் பயன்படுத்த வேண்டாம்.** Props ஆக வெளிப்படுத்த முடியாத *imperative* behaviors-க்காக மட்டுமே refs பயன்படுத்த வேண்டும்: உதாரணமாக, node-க்கு scroll செய்தல், node-ஐ focus செய்தல், animation trigger செய்தல், text select செய்தல், போன்றவை.
 
-**If you can express something as a prop, you should not use a ref.** For example, instead of exposing an imperative handle like `{ open, close }` from a `Modal` component, it is better to take `isOpen` as a prop like `<Modal isOpen={isOpen} />`. [Effects](/learn/synchronizing-with-effects) can help you expose imperative behaviors via props.
+**ஏதாவது ஒன்றை prop ஆக வெளிப்படுத்த முடிந்தால், ref பயன்படுத்த வேண்டாம்.** உதாரணமாக, `Modal` component-இலிருந்து `{ open, close }` போன்ற imperative handle expose செய்வதற்கு பதிலாக, `<Modal isOpen={isOpen} />` போல `isOpen`-ஐ prop ஆக ஏற்குவது சிறந்தது. Props மூலம் imperative behaviors expose செய்ய [Effects](/learn/synchronizing-with-effects) உதவலாம்.
 
 </Pitfall>

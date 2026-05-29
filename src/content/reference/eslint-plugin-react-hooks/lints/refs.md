@@ -4,47 +4,47 @@ title: refs
 
 <Intro>
 
-Validates correct usage of refs, not reading/writing during render. See the "pitfalls" section in [`useRef()` usage](/reference/react/useRef#usage).
+Refs சரியாகப் பயன்படுத்தப்படுகிறதா, render நடக்கும் போது read/write செய்யப்படுகிறதா என்பதை validate செய்கிறது. [`useRef()` usage](/reference/react/useRef#usage)-இல் உள்ள "pitfalls" பகுதியைப் பார்க்கவும்.
 
 </Intro>
 
-## Rule Details {/*rule-details*/}
+## விதி விவரங்கள் {/*rule-details*/}
 
-Refs hold values that aren't used for rendering. Unlike state, changing a ref doesn't trigger a re-render. Reading or writing `ref.current` during render breaks React's expectations. Refs might not be initialized when you try to read them, and their values can be stale or inconsistent.
+Refs rendering-க்கு பயன்படுத்தப்படாத values-ஐ வைத்திருக்கும். State போலல்லாமல், ref மாற்றுவது re-render trigger செய்யாது. Render நடக்கும் போது `ref.current`-ஐ read அல்லது write செய்வது React-இன் எதிர்பார்ப்புகளை உடைக்கும். Refs-ஐ வாசிக்க முயற்சிக்கும் நேரத்தில் அவை initialize செய்யப்படாமல் இருக்கலாம்; அவற்றின் values stale அல்லது inconsistent ஆக இருக்கலாம்.
 
-## How It Detects Refs {/*how-it-detects-refs*/}
+## இது refs-ஐ எவ்வாறு கண்டறிகிறது {/*how-it-detects-refs*/}
 
-The lint only applies these rules to values it knows are refs. A value is inferred as a ref when the compiler sees any of the following patterns:
+Ref என்று அறிந்த values-க்கு மட்டுமே lint இந்த விதிகளைப் பயன்படுத்தும். Compiler பின்வரும் patterns-இல் ஏதாவது ஒன்றைக் கண்டால், value ref என்று infer செய்யப்படும்:
 
-- Returned from `useRef()` or `React.createRef()`.
+- `useRef()` அல்லது `React.createRef()`-இலிருந்து return ஆனது.
 
   ```js
   const scrollRef = useRef(null);
   ```
 
-- An identifier named `ref` or ending in `Ref` that reads from or writes to `.current`.
+- `ref` என்று பெயரிடப்பட்ட அல்லது `Ref`-இல் முடியும் identifier, `.current`-இலிருந்து read செய்யவோ அதற்கு write செய்யவோ செய்கிறது.
 
   ```js
   buttonRef.current = node;
   ```
 
-- Passed through a JSX `ref` prop (for example `<div ref={someRef} />`).
+- JSX `ref` prop மூலம் pass செய்யப்பட்டது (உதாரணம் `<div ref={someRef} />`).
 
   ```jsx
   <input ref={inputRef} />
   ```
 
-Once something is marked as a ref, that inference follows the value through assignments, destructuring, or helper calls. This lets the lint surface violations even when `ref.current` is accessed inside another function that received the ref as an argument.
+ஏதாவது ஒன்று ref ஆகக் குறிக்கப்பட்ட பிறகு, assignments, destructuring, அல்லது helper calls வழியாக அந்த value-ஐ அந்த inference பின்தொடரும். Ref-ஐ argument ஆகப் பெற்ற மற்றொரு function உள்ளே `ref.current` access செய்யப்பட்டாலும், lint violations-ஐ surface செய்ய இதனால் முடிகிறது.
 
-## Common Violations {/*common-violations*/}
+## பொதுவான மீறல்கள் {/*common-violations*/}
 
-- Reading `ref.current` during render
-- Updating `refs` during render
-- Using `refs` for values that should be state
+- Render நடக்கும் போது `ref.current` வாசித்தல்
+- Render நடக்கும் போது `refs` update செய்தல்
+- State ஆக இருக்க வேண்டிய values-க்கு `refs` பயன்படுத்துதல்
 
-### Invalid {/*invalid*/}
+### செல்லாதது {/*invalid*/}
 
-Examples of incorrect code for this rule:
+இந்த விதிக்கான தவறான code உதாரணங்கள்:
 
 ```js
 // ❌ Reading ref during render
@@ -62,9 +62,9 @@ function Component({value}) {
 }
 ```
 
-### Valid {/*valid*/}
+### செல்லுபடியாகும் {/*valid*/}
 
-Examples of correct code for this rule:
+இந்த விதிக்கான சரியான code உதாரணங்கள்:
 
 ```js
 // ✅ Read ref in effects/handlers
@@ -110,6 +110,6 @@ function Component() {
 
 ## Troubleshooting {/*troubleshooting*/}
 
-### The lint flagged my plain object with `.current` {/*plain-object-current*/}
+### `.current` கொண்ட என் plain object-ஐ lint flag செய்தது {/*plain-object-current*/}
 
-The name heuristic intentionally treats `ref.current` and `fooRef.current` as real refs. If you're modeling a custom container object, pick a different name (for example, `box`) or move the mutable value into state. Renaming avoids the lint because the compiler stops inferring it as a ref.
+Name heuristic திட்டமிட்டே `ref.current` மற்றும் `fooRef.current`-ஐ உண்மையான refs ஆகக் கருதுகிறது. நீங்கள் custom container object ஒன்றை model செய்கிறீர்கள் என்றால், வேறு பெயரைத் தேர்ந்தெடுக்கவும் (உதாரணமாக `box`) அல்லது mutable value-ஐ state-க்கு நகர்த்தவும். Rename செய்தால் compiler அதை ref என்று infer செய்வதை நிறுத்தும்; அதனால் lint தவிர்க்கப்படும்.

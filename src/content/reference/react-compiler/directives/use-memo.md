@@ -5,13 +5,13 @@ titleForTitleTag: "'use memo' directive"
 
 <Intro>
 
-`"use memo"` marks a function for React Compiler optimization.
+`"use memo"` ஒரு function-ஐ React Compiler optimization-க்கு குறிக்கிறது.
 
 </Intro>
 
 <Note>
 
-In most cases, you don't need `"use memo"`. It's primarily needed in `annotation` mode where you must explicitly mark functions for optimization. In `infer` mode, the compiler automatically detects components and hooks by their naming patterns (PascalCase for components, `use` prefix for hooks). If a component or hook isn't being compiled in `infer` mode, you should fix its naming convention rather than forcing compilation with `"use memo"`.
+பெரும்பாலான சூழல்களில் `"use memo"` தேவையில்லை. Functions-ஐ optimization-க்கு வெளிப்படையாக குறிக்க வேண்டிய `annotation` mode-இல்தான் இது முக்கியமாக தேவைப்படும். `infer` mode-இல் compiler components மற்றும் hooks-ஐ அவற்றின் naming patterns மூலம் தானாக கண்டறியும் (components-க்கு PascalCase, hooks-க்கு `use` prefix). `infer` mode-இல் ஒரு component அல்லது hook compile ஆகவில்லை என்றால், `"use memo"` மூலம் compilation-ஐ force செய்வதற்கு பதிலாக அதன் naming convention-ஐ சரிசெய்ய வேண்டும்.
 
 </Note>
 
@@ -19,11 +19,11 @@ In most cases, you don't need `"use memo"`. It's primarily needed in `annotation
 
 ---
 
-## Reference {/*reference*/}
+## குறிப்பு {/*reference*/}
 
 ### `"use memo"` {/*use-memo*/}
 
-Add `"use memo"` at the beginning of a function to mark it for React Compiler optimization.
+React Compiler optimization-க்கு ஒரு function-ஐ குறிக்க, அந்த function-ன் தொடக்கத்தில் `"use memo"` சேர்க்கவும்.
 
 ```js {1}
 function MyComponent() {
@@ -32,34 +32,34 @@ function MyComponent() {
 }
 ```
 
-When a function contains `"use memo"`, the React Compiler will analyze and optimize it during build time. The compiler will automatically memoize values and components to prevent unnecessary re-computations and re-renders.
+ஒரு function-இல் `"use memo"` இருந்தால், React Compiler build time-இல் அதை analyze செய்து optimize செய்யும். தேவையற்ற re-computations மற்றும் re-renders-ஐத் தடுக்க values மற்றும் components-ஐ compiler தானாக memoize செய்யும்.
 
-#### Caveats {/*caveats*/}
+#### எச்சரிக்கைகள் {/*caveats*/}
 
-* `"use memo"` must be at the very beginning of a function body, before any imports or other code (comments are OK).
-* The directive must be written with double or single quotes, not backticks.
-* The directive must exactly match `"use memo"`.
-* Only the first directive in a function is processed; additional directives are ignored.
-* The effect of the directive depends on your [`compilationMode`](/reference/react-compiler/compilationMode) setting.
+* `"use memo"` function body-யின் முற்றிலும் தொடக்கத்தில், எந்த imports அல்லது பிற code-க்கும் முன் இருக்க வேண்டும் (comments சரி).
+* Directive double quotes அல்லது single quotes-இல் எழுதப்பட வேண்டும்; backticks-இல் அல்ல.
+* Directive துல்லியமாக `"use memo"` ஆகவே இருக்க வேண்டும்.
+* ஒரு function-இல் முதல் directive மட்டுமே process செய்யப்படும்; கூடுதல் directives புறக்கணிக்கப்படும்.
+* Directive-ன் விளைவு உங்கள் [`compilationMode`](/reference/react-compiler/compilationMode) setting-ஐப் பொறுத்தது.
 
-### How `"use memo"` marks functions for optimization {/*how-use-memo-marks*/}
+### `"use memo"` functions-ஐ optimization-க்கு எப்படி குறிக்கிறது {/*how-use-memo-marks*/}
 
-In a React app that uses the React Compiler, functions are analyzed at build time to determine if they can be optimized. By default, the compiler automatically infers which components to memoize, but this can depend on your [`compilationMode`](/reference/react-compiler/compilationMode) setting if you've set it.
+React Compiler பயன்படுத்தும் React app-இல், functions optimize செய்யக் கூடியவையா என்பதைத் தீர்மானிக்க build time-இல் அவை analyze செய்யப்படும். Default-ஆக compiler எந்த components-ஐ memoize செய்ய வேண்டும் என்பதை தானாக infer செய்கிறது; ஆனால் நீங்கள் [`compilationMode`](/reference/react-compiler/compilationMode) setting அமைத்திருந்தால், அது அதைப் பொறுத்திருக்கலாம்.
 
-`"use memo"` explicitly marks a function for optimization, overriding the default behavior:
+`"use memo"` default behavior-ஐ override செய்து, ஒரு function-ஐ optimization-க்கு explicit-ஆக குறிக்கிறது:
 
-* In `annotation` mode: Only functions with `"use memo"` are optimized
-* In `infer` mode: The compiler uses heuristics, but `"use memo"` forces optimization
-* In `all` mode: Everything is optimized by default, making `"use memo"` redundant
+* `annotation` mode-இல்: `"use memo"` உள்ள functions மட்டும் optimize செய்யப்படும்
+* `infer` mode-இல்: compiler heuristics-ஐப் பயன்படுத்தும்; ஆனால் `"use memo"` optimization-ஐ force செய்யும்
+* `all` mode-இல்: default-ஆக எல்லாமே optimize செய்யப்படும்; அதனால் `"use memo"` redundant ஆகிறது
 
-The directive creates a clear boundary in your codebase between optimized and non-optimized code, giving you fine-grained control over the compilation process.
+இந்த directive உங்கள் codebase-இல் optimized மற்றும் non-optimized code இடையே தெளிவான boundary-ஐ உருவாக்கி, compilation process மீது fine-grained control வழங்குகிறது.
 
-### When to use `"use memo"` {/*when-to-use*/}
+### `"use memo"` எப்போது பயன்படுத்த வேண்டும் {/*when-to-use*/}
 
-You should consider using `"use memo"` when:
+பின்வரும் சூழல்களில் `"use memo"` பயன்படுத்துவதைக் கருதலாம்:
 
-#### You're using annotation mode {/*annotation-mode-use*/}
-In `compilationMode: 'annotation'`, the directive is required for any function you want optimized:
+#### நீங்கள் annotation mode பயன்படுத்துகிறீர்கள் {/*annotation-mode-use*/}
+`compilationMode: 'annotation'`-இல், optimize செய்ய வேண்டிய ஒவ்வொரு function-க்கும் இந்த directive தேவை:
 
 ```js
 // ✅ This component will be optimized
@@ -74,8 +74,8 @@ function SimpleWrapper() {
 }
 ```
 
-#### You're gradually adopting React Compiler {/*gradual-adoption*/}
-Start with `annotation` mode and selectively optimize stable components:
+#### நீங்கள் React Compiler-ஐ படிப்படியாக adopt செய்கிறீர்கள் {/*gradual-adoption*/}
+`annotation` mode-இல் தொடங்கி, stable components-ஐ தேர்ந்தெடுத்து optimize செய்யுங்கள்:
 
 ```js
 // Start by optimizing leaf components
@@ -93,18 +93,18 @@ function ButtonGroup({ buttons }) {
 
 ---
 
-## Usage {/*usage*/}
+## பயன்பாடு {/*usage*/}
 
-### Working with different compilation modes {/*compilation-modes*/}
+### வெவ்வேறு compilation modes உடன் வேலை செய்தல் {/*compilation-modes*/}
 
-The behavior of `"use memo"` changes based on your compiler configuration:
+உங்கள் compiler configuration-ஐப் பொறுத்து `"use memo"`-ன் behavior மாறும்:
 
 ```js
 // babel.config.js
 module.exports = {
   plugins: [
     ['babel-plugin-react-compiler', {
-      compilationMode: 'annotation' // or 'infer' or 'all'
+      compilationMode: 'annotation' // அல்லது 'infer' அல்லது 'all'
     }]
   ]
 };
@@ -137,21 +137,21 @@ function simpleDisplay({ text }) {
 }
 ```
 
-In `infer` mode, the compiler automatically detects components and hooks by their naming patterns (PascalCase for components, `use` prefix for hooks). If a component or hook isn't being compiled in `infer` mode, you should fix its naming convention rather than forcing compilation with `"use memo"`.
+`infer` mode-இல் compiler components மற்றும் hooks-ஐ அவற்றின் naming patterns மூலம் தானாக கண்டறியும் (components-க்கு PascalCase, hooks-க்கு `use` prefix). `infer` mode-இல் ஒரு component அல்லது hook compile ஆகவில்லை என்றால், `"use memo"` மூலம் compilation-ஐ force செய்வதற்கு பதிலாக அதன் naming convention-ஐ சரிசெய்ய வேண்டும்.
 
 ---
 
-## Troubleshooting {/*troubleshooting*/}
+## சிக்கல் தீர்வு {/*troubleshooting*/}
 
-### Verifying optimization {/*verifying-optimization*/}
+### Optimization-ஐச் சரிபார்த்தல் {/*verifying-optimization*/}
 
-To confirm your component is being optimized:
+உங்கள் component optimize செய்யப்படுகிறதா என்பதை உறுதிப்படுத்த:
 
-1. Check the compiled output in your build
-2. Use React DevTools to check for Memo ✨ badge
+1. உங்கள் build-இல் compiled output-ஐச் சரிபார்க்கவும்
+2. Memo ✨ badge உள்ளதா என்பதை React DevTools-இல் சரிபார்க்கவும்
 
-### See also {/*see-also*/}
+### மேலும் பார்க்க {/*see-also*/}
 
-* [`"use no memo"`](/reference/react-compiler/directives/use-no-memo) - Opt out of compilation
-* [`compilationMode`](/reference/react-compiler/compilationMode) - Configure compilation behavior
-* [React Compiler](/learn/react-compiler) - Getting started guide
+* [`"use no memo"`](/reference/react-compiler/directives/use-no-memo) - Compilation-இலிருந்து opt out செய்யுங்கள்
+* [`compilationMode`](/reference/react-compiler/compilationMode) - Compilation behavior-ஐ configure செய்யுங்கள்
+* [React Compiler](/learn/react-compiler) - தொடங்குவதற்கான வழிகாட்டி

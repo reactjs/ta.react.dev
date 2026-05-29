@@ -1,57 +1,57 @@
 ---
-title: Updating Objects in State
+title: State-இல் Objects-ஐ update செய்தல்
 ---
 
 <Intro>
 
-State can hold any kind of JavaScript value, including objects. But you shouldn't change objects that you hold in the React state directly. Instead, when you want to update an object, you need to create a new one (or make a copy of an existing one), and then set the state to use that copy.
+State எந்த வகையான JavaScript value-யையும் வைத்திருக்க முடியும், objects உட்பட. ஆனால் React state-இல் நீங்கள் வைத்திருக்கும் objects-ஐ நேரடியாக change செய்யக்கூடாது. அதற்கு பதிலாக, object-ஐ update செய்ய வேண்டும் என்றால், புதிய ஒன்றை create செய்ய வேண்டும் (அல்லது existing ஒன்றின் copy உருவாக்க வேண்டும்), பிறகு அந்த copy-ஐ use செய்ய state-ஐ set செய்ய வேண்டும்.
 
 </Intro>
 
 <YouWillLearn>
 
-- How to correctly update an object in React state
-- How to update a nested object without mutating it
-- What immutability is, and how not to break it
-- How to make object copying less repetitive with Immer
+- React state-இல் object-ஐ சரியாக update செய்வது எப்படி
+- Nested object-ஐ mutate செய்யாமல் update செய்வது எப்படி
+- Immutability என்றால் என்ன, அதை எப்படி break செய்யாமல் இருப்பது
+- Immer மூலம் object copying-ஐ குறைவாக repetitive ஆக்குவது எப்படி
 
 </YouWillLearn>
 
-## What's a mutation? {/*whats-a-mutation*/}
+## Mutation என்றால் என்ன? {/*whats-a-mutation*/}
 
-You can store any kind of JavaScript value in state.
+State-இல் எந்த வகையான JavaScript value-யையும் store செய்யலாம்.
 
 ```js
 const [x, setX] = useState(0);
 ```
 
-So far you've been working with numbers, strings, and booleans. These kinds of JavaScript values are "immutable", meaning unchangeable or "read-only". You can trigger a re-render to _replace_ a value:
+இதுவரை நீங்கள் numbers, strings, மற்றும் booleans உடன் வேலை செய்துள்ளீர்கள். இந்த வகை JavaScript values "immutable", அதாவது மாற்ற முடியாதவை அல்லது "read-only". ஒரு value-ஐ _replace_ செய்ய re-render trigger செய்யலாம்:
 
 ```js
 setX(5);
 ```
 
-The `x` state changed from `0` to `5`, but the _number `0` itself_ did not change. It's not possible to make any changes to the built-in primitive values like numbers, strings, and booleans in JavaScript.
+`x` state `0`-இலிருந்து `5` ஆக மாறியது, ஆனால் _number `0` தானாக_ மாறவில்லை. JavaScript-இல் numbers, strings, booleans போன்ற built-in primitive values-க்கு எந்த மாற்றமும் செய்ய முடியாது.
 
-Now consider an object in state:
+இப்போது state-இல் உள்ள object-ஐ கருதுங்கள்:
 
 ```js
 const [position, setPosition] = useState({ x: 0, y: 0 });
 ```
 
-Technically, it is possible to change the contents of _the object itself_. **This is called a mutation:**
+Technically, _object தானாக_ கொண்டுள்ள contents-ஐ change செய்ய முடியும். **இது mutation என்று அழைக்கப்படுகிறது:**
 
 ```js
 position.x = 5;
 ```
 
-However, although objects in React state are technically mutable, you should treat them **as if** they were immutable--like numbers, booleans, and strings. Instead of mutating them, you should always replace them.
+ஆனால் React state-இல் உள்ள objects technically mutable என்றாலும், numbers, booleans, strings போல அவை immutable ஆக இருப்பது **போல்** அவற்றை நடத்த வேண்டும். அவற்றை mutate செய்வதற்கு பதிலாக எப்போதும் replace செய்ய வேண்டும்.
 
-## Treat state as read-only {/*treat-state-as-read-only*/}
+## State-ஐ read-only ஆக நடத்துங்கள் {/*treat-state-as-read-only*/}
 
-In other words, you should **treat any JavaScript object that you put into state as read-only.**
+வேறு வார்த்தைகளில், state-க்குள் வைக்கும் எந்த JavaScript object-ஐயும் **read-only ஆக நடத்த வேண்டும்.**
 
-This example holds an object in state to represent the current pointer position. The red dot is supposed to move when you touch or move the cursor over the preview area. But the dot stays in the initial position:
+இந்த example current pointer position-ஐ represent செய்ய state-இல் object வைத்திருக்கிறது. Preview area மீது touch செய்தாலோ cursor நகர்த்தினாலோ red dot நகர வேண்டும். ஆனால் dot initial position-இலேயே இருக்கும்:
 
 <Sandpack>
 
@@ -95,7 +95,7 @@ body { margin: 0; padding: 0; height: 250px; }
 
 </Sandpack>
 
-The problem is with this bit of code.
+Problem இந்த code பகுதியில்தான் உள்ளது.
 
 ```js
 onPointerMove={e => {
@@ -104,9 +104,9 @@ onPointerMove={e => {
 }}
 ```
 
-This code modifies the object assigned to `position` from [the previous render.](/learn/state-as-a-snapshot#rendering-takes-a-snapshot-in-time) But without using the state setting function, React has no idea that object has changed. So React does not do anything in response. It's like trying to change the order after you've already eaten the meal. While mutating state can work in some cases, we don't recommend it. You should treat the state value you have access to in a render as read-only.
+இந்த code [previous render](/learn/state-as-a-snapshot#rendering-takes-a-snapshot-in-time)-இலிருந்து `position`-க்கு assign செய்யப்பட்ட object-ஐ modify செய்கிறது. ஆனால் state setting function use செய்யாமல் இருந்தால், அந்த object மாறியுள்ளது என்று React-க்கு தெரியாது. எனவே React response ஆக எதையும் செய்யாது. இது நீங்கள் உணவைச் சாப்பிட்ட பிறகு order-ஐ மாற்ற முயல்வது போல. State-ஐ mutate செய்வது சில cases-இல் வேலை செய்யலாம், ஆனால் அதை நாங்கள் பரிந்துரைக்கவில்லை. Render-இல் உங்களுக்கு access உள்ள state value-ஐ read-only ஆக நடத்த வேண்டும்.
 
-To actually [trigger a re-render](/learn/state-as-a-snapshot#setting-state-triggers-renders) in this case, **create a *new* object and pass it to the state setting function:**
+இந்த case-இல் உண்மையில் [re-render trigger செய்ய](/learn/state-as-a-snapshot#setting-state-triggers-renders), **ஒரு *new* object create செய்து அதை state setting function-க்கு pass செய்யுங்கள்:**
 
 ```js
 onPointerMove={e => {
@@ -117,12 +117,12 @@ onPointerMove={e => {
 }}
 ```
 
-With `setPosition`, you're telling React:
+`setPosition` மூலம் நீங்கள் React-க்கு சொல்வது:
 
-* Replace `position` with this new object
-* And render this component again
+* `position`-ஐ இந்த புதிய object-ஆல் replace செய்
+* மேலும் இந்த component-ஐ மீண்டும் render செய்
 
-Notice how the red dot now follows your pointer when you touch or hover over the preview area:
+Preview area-வை touch அல்லது hover செய்யும் போது red dot இப்போது உங்கள் pointer-ஐப் பின்தொடருகிறது என்பதை கவனிக்கவும்:
 
 <Sandpack>
 
@@ -170,16 +170,16 @@ body { margin: 0; padding: 0; height: 250px; }
 
 <DeepDive>
 
-#### Local mutation is fine {/*local-mutation-is-fine*/}
+#### Local mutation சரியே {/*local-mutation-is-fine*/}
 
-Code like this is a problem because it modifies an *existing* object in state:
+இப்படியான code problem, ஏனெனில் இது state-இல் உள்ள *existing* object-ஐ modify செய்கிறது:
 
 ```js
 position.x = e.clientX;
 position.y = e.clientY;
 ```
 
-But code like this is **absolutely fine** because you're mutating a fresh object you have *just created*:
+ஆனால் இப்படியான code **முழுமையாக சரி**, ஏனெனில் நீங்கள் *இப்போதுதான் create செய்த* fresh object-ஐ mutate செய்கிறீர்கள்:
 
 ```js
 const nextPosition = {};
@@ -188,7 +188,7 @@ nextPosition.y = e.clientY;
 setPosition(nextPosition);
 ```
 
-In fact, it is completely equivalent to writing this:
+உண்மையில், இது இதை எழுதுவதற்கு முற்றிலும் equivalent:
 
 ```js
 setPosition({
@@ -197,15 +197,15 @@ setPosition({
 });
 ```
 
-Mutation is only a problem when you change *existing* objects that are already in state. Mutating an object you've just created is okay because *no other code references it yet.* Changing it isn't going to accidentally impact something that depends on it. This is called a "local mutation". You can even do local mutation [while rendering.](/learn/keeping-components-pure#local-mutation-your-components-little-secret) Very convenient and completely okay!
+Mutation என்பது state-இல் ஏற்கனவே உள்ள *existing* objects-ஐ change செய்யும்போது மட்டுமே problem. நீங்கள் இப்போதுதான் create செய்த object-ஐ mutate செய்வது சரி, ஏனெனில் *வேறு எந்த code-உம் இன்னும் அதை reference செய்யவில்லை.* அதை change செய்வது அதைப் சார்ந்துள்ள எதையும் தவறுதலாக பாதிக்காது. இது "local mutation" என்று அழைக்கப்படுகிறது. [Rendering போது](/learn/keeping-components-pure#local-mutation-your-components-little-secret) கூட local mutation செய்யலாம். மிகவும் வசதியானது, முற்றிலும் சரி!
 
 </DeepDive>
 
-## Copying objects with the spread syntax {/*copying-objects-with-the-spread-syntax*/}
+## Spread syntax மூலம் objects-ஐ copy செய்தல் {/*copying-objects-with-the-spread-syntax*/}
 
-In the previous example, the `position` object is always created fresh from the current cursor position. But often, you will want to include *existing* data as a part of the new object you're creating. For example, you may want to update *only one* field in a form, but keep the previous values for all other fields.
+முந்தைய example-இல், `position` object எப்போதும் current cursor position-இலிருந்து fresh ஆக create செய்யப்படுகிறது. ஆனால் பல நேரங்களில், நீங்கள் create செய்யும் புதிய object-ன் பகுதியாக *existing* data-வையும் include செய்ய விரும்புவீர்கள். உதாரணமாக, form-இல் *ஒரே ஒரு* field-ஐ update செய்ய, மற்ற எல்லா fields-க்கும் previous values-ஐ வைத்திருக்க விரும்பலாம்.
 
-These input fields don't work because the `onChange` handlers mutate the state:
+இந்த input fields வேலை செய்யவில்லை, ஏனெனில் `onChange` handlers state-ஐ mutate செய்கின்றன:
 
 <Sandpack>
 
@@ -234,21 +234,21 @@ export default function Form() {
   return (
     <>
       <label>
-        First name:
+        முதல் பெயர்:
         <input
           value={person.firstName}
           onChange={handleFirstNameChange}
         />
       </label>
       <label>
-        Last name:
+        கடைசி பெயர்:
         <input
           value={person.lastName}
           onChange={handleLastNameChange}
         />
       </label>
       <label>
-        Email:
+        மின்னஞ்சல்:
         <input
           value={person.email}
           onChange={handleEmailChange}
@@ -271,34 +271,34 @@ input { margin-left: 5px; margin-bottom: 5px; }
 
 </Sandpack>
 
-For example, this line mutates the state from a past render:
+உதாரணமாக, இந்த line past render-இலிருந்து state-ஐ mutate செய்கிறது:
 
 ```js
 person.firstName = e.target.value;
 ```
 
-The reliable way to get the behavior you're looking for is to create a new object and pass it to `setPerson`. But here, you want to also **copy the existing data into it** because only one of the fields has changed:
+நீங்கள் எதிர்பார்க்கும் behavior பெற reliable வழி, புதிய object create செய்து அதை `setPerson`-க்கு pass செய்வது. ஆனால் இங்கே, field-களில் ஒன்று மட்டுமே மாறியதால், **existing data-வையும் அதற்குள் copy செய்ய** விரும்புகிறீர்கள்:
 
 ```js
 setPerson({
-  firstName: e.target.value, // New first name from the input
+  firstName: e.target.value, // Input-இலிருந்து புதிய first name
   lastName: person.lastName,
   email: person.email
 });
 ```
 
-You can use the `...` [object spread](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax#spread_in_object_literals) syntax so that you don't need to copy every property separately.
+ஒவ்வொரு property-யையும் தனித்தனியாக copy செய்ய வேண்டாம் என்பதற்காக `...` [object spread](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax#spread_in_object_literals) syntax-ஐ use செய்யலாம்.
 
 ```js
 setPerson({
-  ...person, // Copy the old fields
-  firstName: e.target.value // But override this one
+  ...person, // பழைய fields-ஐ copy செய்க
+  firstName: e.target.value // ஆனால் இதை override செய்க
 });
 ```
 
-Now the form works!
+இப்போது form வேலை செய்கிறது!
 
-Notice how you didn't declare a separate state variable for each input field. For large forms, keeping all data grouped in an object is very convenient--as long as you update it correctly!
+ஒவ்வொரு input field-க்கும் separate state variable declare செய்யவில்லை என்பதை கவனிக்கவும். பெரிய forms-க்கு, எல்லா data-வையும் object-இல் grouped ஆக வைத்திருப்பது மிகவும் வசதியானது--அதை சரியாக update செய்யும் வரை!
 
 <Sandpack>
 
@@ -336,21 +336,21 @@ export default function Form() {
   return (
     <>
       <label>
-        First name:
+        முதல் பெயர்:
         <input
           value={person.firstName}
           onChange={handleFirstNameChange}
         />
       </label>
       <label>
-        Last name:
+        கடைசி பெயர்:
         <input
           value={person.lastName}
           onChange={handleLastNameChange}
         />
       </label>
       <label>
-        Email:
+        மின்னஞ்சல்:
         <input
           value={person.email}
           onChange={handleEmailChange}
@@ -373,13 +373,13 @@ input { margin-left: 5px; margin-bottom: 5px; }
 
 </Sandpack>
 
-Note that the `...` spread syntax is "shallow"--it only copies things one level deep. This makes it fast, but it also means that if you want to update a nested property, you'll have to use it more than once.
+`...` spread syntax "shallow" என்பதை கவனிக்கவும்--அது ஒரு level deep மட்டுமே copy செய்கிறது. இதனால் அது fast, ஆனால் nested property-ஐ update செய்ய விரும்பினால் அதை ஒன்றுக்கு மேற்பட்ட முறை use செய்ய வேண்டும் என்பதையும் குறிக்கிறது.
 
 <DeepDive>
 
-#### Using a single event handler for multiple fields {/*using-a-single-event-handler-for-multiple-fields*/}
+#### பல fields-க்கு ஒரு single event handler use செய்தல் {/*using-a-single-event-handler-for-multiple-fields*/}
 
-You can also use the `[` and `]` braces inside your object definition to specify a property with a dynamic name. Here is the same example, but with a single event handler instead of three different ones:
+Dynamic name உடைய property specify செய்ய உங்கள் object definition-க்குள் `[` மற்றும் `]` braces-ஐயும் use செய்யலாம். மூன்று different handlers-க்கு பதிலாக single event handler உடன் அதே example இதோ:
 
 <Sandpack>
 
@@ -403,7 +403,7 @@ export default function Form() {
   return (
     <>
       <label>
-        First name:
+        முதல் பெயர்:
         <input
           name="firstName"
           value={person.firstName}
@@ -411,7 +411,7 @@ export default function Form() {
         />
       </label>
       <label>
-        Last name:
+        கடைசி பெயர்:
         <input
           name="lastName"
           value={person.lastName}
@@ -419,7 +419,7 @@ export default function Form() {
         />
       </label>
       <label>
-        Email:
+        மின்னஞ்சல்:
         <input
           name="email"
           value={person.email}
@@ -443,13 +443,13 @@ input { margin-left: 5px; margin-bottom: 5px; }
 
 </Sandpack>
 
-Here, `e.target.name` refers to the `name` property given to the `<input>` DOM element.
+இங்கே, `e.target.name` என்பது `<input>` DOM element-க்கு கொடுக்கப்பட்ட `name` property-ஐ குறிக்கிறது.
 
 </DeepDive>
 
-## Updating a nested object {/*updating-a-nested-object*/}
+## Nested object-ஐ update செய்தல் {/*updating-a-nested-object*/}
 
-Consider a nested object structure like this:
+இதுபோன்ற nested object structure-ஐ கருதுங்கள்:
 
 ```js
 const [person, setPerson] = useState({
@@ -462,13 +462,13 @@ const [person, setPerson] = useState({
 });
 ```
 
-If you wanted to update `person.artwork.city`, it's clear how to do it with mutation:
+`person.artwork.city`-ஐ update செய்ய விரும்பினால், mutation மூலம் அதை எப்படி செய்வது என்பது தெளிவாக இருக்கிறது:
 
 ```js
 person.artwork.city = 'New Delhi';
 ```
 
-But in React, you treat state as immutable! In order to change `city`, you would first need to produce the new `artwork` object (pre-populated with data from the previous one), and then produce the new `person` object which points at the new `artwork`:
+ஆனால் React-இல், state-ஐ immutable ஆக நடத்துகிறீர்கள்! `city`-ஐ change செய்ய, முதலில் புதிய `artwork` object-ஐ produce செய்ய வேண்டும் (previous one-இலிருந்து data கொண்டு pre-populated), பிறகு புதிய `artwork`-ஐ point செய்யும் புதிய `person` object-ஐ produce செய்ய வேண்டும்:
 
 ```js
 const nextArtwork = { ...person.artwork, city: 'New Delhi' };
@@ -476,19 +476,19 @@ const nextPerson = { ...person, artwork: nextArtwork };
 setPerson(nextPerson);
 ```
 
-Or, written as a single function call:
+அல்லது, single function call ஆக எழுதினால்:
 
 ```js
 setPerson({
-  ...person, // Copy other fields
-  artwork: { // but replace the artwork
-    ...person.artwork, // with the same one
-    city: 'New Delhi' // but in New Delhi!
+  ...person, // மற்ற fields-ஐ copy செய்க
+  artwork: { // ஆனால் artwork-ஐ replace செய்க
+    ...person.artwork, // அதே ஒன்றுடன்
+    city: 'New Delhi' // ஆனால் New Delhi-இல்!
   }
 });
 ```
 
-This gets a bit wordy, but it works fine for many cases:
+இது கொஞ்சம் நீளமாகிறது, ஆனால் பல cases-க்கு நன்றாக வேலை செய்கிறது:
 
 <Sandpack>
 
@@ -545,28 +545,28 @@ export default function Form() {
   return (
     <>
       <label>
-        Name:
+        பெயர்:
         <input
           value={person.name}
           onChange={handleNameChange}
         />
       </label>
       <label>
-        Title:
+        தலைப்பு:
         <input
           value={person.artwork.title}
           onChange={handleTitleChange}
         />
       </label>
       <label>
-        City:
+        நகரம்:
         <input
           value={person.artwork.city}
           onChange={handleCityChange}
         />
       </label>
       <label>
-        Image:
+        படம்:
         <input
           value={person.artwork.image}
           onChange={handleImageChange}
@@ -574,10 +574,10 @@ export default function Form() {
       </label>
       <p>
         <i>{person.artwork.title}</i>
-        {' by '}
+        {' உருவாக்கியவர் '}
         {person.name}
         <br />
-        (located in {person.artwork.city})
+        ({person.artwork.city}-இல் உள்ளது)
       </p>
       <img
         src={person.artwork.image}
@@ -598,9 +598,9 @@ img { width: 200px; height: 200px; }
 
 <DeepDive>
 
-#### Objects are not really nested {/*objects-are-not-really-nested*/}
+#### Objects உண்மையில் nested அல்ல {/*objects-are-not-really-nested*/}
 
-An object like this appears "nested" in code:
+இப்படிப்பட்ட object code-இல் "nested" போல தோன்றுகிறது:
 
 ```js
 let obj = {
@@ -613,7 +613,7 @@ let obj = {
 };
 ```
 
-However, "nesting" is an inaccurate way to think about how objects behave. When the code executes, there is no such thing as a "nested" object. You are really looking at two different objects:
+ஆனால் objects எப்படி behave செய்கின்றன என்பதைப் பற்றி நினைக்க "nesting" என்பது துல்லியமான வழி அல்ல. Code execute ஆகும் போது, "nested" object என்ற ஒன்று இல்லை. உண்மையில் நீங்கள் இரண்டு different objects-ஐப் பார்க்கிறீர்கள்:
 
 ```js
 let obj1 = {
@@ -628,7 +628,7 @@ let obj2 = {
 };
 ```
 
-The `obj1` object is not "inside" `obj2`. For example, `obj3` could "point" at `obj1` too:
+`obj1` object, `obj2`-க்கு "inside" இல்லை. உதாரணமாக, `obj3` கூட `obj1`-ஐ "point" செய்யலாம்:
 
 ```js
 let obj1 = {
@@ -648,13 +648,13 @@ let obj3 = {
 };
 ```
 
-If you were to mutate `obj3.artwork.city`, it would affect both `obj2.artwork.city` and `obj1.city`. This is because `obj3.artwork`, `obj2.artwork`, and `obj1` are the same object. This is difficult to see when you think of objects as "nested". Instead, they are separate objects "pointing" at each other with properties.
+நீங்கள் `obj3.artwork.city`-ஐ mutate செய்தால், அது `obj2.artwork.city` மற்றும் `obj1.city` இரண்டையும் பாதிக்கும். ஏனெனில் `obj3.artwork`, `obj2.artwork`, மற்றும் `obj1` ஒரே object. Objects-ஐ "nested" என்று நினைக்கும்போது இதை பார்க்க கடினம். அதற்கு பதிலாக, அவை properties மூலம் ஒன்றை ஒன்று "point" செய்யும் separate objects.
 
 </DeepDive>
 
-### Write concise update logic with Immer {/*write-concise-update-logic-with-immer*/}
+### Immer மூலம் concise update logic எழுதுதல் {/*write-concise-update-logic-with-immer*/}
 
-If your state is deeply nested, you might want to consider [flattening it.](/learn/choosing-the-state-structure#avoid-deeply-nested-state) But, if you don't want to change your state structure, you might prefer a shortcut to nested spreads. [Immer](https://github.com/immerjs/use-immer) is a popular library that lets you write using the convenient but mutating syntax and takes care of producing the copies for you. With Immer, the code you write looks like you are "breaking the rules" and mutating an object:
+உங்கள் state ஆழமாக nested ஆக இருந்தால், அதை [flatten செய்வதை](/learn/choosing-the-state-structure#avoid-deeply-nested-state) பரிசீலிக்கலாம். ஆனால் state structure-ஐ change செய்ய விரும்பவில்லை என்றால், nested spreads-க்கு shortcut விரும்பலாம். [Immer](https://github.com/immerjs/use-immer) என்பது convenient ஆனால் mutating syntax-ஐப் பயன்படுத்தி எழுத அனுமதித்து, உங்கள் சார்பாக copies produce செய்வதை handle செய்யும் popular library. Immer உடன், நீங்கள் எழுதும் code "rules-ஐ break" செய்து object-ஐ mutate செய்வது போல தெரியும்:
 
 ```js
 updatePerson(draft => {
@@ -662,22 +662,22 @@ updatePerson(draft => {
 });
 ```
 
-But unlike a regular mutation, it doesn't overwrite the past state!
+ஆனால் regular mutation போல அல்லாமல், அது past state-ஐ overwrite செய்யாது!
 
 <DeepDive>
 
-#### How does Immer work? {/*how-does-immer-work*/}
+#### Immer எப்படி வேலை செய்கிறது? {/*how-does-immer-work*/}
 
-The `draft` provided by Immer is a special type of object, called a [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy), that "records" what you do with it. This is why you can mutate it freely as much as you like! Under the hood, Immer figures out which parts of the `draft` have been changed, and produces a completely new object that contains your edits.
+Immer provide செய்யும் `draft` என்பது [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy) என்று அழைக்கப்படும் special type object; அதில் நீங்கள் என்ன செய்கிறீர்கள் என்பதை அது "record" செய்கிறது. அதனால்தான் அதை விருப்பமான அளவு freely mutate செய்ய முடியும்! Under the hood, `draft`-ன் எந்த parts மாறின என்பதை Immer கண்டறிந்து, உங்கள் edits கொண்ட முற்றிலும் புதிய object-ஐ produce செய்கிறது.
 
 </DeepDive>
 
-To try Immer:
+Immer முயற்சிக்க:
 
-1. Run `npm install use-immer` to add Immer as a dependency
-2. Then replace `import { useState } from 'react'` with `import { useImmer } from 'use-immer'`
+1. Immer-ஐ dependency ஆக சேர்க்க `npm install use-immer` run செய்யுங்கள்
+2. பிறகு `import { useState } from 'react'`-ஐ `import { useImmer } from 'use-immer'`-ஆல் replace செய்யுங்கள்
 
-Here is the above example converted to Immer:
+மேலுள்ள example Immer-க்கு convert செய்யப்பட்ட வடிவம் இதோ:
 
 <Sandpack>
 
@@ -721,28 +721,28 @@ export default function Form() {
   return (
     <>
       <label>
-        Name:
+        பெயர்:
         <input
           value={person.name}
           onChange={handleNameChange}
         />
       </label>
       <label>
-        Title:
+        தலைப்பு:
         <input
           value={person.artwork.title}
           onChange={handleTitleChange}
         />
       </label>
       <label>
-        City:
+        நகரம்:
         <input
           value={person.artwork.city}
           onChange={handleCityChange}
         />
       </label>
       <label>
-        Image:
+        படம்:
         <input
           value={person.artwork.image}
           onChange={handleImageChange}
@@ -750,10 +750,10 @@ export default function Form() {
       </label>
       <p>
         <i>{person.artwork.title}</i>
-        {' by '}
+        {' உருவாக்கியவர் '}
         {person.name}
         <br />
-        (located in {person.artwork.city})
+        ({person.artwork.city}-இல் உள்ளது)
       </p>
       <img
         src={person.artwork.image}
@@ -790,33 +790,33 @@ img { width: 200px; height: 200px; }
 
 </Sandpack>
 
-Notice how much more concise the event handlers have become. You can mix and match `useState` and `useImmer` in a single component as much as you like. Immer is a great way to keep the update handlers concise, especially if there's nesting in your state, and copying objects leads to repetitive code.
+Event handlers எவ்வளவு concise ஆகியுள்ளன என்பதை கவனிக்கவும். Single component-இல் `useState` மற்றும் `useImmer`-ஐ விருப்பமான அளவு mix and match செய்யலாம். உங்கள் state-இல் nesting இருந்தால், மேலும் objects copy செய்வது repetitive code-க்கு வழிவகுத்தால், update handlers-ஐ concise ஆக வைத்திருக்க Immer சிறந்த வழி.
 
 <DeepDive>
 
-#### Why is mutating state not recommended in React? {/*why-is-mutating-state-not-recommended-in-react*/}
+#### React-இல் state-ஐ mutate செய்வது ஏன் பரிந்துரைக்கப்படவில்லை? {/*why-is-mutating-state-not-recommended-in-react*/}
 
-There are a few reasons:
+சில காரணங்கள் உள்ளன:
 
-* **Debugging:** If you use `console.log` and don't mutate state, your past logs won't get clobbered by the more recent state changes. So you can clearly see how state has changed between renders.
-* **Optimizations:** Common React [optimization strategies](/reference/react/memo) rely on skipping work if previous props or state are the same as the next ones. If you never mutate state, it is very fast to check whether there were any changes. If `prevObj === obj`, you can be sure that nothing could have changed inside of it.
-* **New Features:** The new React features we're building rely on state being [treated like a snapshot.](/learn/state-as-a-snapshot) If you're mutating past versions of state, that may prevent you from using the new features.
-* **Requirement Changes:** Some application features, like implementing Undo/Redo, showing a history of changes, or letting the user reset a form to earlier values, are easier to do when nothing is mutated. This is because you can keep past copies of state in memory, and reuse them when appropriate. If you start with a mutative approach, features like this can be difficult to add later on.
-* **Simpler Implementation:** Because React does not rely on mutation, it does not need to do anything special with your objects. It does not need to hijack their properties, always wrap them into Proxies, or do other work at initialization as many "reactive" solutions do. This is also why React lets you put any object into state--no matter how large--without additional performance or correctness pitfalls.
+* **Debugging:** நீங்கள் `console.log` use செய்து state-ஐ mutate செய்யவில்லை என்றால், உங்கள் past logs recent state changes-ஆல் clobber ஆகாது. எனவே renders இடையில் state எப்படி மாறியது என்பதை தெளிவாகப் பார்க்கலாம்.
+* **Optimizations:** Common React [optimization strategies](/reference/react/memo), previous props அல்லது state அடுத்தவற்றுடன் same ஆக இருந்தால் work skip செய்வதை சார்ந்துள்ளன. State-ஐ ஒருபோதும் mutate செய்யவில்லை என்றால் மாற்றங்கள் இருந்ததா என்று check செய்வது மிகவும் fast. `prevObj === obj` என்றால், அதன் உள்ளே எதுவும் மாறியிருக்க முடியாது என்று உறுதியாக இருக்கலாம்.
+* **New Features:** நாங்கள் build செய்யும் புதிய React features, state [snapshot போல நடத்தப்படுவதைக்](/learn/state-as-a-snapshot) சார்ந்துள்ளன. நீங்கள் state-ன் past versions-ஐ mutate செய்தால், புதிய features use செய்வதை அது தடுக்கலாம்.
+* **Requirement Changes:** Undo/Redo implement செய்தல், changes history காட்டுதல், அல்லது பயனர் form-ஐ earlier values-க்கு reset செய்ய அனுமதித்தல் போன்ற சில application features, எதுவும் mutate செய்யப்படாதபோது நேரடியாக செய்யலாம். ஏனெனில் state-ன் past copies-ஐ memory-இல் வைத்திருந்து, பொருத்தமானபோது reuse செய்யலாம். Mutative approach-இல் தொடங்கினால், இப்படிப்பட்ட features பின்னர் சேர்ப்பது கடினமாகலாம்.
+* **Simpler Implementation:** React mutation-ஐ சார்ந்து இல்லாததால், உங்கள் objects உடன் special ஆக எதையும் செய்ய வேண்டியதில்லை. பல "reactive" solutions செய்வது போல properties-ஐ hijack செய்யவோ, எப்போதும் Proxies-க்குள் wrap செய்யவோ, initialization போது வேறு work செய்யவோ தேவையில்லை. இதனால்தான் எந்த object-ஆக இருந்தாலும்--எவ்வளவு பெரியதாக இருந்தாலும்--additional performance அல்லது correctness pitfalls இல்லாமல் state-க்குள் வைக்க React அனுமதிக்கிறது.
 
-In practice, you can often "get away" with mutating state in React, but we strongly advise you not to do that so that you can use new React features developed with this approach in mind. Future contributors and perhaps even your future self will thank you!
+நடைமுறையில், React-இல் state-ஐ mutate செய்தும் பல நேரங்களில் "get away" ஆகலாம், ஆனால் இந்த அணுகுமுறையை மனதில் வைத்து உருவாக்கப்படும் புதிய React features-ஐ use செய்ய முடிவதற்காக அதைச் செய்ய வேண்டாம் என்று நாங்கள் வலியுறுத்துகிறோம். Future contributors மற்றும் உங்கள் future self கூட உங்களுக்கு நன்றி சொல்வார்கள்!
 
 </DeepDive>
 
 <Recap>
 
-* Treat all state in React as immutable.
-* When you store objects in state, mutating them will not trigger renders and will change the state in previous render "snapshots".
-* Instead of mutating an object, create a *new* version of it, and trigger a re-render by setting state to it.
-* You can use the `{...obj, something: 'newValue'}` object spread syntax to create copies of objects.
-* Spread syntax is shallow: it only copies one level deep.
-* To update a nested object, you need to create copies all the way up from the place you're updating.
-* To reduce repetitive copying code, use Immer.
+* React-இல் எல்லா state-ஐயும் immutable ஆக நடத்துங்கள்.
+* Objects-ஐ state-இல் store செய்தால், அவற்றை mutate செய்வது renders-ஐ trigger செய்யாது, மேலும் previous render "snapshots"-இல் state-ஐ மாற்றும்.
+* Object-ஐ mutate செய்வதற்கு பதிலாக, அதன் *புதிய* version create செய்து, state-ஐ அதற்கு set செய்வதன் மூலம் re-render trigger செய்யுங்கள்.
+* Objects-ன் copies create செய்ய `{...obj, something: 'newValue'}` object spread syntax-ஐ use செய்யலாம்.
+* Spread syntax shallow: அது ஒரு level deep மட்டுமே copy செய்கிறது.
+* Nested object-ஐ update செய்ய, நீங்கள் update செய்யும் இடத்திலிருந்து மேலே வரை copies create செய்ய வேண்டும்.
+* Repetitive copying code-ஐ குறைக்க Immer use செய்யுங்கள்.
 
 </Recap>
 
@@ -824,11 +824,11 @@ In practice, you can often "get away" with mutating state in React, but we stron
 
 <Challenges>
 
-#### Fix incorrect state updates {/*fix-incorrect-state-updates*/}
+#### தவறான state updates-ஐ fix செய்யுங்கள் {/*fix-incorrect-state-updates*/}
 
-This form has a few bugs. Click the button that increases the score a few times. Notice that it does not increase. Then edit the first name, and notice that the score has suddenly "caught up" with your changes. Finally, edit the last name, and notice that the score has disappeared completely.
+இந்த form-இல் சில bugs உள்ளன. Score-ஐ increase செய்யும் button-ஐ சில முறை click செய்யுங்கள். அது increase ஆகவில்லை என்பதை கவனிக்கவும். பிறகு first name-ஐ edit செய்யுங்கள்; score திடீரென உங்கள் changes-ஐ "caught up" செய்ததை கவனிக்கவும். இறுதியாக, last name-ஐ edit செய்து score முற்றிலும் மறைந்ததை கவனிக்கவும்.
 
-Your task is to fix all of these bugs. As you fix them, explain why each of them happens.
+இந்த எல்லா bugs-ஐயும் fix செய்வதே உங்கள் task. அவற்றை fix செய்யும் போது, ஒவ்வொன்றும் ஏன் நடக்கிறது என்பதை விளக்கவும்.
 
 <Sandpack>
 
@@ -862,21 +862,21 @@ export default function Scoreboard() {
   return (
     <>
       <label>
-        Score: <b>{player.score}</b>
+        மதிப்பெண்: <b>{player.score}</b>
         {' '}
         <button onClick={handlePlusClick}>
           +1
         </button>
       </label>
       <label>
-        First name:
+        முதல் பெயர்:
         <input
           value={player.firstName}
           onChange={handleFirstNameChange}
         />
       </label>
       <label>
-        Last name:
+        கடைசி பெயர்:
         <input
           value={player.lastName}
           onChange={handleLastNameChange}
@@ -896,7 +896,7 @@ input { margin-left: 5px; margin-bottom: 5px; }
 
 <Solution>
 
-Here is a version with both bugs fixed:
+இரண்டு bugs-உம் fix செய்யப்பட்ட version இதோ:
 
 <Sandpack>
 
@@ -934,21 +934,21 @@ export default function Scoreboard() {
   return (
     <>
       <label>
-        Score: <b>{player.score}</b>
+        மதிப்பெண்: <b>{player.score}</b>
         {' '}
         <button onClick={handlePlusClick}>
           +1
         </button>
       </label>
       <label>
-        First name:
+        முதல் பெயர்:
         <input
           value={player.firstName}
           onChange={handleFirstNameChange}
         />
       </label>
       <label>
-        Last name:
+        கடைசி பெயர்:
         <input
           value={player.lastName}
           onChange={handleLastNameChange}
@@ -966,23 +966,23 @@ input { margin-left: 5px; margin-bottom: 5px; }
 
 </Sandpack>
 
-The problem with `handlePlusClick` was that it mutated the `player` object. As a result, React did not know that there's a reason to re-render, and did not update the score on the screen. This is why, when you edited the first name, the state got updated, triggering a re-render which _also_ updated the score on the screen.
+`handlePlusClick`-இல் problem என்னவெனில் அது `player` object-ஐ mutate செய்தது. அதன் விளைவாக, re-render செய்ய காரணம் உள்ளது என்று React அறியவில்லை, screen-இல் score update ஆகவில்லை. அதனால்தான் நீங்கள் first name edit செய்தபோது, state update ஆகி re-render trigger ஆனது; அது screen-இல் score-ஐயும் _update_ செய்தது.
 
-The problem with `handleLastNameChange` was that it did not copy the existing `...player` fields into the new object. This is why the score got lost after you edited the last name.
+`handleLastNameChange`-இல் problem என்னவெனில், அது existing `...player` fields-ஐ புதிய object-க்குள் copy செய்யவில்லை. அதனால்தான் last name edit செய்த பிறகு score lost ஆனது.
 
 </Solution>
 
-#### Find and fix the mutation {/*find-and-fix-the-mutation*/}
+#### Mutation-ஐ கண்டுபிடித்து fix செய்யுங்கள் {/*find-and-fix-the-mutation*/}
 
-There is a draggable box on a static background. You can change the box's color using the select input.
+Static background மீது draggable box ஒன்று உள்ளது. Select input பயன்படுத்தி box-ன் color-ஐ change செய்யலாம்.
 
-But there is a bug. If you move the box first, and then change its color, the background (which isn't supposed to move!) will "jump" to the box position. But this should not happen: the `Background`'s `position` prop is set to `initialPosition`, which is `{ x: 0, y: 0 }`. Why is the background moving after the color change?
+ஆனால் bug உள்ளது. முதலில் box-ஐ move செய்து, பிறகு அதன் color-ஐ change செய்தால், background (move ஆகக்கூடாதது!) box position-க்கு "jump" ஆகும். ஆனால் இது நடக்கக் கூடாது: `Background`-ன் `position` prop `{ x: 0, y: 0 }` ஆன `initialPosition`-க்கு set செய்யப்பட்டுள்ளது. Color change பிறகு background ஏன் move ஆகிறது?
 
-Find the bug and fix it.
+Bug-ஐ கண்டுபிடித்து fix செய்யுங்கள்.
 
 <Hint>
 
-If something unexpected changes, there is a mutation. Find the mutation in `App.js` and fix it.
+எதாவது எதிர்பாராத விதமாக change ஆனால், mutation உள்ளது. `App.js`-இல் mutation-ஐ கண்டுபிடித்து fix செய்யுங்கள்.
 
 </Hint>
 
@@ -1034,7 +1034,7 @@ export default function Canvas() {
         position={shape.position}
         onMove={handleMove}
       >
-        Drag me!
+        என்னை இழுக்கவும்!
       </Box>
     </>
   );
@@ -1132,9 +1132,9 @@ select { margin-bottom: 10px; }
 
 <Solution>
 
-The problem was in the mutation inside `handleMove`. It mutated `shape.position`, but that's the same object that `initialPosition` points at. This is why both the shape and the background move. (It's a mutation, so the change doesn't reflect on the screen until an unrelated update--the color change--triggers a re-render.)
+Problem `handleMove`-க்குள் உள்ள mutation-இல் இருந்தது. அது `shape.position`-ஐ mutate செய்தது, ஆனால் அது `initialPosition` point செய்யும் அதே object. அதனால்தான் shape மற்றும் background இரண்டும் move ஆகின்றன. (இது mutation என்பதால், தொடர்பில்லாத update--color change--re-render trigger செய்யும் வரை change screen-இல் reflect ஆகாது.)
 
-The fix is to remove the mutation from `handleMove`, and use the spread syntax to copy the shape. Note that `+=` is a mutation, so you need to rewrite it to use a regular `+` operation.
+Fix என்னவெனில் `handleMove`-இலிருந்து mutation-ஐ remove செய்து, shape-ஐ copy செய்ய spread syntax use செய்வது. `+=` mutation என்பதை கவனிக்கவும், எனவே regular `+` operation use செய்ய அதை rewrite செய்ய வேண்டும்.
 
 <Sandpack>
 
@@ -1189,7 +1189,7 @@ export default function Canvas() {
         position={shape.position}
         onMove={handleMove}
       >
-        Drag me!
+        என்னை இழுக்கவும்!
       </Box>
     </>
   );
@@ -1287,9 +1287,9 @@ select { margin-bottom: 10px; }
 
 </Solution>
 
-#### Update an object with Immer {/*update-an-object-with-immer*/}
+#### Immer மூலம் object-ஐ update செய்யுங்கள் {/*update-an-object-with-immer*/}
 
-This is the same buggy example as in the previous challenge. This time, fix the mutation by using Immer. For your convenience, `useImmer` is already imported, so you need to change the `shape` state variable to use it.
+இது முந்தைய challenge-இல் இருந்த அதே buggy example. இம்முறை, Immer use செய்து mutation-ஐ fix செய்யுங்கள். உங்கள் வசதிக்காக, `useImmer` ஏற்கனவே import செய்யப்பட்டுள்ளது; எனவே `shape` state variable-ஐ அதை use செய்ய மாற்ற வேண்டும்.
 
 <Sandpack>
 
@@ -1340,7 +1340,7 @@ export default function Canvas() {
         position={shape.position}
         onMove={handleMove}
       >
-        Drag me!
+        என்னை இழுக்கவும்!
       </Box>
     </>
   );
@@ -1456,7 +1456,7 @@ select { margin-bottom: 10px; }
 
 <Solution>
 
-This is the solution rewritten with Immer. Notice how the event handlers are written in a mutating fashion, but the bug does not occur. This is because under the hood, Immer never mutates the existing objects.
+இது Immer உடன் rewrite செய்யப்பட்ட solution. Event handlers mutating fashion-இல் எழுதப்பட்டுள்ளன, ஆனால் bug ஏற்படவில்லை என்பதை கவனிக்கவும். காரணம் under the hood, Immer existing objects-ஐ ஒருபோதும் mutate செய்யாது.
 
 <Sandpack>
 
@@ -1507,7 +1507,7 @@ export default function Canvas() {
         position={shape.position}
         onMove={handleMove}
       >
-        Drag me!
+        என்னை இழுக்கவும்!
       </Box>
     </>
   );

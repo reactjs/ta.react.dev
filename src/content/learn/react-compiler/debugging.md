@@ -1,93 +1,93 @@
 ---
-title: Debugging and Troubleshooting
+title: Debugging மற்றும் Troubleshooting
 ---
 
 <Intro>
-This guide helps you identify and fix issues when using React Compiler. Learn how to debug compilation problems and resolve common issues.
+React Compiler பயன்படுத்தும்போது பிரச்சினைகளை கண்டறிந்து சரிசெய்ய இந்த வழிகாட்டி உதவும். Compilation பிரச்சினைகளை debug செய்வது மற்றும் பொதுவான பிரச்சினைகளைத் தீர்ப்பது எப்படி என்பதை அறிக.
 </Intro>
 
 <YouWillLearn>
 
-* The difference between compiler errors and runtime issues
-* Common patterns that break compilation
-* Step-by-step debugging workflow
+* Compiler errors மற்றும் runtime issues இடையிலான வேறுபாடு
+* Compilation-ஐ உடைக்கும் பொதுவான patterns
+* படிப்படியான debugging workflow
 
 </YouWillLearn>
 
-## Understanding Compiler Behavior {/*understanding-compiler-behavior*/}
+## Compiler behavior-ஐப் புரிதல் {/*understanding-compiler-behavior*/}
 
-React Compiler is designed to handle code that follows the [Rules of React](/reference/rules). When it encounters code that might break these rules, it safely skips optimization rather than risk changing your app's behavior.
+React Compiler, [React விதிகளை](/reference/rules) பின்பற்றும் code-ஐ கையாள வடிவமைக்கப்பட்டுள்ளது. இந்த விதிகளை உடைக்கக்கூடிய code-ஐ சந்தித்தால், உங்கள் app-இன் behavior-ஐ மாற்றும் அபாயத்தை ஏற்படுத்தாமல், optimization-ஐ பாதுகாப்பாக skip செய்கிறது.
 
-### Compiler Errors vs Runtime Issues {/*compiler-errors-vs-runtime-issues*/}
+### Compiler errors vs runtime issues {/*compiler-errors-vs-runtime-issues*/}
 
-**Compiler errors** occur at build time and prevent your code from compiling. These are rare because the compiler is designed to skip problematic code rather than fail.
+**Compiler errors** build time-இல் ஏற்பட்டு, உங்கள் code compile ஆகாமல் தடுக்கின்றன. இவை அரிதானவை; ஏனெனில் compiler fail ஆகுவதற்கு பதிலாக problematic code-ஐ skip செய்யும்படி வடிவமைக்கப்பட்டுள்ளது.
 
-**Runtime issues** occur when compiled code behaves differently than expected. Most of the time, if you encounter an issue with React Compiler, it's a runtime issue. This typically happens when your code violates the Rules of React in subtle ways that the compiler couldn't detect, and the compiler mistakenly compiled a component it should have skipped.
+**Runtime issues** compiled code எதிர்பார்த்ததை விட வேறுபட்டு நடந்தால் ஏற்படும். React Compiler-உடன் நீங்கள் சந்திக்கும் பிரச்சினைகள் பெரும்பாலும் runtime issues ஆக இருக்கும். பொதுவாக, compiler கண்டறிய முடியாத நுணுக்கமான முறையில் உங்கள் code React விதிகளை மீறும்போது, skip செய்ய வேண்டிய component-ஐ compiler தவறுதலாக compile செய்தால் இது நடக்கும்.
 
-When debugging runtime issues, focus your efforts on finding Rules of React violations in the affected components that were not detected by the ESLint rule. The compiler relies on your code following these rules, and when they're broken in ways it can't detect, that's when runtime problems occur.
+Runtime issues-ஐ debug செய்யும்போது, ESLint rule கண்டறியாத React விதி மீறல்களை பாதிக்கப்பட்ட components-இல் கண்டுபிடிப்பதில் கவனம் செலுத்துங்கள். உங்கள் code இந்த விதிகளைப் பின்பற்றுகிறது என்பதையே compiler நம்புகிறது; அது கண்டறிய முடியாத முறையில் அவை மீறப்பட்டால் runtime பிரச்சினைகள் ஏற்படும்.
 
 
-## Common Breaking Patterns {/*common-breaking-patterns*/}
+## பொதுவான breaking patterns {/*common-breaking-patterns*/}
 
-One of the main ways React Compiler can break your app is if your code was written to rely on memoization for correctness. This means your app depends on specific values being memoized to work properly. Since the compiler may memoize differently than your manual approach, this can lead to unexpected behavior like effects over-firing, infinite loops, or missing updates.
+உங்கள் code correctness-க்காக memoization மீது நம்பிக்கை வைத்து எழுதப்பட்டிருந்தால், React Compiler உங்கள் app-ஐ உடைக்கக்கூடிய முக்கிய வழிகளில் அது ஒன்று. இதன் பொருள், உங்கள் app சரியாக வேலை செய்ய குறிப்பிட்ட values memoize செய்யப்பட வேண்டும் என்று அது சார்ந்துள்ளது. Compiler உங்கள் manual அணுகுமுறையிலிருந்து வேறுபட்டு memoize செய்யக்கூடும் என்பதால், effects அதிகமாக fire ஆகுதல், infinite loops, அல்லது updates தவறுதல் போன்ற எதிர்பாராத behavior ஏற்படலாம்.
 
-Common scenarios where this occurs:
+இது ஏற்படும் பொதுவான சூழல்கள்:
 
-- **Effects that rely on referential equality** - When effects depend on objects or arrays maintaining the same reference across renders
-- **Dependency arrays that need stable references** - When unstable dependencies cause effects to fire too often or create infinite loops
-- **Conditional logic based on reference checks** - When code uses referential equality checks for caching or optimization
+- **Referential equality-ஐ சார்ந்த Effects** - Objects அல்லது arrays renders முழுவதும் அதே reference-ஐ வைத்திருப்பதை effects சார்ந்திருக்கும்போது
+- **Stable references தேவைப்படும் dependency arrays** - Unstable dependencies effects-ஐ மிக அதிகமாக fire செய்யவோ infinite loops உருவாக்கவோ செய்யும்போது
+- **Reference checks அடிப்படையிலான conditional logic** - Caching அல்லது optimization-க்கு code referential equality checks பயன்படுத்தும்போது
 
-## Debugging Workflow {/*debugging-workflow*/}
+## Debugging workflow {/*debugging-workflow*/}
 
-Follow these steps when you encounter issues:
+பிரச்சினைகள் ஏற்பட்டால் இந்த படிகளைப் பின்பற்றுங்கள்:
 
-### Compiler Build Errors {/*compiler-build-errors*/}
+### Compiler build errors {/*compiler-build-errors*/}
 
-If you encounter a compiler error that unexpectedly breaks your build, this is likely a bug in the compiler. Report it to the [facebook/react](https://github.com/facebook/react/issues) repository with:
-- The error message
-- The code that caused the error
-- Your React and compiler versions
+உங்கள் build-ஐ எதிர்பாராத விதமாக உடைக்கும் compiler error ஏற்பட்டால், அது compiler-இல் bug ஆக இருக்கலாம். இதை பின்வரும் தகவல்களுடன் [facebook/react](https://github.com/facebook/react/issues) repository-க்கு report செய்யுங்கள்:
+- Error message
+- Error ஏற்படுத்திய code
+- உங்கள் React மற்றும் compiler versions
 
-### Runtime Issues {/*runtime-issues*/}
+### Runtime issues {/*runtime-issues*/}
 
-For runtime behavior issues:
+Runtime behavior பிரச்சினைகளுக்கு:
 
-### 1. Temporarily Disable Compilation {/*temporarily-disable-compilation*/}
+### 1. Compilation-ஐ தற்காலிகமாக disable செய்தல் {/*temporarily-disable-compilation*/}
 
-Use `"use no memo"` to isolate whether an issue is compiler-related:
+பிரச்சினை compiler தொடர்புடையதா என்பதை தனிமைப்படுத்த `"use no memo"` பயன்படுத்துங்கள்:
 
 ```js
 function ProblematicComponent() {
-  "use no memo"; // Skip compilation for this component
+  "use no memo"; // இந்த component-க்கு compilation-ஐ skip செய்கிறது
   // ... rest of component
 }
 ```
 
-If the issue disappears, it's likely related to a Rules of React violation.
+பிரச்சினை மறைந்தால், அது React விதி மீறலுடன் தொடர்புடையதாக இருக்கலாம்.
 
-You can also try removing manual memoization (useMemo, useCallback, memo) from the problematic component to verify that your app works correctly without any memoization. If the bug still occurs when all memoization is removed, you have a Rules of React violation that needs to be fixed.
+Manual memoization (`useMemo`, `useCallback`, `memo`) அனைத்தையும் problematic component-இலிருந்து நீக்கி, எந்த memoization இல்லாமலேயே உங்கள் app சரியாக வேலை செய்கிறதா என்பதைச் சரிபார்க்கலாம். அனைத்து memoization நீக்கப்பட்ட பிறகும் bug ஏற்பட்டால், சரிசெய்ய வேண்டிய React விதி மீறல் உங்களிடம் உள்ளது.
 
-### 2. Fix Issues Step by Step {/*fix-issues-step-by-step*/}
+### 2. பிரச்சினைகளை படிப்படியாக சரிசெய்தல் {/*fix-issues-step-by-step*/}
 
-1. Identify the root cause (often memoization-for-correctness)
-2. Test after each fix
-3. Remove `"use no memo"` once fixed
-4. Verify the component shows the ✨ badge in React DevTools
+1. Root cause-ஐ கண்டறியுங்கள் (அடிக்கடி correctness-க்கான memoization)
+2. ஒவ்வொரு fix-க்கும் பிறகு test செய்யுங்கள்
+3. சரிசெய்த பிறகு `"use no memo"`-ஐ நீக்குங்கள்
+4. React DevTools-இல் component ✨ badge காட்டுகிறதா என்பதைச் சரிபார்க்கவும்
 
-## Reporting Compiler Bugs {/*reporting-compiler-bugs*/}
+## Compiler bugs report செய்தல் {/*reporting-compiler-bugs*/}
 
-If you believe you've found a compiler bug:
+Compiler bug ஒன்றைக் கண்டுபிடித்துள்ளீர்கள் என்று நம்பினால்:
 
-1. **Verify it's not a Rules of React violation** - Check with ESLint
-2. **Create a minimal reproduction** - Isolate the issue in a small example
-3. **Test without the compiler** - Confirm the issue only occurs with compilation
-4. **File an [issue](https://github.com/facebook/react/issues/new?template=compiler_bug_report.yml)**:
-   - React and compiler versions
+1. **இது React விதி மீறல் அல்ல என்பதை உறுதிசெய்யுங்கள்** - ESLint மூலம் சரிபார்க்கவும்
+2. **Minimal reproduction உருவாக்குங்கள்** - பிரச்சினையை சிறிய உதாரணத்தில் தனிமைப்படுத்துங்கள்
+3. **Compiler இல்லாமல் test செய்யுங்கள்** - Compilation இருந்தால் மட்டுமே பிரச்சினை ஏற்படுகிறதா என்பதை உறுதிசெய்யுங்கள்
+4. **[Issue](https://github.com/facebook/react/issues/new?template=compiler_bug_report.yml) file செய்யுங்கள்**:
+   - React மற்றும் compiler versions
    - Minimal reproduction code
    - Expected vs actual behavior
-   - Any error messages
+   - ஏதேனும் error messages
 
-## Next Steps {/*next-steps*/}
+## அடுத்த படிகள் {/*next-steps*/}
 
-- Review the [Rules of React](/reference/rules) to prevent issues
-- Check the [incremental adoption guide](/learn/react-compiler/incremental-adoption) for gradual rollout strategies
+- பிரச்சினைகளைத் தவிர்க்க [React விதிகளை](/reference/rules) review செய்யுங்கள்
+- படிப்படியான rollout strategies-க்கு [incremental adoption guide](/learn/react-compiler/incremental-adoption)-ஐப் பார்க்கவும்

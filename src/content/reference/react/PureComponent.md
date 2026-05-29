@@ -4,13 +4,13 @@ title: PureComponent
 
 <Pitfall>
 
-We recommend defining components as functions instead of classes. [See how to migrate.](#alternatives)
+Classes-க்கு பதிலாக components-ஐ functions ஆக define செய்ய பரிந்துரைக்கிறோம். [Migrate செய்வது எப்படி என்று பார்க்கவும்.](#alternatives)
 
 </Pitfall>
 
 <Intro>
 
-`PureComponent` is similar to [`Component`](/reference/react/Component) but it skips re-renders for same props and state. Class components are still supported by React, but we don't recommend using them in new code.
+`PureComponent` [`Component`](/reference/react/Component)-க்கு ஒத்தது; ஆனால் அதே props மற்றும் state இருந்தால் re-renders-ஐ skip செய்கிறது. Class components-ஐ React இன்னும் support செய்கிறது; ஆனால் புதிய code-இல் அவற்றைப் பயன்படுத்த பரிந்துரைக்கவில்லை.
 
 ```js
 class Greeting extends PureComponent {
@@ -26,11 +26,11 @@ class Greeting extends PureComponent {
 
 ---
 
-## Reference {/*reference*/}
+## குறிப்பு {/*reference*/}
 
 ### `PureComponent` {/*purecomponent*/}
 
-To skip re-rendering a class component for same props and state, extend `PureComponent` instead of [`Component`:](/reference/react/Component)
+அதே props மற்றும் state-க்கு class component re-render ஆகாமல் skip செய்ய, [`Component`](/reference/react/Component)-க்கு பதிலாக `PureComponent`-ஐ extend செய்யுங்கள்:
 
 ```js
 import { PureComponent } from 'react';
@@ -42,18 +42,18 @@ class Greeting extends PureComponent {
 }
 ```
 
-`PureComponent` is a subclass of `Component` and supports [all the `Component` APIs.](/reference/react/Component#reference) Extending `PureComponent` is equivalent to defining a custom [`shouldComponentUpdate`](/reference/react/Component#shouldcomponentupdate) method that shallowly compares props and state.
+`PureComponent` என்பது `Component`-ன் subclass; [அனைத்து `Component` APIs](/reference/react/Component#reference)-ஐயும் support செய்கிறது. `PureComponent`-ஐ extend செய்வது, props மற்றும் state-ஐ shallow-ஆக compare செய்யும் custom [`shouldComponentUpdate`](/reference/react/Component#shouldcomponentupdate) method define செய்வதற்கு equivalent.
 
 
-[See more examples below.](#usage)
+[மேலும் உதாரணங்களை கீழே பார்க்கவும்.](#usage)
 
 ---
 
-## Usage {/*usage*/}
+## பயன்பாடு {/*usage*/}
 
-### Skipping unnecessary re-renders for class components {/*skipping-unnecessary-re-renders-for-class-components*/}
+### Class components-க்கு தேவையற்ற re-renders-ஐ skip செய்தல் {/*skipping-unnecessary-re-renders-for-class-components*/}
 
-React normally re-renders a component whenever its parent re-renders. As an optimization, you can create a component that React will not re-render when its parent re-renders so long as its new props and state are the same as the old props and state. [Class components](/reference/react/Component) can opt into this behavior by extending `PureComponent`:
+பொதுவாக parent re-render ஆகும் போதெல்லாம் React component-ஐ re-render செய்யும். Optimization ஆக, புதிய props மற்றும் state பழைய props மற்றும் state-க்கு சமமாக இருக்கும் வரை, parent re-render ஆனாலும் React re-render செய்யாத component-ஐ உருவாக்கலாம். [Class components](/reference/react/Component) `PureComponent`-ஐ extend செய்வதன் மூலம் இந்த behavior-க்கு opt in செய்யலாம்:
 
 ```js {1}
 class Greeting extends PureComponent {
@@ -63,9 +63,9 @@ class Greeting extends PureComponent {
 }
 ```
 
-A React component should always have [pure rendering logic.](/learn/keeping-components-pure) This means that it must return the same output if its props, state, and context haven't changed. By using `PureComponent`, you are telling React that your component complies with this requirement, so React doesn't need to re-render as long as its props and state haven't changed. However, your component will still re-render if a context that it's using changes.
+React component எப்போதும் [pure rendering logic](/learn/keeping-components-pure) கொண்டிருக்க வேண்டும். அதாவது அதன் props, state, மற்றும் context மாறவில்லை என்றால் அது அதே output-ஐ return செய்ய வேண்டும். `PureComponent` பயன்படுத்துவதன் மூலம், உங்கள் component இந்த தேவையை பின்பற்றுகிறது என்று React-க்கு சொல்கிறீர்கள்; ஆகவே props மற்றும் state மாறாத வரை React re-render செய்ய வேண்டியதில்லை. ஆனால் அது பயன்படுத்தும் context மாறினால், உங்கள் component இன்னும் re-render ஆகும்.
 
-In this example, notice that the `Greeting` component re-renders whenever `name` is changed (because that's one of its props), but not when `address` is changed (because it's not passed to `Greeting` as a prop):
+இந்த உதாரணத்தில், `name` மாறும்போது `Greeting` component re-render ஆகும் (ஏனெனில் அது அதன் props-ல் ஒன்று), ஆனால் `address` மாறும்போது re-render ஆகாது (ஏனெனில் அது `Greeting`-க்கு prop ஆக pass செய்யப்படவில்லை) என்பதை கவனியுங்கள்:
 
 <Sandpack>
 
@@ -109,17 +109,17 @@ label {
 
 <Pitfall>
 
-We recommend defining components as functions instead of classes. [See how to migrate.](#alternatives)
+Classes-க்கு பதிலாக components-ஐ functions ஆக define செய்ய பரிந்துரைக்கிறோம். [Migrate செய்வது எப்படி என்று பார்க்கவும்.](#alternatives)
 
 </Pitfall>
 
 ---
 
-## Alternatives {/*alternatives*/}
+## மாற்று வழிகள் {/*alternatives*/}
 
-### Migrating from a `PureComponent` class component to a function {/*migrating-from-a-purecomponent-class-component-to-a-function*/}
+### `PureComponent` class component-இலிருந்து function-க்கு migrate செய்தல் {/*migrating-from-a-purecomponent-class-component-to-a-function*/}
 
-We recommend using function components instead of [class components](/reference/react/Component) in new code. If you have some existing class components using `PureComponent`, here is how you can convert them. This is the original code:
+புதிய code-இல் [class components](/reference/react/Component)-க்கு பதிலாக function components பயன்படுத்த பரிந்துரைக்கிறோம். `PureComponent` பயன்படுத்தும் existing class components உங்களிடம் இருந்தால், அவற்றை இவ்வாறு convert செய்யலாம். இது original code:
 
 <Sandpack>
 
@@ -161,7 +161,7 @@ label {
 
 </Sandpack>
 
-When you [convert this component from a class to a function,](/reference/react/Component#alternatives) wrap it in [`memo`:](/reference/react/memo)
+இந்த component-ஐ [class-இலிருந்து function-க்கு convert செய்யும்போது](/reference/react/Component#alternatives), அதை [`memo`](/reference/react/memo)-வில் wrap செய்யுங்கள்:
 
 <Sandpack>
 
@@ -203,6 +203,6 @@ label {
 
 <Note>
 
-Unlike `PureComponent`, [`memo`](/reference/react/memo) does not compare the new and the old state. In function components, calling the [`set` function](/reference/react/useState#setstate) with the same state [already prevents re-renders by default,](/reference/react/memo#updating-a-memoized-component-using-state) even without `memo`.
+`PureComponent` போல அல்லாமல், [`memo`](/reference/react/memo) புதிய மற்றும் பழைய state-ஐ compare செய்யாது. Function components-இல், அதே state உடன் [`set` function](/reference/react/useState#setstate) call செய்வது `memo` இல்லாமலேயே [default-ஆக re-renders-ஐத் தடுக்கிறது](/reference/react/memo#updating-a-memoized-component-using-state).
 
 </Note>

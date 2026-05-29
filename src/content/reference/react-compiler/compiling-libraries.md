@@ -1,30 +1,30 @@
 ---
-title: Compiling Libraries
+title: Libraries-ஐ compile செய்தல்
 ---
 
 <Intro>
-This guide helps library authors understand how to use React Compiler to ship optimized library code to their users.
+Optimized library code-ஐ தங்கள் users-க்கு ship செய்ய React Compiler-ஐ எவ்வாறு பயன்படுத்துவது என்பதை library authors புரிந்துகொள்ள இந்த வழிகாட்டி உதவும்.
 </Intro>
 
 <InlineToc />
 
-## Why Ship Compiled Code? {/*why-ship-compiled-code*/}
+## Compiled code-ஐ ஏன் ship செய்ய வேண்டும்? {/*why-ship-compiled-code*/}
 
-As a library author, you can compile your library code before publishing to npm. This provides several benefits:
+Library author ஆக, npm-க்கு publish செய்வதற்கு முன் உங்கள் library code-ஐ compile செய்யலாம். இது பல நன்மைகளை வழங்குகிறது:
 
-- **Performance improvements for all users** - Your library users get optimized code even if they aren't using React Compiler yet
-- **No configuration required by users** - The optimizations work out of the box
-- **Consistent behavior** - All users get the same optimized version regardless of their build setup
+- **அனைத்து users-க்கும் performance மேம்பாடுகள்** - உங்கள் library users இன்னும் React Compiler பயன்படுத்தவில்லை என்றாலும் optimized code கிடைக்கும்
+- **Users-க்கு configuration தேவையில்லை** - Optimizations out of the box வேலை செய்யும்
+- **Consistent behavior** - Build setup எதுவாக இருந்தாலும் அனைத்து users-க்கும் அதே optimized version கிடைக்கும்
 
-## Setting Up Compilation {/*setting-up-compilation*/}
+## Compilation அமைத்தல் {/*setting-up-compilation*/}
 
-Add React Compiler to your library's build process:
+உங்கள் library-இன் build process-க்கு React Compiler-ஐ சேர்க்கவும்:
 
 <TerminalBlock>
 npm install -D babel-plugin-react-compiler@latest
 </TerminalBlock>
 
-Configure your build tool to compile your library. For example, with Babel:
+உங்கள் library-ஐ compile செய்ய build tool-ஐ configure செய்யுங்கள். உதாரணமாக, Babel-உடன்:
 
 ```js
 // babel.config.js
@@ -36,13 +36,13 @@ module.exports = {
 };
 ```
 
-## Backwards Compatibility {/*backwards-compatibility*/}
+## பின்னோக்கி இணக்கம் {/*backwards-compatibility*/}
 
-If your library supports React versions below 19, you'll need additional configuration:
+உங்கள் library React 19-க்கு கீழே உள்ள versions-ஐ ஆதரித்தால், கூடுதல் configuration தேவைப்படும்:
 
-### 1. Install the runtime package {/*install-runtime-package*/}
+### 1. Runtime package-ஐ நிறுவுதல் {/*install-runtime-package*/}
 
-We recommend installing react-compiler-runtime as a direct dependency:
+react-compiler-runtime-ஐ direct dependency ஆக நிறுவ பரிந்துரைக்கிறோம்:
 
 <TerminalBlock>
 npm install react-compiler-runtime@latest
@@ -59,48 +59,48 @@ npm install react-compiler-runtime@latest
 }
 ```
 
-### 2. Configure the target version {/*configure-target-version*/}
+### 2. Target version-ஐ configure செய்தல் {/*configure-target-version*/}
 
-Set the minimum React version your library supports:
+உங்கள் library ஆதரிக்கும் குறைந்தபட்ச React version-ஐ அமைக்கவும்:
 
 ```js
 {
-  target: '17', // Minimum supported React version
+  target: '17', // ஆதரிக்கப்படும் குறைந்தபட்ச React version
 }
 ```
 
-## Testing Strategy {/*testing-strategy*/}
+## Testing strategy {/*testing-strategy*/}
 
-Test your library both with and without compilation to ensure compatibility. Run your existing test suite against the compiled code, and also create a separate test configuration that bypasses the compiler. This helps catch any issues that might arise from the compilation process and ensures your library works correctly in all scenarios.
+Compatibility-ஐ உறுதிசெய்ய உங்கள் library-ஐ compilation உடனும் இல்லாமலும் test செய்யுங்கள். Compiled code-க்கு எதிராக உங்கள் existing test suite-ஐ இயக்குங்கள்; compiler-ஐ bypass செய்யும் தனி test configuration ஒன்றையும் உருவாக்குங்கள். Compilation process-இலிருந்து வரக்கூடிய பிரச்சினைகளைப் பிடிக்கவும், அனைத்து scenarios-இலும் உங்கள் library சரியாக வேலை செய்கிறது என்பதை உறுதிசெய்யவும் இது உதவும்.
 
 ## Troubleshooting {/*troubleshooting*/}
 
-### Library doesn't work with older React versions {/*library-doesnt-work-with-older-react-versions*/}
+### பழைய React versions-உடன் library வேலை செய்யவில்லை {/*library-doesnt-work-with-older-react-versions*/}
 
-If your compiled library throws errors in React 17 or 18:
+உங்கள் compiled library React 17 அல்லது 18-இல் errors throw செய்தால்:
 
-1. Verify you've installed `react-compiler-runtime` as a dependency
-2. Check that your `target` configuration matches your minimum supported React version
-3. Ensure the runtime package is included in your published bundle
+1. `react-compiler-runtime` dependency ஆக நிறுவப்பட்டுள்ளதா என்பதைச் சரிபார்க்கவும்
+2. உங்கள் `target` configuration, நீங்கள் ஆதரிக்கும் குறைந்தபட்ச React version-உடன் பொருந்துகிறதா என்பதைச் சரிபார்க்கவும்
+3. Published bundle-இல் runtime package சேர்க்கப்பட்டுள்ளதா என்பதை உறுதிசெய்யவும்
 
-### Compilation conflicts with other Babel plugins {/*compilation-conflicts-with-other-babel-plugins*/}
+### Compilation மற்ற Babel plugins-உடன் conflict ஆகிறது {/*compilation-conflicts-with-other-babel-plugins*/}
 
-Some Babel plugins may conflict with React Compiler:
+சில Babel plugins React Compiler-உடன் conflict ஆகலாம்:
 
-1. Place `babel-plugin-react-compiler` early in your plugin list
-2. Disable conflicting optimizations in other plugins
-3. Test your build output thoroughly
+1. உங்கள் plugin list-இல் `babel-plugin-react-compiler`-ஐ ஆரம்பத்தில் வையுங்கள்
+2. மற்ற plugins-இல் conflicting optimizations-ஐ disable செய்யுங்கள்
+3. உங்கள் build output-ஐ முழுமையாக test செய்யுங்கள்
 
-### Runtime module not found {/*runtime-module-not-found*/}
+### Runtime module கிடைக்கவில்லை {/*runtime-module-not-found*/}
 
-If users see "Cannot find module 'react-compiler-runtime'":
+Users "Cannot find module 'react-compiler-runtime'" எனக் கண்டால்:
 
-1. Ensure the runtime is listed in `dependencies`, not `devDependencies`
-2. Check that your bundler includes the runtime in the output
-3. Verify the package is published to npm with your library
+1. Runtime `devDependencies` அல்ல, `dependencies`-இல் listed ஆக உள்ளதா என்பதை உறுதிசெய்யுங்கள்
+2. உங்கள் bundler output-இல் runtime-ஐ சேர்க்கிறதா என்பதைச் சரிபார்க்கவும்
+3. Package உங்கள் library-உடன் npm-க்கு publish செய்யப்பட்டுள்ளதா என்பதைச் சரிபார்க்கவும்
 
-## Next Steps {/*next-steps*/}
+## அடுத்த படிகள் {/*next-steps*/}
 
-- Learn about [debugging techniques](/learn/react-compiler/debugging) for compiled code
-- Check the [configuration options](/reference/react-compiler/configuration) for all compiler options
-- Explore [compilation modes](/reference/react-compiler/compilationMode) for selective optimization
+- Compiled code-க்கான [debugging techniques](/learn/react-compiler/debugging) பற்றி அறிக
+- அனைத்து compiler options-க்கும் [configuration options](/reference/react-compiler/configuration)-ஐப் பார்க்கவும்
+- Selective optimization-க்கான [compilation modes](/reference/react-compiler/compilationMode)-ஐ ஆராயுங்கள்

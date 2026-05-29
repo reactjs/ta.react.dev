@@ -4,7 +4,7 @@ link: "<link>"
 
 <Intro>
 
-The [built-in browser `<link>` component](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link) lets you use external resources such as stylesheets or annotate the document with link metadata.
+[உலாவியில் உள்ளமைந்த `<link>` component](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link), stylesheets போன்ற external resources பயன்படுத்தவோ document-ஐ link metadata-வுடன் annotate செய்யவோ உதவுகிறது.
 
 ```js
 <link rel="icon" href="favicon.ico" />
@@ -16,94 +16,94 @@ The [built-in browser `<link>` component](https://developer.mozilla.org/en-US/do
 
 ---
 
-## Reference {/*reference*/}
+## குறிப்பு {/*reference*/}
 
 ### `<link>` {/*link*/}
 
-To link to external resources such as stylesheets, fonts, and icons, or to annotate the document with link metadata, render the [built-in browser `<link>` component](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link). You can render `<link>` from any component and React will [in most cases](#special-rendering-behavior) place the corresponding DOM element in the document head.
+Stylesheets, fonts, மற்றும் icons போன்ற external resources-க்கு link செய்யவோ document-ஐ link metadata-வுடன் annotate செய்யவோ, [உலாவியில் உள்ளமைந்த `<link>` component](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link)-ஐ render செய்யுங்கள். எந்த component-இலிருந்தும் `<link>` render செய்யலாம்; React [பெரும்பாலான சூழல்களில்](#special-rendering-behavior) தொடர்புடைய DOM element-ஐ document head-இல் வைக்கும்.
 
 ```js
 <link rel="icon" href="favicon.ico" />
 ```
 
-[See more examples below.](#usage)
+[மேலும் உதாரணங்களை கீழே பார்க்கவும்.](#usage)
 
 #### Props {/*props*/}
 
-`<link>` supports all [common element props.](/reference/react-dom/components/common#common-props)
+`<link>` அனைத்து [common element props](/reference/react-dom/components/common#common-props)-ஐ support செய்கிறது.
 
-* `rel`: a string, required. Specifies the [relationship to the resource](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel). React [treats links with `rel="stylesheet"` differently](#special-rendering-behavior) from other links.
+* `rel`: ஒரு string, required. [Resource-க்கு உள்ள relationship](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel)-ஐ குறிப்பிடுகிறது. React மற்ற links-ஐ விட [`rel="stylesheet"` கொண்ட links-ஐ வேறுபட்டு கையாளுகிறது](#special-rendering-behavior).
 
-These props apply when `rel="stylesheet"`:
+`rel="stylesheet"` என்றால் இந்த props பொருந்தும்:
 
-* `precedence`: a string. Tells React where to rank the `<link>` DOM node relative to others in the document `<head>`, which determines which stylesheet can override the other. React will infer that precedence values it discovers first are "lower" and precedence values it discovers later are "higher". Many style systems can work fine using a single precedence value because style rules are atomic. Stylesheets with the same precedence go together whether they are `<link>` or inline `<style>` tags or loaded using [`preinit`](/reference/react-dom/preinit) functions.
-* `media`: a string. Restricts the stylesheet to a certain [media query](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_media_queries/Using_media_queries).
-* `title`: a string. Specifies the name of an [alternative stylesheet](https://developer.mozilla.org/en-US/docs/Web/CSS/Alternative_style_sheets).
+* `precedence`: ஒரு string. Document `<head>`-இல் உள்ள பிறவற்றுடன் ஒப்பிடும்போது `<link>` DOM node-ஐ எங்கு rank செய்ய வேண்டும் என்பதை React-க்கு சொல்கிறது; இதனால் எந்த stylesheet மற்றொன்றை override செய்ய முடியும் என்பது தீர்மானிக்கப்படும். React முதலில் கண்டுபிடிக்கும் precedence values "lower", பின்னர் கண்டுபிடிக்கும் values "higher" என்று infer செய்யும். பல style systems single precedence value-யுடன் நன்றாக வேலை செய்யும்; ஏனெனில் style rules atomic. அதே precedence கொண்ட stylesheets `<link>` ஆக இருந்தாலும் inline `<style>` tags ஆக இருந்தாலும் அல்லது [`preinit`](/reference/react-dom/preinit) functions மூலம் loaded ஆனாலும் ஒன்றாக group செய்யப்படும்.
+* `media`: ஒரு string. Stylesheet-ஐ குறிப்பிட்ட [media query](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_media_queries/Using_media_queries)-க்கு restrict செய்கிறது.
+* `title`: ஒரு string. [Alternative stylesheet](https://developer.mozilla.org/en-US/docs/Web/CSS/Alternative_style_sheets)-ன் பெயரை குறிப்பிடுகிறது.
 
-These props apply when `rel="stylesheet"` but disable React's [special treatment of stylesheets](#special-rendering-behavior):
+`rel="stylesheet"` என்றாலும் React-ன் [stylesheets-க்கான சிறப்பு கையாளுதலை](#special-rendering-behavior) disable செய்யும் props:
 
-* `disabled`: a boolean. Disables the stylesheet.
-* `onError`: a function. Called when the stylesheet fails to load.
-* `onLoad`: a function. Called when the stylesheet finishes being loaded.
+* `disabled`: ஒரு boolean. Stylesheet-ஐ disable செய்கிறது.
+* `onError`: ஒரு function. Stylesheet load ஆகத் தவறும்போது call செய்யப்படும்.
+* `onLoad`: ஒரு function. Stylesheet load ஆகி முடிந்ததும் call செய்யப்படும்.
 
-These props apply when `rel="preload"` or `rel="modulepreload"`:
+`rel="preload"` அல்லது `rel="modulepreload"` என்றால் இந்த props பொருந்தும்:
 
-* `as`: a string. The type of resource. Its possible values are `audio`, `document`, `embed`, `fetch`, `font`, `image`, `object`, `script`, `style`, `track`, `video`, `worker`.
-* `imageSrcSet`: a string. Applicable only when `as="image"`. Specifies the [source set of the image](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images).
-* `imageSizes`: a string. Applicable only when `as="image"`. Specifies the [sizes of the image](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images).
+* `as`: ஒரு string. Resource-ன் வகை. சாத்தியமான values: `audio`, `document`, `embed`, `fetch`, `font`, `image`, `object`, `script`, `style`, `track`, `video`, `worker`.
+* `imageSrcSet`: ஒரு string. `as="image"` என்றால் மட்டும் பொருந்தும். [Image-ன் source set](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images)-ஐ குறிப்பிடுகிறது.
+* `imageSizes`: ஒரு string. `as="image"` என்றால் மட்டும் பொருந்தும். [Image-ன் sizes](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images)-ஐ குறிப்பிடுகிறது.
 
-These props apply when `rel="icon"` or `rel="apple-touch-icon"`:
+`rel="icon"` அல்லது `rel="apple-touch-icon"` என்றால் இந்த props பொருந்தும்:
 
-* `sizes`: a string. The [sizes of the icon](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images).
+* `sizes`: ஒரு string. [Icon-ன் sizes](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images).
 
-These props apply in all cases:
+எல்லா சூழல்களிலும் இந்த props பொருந்தும்:
 
-* `href`: a string. The URL of the linked resource.
-*  `crossOrigin`: a string. The [CORS policy](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/crossorigin) to use. Its possible values are `anonymous` and `use-credentials`. It is required when `as` is set to `"fetch"`.
-*  `referrerPolicy`: a string. The [Referrer header](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link#referrerpolicy) to send when fetching. Its possible values are `no-referrer-when-downgrade` (the default), `no-referrer`, `origin`, `origin-when-cross-origin`, and `unsafe-url`.
-* `fetchPriority`: a string. Suggests a relative priority for fetching the resource. The possible values are `auto` (the default), `high`, and `low`.
-* `hrefLang`: a string. The language of the linked resource.
-* `integrity`: a string. A cryptographic hash of the resource, to [verify its authenticity](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity).
-* `type`: a string. The MIME type of the linked resource.
+* `href`: ஒரு string. Linked resource-ன் URL.
+*  `crossOrigin`: ஒரு string. பயன்படுத்த வேண்டிய [CORS policy](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/crossorigin). சாத்தியமான values `anonymous` மற்றும் `use-credentials`. `as` `"fetch"` ஆக அமைக்கப்பட்டால் இது தேவைப்படும்.
+*  `referrerPolicy`: ஒரு string. Fetch செய்யும்போது அனுப்ப வேண்டிய [Referrer header](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link#referrerpolicy). சாத்தியமான values `no-referrer-when-downgrade` (default), `no-referrer`, `origin`, `origin-when-cross-origin`, மற்றும் `unsafe-url`.
+* `fetchPriority`: ஒரு string. Resource fetch செய்ய relative priority-ஐ suggest செய்கிறது. சாத்தியமான values `auto` (default), `high`, மற்றும் `low`.
+* `hrefLang`: ஒரு string. Linked resource-ன் மொழி.
+* `integrity`: ஒரு string. Resource-ன் authenticity-ஐ [verify செய்ய](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity) பயன்படும் cryptographic hash.
+* `type`: ஒரு string. Linked resource-ன் MIME type.
 
-Props that are **not recommended** for use with React:
+React உடன் பயன்படுத்த **பரிந்துரைக்கப்படாத** props:
 
-* `blocking`: a string. If set to `"render"`, instructs the browser not to render the page until the stylesheet is loaded. React provides more fine-grained control using Suspense.
+* `blocking`: ஒரு string. `"render"` ஆக set செய்தால், stylesheet load ஆகும் வரை page-ஐ render செய்ய வேண்டாம் என்று browser-க்கு அறிவுறுத்தும். React Suspense மூலம் இன்னும் fine-grained control வழங்குகிறது.
 
-#### Special rendering behavior {/*special-rendering-behavior*/}
+#### சிறப்பு rendering behavior {/*special-rendering-behavior*/}
 
-React will always place the DOM element corresponding to the `<link>` component within the document’s `<head>`, regardless of where in the React tree it is rendered. The `<head>` is the only valid place for `<link>` to exist within the DOM, yet it’s convenient and keeps things composable if a component representing a specific page can render `<link>` components itself.
+React tree-இல் எங்கு render செய்யப்பட்டாலும், `<link>` component-க்கு தொடர்புடைய DOM element-ஐ React எப்போதும் document-ன் `<head>`-க்குள் வைக்கும். DOM-இல் `<link>` இருக்கச் செல்லுபடியான ஒரே இடம் `<head>` தான்; இருந்தாலும், குறிப்பிட்ட page-ஐ represent செய்யும் component தானே `<link>` components render செய்ய முடிவது வசதியானது மற்றும் composable ஆக வைத்திருக்கிறது.
 
-There are a few exceptions to this:
+இதற்கு சில விதிவிலக்குகள் உள்ளன:
 
-* If the `<link>` has a `rel="stylesheet"` prop, then it has to also have a `precedence` prop to get this special behavior. This is because the order of stylesheets within the document is significant, so React needs to know how to order this stylesheet relative to others, which you specify using the `precedence` prop. If the `precedence` prop is omitted, there is no special behavior.
-* If the `<link>` has an [`itemProp`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemprop) prop, there is no special behavior, because in this case it doesn’t apply to the document but instead represents metadata about a specific part of the page.
-* If the `<link>` has an `onLoad` or `onError` prop, because in that case you are managing the loading of the linked resource manually within your React component.
+* `<link>`-க்கு `rel="stylesheet"` prop இருந்தால், இந்த சிறப்பு behavior கிடைக்க அதற்கு `precedence` prop-உம் இருக்க வேண்டும். ஏனெனில் document-இல் stylesheets-ன் order முக்கியமானது; இந்த stylesheet-ஐ பிறவற்றுடன் ஒப்பிடும்போது எப்படி order செய்ய வேண்டும் என்பதை React அறிய வேண்டும்; அதை `precedence` prop மூலம் குறிப்பிடுகிறீர்கள். `precedence` prop விடப்பட்டால், சிறப்பு behavior இல்லை.
+* `<link>`-க்கு [`itemProp`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemprop) prop இருந்தால், சிறப்பு behavior இல்லை; ஏனெனில் இந்த சூழலில் அது document-க்கு பொருந்தாது, page-ன் குறிப்பிட்ட பகுதியை பற்றிய metadata-வை represent செய்கிறது.
+* `<link>`-க்கு `onLoad` அல்லது `onError` prop இருந்தால், அந்த சூழலில் linked resource-ன் loading-ஐ உங்கள் React component-க்குள் manual-ஆக manage செய்கிறீர்கள்.
 
-#### Special behavior for stylesheets {/*special-behavior-for-stylesheets*/}
+#### Stylesheets-க்கான சிறப்பு behavior {/*special-behavior-for-stylesheets*/}
 
-In addition, if the `<link>` is to a stylesheet (namely, it has `rel="stylesheet"` in its props), React treats it specially in the following ways:
+மேலும், `<link>` stylesheet-க்கு என்றால் (அதாவது அதன் props-இல் `rel="stylesheet"` இருந்தால்), React அதை பின்வரும் வழிகளில் சிறப்பாக கையாளும்:
 
-* The component that renders `<link>` will [suspend](/reference/react/Suspense) while the stylesheet is loading.
-* If multiple components render links to the same stylesheet, React will de-duplicate them and only put a single link into the DOM. Two links are considered the same if they have the same `href` prop.
+* Stylesheet load ஆகும் போது `<link>` render செய்யும் component [suspend](/reference/react/Suspense) ஆகும்.
+* பல components அதே stylesheet-க்கு links render செய்தால், React அவற்றை de-duplicate செய்து DOM-இல் ஒரே link மட்டும் வைக்கும். இரண்டு links-க்கும் அதே `href` prop இருந்தால் அவை ஒரேதாக கருதப்படும்.
 
-There are two exception to this special behavior:
+இந்த சிறப்பு behavior-க்கு இரண்டு விதிவிலக்குகள் உள்ளன:
 
-* If the link doesn't have a `precedence` prop, there is no special behavior, because the order of stylesheets within the document is significant, so React needs to know how to order this stylesheet relative to others, which you specify using the `precedence` prop.
-* If you supply any of the `onLoad`, `onError`, or `disabled` props, there is no special behavior, because these props indicate that you are managing the loading of the stylesheet manually within your component.
+* Link-க்கு `precedence` prop இல்லையெனில், சிறப்பு behavior இல்லை; ஏனெனில் document-இல் stylesheets-ன் order முக்கியமானது, மேலும் இந்த stylesheet-ஐ பிறவற்றுடன் ஒப்பிடும்போது எப்படி order செய்ய வேண்டும் என்பதை React அறிய வேண்டும்; அதை `precedence` prop மூலம் குறிப்பிடுகிறீர்கள்.
+* `onLoad`, `onError`, அல்லது `disabled` props-இல் ஏதேனும் ஒன்றை வழங்கினால், சிறப்பு behavior இல்லை; ஏனெனில் stylesheet-ன் loading-ஐ component-க்குள் manual-ஆக manage செய்கிறீர்கள் என்பதை இந்த props காட்டுகின்றன.
 
-This special treatment comes with two caveats:
+இந்த சிறப்பு கையாளுதலுக்கு இரண்டு எச்சரிக்கைகள் உள்ளன:
 
-* React will ignore changes to props after the link has been rendered. (React will issue a warning in development if this happens.)
-* React may leave the link in the DOM even after the component that rendered it has been unmounted.
+* Link render ஆன பிறகு props-இல் வரும் மாற்றங்களை React புறக்கணிக்கும். (இது நடந்தால் development-இல் React warning வழங்கும்.)
+* Link-ஐ render செய்த component unmount ஆன பிறகும் React link-ஐ DOM-இல் விட்டு விடலாம்.
 
 ---
 
-## Usage {/*usage*/}
+## பயன்பாடு {/*usage*/}
 
-### Linking to related resources {/*linking-to-related-resources*/}
+### தொடர்புடைய resources-க்கு link செய்தல் {/*linking-to-related-resources*/}
 
-You can annotate the document with links to related resources such as an icon, canonical URL, or pingback. React will place this metadata within the document `<head>` regardless of where in the React tree it is rendered.
+Icon, canonical URL, அல்லது pingback போன்ற தொடர்புடைய resources-க்கு links மூலம் document-ஐ annotate செய்யலாம். React tree-இல் எங்கு render செய்யப்பட்டாலும், இந்த metadata-வை React document `<head>`-க்குள் வைக்கும்.
 
 <SandpackWithHTMLOutput>
 
@@ -124,12 +124,12 @@ export default function BlogPage() {
 
 </SandpackWithHTMLOutput>
 
-### Linking to a stylesheet {/*linking-to-a-stylesheet*/}
+### Stylesheet-க்கு link செய்தல் {/*linking-to-a-stylesheet*/}
 
-If a component depends on a certain stylesheet in order to be displayed correctly, you can render a link to that stylesheet within the component. Your component will [suspend](/reference/react/Suspense) while the stylesheet is loading. You must supply the `precedence` prop, which tells React where to place this stylesheet relative to others — stylesheets with higher precedence can override those with lower precedence.
+ஒரு component சரியாக display ஆக குறிப்பிட்ட stylesheet-ஐ சார்ந்திருந்தால், அந்த component-க்குள் அந்த stylesheet-க்கு link render செய்யலாம். Stylesheet load ஆகும் போது உங்கள் component [suspend](/reference/react/Suspense) ஆகும். இந்த stylesheet-ஐ பிறவற்றுடன் ஒப்பிடும்போது எங்கு வைக்க வேண்டும் என்பதை React-க்கு சொல்லும் `precedence` prop-ஐ வழங்க வேண்டும். Higher precedence கொண்ட stylesheets, lower precedence கொண்டவற்றை override செய்ய முடியும்.
 
 <Note>
-When you want to use a stylesheet, it can be beneficial to call the [preinit](/reference/react-dom/preinit) function. Calling this function may allow the browser to start fetching the stylesheet earlier than if you just render a `<link>` component, for example by sending an [HTTP Early Hints response](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/103).
+ஒரு stylesheet பயன்படுத்த விரும்பும்போது, [preinit](/reference/react-dom/preinit) function-ஐ call செய்வது பயனுள்ளதாக இருக்கலாம். `<link>` component மட்டும் render செய்வதைவிட, இந்த function-ஐ call செய்வது browser stylesheet-ஐ முன்கூட்டியே fetch செய்யத் தொடங்க அனுமதிக்கலாம்; உதாரணமாக [HTTP Early Hints response](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/103) அனுப்புவதன் மூலம்.
 </Note>
 
 <SandpackWithHTMLOutput>
@@ -149,9 +149,9 @@ export default function SiteMapPage() {
 
 </SandpackWithHTMLOutput>
 
-### Controlling stylesheet precedence {/*controlling-stylesheet-precedence*/}
+### Stylesheet precedence-ஐ கட்டுப்படுத்துதல் {/*controlling-stylesheet-precedence*/}
 
-Stylesheets can conflict with each other, and when they do, the browser goes with the one that comes later in the document. React lets you control the order of stylesheets with the `precedence` prop. In this example, three components render stylesheets, and the ones with the same precedence are grouped together in the `<head>`.
+Stylesheets ஒன்றோடொன்று conflict ஆகலாம்; அப்போது document-இல் பின்னர் வரும் stylesheet-ஐ browser பயன்படுத்தும். `precedence` prop மூலம் stylesheets-ன் order-ஐ React-ல் கட்டுப்படுத்தலாம். இந்த உதாரணத்தில், மூன்று components stylesheets render செய்கின்றன; அதே precedence கொண்டவை `<head>`-இல் ஒன்றாக group செய்யப்படுகின்றன.
 
 <SandpackWithHTMLOutput>
 
@@ -185,11 +185,11 @@ function ThirdComponent() {
 
 </SandpackWithHTMLOutput>
 
-Note the `precedence` values themselves are arbitrary and their naming is up to you. React will infer that precedence values it discovers first are "lower" and precedence values it discovers later are "higher".
+`precedence` values தாமாகவே arbitrary; அவற்றின் பெயரிடல் உங்களிடம் உள்ளது. React முதலில் கண்டுபிடிக்கும் precedence values "lower", பின்னர் கண்டுபிடிக்கும் values "higher" என்று infer செய்யும்.
 
 ### Deduplicated stylesheet rendering {/*deduplicated-stylesheet-rendering*/}
 
-If you render the same stylesheet from multiple components, React will place only a single `<link>` in the document head.
+பல components-இலிருந்து அதே stylesheet-ஐ render செய்தால், React document head-இல் ஒரே `<link>` மட்டும் வைக்கும்.
 
 <SandpackWithHTMLOutput>
 
@@ -213,9 +213,9 @@ function Component() {
 
 </SandpackWithHTMLOutput>
 
-### Annotating specific items within the document with links {/*annotating-specific-items-within-the-document-with-links*/}
+### Document-க்குள் குறிப்பிட்ட items-ஐ links மூலம் annotate செய்தல் {/*annotating-specific-items-within-the-document-with-links*/}
 
-You can use the `<link>` component with the `itemProp` prop to annotate specific items within the document with links to related resources. In this case, React will *not* place these annotations within the document `<head>` but will place them like any other React component.
+Document-க்குள் குறிப்பிட்ட items-ஐ தொடர்புடைய resources-க்கு links மூலம் annotate செய்ய, `itemProp` prop உடன் `<link>` component-ஐப் பயன்படுத்தலாம். இந்த சூழலில், React இந்த annotations-ஐ document `<head>`-க்குள் வைக்காது; மற்ற React component போலவே வைக்கும்.
 
 ```js
 <section itemScope>

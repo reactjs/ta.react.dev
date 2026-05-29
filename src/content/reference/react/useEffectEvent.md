@@ -4,7 +4,7 @@ title: useEffectEvent
 
 <Intro>
 
-`useEffectEvent` is a React Hook that lets you separate events from Effects.
+Events-ஐ Effects-இலிருந்து பிரிக்க உதவும் React Hook தான் `useEffectEvent`.
 
 ```js
 const onEvent = useEffectEvent(callback)
@@ -16,83 +16,83 @@ const onEvent = useEffectEvent(callback)
 
 ---
 
-## Reference {/*reference*/}
+## குறிப்பு {/*reference*/}
 
 ### `useEffectEvent(callback)` {/*useeffectevent*/}
 
-Call `useEffectEvent` at the top level of your component to create an Effect Event.
+Effect Event ஒன்றை உருவாக்க, உங்கள் component-ன் top level-இல் `useEffectEvent` call செய்யவும்.
 
 ```js {4,6}
 import { useEffectEvent, useEffect } from 'react';
 
 function ChatRoom({ roomId, theme }) {
   const onConnected = useEffectEvent(() => {
-    showNotification('Connected!', theme);
+    showNotification('இணைக்கப்பட்டது!', theme);
   });
 }
 ```
 
-Effect Events are a part of your Effect logic, but they behave more like an event handler. They always “see” the latest values from render (like props and state) without re-synchronizing your Effect, so they're excluded from Effect dependencies. See [Separating Events from Effects](/learn/separating-events-from-effects#extracting-non-reactive-logic-out-of-effects) to learn more.
+Effect Events உங்கள் Effect logic-ன் ஒரு பகுதியாகும்; ஆனால் அவை event handler போல நடக்கின்றன. Effect-ஐ மீண்டும் synchronize செய்யாமல், render-இலிருந்து latest values-ஐ (props மற்றும் state போன்றவை) எப்போதும் "பார்க்கும்"; ஆகவே அவை Effect dependencies-இலிருந்து exclude செய்யப்படுகின்றன. மேலும் அறிய [Events-ஐ Effects-இலிருந்து பிரித்தல்](/learn/separating-events-from-effects#extracting-non-reactive-logic-out-of-effects)-ஐ பார்க்கவும்.
 
-[See more examples below.](#usage)
+[மேலும் examples-ஐ கீழே பார்க்கவும்.](#usage)
 
 #### Parameters {/*parameters*/}
 
-* `callback`: A function containing the logic for your Effect Event. The function can accept any number of arguments and return any value. When you call the returned Effect Event function, the `callback` always accesses the latest committed values from render at the time of the call.
+* `callback`: உங்கள் Effect Event-க்கான logic கொண்ட function. இந்த function எந்த எண்ணிக்கையிலான arguments-யும் ஏற்கலாம், எந்த value-யும் return செய்யலாம். Return செய்யப்பட்ட Effect Event function-ஐ நீங்கள் call செய்யும்போது, call நேரத்தில் render-இலிருந்து latest committed values-ஐ `callback` எப்போதும் access செய்யும்.
 
 #### Returns {/*returns*/}
 
-`useEffectEvent` returns an Effect Event function with the same type signature as your `callback`.
+`useEffectEvent`, உங்கள் `callback` போலவே அதே type signature கொண்ட Effect Event function ஒன்றை return செய்கிறது.
 
-You can call this function inside `useEffect`, `useLayoutEffect`, `useInsertionEffect`, or from within other Effect Events in the same component.
+இந்த function-ஐ `useEffect`, `useLayoutEffect`, `useInsertionEffect` உள்ளே, அல்லது அதே component-இல் உள்ள மற்ற Effect Events உள்ளிருந்து call செய்யலாம்.
 
-#### Caveats {/*caveats*/}
+#### கவனிக்க வேண்டியவை {/*caveats*/}
 
-* `useEffectEvent` is a Hook, so you can only call it **at the top level of your component** or your own Hooks. You can't call it inside loops or conditions. If you need that, extract a new component and move the Effect Event into it.
-* Effect Events can only be called from inside Effects or other Effect Events. Do not call them during rendering or pass them to other components or Hooks. The [`eslint-plugin-react-hooks`](/reference/eslint-plugin-react-hooks) linter enforces this restriction.
-* Do not use `useEffectEvent` to avoid specifying dependencies in your Effect's dependency array. This hides bugs and makes your code harder to understand. Only use it for logic that is genuinely an event fired from Effects.
-* Effect Event functions do not have a stable identity. Their identity intentionally changes on every render.
+* `useEffectEvent` ஒரு Hook; ஆகவே அதை **உங்கள் component-ன் top level-இல்** அல்லது உங்கள் சொந்த Hooks-இல் மட்டுமே call செய்யலாம். Loops அல்லது conditions-க்குள் call செய்ய முடியாது. அது தேவைப்பட்டால், புதிய component ஒன்றை extract செய்து Effect Event-ஐ அதற்குள் நகர்த்தவும்.
+* Effect Events, Effects உள்ளிருந்து அல்லது மற்ற Effect Events உள்ளிருந்து மட்டுமே call செய்யப்படலாம். Rendering போது அவற்றை call செய்ய வேண்டாம்; மற்ற components அல்லது Hooks-க்கு pass செய்ய வேண்டாம். [`eslint-plugin-react-hooks`](/reference/eslint-plugin-react-hooks) linter இந்த restriction-ஐ enforce செய்கிறது.
+* உங்கள் Effect-ன் dependency array-இல் dependencies குறிப்பிடுவதைத் தவிர்க்க `useEffectEvent` பயன்படுத்த வேண்டாம். இது bugs மறைக்கிறது மற்றும் code புரிந்துகொள்ள கடினமாக்குகிறது. Effects-இலிருந்து உண்மையில் fire ஆகும் event logic-க்கு மட்டுமே இதைப் பயன்படுத்தவும்.
+* Effect Event functions-க்கு stable identity இல்லை. அவற்றின் identity ஒவ்வொரு render-க்கும் திட்டமிட்டு மாறுகிறது.
 
 <DeepDive>
 
-#### Why are Effect Events not stable? {/*why-are-effect-events-not-stable*/}
+#### Effect Events ஏன் stable அல்ல? {/*why-are-effect-events-not-stable*/}
 
-Unlike `set` functions from `useState` or refs, Effect Event functions do not have a stable identity. Their identity intentionally changes on every render:
+`useState`-இன் `set` functions அல்லது refs போல அல்லாமல், Effect Event functions-க்கு stable identity இல்லை. அவற்றின் identity ஒவ்வொரு render-க்கும் திட்டமிட்டு மாறுகிறது:
 
 ```js
 // 🔴 Wrong: including Effect Event in dependencies
 useEffect(() => {
   onSomething();
-}, [onSomething]); // ESLint will warn about this
+}, [onSomething]); // இதைப் பற்றி ESLint warn செய்யும்
 ```
 
-This is a deliberate design choice. Effect Events are meant to be called only from within Effects in the same component. Since you can only call them locally and cannot pass them to other components or include them in dependency arrays, a stable identity would serve no purpose, and would actually mask bugs.
+இது deliberate design choice. Effect Events அதே component-இலுள்ள Effects உள்ளிருந்து மட்டுமே call செய்யப்பட வேண்டியவை. அவற்றை local-ஆக மட்டுமே call செய்ய முடியும், மற்ற components-க்கு pass செய்யவோ dependency arrays-இல் சேர்க்கவோ முடியாது; ஆகவே stable identity எந்த பயனும் தராது, மாறாக bugs-ஐ mask செய்யும்.
 
-The non-stable identity acts as a runtime assertion: if your code incorrectly depends on the function identity, you'll see the Effect re-running on every render, making the bug obvious.
+Non-stable identity runtime assertion போல செயல்படுகிறது: உங்கள் code தவறாக function identity-ஐ சார்ந்திருந்தால், ஒவ்வொரு render-க்கும் Effect மீண்டும் run ஆகுவது தெரியும்; bug தெளிவாகும்.
 
-This design reinforces that Effect Events conceptually belong to a particular effect, and are not a general purpose API to opt-out of reactivity.
+இந்த design, Effect Events conceptually குறிப்பிட்ட effect-க்கு சொந்தமானவை; reactivity-யிலிருந்து opt out செய்யும் general purpose API அல்ல என்பதை வலுப்படுத்துகிறது.
 
 </DeepDive>
 
 ---
 
-## Usage {/*usage*/}
+## பயன்பாடு {/*usage*/}
 
 
-### Using an event in an Effect {/*using-an-event-in-an-effect*/}
+### Effect-இல் event பயன்படுத்துதல் {/*using-an-event-in-an-effect*/}
 
-Call `useEffectEvent` at the top level of your component to create an *Effect Event*:
+*Effect Event* ஒன்றை உருவாக்க, உங்கள் component-ன் top level-இல் `useEffectEvent` call செய்யவும்:
 
 
 ```js [[1, 1, "onConnected"]]
 const onConnected = useEffectEvent(() => {
   if (!muted) {
-    showNotification('Connected!');
+    showNotification('இணைக்கப்பட்டது!');
   }
 });
 ```
 
-`useEffectEvent` accepts an `event callback` and returns an <CodeStep step={1}>Effect Event</CodeStep>. The Effect Event is a function that can be called inside of Effects without re-connecting the Effect:
+`useEffectEvent` ஒரு `event callback`-ஐ accept செய்து <CodeStep step={1}>Effect Event</CodeStep>-ஐ return செய்கிறது. Effect Event என்பது Effect-ஐ மீண்டும் connect செய்யாமல் Effects உள்ளே call செய்யக்கூடிய function:
 
 ```js [[1, 3, "onConnected"]]
 useEffect(() => {
@@ -105,13 +105,13 @@ useEffect(() => {
 }, [roomId]);
 ```
 
-Since `onConnected` is an <CodeStep step={1}>Effect Event</CodeStep>, `muted` and `onConnect` are not in the Effect dependencies.
+`onConnected` ஒரு <CodeStep step={1}>Effect Event</CodeStep> என்பதால், `muted` மற்றும் `onConnect` Effect dependencies-இல் இல்லை.
 
 <Pitfall>
 
-##### Don't use Effect Events to skip dependencies {/*pitfall-skip-dependencies*/}
+##### Dependencies தவிர்க்க Effect Events பயன்படுத்த வேண்டாம் {/*pitfall-skip-dependencies*/}
 
-It might be tempting to use `useEffectEvent` to avoid listing dependencies that you think are "unnecessary." However, this hides bugs and makes your code harder to understand:
+"தேவையற்றவை" என்று நீங்கள் நினைக்கும் dependencies list செய்வதைத் தவிர்க்க `useEffectEvent` பயன்படுத்துவது கவர்ச்சியாக இருக்கலாம். ஆனால் இது bugs மறைக்கிறது மற்றும் code புரிந்துகொள்ள கடினமாக்குகிறது:
 
 ```js
 // 🔴 Wrong: Using Effect Events to hide dependencies
@@ -121,22 +121,22 @@ const logVisit = useEffectEvent(() => {
 
 useEffect(() => {
   logVisit()
-}, []); // Missing pageUrl means you miss logs
+}, []); // pageUrl இல்லாததால் logs தவறவிடப்படுகின்றன
 ```
 
-If a value should cause your Effect to re-run, keep it as a dependency. Only use Effect Events for logic that genuinely should not re-trigger your Effect.
+ஒரு value உங்கள் Effect மீண்டும் run ஆக காரணமாக இருக்க வேண்டுமெனில், அதை dependency ஆக வைத்திருங்கள். உங்கள் Effect-ஐ உண்மையில் re-trigger செய்யக்கூடாத logic-க்கு மட்டுமே Effect Events பயன்படுத்தவும்.
 
-See [Separating Events from Effects](/learn/separating-events-from-effects) to learn more.
+மேலும் அறிய [Events-ஐ Effects-இலிருந்து பிரித்தல்](/learn/separating-events-from-effects)-ஐ பார்க்கவும்.
 
 </Pitfall>
 
 ---
 
-### Using a timer with latest values {/*using-a-timer-with-latest-values*/}
+### Latest values உடன் timer பயன்படுத்துதல் {/*using-a-timer-with-latest-values*/}
 
-When you use `setInterval` or `setTimeout` in an Effect, you often want to read the latest values from render without restarting the timer whenever those values change.
+Effect-இல் `setInterval` அல்லது `setTimeout` பயன்படுத்தும்போது, அந்த values மாறும்போதெல்லாம் timer restart ஆகாமல் render-இலிருந்து latest values-ஐ படிக்க நீங்கள் அடிக்கடி விரும்புவீர்கள்.
 
-This counter increments `count` by the current `increment` value every second. The `onTick` Effect Event reads the latest `count` and `increment` without causing the interval to restart:
+இந்த counter, ஒவ்வொரு second-க்கும் current `increment` value அளவுக்கு `count`-ஐ increment செய்கிறது. Interval restart ஆகாமல், `onTick` Effect Event latest `count` மற்றும் `increment`-ஐ படிக்கிறது:
 
 <Sandpack>
 
@@ -168,10 +168,10 @@ export default function Timer() {
       </h1>
       <hr />
       <p>
-        Every second, increment by:
+        ஒவ்வொரு second-க்கும் increment செய்யும் அளவு:
         <button disabled={increment === 0} onClick={() => {
           setIncrement(i => i - 1);
-        }}>–</button>
+        }}>-</button>
         <b>{increment}</b>
         <button onClick={() => {
           setIncrement(i => i + 1);
@@ -188,15 +188,15 @@ button { margin: 10px; }
 
 </Sandpack>
 
-Try changing the increment value while the timer is running. The counter immediately uses the new increment value, but the timer keeps ticking smoothly without restarting.
+Timer run ஆகிக்கொண்டிருக்கும்போது increment value-ஐ மாற்றி பாருங்கள். Counter உடனே புதிய increment value-ஐ பயன்படுத்தும்; ஆனால் timer restart ஆகாமல் smooth ஆக tick செய்து கொண்டிருக்கும்.
 
 ---
 
-### Using an event listener with latest values {/*using-an-event-listener-with-latest-values*/}
+### Latest values உடன் event listener பயன்படுத்துதல் {/*using-an-event-listener-with-latest-values*/}
 
-When you set up an event listener in an Effect, you often need to read the latest values from render in the callback. Without `useEffectEvent`, you would need to include the values in your dependencies, causing the listener to be removed and re-added on every change.
+Effect-இல் event listener set up செய்யும்போது, callback-இல் render-இலிருந்து latest values-ஐ படிக்க அடிக்கடி தேவைப்படும். `useEffectEvent` இல்லாமல், அந்த values-ஐ dependencies-இல் சேர்க்க வேண்டியிருக்கும்; இதனால் ஒவ்வொரு change-க்கும் listener remove செய்யப்பட்டு மீண்டும் add செய்யப்படும்.
 
-This example shows a dot that follows the cursor, but only when "Can move" is checked. The `onMove` Effect Event always reads the latest `canMove` value without re-running the Effect:
+இந்த example cursor-ஐ பின்தொடரும் dot-ஐ காட்டுகிறது; ஆனால் "புள்ளி நகரலாம்" checked ஆக இருந்தால் மட்டுமே. Effect மீண்டும் run ஆகாமல், `onMove` Effect Event எப்போதும் latest `canMove` value-ஐ படிக்கிறது:
 
 <Sandpack>
 
@@ -226,7 +226,7 @@ export default function App() {
           checked={canMove}
           onChange={e => setCanMove(e.target.checked)}
         />
-        The dot is allowed to move
+        புள்ளி நகர அனுமதி உள்ளது
       </label>
       <hr />
       <div style={{
@@ -254,15 +254,15 @@ body {
 
 </Sandpack>
 
-Toggle the checkbox and move your cursor. The dot responds immediately to the checkbox state, but the event listener is only set up once when the component mounts.
+Checkbox toggle செய்து cursor-ஐ நகர்த்துங்கள். Dot checkbox state-க்கு உடனடியாக பதிலளிக்கும்; ஆனால் component mount ஆகும்போது event listener ஒருமுறை மட்டுமே set up செய்யப்படும்.
 
 ---
 
-### Avoid reconnecting to external systems {/*showing-a-notification-without-reconnecting*/}
+### External systems-க்கு reconnect செய்வதைத் தவிர்த்தல் {/*showing-a-notification-without-reconnecting*/}
 
-A common use case for `useEffectEvent` is when you want to do something in response to an Effect, but that "something" depends on a value you don't want to react to.
+Effect-க்கு பதிலாக ஏதாவது செய்ய விரும்பும்போது, ஆனால் அந்த "ஏதாவது" நீங்கள் react செய்ய விரும்பாத value ஒன்றைச் சார்ந்திருக்கும்போது `useEffectEvent`-ன் common use case தோன்றுகிறது.
 
-In this example, a chat component connects to a room and shows a notification when connected. The user can mute notifications with a checkbox. However, you don't want to reconnect to the chat room every time the user changes the settings:
+இந்த example-இல், chat component ஒரு room-க்கு connect ஆகி connected ஆனபோது notification காட்டுகிறது. User checkbox மூலம் notifications mute செய்யலாம். ஆனால் user settings மாற்றும் ஒவ்வொரு முறையும் chat room-க்கு reconnect ஆக வேண்டாம்:
 
 <Sandpack>
 
@@ -290,26 +290,26 @@ import { showNotification } from './notifications.js';
 
 function ChatRoom({ roomId, muted }) {
   const onConnected = useEffectEvent((roomId) => {
-    console.log('✅ Connected to ' + roomId + ' (muted: ' + muted + ')');
+    console.log('✅ ' + roomId + ' உடன் இணைக்கப்பட்டது (muted: ' + muted + ')');
     if (!muted) {
-      showNotification('Connected to ' + roomId);
+      showNotification(roomId + ' உடன் இணைக்கப்பட்டது');
     }
   });
 
   useEffect(() => {
     const connection = createConnection(roomId);
-    console.log('⏳ Connecting to ' + roomId + '...');
+    console.log('⏳ ' + roomId + ' உடன் இணைக்கிறது...');
     connection.on('connected', () => {
       onConnected(roomId);
     });
     connection.connect();
     return () => {
-      console.log('❌ Disconnected from ' + roomId);
+      console.log('❌ ' + roomId + ' இலிருந்து துண்டிக்கப்பட்டது');
       connection.disconnect();
     }
   }, [roomId]);
 
-  return <h1>Welcome to the {roomId} room!</h1>;
+  return <h1>{roomId} room-க்கு வரவேற்கிறோம்!</h1>;
 }
 
 export default function App() {
@@ -318,7 +318,7 @@ export default function App() {
   return (
     <>
       <label>
-        Choose the chat room:{' '}
+        Chat room தேர்வு செய்யவும்:{' '}
         <select
           value={roomId}
           onChange={e => setRoomId(e.target.value)}
@@ -334,7 +334,7 @@ export default function App() {
           checked={muted}
           onChange={e => setMuted(e.target.checked)}
         />
-        Mute notifications
+        Notifications-ஐ mute செய்
       </label>
       <hr />
       <ChatRoom
@@ -363,10 +363,10 @@ export function createConnection(roomId) {
     },
     on(event, callback) {
       if (connectedCallback) {
-        throw Error('Cannot add the handler twice.');
+        throw Error('Handler-ஐ இருமுறை சேர்க்க முடியாது.');
       }
       if (event !== 'connected') {
-        throw Error('Only "connected" event is supported.');
+        throw Error('"connected" event மட்டுமே supported.');
       }
       connectedCallback = callback;
     },
@@ -401,13 +401,13 @@ label { display: block; margin-top: 10px; }
 
 </Sandpack>
 
-Try switching rooms. The chat reconnects and shows a notification. Now mute the notifications. Since `muted` is read inside the Effect Event rather than the Effect, the chat stays connected.
+Rooms மாற்றி பாருங்கள். Chat reconnect ஆகி notification காட்டும். இப்போது notifications-ஐ mute செய்யுங்கள். `muted` Effect-க்குள் அல்ல, Effect Event-க்குள் read செய்யப்படுவதால் chat connected ஆகவே இருக்கும்.
 
 ---
 
-### Using Effect Events in custom Hooks {/*using-effect-events-in-custom-hooks*/}
+### Custom Hooks-இல் Effect Events பயன்படுத்துதல் {/*using-effect-events-in-custom-hooks*/}
 
-You can use `useEffectEvent` inside your own custom Hooks. This lets you create reusable Hooks that encapsulate Effects while keeping some values non-reactive:
+உங்கள் சொந்த custom Hooks-க்குள் `useEffectEvent` பயன்படுத்தலாம். இது சில values-ஐ non-reactive ஆக வைத்தபடி Effects-ஐ encapsulate செய்யும் reusable Hooks உருவாக்க உதவுகிறது:
 
 <Sandpack>
 
@@ -438,7 +438,7 @@ function Counter({ incrementBy }) {
   return (
     <div>
       <h2>Count: {count}</h2>
-      <p>Incrementing by {incrementBy} every second</p>
+      <p>ஒவ்வொரு second-க்கும் {incrementBy} அளவுக்கு increment செய்கிறது</p>
     </div>
   );
 }
@@ -449,7 +449,7 @@ export default function App() {
   return (
     <>
       <label>
-        Increment by:{' '}
+        Increment அளவு:{' '}
         <select
           value={incrementBy}
           onChange={(e) => setIncrementBy(Number(e.target.value))}
@@ -472,15 +472,15 @@ label { display: block; margin-bottom: 8px; }
 
 </Sandpack>
 
-In this example, `useInterval` is a custom Hook that sets up an interval. The `callback` passed to it is wrapped in an Effect Event, so the interval does not reset even if a new `callback` is passed in every render.
+இந்த example-இல், `useInterval` interval ஒன்றை set up செய்யும் custom Hook. அதற்கு pass செய்யப்பட்ட `callback` Effect Event-ஆக wrap செய்யப்பட்டுள்ளது; எனவே ஒவ்வொரு render-க்கும் புதிய `callback` pass செய்யப்பட்டாலும் interval reset ஆகாது.
 
 ---
 
 ## Troubleshooting {/*troubleshooting*/}
 
-### I'm getting an error: "A function wrapped in useEffectEvent can't be called during rendering" {/*cant-call-during-rendering*/}
+### எனக்கு error வருகிறது: "A function wrapped in useEffectEvent can't be called during rendering" {/*cant-call-during-rendering*/}
 
-This error means you're calling an Effect Event function during the render phase of your component. Effect Events can only be called from inside Effects or other Effect Events.
+இந்த error, உங்கள் component-ன் render phase போது Effect Event function-ஐ call செய்கிறீர்கள் என்பதைக் குறிக்கிறது. Effect Events Effects அல்லது மற்ற Effect Events உள்ளிருந்து மட்டுமே call செய்யப்படலாம்.
 
 ```js
 function MyComponent({ data }) {
@@ -500,13 +500,13 @@ function MyComponent({ data }) {
 }
 ```
 
-If you need to run logic during render, don't wrap it in `useEffectEvent`. Call the logic directly or move it into an Effect.
+Render போது logic run செய்ய வேண்டுமெனில், அதை `useEffectEvent`-இல் wrap செய்ய வேண்டாம். Logic-ஐ நேரடியாக call செய்யவும் அல்லது Effect-க்குள் நகர்த்தவும்.
 
 ---
 
-### I'm getting a lint error: "Functions returned from useEffectEvent must not be included in the dependency array" {/*effect-event-in-deps*/}
+### எனக்கு lint error வருகிறது: "Functions returned from useEffectEvent must not be included in the dependency array" {/*effect-event-in-deps*/}
 
-If you see a warning like "Functions returned from `useEffectEvent` must not be included in the dependency array", remove the Effect Event from your dependencies:
+"Functions returned from `useEffectEvent` must not be included in the dependency array" போன்ற warning கண்டால், உங்கள் dependencies-இலிருந்து Effect Event-ஐ remove செய்யவும்:
 
 ```js
 const onSomething = useEffectEvent(() => {
@@ -524,13 +524,13 @@ useEffect(() => {
 }, []);
 ```
 
-Effect Events are designed to be called from Effects without being listed as dependencies. The linter enforces this because the function identity is [intentionally not stable](#why-are-effect-events-not-stable). Including it would cause your Effect to re-run on every render.
+Effect Events dependencies ஆக list செய்யப்படாமல் Effects-இலிருந்து call செய்யப்படுவதற்காக design செய்யப்பட்டவை. Function identity [திட்டமிட்டு stable அல்ல](#why-are-effect-events-not-stable) என்பதால் linter இதை enforce செய்கிறது. அதைச் சேர்த்தால் உங்கள் Effect ஒவ்வொரு render-க்கும் மீண்டும் run ஆகும்.
 
 ---
 
-### I'm getting a lint error: "... is a function created with useEffectEvent, and can only be called from Effects" {/*effect-event-called-outside-effect*/}
+### எனக்கு lint error வருகிறது: "... is a function created with useEffectEvent, and can only be called from Effects" {/*effect-event-called-outside-effect*/}
 
-If you see a warning like "... is a function created with React Hook `useEffectEvent`, and can only be called from Effects and Effect Events", you're calling the function from the wrong place:
+"... is a function created with React Hook `useEffectEvent`, and can only be called from Effects and Effect Events" போன்ற warning கண்டால், function-ஐ தவறான இடத்திலிருந்து call செய்கிறீர்கள்:
 
 ```js
 const onSomething = useEffectEvent(() => {
@@ -551,4 +551,4 @@ useEffect(() => {
 }, []);
 ```
 
-Effect Events are specifically designed to be used in Effects local to the component they're defined in. If you need a callback for event handlers or to pass to children, use a regular function or `useCallback` instead.
+Effect Events அவை define செய்யப்பட்ட component-க்கு local ஆன Effects-இல் பயன்படுத்தப்படுவதற்காகவே வடிவமைக்கப்பட்டவை. Event handlers-க்கு callback தேவைப்பட்டாலோ children-க்கு pass செய்ய வேண்டுமானாலோ, அதற்கு பதிலாக regular function அல்லது `useCallback` பயன்படுத்தவும்.

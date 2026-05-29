@@ -3,12 +3,12 @@ title: Directives
 ---
 
 <Intro>
-React Compiler directives are special string literals that control whether specific functions are compiled.
+React Compiler directives என்பது குறிப்பிட்ட functions compile செய்யப்பட வேண்டுமா என்பதை கட்டுப்படுத்தும் சிறப்பு string literals.
 </Intro>
 
 ```js
 function MyComponent() {
-  "use memo"; // Opt this component into compilation
+  "use memo"; // இந்த component-ஐ compilation-க்கு opt in செய்யவும்
   return <div>{/* ... */}</div>;
 }
 ```
@@ -17,29 +17,29 @@ function MyComponent() {
 
 ---
 
-## Overview {/*overview*/}
+## மேற்பார்வை {/*overview*/}
 
-React Compiler directives provide fine-grained control over which functions are optimized by the compiler. They are string literals placed at the beginning of a function body or at the top of a module.
+Compiler எந்த functions-ஐ optimize செய்ய வேண்டும் என்பதற்கு React Compiler directives fine-grained control வழங்குகின்றன. அவை function body-யின் தொடக்கத்தில் அல்லது module-ன் மேற்பகுதியில் வைக்கப்படும் string literals.
 
-### Available directives {/*available-directives*/}
+### கிடைக்கும் directives {/*available-directives*/}
 
-* **[`"use memo"`](/reference/react-compiler/directives/use-memo)** - Opts a function into compilation
-* **[`"use no memo"`](/reference/react-compiler/directives/use-no-memo)** - Opts a function out of compilation
+* **[`"use memo"`](/reference/react-compiler/directives/use-memo)** - ஒரு function-ஐ compilation-க்கு opt in செய்கிறது
+* **[`"use no memo"`](/reference/react-compiler/directives/use-no-memo)** - ஒரு function-ஐ compilation-இலிருந்து opt out செய்கிறது
 
-### Quick comparison {/*quick-comparison*/}
+### விரைவான ஒப்பீடு {/*quick-comparison*/}
 
-| Directive | Purpose | When to use |
+| Directive | நோக்கம் | எப்போது பயன்படுத்துவது |
 |-----------|---------|-------------|
-| [`"use memo"`](/reference/react-compiler/directives/use-memo) | Force compilation | When using `annotation` mode or to override `infer` mode heuristics |
-| [`"use no memo"`](/reference/react-compiler/directives/use-no-memo) | Prevent compilation | Debugging issues or working with incompatible code |
+| [`"use memo"`](/reference/react-compiler/directives/use-memo) | Compilation-ஐ force செய்கிறது | `annotation` mode பயன்படுத்தும்போது அல்லது `infer` mode heuristics-ஐ override செய்யும்போது |
+| [`"use no memo"`](/reference/react-compiler/directives/use-no-memo) | Compilation-ஐத் தடுக்கிறது | சிக்கல்களை debug செய்யும்போது அல்லது incompatible code உடன் வேலை செய்யும்போது |
 
 ---
 
-## Usage {/*usage*/}
+## பயன்பாடு {/*usage*/}
 
 ### Function-level directives {/*function-level*/}
 
-Place directives at the beginning of a function to control its compilation:
+ஒரு function-ன் compilation-ஐ கட்டுப்படுத்த, அதன் தொடக்கத்தில் directives-ஐ வையுங்கள்:
 
 ```js
 // Opt into compilation
@@ -57,7 +57,7 @@ function UnoptimizedComponent() {
 
 ### Module-level directives {/*module-level*/}
 
-Place directives at the top of a file to affect all functions in that module:
+அந்த module-இல் உள்ள அனைத்து functions-க்கும் பொருந்த, file-ன் மேற்பகுதியில் directives-ஐ வையுங்கள்:
 
 ```js
 // At the very top of the file
@@ -74,26 +74,26 @@ function Component2() {
 
 // Can be overridden at function level
 function Component3() {
-  "use no memo"; // This overrides the module directive
+  "use no memo"; // இது module directive-ஐ override செய்கிறது
   return <div>Not compiled</div>;
 }
 ```
 
 ### Compilation modes interaction {/*compilation-modes*/}
 
-Directives behave differently depending on your [`compilationMode`](/reference/react-compiler/compilationMode):
+உங்கள் [`compilationMode`](/reference/react-compiler/compilationMode)-ஐப் பொறுத்து directives வேறுபட்டு செயல்படும்:
 
-* **`annotation` mode**: Only functions with `"use memo"` are compiled
-* **`infer` mode**: Compiler decides what to compile, directives override decisions
-* **`all` mode**: Everything is compiled, `"use no memo"` can exclude specific functions
+* **`annotation` mode**: `"use memo"` உள்ள functions மட்டும் compile செய்யப்படும்
+* **`infer` mode**: எதை compile செய்ய வேண்டும் என்பதை compiler தீர்மானிக்கும்; directives அந்த முடிவுகளை override செய்யும்
+* **`all` mode**: எல்லாமே compile செய்யப்படும்; `"use no memo"` குறிப்பிட்ட functions-ஐ exclude செய்யலாம்
 
 ---
 
-## Best practices {/*best-practices*/}
+## சிறந்த நடைமுறைகள் {/*best-practices*/}
 
-### Use directives sparingly {/*use-sparingly*/}
+### Directives-ஐ குறைவாக பயன்படுத்துங்கள் {/*use-sparingly*/}
 
-Directives are escape hatches. Prefer configuring the compiler at the project level:
+Directives escape hatches. Compiler-ஐ project level-இல் configure செய்வதையே விரும்புங்கள்:
 
 ```js
 // ✅ Good - project-wide configuration
@@ -107,19 +107,19 @@ Directives are escape hatches. Prefer configuring the compiler at the project le
 
 // ⚠️ Use directives only when needed
 function SpecialCase() {
-  "use no memo"; // Document why this is needed
+  "use no memo"; // இது ஏன் தேவை என்பதை document செய்யுங்கள்
   // ...
 }
 ```
 
-### Document directive usage {/*document-usage*/}
+### Directive usage-ஐ document செய்யுங்கள் {/*document-usage*/}
 
-Always explain why a directive is used:
+ஒரு directive ஏன் பயன்படுத்தப்படுகிறது என்பதை எப்போதும் விளக்குங்கள்:
 
 ```js
 // ✅ Good - clear explanation
 function DataGrid() {
-  "use no memo"; // TODO: Remove after fixing issue with dynamic row heights (JIRA-123)
+  "use no memo"; // TODO: dynamic row heights சிக்கலை சரிசெய்த பிறகு அகற்றவும் (JIRA-123)
   // Complex grid implementation
 }
 
@@ -130,29 +130,29 @@ function Mystery() {
 }
 ```
 
-### Plan for removal {/*plan-removal*/}
+### அகற்றுவதற்கான திட்டம் {/*plan-removal*/}
 
-Opt-out directives should be temporary:
+Opt-out directives தற்காலிகமாக இருக்க வேண்டும்:
 
-1. Add the directive with a TODO comment
-2. Create a tracking issue
-3. Fix the underlying problem
-4. Remove the directive
+1. TODO comment உடன் directive-ஐச் சேர்க்கவும்
+2. Tracking issue உருவாக்கவும்
+3. அடிப்படை பிரச்சினையைச் சரிசெய்யவும்
+4. Directive-ஐ அகற்றவும்
 
 ```js
 function TemporaryWorkaround() {
-  "use no memo"; // TODO: Remove after upgrading ThirdPartyLib to v2.0
+  "use no memo"; // TODO: ThirdPartyLib-ஐ v2.0-க்கு upgrade செய்த பிறகு அகற்றவும்
   return <ThirdPartyComponent />;
 }
 ```
 
 ---
 
-## Common patterns {/*common-patterns*/}
+## பொதுவான patterns {/*common-patterns*/}
 
-### Gradual adoption {/*gradual-adoption*/}
+### படிப்படியான adoption {/*gradual-adoption*/}
 
-When adopting the React Compiler in a large codebase:
+பெரிய codebase-இல் React Compiler-ஐ adopt செய்யும்போது:
 
 ```js
 // Start with annotation mode
@@ -168,7 +168,7 @@ function StableComponent() {
 
 // Later, switch to infer mode and opt out problematic ones
 function ProblematicComponent() {
-  "use no memo"; // Fix issues before removing
+  "use no memo"; // அகற்றுவதற்கு முன் சிக்கல்களை சரிசெய்யுங்கள்
   // ...
 }
 ```
@@ -176,23 +176,23 @@ function ProblematicComponent() {
 
 ---
 
-## Troubleshooting {/*troubleshooting*/}
+## சிக்கல் தீர்வு {/*troubleshooting*/}
 
-For specific issues with directives, see the troubleshooting sections in:
+Directives தொடர்பான குறிப்பிட்ட சிக்கல்களுக்கு, இவற்றில் உள்ள troubleshooting sections-ஐப் பார்க்கவும்:
 
 * [`"use memo"` troubleshooting](/reference/react-compiler/directives/use-memo#troubleshooting)
 * [`"use no memo"` troubleshooting](/reference/react-compiler/directives/use-no-memo#troubleshooting)
 
-### Common issues {/*common-issues*/}
+### பொதுவான சிக்கல்கள் {/*common-issues*/}
 
-1. **Directive ignored**: Check placement (must be first) and spelling
-2. **Compilation still happens**: Check `ignoreUseNoForget` setting
-3. **Module directive not working**: Ensure it's before all imports
+1. **Directive புறக்கணிக்கப்படுகிறது**: Placement (முதலில் இருக்க வேண்டும்) மற்றும் spelling-ஐச் சரிபார்க்கவும்
+2. **Compilation இன்னும் நடக்கிறது**: `ignoreUseNoForget` setting-ஐச் சரிபார்க்கவும்
+3. **Module directive வேலை செய்யவில்லை**: அது அனைத்து imports-க்கும் முன் இருக்கிறதா என்பதை உறுதிசெய்யவும்
 
 ---
 
-## See also {/*see-also*/}
+## மேலும் பார்க்க {/*see-also*/}
 
-* [`compilationMode`](/reference/react-compiler/compilationMode) - Configure how the compiler chooses what to optimize
-* [`Configuration`](/reference/react-compiler/configuration) - Full compiler configuration options
-* [React Compiler documentation](https://react.dev/learn/react-compiler) - Getting started guide
+* [`compilationMode`](/reference/react-compiler/compilationMode) - எதை optimize செய்ய வேண்டும் என்பதை compiler எப்படி தேர்வு செய்கிறது என்பதை configure செய்யுங்கள்
+* [`Configuration`](/reference/react-compiler/configuration) - முழு compiler configuration options
+* [React Compiler documentation](https://react.dev/learn/react-compiler) - தொடங்குவதற்கான வழிகாட்டி

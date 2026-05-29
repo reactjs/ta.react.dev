@@ -4,7 +4,7 @@ title: useActionState
 
 <Intro>
 
-`useActionState` is a React Hook that lets you update state with side effects using [Actions](/reference/react/useTransition#functions-called-in-starttransition-are-called-actions).
+`useActionState` என்பது [Actions](/reference/react/useTransition#functions-called-in-starttransition-are-called-actions)-ஐ பயன்படுத்தி side effects உடன் state-ஐ update செய்ய உதவும் React Hook ஆகும்.
 
 ```js
 const [state, dispatchAction, isPending] = useActionState(reducerAction, initialState, permalink?);
@@ -16,11 +16,11 @@ const [state, dispatchAction, isPending] = useActionState(reducerAction, initial
 
 ---
 
-## Reference {/*reference*/}
+## மேற்கோள் {/*reference*/}
 
 ### `useActionState(reducerAction, initialState, permalink?)` {/*useactionstate*/}
 
-Call `useActionState` at the top level of your component to create state for the result of an Action.
+ஒரு Action-ன் result-க்கான state create செய்ய, உங்கள் component-ன் top level-இல் `useActionState`-ஐ call செய்யுங்கள்.
 
 ```js
 import { useActionState } from 'react';
@@ -35,39 +35,39 @@ function MyCart({initialState}) {
 }
 ```
 
-[See more examples below.](#usage)
+[மேலும் examples-ஐ கீழே பார்க்கவும்.](#usage)
 
-#### Parameters {/*parameters*/}
+#### அளவுருக்கள் {/*parameters*/}
 
-* `reducerAction`: The function to be called when the Action is triggered. When called, it receives the previous state (initially the `initialState` you provided, then its previous return value) as its first argument, followed by the `actionPayload` passed to `dispatchAction`.
-* `initialState`: The value you want the state to be initially. React ignores this argument after `dispatchAction` is invoked for the first time.
-* **optional** `permalink`: A string containing the unique page URL that this form modifies.
-  * For use on pages with [React Server Components](/reference/rsc/server-components) with progressive enhancement.
-  * If `reducerAction` is a [Server Function](/reference/rsc/server-functions) and the form is submitted before the JavaScript bundle loads, the browser will navigate to the specified permalink URL rather than the current page's URL.
+* `reducerAction`: Action trigger செய்யப்படும் போது call செய்யப்படும் function. அது call செய்யப்படும் போது, முதல் argument ஆக previous state-ஐ (ஆரம்பத்தில் நீங்கள் provide செய்த `initialState`, அதன் பிறகு அதன் previous return value), அதன் பின் `dispatchAction`-க்கு pass செய்யப்பட்ட `actionPayload`-ஐ பெறும்.
+* `initialState`: State ஆரம்பத்தில் இருக்க வேண்டும் என்று நீங்கள் விரும்பும் value. `dispatchAction` முதல் முறையாக invoke செய்யப்பட்ட பிறகு React இந்த argument-ஐ ignore செய்கிறது.
+* **optional** `permalink`: இந்த form modify செய்யும் unique page URL-ஐ கொண்ட string.
+  * Progressive enhancement உடன் [React Server Components](/reference/rsc/server-components) உள்ள pages-இல் use செய்ய.
+  * `reducerAction` ஒரு [Server Function](/reference/rsc/server-functions) ஆக இருந்து, JavaScript bundle load ஆகும் முன் form submit செய்யப்பட்டால், browser current page URL-க்கு பதிலாக குறிப்பிட்ட permalink URL-க்கு navigate செய்யும்.
 
-#### Returns {/*returns*/}
+#### திரும்பும் மதிப்பு {/*returns*/}
 
-`useActionState` returns an array with exactly three values:
+`useActionState` சரியாக மூன்று values கொண்ட array-ஐ return செய்கிறது:
 
-1. The current state. During the first render, it will match the `initialState` you passed. After `dispatchAction` is invoked, it will match the value returned by the `reducerAction`.
-2. A `dispatchAction` function that you call inside [Actions](/reference/react/useTransition#functions-called-in-starttransition-are-called-actions).
-3. The `isPending` flag that tells you if any dispatched Actions for this Hook are pending.
+1. Current state. முதல் render போது, நீங்கள் pass செய்த `initialState`-க்கு இது match ஆகும். `dispatchAction` invoke செய்யப்பட்ட பிறகு, `reducerAction` return செய்த value-க்கு match ஆகும்.
+2. [Actions](/reference/react/useTransition#functions-called-in-starttransition-are-called-actions)-க்குள் நீங்கள் call செய்யும் `dispatchAction` function.
+3. இந்த Hook-க்காக dispatched Actions ஏதேனும் pending ஆக உள்ளதா என்பதை சொல்லும் `isPending` flag.
 
-#### Caveats {/*caveats*/}
+#### கவனிக்க வேண்டியவை {/*caveats*/}
 
-* `useActionState` is a Hook, so you can only call it **at the top level of your component** or your own Hooks. You can't call it inside loops or conditions. If you need that, extract a new component and move the state into it.
-* React queues and executes multiple calls to `dispatchAction` sequentially. Each call to `reducerAction` receives the result of the previous call.
-* The `dispatchAction` function has a stable identity, so you will often see it omitted from Effect dependencies, but including it will not cause the Effect to fire. If the linter lets you omit a dependency without errors, it is safe to do. [Learn more about removing Effect dependencies.](/learn/removing-effect-dependencies#move-dynamic-objects-and-functions-inside-your-effect)
-* When using the `permalink` option, ensure the same form component is rendered on the destination page (including the same `reducerAction` and `permalink`) so React knows how to pass the state through. Once the page becomes interactive, this parameter has no effect.
-* When using Server Functions, `initialState` needs to be [serializable](/reference/rsc/use-server#serializable-parameters-and-return-values) (values like plain objects, arrays, strings, and numbers).
-* If `dispatchAction` throws an error, React cancels all queued actions and shows the nearest [Error Boundary](/reference/react/Component#catching-rendering-errors-with-an-error-boundary).
-* If there are multiple ongoing Actions, React batches them together. This is a limitation that may be removed in a future release.
+* `useActionState` ஒரு Hook என்பதால், அதை **உங்கள் component-ன் top level-இல்** அல்லது உங்கள் சொந்த Hooks-க்குள் மட்டுமே call செய்யலாம். Loops அல்லது conditions-க்குள் அதை call செய்ய முடியாது. அது தேவைப்பட்டால், புதிய component-ஐ extract செய்து state-ஐ அதற்குள் நகர்த்துங்கள்.
+* `dispatchAction`-க்கு பல calls இருந்தால், React அவற்றை queue செய்து sequential ஆக execute செய்கிறது. `reducerAction`-க்கு ஒவ்வொரு call-உம் previous call-ன் result-ஐ பெறும்.
+* `dispatchAction` function stable identity-ஐ கொண்டுள்ளது, எனவே Effect dependencies-இல் அது அடிக்கடி omit செய்யப்பட்டிருப்பதைப் பார்ப்பீர்கள்; ஆனால் அதை include செய்தாலும் Effect fire ஆகாது. Linter ஒரு dependency-ஐ errors இல்லாமல் omit செய்ய அனுமதித்தால், அதைச் செய்வது safe. [Effect dependencies-ஐ remove செய்வது பற்றி மேலும் அறிக.](/learn/removing-effect-dependencies#move-dynamic-objects-and-functions-inside-your-effect)
+* `permalink` option-ஐ use செய்யும்போது, destination page-இல் அதே form component render ஆகிறதா என்பதை உறுதி செய்யுங்கள் (அதே `reducerAction` மற்றும் `permalink` உட்பட), அப்படியானால் state-ஐ எப்படி pass செய்ய வேண்டும் என்பதை React அறியும். Page interactive ஆன பிறகு இந்த parameter-க்கு effect இல்லை.
+* Server Functions use செய்யும்போது, `initialState` [serializable](/reference/rsc/use-server#serializable-parameters-and-return-values) ஆக இருக்க வேண்டும் (plain objects, arrays, strings, numbers போன்ற values).
+* `dispatchAction` error throw செய்தால், React queued actions அனைத்தையும் cancel செய்து, அருகிலுள்ள [Error Boundary](/reference/react/Component#catching-rendering-errors-with-an-error-boundary)-ஐ காட்டும்.
+* Multiple ongoing Actions இருந்தால், React அவற்றை ஒன்றாக batch செய்கிறது. இது future release-இல் remove செய்யப்படக்கூடிய limitation.
 
 <Note>
 
-`dispatchAction` must be called from an Action.
+`dispatchAction` ஒரு Action-இலிருந்து call செய்யப்பட வேண்டும்.
 
-You can wrap it in [`startTransition`](/reference/react/startTransition), or pass it to an [Action prop](/reference/react/useTransition#exposing-action-props-from-components). Calls outside that scope won’t be treated as part of the Transition and [log an error](#async-function-outside-transition) on development mode.
+அதை [`startTransition`](/reference/react/startTransition)-க்குள் wrap செய்யலாம், அல்லது [Action prop](/reference/react/useTransition#exposing-action-props-from-components)-க்கு pass செய்யலாம். அந்த scope-க்கு வெளியே உள்ள calls Transition-ன் பகுதியாகக் கருதப்படாது; development mode-இல் [error log செய்யும்](#async-function-outside-transition).
 
 </Note>
 
@@ -75,9 +75,9 @@ You can wrap it in [`startTransition`](/reference/react/startTransition), or pas
 
 ### `reducerAction` function {/*reduceraction*/}
 
-The `reducerAction` function passed to `useActionState` receives the previous state and returns a new state.
+`useActionState`-க்கு pass செய்யப்படும் `reducerAction` function previous state-ஐப் பெற்று new state-ஐ return செய்கிறது.
 
-Unlike reducers in `useReducer`, the `reducerAction` can be async and perform side effects:
+`useReducer`-இல் உள்ள reducers-க்கு மாறாக, `reducerAction` async ஆக இருக்கலாம் மற்றும் side effects செய்யலாம்:
 
 ```js
 async function reducerAction(previousState, actionPayload) {
@@ -86,46 +86,46 @@ async function reducerAction(previousState, actionPayload) {
 }
 ```
 
-Each time you call `dispatchAction`, React calls the `reducerAction` with the `actionPayload`. The reducer will perform side effects such as posting data, and return the new state. If `dispatchAction` is called multiple times, React queues and executes them in order so the result of the previous call is passed as `previousState` for the current call.
+நீங்கள் `dispatchAction` call செய்யும் ஒவ்வொரு முறையும், React `actionPayload` உடன் `reducerAction`-ஐ call செய்கிறது. Reducer data post செய்வது போன்ற side effects செய்து, new state-ஐ return செய்யும். `dispatchAction` பல முறை call செய்யப்பட்டால், React அவற்றை queue செய்து order-இல் execute செய்கிறது; எனவே previous call-ன் result current call-க்கு `previousState` ஆக pass செய்யப்படும்.
 
-#### Parameters {/*reduceraction-parameters*/}
+#### அளவுருக்கள் {/*reduceraction-parameters*/}
 
-* `previousState`: The last state. Initially this is equal to the `initialState`. After the first call to `dispatchAction`, it's equal to the last state returned.
+* `previousState`: கடைசி state. ஆரம்பத்தில் இது `initialState`-க்கு சமமாக இருக்கும். `dispatchAction`-க்கு முதல் call பிறகு, அது return செய்யப்பட்ட last state-க்கு சமமாக இருக்கும்.
 
-* **optional** `actionPayload`: The argument passed to `dispatchAction`. It can be a value of any type. Similar to `useReducer` conventions, it is usually an object with a `type` property identifying it and, optionally, other properties with additional information.
+* **optional** `actionPayload`: `dispatchAction`-க்கு pass செய்யப்படும் argument. இது எந்த type value ஆகவும் இருக்கலாம். `useReducer` conventions போல, இது பொதுவாக அதை அடையாளப்படுத்தும் `type` property மற்றும் optional ஆக கூடுதல் information கொண்ட பிற properties உடைய object ஆக இருக்கும்.
 
-#### Returns {/*reduceraction-returns*/}
+#### திரும்பும் மதிப்பு {/*reduceraction-returns*/}
 
-`reducerAction` returns the new state, and triggers a Transition to re-render with that state.
+`reducerAction` new state-ஐ return செய்து, அந்த state உடன் re-render செய்ய Transition-ஐ trigger செய்கிறது.
 
-#### Caveats {/*reduceraction-caveats*/}
+#### கவனிக்க வேண்டியவை {/*reduceraction-caveats*/}
 
-* `reducerAction` can be sync or async. It can perform sync actions like showing a notification, or async actions like posting updates to a server.
-* `reducerAction` is not invoked twice in `<StrictMode>` since `reducerAction` is designed to allow side effects.
-* The return type of `reducerAction` must match the type of `initialState`. If TypeScript infers a mismatch, you may need to explicitly annotate your state type.
-* If you set state after `await` in the `reducerAction` you currently need to wrap the state update in an additional `startTransition`. See the [startTransition](/reference/react/useTransition#react-doesnt-treat-my-state-update-after-await-as-a-transition) docs for more info.
-* When using Server Functions, `actionPayload` needs to be [serializable](/reference/rsc/use-server#serializable-parameters-and-return-values) (values like plain objects, arrays, strings, and numbers).
+* `reducerAction` sync அல்லது async ஆக இருக்கலாம். Notification காட்டுவது போன்ற sync actions அல்லது server-க்கு updates post செய்வது போன்ற async actions செய்யலாம்.
+* `reducerAction` side effects-ஐ அனுமதிக்க வடிவமைக்கப்பட்டிருப்பதால், `<StrictMode>`-இல் `reducerAction` இருமுறை invoke செய்யப்படாது.
+* `reducerAction`-ன் return type, `initialState`-ன் type-க்கு match ஆக வேண்டும். TypeScript mismatch infer செய்தால், உங்கள் state type-ஐ explicit ஆக annotate செய்ய வேண்டியிருக்கலாம்.
+* `reducerAction`-இல் `await` பிறகு state set செய்தால், தற்போதைக்கு state update-ஐ கூடுதல் `startTransition`-க்குள் wrap செய்ய வேண்டும். மேலும் தகவலுக்கு [startTransition](/reference/react/useTransition#react-doesnt-treat-my-state-update-after-await-as-a-transition) docs-ஐ பார்க்கவும்.
+* Server Functions use செய்யும்போது, `actionPayload` [serializable](/reference/rsc/use-server#serializable-parameters-and-return-values) ஆக இருக்க வேண்டும் (plain objects, arrays, strings, numbers போன்ற values).
 
 <DeepDive>
 
-#### Why is it called `reducerAction`? {/*why-is-it-called-reduceraction*/}
+#### இது ஏன் `reducerAction` என்று அழைக்கப்படுகிறது? {/*why-is-it-called-reduceraction*/}
 
-The function passed to `useActionState` is called a *reducer action* because:
+`useActionState`-க்கு pass செய்யப்படும் function *reducer action* என்று அழைக்கப்படுகிறது, ஏனெனில்:
 
-- It *reduces* the previous state into a new state, like `useReducer`.
-- It's an *Action* because it's called inside a Transition and can perform side effects.
+- அது `useReducer` போல previous state-ஐ new state ஆக *reduce* செய்கிறது.
+- அது Transition-க்குள் call செய்யப்படுகிறது மற்றும் side effects செய்ய முடியும் என்பதால் அது ஒரு *Action*.
 
-Conceptually, `useActionState` is like `useReducer`, but you can do side effects in the reducer.
+கருத்து ரீதியாக, `useActionState` என்பது `useReducer` போலவே, ஆனால் reducer-இல் side effects செய்ய முடியும்.
 
 </DeepDive>
 
 ---
 
-## Usage {/*usage*/}
+## பயன்பாடு {/*usage*/}
 
-### Adding state to an Action {/*adding-state-to-an-action*/}
+### Action-க்கு state சேர்த்தல் {/*adding-state-to-an-action*/}
 
-Call `useActionState` at the top level of your component to create state for the result of an Action.
+Action-ன் result-க்கான state create செய்ய, உங்கள் component-ன் top level-இல் `useActionState`-ஐ call செய்யுங்கள்.
 
 ```js [[1, 7, "count"], [2, 7, "dispatchAction"], [3, 7, "isPending"]]
 import { useActionState } from 'react';
@@ -140,13 +140,13 @@ function Counter() {
 }
 ```
 
-`useActionState` returns an array with exactly three items:
+`useActionState` சரியாக மூன்று items கொண்ட array-ஐ return செய்கிறது:
 
-1. The <CodeStep step={1}>current state</CodeStep>, initially set to the initial state you provided.
-2. The <CodeStep step={2}>action dispatcher</CodeStep> that lets you trigger `reducerAction`.
-3. A <CodeStep step={3}>pending state</CodeStep> that tells you whether the Action is in progress.
+1. நீங்கள் provide செய்த initial state-க்கு ஆரம்பத்தில் set செய்யப்பட்ட <CodeStep step={1}>current state</CodeStep>.
+2. `reducerAction`-ஐ trigger செய்ய அனுமதிக்கும் <CodeStep step={2}>action dispatcher</CodeStep>.
+3. Action in progress ஆக உள்ளதா என்பதைச் சொல்லும் <CodeStep step={3}>pending state</CodeStep>.
 
-To call `addToCartAction`, call the <CodeStep step={2}>action dispatcher</CodeStep>. React will queue calls to `addToCartAction` with the previous count.
+`addToCartAction`-ஐ call செய்ய, <CodeStep step={2}>action dispatcher</CodeStep>-ஐ call செய்யுங்கள். React previous count உடன் `addToCartAction` calls-ஐ queue செய்யும்.
 
 <Sandpack>
 
@@ -168,13 +168,13 @@ export default function Checkout() {
 
   return (
     <div className="checkout">
-      <h2>Checkout</h2>
+      <h2>செக் அவுட்</h2>
       <div className="row">
-        <span>Eras Tour Tickets</span>
-        <span>Qty: {count}</span>
+        <span>Eras Tour டிக்கெட்டுகள்</span>
+        <span>அளவு: {count}</span>
       </div>
       <div className="row">
-        <button onClick={handleClick}>Add Ticket{isPending ? ' 🌀' : '  '}</button>
+        <button onClick={handleClick}>டிக்கெட் சேர்{isPending ? ' 🌀' : '  '}</button>
       </div>
       <hr />
       <Total quantity={count} />
@@ -193,7 +193,7 @@ const formatter = new Intl.NumberFormat('en-US', {
 export default function Total({quantity}) {
   return (
     <div className="row total">
-      <span>Total</span>
+      <span>மொத்தம்</span>
       <span>{formatter.format(quantity * 9999)}</span>
     </div>
   );
@@ -257,29 +257,29 @@ button {
 
 </Sandpack>
 
-Every time you click "Add Ticket," React queues a call to `addToCartAction`. React shows the pending state until all the tickets are added, and then re-renders with the final state.
+"டிக்கெட் சேர்" click செய்யும் ஒவ்வொரு முறையும், React `addToCartAction`-க்கு ஒரு call-ஐ queue செய்கிறது. எல்லா tickets சேர்க்கப்படும் வரை React pending state-ஐ காட்டி, பிறகு final state உடன் re-render செய்கிறது.
 
 <DeepDive>
 
-#### How `useActionState` queuing works {/*how-useactionstate-queuing-works*/}
+#### `useActionState` queuing எப்படி வேலை செய்கிறது {/*how-useactionstate-queuing-works*/}
 
-Try clicking "Add Ticket" multiple times. Every time you click, a new `addToCartAction` is queued. Since there's an artificial 1 second delay, that means 4 clicks will take ~4 seconds to complete.
+"டிக்கெட் சேர்" பல முறை click செய்து பாருங்கள். ஒவ்வொரு click-க்கும் புதிய `addToCartAction` queue செய்யப்படும். Artificial 1 second delay இருப்பதால், 4 clicks complete ஆக ~4 seconds எடுக்கும்.
 
-**This is intentional in the design of `useActionState`.**
+**இது `useActionState` design-இல் நினைத்தே செய்யப்பட்ட ஒன்று.**
 
-We have to wait for the previous result of `addToCartAction` in order to pass the `prevCount` to the next call to `addToCartAction`. That means React has to wait for the previous Action to finish before calling the next Action.
+`prevCount`-ஐ `addToCartAction`-ன் அடுத்த call-க்கு pass செய்ய, `addToCartAction`-ன் previous result-ஐ காத்திருக்க வேண்டும். அதாவது அடுத்த Action-ஐ call செய்வதற்கு முன் previous Action முடிவதற்காக React காத்திருக்க வேண்டும்.
 
-You can typically solve this by [using with useOptimistic](/reference/react/useActionState#using-with-useoptimistic) but for more complex cases you may want to consider [cancelling queued actions](#cancelling-queued-actions) or not using `useActionState`.
+பொதுவாக இதை [useOptimistic உடன் பயன்படுத்துவதன் மூலம்](/reference/react/useActionState#using-with-useoptimistic) தீர்க்கலாம்; ஆனால் மேலும் complex cases-க்கு [queued actions-ஐ cancel செய்தல்](#cancelling-queued-actions) அல்லது `useActionState` use செய்யாதது பற்றி யோசிக்கலாம்.
 
 </DeepDive>
 
 ---
 
-### Using multiple Action types {/*using-multiple-action-types*/}
+### பல Action types பயன்படுத்துதல் {/*using-multiple-action-types*/}
 
-To handle multiple types, you can pass an argument to `dispatchAction`.
+பல types handle செய்ய, `dispatchAction`-க்கு argument pass செய்யலாம்.
 
-By convention, it is common to write it as a switch statement. For each case in the switch, calculate and return some next state. The argument can have any shape, but it is common to pass objects with a `type` property identifying the action.
+Convention ஆக, இதை switch statement ஆக எழுதுவது common. Switch-இல் ஒவ்வொரு case-க்கும் சில next state-ஐ calculate செய்து return செய்யுங்கள். Argument எந்த shape-ஆகவும் இருக்கலாம், ஆனால் action-ஐ identify செய்யும் `type` property உடைய objects pass செய்வது common.
 
 <Sandpack>
 
@@ -305,9 +305,9 @@ export default function Checkout() {
 
   return (
     <div className="checkout">
-      <h2>Checkout</h2>
+      <h2>செக் அவுட்</h2>
       <div className="row">
-        <span>Eras Tour Tickets</span>
+        <span>Eras Tour டிக்கெட்டுகள்</span>
         <span className="stepper">
           <span className="qty">{isPending ? '🌀' : count}</span>
           <span className="buttons">
@@ -345,8 +345,8 @@ const formatter = new Intl.NumberFormat('en-US', {
 export default function Total({quantity, isPending}) {
   return (
     <div className="row total">
-      <span>Total</span>
-      {isPending ? '🌀 Updating...' : formatter.format(quantity * 9999)}
+      <span>மொத்தம்</span>
+      {isPending ? '🌀 Update செய்கிறது...' : formatter.format(quantity * 9999)}
     </div>
   );
 }
@@ -428,29 +428,29 @@ hr {
 
 </Sandpack>
 
-When you click to increase or decrease the quantity, an `"ADD"` or `"REMOVE"` is dispatched. In the `reducerAction`, different APIs are called to update the quantity.
+Quantity-ஐ increase அல்லது decrease செய்ய click செய்தால், `"ADD"` அல்லது `"REMOVE"` dispatch செய்யப்படும். `reducerAction`-இல், quantity-ஐ update செய்ய வேறு APIs call செய்யப்படுகின்றன.
 
-In this example, we use the pending state of the Actions to replace both the quantity and the total. If you want to provide immediate feedback, such as immediately updating the quantity, you can use `useOptimistic`.
+இந்த example-இல், quantity மற்றும் total இரண்டையும் replace செய்ய Actions-ன் pending state-ஐ use செய்கிறோம். Quantity-ஐ உடனே update செய்வது போன்ற immediate feedback provide செய்ய விரும்பினால், `useOptimistic` use செய்யலாம்.
 
 <DeepDive>
 
-#### How is `useActionState` different from `useReducer`? {/*useactionstate-vs-usereducer*/}
+#### `useActionState` எப்படி `useReducer`-இலிருந்து வேறுபடுகிறது? {/*useactionstate-vs-usereducer*/}
 
-You might notice this example looks a lot like `useReducer`, but they serve different purposes:
+இந்த example `useReducer` போல இருப்பதை நீங்கள் கவனிக்கலாம், ஆனால் அவை வேறு purposes-க்கு பயன்படுகின்றன:
 
-- **Use `useReducer`** to manage state of your UI. The reducer must be pure.
+- உங்கள் UI-ன் state manage செய்ய **`useReducer`-ஐ use செய்யுங்கள்**. Reducer pure ஆக இருக்க வேண்டும்.
 
-- **Use `useActionState`** to manage state of your Actions. The reducer can perform side effects.
+- உங்கள் Actions-ன் state manage செய்ய **`useActionState`-ஐ use செய்யுங்கள்**. Reducer side effects செய்ய முடியும்.
 
-You can think of `useActionState` as `useReducer` for side effects from user Actions. Since it computes the next Action to take based on the previous Action, it has to [order the calls sequentially](/reference/react/useActionState#how-useactionstate-queuing-works). If you want to perform Actions in parallel, use `useState` and `useTransition` directly.
+User Actions-இலிருந்து வரும் side effects-க்கான `useReducer` போல `useActionState`-ஐ நினைக்கலாம். Previous Action அடிப்படையில் அடுத்த Action-ஐ compute செய்வதால், அது [calls-ஐ sequential ஆக order செய்ய](/reference/react/useActionState#how-useactionstate-queuing-works) வேண்டும். Actions-ஐ parallel ஆக perform செய்ய விரும்பினால், `useState` மற்றும் `useTransition`-ஐ நேரடியாக use செய்யுங்கள்.
 
 </DeepDive>
 
 ---
 
-### Using with `useOptimistic` {/*using-with-useoptimistic*/}
+### `useOptimistic` உடன் பயன்படுத்துதல் {/*using-with-useoptimistic*/}
 
-You can combine `useActionState` with [`useOptimistic`](/reference/react/useOptimistic) to show immediate UI feedback:
+Immediate UI feedback காட்ட, `useActionState`-ஐ [`useOptimistic`](/reference/react/useOptimistic)-உடன் combine செய்யலாம்:
 
 
 <Sandpack>
@@ -480,9 +480,9 @@ export default function Checkout() {
 
   return (
     <div className="checkout">
-      <h2>Checkout</h2>
+      <h2>செக் அவுட்</h2>
       <div className="row">
-        <span>Eras Tour Tickets</span>
+        <span>Eras Tour டிக்கெட்டுகள்</span>
         <span className="stepper">
           <span className="pending">{isPending && '🌀'}</span>
           <span className="qty">{optimisticCount}</span>
@@ -521,8 +521,8 @@ const formatter = new Intl.NumberFormat('en-US', {
 export default function Total({quantity, isPending}) {
   return (
     <div className="row total">
-      <span>Total</span>
-      <span>{isPending ? '🌀 Updating...' : formatter.format(quantity * 9999)}</span>
+      <span>மொத்தம்</span>
+      <span>{isPending ? '🌀 Update செய்கிறது...' : formatter.format(quantity * 9999)}</span>
     </div>
   );
 }
@@ -605,16 +605,16 @@ hr {
 </Sandpack>
 
 
-`setOptimisticCount` immediately updates the quantity, and `dispatchAction()` queues the `updateCartAction`. A pending indicator appears on both the quantity and total to give the user feedback that their update is still being applied.
+`setOptimisticCount` quantity-ஐ உடனே update செய்கிறது, மேலும் `dispatchAction()` `updateCartAction`-ஐ queue செய்கிறது. பயனரின் update இன்னும் apply ஆகிக்கொண்டிருக்கிறது என்ற feedback தர quantity மற்றும் total இரண்டிலும் pending indicator தோன்றும்.
 
 ---
 
 
-### Using with Action props {/*using-with-action-props*/}
+### Action props உடன் பயன்படுத்துதல் {/*using-with-action-props*/}
 
-When you pass the `dispatchAction` function to a component that exposes an [Action prop](/reference/react/useTransition#exposing-action-props-from-components), you don't need to call `startTransition` or `useOptimistic` yourself.
+[Action prop](/reference/react/useTransition#exposing-action-props-from-components)-ஐ expose செய்யும் component-க்கு `dispatchAction` function-ஐ pass செய்தால், `startTransition` அல்லது `useOptimistic`-ஐ நீங்களே call செய்ய வேண்டியதில்லை.
 
-This example shows using the `increaseAction` and `decreaseAction` props of a QuantityStepper component:
+இந்த example, QuantityStepper component-ன் `increaseAction` மற்றும் `decreaseAction` props-ஐ use செய்வதை காட்டுகிறது:
 
 <Sandpack>
 
@@ -637,9 +637,9 @@ export default function Checkout() {
 
   return (
     <div className="checkout">
-      <h2>Checkout</h2>
+      <h2>செக் அவுட்</h2>
       <div className="row">
-        <span>Eras Tour Tickets</span>
+        <span>Eras Tour டிக்கெட்டுகள்</span>
         <QuantityStepper
           value={count}
           increaseAction={addAction}
@@ -708,8 +708,8 @@ const formatter = new Intl.NumberFormat('en-US', {
 export default function Total({quantity, isPending}) {
   return (
     <div className="row total">
-      <span>Total</span>
-      {isPending ? '🌀 Updating...' : formatter.format(quantity * 9999)}
+      <span>மொத்தம்</span>
+      {isPending ? '🌀 Update செய்கிறது...' : formatter.format(quantity * 9999)}
     </div>
   );
 }
@@ -791,13 +791,13 @@ hr {
 
 </Sandpack>
 
-Since `<QuantityStepper>` has built-in support for transitions, pending state, and optimistically updating the count, you just need to tell the Action _what_ to change, and _how_ to change it is handled for you.
+`<QuantityStepper>` transitions, pending state, மற்றும் count-ஐ optimistically update செய்வதற்கான built-in support கொண்டதால், Action-க்கு _எதை_ change செய்ய வேண்டும் என்பதை மட்டும் சொல்ல வேண்டும்; அதை _எப்படி_ change செய்வது உங்கள் சார்பாக handle செய்யப்படும்.
 
 ---
 
-### Cancelling queued Actions {/*cancelling-queued-actions*/}
+### Queued Actions-ஐ cancel செய்தல் {/*cancelling-queued-actions*/}
 
-You can use an `AbortController` to cancel pending Actions:
+Pending Actions-ஐ cancel செய்ய `AbortController` use செய்யலாம்:
 
 <Sandpack>
 
@@ -829,9 +829,9 @@ export default function Checkout() {
 
   return (
     <div className="checkout">
-      <h2>Checkout</h2>
+      <h2>செக் அவுட்</h2>
       <div className="row">
-        <span>Eras Tour Tickets</span>
+        <span>Eras Tour டிக்கெட்டுகள்</span>
         <QuantityStepper
           value={count}
           increaseAction={addAction}
@@ -908,8 +908,8 @@ const formatter = new Intl.NumberFormat('en-US', {
 export default function Total({quantity, isPending}) {
   return (
     <div className="row total">
-      <span>Total</span>
-      {isPending ? '🌀 Updating...' : formatter.format(quantity * 9999)}
+      <span>மொத்தம்</span>
+      {isPending ? '🌀 Update செய்கிறது...' : formatter.format(quantity * 9999)}
     </div>
   );
 }
@@ -918,7 +918,7 @@ export default function Total({quantity, isPending}) {
 ```js src/api.js hidden
 class AbortError extends Error {
   name = 'AbortError';
-  constructor(message = 'The operation was aborted') {
+  constructor(message = 'செயல்பாடு abort செய்யப்பட்டது') {
     super(message);
   }
 }
@@ -1016,23 +1016,23 @@ hr {
 
 </Sandpack>
 
-Try clicking increase or decrease multiple times, and notice that the total updates within 1 second no matter how many times you click. This works because it uses an `AbortController` to "complete" the previous Action so the next Action can proceed.
+Increase அல்லது decrease பல முறை click செய்து பாருங்கள்; நீங்கள் எத்தனை முறை click செய்தாலும் total 1 second-க்குள் update ஆகிறது என்பதை கவனிக்கவும். இது வேலை செய்வது, previous Action-ஐ "complete" செய்ய `AbortController` use செய்வதால்; அப்படிச் செய்தால் next Action proceed செய்ய முடியும்.
 
 <Pitfall>
 
-Aborting an Action isn't always safe.
+ஒரு Action-ஐ abort செய்வது எப்போதும் safe அல்ல.
 
-For example, if the Action performs a mutation (like writing to a database), aborting the network request doesn't undo the server-side change. This is why `useActionState` doesn't abort by default. It's only safe when you know the side effect can be safely ignored or retried.
+உதாரணமாக, Action ஒரு mutation செய்தால் (database-க்கு write செய்வது போன்றது), network request-ஐ abort செய்வது server-side change-ஐ undo செய்யாது. அதனால்தான் `useActionState` default ஆக abort செய்யாது. Side effect-ஐ safely ignore செய்யவோ retry செய்யவோ முடியும் என்று உங்களுக்கு தெரிந்தால் மட்டுமே இது safe.
 
 </Pitfall>
 
 ---
 
-### Using with `<form>` Action props {/*use-with-a-form*/}
+### `<form>` Action props உடன் பயன்படுத்துதல் {/*use-with-a-form*/}
 
-You can pass the `dispatchAction` function as the `action` prop to a `<form>`.
+`dispatchAction` function-ஐ `<form>`-க்கு `action` prop ஆக pass செய்யலாம்.
 
-When used this way, React automatically wraps the submission in a Transition, so you don't need to call `startTransition` yourself. The `reducerAction` receives the previous state and the submitted `FormData`:
+இவ்வாறு use செய்தால், React submission-ஐ automatic ஆக Transition-க்குள் wrap செய்கிறது; எனவே `startTransition`-ஐ நீங்களே call செய்ய வேண்டியதில்லை. `reducerAction` previous state மற்றும் submitted `FormData`-வை பெறும்:
 
 <Sandpack>
 
@@ -1057,9 +1057,9 @@ export default function Checkout() {
 
   return (
     <form action={formAction} className="checkout">
-      <h2>Checkout</h2>
+      <h2>செக் அவுட்</h2>
       <div className="row">
-        <span>Eras Tour Tickets</span>
+        <span>Eras Tour டிக்கெட்டுகள்</span>
         <span className="stepper">
           <span className="pending">{isPending && '🌀'}</span>
           <span className="qty">{optimisticCount}</span>
@@ -1099,8 +1099,8 @@ const formatter = new Intl.NumberFormat('en-US', {
 export default function Total({quantity, isPending}) {
   return (
     <div className="row total">
-      <span>Total</span>
-      {isPending ? '🌀 Updating...' : formatter.format(quantity * 9999)}
+      <span>மொத்தம்</span>
+      {isPending ? '🌀 Update செய்கிறது...' : formatter.format(quantity * 9999)}
     </div>
   );
 }
@@ -1182,25 +1182,25 @@ hr {
 
 </Sandpack>
 
-In this example, when the user clicks the stepper arrows, the button submits the form and `useActionState` calls `updateCartAction` with the form data. The example uses `useOptimistic` to immediately show the new quantity while the server confirms the update.
+இந்த example-இல், பயனர் stepper arrows-ஐ click செய்தால், button form-ஐ submit செய்கிறது மற்றும் `useActionState` form data உடன் `updateCartAction`-ஐ call செய்கிறது. Server update-ஐ confirm செய்யும் போது புதிய quantity-ஐ உடனே காட்ட இந்த example `useOptimistic`-ஐ use செய்கிறது.
 
 <RSC>
 
-When used with a [Server Function](/reference/rsc/server-functions), `useActionState` allows the server's response to be shown before hydration (when React attaches to server-rendered HTML) completes. You can also use the optional `permalink` parameter for progressive enhancement (allowing the form to work before JavaScript loads) on pages with dynamic content. This is typically handled by your framework for you.
+[Server Function](/reference/rsc/server-functions) உடன் use செய்தால், hydration (React server-rendered HTML-க்கு attach ஆகும் நேரம்) complete ஆகும் முன் server-ன் response-ஐ காட்ட `useActionState` அனுமதிக்கிறது. Dynamic content உள்ள pages-இல் progressive enhancement-க்காக (JavaScript load ஆகும் முன் form வேலை செய்ய அனுமதிக்க) optional `permalink` parameter-ஐயும் use செய்யலாம். பொதுவாக இதை உங்கள் framework உங்கள் சார்பாக handle செய்யும்.
 
 </RSC>
 
-See the [`<form>`](/reference/react-dom/components/form#handle-form-submission-with-a-server-function) docs for more information on using Actions with forms.
+Forms உடன் Actions use செய்வது பற்றிய கூடுதல் தகவலுக்கு [`<form>`](/reference/react-dom/components/form#handle-form-submission-with-a-server-function) docs-ஐ பார்க்கவும்.
 
 ---
 
-### Handling errors {/*handling-errors*/}
+### Errors-ஐ handle செய்தல் {/*handling-errors*/}
 
-There are two ways to handle errors with `useActionState`.
+`useActionState` உடன் errors handle செய்ய இரண்டு வழிகள் உள்ளன.
 
-For known errors, such as "quantity not available" validation errors from your backend, you can return it as part of your `reducerAction` state and display it in the UI.
+உங்கள் backend-இலிருந்து வரும் "quantity not available" போன்ற known validation errors-க்கு, அதை உங்கள் `reducerAction` state-ன் பகுதியாக return செய்து UI-இல் display செய்யலாம்.
 
-For unknown errors, such as `undefined is not a function`, you can throw an error. React will cancel all queued Actions and shows the nearest [Error Boundary](/reference/react/Component#catching-rendering-errors-with-an-error-boundary) by rethrowing the error from the `useActionState` hook.
+`undefined is not a function` போன்ற unknown errors-க்கு, error throw செய்யலாம். React queued Actions அனைத்தையும் cancel செய்து, `useActionState` hook-இலிருந்து error-ஐ rethrow செய்வதன் மூலம் அருகிலுள்ள [Error Boundary](/reference/react/Component#catching-rendering-errors-with-an-error-boundary)-ஐ காட்டும்.
 
 <Sandpack>
 
@@ -1216,7 +1216,7 @@ function Checkout() {
       const result = await addToCart(prevState.count, quantity);
       if (result.error) {
         // Return the error from the API as state
-        return {...prevState, error: `Could not add quanitiy ${quantity}: ${result.error}`};
+        return {...prevState, error: `${quantity} அளவை சேர்க்க முடியவில்லை: ${result.error}`};
       }
 
       if (!isPending) {
@@ -1243,17 +1243,17 @@ function Checkout() {
 
   return (
     <div className="checkout">
-      <h2>Checkout</h2>
+      <h2>செக் அவுட்</h2>
       <div className="row">
-        <span>Eras Tour Tickets</span>
+        <span>Eras Tour டிக்கெட்டுகள்</span>
         <span>
-          {isPending && '🌀 '}Qty: {state.count}
+          {isPending && '🌀 '}அளவு: {state.count}
         </span>
       </div>
       <div className="buttons">
-        <button onClick={() => handleAdd(1)}>Add 1</button>
-        <button onClick={() => handleAdd(10)}>Add 10</button>
-        <button onClick={() => handleAdd(NaN)}>Add NaN</button>
+        <button onClick={() => handleAdd(1)}>1 சேர்</button>
+        <button onClick={() => handleAdd(10)}>10 சேர்</button>
+        <button onClick={() => handleAdd(NaN)}>NaN சேர்</button>
       </div>
       {state.error && <div className="error">{state.error}</div>}
       <hr />
@@ -1269,9 +1269,9 @@ export default function App() {
     <ErrorBoundary
       fallbackRender={({resetErrorBoundary}) => (
         <div className="checkout">
-          <h2>Something went wrong</h2>
-          <p>The action could not be completed.</p>
-          <button onClick={resetErrorBoundary}>Try again</button>
+          <h2>ஏதோ தவறு ஏற்பட்டது</h2>
+          <p>Action-ஐ complete செய்ய முடியவில்லை.</p>
+          <button onClick={resetErrorBoundary}>மீண்டும் முயற்சி செய்</button>
         </div>
       )}>
       <Checkout />
@@ -1290,9 +1290,9 @@ const formatter = new Intl.NumberFormat('en-US', {
 export default function Total({quantity, isPending}) {
   return (
     <div className="row total">
-      <span>Total</span>
+      <span>மொத்தம்</span>
       <span>
-        {isPending ? '🌀 Updating...' : formatter.format(quantity * 9999)}
+        {isPending ? '🌀 Update செய்கிறது...' : formatter.format(quantity * 9999)}
       </span>
     </div>
   );
@@ -1303,9 +1303,9 @@ export default function Total({quantity, isPending}) {
 export async function addToCart(count, quantity) {
   await new Promise((resolve) => setTimeout(resolve, 1000));
   if (quantity > 5) {
-    return {error: 'Quantity not available'};
+    return {error: 'அளவு available இல்லை'};
   } else if (isNaN(quantity)) {
-    throw new Error('Quantity must be a number');
+    throw new Error('அளவு number ஆக இருக்க வேண்டும்');
   }
   return {count: count + quantity};
 }
@@ -1373,16 +1373,16 @@ button {
 
 </Sandpack>
 
-In this example, "Add 10" simulates an API that returns a validation error, which `updateCartAction` stores in state and displays inline. "Add NaN" results in an invalid count, so `updateCartAction` throws, which propagates through `useActionState` to the `ErrorBoundary` and shows a reset UI.
+இந்த example-இல், "10 சேர்" validation error return செய்யும் API-ஐ simulate செய்கிறது; அதை `updateCartAction` state-இல் store செய்து inline ஆக display செய்கிறது. "NaN சேர்" invalid count-க்கு வழிவகுக்கும், எனவே `updateCartAction` throw செய்கிறது; அது `useActionState` வழியாக `ErrorBoundary`-க்கு propagate ஆகி reset UI-ஐ காட்டுகிறது.
 
 
 ---
 
-## Troubleshooting {/*troubleshooting*/}
+## சிக்கல் தீர்வு {/*troubleshooting*/}
 
-### My `isPending` flag is not updating {/*ispending-not-updating*/}
+### என் `isPending` flag update ஆகவில்லை {/*ispending-not-updating*/}
 
-If you're calling `dispatchAction` manually (not through an Action prop), make sure you wrap the call in [`startTransition`](/reference/react/startTransition):
+நீங்கள் `dispatchAction`-ஐ manually call செய்கிறீர்கள் என்றால் (Action prop வழியாக அல்ல), call-ஐ [`startTransition`](/reference/react/startTransition)-க்குள் wrap செய்துள்ளீர்களா என்பதை உறுதி செய்யுங்கள்:
 
 ```js
 import { useActionState, startTransition } from 'react';
@@ -1401,13 +1401,13 @@ function MyComponent() {
 }
 ```
 
-When `dispatchAction` is passed to an Action prop, React automatically wraps it in a Transition.
+`dispatchAction` Action prop-க்கு pass செய்யப்பட்டால், React அதை automatic ஆக Transition-க்குள் wrap செய்கிறது.
 
 ---
 
-### My Action cannot read form data {/*action-cannot-read-form-data*/}
+### என் Action form data-வை read செய்ய முடியவில்லை {/*action-cannot-read-form-data*/}
 
-When you use `useActionState`, the `reducerAction` receives an extra argument as its first argument: the previous or initial state. The submitted form data is therefore its second argument instead of its first.
+நீங்கள் `useActionState` use செய்யும்போது, `reducerAction` தனது first argument ஆக ஒரு extra argument பெறுகிறது: previous அல்லது initial state. அதனால் submitted form data அதன் first argument-க்கு பதிலாக second argument ஆக இருக்கும்.
 
 ```js {2,7}
 // Without useActionState
@@ -1423,13 +1423,13 @@ function action(prevState, formData) {
 
 ---
 
-### My actions are being skipped {/*actions-skipped*/}
+### என் actions skip செய்யப்படுகின்றன {/*actions-skipped*/}
 
-If you call `dispatchAction` multiple times and some of them don't run, it may be because an earlier `dispatchAction` call threw an error.
+நீங்கள் `dispatchAction`-ஐ பல முறை call செய்து, அவற்றில் சில run ஆகவில்லை என்றால், முந்தைய `dispatchAction` call ஒன்று error throw செய்ததாலாக இருக்கலாம்.
 
-When a `reducerAction` throws, React skips all subsequently queued `dispatchAction` calls.
+`reducerAction` throw செய்தால், அதன் பிறகு queue செய்யப்பட்ட எல்லா `dispatchAction` calls-ஐயும் React skip செய்கிறது.
 
-To handle this, catch errors within your `reducerAction` and return an error state instead of throwing:
+இதை handle செய்ய, உங்கள் `reducerAction`-க்குள் errors-ஐ catch செய்து, throw செய்வதற்கு பதிலாக error state return செய்யுங்கள்:
 
 ```js
 async function myReducerAction(prevState, data) {
@@ -1445,9 +1445,9 @@ async function myReducerAction(prevState, data) {
 
 ---
 
-### My state doesn't reset {/*reset-state*/}
+### என் state reset ஆகவில்லை {/*reset-state*/}
 
-`useActionState` doesn't provide a built-in reset function. To reset the state, you can design your `reducerAction` to handle a reset signal:
+`useActionState` built-in reset function provide செய்யாது. State-ஐ reset செய்ய, reset signal-ஐ handle செய்யும் வகையில் உங்கள் `reducerAction`-ஐ design செய்யலாம்:
 
 ```js
 const initialState = { name: '', error: null };
@@ -1467,7 +1467,7 @@ function MyComponent() {
 
   function handleReset() {
     startTransition(() => {
-      dispatchAction(null); // Pass null to trigger reset
+      dispatchAction(null); // reset trigger செய்ய null pass செய்க
     });
   }
 
@@ -1475,13 +1475,13 @@ function MyComponent() {
 }
 ```
 
-Alternatively, you can add a `key` prop to the component using `useActionState` to force it to remount with fresh state, or a `<form>` `action` prop, which resets automatically after submission.
+மாற்றாக, fresh state உடன் remount ஆக force செய்ய `useActionState` use செய்யும் component-க்கு `key` prop சேர்க்கலாம், அல்லது submission பிறகு automatic ஆக reset ஆகும் `<form>` `action` prop-ஐ use செய்யலாம்.
 
 ---
 
-### I'm getting an error: "An async function with useActionState was called outside of a transition." {/*async-function-outside-transition*/}
+### எனக்கு error வருகிறது: "An async function with useActionState was called outside of a transition." {/*async-function-outside-transition*/}
 
-A common mistake is to forget to call `dispatchAction` from inside a Transition:
+Common mistake என்பது Transition-க்குள் இருந்து `dispatchAction` call செய்ய மறப்பது:
 
 <ConsoleBlockMulti>
 <ConsoleLogLine level="error">
@@ -1492,7 +1492,7 @@ An async function with useActionState was called outside of a transition. This i
 </ConsoleBlockMulti>
 
 
-This error happens because `dispatchAction` must run inside a Transition:
+`dispatchAction` Transition-க்குள் run ஆக வேண்டும் என்பதால் இந்த error நடக்கிறது:
 
 ```js
 function MyComponent() {
@@ -1507,7 +1507,7 @@ function MyComponent() {
 }
 ```
 
-To fix, either wrap the call in [`startTransition`](/reference/react/startTransition):
+Fix செய்ய, call-ஐ [`startTransition`](/reference/react/startTransition)-க்குள் wrap செய்யுங்கள்:
 
 ```js
 import { useActionState, startTransition } from 'react';
@@ -1526,7 +1526,7 @@ function MyComponent() {
 }
 ```
 
-Or pass `dispatchAction` to an Action prop, is call in a Transition:
+அல்லது `dispatchAction`-ஐ Action prop-க்கு pass செய்யுங்கள்; அது Transition-க்குள் call செய்யப்படும்:
 
 ```js
 function MyComponent() {
@@ -1539,9 +1539,9 @@ function MyComponent() {
 
 ---
 
-### I'm getting an error: "Cannot update action state while rendering" {/*cannot-update-during-render*/}
+### எனக்கு error வருகிறது: "Cannot update action state while rendering" {/*cannot-update-during-render*/}
 
-You cannot call `dispatchAction` during render:
+Render நடக்கும் போது `dispatchAction` call செய்ய முடியாது:
 
 <ConsoleBlock level="error">
 
@@ -1549,7 +1549,7 @@ Cannot update action state while rendering.
 
 </ConsoleBlock>
 
-This causes an infinite loop because calling `dispatchAction` schedules a state update, which triggers a re-render, which calls `dispatchAction` again.
+இது infinite loop ஏற்படுத்தும்; ஏனெனில் `dispatchAction` call செய்வது state update-ஐ schedule செய்கிறது, அது re-render-ஐ trigger செய்கிறது, அது மீண்டும் `dispatchAction` call செய்கிறது.
 
 ```js
 function MyComponent() {
@@ -1562,4 +1562,4 @@ function MyComponent() {
 }
 ```
 
-To fix, only call `dispatchAction` in response to user events (like form submissions or button clicks).
+Fix செய்ய, user events-க்கு response ஆக மட்டுமே `dispatchAction` call செய்யுங்கள் (form submissions அல்லது button clicks போன்றவை).

@@ -4,7 +4,7 @@ title: createContext
 
 <Intro>
 
-`createContext` lets you create a [context](/learn/passing-data-deeply-with-context) that components can provide or read.
+Components provide செய்யவோ read செய்யவோ கூடிய [context](/learn/passing-data-deeply-with-context)-ஐ உருவாக்க `createContext` உதவுகிறது.
 
 ```js
 const SomeContext = createContext(defaultValue)
@@ -16,11 +16,11 @@ const SomeContext = createContext(defaultValue)
 
 ---
 
-## Reference {/*reference*/}
+## குறிப்பு {/*reference*/}
 
 ### `createContext(defaultValue)` {/*createcontext*/}
 
-Call `createContext` outside of any components to create a context.
+Context உருவாக்க எந்த components-க்கும் வெளியே `createContext`-ஐ call செய்யுங்கள்.
 
 ```js
 import { createContext } from 'react';
@@ -28,27 +28,27 @@ import { createContext } from 'react';
 const ThemeContext = createContext('light');
 ```
 
-[See more examples below.](#usage)
+[மேலும் உதாரணங்களை கீழே பார்க்கவும்.](#usage)
 
 #### Parameters {/*parameters*/}
 
-* `defaultValue`: The value that you want the context to have when there is no matching context provider in the tree above the component that reads context. If you don't have any meaningful default value, specify `null`. The default value is meant as a "last resort" fallback. It is static and never changes over time.
+* `defaultValue`: Context read செய்யும் component-க்கு மேலுள்ள tree-இல் பொருந்தும் context provider இல்லாதபோது context கொண்டிருக்க வேண்டிய value. உங்களிடம் meaningful default value இல்லையெனில், `null` குறிப்பிடுங்கள். Default value என்பது "last resort" fallback ஆகும். இது static; காலப்போக்கில் மாறாது.
 
 #### Returns {/*returns*/}
 
-`createContext` returns a context object.
+`createContext` ஒரு context object-ஐ return செய்கிறது.
 
-**The context object itself does not hold any information.** It represents _which_ context other components read or provide. Typically, you will use [`SomeContext`](#provider) in components above to specify the context value, and call [`useContext(SomeContext)`](/reference/react/useContext) in components below to read it. The context object has a few properties:
+**Context object தானாகவே எந்த information-ஐயும் hold செய்யாது.** பிற components எந்த context-ஐ read அல்லது provide செய்கின்றன என்பதை அது represent செய்கிறது. பொதுவாக, மேலுள்ள components-இல் context value-ஐ குறிப்பிட [`SomeContext`](#provider)-ஐ பயன்படுத்தி, கீழுள்ள components-இல் அதை read செய்ய [`useContext(SomeContext)`](/reference/react/useContext)-ஐ call செய்வீர்கள். Context object-க்கு சில properties உள்ளன:
 
-* `SomeContext` lets you provide the context value to components.
-* `SomeContext.Consumer` is an alternative and rarely used way to read the context value.
-* `SomeContext.Provider` is a legacy way to provide the context value before React 19.
+* `SomeContext` components-க்கு context value provide செய்ய உதவுகிறது.
+* `SomeContext.Consumer` context value read செய்யும் மாற்று மற்றும் அரிதாக பயன்படுத்தப்படும் வழி.
+* `SomeContext.Provider` React 19-க்கு முன் context value provide செய்யும் legacy வழி.
 
 ---
 
 ### `SomeContext` Provider {/*provider*/}
 
-Wrap your components into a context provider to specify the value of this context for all components inside:
+உள்ளே உள்ள அனைத்து components-க்கும் இந்த context-ன் value-ஐ குறிப்பிட, உங்கள் components-ஐ context provider-க்குள் wrap செய்யுங்கள்:
 
 ```js
 function App() {
@@ -64,21 +64,21 @@ function App() {
 
 <Note>
 
-Starting in React 19, you can render `<SomeContext>` as a provider.
+React 19 முதல், `<SomeContext>`-ஐ provider ஆக render செய்யலாம்.
 
-In older versions of React, use `<SomeContext.Provider>`.
+React-ன் பழைய versions-இல், `<SomeContext.Provider>` பயன்படுத்துங்கள்.
 
 </Note>
 
 #### Props {/*provider-props*/}
 
-* `value`: The value that you want to pass to all the components reading this context inside this provider, no matter how deep. The context value can be of any type. A component calling [`useContext(SomeContext)`](/reference/react/useContext) inside of the provider receives the `value` of the innermost corresponding context provider above it.
+* `value`: இந்த provider-க்குள், எவ்வளவு ஆழமாக இருந்தாலும், இந்த context-ஐ read செய்யும் அனைத்து components-க்கும் pass செய்ய வேண்டிய value. Context value எந்த type ஆகவும் இருக்கலாம். Provider-க்குள் [`useContext(SomeContext)`](/reference/react/useContext) call செய்யும் component, அதற்கு மேலுள்ள innermost corresponding context provider-ன் `value`-ஐ பெறும்.
 
 ---
 
 ### `SomeContext.Consumer` {/*consumer*/}
 
-Before `useContext` existed, there was an older way to read context:
+`useContext` வருவதற்கு முன், context read செய்ய பழைய வழி ஒன்று இருந்தது:
 
 ```js
 function Button() {
@@ -93,7 +93,7 @@ function Button() {
 }
 ```
 
-Although this older way still works, **newly written code should read context with [`useContext()`](/reference/react/useContext) instead:**
+இந்த பழைய வழி இன்னும் வேலை செய்தாலும், **புதியதாக எழுதப்படும் code context-ஐ [`useContext()`](/reference/react/useContext) மூலம் read செய்ய வேண்டும்:**
 
 ```js
 function Button() {
@@ -105,17 +105,17 @@ function Button() {
 
 #### Props {/*consumer-props*/}
 
-* `children`: A function. React will call the function you pass with the current context value determined by the same algorithm as [`useContext()`](/reference/react/useContext) does, and render the result you return from this function. React will also re-run this function and update the UI whenever the context from the parent components changes.
+* `children`: ஒரு function. [`useContext()`](/reference/react/useContext) பயன்படுத்தும் அதே algorithm மூலம் தீர்மானிக்கப்பட்ட current context value உடன், நீங்கள் pass செய்யும் function-ஐ React call செய்து, அந்த function return செய்யும் result-ஐ render செய்யும். Parent components-இலிருந்து context மாறும் போதெல்லாம் React இந்த function-ஐ மீண்டும் run செய்து UI-ஐ update செய்யும்.
 
 ---
 
-## Usage {/*usage*/}
+## பயன்பாடு {/*usage*/}
 
-### Creating context {/*creating-context*/}
+### Context உருவாக்குதல் {/*creating-context*/}
 
-Context lets components [pass information deep down](/learn/passing-data-deeply-with-context) without explicitly passing props.
+Props-ஐ explicit-ஆக pass செய்யாமல் components [information-ஐ ஆழமாக கீழே pass செய்ய](/learn/passing-data-deeply-with-context) context உதவுகிறது.
 
-Call `createContext` outside any components to create one or more contexts.
+ஒன்று அல்லது அதற்கு மேற்பட்ட contexts உருவாக்க, எந்த components-க்கும் வெளியே `createContext`-ஐ call செய்யுங்கள்.
 
 ```js [[1, 3, "ThemeContext"], [1, 4, "AuthContext"], [3, 3, "'light'"], [3, 4, "null"]]
 import { createContext } from 'react';
@@ -124,7 +124,7 @@ const ThemeContext = createContext('light');
 const AuthContext = createContext(null);
 ```
 
-`createContext` returns a <CodeStep step={1}>context object</CodeStep>. Components can read context by passing it to [`useContext()`](/reference/react/useContext):
+`createContext` ஒரு <CodeStep step={1}>context object</CodeStep>-ஐ return செய்கிறது. அதை [`useContext()`](/reference/react/useContext)-க்கு pass செய்வதன் மூலம் components context-ஐ read செய்யலாம்:
 
 ```js [[1, 2, "ThemeContext"], [1, 7, "AuthContext"]]
 function Button() {
@@ -138,9 +138,9 @@ function Profile() {
 }
 ```
 
-By default, the values they receive will be the <CodeStep step={3}>default values</CodeStep> you have specified when creating the contexts. However, by itself this isn't useful because the default values never change.
+Default-ஆக, அவை பெறும் values contexts உருவாக்கும்போது நீங்கள் குறிப்பிட்ட <CodeStep step={3}>default values</CodeStep> ஆக இருக்கும். ஆனால் இது தனியாக பயனுள்ளதாக இல்லை; ஏனெனில் default values ஒருபோதும் மாறாது.
 
-Context is useful because you can **provide other, dynamic values from your components:**
+Context பயனுள்ளது; ஏனெனில் உங்கள் components-இலிருந்து **பிற dynamic values-ஐ provide செய்யலாம்:**
 
 ```js {8-9,11-12}
 function App() {
@@ -159,15 +159,15 @@ function App() {
 }
 ```
 
-Now the `Page` component and any components inside it, no matter how deep, will "see" the passed context values. If the passed context values change, React will re-render the components reading the context as well.
+இப்போது `Page` component மற்றும் அதன் உள்ளே எவ்வளவு ஆழமாக இருந்தாலும் உள்ள components, pass செய்யப்பட்ட context values-ஐ "பார்க்கும்". Pass செய்யப்பட்ட context values மாறினால், context-ஐ read செய்யும் components-ஐயும் React re-render செய்யும்.
 
-[Read more about reading and providing context and see examples.](/reference/react/useContext)
+[Context read மற்றும் provide செய்வது குறித்து மேலும் படித்து உதாரணங்களைப் பார்க்கவும்.](/reference/react/useContext)
 
 ---
 
-### Importing and exporting context from a file {/*importing-and-exporting-context-from-a-file*/}
+### File-இலிருந்து context import மற்றும் export செய்தல் {/*importing-and-exporting-context-from-a-file*/}
 
-Often, components in different files will need access to the same context. This is why it's common to declare contexts in a separate file. Then you can use the [`export` statement](https://developer.mozilla.org/en-US/docs/web/javascript/reference/statements/export) to make context available for other files:
+அடிக்கடி, வெவ்வேறு files-இல் உள்ள components-க்கு அதே context access தேவைப்படும். அதனால்தான் contexts-ஐ தனி file-இல் declare செய்வது பொதுவானது. பின்னர் [`export` statement](https://developer.mozilla.org/en-US/docs/web/javascript/reference/statements/export)-ஐப் பயன்படுத்தி context-ஐ பிற files-க்கு கிடைக்கச் செய்யலாம்:
 
 ```js {4-5}
 // Contexts.js
@@ -177,7 +177,7 @@ export const ThemeContext = createContext('light');
 export const AuthContext = createContext(null);
 ```
 
-Components declared in other files can then use the [`import`](https://developer.mozilla.org/en-US/docs/web/javascript/reference/statements/import) statement to read or provide this context:
+பிற files-இல் declare செய்யப்பட்ட components பின்னர் [`import`](https://developer.mozilla.org/en-US/docs/web/javascript/reference/statements/import) statement-ஐப் பயன்படுத்தி இந்த context-ஐ read அல்லது provide செய்யலாம்:
 
 ```js {2}
 // Button.js
@@ -205,21 +205,21 @@ function App() {
 }
 ```
 
-This works similar to [importing and exporting components.](/learn/importing-and-exporting-components)
+இது [components import மற்றும் export செய்வது](/learn/importing-and-exporting-components) போலவே வேலை செய்கிறது.
 
 ---
 
-## Troubleshooting {/*troubleshooting*/}
+## சிக்கல் தீர்வு {/*troubleshooting*/}
 
-### I can't find a way to change the context value {/*i-cant-find-a-way-to-change-the-context-value*/}
+### Context value-ஐ மாற்ற வழி கிடைக்கவில்லை {/*i-cant-find-a-way-to-change-the-context-value*/}
 
 
-Code like this specifies the *default* context value:
+இப்படியான code *default* context value-ஐ குறிப்பிடுகிறது:
 
 ```js
 const ThemeContext = createContext('light');
 ```
 
-This value never changes. React only uses this value as a fallback if it can't find a matching provider above.
+இந்த value ஒருபோதும் மாறாது. மேலே பொருந்தும் provider கிடைக்கவில்லை என்றால் மட்டுமே React இந்த value-ஐ fallback ஆகப் பயன்படுத்தும்.
 
-To make context change over time, [add state and wrap components in a context provider.](/reference/react/useContext#updating-data-passed-via-context)
+Context காலத்தோடு மாற வேண்டுமெனில், [state சேர்த்து components-ஐ context provider-இல் wrap செய்யுங்கள்.](/reference/react/useContext#updating-data-passed-via-context)

@@ -4,7 +4,7 @@ title: useFormStatus
 
 <Intro>
 
-`useFormStatus` is a Hook that gives you status information of the last form submission.
+கடைசி form submission-ன் status information-ஐ தரும் Hook தான் `useFormStatus`.
 
 ```js
 const { pending, data, method, action } = useFormStatus();
@@ -16,11 +16,11 @@ const { pending, data, method, action } = useFormStatus();
 
 ---
 
-## Reference {/*reference*/}
+## குறிப்பு {/*reference*/}
 
 ### `useFormStatus()` {/*use-form-status*/}
 
-The `useFormStatus` Hook provides status information of the last form submission.
+`useFormStatus` Hook கடைசி form submission-ன் status information-ஐ வழங்குகிறது.
 
 ```js {5},[[1, 6, "status.pending"]]
 import { useFormStatus } from "react-dom";
@@ -40,42 +40,42 @@ export default function App() {
 }
 ```
 
-To get status information, the `Submit` component must be rendered within a `<form>`. The Hook returns information like the <CodeStep step={1}>`pending`</CodeStep> property which tells you if the form is actively submitting.
+Status information பெற, `Submit` component `<form>`-க்குள் render செய்யப்பட வேண்டும். Form actively submit ஆகிறதா என்பதைச் சொல்லும் <CodeStep step={1}>`pending`</CodeStep> property போன்ற information-ஐ Hook return செய்கிறது.
 
-In the above example, `Submit` uses this information to disable `<button>` presses while the form is submitting.
+மேலுள்ள உதாரணத்தில், form submit ஆகும் போது `<button>` presses-ஐ disable செய்ய `Submit` இந்த information-ஐப் பயன்படுத்துகிறது.
 
-[See more examples below.](#usage)
+[மேலும் உதாரணங்களை கீழே பார்க்கவும்.](#usage)
 
 #### Parameters {/*parameters*/}
 
-`useFormStatus` does not take any parameters.
+`useFormStatus` parameters எதையும் ஏற்காது.
 
 #### Returns {/*returns*/}
 
-A `status` object with the following properties:
+பின்வரும் properties கொண்ட `status` object:
 
-* `pending`: A boolean. If `true`, this means the parent `<form>` is pending submission. Otherwise, `false`.
+* `pending`: ஒரு boolean. `true` என்றால் parent `<form>` submission pending நிலையில் உள்ளது. இல்லையெனில் `false`.
 
-* `data`: An object implementing the [`FormData interface`](https://developer.mozilla.org/en-US/docs/Web/API/FormData) that contains the data the parent `<form>` is submitting. If there is no active submission or no parent `<form>`, it will be `null`.
+* `data`: Parent `<form>` submit செய்யும் data-வை கொண்ட [`FormData interface`](https://developer.mozilla.org/en-US/docs/Web/API/FormData)-ஐ implement செய்யும் object. Active submission இல்லையெனில் அல்லது parent `<form>` இல்லையெனில், இது `null` ஆக இருக்கும்.
 
-* `method`: A string value of either `'get'` or `'post'`. This represents whether the parent `<form>` is submitting with either a `GET` or `POST` [HTTP method](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods). By default, a `<form>` will use the `GET` method and can be specified by the [`method`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form#method) property.
+* `method`: `'get'` அல்லது `'post'` என்ற string value. Parent `<form>` `GET` அல்லது `POST` [HTTP method](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods) மூலம் submit செய்கிறதா என்பதை இது குறிக்கிறது. Default-ஆக, `<form>` `GET` method-ஐப் பயன்படுத்தும்; இதை [`method`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form#method) property மூலம் குறிப்பிடலாம்.
 
 [//]: # (Link to `<form>` documentation. "Read more on the `action` prop on `<form>`.")
-* `action`: A reference to the function passed to the `action` prop on the parent `<form>`. If there is no parent `<form>`, the property is `null`. If there is a URI value provided to the `action` prop, or no `action` prop specified, `status.action` will be `null`.
+* `action`: Parent `<form>`-ன் `action` prop-க்கு pass செய்யப்பட்ட function-க்கு reference. Parent `<form>` இல்லையெனில், property `null` ஆக இருக்கும். `action` prop-க்கு URI value வழங்கப்பட்டிருந்தாலோ, அல்லது `action` prop குறிப்பிடப்படவில்லையெனில், `status.action` `null` ஆக இருக்கும்.
 
 #### Caveats {/*caveats*/}
 
-* The `useFormStatus` Hook must be called from a component that is rendered inside a `<form>`.
-* `useFormStatus` will only return status information for a parent `<form>`. It will not return status information for any `<form>` rendered in that same component or children components.
+* `useFormStatus` Hook `<form>`-க்குள் render செய்யப்படும் component-இலிருந்து call செய்யப்பட வேண்டும்.
+* `useFormStatus` parent `<form>`-க்கான status information மட்டும் return செய்யும். அதே component-இலோ child components-இலோ render செய்யப்படும் எந்த `<form>`-க்கான status information-ஐயும் return செய்யாது.
 
 ---
 
-## Usage {/*usage*/}
+## பயன்பாடு {/*usage*/}
 
-### Display a pending state during form submission {/*display-a-pending-state-during-form-submission*/}
-To display a pending state while a form is submitting, you can call the `useFormStatus` Hook in a component rendered in a `<form>` and read the `pending` property returned.
+### Form submission நேரத்தில் pending state காட்டுதல் {/*display-a-pending-state-during-form-submission*/}
+ஒரு form submit ஆகும் போது pending state காட்ட, `<form>`-க்குள் render செய்யப்படும் component-இல் `useFormStatus` Hook-ஐ call செய்து, return செய்யப்பட்ட `pending` property-ஐ read செய்யலாம்.
 
-Here, we use the `pending` property to indicate the form is submitting.
+இங்கு form submit ஆகிறது என்பதை காட்ட `pending` property-ஐப் பயன்படுத்துகிறோம்.
 
 <Sandpack>
 
@@ -114,9 +114,9 @@ export async function submitForm(query) {
 
 <Pitfall>
 
-##### `useFormStatus` will not return status information for a `<form>` rendered in the same component. {/*useformstatus-will-not-return-status-information-for-a-form-rendered-in-the-same-component*/}
+##### அதே component-இல் render செய்யப்படும் `<form>`-க்கான status information-ஐ `useFormStatus` return செய்யாது. {/*useformstatus-will-not-return-status-information-for-a-form-rendered-in-the-same-component*/}
 
-The `useFormStatus` Hook only returns status information for a parent `<form>` and not for any `<form>` rendered in the same component calling the Hook, or child components.
+`useFormStatus` Hook parent `<form>`-க்கான status information மட்டும் return செய்யும்; Hook-ஐ call செய்யும் அதே component-இல் அல்லது child components-இல் render செய்யப்படும் எந்த `<form>`-க்கும் அல்ல.
 
 ```js
 function Form() {
@@ -127,7 +127,7 @@ function Form() {
 }
 ```
 
-Instead call `useFormStatus` from inside a component that is located inside `<form>`.
+அதற்கு பதிலாக `<form>`-க்குள் இருக்கும் component-இலிருந்து `useFormStatus`-ஐ call செய்யுங்கள்.
 
 ```js
 function Submit() {
@@ -148,11 +148,11 @@ function Form() {
 
 </Pitfall>
 
-### Read the form data being submitted {/*read-form-data-being-submitted*/}
+### Submit செய்யப்படும் form data-வை read செய்தல் {/*read-form-data-being-submitted*/}
 
-You can use the `data` property of the status information returned from `useFormStatus` to display what data is being submitted by the user.
+User submit செய்யும் data என்ன என்பதை display செய்ய, `useFormStatus` return செய்யும் status information-ன் `data` property-ஐப் பயன்படுத்தலாம்.
 
-Here, we have a form where users can request a username. We can use `useFormStatus` to display a temporary status message confirming what username they have requested.
+இங்கு users username request செய்யக்கூடிய form உள்ளது. அவர்கள் எந்த username request செய்துள்ளனர் என்பதை உறுதிப்படுத்தும் தற்காலிக status message காட்ட `useFormStatus`-ஐப் பயன்படுத்தலாம்.
 
 <Sandpack>
 
@@ -219,12 +219,12 @@ button {
 
 ---
 
-## Troubleshooting {/*troubleshooting*/}
+## சிக்கல் தீர்வு {/*troubleshooting*/}
 
-### `status.pending` is never `true` {/*pending-is-never-true*/}
+### `status.pending` ஒருபோதும் `true` ஆகவில்லை {/*pending-is-never-true*/}
 
-`useFormStatus` will only return status information for a parent `<form>`.
+`useFormStatus` parent `<form>`-க்கான status information மட்டும் return செய்யும்.
 
-If the component that calls `useFormStatus` is not nested in a `<form>`, `status.pending` will always return `false`. Verify `useFormStatus` is called in a component that is a child of a `<form>` element.
+`useFormStatus` call செய்யும் component `<form>`-க்குள் nested ஆக இல்லை என்றால், `status.pending` எப்போதும் `false` return செய்யும். `<form>` element-ன் child ஆன component-இல் `useFormStatus` call செய்யப்படுகிறதா என்பதை verify செய்யுங்கள்.
 
-`useFormStatus` will not track the status of a `<form>` rendered in the same component. See [Pitfall](#useformstatus-will-not-return-status-information-for-a-form-rendered-in-the-same-component) for more details.
+அதே component-இல் render செய்யப்படும் `<form>`-ன் status-ஐ `useFormStatus` track செய்யாது. மேலும் விவரங்களுக்கு [Pitfall](#useformstatus-will-not-return-status-information-for-a-form-rendered-in-the-same-component)-ஐப் பார்க்கவும்.

@@ -1,62 +1,62 @@
 ---
-title: "Introducing react.dev"
+title: "react.dev அறிமுகம்"
 author: Dan Abramov and Rachel Nabors
 date: 2023/03/16
-description: Today we are thrilled to launch react.dev, the new home for React and its documentation. In this post, we would like to give you a tour of the new site.
+description: இன்று React மற்றும் அதன் documentation-க்கான புதிய இல்லமான react.dev-ஐ அறிமுகப்படுத்துவதில் நாங்கள் மகிழ்ச்சியடைகிறோம். இந்த post-இல், புதிய site-ஐ உங்களுக்கு சுற்றிக் காட்ட விரும்புகிறோம்.
 ---
 
-March 16, 2023 by [Dan Abramov](https://bsky.app/profile/danabra.mov) and [Rachel Nabors](https://twitter.com/rachelnabors)
+March 16, 2023 அன்று [Dan Abramov](https://bsky.app/profile/danabra.mov) and [Rachel Nabors](https://twitter.com/rachelnabors)
 
 ---
 
 <Intro>
 
-Today we are thrilled to launch [react.dev](https://react.dev), the new home for React and its documentation. In this post, we would like to give you a tour of the new site.
+இன்று React மற்றும் அதன் documentation-க்கான புதிய இல்லமான [react.dev](https://react.dev)-ஐ அறிமுகப்படுத்துவதில் நாங்கள் மகிழ்ச்சியடைகிறோம். இந்த post-இல், புதிய site-ஐ உங்களுக்கு சுற்றிக் காட்ட விரும்புகிறோம்.
 
 </Intro>
 
 ---
 
-## tl;dr {/*tldr*/}
+## சுருக்கமாக {/*tldr*/}
 
-* The new React site ([react.dev](https://react.dev)) teaches modern React with function components and Hooks.
-* We've included diagrams, illustrations, challenges, and over 600 new interactive examples.
-* The previous React documentation site has now moved to [legacy.reactjs.org](https://legacy.reactjs.org).
+* புதிய React site ([react.dev](https://react.dev)) function components மற்றும் Hooks மூலம் modern React-ஐ கற்றுக்கொடுக்கும்.
+* Diagrams, illustrations, challenges, மேலும் 600-க்கும் அதிகமான புதிய interactive examples-ஐ சேர்த்துள்ளோம்.
+* முந்தைய React documentation site இப்போது [legacy.reactjs.org](https://legacy.reactjs.org)-க்கு நகர்த்தப்பட்டுள்ளது.
 
-## New site, new domain, new homepage {/*new-site-new-domain-new-homepage*/}
+## புதிய site, புதிய domain, புதிய homepage {/*new-site-new-domain-new-homepage*/}
 
-First, a little bit of housekeeping.
+முதலில், சில சிறிய நிர்வாக விஷயங்கள்.
 
-To celebrate the launch of the new docs and, more importantly, to clearly separate the old and the new content, we've moved to the shorter [react.dev](https://react.dev) domain. The old [reactjs.org](https://reactjs.org) domain will now redirect here.
+புதிய docs launch-ஐக் கொண்டாடவும், அதைவிட முக்கியமாக பழைய மற்றும் புதிய content-ஐ தெளிவாகப் பிரிக்கவும், நாங்கள் குறுகிய [react.dev](https://react.dev) domain-க்கு நகர்ந்துள்ளோம். பழைய [reactjs.org](https://reactjs.org) domain இப்போது இங்கே redirect செய்யும்.
 
-The old React docs are now archived at [legacy.reactjs.org](https://legacy.reactjs.org). All existing links to the old content will automatically redirect there to avoid "breaking the web", but the legacy site will not get many more updates.
+பழைய React docs இப்போது [legacy.reactjs.org](https://legacy.reactjs.org)-இல் archived செய்யப்பட்டுள்ளது. "Web-ஐ break" செய்வதைத் தவிர்க்க, பழைய content-க்கு உள்ள எல்லா existing links-மும் தானாக அங்கே redirect செய்யும்; ஆனால் legacy site-க்கு இனி அதிக updates கிடைக்காது.
 
-Believe it or not, React will soon be ten years old. In JavaScript years, it's like a whole century! We've [refreshed the React homepage](https://react.dev) to reflect why we think React is a great way to create user interfaces today, and updated the getting started guides to more prominently mention modern React-based frameworks.
+நம்பினாலும் நம்பாவிட்டாலும், React விரைவில் பத்து வயதாகிறது. JavaScript ஆண்டுகளில் அது முழு நூற்றாண்டு போல! இன்று user interfaces உருவாக்க React ஏன் சிறந்த வழி என்று நாங்கள் நினைக்கிறோம் என்பதைப் பிரதிபலிக்க [React homepage-ஐ புதுப்பித்துள்ளோம்](https://react.dev), மேலும் modern React-based frameworks-ஐ தெளிவாகக் குறிப்பிட getting started guides-ஐ update செய்துள்ளோம்.
 
-If you haven't seen the new homepage yet, check it out!
+புதிய homepage-ஐ இன்னும் பார்க்கவில்லை என்றால், பாருங்கள்!
 
-## Going all-in on modern React with Hooks {/*going-all-in-on-modern-react-with-hooks*/}
+## Hooks உடன் modern React-ஐ முழுமையாக ஏற்றுக்கொள்வது {/*going-all-in-on-modern-react-with-hooks*/}
 
-When we released React Hooks in 2018, the Hooks docs assumed the reader is familiar with class components. This helped the community adopt Hooks very swiftly, but after a while the old docs failed to serve the new readers. New readers had to learn React twice: once with class components and then once again with Hooks.
+2018-இல் React Hooks-ஐ வெளியிட்டபோது, Hooks docs வாசகர் class components-ஐ ஏற்கனவே அறிந்தவர் என்று கருதியது. இதனால் community Hooks-ஐ மிக விரைவாக ஏற்றுக்கொண்டது; ஆனால் சில காலத்திற்குப் பிறகு பழைய docs புதிய வாசகர்களுக்கு சரியாக உதவவில்லை. புதிய வாசகர்கள் React-ஐ இரண்டு முறை கற்றுக்கொள்ள வேண்டியிருந்தது: முதலில் class components உடன், பின்னர் மீண்டும் Hooks உடன்.
 
-**The new docs teach React with Hooks from the beginning.** The docs are divided in two main sections:
+**புதிய docs React-ஐ ஆரம்பத்திலிருந்தே Hooks உடன் கற்றுக்கொடுக்கும்.** Docs இரண்டு முக்கிய பிரிவுகளாகப் பிரிக்கப்பட்டுள்ளன:
 
-* **[Learn React](/learn)** is a self-paced course that teaches React from scratch.
-* **[API Reference](/reference)** provides the details and usage examples for every React API.
+* **[Learn React](/learn)** என்பது React-ஐ அடிப்படையிலிருந்து கற்றுக்கொடுக்கும் self-paced course.
+* **[API Reference](/reference)** ஒவ்வொரு React API-க்கும் விவரங்களையும் usage examples-ஐயும் வழங்குகிறது.
 
-Let's have a closer look at what you can find in each section.
+ஒவ்வொரு பிரிவிலும் என்ன கிடைக்கும் என்பதை நெருக்கமாகப் பார்ப்போம்.
 
 <Note>
 
-There are still a few rare class component use cases that do not yet have a Hook-based equivalent. Class components remain supported, and are documented in the [Legacy API](/reference/react/legacy) section of the new site.
+Hook-based equivalent இன்னும் இல்லாத சில அரிதான class component use cases இன்னும் உள்ளன. Class components தொடர்ந்து support செய்யப்படுகின்றன, மேலும் புதிய site-ன் [Legacy API](/reference/react/legacy) பிரிவில் documented செய்யப்பட்டுள்ளன.
 
 </Note>
 
 ## Quick start {/*quick-start*/}
 
-The Learn section begins with the [Quick Start](/learn) page. It is a short introductory tour of React. It introduces the syntax for concepts like components, props, and state, but doesn't go into much detail on how to use them.
+Learn பிரிவு [Quick Start](/learn) page-இல் தொடங்குகிறது. அது React-க்கு ஒரு குறுகிய அறிமுக சுற்றுப்பயணம். Components, props, state போன்ற concepts-க்கான syntax-ஐ அறிமுகப்படுத்துகிறது; ஆனால் அவற்றை எப்படி பயன்படுத்துவது பற்றி அதிக விவரத்திற்குள் செல்லாது.
 
-If you like to learn by doing, we recommend checking out the [Tic-Tac-Toe Tutorial](/learn/tutorial-tic-tac-toe) next. It walks you through building a little game with React, while teaching the skills you'll use every day. Here's what you'll build:
+செய்து கற்றுக்கொள்வதை நீங்கள் விரும்பினால், அடுத்ததாக [Tic-Tac-Toe Tutorial](/learn/tutorial-tic-tac-toe)-ஐப் பார்க்க பரிந்துரைக்கிறோம். தினமும் பயன்படுத்தும் திறன்களை கற்றுக்கொடுக்கும் போது, React கொண்டு ஒரு சிறிய game கட்டுவதில் அது உங்களை வழிநடத்தும். நீங்கள் கட்டப் போவது இதுதான்:
 
 <Sandpack>
 
@@ -88,9 +88,9 @@ function Board({ xIsNext, squares, onPlay }) {
   const winner = calculateWinner(squares);
   let status;
   if (winner) {
-    status = 'Winner: ' + winner;
+    status = 'வெற்றியாளர்: ' + winner;
   } else {
-    status = 'Next player: ' + (xIsNext ? 'X' : 'O');
+    status = 'அடுத்த வீரர்: ' + (xIsNext ? 'X' : 'O');
   }
 
   return (
@@ -134,9 +134,9 @@ export default function Game() {
   const moves = history.map((squares, move) => {
     let description;
     if (move > 0) {
-      description = 'Go to move #' + move;
+      description = 'நகர்வு #' + move + 'க்கு செல்';
     } else {
-      description = 'Go to game start';
+      description = 'Game தொடக்கத்துக்கு செல்';
     }
     return (
       <li key={move}>
@@ -225,43 +225,43 @@ body {
 
 </Sandpack>
 
-We'd also like to highlight [Thinking in React](/learn/thinking-in-react)—that's the tutorial that made React "click" for many of us. **We've updated both of these classic tutorials to use function components and Hooks,** so they're as good as new.
+[Thinking in React](/learn/thinking-in-react)-ஐயும் சிறப்பாகக் குறிப்பிட விரும்புகிறோம்--எங்களில் பலருக்கு React "click" ஆகச் செய்த tutorial அதுதான். **இந்த இரண்டு classic tutorials-ையும் function components மற்றும் Hooks பயன்படுத்த update செய்துள்ளோம்,** ஆகவே அவை புதியவை போலவே பயனுள்ளவை.
 
 <Note>
 
-The example above is a *sandbox*. We've added a lot of sandboxes—over 600!—everywhere throughout the site. You can edit any sandbox, or press "Fork" in the upper right corner to open it in a separate tab. Sandboxes let you quickly play with the React APIs, explore your ideas, and check your understanding.
+மேலுள்ள example ஒரு *sandbox*. Site முழுவதும் பல sandboxes-ஐ சேர்த்துள்ளோம்--600-க்கும் அதிகம்! எந்த sandbox-யையும் edit செய்யலாம், அல்லது தனி tab-இல் திறக்க மேல் வலது மூலையில் உள்ள "Fork" அழுத்தலாம். Sandboxes React APIs-ஐ விரைவாக விளையாடிப் பார்க்கவும், உங்கள் ideas-ஐ explore செய்யவும், உங்கள் புரிதலைச் சரிபார்க்கவும் உதவுகின்றன.
 
 </Note>
 
-## Learn React step by step {/*learn-react-step-by-step*/}
+## React-ஐ படிப்படியாக கற்றுக்கொள்ளுங்கள் {/*learn-react-step-by-step*/}
 
-We'd like everyone in the world to have an equal opportunity to learn React for free on their own.
+உலகில் அனைவருக்கும் React-ஐ இலவசமாக, தங்கள் வேகத்தில் கற்றுக்கொள்ள சம வாய்ப்பு இருக்க வேண்டும் என்று நாங்கள் விரும்புகிறோம்.
 
-This is why the Learn section is organized like a self-paced course split into chapters. The first two chapters describe the fundamentals of React. If you're new to React, or want to refresh it in your memory, start here:
+அதனால்தான் Learn பிரிவு chapters-ஆகப் பிரிக்கப்பட்ட self-paced course போல ஒழுங்குபடுத்தப்பட்டுள்ளது. முதல் இரண்டு chapters React-ன் fundamentals-ஐ விவரிக்கின்றன. நீங்கள் React-க்கு புதியவராக இருந்தால், அல்லது நினைவில் புதுப்பிக்க விரும்பினால், இங்கிருந்து தொடங்குங்கள்:
 
-- **[Describing the UI](/learn/describing-the-ui)** teaches how to display information with components.
-- **[Adding Interactivity](/learn/adding-interactivity)** teaches how to update the screen in response to user input.
+- **[Describing the UI](/learn/describing-the-ui)** components கொண்டு தகவலை எப்படி display செய்வது என்பதை கற்றுக்கொடுக்கும்.
+- **[Adding Interactivity](/learn/adding-interactivity)** user input-க்கு பதிலாக screen-ஐ எப்படி update செய்வது என்பதை கற்றுக்கொடுக்கும்.
 
-The next two chapters are more advanced, and will give you a deeper insight into the trickier parts:
+அடுத்த இரண்டு chapters இன்னும் advanced; சிக்கலான பகுதிகளைப் பற்றிய ஆழமான புரிதலை அளிக்கும்:
 
-- **[Managing State](/learn/managing-state)** teaches how to organize your logic as your app grows in complexity.
-- **[Escape Hatches](/learn/escape-hatches)** teaches how you can "step outside" React, and when it makes most sense to do so.
+- **[Managing State](/learn/managing-state)** உங்கள் app complexity-யில் வளரும்போது logic-ஐ எப்படி ஒழுங்குபடுத்துவது என்பதை கற்றுக்கொடுக்கும்.
+- **[Escape Hatches](/learn/escape-hatches)** React-க்கு "வெளியே செல்ல" எப்படி முடியும், எப்போது அது மிகவும் பொருத்தமானது என்பதை கற்றுக்கொடுக்கும்.
 
-Every chapter consists of several related pages. Most of these pages teach a specific skill or a technique—for example, [Writing Markup with JSX](/learn/writing-markup-with-jsx), [Updating Objects in State](/learn/updating-objects-in-state), or [Sharing State Between Components](/learn/sharing-state-between-components). Some of the pages focus on explaining an idea—like [Render and Commit](/learn/render-and-commit), or [State as a Snapshot](/learn/state-as-a-snapshot). And there are a few, like [You Might Not Need an Effect](/learn/you-might-not-need-an-effect), that share our suggestions based on what we've learned over these years.
+ஒவ்வொரு chapter-மும் தொடர்புடைய பல pages-ஐ கொண்டுள்ளது. அவற்றில் பெரும்பாலானவை ஒரு குறிப்பிட்ட skill அல்லது technique-ஐ கற்றுக்கொடுக்கும்--உதாரணமாக [Writing Markup with JSX](/learn/writing-markup-with-jsx), [Updating Objects in State](/learn/updating-objects-in-state), அல்லது [Sharing State Between Components](/learn/sharing-state-between-components). சில pages ஒரு idea-வை விளக்குவதில் கவனம் செலுத்துகின்றன--[Render and Commit](/learn/render-and-commit), அல்லது [State as a Snapshot](/learn/state-as-a-snapshot) போல. மேலும் [You Might Not Need an Effect](/learn/you-might-not-need-an-effect) போன்ற சில pages, இந்த ஆண்டுகளில் நாங்கள் கற்றுக்கொண்டவற்றின் அடிப்படையில் எங்கள் பரிந்துரைகளைப் பகிர்கின்றன.
 
-You don't have to read these chapters as a sequence. Who has the time for this?! But you could. Pages in the Learn section only rely on concepts introduced by the earlier pages. If you want to read it like a book, go for it!
+இந்த chapters-ஐ கட்டாயம் வரிசையாகப் படிக்க வேண்டியதில்லை. இதற்கெல்லாம் யாரிடம் நேரம் இருக்கிறது?! ஆனால் படிக்கலாம். Learn பிரிவில் உள்ள pages, அதற்கு முன் உள்ள pages அறிமுகப்படுத்திய concepts-ஐ மட்டுமே சார்ந்துள்ளன. அதை ஒரு புத்தகமாகப் படிக்க விரும்பினால், தாராளமாகப் படியுங்கள்!
 
-### Check your understanding with challenges {/*check-your-understanding-with-challenges*/}
+### Challenges மூலம் உங்கள் புரிதலைச் சரிபாருங்கள் {/*check-your-understanding-with-challenges*/}
 
-Most pages in the Learn section end with a few challenges to check your understanding. For example, here are a few challenges from the page about [Conditional Rendering](/learn/conditional-rendering#challenges).
+Learn பிரிவில் உள்ள பெரும்பாலான pages, உங்கள் புரிதலைச் சரிபார்க்க சில challenges உடன் முடிவடைகின்றன. உதாரணமாக, [Conditional Rendering](/learn/conditional-rendering#challenges) பற்றிய page-இலிருந்து சில challenges இங்கே உள்ளன.
 
-You don't have to solve them right now! Unless you *really* want to.
+அவற்றை இப்போதே solve செய்ய வேண்டியதில்லை! நீங்கள் *உண்மையிலேயே* விரும்பினால் தவிர.
 
 <Challenges noTitle={true}>
 
-#### Show an icon for incomplete items with `? :` {/*show-an-icon-for-incomplete-items-with--*/}
+#### முடிக்கப்படாத items-க்கு `? :` மூலம் icon காட்டுங்கள் {/*show-an-icon-for-incomplete-items-with--*/}
 
-Use the conditional operator (`cond ? a : b`) to render a ❌ if `isPacked` isn’t `true`.
+`isPacked` `true` அல்லாவிட்டால் ❌ render செய்ய conditional operator (`cond ? a : b`)-ஐப் பயன்படுத்துங்கள்.
 
 <Sandpack>
 
@@ -277,19 +277,19 @@ function Item({ name, isPacked }) {
 export default function PackingList() {
   return (
     <section>
-      <h1>Sally Ride's Packing List</h1>
+      <h1>Sally Ride-ன் Packing List</h1>
       <ul>
         <Item
           isPacked={true}
-          name="Space suit"
+          name="விண்வெளி உடை"
         />
         <Item
           isPacked={true}
-          name="Helmet with a golden leaf"
+          name="தங்க இலை கொண்ட தலைக்கவசம்"
         />
         <Item
           isPacked={false}
-          name="Photo of Tam"
+          name="டாமின் புகைப்படம்"
         />
       </ul>
     </section>
@@ -315,19 +315,19 @@ function Item({ name, isPacked }) {
 export default function PackingList() {
   return (
     <section>
-      <h1>Sally Ride's Packing List</h1>
+      <h1>Sally Ride-ன் Packing List</h1>
       <ul>
         <Item
           isPacked={true}
-          name="Space suit"
+          name="விண்வெளி உடை"
         />
         <Item
           isPacked={true}
-          name="Helmet with a golden leaf"
+          name="தங்க இலை கொண்ட தலைக்கவசம்"
         />
         <Item
           isPacked={false}
-          name="Photo of Tam"
+          name="டாமின் புகைப்படம்"
         />
       </ul>
     </section>
@@ -339,15 +339,15 @@ export default function PackingList() {
 
 </Solution>
 
-#### Show the item importance with `&&` {/*show-the-item-importance-with-*/}
+#### `&&` மூலம் item importance-ஐ காட்டுங்கள் {/*show-the-item-importance-with-*/}
 
-In this example, each `Item` receives a numerical `importance` prop. Use the `&&` operator to render "_(Importance: X)_" in italics, but only for items that have non-zero importance. Your item list should end up looking like this:
+இந்த example-இல், ஒவ்வொரு `Item`-க்கும் numerical `importance` prop கிடைக்கிறது. Zero அல்லாத importance கொண்ட items-க்கு மட்டும் italics-இல் "_(முக்கியத்துவம்: X)_" render செய்ய `&&` operator-ஐப் பயன்படுத்துங்கள். உங்கள் item list இறுதியில் இதுபோல் இருக்க வேண்டும்:
 
-* Space suit _(Importance: 9)_
-* Helmet with a golden leaf
-* Photo of Tam _(Importance: 6)_
+* விண்வெளி உடை _(முக்கியத்துவம்: 9)_
+* தங்க இலை கொண்ட தலைக்கவசம்
+* டாமின் புகைப்படம் _(முக்கியத்துவம்: 6)_
 
-Don't forget to add a space between the two labels!
+இரண்டு labels-க்கும் இடையில் ஒரு space சேர்க்க மறக்காதீர்கள்!
 
 <Sandpack>
 
@@ -363,19 +363,19 @@ function Item({ name, importance }) {
 export default function PackingList() {
   return (
     <section>
-      <h1>Sally Ride's Packing List</h1>
+      <h1>Sally Ride-ன் Packing List</h1>
       <ul>
         <Item
           importance={9}
-          name="Space suit"
+          name="விண்வெளி உடை"
         />
         <Item
           importance={0}
-          name="Helmet with a golden leaf"
+          name="தங்க இலை கொண்ட தலைக்கவசம்"
         />
         <Item
           importance={6}
-          name="Photo of Tam"
+          name="டாமின் புகைப்படம்"
         />
       </ul>
     </section>
@@ -387,7 +387,7 @@ export default function PackingList() {
 
 <Solution>
 
-This should do the trick:
+இது போதுமானது:
 
 <Sandpack>
 
@@ -398,7 +398,7 @@ function Item({ name, importance }) {
       {name}
       {importance > 0 && ' '}
       {importance > 0 &&
-        <i>(Importance: {importance})</i>
+        <i>(முக்கியத்துவம்: {importance})</i>
       }
     </li>
   );
@@ -407,19 +407,19 @@ function Item({ name, importance }) {
 export default function PackingList() {
   return (
     <section>
-      <h1>Sally Ride's Packing List</h1>
+      <h1>Sally Ride-ன் Packing List</h1>
       <ul>
         <Item
           importance={9}
-          name="Space suit"
+          name="விண்வெளி உடை"
         />
         <Item
           importance={0}
-          name="Helmet with a golden leaf"
+          name="தங்க இலை கொண்ட தலைக்கவசம்"
         />
         <Item
           importance={6}
-          name="Photo of Tam"
+          name="டாமின் புகைப்படம்"
         />
       </ul>
     </section>
@@ -429,53 +429,53 @@ export default function PackingList() {
 
 </Sandpack>
 
-Note that you must write `importance > 0 && ...` rather than `importance && ...` so that if the `importance` is `0`, `0` isn't rendered as the result!
+`importance` `0` ஆக இருந்தால் result ஆக `0` render ஆகாமல் இருக்க, `importance && ...` என்பதற்குப் பதிலாக `importance > 0 && ...` என்று எழுத வேண்டும் என்பதை கவனியுங்கள்!
 
-In this solution, two separate conditions are used to insert a space between then name and the importance label. Alternatively, you could use a Fragment with a leading space: `importance > 0 && <> <i>...</i></>` or add a space immediately inside the `<i>`:  `importance > 0 && <i> ...</i>`.
+இந்த solution-இல், name மற்றும் importance label இடையில் space insert செய்ய இரண்டு தனித்தனி conditions பயன்படுத்தப்படுகின்றன. மாற்றாக, leading space கொண்ட Fragment பயன்படுத்தலாம்: `importance > 0 && <> <i>...</i></>` அல்லது `<i>`-க்குள் உடனே space சேர்க்கலாம்:  `importance > 0 && <i> ...</i>`.
 
 </Solution>
 
 </Challenges>
 
-Notice the "Show solution" button in the left bottom corner. It's handy if you want to check yourself!
+இடது கீழ் மூலையில் உள்ள "Show solution" button-ஐ கவனியுங்கள். உங்களைத் தானே சரிபார்க்க விரும்பினால் அது பயனுள்ளது!
 
-### Build an intuition with diagrams and illustrations {/*build-an-intuition-with-diagrams-and-illustrations*/}
+### Diagrams மற்றும் illustrations மூலம் intuition உருவாக்குங்கள் {/*build-an-intuition-with-diagrams-and-illustrations*/}
 
-When we couldn't figure out how to explain something with code and words alone, we've added diagrams that help provide some intuition. For example, here is one of the diagrams from [Preserving and Resetting State](/learn/preserving-and-resetting-state):
+Code மற்றும் வார்த்தைகள் மட்டும் கொண்டு ஏதாவது ஒன்றை விளக்க முடியாதபோது, intuition உருவாக உதவும் diagrams-ஐ சேர்த்துள்ளோம். உதாரணமாக, [Preserving and Resetting State](/learn/preserving-and-resetting-state)-இலிருந்து ஒரு diagram இங்கே:
 
-<Diagram name="preserving_state_diff_same_pt1" height={350} width={794} alt="Diagram with three sections, with an arrow transitioning each section in between. The first section contains a React component labeled 'div' with a single child labeled 'section', which has a single child labeled 'Counter' containing a state bubble labeled 'count' with value 3. The middle section has the same 'div' parent, but the child components have now been deleted, indicated by a yellow 'proof' image. The third section has the same 'div' parent again, now with a new child labeled 'div', highlighted in yellow, also with a new child labeled 'Counter' containing a state bubble labeled 'count' with value 0, all highlighted in yellow.">
+<Diagram name="preserving_state_diff_same_pt1" height={350} width={794} alt="மூன்று பகுதிகளைக் கொண்ட diagram; ஒவ்வொரு பகுதியுக்கும் இடையில் arrow transition உள்ளது. முதல் பகுதியில் 'div' என label செய்யப்பட்ட React component உள்ளது; அதற்கு 'section' என label செய்யப்பட்ட ஒரு child உள்ளது; அதற்கு 'Counter' என label செய்யப்பட்ட ஒரு child உள்ளது; அதில் value 3 கொண்ட 'count' state bubble உள்ளது. நடுப்பகுதியில் அதே 'div' parent உள்ளது, ஆனால் child components இப்போது delete செய்யப்பட்டுள்ளன; அது மஞ்சள் 'proof' image மூலம் காட்டப்படுகிறது. மூன்றாம் பகுதியில் மீண்டும் அதே 'div' parent உள்ளது; இப்போது மஞ்சளில் highlight செய்யப்பட்ட புதிய child 'div' உள்ளது; அதற்கும் மஞ்சளில் highlight செய்யப்பட்ட புதிய child 'Counter' உள்ளது; அதில் value 0 கொண்ட 'count' state bubble உள்ளது.">
 
-When `section` changes to `div`, the `section` is deleted and the new `div` is added
+`section` `div` ஆக மாறும்போது, `section` delete செய்யப்படுகிறது; புதிய `div` சேர்க்கப்படுகிறது
 
 </Diagram>
 
-You'll also see some illustrations throughout the docs--here's one of the [browser painting the screen](/learn/render-and-commit#epilogue-browser-paint):
+Docs முழுவதும் சில illustrations-ஐயும் காண்பீர்கள்--[browser screen-ஐ paint செய்வது](/learn/render-and-commit#epilogue-browser-paint) பற்றிய ஒன்று இதோ:
 
-<Illustration alt="A browser painting 'still life with card element'." src="/images/docs/illustrations/i_browser-paint.png" />
+<Illustration alt="'Card element உடன் still life' ஒன்றை paint செய்யும் browser." src="/images/docs/illustrations/i_browser-paint.png" />
 
-We've confirmed with the browser vendors that this depiction is 100% scientifically accurate.
+இந்த depiction 100% அறிவியல் ரீதியாகத் துல்லியமானது என்று browser vendors உடன் உறுதிப்படுத்தியுள்ளோம்.
 
-## A new, detailed API Reference {/*a-new-detailed-api-reference*/}
+## புதிய, விரிவான API Reference {/*a-new-detailed-api-reference*/}
 
-In the [API Reference](/reference/react), every React API now has a dedicated page. This includes all kinds of APIs:
+[API Reference](/reference/react)-இல், ஒவ்வொரு React API-க்கும் இப்போது தனிப்பட்ட page உள்ளது. இதில் எல்லா வகையான APIs-மும் அடங்கும்:
 
-- Built-in Hooks like [`useState`](/reference/react/useState).
-- Built-in components like [`<Suspense>`](/reference/react/Suspense).
-- Built-in browser components like [`<input>`](/reference/react-dom/components/input).
-- Framework-oriented APIs like [`renderToPipeableStream`](/reference/react-dom/server/renderToReadableStream).
-- Other React APIs like [`memo`](/reference/react/memo).
+- [`useState`](/reference/react/useState) போன்ற built-in Hooks.
+- [`<Suspense>`](/reference/react/Suspense) போன்ற built-in components.
+- [`<input>`](/reference/react-dom/components/input) போன்ற built-in browser components.
+- [`renderToPipeableStream`](/reference/react-dom/server/renderToReadableStream) போன்ற framework-oriented APIs.
+- [`memo`](/reference/react/memo) போன்ற பிற React APIs.
 
-You'll notice that every API page is split into at least two segments: *Reference* and *Usage*.
+ஒவ்வொரு API page-மும் குறைந்தது இரண்டு பகுதிகளாகப் பிரிக்கப்பட்டிருப்பதை கவனிப்பீர்கள்: *Reference* மற்றும் *Usage*.
 
-[Reference](/reference/react/useState#reference) describes the formal API signature by listing its arguments and return values. It's concise, but it can feel a bit abstract if you're not familiar with that API. It describes what an API does, but not how to use it.
+[Reference](/reference/react/useState#reference) அதன் arguments மற்றும் return values-ஐ list செய்வதன் மூலம் formal API signature-ஐ விவரிக்கிறது. அது சுருக்கமானது, ஆனால் அந்த API-க்கு பழக்கம் இல்லையெனில் கொஞ்சம் abstract ஆக உணரப்படலாம். API என்ன செய்கிறது என்பதை அது விளக்குகிறது, ஆனால் அதை எப்படி பயன்படுத்துவது என்பதை அல்ல.
 
-[Usage](/reference/react/useState#usage) shows why and how you would use this API in practice, like a colleague or a friend might explain. It shows the **canonical scenarios for how each API was meant to be used by the React team.** We've added color-coded snippets, examples of using different APIs together, and recipes that you can copy and paste from:
+[Usage](/reference/react/useState#usage) இந்த API-யை நடைமுறையில் ஏன், எப்படி பயன்படுத்துவீர்கள் என்பதை, ஒரு சக ஊழியர் அல்லது நண்பர் விளக்குவது போல காட்டுகிறது. **ஒவ்வொரு API-யும் React team நினைத்த canonical scenarios-ல் எப்படி பயன்படுத்தப்பட வேண்டும் என்பதைக் காட்டுகிறது.** Color-coded snippets, வெவ்வேறு APIs-ஐ ஒன்றாகப் பயன்படுத்தும் examples, மேலும் copy-paste செய்யக்கூடிய recipes-ஐ சேர்த்துள்ளோம்:
 
 <Recipes titleText="Basic useState examples" titleId="examples-basic">
 
 #### Counter (number) {/*counter-number*/}
 
-In this example, the `count` state variable holds a number. Clicking the button increments it.
+இந்த example-இல், `count` state variable ஒரு number-ஐ வைத்திருக்கிறது. Button-ஐ click செய்தால் அது increment ஆகும்.
 
 <Sandpack>
 
@@ -491,7 +491,7 @@ export default function Counter() {
 
   return (
     <button onClick={handleClick}>
-      You pressed me {count} times
+      நீங்கள் என்னை {count} முறை அழுத்தினீர்கள்
     </button>
   );
 }
@@ -503,7 +503,7 @@ export default function Counter() {
 
 #### Text field (string) {/*text-field-string*/}
 
-In this example, the `text` state variable holds a string. When you type, `handleChange` reads the latest input value from the browser input DOM element, and calls `setText` to update the state. This allows you to display the current `text` below.
+இந்த example-இல், `text` state variable ஒரு string-ஐ வைத்திருக்கிறது. நீங்கள் type செய்யும்போது, `handleChange` browser input DOM element-இலிருந்து latest input value-ஐ வாசித்து, state-ஐ update செய்ய `setText`-ஐ call செய்கிறது. இதனால் current `text`-ஐ கீழே display செய்ய முடியும்.
 
 <Sandpack>
 
@@ -511,7 +511,7 @@ In this example, the `text` state variable holds a string. When you type, `handl
 import { useState } from 'react';
 
 export default function MyInput() {
-  const [text, setText] = useState('hello');
+  const [text, setText] = useState('வணக்கம்');
 
   function handleChange(e) {
     setText(e.target.value);
@@ -520,9 +520,9 @@ export default function MyInput() {
   return (
     <>
       <input value={text} onChange={handleChange} />
-      <p>You typed: {text}</p>
-      <button onClick={() => setText('hello')}>
-        Reset
+      <p>நீங்கள் type செய்தது: {text}</p>
+      <button onClick={() => setText('வணக்கம்')}>
+        மீட்டமை
       </button>
     </>
   );
@@ -535,7 +535,7 @@ export default function MyInput() {
 
 #### Checkbox (boolean) {/*checkbox-boolean*/}
 
-In this example, the `liked` state variable holds a boolean. When you click the input, `setLiked` updates the `liked` state variable with whether the browser checkbox input is checked. The `liked` variable is used to render the text below the checkbox.
+இந்த example-இல், `liked` state variable ஒரு boolean-ஐ வைத்திருக்கிறது. Input-ஐ click செய்தால், browser checkbox input checked ஆக உள்ளதா என்பதை வைத்து `setLiked` `liked` state variable-ஐ update செய்கிறது. Checkbox-க்கு கீழே உள்ள text-ஐ render செய்ய `liked` variable பயன்படுத்தப்படுகிறது.
 
 <Sandpack>
 
@@ -557,9 +557,9 @@ export default function MyCheckbox() {
           checked={liked}
           onChange={handleChange}
         />
-        I liked this
+        இதை நான் விரும்பினேன்
       </label>
-      <p>You {liked ? 'liked' : 'did not like'} this.</p>
+      <p>நீங்கள் இதை {liked ? 'விரும்பினீர்கள்' : 'விரும்பவில்லை'}.</p>
     </>
   );
 }
@@ -571,7 +571,7 @@ export default function MyCheckbox() {
 
 #### Form (two variables) {/*form-two-variables*/}
 
-You can declare more than one state variable in the same component. Each state variable is completely independent.
+ஒரே component-இல் ஒன்றுக்கு மேற்பட்ட state variables-ஐ declare செய்யலாம். ஒவ்வொரு state variable-உம் முற்றிலும் independent ஆகும்.
 
 <Sandpack>
 
@@ -579,7 +579,7 @@ You can declare more than one state variable in the same component. Each state v
 import { useState } from 'react';
 
 export default function Form() {
-  const [name, setName] = useState('Taylor');
+  const [name, setName] = useState('டெய்லர்');
   const [age, setAge] = useState(42);
 
   return (
@@ -589,9 +589,9 @@ export default function Form() {
         onChange={e => setName(e.target.value)}
       />
       <button onClick={() => setAge(age + 1)}>
-        Increment age
+        வயதை அதிகரிக்கவும்
       </button>
-      <p>Hello, {name}. You are {age}.</p>
+      <p>வணக்கம், {name}. உங்கள் வயது {age}.</p>
     </>
   );
 }
@@ -607,42 +607,42 @@ button { display: block; margin-top: 10px; }
 
 </Recipes>
 
-Some API pages also include [Troubleshooting](/reference/react/useEffect#troubleshooting) (for common problems) and [Alternatives](/reference/react-dom/findDOMNode#alternatives) (for deprecated APIs).
+சில API pages-இல் [Troubleshooting](/reference/react/useEffect#troubleshooting) (பொதுவான problems-க்காக) மற்றும் [Alternatives](/reference/react-dom/findDOMNode#alternatives) (deprecated APIs-க்காக) ஆகியவையும் உள்ளன.
 
-We hope that this approach will make the API reference useful not only as a way to look up an argument, but as a way to see all the different things you can do with any given API—and how it connects to the other ones.
+இந்த அணுகுமுறை, API reference-ஐ ஒரு argument-ஐ lookup செய்யும் வழியாக மட்டுமல்லாமல், குறிப்பிட்ட API கொண்டு நீங்கள் செய்யக்கூடிய பல்வேறு விஷயங்களையும் அது பிற APIs-உடன் எப்படி இணைகிறது என்பதையும் பார்க்கும் வழியாகவும் பயனுள்ளதாக ஆக்கும் என்று நம்புகிறோம்.
 
-## What's next? {/*whats-next*/}
+## அடுத்து என்ன? {/*whats-next*/}
 
-That's a wrap for our little tour! Have a look around the new website, see what you like or don't like, and keep the feedback coming in our [issue tracker](https://github.com/reactjs/react.dev/issues).
+எங்கள் சிறிய tour இத்துடன் முடிந்தது! புதிய website-ஐ சுற்றிப் பாருங்கள், உங்களுக்கு பிடித்தவை அல்லது பிடிக்காதவை என்ன என்பதைப் பாருங்கள், மேலும் எங்கள் [issue tracker](https://github.com/reactjs/react.dev/issues)-இல் feedback-ஐத் தொடர்ந்து அனுப்புங்கள்.
 
-We acknowledge this project has taken a long time to ship. We wanted to maintain a high quality bar that the React community deserves. While writing these docs and creating all of the examples, we found mistakes in some of our own explanations, bugs in React, and even gaps in the React design that we are now working to address. We hope that the new documentation will help us hold React itself to a higher bar in the future.
+இந்த project ship ஆக நீண்ட நேரம் எடுத்தது என்பதை நாங்கள் ஏற்றுக்கொள்கிறோம். React community-க்கு உரிய உயர்ந்த quality bar-ஐ பராமரிக்க விரும்பினோம். இந்த docs-ஐ எழுதிக்கொண்டிருந்தபோதும் examples அனைத்தையும் உருவாக்கிக்கொண்டிருந்தபோதும், எங்களுடைய சில விளக்கங்களில் mistakes, React-இல் bugs, மேலும் இப்போது address செய்ய வேலை செய்து கொண்டிருக்கும் React design-இல் gaps கூட கண்டோம். புதிய documentation எதிர்காலத்தில் React தானும் இன்னும் உயர்ந்த bar-ஐ எட்ட உதவும் என்று நம்புகிறோம்.
 
-We've heard many of your requests to expand the content and functionality of the website, for example:
+Website-ன் content மற்றும் functionality-ஐ விரிவாக்க வேண்டும் என்ற உங்கள் பல கோரிக்கைகளை கேட்டுள்ளோம், உதாரணமாக:
 
-- Providing a TypeScript version for all examples;
-- Creating the updated performance, testing, and accessibility guides;
-- Documenting React Server Components independently from the frameworks that support them;
-- Working with our international community to get the new docs translated;
-- Adding missing features to the new website (for example, RSS for this blog).
+- அனைத்து examples-க்கும் TypeScript version வழங்குதல்;
+- Updated performance, testing, மற்றும் accessibility guides உருவாக்குதல்;
+- React Server Components-ஐ support செய்யும் frameworks-இலிருந்து தனியாக document செய்தல்;
+- புதிய docs-ஐ translate செய்ய எங்கள் international community-யுடன் பணிபுரிதல்;
+- புதிய website-க்கு இல்லாத features-ஐ சேர்த்தல் (உதாரணமாக, இந்த blog-க்கான RSS).
 
-Now that [react.dev](https://react.dev/) is out, we will be able to shift our focus from "catching up" with the third-party React educational resources to adding new information and further improving our new website.
+இப்போது [react.dev](https://react.dev/) வெளியானதால், third-party React educational resources-ஐப் "catching up" செய்வதிலிருந்து, புதிய தகவல்களைச் சேர்ப்பதற்கும் புதிய website-ஐ மேலும் மேம்படுத்துவதற்கும் நாங்கள் கவனத்தை மாற்ற முடியும்.
 
-We think there's never been a better time to learn React.
+React கற்றுக்கொள்ள இதைவிட நல்ல நேரம் எப்போதும் இல்லை என்று நாங்கள் நினைக்கிறோம்.
 
-## Who worked on this? {/*who-worked-on-this*/}
+## இதில் யார் பணிபுரிந்தார்கள்? {/*who-worked-on-this*/}
 
-On the React team, [Rachel Nabors](https://twitter.com/rachelnabors/) led the project (and provided the illustrations), and [Dan Abramov](https://bsky.app/profile/danabra.mov) designed the curriculum. They co-authored most of the content together as well.
+React team-இல், [Rachel Nabors](https://twitter.com/rachelnabors/) project-ஐ வழிநடத்தினார் (மேலும் illustrations-ஐ வழங்கினார்), [Dan Abramov](https://bsky.app/profile/danabra.mov) curriculum-ஐ design செய்தார். Content-ன் பெரும்பகுதியை இருவரும் சேர்ந்து co-author செய்தனர்.
 
-Of course, no project this large happens in isolation. We have a lot of people to thank!
+இவ்வளவு பெரிய project தனிமையில் நடக்காது. நன்றி சொல்ல வேண்டியவர்கள் பலர் உள்ளனர்!
 
-[Sylwia Vargas](https://twitter.com/SylwiaVargas) overhauled our examples to go beyond "foo/bar/baz" and kittens, and feature scientists, artists and cities from around the world. [Maggie Appleton](https://twitter.com/Mappletons) turned our doodles into a clear diagram system.
+[Sylwia Vargas](https://twitter.com/SylwiaVargas) எங்கள் examples-ஐ "foo/bar/baz" மற்றும் kittens-ஐத் தாண்டி, உலகம் முழுவதிலிருந்த scientists, artists, மற்றும் cities இடம்பெறும் வகையில் மாற்றினார். [Maggie Appleton](https://twitter.com/Mappletons) எங்கள் doodles-ஐ தெளிவான diagram system ஆக மாற்றினார்.
 
-Thanks to [David McCabe](https://twitter.com/mcc_abe), [Sophie Alpert](https://twitter.com/sophiebits), [Rick Hanlon](https://twitter.com/rickhanlonii), [Andrew Clark](https://twitter.com/acdlite), and [Matt Carroll](https://twitter.com/mattcarrollcode) for additional writing contributions. We'd also like to thank [Natalia Tepluhina](https://twitter.com/n_tepluhina) and [Sebastian Markbåge](https://twitter.com/sebmarkbage) for their ideas and feedback.
+கூடுதல் writing contributions-க்காக [David McCabe](https://twitter.com/mcc_abe), [Sophie Alpert](https://twitter.com/sophiebits), [Rick Hanlon](https://twitter.com/rickhanlonii), [Andrew Clark](https://twitter.com/acdlite), மற்றும் [Matt Carroll](https://twitter.com/mattcarrollcode) ஆகியோருக்கு நன்றி. தங்கள் ideas மற்றும் feedback-க்காக [Natalia Tepluhina](https://twitter.com/n_tepluhina) மற்றும் [Sebastian Markbåge](https://twitter.com/sebmarkbage) ஆகியோருக்கும் நன்றி தெரிவிக்க விரும்புகிறோம்.
 
-Thanks to [Dan Lebowitz](https://twitter.com/lebo) for the site design and [Razvan Gradinar](https://dribbble.com/GradinarRazvan) for the sandbox design.
+Site design-க்காக [Dan Lebowitz](https://twitter.com/lebo)-க்கும், sandbox design-க்காக [Razvan Gradinar](https://dribbble.com/GradinarRazvan)-க்கும் நன்றி.
 
-On the development front, thanks to [Jared Palmer](https://twitter.com/jaredpalmer) for prototype development. Thanks to [Dane Grant](https://twitter.com/danecando) and [Dustin Goodman](https://twitter.com/dustinsgoodman) from [ThisDotLabs](https://www.thisdot.co/) for their support on UI development. Thanks to [Ives van Hoorne](https://twitter.com/CompuIves), [Alex Moldovan](https://twitter.com/alexnmoldovan), [Jasper De Moor](https://twitter.com/JasperDeMoor), and [Danilo Woznica](https://twitter.com/danilowoz) from [CodeSandbox](https://codesandbox.io/) for their work with sandbox integration. Thanks to [Rick Hanlon](https://twitter.com/rickhanlonii) for spot development and design work, finessing our colors and finer details. Thanks to [Harish Kumar](https://www.strek.in/) and [Luna Ruan](https://twitter.com/lunaruan) for adding new features to the site and helping maintain it.
+Development பக்கத்தில், prototype development-க்காக [Jared Palmer](https://twitter.com/jaredpalmer)-க்கு நன்றி. UI development-இல் தங்கள் support-க்காக [ThisDotLabs](https://www.thisdot.co/)-இலிருந்து [Dane Grant](https://twitter.com/danecando) மற்றும் [Dustin Goodman](https://twitter.com/dustinsgoodman)-க்கு நன்றி. Sandbox integration-இல் செய்த பணிக்காக [CodeSandbox](https://codesandbox.io/)-இலிருந்து [Ives van Hoorne](https://twitter.com/CompuIves), [Alex Moldovan](https://twitter.com/alexnmoldovan), [Jasper De Moor](https://twitter.com/JasperDeMoor), மற்றும் [Danilo Woznica](https://twitter.com/danilowoz)-க்கு நன்றி. Spot development மற்றும் design work செய்து, எங்கள் colors மற்றும் fine details-ஐ மெருகேற்றிய [Rick Hanlon](https://twitter.com/rickhanlonii)-க்கு நன்றி. Site-க்கு புதிய features சேர்த்து அதை maintain செய்ய உதவிய [Harish Kumar](https://www.strek.in/) மற்றும் [Luna Ruan](https://twitter.com/lunaruan)-க்கு நன்றி.
 
-Huge thanks to the folks who volunteered their time to participate in the alpha and beta testing program. Your enthusiasm and invaluable feedback helped us shape these docs. A special shout out to our beta tester, [Debbie O'Brien](https://twitter.com/debs_obrien), who gave a talk about her experience using the React docs at React Conf 2021.
+Alpha மற்றும் beta testing program-இல் பங்கேற்க தங்கள் நேரத்தை தன்னார்வமாக வழங்கிய அனைவருக்கும் மிகுந்த நன்றி. உங்கள் உற்சாகமும் மதிப்புமிக்க feedback-மும் இந்த docs-ஐ வடிவமைக்க எங்களுக்கு உதவின. React Conf 2021-இல் React docs-ஐப் பயன்படுத்திய அனுபவம் குறித்து talk வழங்கிய எங்கள் beta tester [Debbie O'Brien](https://twitter.com/debs_obrien)-க்கு சிறப்பு நன்றி.
 
-Finally, thanks to the React community for being the inspiration behind this effort. You are the reason we do this, and we hope that the new docs will help you use React to build any user interface that you want.
+இறுதியாக, இந்த முயற்சிக்கு உந்துதலாக இருந்த React community-க்கு நன்றி. நீங்கள் தான் நாங்கள் இதைச் செய்யும் காரணம்; நீங்கள் விரும்பும் எந்த user interface-ஐயும் React கொண்டு கட்ட புதிய docs உதவும் என்று நம்புகிறோம்.

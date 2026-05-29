@@ -4,15 +4,15 @@ title: forwardRef
 
 <Deprecated>
 
-In React 19, `forwardRef` is no longer necessary. Pass `ref` as a prop instead.
+React 19-இல் `forwardRef` இனி அவசியமில்லை. அதற்கு பதிலாக `ref`-ஐ prop ஆக pass செய்யுங்கள்.
 
-`forwardRef` will be deprecated in a future release. Learn more [here](/blog/2024/04/25/react-19#ref-as-a-prop).
+`forwardRef` எதிர்கால release-இல் deprecated ஆகும். [இங்கே](/blog/2024/04/25/react-19#ref-as-a-prop) மேலும் அறிக.
 
 </Deprecated>
 
 <Intro>
 
-`forwardRef` lets your component expose a DOM node to the parent component with a [ref.](/learn/manipulating-the-dom-with-refs)
+உங்கள் component parent component-க்கு [ref](/learn/manipulating-the-dom-with-refs) மூலம் DOM node expose செய்ய `forwardRef` உதவுகிறது.
 
 ```js
 const SomeComponent = forwardRef(render)
@@ -24,11 +24,11 @@ const SomeComponent = forwardRef(render)
 
 ---
 
-## Reference {/*reference*/}
+## குறிப்பு {/*reference*/}
 
 ### `forwardRef(render)` {/*forwardref*/}
 
-Call `forwardRef()` to let your component receive a ref and forward it to a child component:
+உங்கள் component ref பெறவும் அதை child component-க்கு forward செய்யவும் `forwardRef()`-ஐ call செய்யுங்கள்:
 
 ```js
 import { forwardRef } from 'react';
@@ -38,26 +38,26 @@ const MyInput = forwardRef(function MyInput(props, ref) {
 });
 ```
 
-[See more examples below.](#usage)
+[மேலும் உதாரணங்களை கீழே பார்க்கவும்.](#usage)
 
 #### Parameters {/*parameters*/}
 
-* `render`: The render function for your component. React calls this function with the props and `ref` that your component received from its parent. The JSX you return will be the output of your component.
+* `render`: உங்கள் component-க்கான render function. Parent-இலிருந்து உங்கள் component பெற்ற props மற்றும் `ref` உடன் React இந்த function-ஐ call செய்யும். நீங்கள் return செய்யும் JSX உங்கள் component-ன் output ஆக இருக்கும்.
 
 #### Returns {/*returns*/}
 
-`forwardRef` returns a React component that you can render in JSX. Unlike React components defined as plain functions, a component returned by `forwardRef` is also able to receive a `ref` prop.
+`forwardRef` JSX-இல் render செய்யக்கூடிய React component-ஐ return செய்கிறது. Plain functions ஆக define செய்யப்பட்ட React components போல அல்லாமல், `forwardRef` return செய்யும் component `ref` prop-ஐயும் பெற முடியும்.
 
 #### Caveats {/*caveats*/}
 
-* In Strict Mode, React will **call your render function twice** in order to [help you find accidental impurities.](/reference/react/useState#my-initializer-or-updater-function-runs-twice) This is development-only behavior and does not affect production. If your render function is pure (as it should be), this should not affect the logic of your component. The result from one of the calls will be ignored.
+* Strict Mode-இல், [தற்செயலான impurities கண்டுபிடிக்க உதவ](/reference/react/useState#my-initializer-or-updater-function-runs-twice) React உங்கள் render function-ஐ **இரண்டு முறை call செய்யும்**. இது development-only behavior; production-ஐ பாதிக்காது. உங்கள் render function pure என்றால் (அப்படித்தான் இருக்க வேண்டும்), இது உங்கள் component-ன் logic-ஐ பாதிக்காது. Calls-இல் ஒன்றின் result புறக்கணிக்கப்படும்.
 
 
 ---
 
 ### `render` function {/*render-function*/}
 
-`forwardRef` accepts a render function as an argument. React calls this function with `props` and `ref`:
+`forwardRef` render function-ஐ argument ஆக ஏற்கிறது. React இந்த function-ஐ `props` மற்றும் `ref` உடன் call செய்யும்:
 
 ```js
 const MyInput = forwardRef(function MyInput(props, ref) {
@@ -72,21 +72,21 @@ const MyInput = forwardRef(function MyInput(props, ref) {
 
 #### Parameters {/*render-parameters*/}
 
-* `props`: The props passed by the parent component.
+* `props`: Parent component pass செய்த props.
 
-* `ref`:  The `ref` attribute passed by the parent component. The `ref` can be an object or a function. If the parent component has not passed a ref, it will be `null`. You should either pass the `ref` you receive to another component, or pass it to [`useImperativeHandle`.](/reference/react/useImperativeHandle)
+* `ref`: Parent component pass செய்த `ref` attribute. `ref` object அல்லது function ஆக இருக்கலாம். Parent component ref pass செய்யவில்லை என்றால், அது `null` ஆக இருக்கும். நீங்கள் பெறும் `ref`-ஐ மற்றொரு component-க்கு pass செய்யவேண்டும், அல்லது [`useImperativeHandle`](/reference/react/useImperativeHandle)-க்கு pass செய்ய வேண்டும்.
 
 #### Returns {/*render-returns*/}
 
-`forwardRef` returns a React component that you can render in JSX. Unlike React components defined as plain functions, the component returned by `forwardRef` is able to take a `ref` prop.
+`forwardRef` JSX-இல் render செய்யக்கூடிய React component-ஐ return செய்கிறது. Plain functions ஆக define செய்யப்பட்ட React components போல அல்லாமல், `forwardRef` return செய்யும் component `ref` prop-ஐ ஏற்க முடியும்.
 
 ---
 
-## Usage {/*usage*/}
+## பயன்பாடு {/*usage*/}
 
-### Exposing a DOM node to the parent component {/*exposing-a-dom-node-to-the-parent-component*/}
+### Parent component-க்கு DOM node expose செய்தல் {/*exposing-a-dom-node-to-the-parent-component*/}
 
-By default, each component's DOM nodes are private. However, sometimes it's useful to expose a DOM node to the parent--for example, to allow focusing it. To opt in, wrap your component definition into `forwardRef()`:
+Default-ஆக, ஒவ்வொரு component-ன் DOM nodes private. ஆனால் சில நேரங்களில் DOM node-ஐ parent-க்கு expose செய்வது பயனுள்ளதாக இருக்கும்; உதாரணமாக, அதை focus செய்ய அனுமதிக்க. இதற்கு opt in செய்ய, உங்கள் component definition-ஐ `forwardRef()`-க்குள் wrap செய்யுங்கள்:
 
 ```js {3,11}
 import { forwardRef } from 'react';
@@ -102,7 +102,7 @@ const MyInput = forwardRef(function MyInput(props, ref) {
 });
 ```
 
-You will receive a <CodeStep step={1}>ref</CodeStep> as the second argument after props. Pass it to the DOM node that you want to expose:
+Props-க்கு பிறகு இரண்டாவது argument ஆக <CodeStep step={1}>ref</CodeStep> பெறுவீர்கள். Expose செய்ய விரும்பும் DOM node-க்கு அதை pass செய்யுங்கள்:
 
 ```js {8} [[1, 3, "ref"], [1, 8, "ref", 30]]
 import { forwardRef } from 'react';
@@ -118,7 +118,7 @@ const MyInput = forwardRef(function MyInput(props, ref) {
 });
 ```
 
-This lets the parent `Form` component access the <CodeStep step={2}>`<input>` DOM node</CodeStep> exposed by `MyInput`:
+இதனால் parent `Form` component, `MyInput` expose செய்த <CodeStep step={2}>`<input>` DOM node</CodeStep>-ஐ access செய்ய முடியும்:
 
 ```js [[1, 2, "ref"], [1, 10, "ref", 41], [2, 5, "ref.current"]]
 function Form() {
@@ -139,15 +139,15 @@ function Form() {
 }
 ```
 
-This `Form` component [passes a ref](/reference/react/useRef#manipulating-the-dom-with-a-ref) to `MyInput`. The `MyInput` component *forwards* that ref to the `<input>` browser tag. As a result, the `Form` component can access that `<input>` DOM node and call [`focus()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/focus) on it.
+இந்த `Form` component `MyInput`-க்கு [ref pass செய்கிறது](/reference/react/useRef#manipulating-the-dom-with-a-ref). `MyInput` component அந்த ref-ஐ `<input>` browser tag-க்கு *forward* செய்கிறது. அதன் விளைவாக, `Form` component அந்த `<input>` DOM node-ஐ access செய்து அதில் [`focus()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/focus) call செய்ய முடியும்.
 
-Keep in mind that exposing a ref to the DOM node inside your component makes it harder to change your component's internals later. You will typically expose DOM nodes from reusable low-level components like buttons or text inputs, but you won't do it for application-level components like an avatar or a comment.
+உங்கள் component-க்குள் உள்ள DOM node-க்கு ref expose செய்வது, பின்னர் component internals மாற்றுவதைக் கடினமாக்கும் என்பதை நினைவில் கொள்ளுங்கள். பொதுவாக buttons அல்லது text inputs போன்ற reusable low-level components-இலிருந்து DOM nodes expose செய்வீர்கள்; avatar அல்லது comment போன்ற application-level components-க்கு இதைச் செய்யமாட்டீர்கள்.
 
-<Recipes titleText="Examples of forwarding a ref">
+<Recipes titleText="Ref forward செய்வதற்கான உதாரணங்கள்">
 
-#### Focusing a text input {/*focusing-a-text-input*/}
+#### Text input-ஐ focus செய்தல் {/*focusing-a-text-input*/}
 
-Clicking the button will focus the input. The `Form` component defines a ref and passes it to the `MyInput` component. The `MyInput` component forwards that ref to the browser `<input>`. This lets the `Form` component focus the `<input>`.
+Button click செய்தால் input focus ஆகும். `Form` component ref define செய்து அதை `MyInput` component-க்கு pass செய்கிறது. `MyInput` component அந்த ref-ஐ browser `<input>`-க்கு forward செய்கிறது. இதனால் `Form` component `<input>`-ஐ focus செய்ய முடியும்.
 
 <Sandpack>
 
@@ -199,9 +199,9 @@ input {
 
 <Solution />
 
-#### Playing and pausing a video {/*playing-and-pausing-a-video*/}
+#### Video play மற்றும் pause செய்தல் {/*playing-and-pausing-a-video*/}
 
-Clicking the button will call [`play()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/play) and [`pause()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/pause) on a `<video>` DOM node. The `App` component defines a ref and passes it to the `MyVideoPlayer` component. The `MyVideoPlayer` component forwards that ref to the browser `<video>` node. This lets the `App` component play and pause the `<video>`.
+Button click செய்தால் `<video>` DOM node-இல் [`play()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/play) மற்றும் [`pause()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/pause) call செய்யப்படும். `App` component ref define செய்து அதை `MyVideoPlayer` component-க்கு pass செய்கிறது. `MyVideoPlayer` component அந்த ref-ஐ browser `<video>` node-க்கு forward செய்கிறது. இதனால் `App` component `<video>`-ஐ play மற்றும் pause செய்ய முடியும்.
 
 <Sandpack>
 
@@ -260,9 +260,9 @@ button { margin-bottom: 10px; margin-right: 10px; }
 
 ---
 
-### Forwarding a ref through multiple components {/*forwarding-a-ref-through-multiple-components*/}
+### பல components வழியாக ref forward செய்தல் {/*forwarding-a-ref-through-multiple-components*/}
 
-Instead of forwarding a `ref` to a DOM node, you can forward it to your own component like `MyInput`:
+`ref`-ஐ DOM node-க்கு forward செய்வதற்கு பதிலாக, `MyInput` போன்ற உங்கள் சொந்த component-க்கு forward செய்யலாம்:
 
 ```js {1,5}
 const FormField = forwardRef(function FormField(props, ref) {
@@ -276,7 +276,7 @@ const FormField = forwardRef(function FormField(props, ref) {
 });
 ```
 
-If that `MyInput` component forwards a ref to its `<input>`, a ref to `FormField` will give you that `<input>`:
+அந்த `MyInput` component ref-ஐ அதன் `<input>`-க்கு forward செய்தால், `FormField`-க்கு கொடுக்கப்படும் ref அந்த `<input>`-ஐ தரும்:
 
 ```js {2,5,10}
 function Form() {
@@ -297,7 +297,7 @@ function Form() {
 }
 ```
 
-The `Form` component defines a ref and passes it to `FormField`. The `FormField` component forwards that ref to `MyInput`, which forwards it to a browser `<input>` DOM node. This is how `Form` accesses that DOM node.
+`Form` component ref define செய்து அதை `FormField`-க்கு pass செய்கிறது. `FormField` component அந்த ref-ஐ `MyInput`-க்கு forward செய்கிறது; `MyInput` அதை browser `<input>` DOM node-க்கு forward செய்கிறது. இதுவே `Form` அந்த DOM node-ஐ access செய்வது.
 
 
 <Sandpack>
@@ -375,9 +375,9 @@ input, button {
 
 ---
 
-### Exposing an imperative handle instead of a DOM node {/*exposing-an-imperative-handle-instead-of-a-dom-node*/}
+### DOM node-க்கு பதிலாக imperative handle expose செய்தல் {/*exposing-an-imperative-handle-instead-of-a-dom-node*/}
 
-Instead of exposing an entire DOM node, you can expose a custom object, called an *imperative handle,* with a more constrained set of methods. To do this, you'd need to define a separate ref to hold the DOM node:
+முழு DOM node-ஐ expose செய்வதற்கு பதிலாக, குறுகிய methods தொகுப்புடன் *imperative handle* என்று அழைக்கப்படும் custom object-ஐ expose செய்யலாம். இதை செய்ய, DOM node-ஐ hold செய்ய தனி ref define செய்ய வேண்டும்:
 
 ```js {2,6}
 const MyInput = forwardRef(function MyInput(props, ref) {
@@ -389,7 +389,7 @@ const MyInput = forwardRef(function MyInput(props, ref) {
 });
 ```
 
-Pass the `ref` you received to [`useImperativeHandle`](/reference/react/useImperativeHandle) and specify the value you want to expose to the `ref`:
+நீங்கள் பெற்ற `ref`-ஐ [`useImperativeHandle`](/reference/react/useImperativeHandle)-க்கு pass செய்து, `ref`-க்கு expose செய்ய வேண்டிய value-ஐ குறிப்பிடுங்கள்:
 
 ```js {6-15}
 import { forwardRef, useRef, useImperativeHandle } from 'react';
@@ -412,7 +412,7 @@ const MyInput = forwardRef(function MyInput(props, ref) {
 });
 ```
 
-If some component gets a ref to `MyInput`, it will only receive your `{ focus, scrollIntoView }` object instead of the DOM node. This lets you limit the information you expose about your DOM node to the minimum.
+ஏதாவது component `MyInput`-க்கு ref பெற்றால், DOM node-க்கு பதிலாக உங்கள் `{ focus, scrollIntoView }` object மட்டும் பெறும். இதனால் உங்கள் DOM node பற்றிய நீங்கள் expose செய்யும் information-ஐ குறைந்தபட்சமாக கட்டுப்படுத்தலாம்.
 
 <Sandpack>
 
@@ -471,25 +471,25 @@ input {
 
 </Sandpack>
 
-[Read more about using imperative handles.](/reference/react/useImperativeHandle)
+[Imperative handles பயன்படுத்துவது குறித்து மேலும் படிக்கவும்.](/reference/react/useImperativeHandle)
 
 <Pitfall>
 
-**Do not overuse refs.** You should only use refs for *imperative* behaviors that you can't express as props: for example, scrolling to a node, focusing a node, triggering an animation, selecting text, and so on.
+**Refs-ஐ அதிகமாகப் பயன்படுத்த வேண்டாம்.** Props ஆக வெளிப்படுத்த முடியாத *imperative* behaviors-க்காக மட்டுமே refs பயன்படுத்த வேண்டும்: உதாரணமாக, node-க்கு scroll செய்தல், node-ஐ focus செய்தல், animation trigger செய்தல், text select செய்தல், போன்றவை.
 
-**If you can express something as a prop, you should not use a ref.** For example, instead of exposing an imperative handle like `{ open, close }` from a `Modal` component, it is better to take `isOpen` as a prop like `<Modal isOpen={isOpen} />`. [Effects](/learn/synchronizing-with-effects) can help you expose imperative behaviors via props.
+**ஏதாவது ஒன்றை prop ஆக வெளிப்படுத்த முடிந்தால், ref பயன்படுத்த வேண்டாம்.** உதாரணமாக, `Modal` component-இலிருந்து `{ open, close }` போன்ற imperative handle expose செய்வதற்கு பதிலாக, `<Modal isOpen={isOpen} />` போல `isOpen`-ஐ prop ஆக ஏற்குவது சிறந்தது. Props மூலம் imperative behaviors expose செய்ய [Effects](/learn/synchronizing-with-effects) உதவலாம்.
 
 </Pitfall>
 
 ---
 
-## Troubleshooting {/*troubleshooting*/}
+## சிக்கல் தீர்வு {/*troubleshooting*/}
 
-### My component is wrapped in `forwardRef`, but the `ref` to it is always `null` {/*my-component-is-wrapped-in-forwardref-but-the-ref-to-it-is-always-null*/}
+### என் component `forwardRef`-இல் wrap செய்யப்பட்டுள்ளது, ஆனால் அதற்கான `ref` எப்போதும் `null` ஆக உள்ளது {/*my-component-is-wrapped-in-forwardref-but-the-ref-to-it-is-always-null*/}
 
-This usually means that you forgot to actually use the `ref` that you received.
+பொதுவாக இதன் அர்த்தம்: நீங்கள் பெற்ற `ref`-ஐ உண்மையில் பயன்படுத்த மறந்துவிட்டீர்கள்.
 
-For example, this component doesn't do anything with its `ref`:
+உதாரணமாக, இந்த component தனது `ref` உடன் எதையும் செய்யவில்லை:
 
 ```js {1}
 const MyInput = forwardRef(function MyInput({ label }, ref) {
@@ -502,7 +502,7 @@ const MyInput = forwardRef(function MyInput({ label }, ref) {
 });
 ```
 
-To fix it, pass the `ref` down to a DOM node or another component that can accept a ref:
+இதைக் சரிசெய்ய, `ref`-ஐ DOM node-க்கோ அல்லது ref ஏற்கக்கூடிய மற்றொரு component-க்கோ கீழே pass செய்யுங்கள்:
 
 ```js {1,5}
 const MyInput = forwardRef(function MyInput({ label }, ref) {
@@ -515,7 +515,7 @@ const MyInput = forwardRef(function MyInput({ label }, ref) {
 });
 ```
 
-The `ref` to `MyInput` could also be `null` if some of the logic is conditional:
+Logic-இன் சில பகுதி conditional என்றால், `MyInput`-க்கான `ref`-உம் `null` ஆக இருக்கலாம்:
 
 ```js {1,5}
 const MyInput = forwardRef(function MyInput({ label, showInput }, ref) {
@@ -528,7 +528,7 @@ const MyInput = forwardRef(function MyInput({ label, showInput }, ref) {
 });
 ```
 
-If `showInput` is `false`, then the ref won't be forwarded to any node, and a ref to `MyInput` will remain empty. This is particularly easy to miss if the condition is hidden inside another component, like `Panel` in this example:
+`showInput` `false` என்றால், ref எந்த node-க்கும் forward செய்யப்படாது; `MyInput`-க்கான ref empty ஆக இருக்கும். இந்த உதாரணத்தில் உள்ள `Panel` போல condition மற்றொரு component-க்குள் மறைந்திருந்தால், இதை தவறவிடுவது சாத்தியம்:
 
 ```js {5,7}
 const MyInput = forwardRef(function MyInput({ label, showInput }, ref) {

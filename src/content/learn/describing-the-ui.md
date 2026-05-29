@@ -1,30 +1,30 @@
 ---
-title: Describing the UI
+title: UI-ஐ விவரித்தல்
 ---
 
 <Intro>
 
-React is a JavaScript library for rendering user interfaces (UI). UI is built from small units like buttons, text, and images. React lets you combine them into reusable, nestable *components.* From web sites to phone apps, everything on the screen can be broken down into components. In this chapter, you'll learn to create, customize, and conditionally display React components.
+React என்பது user interfaces (UI) render செய்யும் JavaScript library. Buttons, text, images போன்ற சிறிய units-இலிருந்து UI build செய்யப்படுகிறது. அவற்றை reusable, nest செய்யக்கூடிய *components* ஆக இணைக்க React உதவுகிறது. Websites முதல் phone apps வரை, screen-இல் உள்ள அனைத்தையும் components-ஆகப் பிரிக்கலாம். இந்த chapter-இல், React components உருவாக்க, customize செய்ய, conditionally display செய்ய கற்பீர்கள்.
 
 </Intro>
 
 <YouWillLearn isChapter={true}>
 
-* [How to write your first React component](/learn/your-first-component)
-* [When and how to create multi-component files](/learn/importing-and-exporting-components)
-* [How to add markup to JavaScript with JSX](/learn/writing-markup-with-jsx)
-* [How to use curly braces with JSX to access JavaScript functionality from your components](/learn/javascript-in-jsx-with-curly-braces)
-* [How to configure components with props](/learn/passing-props-to-a-component)
-* [How to conditionally render components](/learn/conditional-rendering)
-* [How to render multiple components at a time](/learn/rendering-lists)
-* [How to avoid confusing bugs by keeping components pure](/learn/keeping-components-pure)
-* [Why understanding your UI as trees is useful](/learn/understanding-your-ui-as-a-tree)
+* [உங்கள் முதல் React component-ஐ எழுதுவது எப்படி](/learn/your-first-component)
+* [Multi-component files எப்போது, எப்படி உருவாக்குவது](/learn/importing-and-exporting-components)
+* [JSX மூலம் JavaScript-க்கு markup சேர்ப்பது எப்படி](/learn/writing-markup-with-jsx)
+* [உங்கள் components-இலிருந்து JavaScript functionality அணுக JSX-இல் curly braces பயன்படுத்துவது எப்படி](/learn/javascript-in-jsx-with-curly-braces)
+* [Props கொண்டு components-ஐ configure செய்வது எப்படி](/learn/passing-props-to-a-component)
+* [Components-ஐ conditionally render செய்வது எப்படி](/learn/conditional-rendering)
+* [ஒரே நேரத்தில் பல components render செய்வது எப்படி](/learn/rendering-lists)
+* [Components pure ஆக வைத்திருந்து confusing bugs தவிர்ப்பது எப்படி](/learn/keeping-components-pure)
+* [உங்கள் UI-ஐ trees ஆக புரிந்துகொள்வது ஏன் பயனுள்ளதாகும்](/learn/understanding-your-ui-as-a-tree)
 
 </YouWillLearn>
 
-## Your first component {/*your-first-component*/}
+## உங்கள் முதல் component {/*your-first-component*/}
 
-React applications are built from isolated pieces of UI called *components*. A React component is a JavaScript function that you can sprinkle with markup. Components can be as small as a button, or as large as an entire page. Here is a `Gallery` component rendering three `Profile` components:
+React applications *components* என்று அழைக்கப்படும் UI-ன் தனித்தனி பகுதிகளால் build செய்யப்படுகின்றன. React component என்பது markup சேர்க்கக்கூடிய JavaScript function. Components ஒரு button அளவுக்கு சிறியதாகவோ, முழு page அளவுக்கு பெரியதாகவோ இருக்கலாம். மூன்று `Profile` components render செய்யும் `Gallery` component இதோ:
 
 <Sandpack>
 
@@ -41,7 +41,7 @@ function Profile() {
 export default function Gallery() {
   return (
     <section>
-      <h1>Amazing scientists</h1>
+      <h1>அற்புதமான விஞ்ஞானிகள்</h1>
       <Profile />
       <Profile />
       <Profile />
@@ -58,13 +58,13 @@ img { margin: 0 10px 10px 0; height: 90px; }
 
 <LearnMore path="/learn/your-first-component">
 
-Read **[Your First Component](/learn/your-first-component)** to learn how to declare and use React components.
+React components declare மற்றும் use செய்வது எப்படி என்பதை அறிய **[உங்கள் முதல் Component](/learn/your-first-component)** படிக்கவும்.
 
 </LearnMore>
 
-## Importing and exporting components {/*importing-and-exporting-components*/}
+## Components-ஐ import மற்றும் export செய்தல் {/*importing-and-exporting-components*/}
 
-You can declare many components in one file, but large files can get difficult to navigate. To solve this, you can *export* a component into its own file, and then *import* that component from another file:
+ஒரே file-இல் பல components declare செய்யலாம்; ஆனால் பெரிய files navigate செய்ய கடினமாகலாம். இதைத் தீர்க்க, component-ஐ அதன் சொந்த file-க்கு *export* செய்து, பின்னர் அந்த component-ஐ மற்றொரு file-இலிருந்து *import* செய்யலாம்:
 
 
 <Sandpack>
@@ -85,7 +85,7 @@ import Profile from './Profile.js';
 export default function Gallery() {
   return (
     <section>
-      <h1>Amazing scientists</h1>
+      <h1>அற்புதமான விஞ்ஞானிகள்</h1>
       <Profile />
       <Profile />
       <Profile />
@@ -113,15 +113,15 @@ img { margin: 0 10px 10px 0; }
 
 <LearnMore path="/learn/importing-and-exporting-components">
 
-Read **[Importing and Exporting Components](/learn/importing-and-exporting-components)** to learn how to split components into their own files.
+Components-ஐ தனித்தனி files-ஆக split செய்வது எப்படி என்பதை அறிய **[Components-ஐ Import மற்றும் Export செய்தல்](/learn/importing-and-exporting-components)** படிக்கவும்.
 
 </LearnMore>
 
-## Writing markup with JSX {/*writing-markup-with-jsx*/}
+## JSX கொண்டு markup எழுதுதல் {/*writing-markup-with-jsx*/}
 
-Each React component is a JavaScript function that may contain some markup that React renders into the browser. React components use a syntax extension called JSX to represent that markup. JSX looks a lot like HTML, but it is a bit stricter and can display dynamic information.
+ஒவ்வொரு React component-உம் browser-இல் React render செய்யும் சில markup கொண்டிருக்கக்கூடிய JavaScript function. அந்த markup-ஐ represent செய்ய React components JSX என்ற syntax extension பயன்படுத்துகின்றன. JSX HTML போலவே தெரியும்; ஆனால் அது சற்று strict, மேலும் dynamic information display செய்ய முடியும்.
 
-If we paste existing HTML markup into a React component, it won't always work:
+Existing HTML markup-ஐ React component-க்குள் paste செய்தால், அது எப்போதும் வேலை செய்யாது:
 
 <Sandpack>
 
@@ -129,16 +129,16 @@ If we paste existing HTML markup into a React component, it won't always work:
 export default function TodoList() {
   return (
     // This doesn't quite work!
-    <h1>Hedy Lamarr's Todos</h1>
+    <h1>Hedy Lamarr-ன் Todos</h1>
     <img
       src="https://react.dev/images/docs/scientists/yXOvdOSs.jpg"
       alt="Hedy Lamarr"
       class="photo"
     >
     <ul>
-      <li>Invent new traffic lights
-      <li>Rehearse a movie scene
-      <li>Improve spectrum technology
+      <li>புதிய traffic lights கண்டுபிடி
+      <li>Movie scene rehearsal செய்
+      <li>Spectrum technology-ஐ மேம்படுத்து
     </ul>
   );
 }
@@ -150,7 +150,7 @@ img { height: 90px; }
 
 </Sandpack>
 
-If you have existing HTML like this, you can fix it using a [converter](https://transform.tools/html-to-jsx):
+இப்படிப்பட்ட existing HTML இருந்தால், [converter](https://transform.tools/html-to-jsx) பயன்படுத்தி அதை சரிசெய்யலாம்:
 
 <Sandpack>
 
@@ -158,16 +158,16 @@ If you have existing HTML like this, you can fix it using a [converter](https://
 export default function TodoList() {
   return (
     <>
-      <h1>Hedy Lamarr's Todos</h1>
+      <h1>Hedy Lamarr-ன் Todos</h1>
       <img
         src="https://react.dev/images/docs/scientists/yXOvdOSs.jpg"
         alt="Hedy Lamarr"
         className="photo"
       />
       <ul>
-        <li>Invent new traffic lights</li>
-        <li>Rehearse a movie scene</li>
-        <li>Improve spectrum technology</li>
+        <li>புதிய traffic lights கண்டுபிடி</li>
+        <li>Movie scene rehearsal செய்</li>
+        <li>Spectrum technology-ஐ மேம்படுத்து</li>
       </ul>
     </>
   );
@@ -182,13 +182,13 @@ img { height: 90px; }
 
 <LearnMore path="/learn/writing-markup-with-jsx">
 
-Read **[Writing Markup with JSX](/learn/writing-markup-with-jsx)** to learn how to write valid JSX.
+Valid JSX எழுதுவது எப்படி என்பதை அறிய **[JSX கொண்டு Markup எழுதுதல்](/learn/writing-markup-with-jsx)** படிக்கவும்.
 
 </LearnMore>
 
-## JavaScript in JSX with curly braces {/*javascript-in-jsx-with-curly-braces*/}
+## Curly braces உடன் JSX-இல் JavaScript {/*javascript-in-jsx-with-curly-braces*/}
 
-JSX lets you write HTML-like markup inside a JavaScript file, keeping rendering logic and content in the same place. Sometimes you will want to add a little JavaScript logic or reference a dynamic property inside that markup. In this situation, you can use curly braces in your JSX to "open a window" to JavaScript:
+JSX, JavaScript file-க்குள் HTML போன்ற markup எழுத உதவுகிறது; இதனால் rendering logic மற்றும் content ஒரே இடத்தில் இருக்கும். சில சமயம் அந்த markup-க்குள் சிறிது JavaScript logic சேர்க்கவோ dynamic property ஒன்றை reference செய்யவோ நீங்கள் விரும்புவீர்கள். இப்படிப்பட்ட சூழலில், JSX-இல் curly braces பயன்படுத்தி JavaScript-க்கு "ஒரு சாளரம் திறக்கலாம்":
 
 <Sandpack>
 
@@ -204,16 +204,16 @@ const person = {
 export default function TodoList() {
   return (
     <div style={person.theme}>
-      <h1>{person.name}'s Todos</h1>
+      <h1>{person.name}-ன் Todos</h1>
       <img
         className="avatar"
         src="https://react.dev/images/docs/scientists/7vQD0fPs.jpg"
         alt="Gregorio Y. Zara"
       />
       <ul>
-        <li>Improve the videophone</li>
-        <li>Prepare aeronautics lectures</li>
-        <li>Work on the alcohol-fuelled engine</li>
+        <li>Videophone-ஐ மேம்படுத்து</li>
+        <li>Aeronautics lectures தயார் செய்</li>
+        <li>Alcohol-fuelled engine-ல் வேலை செய்</li>
       </ul>
     </div>
   );
@@ -230,13 +230,13 @@ body > div > div { padding: 20px; }
 
 <LearnMore path="/learn/javascript-in-jsx-with-curly-braces">
 
-Read **[JavaScript in JSX with Curly Braces](/learn/javascript-in-jsx-with-curly-braces)** to learn how to access JavaScript data from JSX.
+JSX-இலிருந்து JavaScript data-வை access செய்வது எப்படி என்பதை அறிய **[Curly Braces உடன் JSX-இல் JavaScript](/learn/javascript-in-jsx-with-curly-braces)** படிக்கவும்.
 
 </LearnMore>
 
-## Passing props to a component {/*passing-props-to-a-component*/}
+## Component-க்கு props அனுப்புதல் {/*passing-props-to-a-component*/}
 
-React components use *props* to communicate with each other. Every parent component can pass some information to its child components by giving them props. Props might remind you of HTML attributes, but you can pass any JavaScript value through them, including objects, arrays, functions, and even JSX!
+React components ஒருவருடன் ஒருவர் தொடர்புகொள்ள *props* பயன்படுத்துகின்றன. ஒவ்வொரு parent component-உம் தனது child components-க்கு props கொடுத்து சில information pass செய்யலாம். Props உங்களுக்கு HTML attributes-ஐ நினைவூட்டலாம்; ஆனால் objects, arrays, functions, JSX கூட உட்பட எந்த JavaScript value-யையும் அவற்றின் மூலம் pass செய்யலாம்!
 
 <Sandpack>
 
@@ -311,15 +311,15 @@ export function getImageUrl(person, size = 's') {
 
 <LearnMore path="/learn/passing-props-to-a-component">
 
-Read **[Passing Props to a Component](/learn/passing-props-to-a-component)** to learn how to pass and read props.
+Props-ஐ pass செய்து read செய்வது எப்படி என்பதை அறிய **[Component-க்கு Props அனுப்புதல்](/learn/passing-props-to-a-component)** படிக்கவும்.
 
 </LearnMore>
 
 ## Conditional rendering {/*conditional-rendering*/}
 
-Your components will often need to display different things depending on different conditions. In React, you can conditionally render JSX using JavaScript syntax like `if` statements, `&&`, and `? :` operators.
+உங்கள் components வெவ்வேறு conditions-ஐப் பொறுத்து வெவ்வேறு விஷயங்களை display செய்ய வேண்டியிருக்கும். React-இல், `if` statements, `&&`, `? :` operators போன்ற JavaScript syntax பயன்படுத்தி JSX-ஐ conditionally render செய்யலாம்.
 
-In this example, the JavaScript `&&` operator is used to conditionally render a checkmark:
+இந்த example-இல், checkmark ஒன்றை conditionally render செய்ய JavaScript `&&` operator பயன்படுத்தப்படுகிறது:
 
 <Sandpack>
 
@@ -335,7 +335,7 @@ function Item({ name, isPacked }) {
 export default function PackingList() {
   return (
     <section>
-      <h1>Sally Ride's Packing List</h1>
+      <h1>Sally Ride-ன் Packing List</h1>
       <ul>
         <Item
           isPacked={true}
@@ -343,11 +343,11 @@ export default function PackingList() {
         />
         <Item
           isPacked={true}
-          name="Helmet with a golden leaf"
+          name="Golden leaf கொண்ட helmet"
         />
         <Item
           isPacked={false}
-          name="Photo of Tam"
+          name="Tam-ன் photo"
         />
       </ul>
     </section>
@@ -359,15 +359,15 @@ export default function PackingList() {
 
 <LearnMore path="/learn/conditional-rendering">
 
-Read **[Conditional Rendering](/learn/conditional-rendering)** to learn the different ways to render content conditionally.
+Content-ஐ conditionally render செய்யும் வெவ்வேறு வழிகளை அறிய **[Conditional Rendering](/learn/conditional-rendering)** படிக்கவும்.
 
 </LearnMore>
 
-## Rendering lists {/*rendering-lists*/}
+## Lists render செய்தல் {/*rendering-lists*/}
 
-You will often want to display multiple similar components from a collection of data. You can use JavaScript's `filter()` and `map()` with React to filter and transform your array of data into an array of components.
+Data collection-இலிருந்து பல ஒத்த components-ஐ display செய்ய நீங்கள் அடிக்கடி விரும்புவீர்கள். உங்கள் data array-ஐ components array-ஆக filter செய்து transform செய்ய React உடன் JavaScript-ன் `filter()` மற்றும் `map()` பயன்படுத்தலாம்.
 
-For each array item, you will need to specify a `key`. Usually, you will want to use an ID from the database as a `key`. Keys let React keep track of each item's place in the list even if the list changes.
+ஒவ்வொரு array item-க்கும் `key` ஒன்றை குறிப்பிட வேண்டும். பொதுவாக, database-இலிருந்து வரும் ID-ஐ `key` ஆக பயன்படுத்த விரும்புவீர்கள். List மாறினாலும் ஒவ்வொரு item-ன் இடத்தை React track செய்ய keys உதவுகின்றன.
 
 <Sandpack>
 
@@ -385,13 +385,13 @@ export default function List() {
       <p>
         <b>{person.name}:</b>
         {' ' + person.profession + ' '}
-        known for {person.accomplishment}
+        புகழ்பெற்றது: {person.accomplishment}
       </p>
     </li>
   );
   return (
     <article>
-      <h1>Scientists</h1>
+      <h1>விஞ்ஞானிகள்</h1>
       <ul>{listItems}</ul>
     </article>
   );
@@ -402,32 +402,32 @@ export default function List() {
 export const people = [{
   id: 0,
   name: 'Creola Katherine Johnson',
-  profession: 'mathematician',
-  accomplishment: 'spaceflight calculations',
+  profession: 'கணிதவியலாளர்',
+  accomplishment: 'விண்வெளிப் பறப்பு கணக்கீடுகள்',
   imageId: 'MK3eW3A'
 }, {
   id: 1,
   name: 'Mario José Molina-Pasquel Henríquez',
-  profession: 'chemist',
-  accomplishment: 'discovery of Arctic ozone hole',
+  profession: 'வேதியியலாளர்',
+  accomplishment: 'Arctic ozone hole கண்டுபிடிப்பு',
   imageId: 'mynHUSa'
 }, {
   id: 2,
   name: 'Mohammad Abdus Salam',
-  profession: 'physicist',
-  accomplishment: 'electromagnetism theory',
+  profession: 'இயற்பியலாளர்',
+  accomplishment: 'மின்காந்தவியல் கோட்பாடு',
   imageId: 'bE7W1ji'
 }, {
   id: 3,
   name: 'Percy Lavon Julian',
-  profession: 'chemist',
-  accomplishment: 'pioneering cortisone drugs, steroids and birth control pills',
+  profession: 'வேதியியலாளர்',
+  accomplishment: 'cortisone drugs, steroids மற்றும் birth control pills-ல் முன்னோடி பணி',
   imageId: 'IOjWm71'
 }, {
   id: 4,
   name: 'Subrahmanyan Chandrasekhar',
-  profession: 'astrophysicist',
-  accomplishment: 'white dwarf star mass calculations',
+  profession: 'வானியற்பியலாளர்',
+  accomplishment: 'white dwarf star mass கணக்கீடுகள்',
   imageId: 'lrWQx8l'
 }];
 ```
@@ -459,18 +459,18 @@ h2 { font-size: 20px; }
 
 <LearnMore path="/learn/rendering-lists">
 
-Read **[Rendering Lists](/learn/rendering-lists)** to learn how to render a list of components, and how to choose a key.
+Components list render செய்வது எப்படி, key தேர்வு செய்வது எப்படி என்பதை அறிய **[Lists render செய்தல்](/learn/rendering-lists)** படிக்கவும்.
 
 </LearnMore>
 
-## Keeping components pure {/*keeping-components-pure*/}
+## Components pure ஆக வைத்திருத்தல் {/*keeping-components-pure*/}
 
-Some JavaScript functions are *pure.* A pure function:
+சில JavaScript functions *pure* ஆக இருக்கும். Pure function:
 
-* **Minds its own business.** It does not change any objects or variables that existed before it was called.
-* **Same inputs, same output.** Given the same inputs, a pure function should always return the same result.
+* **தன் வேலையை மட்டும் செய்கிறது.** அது call செய்யப்படுவதற்கு முன் இருந்த objects அல்லது variables எதையும் மாற்றாது.
+* **அதே inputs, அதே output.** அதே inputs கொடுக்கப்பட்டால், pure function எப்போதும் அதே result return செய்ய வேண்டும்.
 
-By strictly only writing your components as pure functions, you can avoid an entire class of baffling bugs and unpredictable behavior as your codebase grows. Here is an example of an impure component:
+உங்கள் components-ஐ strict ஆக pure functions ஆக மட்டும் எழுதுவதன் மூலம், உங்கள் codebase வளரும்போது baffling bugs மற்றும் unpredictable behavior-ன் முழு வகையையே தவிர்க்கலாம். Impure component ஒன்றின் example இதோ:
 
 <Sandpack>
 
@@ -480,7 +480,7 @@ let guest = 0;
 function Cup() {
   // Bad: changing a preexisting variable!
   guest = guest + 1;
-  return <h2>Tea cup for guest #{guest}</h2>;
+  return <h2>விருந்தினர் #{guest}-க்கான தேநீர் கோப்பை</h2>;
 }
 
 export default function TeaSet() {
@@ -496,13 +496,13 @@ export default function TeaSet() {
 
 </Sandpack>
 
-You can make this component pure by passing a prop instead of modifying a preexisting variable:
+ஏற்கனவே உள்ள variable-ஐ modify செய்வதற்கு பதிலாக prop pass செய்து இந்த component-ஐ pure ஆக்கலாம்:
 
 <Sandpack>
 
 ```js
 function Cup({ guest }) {
-  return <h2>Tea cup for guest #{guest}</h2>;
+  return <h2>விருந்தினர் #{guest}-க்கான தேநீர் கோப்பை</h2>;
 }
 
 export default function TeaSet() {
@@ -520,43 +520,43 @@ export default function TeaSet() {
 
 <LearnMore path="/learn/keeping-components-pure">
 
-Read **[Keeping Components Pure](/learn/keeping-components-pure)** to learn how to write components as pure, predictable functions.
+Components-ஐ pure, predictable functions ஆக எழுதுவது எப்படி என்பதை அறிய **[Components pure ஆக வைத்திருத்தல்](/learn/keeping-components-pure)** படிக்கவும்.
 
 </LearnMore>
 
-## Your UI as a tree {/*your-ui-as-a-tree*/}
+## உங்கள் UI ஒரு tree ஆக {/*your-ui-as-a-tree*/}
 
-React uses trees to model the relationships between components and modules.
+Components மற்றும் modules இடையிலான relationships-ஐ model செய்ய React trees பயன்படுத்துகிறது.
 
-A React render tree is a representation of the parent and child relationship between components.
+React render tree என்பது components இடையிலான parent மற்றும் child relationship-ன் representation.
 
-<Diagram name="generic_render_tree" height={250} width={500} alt="A tree graph with five nodes, with each node representing a component. The root node is located at the top the tree graph and is labelled 'Root Component'. It has two arrows extending down to two nodes labelled 'Component A' and 'Component C'. Each of the arrows is labelled with 'renders'. 'Component A' has a single 'renders' arrow to a node labelled 'Component B'. 'Component C' has a single 'renders' arrow to a node labelled 'Component D'.">
+<Diagram name="generic_render_tree" height={250} width={500} alt="ஐந்து nodes கொண்ட tree graph; ஒவ்வொரு node-உம் component ஒன்றை குறிக்கிறது. Root node tree graph-ன் மேற்பகுதியில் உள்ளது; அது 'Root Component' என்று label செய்யப்பட்டுள்ளது. அதிலிருந்து 'Component A' மற்றும் 'Component C' என்று label செய்யப்பட்ட இரண்டு nodes-க்கு இரண்டு arrows கீழே நீள்கின்றன. ஒவ்வொரு arrow-உம் 'renders' என்று label செய்யப்பட்டுள்ளது. 'Component A'-இல் இருந்து 'Component B' என்று label செய்யப்பட்ட node-க்கு ஒரு 'renders' arrow உள்ளது. 'Component C'-இல் இருந்து 'Component D' என்று label செய்யப்பட்ட node-க்கு ஒரு 'renders' arrow உள்ளது.">
 
-An example React render tree.
-
-</Diagram>
-
-Components near the top of the tree, near the root component, are considered top-level components. Components with no child components are leaf components. This categorization of components is useful for understanding data flow and rendering performance.
-
-Modelling the relationship between JavaScript modules is another useful way to understand your app. We refer to it as a module dependency tree.
-
-<Diagram name="generic_dependency_tree" height={250} width={500} alt="A tree graph with five nodes. Each node represents a JavaScript module. The top-most node is labelled 'RootModule.js'. It has three arrows extending to the nodes: 'ModuleA.js', 'ModuleB.js', and 'ModuleC.js'. Each arrow is labelled as 'imports'. 'ModuleC.js' node has a single 'imports' arrow that points to a node labelled 'ModuleD.js'.">
-
-An example module dependency tree.
+React render tree-க்கான example.
 
 </Diagram>
 
-A dependency tree is often used by build tools to bundle all the relevant JavaScript code for the client to download and render. A large bundle size regresses user experience for React apps. Understanding the module dependency tree is helpful to debug such issues.
+Tree-ன் மேல் பகுதியில், root component-க்கு அருகில் இருக்கும் components top-level components என்று கருதப்படுகின்றன. Child components இல்லாத components leaf components. Data flow மற்றும் rendering performance புரிந்துகொள்ள இந்த component categorization பயனுள்ளதாகும்.
+
+JavaScript modules இடையிலான relationship-ஐ model செய்வதும் உங்கள் app-ஐ புரிந்துகொள்ள மற்றொரு பயனுள்ள வழி. இதை module dependency tree என்று அழைக்கிறோம்.
+
+<Diagram name="generic_dependency_tree" height={250} width={500} alt="ஐந்து nodes கொண்ட tree graph. ஒவ்வொரு node-உம் JavaScript module ஒன்றை குறிக்கிறது. மேல் node 'RootModule.js' என்று label செய்யப்பட்டுள்ளது. அதிலிருந்து 'ModuleA.js', 'ModuleB.js', 'ModuleC.js' nodes-க்கு மூன்று arrows செல்கின்றன. ஒவ்வொரு arrow-உம் 'imports' என்று label செய்யப்பட்டுள்ளது. 'ModuleC.js' node-இல் இருந்து 'ModuleD.js' என்று label செய்யப்பட்ட node-க்கு ஒரு 'imports' arrow செல்கிறது.">
+
+Module dependency tree-க்கான example.
+
+</Diagram>
+
+Client download செய்து render செய்ய வேண்டிய அனைத்து தொடர்புடைய JavaScript code-யையும் bundle செய்ய build tools dependency tree-ஐ அடிக்கடி பயன்படுத்துகின்றன. பெரிய bundle size React apps-ன் user experience-ஐ பாதிக்கும். இப்படிப்பட்ட issues debug செய்ய module dependency tree புரிந்திருப்பது உதவிகரமாகும்.
 
 <LearnMore path="/learn/understanding-your-ui-as-a-tree">
 
-Read **[Your UI as a Tree](/learn/understanding-your-ui-as-a-tree)** to learn how to create a render and module dependency trees for a React app and how they're useful mental models for improving user experience and performance.
+React app-க்கு render மற்றும் module dependency trees உருவாக்குவது எப்படி, user experience மற்றும் performance மேம்படுத்த அவை ஏன் பயனுள்ள mental models என்பதை அறிய **[உங்கள் UI ஒரு Tree ஆக](/learn/understanding-your-ui-as-a-tree)** படிக்கவும்.
 
 </LearnMore>
 
 
-## What's next? {/*whats-next*/}
+## அடுத்து என்ன? {/*whats-next*/}
 
-Head over to [Your First Component](/learn/your-first-component) to start reading this chapter page by page!
+இந்த chapter-ஐ page by page படிக்கத் தொடங்க [உங்கள் முதல் Component](/learn/your-first-component)-க்கு செல்லுங்கள்!
 
-Or, if you're already familiar with these topics, why not read about [Adding Interactivity](/learn/adding-interactivity)?
+அல்லது, இந்த topics ஏற்கனவே தெரிந்திருந்தால், [Interactivity சேர்த்தல்](/learn/adding-interactivity) பற்றி படிக்கலாமே?

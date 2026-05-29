@@ -1,34 +1,34 @@
 ---
-title: "Introducing Zero-Bundle-Size React Server Components"
-author: Dan Abramov, Lauren Tan, Joseph Savona, and Sebastian Markbage
+title: "பண்டில் அளவைக் கூட்டாத React Server Components அறிமுகம்"
+author: Dan Abramov, Lauren Tan, Joseph Savona, மற்றும் Sebastian Markbage
 date: 2020/12/21
-description: 2020 has been a long year. As it comes to an end we wanted to share a special Holiday Update on our research into zero-bundle-size React Server Components.
+description: 2020 நீண்ட ஆண்டாக இருந்தது. அது முடிவுக்கு வரும் இந்த நேரத்தில், பண்டில் அளவைக் கூட்டாத React Server Components குறித்த எங்கள் ஆராய்ச்சியைப் பற்றிய ஒரு சிறப்பு விடுமுறைப் புதுப்பிப்பைப் பகிர விரும்பினோம்.
 ---
 
-December 21, 2020 by [Dan Abramov](https://bsky.app/profile/danabra.mov), [Lauren Tan](https://twitter.com/potetotes), [Joseph Savona](https://twitter.com/en_JS), and [Sebastian Markbåge](https://twitter.com/sebmarkbage)
+December 21, 2020 அன்று [Dan Abramov](https://bsky.app/profile/danabra.mov), [Lauren Tan](https://twitter.com/potetotes), [Joseph Savona](https://twitter.com/en_JS), and [Sebastian Markbåge](https://twitter.com/sebmarkbage) ஆகியோர் எழுதியது
 
 ---
 
 <Intro>
 
-2020 has been a long year. As it comes to an end we wanted to share a special Holiday Update on our research into zero-bundle-size **React Server Components**.
+2020 நீண்ட ஆண்டாக இருந்தது. அது முடிவுக்கு வரும் இந்த நேரத்தில், பண்டில் அளவைக் கூட்டாத **React Server Components** குறித்த எங்கள் ஆராய்ச்சியைப் பற்றிய ஒரு சிறப்பு விடுமுறைப் புதுப்பிப்பைப் பகிர விரும்பினோம்.
 
 </Intro>
 
 ---
 
-To introduce React Server Components, we have prepared a talk and a demo. If you want, you can check them out during the holidays, or later when work picks back up in the new year.
+React Server Components-ஐ அறிமுகப்படுத்த, ஒரு உரையையும் ஒரு டெமோவையும் தயாரித்துள்ளோம். விருப்பமிருந்தால் விடுமுறை நாட்களில் அவற்றைப் பார்க்கலாம்; அல்லது புதிய ஆண்டில் வேலை மீண்டும் வேகமெடுத்த பிறகும் பார்க்கலாம்.
 
 <YouTubeIframe src="https://www.youtube.com/embed/TQQPAU21ZUw" />
 
-**React Server Components are still in research and development.** We are sharing this work in the spirit of transparency and to get initial feedback from the React community. There will be plenty of time for that, so **don't feel like you have to catch up right now!**
+**React Server Components இன்னும் ஆராய்ச்சி மற்றும் மேம்பாட்டு நிலையில்தான் உள்ளன.** வெளிப்படையாகச் செயல்பட வேண்டும் என்பதற்காகவும், React சமூகத்திடமிருந்து தொடக்கக் கருத்துகளைப் பெறுவதற்காகவும் இந்த வேலையைப் பகிர்கிறோம். அதற்கு நிறைய நேரம் இருக்கும், எனவே **இப்போதே எல்லாவற்றையும் அறிந்துகொள்ள வேண்டும் என்று நினைக்க வேண்டாம்!**
 
-If you want to check them out, we recommend going in the following order:
+அவற்றைப் பார்க்க விரும்பினால், பின்வரும் வரிசையைப் பரிந்துரைக்கிறோம்:
 
-1. **Watch the talk** to learn about React Server Components and see the demo.
+1. **உரையைப் பாருங்கள்** React Server Components பற்றித் தெரிந்துகொள்ளவும் டெமோவைப் பார்க்கவும்.
 
-2. **[Clone the demo](http://github.com/reactjs/server-components-demo)** to play with React Server Components on your computer.
+2. **[டெமோவைக் கிளோன் செய்யுங்கள்](http://github.com/reactjs/server-components-demo)** உங்கள் கணினியில் React Server Components-ஐ முயற்சி செய்து பார்க்க.
 
-3. **[Read the RFC (with FAQ at the end)](https://github.com/reactjs/rfcs/pull/188)** for a deeper technical breakdown and to provide feedback.
+3. **[RFC-ஐப் படியுங்கள் (இறுதியில் FAQ உள்ளது)](https://github.com/reactjs/rfcs/pull/188)** ஆழமான தொழில்நுட்ப விளக்கத்திற்கும் உங்கள் கருத்துகளைப் பகிர்வதற்கும்.
 
-We are excited to hear from you on the RFC or in replies to the [@reactjs](https://twitter.com/reactjs) Twitter handle. Happy holidays, stay safe, and see you next year!
+RFC-இல் அல்லது [@reactjs](https://twitter.com/reactjs) Twitter கணக்குக்கான பதில்களில் உங்கள் கருத்துகளை கேட்க ஆவலாக உள்ளோம். இனிய விடுமுறை நாட்கள், பாதுகாப்பாக இருங்கள், அடுத்த ஆண்டு சந்திப்போம்!

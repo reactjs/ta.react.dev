@@ -5,36 +5,36 @@ version: rc
 
 <Intro>
 
-`eslint-plugin-react-hooks` provides ESLint rules to enforce the [Rules of React](/reference/rules).
+`eslint-plugin-react-hooks`, [React விதிகளை](/reference/rules) enforce செய்ய ESLint rules-ஐ வழங்குகிறது.
 
 </Intro>
 
-This plugin helps you catch violations of React's rules at build time, ensuring your components and hooks follow React's rules for correctness and performance. The lints cover both fundamental React patterns (exhaustive-deps and rules-of-hooks) and issues flagged by React Compiler. React Compiler diagnostics are automatically surfaced by this ESLint plugin, and can be used even if your app hasn't adopted the compiler yet.
+இந்த plugin build time-இல் React விதிமீறல்களைப் பிடிக்க உதவுகிறது; இதனால் உங்கள் components மற்றும் hooks correctness மற்றும் performance-க்கான React விதிகளைப் பின்பற்றுகின்றன என்பதை உறுதிசெய்யலாம். Lints அடிப்படை React patterns (`exhaustive-deps` மற்றும் `rules-of-hooks`) மற்றும் React Compiler குறிக்கும் பிரச்சினைகள் இரண்டையும் கையாளுகின்றன. React Compiler diagnostics இந்த ESLint plugin மூலம் தானாக வெளிப்படுத்தப்படுகின்றன; உங்கள் app இன்னும் compiler-ஐ ஏற்றுக்கொள்ளவில்லை என்றாலும் இதைப் பயன்படுத்தலாம்.
 
 <Note>
-When the compiler reports a diagnostic, it means that the compiler was able to statically detect a pattern that is not supported or breaks the Rules of React. When it detects this, it **automatically** skips over those components and hooks, while keeping the rest of your app compiled. This ensures optimal coverage of safe optimizations that won't break your app.
+Compiler diagnostic ஒன்றை report செய்தால், ஆதரிக்கப்படாத அல்லது React விதிகளை மீறும் pattern ஒன்றை compiler statically கண்டறிந்துள்ளது என்று பொருள். இதை கண்டறிந்தபோது, உங்கள் app-இன் மீதமுள்ள பகுதி compile செய்யப்பட்டபடியே இருக்கும்; அந்த components மற்றும் hooks-ஐ அது **தானாக** skip செய்யும். இது உங்கள் app-ஐ உடைக்காத பாதுகாப்பான optimizations-க்கு சிறந்த coverage-ஐ உறுதிசெய்கிறது.
 
-What this means for linting, is that you don’t need to fix all violations immediately. Address them at your own pace to gradually increase the number of optimized components.
+Linting-க்கு இதன் பொருள், அனைத்து violations-ஐயும் உடனே சரிசெய்ய வேண்டிய அவசியமில்லை. Optimized components எண்ணிக்கையை படிப்படியாக அதிகரிக்க, உங்கள் வேகத்தில் அவற்றை address செய்யலாம்.
 </Note>
 
-## Recommended Rules {/*recommended*/}
+## பரிந்துரைக்கப்படும் விதிகள் {/*recommended*/}
 
-These rules are included in the `recommended` preset in `eslint-plugin-react-hooks`:
+இந்த விதிகள் `eslint-plugin-react-hooks`-இல் உள்ள `recommended` preset-இல் சேர்க்கப்பட்டுள்ளன:
 
-* [`exhaustive-deps`](/reference/eslint-plugin-react-hooks/lints/exhaustive-deps) - Validates that dependency arrays for React hooks contain all necessary dependencies
-* [`rules-of-hooks`](/reference/eslint-plugin-react-hooks/lints/rules-of-hooks) - Validates that components and hooks follow the Rules of Hooks
-* [`component-hook-factories`](/reference/eslint-plugin-react-hooks/lints/component-hook-factories) - Validates higher order functions defining nested components or hooks
-* [`config`](/reference/eslint-plugin-react-hooks/lints/config) - Validates the compiler configuration options
-* [`error-boundaries`](/reference/eslint-plugin-react-hooks/lints/error-boundaries) - Validates usage of Error Boundaries instead of try/catch for child errors
-* [`gating`](/reference/eslint-plugin-react-hooks/lints/gating) - Validates configuration of gating mode
-* [`globals`](/reference/eslint-plugin-react-hooks/lints/globals) - Validates against assignment/mutation of globals during render
-* [`immutability`](/reference/eslint-plugin-react-hooks/lints/immutability) - Validates against mutating props, state, and other immutable values
-* [`incompatible-library`](/reference/eslint-plugin-react-hooks/lints/incompatible-library) - Validates against usage of libraries which are incompatible with memoization
-* [`preserve-manual-memoization`](/reference/eslint-plugin-react-hooks/lints/preserve-manual-memoization) - Validates that existing manual memoization is preserved by the compiler
-* [`purity`](/reference/eslint-plugin-react-hooks/lints/purity) - Validates that components/hooks are pure by checking known-impure functions
-* [`refs`](/reference/eslint-plugin-react-hooks/lints/refs) - Validates correct usage of refs, not reading/writing during render
-* [`set-state-in-effect`](/reference/eslint-plugin-react-hooks/lints/set-state-in-effect) - Validates against calling setState synchronously in an effect
-* [`set-state-in-render`](/reference/eslint-plugin-react-hooks/lints/set-state-in-render) - Validates against setting state during render
-* [`static-components`](/reference/eslint-plugin-react-hooks/lints/static-components) - Validates that components are static, not recreated every render
-* [`unsupported-syntax`](/reference/eslint-plugin-react-hooks/lints/unsupported-syntax) - Validates against syntax that React Compiler does not support
-* [`use-memo`](/reference/eslint-plugin-react-hooks/lints/use-memo) - Validates usage of the `useMemo` hook without a return value
+* [`exhaustive-deps`](/reference/eslint-plugin-react-hooks/lints/exhaustive-deps) - React hooks-க்கான dependency arrays தேவையான அனைத்து dependencies-ஐ கொண்டுள்ளனவா என்பதை validate செய்கிறது
+* [`rules-of-hooks`](/reference/eslint-plugin-react-hooks/lints/rules-of-hooks) - Components மற்றும் hooks Hooks விதிகளைப் பின்பற்றுகின்றனவா என்பதை validate செய்கிறது
+* [`component-hook-factories`](/reference/eslint-plugin-react-hooks/lints/component-hook-factories) - Nested components அல்லது hooks-ஐ வரையறுக்கும் higher order functions-ஐ validate செய்கிறது
+* [`config`](/reference/eslint-plugin-react-hooks/lints/config) - Compiler configuration options-ஐ validate செய்கிறது
+* [`error-boundaries`](/reference/eslint-plugin-react-hooks/lints/error-boundaries) - Child errors-க்கு try/catch-க்கு பதிலாக Error Boundaries பயன்படுத்தப்படுகிறதா என்பதை validate செய்கிறது
+* [`gating`](/reference/eslint-plugin-react-hooks/lints/gating) - Gating mode configuration-ஐ validate செய்கிறது
+* [`globals`](/reference/eslint-plugin-react-hooks/lints/globals) - Render நடக்கும் போது globals-க்கு assignment/mutation செய்வதை எதிர்த்து validate செய்கிறது
+* [`immutability`](/reference/eslint-plugin-react-hooks/lints/immutability) - Props, state, மற்றும் பிற immutable values-ஐ mutate செய்வதை எதிர்த்து validate செய்கிறது
+* [`incompatible-library`](/reference/eslint-plugin-react-hooks/lints/incompatible-library) - Memoization-உடன் compatible அல்லாத libraries பயன்படுத்தப்படுவதை எதிர்த்து validate செய்கிறது
+* [`preserve-manual-memoization`](/reference/eslint-plugin-react-hooks/lints/preserve-manual-memoization) - ஏற்கனவே உள்ள manual memoization-ஐ compiler பாதுகாக்கிறதா என்பதை validate செய்கிறது
+* [`purity`](/reference/eslint-plugin-react-hooks/lints/purity) - அறியப்பட்ட impure functions-ஐச் சரிபார்த்து components/hooks pure ஆக உள்ளனவா என்பதை validate செய்கிறது
+* [`refs`](/reference/eslint-plugin-react-hooks/lints/refs) - Render நடக்கும் போது read/write செய்யாமல், refs சரியாகப் பயன்படுத்தப்படுகிறதா என்பதை validate செய்கிறது
+* [`set-state-in-effect`](/reference/eslint-plugin-react-hooks/lints/set-state-in-effect) - Effect-இல் setState synchronously அழைப்பதை எதிர்த்து validate செய்கிறது
+* [`set-state-in-render`](/reference/eslint-plugin-react-hooks/lints/set-state-in-render) - Render நடக்கும் போது state அமைப்பதை எதிர்த்து validate செய்கிறது
+* [`static-components`](/reference/eslint-plugin-react-hooks/lints/static-components) - Components static ஆக உள்ளனவா, ஒவ்வொரு render-இலும் மறுபடியும் உருவாக்கப்படுகிறதா என்பதை validate செய்கிறது
+* [`unsupported-syntax`](/reference/eslint-plugin-react-hooks/lints/unsupported-syntax) - React Compiler ஆதரிக்காத syntax-ஐ எதிர்த்து validate செய்கிறது
+* [`use-memo`](/reference/eslint-plugin-react-hooks/lints/use-memo) - Return value இல்லாமல் `useMemo` hook பயன்படுத்தப்படுகிறதா என்பதை validate செய்கிறது

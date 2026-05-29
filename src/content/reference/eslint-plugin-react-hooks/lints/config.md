@@ -4,17 +4,17 @@ title: config
 
 <Intro>
 
-Validates the compiler [configuration options](/reference/react-compiler/configuration).
+Compiler [configuration options](/reference/react-compiler/configuration)-ஐ validate செய்கிறது.
 
 </Intro>
 
-## Rule Details {/*rule-details*/}
+## விதி விவரங்கள் {/*rule-details*/}
 
-React Compiler accepts various [configuration options](/reference/react-compiler/configuration)  to control its behavior. This rule validates that your configuration uses correct option names and value types, preventing silent failures from typos or incorrect settings.
+React Compiler-இன் நடத்தையை கட்டுப்படுத்த பல்வேறு [configuration options](/reference/react-compiler/configuration) ஏற்கப்படுகின்றன. உங்கள் configuration சரியான option names மற்றும் value types பயன்படுத்துகிறதா என்பதை இந்த விதி validate செய்கிறது; இதனால் typos அல்லது தவறான settings காரணமாக அமைதியாக தோல்வியடைவது தவிர்க்கப்படுகிறது.
 
-### Invalid {/*invalid*/}
+### செல்லாதது {/*invalid*/}
 
-Examples of incorrect code for this rule:
+இந்த விதிக்கான தவறான code உதாரணங்கள்:
 
 ```js
 // ❌ Unknown option name
@@ -36,9 +36,9 @@ module.exports = {
 };
 ```
 
-### Valid {/*valid*/}
+### செல்லுபடியாகும் {/*valid*/}
 
-Examples of correct code for this rule:
+இந்த விதிக்கான சரியான code உதாரணங்கள்:
 
 ```js
 // ✅ Valid compiler configuration
@@ -54,9 +54,9 @@ module.exports = {
 
 ## Troubleshooting {/*troubleshooting*/}
 
-### Configuration not working as expected {/*config-not-working*/}
+### Configuration எதிர்பார்த்தபடி வேலை செய்யவில்லை {/*config-not-working*/}
 
-Your compiler configuration might have typos or incorrect values:
+உங்கள் compiler configuration-இல் typos அல்லது தவறான values இருக்கலாம்:
 
 ```js
 // ❌ Wrong: Common configuration mistakes
@@ -74,7 +74,7 @@ module.exports = {
 };
 ```
 
-Check the [configuration documentation](/reference/react-compiler/configuration) for valid options:
+செல்லுபடியாகும் options-க்கு [configuration documentation](/reference/react-compiler/configuration)-ஐப் பார்க்கவும்:
 
 ```js
 // ✅ Better: Valid configuration

@@ -1,11 +1,11 @@
 <Intro>
 
-In the minified production build of React, we avoid sending down full error messages in order to reduce the number of bytes sent over the wire.
+React-இன் minified production build-இல், network வழியாக அனுப்பப்படும் bytes அளவை குறைக்க, முழு error messages-ஐ அனுப்பாமல் இருக்கிறோம்.
 
 </Intro>
 
-We highly recommend using the development build locally when debugging your app since it tracks additional debug info and provides helpful warnings about potential problems in your apps, but if you encounter an exception while using the production build, this page will reassemble the original error message.
+உங்கள் app-ஐ debug செய்யும்போது locally development build-ஐ பயன்படுத்தும்படி நாங்கள் பரிந்துரைக்கிறோம்; அது கூடுதல் debug info-ஐ track செய்து, உங்கள் apps-இல் இருக்கக்கூடிய பிரச்சினைகள் குறித்து உதவிகரமான warnings-ஐ வழங்கும். ஆனால் production build-ஐப் பயன்படுத்தும் போது exception ஏற்பட்டால், இந்தப் பக்கம் அசல் error message-ஐ மீண்டும் உருவாக்கும்.
 
-The full text of the error you just encountered is:
+நீங்கள் இப்போது சந்தித்த error-இன் முழு உரை:
 
 <ErrorDecoder />

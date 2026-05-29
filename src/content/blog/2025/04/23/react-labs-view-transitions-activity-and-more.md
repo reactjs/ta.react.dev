@@ -1,8 +1,8 @@
 ---
-title: "React Labs: View Transitions, Activity, and more"
+title: "React Labs: View Transitions, Activity, Mayலும் பல"
 author: Ricky Hanlon
 date: 2025/04/23
-description: In React Labs posts, we write about projects in active research and development. In this post, we're sharing two new experimental features that are ready to try today, and updates on other areas we're working on now.
+description: React Labs posts-இல், active research மற்றும் development-இல் இருக்கும் projects பற்றி எழுதுகிறோம். இந்த post-இல், இன்று முயற்சிக்கத் தயாராக இருக்கும் இரண்டு புதிய experimental features-ஐயும், இப்போது நாங்கள் செய்து கொண்டிருக்கும் மற்ற பகுதிகளின் updates-ஐயும் பகிர்கிறோம்.
 ---
 
 April 23, 2025 by [Ricky Hanlon](https://twitter.com/rickhanlonii)
@@ -11,17 +11,17 @@ April 23, 2025 by [Ricky Hanlon](https://twitter.com/rickhanlonii)
 
 <Intro>
 
-In React Labs posts, we write about projects in active research and development. In this post, we're sharing two new experimental features that are ready to try today, and updates on other areas we're working on now.
+React Labs posts-இல், active research மற்றும் development-இல் இருக்கும் projects பற்றி எழுதுகிறோம். இந்த post-இல், இன்று முயற்சிக்கத் தயாராக இருக்கும் இரண்டு புதிய experimental features-ஐயும், இப்போது நாங்கள் செய்து கொண்டிருக்கும் மற்ற பகுதிகளின் updates-ஐயும் பகிர்கிறோம்.
 
 </Intro>
 
 
-Today, we're excited to release documentation for two new experimental features that are ready for testing:
+இன்று, testing-க்கு தயாராக இருக்கும் இரண்டு புதிய experimental features-க்கான documentation-ஐ வெளியிடுவதில் மகிழ்ச்சி:
 
 - [View Transitions](#view-transitions)
 - [Activity](#activity)
 
-We're also sharing updates on new features currently in development:
+தற்போது development-இல் இருக்கும் புதிய features பற்றிய updates-ஐயும் பகிர்கிறோம்:
 - [React Performance Tracks](#react-performance-tracks)
 - [Compiler IDE Extension](#compiler-ide-extension)
 - [Automatic Effect Dependencies](#automatic-effect-dependencies)
@@ -30,45 +30,45 @@ We're also sharing updates on new features currently in development:
 
 ---
 
-# New Experimental Features {/*new-experimental-features*/}
+## புதிய Experimental Features {/*new-experimental-features*/}
 
 <Note>
 
-`<Activity />` has shipped in `react@19.2`.
+`<Activity />` `react@19.2`-இல் ship செய்யப்பட்டுள்ளது.
 
-`<ViewTransition />` and `addTransitionType` are now available in `react@canary`.
+`<ViewTransition />` மற்றும் `addTransitionType` இப்போது `react@canary`-இல் கிடைக்கின்றன.
 
 </Note>
 
-View Transitions and Activity are now ready for testing in `react@experimental`. These features have been tested in production and are stable, but the final API may still change as we incorporate feedback.
+View Transitions மற்றும் Activity இப்போது `react@experimental`-இல் testing-க்கு தயாராக உள்ளன. இந்த features production-இல் test செய்யப்பட்டு stable ஆக உள்ளன; ஆனால் feedback-ஐ சேர்க்கும் போது final API இன்னும் மாறக்கூடும்.
 
-You can try them by upgrading React packages to the most recent experimental version:
+React packages-ஐ சமீபத்திய experimental version-க்கு upgrade செய்து அவற்றை முயற்சிக்கலாம்:
 
 - `react@experimental`
 - `react-dom@experimental`
 
-Read on to learn how to use these features in your app, or check out the newly published docs:
+இந்த features-ஐ உங்கள் app-இல் எப்படி பயன்படுத்துவது என்பதை அறிய தொடர்ந்து படிக்கவும், அல்லது புதிதாக வெளியிடப்பட்ட docs-ஐ பார்க்கவும்:
 
-- [`<ViewTransition>`](/reference/react/ViewTransition): A component that lets you activate an animation for a Transition.
-- [`addTransitionType`](/reference/react/addTransitionType): A function that allows you to specify the cause of a Transition.
-- [`<Activity>`](/reference/react/Activity): A component that lets you hide and show parts of the UI.
+- [`<ViewTransition>`](/reference/react/ViewTransition): ஒரு Transition-க்கான animation-ஐ activate செய்ய அனுமதிக்கும் component.
+- [`addTransitionType`](/reference/react/addTransitionType): ஒரு Transition-ன் காரணத்தை specify செய்ய அனுமதிக்கும் function.
+- [`<Activity>`](/reference/react/Activity): UI-ன் பகுதிகளை hide மற்றும் show செய்ய அனுமதிக்கும் component.
 
 ## View Transitions {/*view-transitions*/}
 
-React View Transitions are a new experimental feature that makes it easier to add animations to UI transitions in your app. Under-the-hood, these animations use the new [`startViewTransition`](https://developer.mozilla.org/en-US/docs/Web/API/Document/startViewTransition) API available in most modern browsers.
+React View Transitions என்பது உங்கள் app-இல் UI transitions-க்கு animations சேர்ப்பதை உதவும் புதிய experimental feature. உள்ளே, இந்த animations பெரும்பாலான modern browsers-இல் கிடைக்கும் புதிய [`startViewTransition`](https://developer.mozilla.org/en-US/docs/Web/API/Document/startViewTransition) API-ஐ பயன்படுத்துகின்றன.
 
-To opt-in to animating an element, wrap it in the new `<ViewTransition>` component:
+ஒரு element-ஐ animate செய்ய opt-in செய்ய, அதை புதிய `<ViewTransition>` component-இல் wrap செய்யுங்கள்:
 
 ```js
 // "what" to animate.
 <ViewTransition>
-  <div>animate me</div>
+  <div>என்னை animate செய்</div>
 </ViewTransition>
 ```
 
-This new component lets you declaratively define "what" to animate when an animation is activated.
+Animation activate ஆகும் போது "எதை" animate செய்ய வேண்டும் என்பதை declarative ஆக define செய்ய இந்த புதிய component உதவுகிறது.
 
-You can define "when" to animate by using one of these three triggers for a View Transition:
+View Transition-க்கான இந்த மூன்று triggers-இல் ஒன்றை பயன்படுத்தி "எப்போது" animate செய்ய வேண்டும் என்பதை define செய்யலாம்:
 
 ```js
 // "when" to animate.
@@ -81,11 +81,11 @@ const deferred = useDeferredValue(value);
 
 // Suspense
 <Suspense fallback={<Fallback />}>
-  <div>Loading...</div>
+  <div>ஏற்றுகிறது...</div>
 </Suspense>
 ```
 
-By default, these animations use the [default CSS animations for View Transitions](https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API/Using#customizing_your_animations) applied (typically a smooth cross-fade). You can use [view transition pseudo-selectors](https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API/Using#the_view_transition_pseudo-element_tree) to define "how" the animation runs. For example, you can use `*` to change the default animation for all transitions:
+Default ஆக, இந்த animations [View Transitions-க்கான default CSS animations](https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API/Using#customizing_your_animations)-ஐ பயன்படுத்துகின்றன (பொதுவாக smooth cross-fade). Animation "எப்படி" இயங்க வேண்டும் என்பதை define செய்ய [view transition pseudo-selectors](https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API/Using#the_view_transition_pseudo-element_tree)-ஐ பயன்படுத்தலாம். உதாரணமாக, எல்லா transitions-க்கும் default animation-ஐ மாற்ற `*` பயன்படுத்தலாம்:
 
 ```
 // "how" to animate.
@@ -97,16 +97,16 @@ By default, these animations use the [default CSS animations for View Transition
 }
 ```
 
-When the DOM updates due to an animation trigger&mdash;like `startTransition`, `useDeferredValue`, or a `Suspense` fallback switching to content&mdash;React will use [declarative heuristics](/reference/react/ViewTransition#viewtransition) to automatically determine which `<ViewTransition>` components to activate for the animation. The browser will then run the animation that's defined in CSS.
+`startTransition`, `useDeferredValue`, அல்லது `Suspense` fallback content-க்கு மாறுவது போன்ற animation trigger காரணமாக DOM update ஆகும் போது, animation-க்காக எந்த `<ViewTransition>` components-ஐ activate செய்ய வேண்டும் என்பதை React [declarative heuristics](/reference/react/ViewTransition#viewtransition) மூலம் தானாக தீர்மானிக்கும். பிறகு browser CSS-இல் define செய்யப்பட்ட animation-ஐ run செய்யும்.
 
-If you're familiar with the browser's View Transition API and want to know how React supports it, check out [How does `<ViewTransition>` Work](/reference/react/ViewTransition#how-does-viewtransition-work) in the docs.
+Browser-ன் View Transition API உங்களுக்கு தெரிந்திருந்தால், React அதை எப்படி support செய்கிறது என்பதை அறிய docs-இல் உள்ள [`<ViewTransition>` எப்படி வேலை செய்கிறது](/reference/react/ViewTransition#how-does-viewtransition-work) பகுதியைப் பார்க்கவும்.
 
-In this post, let's take a look at a few examples of how to use View Transitions.
+இந்த post-இல், View Transitions-ஐ எப்படி பயன்படுத்துவது என்பதற்கான சில examples-ஐ பார்க்கலாம்.
 
-We'll start with this app, which doesn't animate any of the following interactions:
-- Click a video to view the details.
-- Click "back" to go back to the feed.
-- Type in the list to filter the videos.
+பின்வரும் interactions எதையும் animate செய்யாத இந்த app-இலிருந்து தொடங்குவோம்:
+- விவரங்களைப் பார்க்க ஒரு video-வை click செய்யுங்கள்.
+- feed-க்கு திரும்ப "பின் செல்" click செய்யுங்கள்.
+- videos-ஐ filter செய்ய list-இல் type செய்யுங்கள்.
 
 <Sandpack>
 
@@ -162,7 +162,7 @@ export default function Details() {
             navigateBack("/");
           }}
         >
-          <ChevronLeft /> Back
+          <ChevronLeft /> பின் செல்
         </div>
       }
     >
@@ -192,7 +192,7 @@ function SearchInput({ value, onChange }) {
   return (
     <form className="search" onSubmit={(e) => e.preventDefault()}>
       <label htmlFor={id} className="sr-only">
-        Search
+        தேடு
       </label>
       <div className="search-input">
         <div className="search-icon">
@@ -201,7 +201,7 @@ function SearchInput({ value, onChange }) {
         <input
           type="text"
           id={id}
-          placeholder="Search"
+          placeholder="தேடு"
           value={value}
           onChange={(e) => onChange(e.target.value)}
         />
@@ -232,11 +232,11 @@ export default function Home() {
   const [searchText, setSearchText] = useState("");
   const foundVideos = filterVideos(videos, searchText);
   return (
-    <Layout heading={<div className="fit">{count} Videos</div>}>
+    <Layout heading={<div className="fit">{count} வீடியோக்கள்</div>}>
       <SearchInput value={searchText} onChange={setSearchText} />
       <div className="video-list">
         {foundVideos.length === 0 && (
-          <div className="no-results">No results</div>
+          <div className="no-results">முடிவுகள் இல்லை</div>
         )}
         <div className="videos">
           {foundVideos.map((video) => (
@@ -404,7 +404,7 @@ export default function LikeButton({video}) {
   return (
     <button
       className={`like-button ${isLiked && 'liked'}`}
-      aria-label={isLiked ? 'Unsave' : 'Save'}
+      aria-label={isLiked ? 'சேமிப்பை நீக்கு' : 'சேமி'}
       onClick={() => {
         const nextIsLiked = !isLiked;
         if (nextIsLiked) {
@@ -487,38 +487,38 @@ export function Video({ video }) {
 const videos = [
   {
     id: '1',
-    title: 'First video',
-    description: 'Video description',
+    title: 'முதல் வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'blue',
   },
   {
     id: '2',
-    title: 'Second video',
-    description: 'Video description',
+    title: 'இரண்டாவது வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'red',
   },
   {
     id: '3',
-    title: 'Third video',
-    description: 'Video description',
+    title: 'மூன்றாவது வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'green',
   },
   {
     id: '4',
-    title: 'Fourth video',
-    description: 'Video description',
+    title: 'நான்காவது வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'purple',
   },
   {
     id: '5',
-    title: 'Fifth video',
-    description: 'Video description',
+    title: 'ஐந்தாவது வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'yellow',
   },
   {
     id: '6',
-    title: 'Sixth video',
-    description: 'Video description',
+    title: 'ஆறாவது வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'gray',
   },
 ];
@@ -1262,17 +1262,17 @@ root.render(
 
 <Note>
 
-#### View Transitions do not replace CSS and JS driven animations {/*view-transitions-do-not-replace-css-and-js-driven-animations*/}
+#### View Transitions CSS மற்றும் JS மூலம் இயக்கப்படும் animations-ஐ மாற்றுவதில்லை {/*view-transitions-do-not-replace-css-and-js-driven-animations*/}
 
-View Transitions are meant to be used for UI transitions such as navigation, expanding, opening, or re-ordering. They are not meant to replace all the animations in your app.
+Navigation, expanding, opening, அல்லது re-ordering போன்ற UI transitions-க்காக View Transitions பயன்படுத்தப்பட வேண்டும். உங்கள் app-இல் உள்ள எல்லா animations-க்கும் இது மாற்றாக இல்லை.
 
-In our example app above, notice that there are already animations when you click the "like" button and in the Suspense fallback glimmer. These are good use cases for CSS animations because they are animating a specific element.
+மேலுள்ள example app-இல், "like" button click செய்யும்போதும் Suspense fallback glimmer-இலும் ஏற்கனவே animations இருப்பதை கவனியுங்கள். ஒரு குறிப்பிட்ட element-ஐ animate செய்வதால் இவை CSS animations-க்கு நல்ல use cases.
 
 </Note>
 
-### Animating navigations {/*animating-navigations*/}
+### Navigations-ஐ animate செய்தல் {/*animating-navigations*/}
 
-Our app includes a Suspense-enabled router, with [page transitions already marked as Transitions](/reference/react/useTransition#building-a-suspense-enabled-router), which means navigations are performed with `startTransition`:
+எங்கள் app-இல் Suspense-enabled router உள்ளது; இதில் [page transitions ஏற்கனவே Transitions ஆகக் குறிக்கப்பட்டுள்ளன](/reference/react/useTransition#building-a-suspense-enabled-router). அதனால் navigations `startTransition` மூலம் செய்யப்படுகின்றன:
 
 ```js
 function navigate(url) {
@@ -1282,7 +1282,7 @@ function navigate(url) {
 }
 ```
 
-`startTransition` is a View Transition trigger, so we can add `<ViewTransition>` to animate between pages:
+`startTransition` ஒரு View Transition trigger; எனவே pages இடையே animate செய்ய `<ViewTransition>` சேர்க்கலாம்:
 
 ```js
 // "what" to animate
@@ -1291,10 +1291,10 @@ function navigate(url) {
 </ViewTransition>
 ```
 
-When the `url` changes, the `<ViewTransition>` and new route are rendered. Since the `<ViewTransition>` was updated inside of `startTransition`, the `<ViewTransition>` is activated for an animation.
+`url` மாறும் போது, `<ViewTransition>` மற்றும் புதிய route render செய்யப்படுகின்றன. `<ViewTransition>` `startTransition`-க்குள் update செய்யப்பட்டதால், animation-க்காக `<ViewTransition>` activate ஆகிறது.
 
 
-By default, View Transitions include the browser default cross-fade animation. Adding this to our example, we now have a cross-fade whenever we navigate between pages:
+Default ஆக, View Transitions browser-ன் default cross-fade animation-ஐ கொண்டிருக்கும். இதை எங்கள் example-க்கு சேர்த்ததால், pages இடையே navigate செய்யும் ஒவ்வொரு முறையும் cross-fade கிடைக்கிறது:
 
 <Sandpack>
 
@@ -1356,7 +1356,7 @@ export default function Details() {
             navigateBack("/");
           }}
         >
-          <ChevronLeft /> Back
+          <ChevronLeft /> பின் செல்
         </div>
       }
     >
@@ -1386,7 +1386,7 @@ function SearchInput({ value, onChange }) {
   return (
     <form className="search" onSubmit={(e) => e.preventDefault()}>
       <label htmlFor={id} className="sr-only">
-        Search
+        தேடு
       </label>
       <div className="search-input">
         <div className="search-icon">
@@ -1395,7 +1395,7 @@ function SearchInput({ value, onChange }) {
         <input
           type="text"
           id={id}
-          placeholder="Search"
+          placeholder="தேடு"
           value={value}
           onChange={(e) => onChange(e.target.value)}
         />
@@ -1426,11 +1426,11 @@ export default function Home() {
   const [searchText, setSearchText] = useState("");
   const foundVideos = filterVideos(videos, searchText);
   return (
-    <Layout heading={<div className="fit">{count} Videos</div>}>
+    <Layout heading={<div className="fit">{count} வீடியோக்கள்</div>}>
       <SearchInput value={searchText} onChange={setSearchText} />
       <div className="video-list">
         {foundVideos.length === 0 && (
-          <div className="no-results">No results</div>
+          <div className="no-results">முடிவுகள் இல்லை</div>
         )}
         <div className="videos">
           {foundVideos.map((video) => (
@@ -1602,7 +1602,7 @@ export default function LikeButton({video}) {
   return (
     <button
       className={`like-button ${isLiked && 'liked'}`}
-      aria-label={isLiked ? 'Unsave' : 'Save'}
+      aria-label={isLiked ? 'சேமிப்பை நீக்கு' : 'சேமி'}
       onClick={() => {
         const nextIsLiked = !isLiked;
         if (nextIsLiked) {
@@ -1685,38 +1685,38 @@ export function Video({ video }) {
 const videos = [
   {
     id: '1',
-    title: 'First video',
-    description: 'Video description',
+    title: 'முதல் வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'blue',
   },
   {
     id: '2',
-    title: 'Second video',
-    description: 'Video description',
+    title: 'இரண்டாவது வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'red',
   },
   {
     id: '3',
-    title: 'Third video',
-    description: 'Video description',
+    title: 'மூன்றாவது வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'green',
   },
   {
     id: '4',
-    title: 'Fourth video',
-    description: 'Video description',
+    title: 'நான்காவது வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'purple',
   },
   {
     id: '5',
-    title: 'Fifth video',
-    description: 'Video description',
+    title: 'ஐந்தாவது வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'yellow',
   },
   {
     id: '6',
-    title: 'Sixth video',
-    description: 'Video description',
+    title: 'ஆறாவது வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'gray',
   },
 ];
@@ -2457,17 +2457,17 @@ root.render(
 
 </Sandpack>
 
-Since our router already updates the route using `startTransition`, this one line change to add `<ViewTransition>` activates with the default cross-fade animation.
+எங்கள் router ஏற்கனவே `startTransition` பயன்படுத்தி route-ஐ update செய்வதால், `<ViewTransition>` சேர்க்கும் இந்த ஒரு வரி மாற்றமே default cross-fade animation-ஐ activate செய்கிறது.
 
-If you're curious how this works, see the docs for [How does `<ViewTransition>` work?](/reference/react/ViewTransition#how-does-viewtransition-work)
+இது எப்படி வேலை செய்கிறது என்று அறிய விரும்பினால், docs-இல் உள்ள [`<ViewTransition>` எப்படி வேலை செய்கிறது?](/reference/react/ViewTransition#how-does-viewtransition-work) பகுதியைப் பார்க்கவும்.
 
 <Note>
 
-#### Opting out of `<ViewTransition>` animations {/*opting-out-of-viewtransition-animations*/}
+#### `<ViewTransition>` animations-இலிருந்து opt out செய்தல் {/*opting-out-of-viewtransition-animations*/}
 
-In this example, we're wrapping the root of the app in `<ViewTransition>` for simplicity, but this means that all transitions in the app will be animated, which can lead to unexpected animations.
+இந்த example-இல் தெளிவுக்காக app-ன் root-ஐ `<ViewTransition>`-இல் wrap செய்கிறோம். ஆனால் இதனால் app-இல் உள்ள எல்லா transitions-உம் animate ஆகும்; அது எதிர்பாராத animations-க்கு வழிவகுக்கலாம்.
 
-To fix, we're wrapping route children with `"none"` so each page can control its own animation:
+இதைக் சரிசெய்ய, ஒவ்வொரு page-உம் தன் animation-ஐ control செய்ய route children-ஐ `"none"` உடன் wrap செய்கிறோம்:
 
 ```js
 // Layout.js
@@ -2476,17 +2476,17 @@ To fix, we're wrapping route children with `"none"` so each page can control its
 </ViewTransition>
 ```
 
-In practice, navigations should be done via "enter" and "exit" props, or by using Transition Types.
+நடைமுறையில், navigations-ஐ "enter" மற்றும் "exit" props வழியாகவோ, அல்லது Transition Types பயன்படுத்தியோ செய்ய வேண்டும்.
 
 </Note>
 
-### Customizing animations {/*customizing-animations*/}
+### Animations-ஐ customize செய்தல் {/*customizing-animations*/}
 
-By default, `<ViewTransition>` includes the default cross-fade from the browser.
+Default ஆக, `<ViewTransition>` browser-இல் இருந்து default cross-fade-ஐ கொண்டிருக்கும்.
 
-To customize animations, you can provide props to the `<ViewTransition>` component to specify which animations to use, based on [how the `<ViewTransition>` activates](/reference/react/ViewTransition#props).
+Animations-ஐ customize செய்ய, [`<ViewTransition>` எப்படி activate ஆகிறது](/reference/react/ViewTransition#props) என்பதன் அடிப்படையில் எந்த animations பயன்படுத்த வேண்டும் என்பதை specify செய்ய `<ViewTransition>` component-க்கு props வழங்கலாம்.
 
-For example, we can slow down the `default` cross fade animation:
+உதாரணமாக, `default` cross fade animation-ஐ மெதுவாக்கலாம்:
 
 ```js
 <ViewTransition default="slow-fade">
@@ -2494,7 +2494,7 @@ For example, we can slow down the `default` cross fade animation:
 </ViewTransition>
 ```
 
-And define `slow-fade` in CSS using [view transition classes](/reference/react/ViewTransition#view-transition-class):
+[view transition classes](/reference/react/ViewTransition#view-transition-class) பயன்படுத்தி CSS-இல் `slow-fade`-ஐ define செய்யலாம்:
 
 ```css
 ::view-transition-old(.slow-fade) {
@@ -2506,7 +2506,7 @@ And define `slow-fade` in CSS using [view transition classes](/reference/react/V
 }
 ```
 
-Now, the cross fade is slower:
+இப்போது cross fade மெதுவாகிறது:
 
 <Sandpack>
 
@@ -2570,7 +2570,7 @@ export default function Details() {
             navigateBack("/");
           }}
         >
-          <ChevronLeft /> Back
+          <ChevronLeft /> பின் செல்
         </div>
       }
     >
@@ -2600,7 +2600,7 @@ function SearchInput({ value, onChange }) {
   return (
     <form className="search" onSubmit={(e) => e.preventDefault()}>
       <label htmlFor={id} className="sr-only">
-        Search
+        தேடு
       </label>
       <div className="search-input">
         <div className="search-icon">
@@ -2609,7 +2609,7 @@ function SearchInput({ value, onChange }) {
         <input
           type="text"
           id={id}
-          placeholder="Search"
+          placeholder="தேடு"
           value={value}
           onChange={(e) => onChange(e.target.value)}
         />
@@ -2640,11 +2640,11 @@ export default function Home() {
   const [searchText, setSearchText] = useState("");
   const foundVideos = filterVideos(videos, searchText);
   return (
-    <Layout heading={<div className="fit">{count} Videos</div>}>
+    <Layout heading={<div className="fit">{count} வீடியோக்கள்</div>}>
       <SearchInput value={searchText} onChange={setSearchText} />
       <div className="video-list">
         {foundVideos.length === 0 && (
-          <div className="no-results">No results</div>
+          <div className="no-results">முடிவுகள் இல்லை</div>
         )}
         <div className="videos">
           {foundVideos.map((video) => (
@@ -2816,7 +2816,7 @@ export default function LikeButton({video}) {
   return (
     <button
       className={`like-button ${isLiked && 'liked'}`}
-      aria-label={isLiked ? 'Unsave' : 'Save'}
+      aria-label={isLiked ? 'சேமிப்பை நீக்கு' : 'சேமி'}
       onClick={() => {
         const nextIsLiked = !isLiked;
         if (nextIsLiked) {
@@ -2899,38 +2899,38 @@ export function Video({ video }) {
 const videos = [
   {
     id: '1',
-    title: 'First video',
-    description: 'Video description',
+    title: 'முதல் வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'blue',
   },
   {
     id: '2',
-    title: 'Second video',
-    description: 'Video description',
+    title: 'இரண்டாவது வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'red',
   },
   {
     id: '3',
-    title: 'Third video',
-    description: 'Video description',
+    title: 'மூன்றாவது வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'green',
   },
   {
     id: '4',
-    title: 'Fourth video',
-    description: 'Video description',
+    title: 'நான்காவது வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'purple',
   },
   {
     id: '5',
-    title: 'Fifth video',
-    description: 'Video description',
+    title: 'ஐந்தாவது வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'yellow',
   },
   {
     id: '6',
-    title: 'Sixth video',
-    description: 'Video description',
+    title: 'ஆறாவது வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'gray',
   },
 ];
@@ -3685,13 +3685,13 @@ root.render(
 
 </Sandpack>
 
-See [Styling View Transitions](/reference/react/ViewTransition#styling-view-transitions) for a full guide on styling `<ViewTransition>`.
+`<ViewTransition>`-ஐ style செய்வதற்கான முழு வழிகாட்டிக்கு [Styling View Transitions](/reference/react/ViewTransition#styling-view-transitions)-ஐ பார்க்கவும்.
 
-### Shared Element Transitions {/*shared-element-transitions*/}
+### Shared Element Transitions பகிரப்பட்ட element மாற்றங்கள் {/*shared-element-transitions*/}
 
-When two pages include the same element, often you want to animate it from one page to the next.
+இரண்டு pages-லும் ஒரே element இருந்தால், அதை ஒரு page-இலிருந்து அடுத்த page-க்கு animate செய்ய நீங்கள் அடிக்கடி விரும்பலாம்.
 
-To do this you can add a unique `name` to the `<ViewTransition>`:
+இதற்கு `<ViewTransition>`-க்கு unique `name` சேர்க்கலாம்:
 
 ```js
 <ViewTransition name={`video-${video.id}`}>
@@ -3699,7 +3699,7 @@ To do this you can add a unique `name` to the `<ViewTransition>`:
 </ViewTransition>
 ```
 
-Now the video thumbnail animates between the two pages:
+இப்போது video thumbnail இரண்டு pages இடையே animate ஆகிறது:
 
 <Sandpack>
 
@@ -3764,7 +3764,7 @@ export default function Details() {
             navigateBack("/");
           }}
         >
-          <ChevronLeft /> Back
+          <ChevronLeft /> பின் செல்
         </div>
       }
     >
@@ -3794,7 +3794,7 @@ function SearchInput({ value, onChange }) {
   return (
     <form className="search" onSubmit={(e) => e.preventDefault()}>
       <label htmlFor={id} className="sr-only">
-        Search
+        தேடு
       </label>
       <div className="search-input">
         <div className="search-icon">
@@ -3803,7 +3803,7 @@ function SearchInput({ value, onChange }) {
         <input
           type="text"
           id={id}
-          placeholder="Search"
+          placeholder="தேடு"
           value={value}
           onChange={(e) => onChange(e.target.value)}
         />
@@ -3834,11 +3834,11 @@ export default function Home() {
   const [searchText, setSearchText] = useState("");
   const foundVideos = filterVideos(videos, searchText);
   return (
-    <Layout heading={<div className="fit">{count} Videos</div>}>
+    <Layout heading={<div className="fit">{count} வீடியோக்கள்</div>}>
       <SearchInput value={searchText} onChange={setSearchText} />
       <div className="video-list">
         {foundVideos.length === 0 && (
-          <div className="no-results">No results</div>
+          <div className="no-results">முடிவுகள் இல்லை</div>
         )}
         <div className="videos">
           {foundVideos.map((video) => (
@@ -4010,7 +4010,7 @@ export default function LikeButton({video}) {
   return (
     <button
       className={`like-button ${isLiked && 'liked'}`}
-      aria-label={isLiked ? 'Unsave' : 'Save'}
+      aria-label={isLiked ? 'சேமிப்பை நீக்கு' : 'சேமி'}
       onClick={() => {
         const nextIsLiked = !isLiked;
         if (nextIsLiked) {
@@ -4093,38 +4093,38 @@ export function Video({ video }) {
 const videos = [
   {
     id: '1',
-    title: 'First video',
-    description: 'Video description',
+    title: 'முதல் வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'blue',
   },
   {
     id: '2',
-    title: 'Second video',
-    description: 'Video description',
+    title: 'இரண்டாவது வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'red',
   },
   {
     id: '3',
-    title: 'Third video',
-    description: 'Video description',
+    title: 'மூன்றாவது வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'green',
   },
   {
     id: '4',
-    title: 'Fourth video',
-    description: 'Video description',
+    title: 'நான்காவது வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'purple',
   },
   {
     id: '5',
-    title: 'Fifth video',
-    description: 'Video description',
+    title: 'ஐந்தாவது வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'yellow',
   },
   {
     id: '6',
-    title: 'Sixth video',
-    description: 'Video description',
+    title: 'ஆறாவது வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'gray',
   },
 ];
@@ -4894,13 +4894,13 @@ root.render(
 
 </Sandpack>
 
-By default, React automatically generates a unique `name` for each element activated for a transition (see [How does `<ViewTransition>` work](/reference/react/ViewTransition#how-does-viewtransition-work)). When React sees a transition where a `<ViewTransition>` with a `name` is removed and a new `<ViewTransition>` with the same `name` is added, it will activate a shared element transition.
+Default ஆக, transition-க்காக activate செய்யப்படும் ஒவ்வொரு element-க்கும் React தானாக unique `name` generate செய்கிறது ([`<ViewTransition>` எப்படி வேலை செய்கிறது](/reference/react/ViewTransition#how-does-viewtransition-work) பார்க்கவும்). `name` கொண்ட ஒரு `<ViewTransition>` remove செய்யப்பட்டு, அதே `name` கொண்ட புதிய `<ViewTransition>` சேர்க்கப்படும் transition-ஐ React கண்டால், அது shared element transition-ஐ activate செய்யும்.
 
-For more info, see the docs for [Animating a Shared Element](/reference/react/ViewTransition#animating-a-shared-element).
+மேலும் தகவலுக்கு, docs-இல் உள்ள [Shared Element-ஐ animate செய்தல்](/reference/react/ViewTransition#animating-a-shared-element) பகுதியைப் பார்க்கவும்.
 
-### Animating based on cause {/*animating-based-on-cause*/}
+### காரணத்தின் அடிப்படையில் animate செய்தல் {/*animating-based-on-cause*/}
 
-Sometimes, you may want elements to animate differently based on how it was triggered. For this use case, we've added a new API called `addTransitionType` to specify the cause of a transition:
+சில நேரங்களில், அது எப்படி trigger செய்யப்பட்டது என்பதின் அடிப்படையில் elements வேறுபடியாக animate ஆக வேண்டும் என்று நீங்கள் விரும்பலாம். இந்த use case-க்காக, transition-ன் காரணத்தை specify செய்ய `addTransitionType` என்ற புதிய API-ஐ சேர்த்துள்ளோம்:
 
 ```js {4,11}
 function navigate(url) {
@@ -4919,7 +4919,7 @@ function navigateBack(url) {
 }
 ```
 
-With transition types, you can provide custom animations via props to `<ViewTransition>`. Let's add a shared element transition to the header for "6 Videos" and "Back":
+Transition types மூலம், `<ViewTransition>`-க்கு props வழியாக custom animations வழங்கலாம். "6 வீடியோக்கள்" மற்றும் "பின் செல்" ஆகிய header-க்கு shared element transition சேர்ப்போம்:
 
 ```js {4,5}
 <ViewTransition
@@ -4932,7 +4932,7 @@ With transition types, you can provide custom animations via props to `<ViewTran
 </ViewTransition>
 ```
 
-Here we pass a `share` prop to define how to animate based on the transition type. When the share transition activates from `nav-forward`, the view transition class `slide-forward` is applied. When it's from `nav-back`, the `slide-back` animation is activated. Let's define these animations in CSS:
+Transition type-ன் அடிப்படையில் எப்படி animate செய்ய வேண்டும் என்பதை define செய்ய இங்கு `share` prop-ஐ pass செய்கிறோம். Share transition `nav-forward`-இலிருந்து activate ஆகும் போது, `slide-forward` என்ற view transition class apply செய்யப்படுகிறது. அது `nav-back`-இலிருந்து வந்தால், `slide-back` animation activate ஆகும். இந்த animations-ஐ CSS-இல் define செய்வோம்:
 
 ```css
 ::view-transition-old(.slide-forward) {
@@ -4956,7 +4956,7 @@ Here we pass a `share` prop to define how to animate based on the transition typ
 }
 ```
 
-Now we can animate the header along with thumbnail based on navigation type:
+இப்போது navigation type-ன் அடிப்படையில் thumbnail உடன் header-ஐயும் animate செய்யலாம்:
 
 <Sandpack>
 
@@ -5019,7 +5019,7 @@ export default function Details() {
             navigateBack("/");
           }}
         >
-          <ChevronLeft /> Back
+          <ChevronLeft /> பின் செல்
         </div>
       }
     >
@@ -5049,7 +5049,7 @@ function SearchInput({ value, onChange }) {
   return (
     <form className="search" onSubmit={(e) => e.preventDefault()}>
       <label htmlFor={id} className="sr-only">
-        Search
+        தேடு
       </label>
       <div className="search-input">
         <div className="search-icon">
@@ -5058,7 +5058,7 @@ function SearchInput({ value, onChange }) {
         <input
           type="text"
           id={id}
-          placeholder="Search"
+          placeholder="தேடு"
           value={value}
           onChange={(e) => onChange(e.target.value)}
         />
@@ -5089,11 +5089,11 @@ export default function Home() {
   const [searchText, setSearchText] = useState("");
   const foundVideos = filterVideos(videos, searchText);
   return (
-    <Layout heading={<div className="fit">{count} Videos</div>}>
+    <Layout heading={<div className="fit">{count} வீடியோக்கள்</div>}>
       <SearchInput value={searchText} onChange={setSearchText} />
       <div className="video-list">
         {foundVideos.length === 0 && (
-          <div className="no-results">No results</div>
+          <div className="no-results">முடிவுகள் இல்லை</div>
         )}
         <div className="videos">
           {foundVideos.map((video) => (
@@ -5272,7 +5272,7 @@ export default function LikeButton({video}) {
   return (
     <button
       className={`like-button ${isLiked && 'liked'}`}
-      aria-label={isLiked ? 'Unsave' : 'Save'}
+      aria-label={isLiked ? 'சேமிப்பை நீக்கு' : 'சேமி'}
       onClick={() => {
         const nextIsLiked = !isLiked;
         if (nextIsLiked) {
@@ -5359,38 +5359,38 @@ export function Video({ video }) {
 const videos = [
   {
     id: '1',
-    title: 'First video',
-    description: 'Video description',
+    title: 'முதல் வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'blue',
   },
   {
     id: '2',
-    title: 'Second video',
-    description: 'Video description',
+    title: 'இரண்டாவது வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'red',
   },
   {
     id: '3',
-    title: 'Third video',
-    description: 'Video description',
+    title: 'மூன்றாவது வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'green',
   },
   {
     id: '4',
-    title: 'Fourth video',
-    description: 'Video description',
+    title: 'நான்காவது வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'purple',
   },
   {
     id: '5',
-    title: 'Fifth video',
-    description: 'Video description',
+    title: 'ஐந்தாவது வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'yellow',
   },
   {
     id: '6',
-    title: 'Sixth video',
-    description: 'Video description',
+    title: 'ஆறாவது வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'gray',
   },
 ];
@@ -6210,11 +6210,11 @@ root.render(
 
 </Sandpack>
 
-### Animating Suspense Boundaries {/*animating-suspense-boundaries*/}
+### Suspense Boundaries-ஐ animate செய்தல் {/*animating-suspense-boundaries*/}
 
-Suspense will also activate View Transitions.
+Suspense-உம் View Transitions-ஐ activate செய்யும்.
 
-To animate the fallback to content, we can wrap `Suspense` with `<ViewTranstion>`:
+Fallback content-ஆக மாறுவதை animate செய்ய, `Suspense`-ஐ `<ViewTranstion>` கொண்டு wrap செய்யலாம்:
 
 ```js
 <ViewTransition>
@@ -6224,7 +6224,7 @@ To animate the fallback to content, we can wrap `Suspense` with `<ViewTranstion>
 </ViewTransition>
 ```
 
-By adding this, the fallback will cross-fade into the content. Click a video and see the video info animate in:
+இதைக் சேர்த்தால், fallback content-ஆக cross-fade ஆகும். ஒரு video-வை click செய்து, video info animate ஆகி வருவது எப்படி என்பதை பாருங்கள்:
 
 <Sandpack>
 
@@ -6283,7 +6283,7 @@ export default function Details() {
             navigateBack("/");
           }}
         >
-          <ChevronLeft /> Back
+          <ChevronLeft /> பின் செல்
         </div>
       }
     >
@@ -6320,7 +6320,7 @@ function SearchInput({ value, onChange }) {
   return (
     <form className="search" onSubmit={(e) => e.preventDefault()}>
       <label htmlFor={id} className="sr-only">
-        Search
+        தேடு
       </label>
       <div className="search-input">
         <div className="search-icon">
@@ -6329,7 +6329,7 @@ function SearchInput({ value, onChange }) {
         <input
           type="text"
           id={id}
-          placeholder="Search"
+          placeholder="தேடு"
           value={value}
           onChange={(e) => onChange(e.target.value)}
         />
@@ -6360,11 +6360,11 @@ export default function Home() {
   const [searchText, setSearchText] = useState("");
   const foundVideos = filterVideos(videos, searchText);
   return (
-    <Layout heading={<div className="fit">{count} Videos</div>}>
+    <Layout heading={<div className="fit">{count} வீடியோக்கள்</div>}>
       <SearchInput value={searchText} onChange={setSearchText} />
       <div className="video-list">
         {foundVideos.length === 0 && (
-          <div className="no-results">No results</div>
+          <div className="no-results">முடிவுகள் இல்லை</div>
         )}
         <div className="videos">
           {foundVideos.map((video) => (
@@ -6544,7 +6544,7 @@ export default function LikeButton({video}) {
   return (
     <button
       className={`like-button ${isLiked && 'liked'}`}
-      aria-label={isLiked ? 'Unsave' : 'Save'}
+      aria-label={isLiked ? 'சேமிப்பை நீக்கு' : 'சேமி'}
       onClick={() => {
         const nextIsLiked = !isLiked;
         if (nextIsLiked) {
@@ -6631,38 +6631,38 @@ export function Video({ video }) {
 const videos = [
   {
     id: '1',
-    title: 'First video',
-    description: 'Video description',
+    title: 'முதல் வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'blue',
   },
   {
     id: '2',
-    title: 'Second video',
-    description: 'Video description',
+    title: 'இரண்டாவது வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'red',
   },
   {
     id: '3',
-    title: 'Third video',
-    description: 'Video description',
+    title: 'மூன்றாவது வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'green',
   },
   {
     id: '4',
-    title: 'Fourth video',
-    description: 'Video description',
+    title: 'நான்காவது வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'purple',
   },
   {
     id: '5',
-    title: 'Fifth video',
-    description: 'Video description',
+    title: 'ஐந்தாவது வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'yellow',
   },
   {
     id: '6',
-    title: 'Sixth video',
-    description: 'Video description',
+    title: 'ஆறாவது வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'gray',
   },
 ];
@@ -7508,7 +7508,7 @@ root.render(
 
 </Sandpack>
 
-We can also provide custom animations using an `exit` on the fallback, and `enter` on the content:
+Fallback-இல் `exit` மற்றும் content-இல் `enter` பயன்படுத்தி custom animations-ஐயும் வழங்கலாம்:
 
 ```js {3,8}
 <Suspense
@@ -7524,7 +7524,7 @@ We can also provide custom animations using an `exit` on the fallback, and `ente
 </Suspense>
 ```
 
-Here's how we'll define `slide-down` and `slide-up` with CSS:
+CSS-இல் `slide-down` மற்றும் `slide-up`-ஐ இப்படி define செய்வோம்:
 
 ```css {1, 6}
 ::view-transition-old(.slide-down) {
@@ -7538,7 +7538,7 @@ Here's how we'll define `slide-down` and `slide-up` with CSS:
 }
 ```
 
-Now, the Suspense content replaces the fallback with a sliding animation:
+இப்போது Suspense content, sliding animation உடன் fallback-ஐ மாற்றுகிறது:
 
 <Sandpack>
 
@@ -7604,7 +7604,7 @@ export default function Details() {
             navigateBack("/");
           }}
         >
-          <ChevronLeft /> Back
+          <ChevronLeft /> பின் செல்
         </div>
       }
     >
@@ -7641,7 +7641,7 @@ function SearchInput({ value, onChange }) {
   return (
     <form className="search" onSubmit={(e) => e.preventDefault()}>
       <label htmlFor={id} className="sr-only">
-        Search
+        தேடு
       </label>
       <div className="search-input">
         <div className="search-icon">
@@ -7650,7 +7650,7 @@ function SearchInput({ value, onChange }) {
         <input
           type="text"
           id={id}
-          placeholder="Search"
+          placeholder="தேடு"
           value={value}
           onChange={(e) => onChange(e.target.value)}
         />
@@ -7681,11 +7681,11 @@ export default function Home() {
   const [searchText, setSearchText] = useState("");
   const foundVideos = filterVideos(videos, searchText);
   return (
-    <Layout heading={<div className="fit">{count} Videos</div>}>
+    <Layout heading={<div className="fit">{count} வீடியோக்கள்</div>}>
       <SearchInput value={searchText} onChange={setSearchText} />
       <div className="video-list">
         {foundVideos.length === 0 && (
-          <div className="no-results">No results</div>
+          <div className="no-results">முடிவுகள் இல்லை</div>
         )}
         <div className="videos">
           {foundVideos.map((video) => (
@@ -7865,7 +7865,7 @@ export default function LikeButton({video}) {
   return (
     <button
       className={`like-button ${isLiked && 'liked'}`}
-      aria-label={isLiked ? 'Unsave' : 'Save'}
+      aria-label={isLiked ? 'சேமிப்பை நீக்கு' : 'சேமி'}
       onClick={() => {
         const nextIsLiked = !isLiked;
         if (nextIsLiked) {
@@ -7952,38 +7952,38 @@ export function Video({ video }) {
 const videos = [
   {
     id: '1',
-    title: 'First video',
-    description: 'Video description',
+    title: 'முதல் வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'blue',
   },
   {
     id: '2',
-    title: 'Second video',
-    description: 'Video description',
+    title: 'இரண்டாவது வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'red',
   },
   {
     id: '3',
-    title: 'Third video',
-    description: 'Video description',
+    title: 'மூன்றாவது வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'green',
   },
   {
     id: '4',
-    title: 'Fourth video',
-    description: 'Video description',
+    title: 'நான்காவது வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'purple',
   },
   {
     id: '5',
-    title: 'Fifth video',
-    description: 'Video description',
+    title: 'ஐந்தாவது வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'yellow',
   },
   {
     id: '6',
-    title: 'Sixth video',
-    description: 'Video description',
+    title: 'ஆறாவது வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'gray',
   },
 ];
@@ -8830,9 +8830,9 @@ root.render(
 </Sandpack>
 
 
-### Animating Lists {/*animating-lists*/}
+### Lists-ஐ animate செய்தல் {/*animating-lists*/}
 
-You can also use `<ViewTransition>` to animate lists of items as they re-order, like in a searchable list of items:
+Search செய்யக்கூடிய items list போன்றவற்றில் items re-order ஆகும் போது lists-ஐ animate செய்யவும் `<ViewTransition>` பயன்படுத்தலாம்:
 
 ```js {3,5}
 <div className="videos">
@@ -8844,7 +8844,7 @@ You can also use `<ViewTransition>` to animate lists of items as they re-order, 
 </div>
 ```
 
-To activate the ViewTransition, we can use `useDeferredValue`:
+ViewTransition-ஐ activate செய்ய `useDeferredValue` பயன்படுத்தலாம்:
 
 ```js {2}
 const [searchText, setSearchText] = useState('');
@@ -8852,7 +8852,7 @@ const deferredSearchText = useDeferredValue(searchText);
 const filteredVideos = filterVideos(videos, deferredSearchText);
 ```
 
-Now the items animate as you type in the search bar:
+இப்போது search bar-இல் type செய்யும் போது items animate ஆகின்றன:
 
 <Sandpack>
 
@@ -8924,7 +8924,7 @@ export default function Details() {
             navigateBack("/");
           }}
         >
-          <ChevronLeft /> Back
+          <ChevronLeft /> பின் செல்
         </div>
       }
     >
@@ -8967,7 +8967,7 @@ function SearchList({searchText, videos}) {
         ))}
       </div>
       {filteredVideos.length === 0 && (
-        <div className="no-results">No results</div>
+        <div className="no-results">முடிவுகள் இல்லை</div>
       )}
     </div>
   );
@@ -8979,7 +8979,7 @@ export default function Home() {
   const [searchText, setSearchText] = useState('');
 
   return (
-    <Layout heading={<div className="fit">{count} Videos</div>}>
+    <Layout heading={<div className="fit">{count} வீடியோக்கள்</div>}>
       <SearchInput value={searchText} onChange={setSearchText} />
       <SearchList videos={videos} searchText={searchText} />
     </Layout>
@@ -8991,7 +8991,7 @@ function SearchInput({ value, onChange }) {
   return (
     <form className="search" onSubmit={(e) => e.preventDefault()}>
       <label htmlFor={id} className="sr-only">
-        Search
+        தேடு
       </label>
       <div className="search-input">
         <div className="search-icon">
@@ -9000,7 +9000,7 @@ function SearchInput({ value, onChange }) {
         <input
           type="text"
           id={id}
-          placeholder="Search"
+          placeholder="தேடு"
           value={value}
           onChange={(e) => onChange(e.target.value)}
         />
@@ -9192,7 +9192,7 @@ export default function LikeButton({video}) {
   return (
     <button
       className={`like-button ${isLiked && 'liked'}`}
-      aria-label={isLiked ? 'Unsave' : 'Save'}
+      aria-label={isLiked ? 'சேமிப்பை நீக்கு' : 'சேமி'}
       onClick={() => {
         const nextIsLiked = !isLiked;
         if (nextIsLiked) {
@@ -9279,38 +9279,38 @@ export function Video({ video }) {
 const videos = [
   {
     id: '1',
-    title: 'First video',
-    description: 'Video description',
+    title: 'முதல் வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'blue',
   },
   {
     id: '2',
-    title: 'Second video',
-    description: 'Video description',
+    title: 'இரண்டாவது வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'red',
   },
   {
     id: '3',
-    title: 'Third video',
-    description: 'Video description',
+    title: 'மூன்றாவது வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'green',
   },
   {
     id: '4',
-    title: 'Fourth video',
-    description: 'Video description',
+    title: 'நான்காவது வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'purple',
   },
   {
     id: '5',
-    title: 'Fifth video',
-    description: 'Video description',
+    title: 'ஐந்தாவது வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'yellow',
   },
   {
     id: '6',
-    title: 'Sixth video',
-    description: 'Video description',
+    title: 'ஆறாவது வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'gray',
   },
 ];
@@ -10170,13 +10170,13 @@ root.render(
 
 </Sandpack>
 
-### Final result {/*final-result*/}
+### இறுதி முடிவு {/*final-result*/}
 
-By adding a few `<ViewTransition>` components and a few lines of CSS, we were able to add all the animations above into the final result.
+சில `<ViewTransition>` components மற்றும் சில CSS வரிகளைச் சேர்த்ததன் மூலம், மேலுள்ள எல்லா animations-ஐயும் இறுதி முடிவில் சேர்க்க முடிந்தது.
 
-We're excited about View Transitions and think they will level up the apps you're able to build. They're ready to start trying today in the experimental channel of React releases.
+View Transitions பற்றி எங்களுக்கு உற்சாகம் உள்ளது; நீங்கள் உருவாக்கக்கூடிய apps-ஐ அவை ஒரு நிலை உயர்த்தும் என்று நினைக்கிறோம். React releases-ன் experimental channel-இல் இன்று முயற்சிக்கத் தயாராக உள்ளன.
 
-Let's remove the slow fade, and take a look at the final result:
+Slow fade-ஐ அகற்றி, இறுதி முடிவைப் பார்ப்போம்:
 
 <Sandpack>
 
@@ -10240,7 +10240,7 @@ export default function Details() {
             navigateBack("/");
           }}
         >
-          <ChevronLeft /> Back
+          <ChevronLeft /> பின் செல்
         </div>
       }
     >
@@ -10283,7 +10283,7 @@ function SearchList({searchText, videos}) {
         ))}
       </div>
       {filteredVideos.length === 0 && (
-        <div className="no-results">No results</div>
+        <div className="no-results">முடிவுகள் இல்லை</div>
       )}
     </div>
   );
@@ -10295,7 +10295,7 @@ export default function Home() {
   const [searchText, setSearchText] = useState('');
 
   return (
-    <Layout heading={<div className="fit">{count} Videos</div>}>
+    <Layout heading={<div className="fit">{count} வீடியோக்கள்</div>}>
       <SearchInput value={searchText} onChange={setSearchText} />
       <SearchList videos={videos} searchText={searchText} />
     </Layout>
@@ -10307,7 +10307,7 @@ function SearchInput({ value, onChange }) {
   return (
     <form className="search" onSubmit={(e) => e.preventDefault()}>
       <label htmlFor={id} className="sr-only">
-        Search
+        தேடு
       </label>
       <div className="search-input">
         <div className="search-icon">
@@ -10316,7 +10316,7 @@ function SearchInput({ value, onChange }) {
         <input
           type="text"
           id={id}
-          placeholder="Search"
+          placeholder="தேடு"
           value={value}
           onChange={(e) => onChange(e.target.value)}
         />
@@ -10507,7 +10507,7 @@ export default function LikeButton({video}) {
   return (
     <button
       className={`like-button ${isLiked && 'liked'}`}
-      aria-label={isLiked ? 'Unsave' : 'Save'}
+      aria-label={isLiked ? 'சேமிப்பை நீக்கு' : 'சேமி'}
       onClick={() => {
         const nextIsLiked = !isLiked;
         if (nextIsLiked) {
@@ -10591,38 +10591,38 @@ export function Video({ video }) {
 const videos = [
   {
     id: '1',
-    title: 'First video',
-    description: 'Video description',
+    title: 'முதல் வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'blue',
   },
   {
     id: '2',
-    title: 'Second video',
-    description: 'Video description',
+    title: 'இரண்டாவது வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'red',
   },
   {
     id: '3',
-    title: 'Third video',
-    description: 'Video description',
+    title: 'மூன்றாவது வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'green',
   },
   {
     id: '4',
-    title: 'Fourth video',
-    description: 'Video description',
+    title: 'நான்காவது வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'purple',
   },
   {
     id: '5',
-    title: 'Fifth video',
-    description: 'Video description',
+    title: 'ஐந்தாவது வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'yellow',
   },
   {
     id: '6',
-    title: 'Sixth video',
-    description: 'Video description',
+    title: 'ஆறாவது வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'gray',
   },
 ];
@@ -11456,9 +11456,9 @@ root.render(
 
 </Sandpack>
 
-If you're curious to know more about how they work, check out [How Does `<ViewTransition>` Work](/reference/react/ViewTransition#how-does-viewtransition-work) in the docs.
+அவை எப்படி வேலை செய்கின்றன என்பதை மேலும் அறிய விரும்பினால், docs-இல் உள்ள [`<ViewTransition>` எப்படி வேலை செய்கிறது](/reference/react/ViewTransition#how-does-viewtransition-work) பகுதியைப் பார்க்கவும்.
 
-_For more background on how we built View Transitions, see: [#31975](https://github.com/facebook/react/pull/31975), [#32105](https://github.com/facebook/react/pull/32105), [#32041](https://github.com/facebook/react/pull/32041), [#32734](https://github.com/facebook/react/pull/32734), [#32797](https://github.com/facebook/react/pull/32797) [#31999](https://github.com/facebook/react/pull/31999), [#32031](https://github.com/facebook/react/pull/32031), [#32050](https://github.com/facebook/react/pull/32050), [#32820](https://github.com/facebook/react/pull/32820), [#32029](https://github.com/facebook/react/pull/32029), [#32028](https://github.com/facebook/react/pull/32028), and [#32038](https://github.com/facebook/react/pull/32038) by [@sebmarkbage](https://twitter.com/sebmarkbage) (thanks Seb!)._
+_View Transitions-ஐ எவ்வாறு உருவாக்கினோம் என்ற கூடுதல் பின்னணிக்கு, [@sebmarkbage](https://twitter.com/sebmarkbage) உருவாக்கிய [#31975](https://github.com/facebook/react/pull/31975), [#32105](https://github.com/facebook/react/pull/32105), [#32041](https://github.com/facebook/react/pull/32041), [#32734](https://github.com/facebook/react/pull/32734), [#32797](https://github.com/facebook/react/pull/32797), [#31999](https://github.com/facebook/react/pull/31999), [#32031](https://github.com/facebook/react/pull/32031), [#32050](https://github.com/facebook/react/pull/32050), [#32820](https://github.com/facebook/react/pull/32820), [#32029](https://github.com/facebook/react/pull/32029), [#32028](https://github.com/facebook/react/pull/32028), மற்றும் [#32038](https://github.com/facebook/react/pull/32038)-ஐ பார்க்கவும் (நன்றி Seb!)._
 
 ---
 
@@ -11466,17 +11466,17 @@ _For more background on how we built View Transitions, see: [#31975](https://git
 
 <Note>
 
-**`<Activity />` is now available in React’s Canary channel.**
+**`<Activity />` இப்போது React-ன் Canary channel-இல் கிடைக்கிறது.**
 
-[Learn more about React’s release channels here.](/community/versioning-policy#all-release-channels)
+[React-ன் release channels பற்றி இங்கே மேலும் அறிக.](/community/versioning-policy#all-release-channels)
 
 </Note>
 
-In [past](/blog/2022/06/15/react-labs-what-we-have-been-working-on-june-2022#offscreen) [updates](/blog/2024/02/15/react-labs-what-we-have-been-working-on-february-2024#offscreen-renamed-to-activity), we shared that we were researching an API to allow components to be visually hidden and deprioritized, preserving UI state with reduced performance costs relative to unmounting or hiding with CSS.
+[முந்தைய](/blog/2022/06/15/react-labs-what-we-have-been-working-on-june-2022#offscreen) [updates-இல்](/blog/2024/02/15/react-labs-what-we-have-been-working-on-february-2024#offscreen-renamed-to-activity), components-ஐ visually hidden ஆகவும் deprioritized ஆகவும் வைத்திருக்க, அதே நேரத்தில் UI state-ஐ preserve செய்து, unmount செய்வதோ CSS மூலம் hide செய்வதோடு ஒப்பிடும்போது performance cost-ஐ குறைக்கும் API பற்றி research செய்து வருகிறோம் என்று பகிர்ந்தோம்.
 
-We're now ready to share the API and how it works, so you can start testing it in experimental React versions.
+இப்போது அந்த API-யையும் அது எப்படி வேலை செய்கிறது என்பதையும் பகிரத் தயாராக உள்ளோம்; அதனால் experimental React versions-இல் அதை test செய்ய தொடங்கலாம்.
 
-`<Activity>` is a new component to hide and show parts of the UI:
+`<Activity>` என்பது UI-ன் பகுதிகளை hide மற்றும் show செய்யும் புதிய component:
 
 ```js [[1, 1, "'visible'"], [2, 1, "'hidden'"]]
 <Activity mode={isVisible ? 'visible' : 'hidden'}>
@@ -11484,25 +11484,25 @@ We're now ready to share the API and how it works, so you can start testing it i
 </Activity>
 ```
 
-When an Activity is <CodeStep step={1}>visible</CodeStep> it's rendered as normal. When an Activity is <CodeStep step={2}>hidden</CodeStep> it is unmounted, but will save its state and continue to render at a lower priority than anything visible on screen.
+ஒரு Activity <CodeStep step={1}>visible</CodeStep> ஆக இருக்கும் போது, அது வழக்கம்போல் render செய்யப்படுகிறது. Activity <CodeStep step={2}>hidden</CodeStep> ஆக இருக்கும் போது, அது unmount செய்யப்படும்; ஆனால் அதன் state save செய்யப்படும், மேலும் screen-இல் visible ஆக இருப்பதையெல்லாம் விட குறைந்த priority-யில் render தொடரும்.
 
-You can use `Activity` to save state for parts of the UI the user isn't using, or pre-render parts that a user is likely to use next.
+User பயன்படுத்தாத UI பகுதிகளின் state-ஐ save செய்ய, அல்லது user அடுத்ததாக பயன்படுத்த வாய்ப்புள்ள பகுதிகளை pre-render செய்ய `Activity` பயன்படுத்தலாம்.
 
-Let's look at some examples improving the View Transition examples above.
+மேலுள்ள View Transition examples-ஐ மேம்படுத்தும் சில examples-ஐ பார்க்கலாம்.
 
 <Note>
 
-**Effects don’t mount when an Activity is hidden.**
+**ஒரு Activity hidden ஆக இருக்கும் போது Effects mount ஆகாது.**
 
-When an `<Activity>` is `hidden`, Effects are unmounted. Conceptually, the component is unmounted, but React saves the state for later.
+ஒரு `<Activity>` `hidden` ஆக இருக்கும் போது, Effects unmount செய்யப்படுகின்றன. Conceptually, component unmount செய்யப்படுகிறது; ஆனால் React state-ஐ பின்னர் பயன்படுத்த save செய்கிறது.
 
-In practice, this works as expected if you have followed the [You Might Not Need an Effect](/learn/you-might-not-need-an-effect) guide. To eagerly find problematic Effects, we recommend adding [`<StrictMode>`](/reference/react/StrictMode) which will eagerly perform Activity unmounts and mounts to catch any unexpected side effects.
+நடைமுறையில், [உங்களுக்கு Effect தேவைப்படாமல் இருக்கலாம்](/learn/you-might-not-need-an-effect) வழிகாட்டியை நீங்கள் பின்பற்றியிருந்தால் இது எதிர்பார்த்தபடி வேலை செய்யும். Problematic Effects-ஐ விரைவாக கண்டுபிடிக்க, [`<StrictMode>`](/reference/react/StrictMode) சேர்க்க பரிந்துரைக்கிறோம்; அது unexpected side effects-ஐ பிடிக்க Activity unmounts மற்றும் mounts-ஐ முன்கூட்டியே perform செய்யும்.
 
 </Note>
 
-### Restoring state with Activity {/*restoring-state-with-activity*/}
+### Activity மூலம் state-ஐ restore செய்தல் {/*restoring-state-with-activity*/}
 
-When a user navigates away from a page, it's common to stop rendering the old page:
+User ஒரு page-இலிருந்து navigate away செய்யும் போது, பழைய page-ஐ render செய்வதை நிறுத்துவது பொதுவானது:
 
 ```js {6,7}
 function App() {
@@ -11517,9 +11517,9 @@ function App() {
 }
 ```
 
-However, this means if the user goes back to the old page, all of the previous state is lost. For example, if the `<Home />` page has an `<input>` field, when the user leaves the page the `<input>` is unmounted, and all of the text they had typed is lost.
+ஆனால் இதன் பொருள், user பழைய page-க்கு திரும்பினால் முந்தைய state அனைத்தும் இழக்கப்படும். உதாரணமாக, `<Home />` page-இல் ஒரு `<input>` field இருந்தால், user page-ஐ விட்டு சென்றபோது அந்த `<input>` unmount செய்யப்படும்; அவர்கள் type செய்த text அனைத்தும் இழக்கப்படும்.
 
-Activity allows you to keep the state around as the user changes pages, so when they come back they can resume where they left off. This is done by wrapping part of the tree in `<Activity>` and toggling the `mode`:
+User pages மாற்றும் போது state-ஐ வைத்திருக்க Activity அனுமதிக்கிறது; அதனால் அவர்கள் திரும்பி வரும்போது விட்ட இடத்திலிருந்து தொடரலாம். Tree-ன் ஒரு பகுதியை `<Activity>`-இல் wrap செய்து `mode`-ஐ toggle செய்வதன் மூலம் இது செய்யப்படுகிறது:
 
 ```js {6-8}
 function App() {
@@ -11536,9 +11536,9 @@ function App() {
 }
 ```
 
-With this change, we can improve on our View Transitions example above. Before, when you searched for a video, selected one, and returned, your search filter was lost. With Activity, your search filter is restored and you can pick up where you left off.
+இந்த மாற்றத்தால், மேலுள்ள View Transitions example-ஐ மேம்படுத்தலாம். முன்பு, நீங்கள் ஒரு video-வை search செய்து, ஒன்றை select செய்து, திரும்பியபோது search filter இழந்துவிடும். Activity மூலம், search filter restore ஆகும்; நீங்கள் விட்ட இடத்திலிருந்து தொடரலாம்.
 
-Try searching for a video, selecting it, and clicking "back":
+ஒரு video-வை search செய்து, அதை select செய்து, "பின் செல்" click செய்து பாருங்கள்:
 
 <Sandpack>
 
@@ -11611,7 +11611,7 @@ export default function Details() {
             navigateBack("/");
           }}
         >
-          <ChevronLeft /> Back
+          <ChevronLeft /> பின் செல்
         </div>
       }
     >
@@ -11646,7 +11646,7 @@ function SearchList({searchText, videos}) {
   return (
     <div className="video-list">
       {filteredVideos.length === 0 && (
-        <div className="no-results">No results</div>
+        <div className="no-results">முடிவுகள் இல்லை</div>
       )}
       <div className="videos">
         {filteredVideos.map((video) => (
@@ -11666,7 +11666,7 @@ export default function Home() {
   const [searchText, setSearchText] = useState('');
 
   return (
-    <Layout heading={<div className="fit">{count} Videos</div>}>
+    <Layout heading={<div className="fit">{count} வீடியோக்கள்</div>}>
       <SearchInput value={searchText} onChange={setSearchText} />
       <SearchList videos={videos} searchText={searchText} />
     </Layout>
@@ -11678,7 +11678,7 @@ function SearchInput({ value, onChange }) {
   return (
     <form className="search" onSubmit={(e) => e.preventDefault()}>
       <label htmlFor={id} className="sr-only">
-        Search
+        தேடு
       </label>
       <div className="search-input">
         <div className="search-icon">
@@ -11687,7 +11687,7 @@ function SearchInput({ value, onChange }) {
         <input
           type="text"
           id={id}
-          placeholder="Search"
+          placeholder="தேடு"
           value={value}
           onChange={(e) => onChange(e.target.value)}
         />
@@ -11878,7 +11878,7 @@ export default function LikeButton({video}) {
   return (
     <button
       className={`like-button ${isLiked && 'liked'}`}
-      aria-label={isLiked ? 'Unsave' : 'Save'}
+      aria-label={isLiked ? 'சேமிப்பை நீக்கு' : 'சேமி'}
       onClick={() => {
         const nextIsLiked = !isLiked;
         if (nextIsLiked) {
@@ -11965,38 +11965,38 @@ export function Video({ video }) {
 const videos = [
   {
     id: '1',
-    title: 'First video',
-    description: 'Video description',
+    title: 'முதல் வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'blue',
   },
   {
     id: '2',
-    title: 'Second video',
-    description: 'Video description',
+    title: 'இரண்டாவது வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'red',
   },
   {
     id: '3',
-    title: 'Third video',
-    description: 'Video description',
+    title: 'மூன்றாவது வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'green',
   },
   {
     id: '4',
-    title: 'Fourth video',
-    description: 'Video description',
+    title: 'நான்காவது வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'purple',
   },
   {
     id: '5',
-    title: 'Fifth video',
-    description: 'Video description',
+    title: 'ஐந்தாவது வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'yellow',
   },
   {
     id: '6',
-    title: 'Sixth video',
-    description: 'Video description',
+    title: 'ஆறாவது வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'gray',
   },
 ];
@@ -12855,11 +12855,11 @@ root.render(
 
 </Sandpack>
 
-### Pre-rendering with Activity {/*prerender-with-activity*/}
+### Activity மூலம் pre-render செய்தல் {/*prerender-with-activity*/}
 
-Sometimes, you may want to prepare the next part of the UI a user is likely to use ahead of time, so it's ready by the time they are ready to use it. This is especially useful if the next route needs to suspend on data it needs to render, because you can help ensure the data is already fetched before the user navigates.
+சில நேரங்களில், user அடுத்ததாக பயன்படுத்த வாய்ப்புள்ள UI பகுதியை முன்கூட்டியே prepare செய்ய விரும்பலாம்; அவர்கள் அதை பயன்படுத்தத் தயாராகும் நேரத்தில் அது தயாராக இருக்கும். அடுத்த route render செய்ய தேவையான data-வால் suspend ஆக வேண்டியிருந்தால் இது குறிப்பாக பயனுள்ளது, ஏனெனில் user navigate செய்வதற்கு முன்பே data fetch செய்யப்பட்டிருப்பதை உறுதி செய்ய உதவலாம்.
 
-For example, our app currently needs to suspend to load the data for each video when you select one. We can improve this by rendering all of the pages in a hidden `<Activity>` until the user navigates:
+உதாரணமாக, எங்கள் app-இல் நீங்கள் ஒரு video-வை select செய்யும் போது ஒவ்வொரு video-விற்கான data-வை load செய்ய suspend ஆக வேண்டும். User navigate செய்யும் வரை எல்லா pages-ஐயும் hidden `<Activity>`-இல் render செய்வதன் மூலம் இதை மேம்படுத்தலாம்:
 
 ```js {2,5,8}
 <ViewTransition>
@@ -12875,7 +12875,7 @@ For example, our app currently needs to suspend to load the data for each video 
 <ViewTransition>
 ```
 
-With this update, if the content on the next page has time to pre-render, it will animate in without the Suspense fallback. Click a video, and notice that the video title and description on the Details page render immediately, without a fallback:
+இந்த update மூலம், அடுத்த page-இல் உள்ள content pre-render ஆக நேரம் கிடைத்தால், அது Suspense fallback இல்லாமல் animate ஆகி வரும். ஒரு video-வை click செய்து, Details page-இல் video title மற்றும் description fallback இல்லாமல் உடனே render ஆகும் என்பதை கவனியுங்கள்:
 
 <Sandpack>
 
@@ -12949,7 +12949,7 @@ export default function Details({id}) {
             navigateBack("/");
           }}
         >
-          <ChevronLeft /> Back
+          <ChevronLeft /> பின் செல்
         </div>
       }
     >
@@ -12984,7 +12984,7 @@ function SearchList({searchText, videos}) {
   return (
     <div className="video-list">
       {filteredVideos.length === 0 && (
-        <div className="no-results">No results</div>
+        <div className="no-results">முடிவுகள் இல்லை</div>
       )}
       <div className="videos">
         {filteredVideos.map((video) => (
@@ -13004,7 +13004,7 @@ export default function Home() {
   const [searchText, setSearchText] = useState('');
 
   return (
-    <Layout heading={<div className="fit">{count} Videos</div>}>
+    <Layout heading={<div className="fit">{count} வீடியோக்கள்</div>}>
       <SearchInput value={searchText} onChange={setSearchText} />
       <SearchList videos={videos} searchText={searchText} />
     </Layout>
@@ -13016,7 +13016,7 @@ function SearchInput({ value, onChange }) {
   return (
     <form className="search" onSubmit={(e) => e.preventDefault()}>
       <label htmlFor={id} className="sr-only">
-        Search
+        தேடு
       </label>
       <div className="search-input">
         <div className="search-icon">
@@ -13025,7 +13025,7 @@ function SearchInput({ value, onChange }) {
         <input
           type="text"
           id={id}
-          placeholder="Search"
+          placeholder="தேடு"
           value={value}
           onChange={(e) => onChange(e.target.value)}
         />
@@ -13216,7 +13216,7 @@ export default function LikeButton({video}) {
   return (
     <button
       className={`like-button ${isLiked && 'liked'}`}
-      aria-label={isLiked ? 'Unsave' : 'Save'}
+      aria-label={isLiked ? 'சேமிப்பை நீக்கு' : 'சேமி'}
       onClick={() => {
         const nextIsLiked = !isLiked;
         if (nextIsLiked) {
@@ -13303,38 +13303,38 @@ export function Video({ video }) {
 const videos = [
   {
     id: '1',
-    title: 'First video',
-    description: 'Video description',
+    title: 'முதல் வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'blue',
   },
   {
     id: '2',
-    title: 'Second video',
-    description: 'Video description',
+    title: 'இரண்டாவது வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'red',
   },
   {
     id: '3',
-    title: 'Third video',
-    description: 'Video description',
+    title: 'மூன்றாவது வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'green',
   },
   {
     id: '4',
-    title: 'Fourth video',
-    description: 'Video description',
+    title: 'நான்காவது வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'purple',
   },
   {
     id: '5',
-    title: 'Fifth video',
-    description: 'Video description',
+    title: 'ஐந்தாவது வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'yellow',
   },
   {
     id: '6',
-    title: 'Sixth video',
-    description: 'Video description',
+    title: 'ஆறாவது வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'gray',
   },
 ];
@@ -14193,45 +14193,45 @@ root.render(
 
 </Sandpack>
 
-### Server-Side Rendering with Activity {/*server-side-rendering-with-activity*/}
+### Activity உடன் Server-Side Rendering செய்தல் {/*server-side-rendering-with-activity*/}
 
-When using Activity on a page that uses server-side rendering (SSR), there are additional optimizations.
+Server-side rendering (SSR) பயன்படுத்தும் page-இல் Activity பயன்படுத்தும் போது, கூடுதல் optimizations உள்ளன.
 
-If part of the page is rendered with `mode="hidden"`, then it will not be included in the SSR response. Instead, React will schedule a client render for the content inside Activity while the rest of the page hydrates, prioritizing the visible content on screen.
+Page-ன் ஒரு பகுதி `mode="hidden"` உடன் render செய்யப்பட்டால், அது SSR response-இல் சேர்க்கப்படாது. அதற்கு பதிலாக, page-ன் மீதமுள்ள பகுதி hydrate ஆகும் போது, screen-இல் visible content-க்கு priority கொடுத்து, Activity உள்ள content-க்கான client render-ஐ React schedule செய்யும்.
 
-For parts of the UI rendered with `mode="visible"`, React will de-prioritize hydration of content within Activity, similar to how Suspense content is hydrated at a lower priority. If the user interacts with the page, we'll prioritize hydration within the boundary if needed.
+`mode="visible"` உடன் render செய்யப்பட்ட UI பகுதிகளுக்கு, Suspense content குறைந்த priority-யில் hydrate செய்யப்படுவது போலவே, Activity-க்குள் உள்ள content hydration-ஐ React de-prioritize செய்யும். User page-உடன் interact செய்தால், தேவைப்பட்டால் boundary-க்குள் hydration-க்கு priority கொடுப்போம்.
 
-These are advanced use cases, but they show the additional benefits considered with Activity.
+இவை advanced use cases; ஆனால் Activity-க்காக கருதப்பட்ட கூடுதல் நன்மைகளை அவை காட்டுகின்றன.
 
-### Future modes for Activity {/*future-modes-for-activity*/}
+### Activity-க்கான எதிர்கால modes {/*future-modes-for-activity*/}
 
-In the future, we may add more modes to Activity.
+எதிர்காலத்தில் Activity-க்கு மேலும் modes சேர்க்கலாம்.
 
-For example, a common use case is rendering a modal, where the previous "inactive" page is visible behind the "active" modal view. The "hidden" mode does not work for this use case because it's not visible and not included in SSR.
+உதாரணமாக, modal render செய்வது ஒரு பொதுவான use case; அதில் முந்தைய "inactive" page, "active" modal view-க்கு பின்னால் visible ஆக இருக்கும். "hidden" mode இந்த use case-க்கு வேலை செய்யாது, ஏனெனில் அது visible அல்ல, SSR-இலும் சேர்க்கப்படாது.
 
-Instead, we're considering a new mode that would keep the content visible&mdash;and included in SSR&mdash;but keep it unmounted and de-prioritize updates. This mode may also need to "pause" DOM updates, since it can be distracting to see backgrounded content updating while a modal is open.
+அதற்கு பதிலாக, content-ஐ visible ஆகவும் SSR-இல் சேர்க்கப்பட்டதாகவும் வைத்துக்கொண்டு, அதை unmounted ஆக வைத்து updates-ஐ de-prioritize செய்யும் புதிய mode பற்றி பரிசீலிக்கிறோம். Modal open ஆக இருக்கும் போது backgrounded content update ஆகுவது கவனம் சிதறச் செய்யக்கூடும் என்பதால், இந்த mode DOM updates-ஐ "pause" செய்யவும் வேண்டியிருக்கலாம்.
 
-Another mode we're considering for Activity is the ability to automatically destroy state for hidden Activities if there is too much memory being used. Since the component is already unmounted, it may be preferable to destroy state for the least recently used hidden parts of the app rather than consume too many resources.
+Activity-க்காக பரிசீலிக்கும் மற்றொரு mode, அதிக memory பயன்படுத்தப்பட்டால் hidden Activities-ன் state-ஐ தானாக destroy செய்யும் திறன். Component ஏற்கனவே unmounted ஆக இருப்பதால், மிக அதிக resources consume செய்வதை விட, app-இன் சமீபத்தில் குறைவாக பயன்படுத்தப்பட்ட hidden பகுதிகளின் state-ஐ destroy செய்வது சிறந்ததாக இருக்கலாம்.
 
-These are areas we're still exploring, and we'll share more as we make progress. For more information on what Activity includes today, [check out the docs](/reference/react/Activity).
+இவை இன்னும் நாங்கள் explore செய்து கொண்டிருக்கும் பகுதிகள்; முன்னேற்றம் அடையும்போது மேலும் பகிர்வோம். இன்று Activity என்ன கொண்டுள்ளது என்பதைப் பற்றி மேலும் அறிய [docs-ஐ பார்க்கவும்](/reference/react/Activity).
 
 ---
 
-# Features in development {/*features-in-development*/}
+# Development-இல் உள்ள features {/*features-in-development*/}
 
-We're also developing features to help solve the common problems below.
+கீழே உள்ள பொதுவான problems-ஐ தீர்க்க உதவும் features-ஐயும் நாங்கள் develop செய்து வருகிறோம்.
 
-As we iterate on possible solutions, you may see some potential APIs we're testing being shared based on the PRs we are landing. Please keep in mind that as we try different ideas, we often change or remove different solutions after trying them out.
+சாத்தியமான solutions மீது iterate செய்யும் போது, நாங்கள் land செய்யும் PRs அடிப்படையில் test செய்து கொண்டிருக்கும் சில potential APIs பகிரப்படுவதைக் காணலாம். வெவ்வேறு ideas-ஐ முயற்சிக்கும் போது, அவற்றைச் சோதித்த பிறகு வேறு solutions-ஐ அடிக்கடி மாற்றவோ அகற்றவோ செய்வோம் என்பதை நினைவில் கொள்ளுங்கள்.
 
-When the solutions we're working on are shared too early, it can create churn and confusion in the community. To balance being transparent and limiting confusion, we're sharing the problems we're currently developing solutions for, without sharing a particular solution we have in mind.
+நாங்கள் வேலை செய்து கொண்டிருக்கும் solutions மிகவும் முன்கூட்டியே பகிரப்பட்டால், community-இல் churn மற்றும் confusion உருவாகலாம். Transparent ஆக இருப்பதையும் confusion-ஐ குறைப்பதையும் சமநிலைப்படுத்த, மனதில் வைத்திருக்கும் குறிப்பிட்ட solution-ஐ பகிராமல், தற்போது solutions develop செய்து கொண்டிருக்கும் problems-ஐ பகிர்கிறோம்.
 
-As these features progress, we'll announce them on the blog with docs included so you can try them out.
+இந்த features முன்னேறும்போது, நீங்கள் முயற்சிக்க docs உடன் blog-இல் அவற்றை announce செய்வோம்.
 
-## React Performance Tracks {/*react-performance-tracks*/}
+## React Performance Tracks செயல்திறன் தடங்கள் {/*react-performance-tracks*/}
 
-We're working on a new set of custom tracks to performance profilers using browser APIs that [allow adding custom tracks](https://developer.chrome.com/docs/devtools/performance/extension) to provide more information about the performance of your React app.
+உங்கள் React app-ன் performance பற்றி கூடுதல் தகவல் வழங்க, [custom tracks சேர்க்க அனுமதிக்கும்](https://developer.chrome.com/docs/devtools/performance/extension) browser APIs பயன்படுத்தி performance profilers-க்கான புதிய custom tracks தொகுப்பில் வேலை செய்து வருகிறோம்.
 
-This feature is still in progress, so we're not ready to publish docs to fully release it as an experimental feature yet. You can get a sneak preview when using an experimental version of React, which will automatically add the performance tracks to profiles:
+இந்த feature இன்னும் progress-இல் உள்ளது; எனவே அதை experimental feature ஆக முழுமையாக release செய்ய docs publish செய்ய இன்னும் தயாராக இல்லை. React-ன் experimental version பயன்படுத்தும்போது sneak preview கிடைக்கும்; அது profiles-க்கு performance tracks-ஐ தானாக சேர்க்கும்:
 
 <div style={{display: 'flex', justifyContent: 'center', marginBottom: '1rem'}}>
   <picture >
@@ -14244,31 +14244,31 @@ This feature is still in progress, so we're not ready to publish docs to fully r
   </picture>
 </div>
 
-There are a few known issues we plan to address such as performance, and the scheduler track not always "connecting" work across Suspended trees, so it's not quite ready to try. We're also still collecting feedback from early adopters to improve the design and usability of the tracks.
+Performance போன்ற சில known issues, மற்றும் Suspended trees-இல் scheduler track எப்போதும் work-ஐ "connecting" செய்யாதது போன்றவற்றை address செய்ய திட்டமிட்டுள்ளோம்; எனவே இது முயற்சிக்க இன்னும் முழுமையாக தயாராக இல்லை. Tracks-ன் design மற்றும் usability-ஐ மேம்படுத்த early adopters-இலிருந்து feedback-ஐயும் இன்னும் சேகரித்து வருகிறோம்.
 
-Once we solve those issues, we'll publish experimental docs and share that it's ready to try.
+அந்த issues-ஐ தீர்த்ததும், experimental docs publish செய்து, இது முயற்சிக்க தயாராக உள்ளது என்று பகிர்வோம்.
 
 ---
 
-## Automatic Effect Dependencies {/*automatic-effect-dependencies*/}
+## தானியங்கு Effect Dependencies {/*automatic-effect-dependencies*/}
 
-When we released hooks, we had three motivations:
+Hooks-ஐ release செய்தபோது, எங்களுக்கு மூன்று motivations இருந்தன:
 
-- **Sharing code between components**: hooks replaced patterns like render props and higher-order components to allow you to reuse stateful logic without changing your component hierarchy.
-- **Think in terms of function, not lifecycles**: hooks let you split one component into smaller functions based on what pieces are related (such as setting up a subscription or fetching data), rather than forcing a split based on lifecycle methods.
-- **Support ahead-of-time compilation**: hooks were designed to support ahead-of-time compilation with less pitfalls causing unintentional de-optimizations caused by lifecycle methods, and limitations of classes.
+- **Components இடையே code பகிர்தல்**: உங்கள் component hierarchy-ஐ மாற்றாமல் stateful logic-ஐ reuse செய்ய hooks, render props மற்றும் higher-order components போன்ற patterns-ஐ மாற்றின.
+- **Lifecycles அல்ல, function அடிப்படையில் சிந்தித்தல்**: lifecycle methods அடிப்படையில் split செய்ய கட்டாயப்படுத்துவதற்கு பதிலாக, எந்த pieces தொடர்புடையவை (subscription அமைத்தல் அல்லது data fetch செய்தல் போன்றவை) என்பதன் அடிப்படையில் ஒரு component-ஐ சிறிய functions-ஆக split செய்ய hooks அனுமதித்தன.
+- **Ahead-of-time compilation-ஐ support செய்தல்**: lifecycle methods மற்றும் classes-ன் limitations காரணமாக வரும் unintentional de-optimizations-ஐ குறைத்து, ahead-of-time compilation support செய்ய hooks design செய்யப்பட்டன.
 
-Since their release, hooks have been successful at *sharing code between components*. Hooks are now the favored way to share logic between components, and there are less use cases for render props and higher order components. Hooks have also been successful at supporting features like Fast Refresh that were not possible with class components.
+அவை release ஆனதிலிருந்து, hooks *components இடையே code பகிர்வதில்* வெற்றிகரமாக இருந்துள்ளன. Components இடையே logic பகிர hooks இப்போது விருப்பமான வழியாக உள்ளன; render props மற்றும் higher order components-க்கு use cases குறைந்துள்ளன. Class components மூலம் சாத்தியமில்லாத Fast Refresh போன்ற features-ஐ support செய்வதிலும் hooks வெற்றிகரமாக இருந்துள்ளன.
 
-### Effects can be hard {/*effects-can-be-hard*/}
+### Effects கடினமாக இருக்கலாம் {/*effects-can-be-hard*/}
 
-Unfortunately, some hooks are still hard to think in terms of function instead of lifecycles. Effects specifically are still hard to understand and are the most common pain point we hear from developers. Last year, we spent a significant amount of time researching how Effects were used, and how those use cases could be simplified and easier to understand.
+துரதிருஷ்டவசமாக, சில hooks-ஐ lifecycles-க்கு பதிலாக function அடிப்படையில் சிந்திப்பது இன்னும் கடினமாக உள்ளது. குறிப்பாக Effects இன்னும் புரிந்துகொள்ள கடினமாக உள்ளன; developers-இடமிருந்து நாம் அடிக்கடி கேட்கும் மிக பொதுவான pain point அதுவே. கடந்த ஆண்டு, Effects எப்படி பயன்படுத்தப்பட்டன, அந்த use cases-ஐ எப்படி simplify செய்து நேரடியாகப் புரிந்துகொள்ளும் வகையில் மாற்றலாம் என்பதைக் குறித்து நாங்கள் குறிப்பிடத்தக்க நேரம் research செய்தோம்.
 
-We found that often, the confusion is from using an Effect when you don't need to. The [You Might Not Need an Effect](/learn/you-might-not-need-an-effect) guide covers many cases for when Effects are not the right solution. However, even when an Effect is the right fit for a problem, Effects can still be harder to understand than class component lifecycles.
+பல சமயங்களில், Effect தேவைப்படாத இடத்தில் Effect பயன்படுத்துவதுதான் confusion-க்கு காரணம் என்று கண்டோம். Effects சரியான solution அல்லாத பல cases-ஐ [உங்களுக்கு Effect தேவைப்படாமல் இருக்கலாம்](/learn/you-might-not-need-an-effect) guide விவரிக்கிறது. ஆனால் ஒரு problem-க்கு Effect சரியானதாக இருந்தாலும், class component lifecycles-ஐ விட Effects புரிந்துகொள்ள இன்னும் கடினமாக இருக்கலாம்.
 
-We believe one of the reasons for confusion is that developers to think of Effects from the _component's_ perspective (like a lifecycle), instead of the _Effects_ point of view (what the Effect does).
+Confusion-க்கான காரணங்களில் ஒன்று, developers Effects-ஐ _Effect_ பார்வையில் (Effect என்ன செய்கிறது) அல்லாமல், _component_ பார்வையில் (lifecycle போல) சிந்திப்பதாக இருக்கலாம் என்று நாங்கள் நம்புகிறோம்.
 
-Let's look at an example [from the docs](/learn/lifecycle-of-reactive-effects#thinking-from-the-effects-perspective):
+[Docs-இல் உள்ள](/learn/lifecycle-of-reactive-effects#thinking-from-the-effects-perspective) ஒரு example-ஐப் பார்க்கலாம்:
 
 ```js
 useEffect(() => {
@@ -14282,15 +14282,15 @@ useEffect(() => {
 }, [roomId]);
 ```
 
-Many users would read this code as "on mount, connect to the roomId. whenever `roomId` changes, disconnect to the old room and re-create the connection". However, this is thinking from the component's lifecycle perspective, which means you will need to think of every component lifecycle state to write the Effect correctly. This can be difficult, so it's understandable that Effects seem harder than class lifecycles when using the component perspective.
+பல users இந்த code-ஐ "mount ஆனபோது, roomId-க்கு connect செய்; `roomId` மாறும் ஒவ்வொரு முறையும், பழைய room-இலிருந்து disconnect செய்து connection-ஐ மீண்டும் உருவாக்கு" என்று படிப்பார்கள். ஆனால் இது component-ன் lifecycle perspective-இல் சிந்திப்பது; அதாவது Effect-ஐ சரியாக எழுத ஒவ்வொரு component lifecycle state பற்றியும் சிந்திக்க வேண்டும். இது கடினமாக இருக்கலாம்; எனவே component perspective பயன்படுத்தும்போது class lifecycles-ஐ விட Effects கடினமாகத் தோன்றுவது புரிந்துகொள்ளத்தக்கது.
 
-### Effects without dependencies {/*effects-without-dependencies*/}
+### Dependencies இல்லாத Effects {/*effects-without-dependencies*/}
 
-Instead, it's better to think from the Effect's perspective. The Effect doesn't know about the component lifecycles. It only describes how to start synchronization and how to stop it. When users think of Effects in this way, their Effects tend to be easier to write, and more resilient to being started and stopped as many times as is needed.
+அதற்கு பதிலாக, Effect-ன் perspective-இல் சிந்திப்பது சிறந்தது. Component lifecycles பற்றி Effect-க்கு தெரியாது. Synchronization-ஐ எப்படி தொடங்குவது, அதை எப்படி நிறுத்துவது என்பதையே அது விவரிக்கிறது. Users Effects-ஐ இவ்வாறு சிந்திக்கும் போது, அவர்களின் Effects எழுத திறமையாகவும், தேவையான அளவு பலமுறை தொடங்கி நிறுத்தப்படுவதற்கு அதிக resilient ஆகவும் இருக்கும்.
 
-We spent some time researching why Effects are thought of from the component perspective, and we think one of the reasons is the dependency array. Since you have to write it, it's right there and in your face reminding you of what you're "reacting" to and baiting you into the mental model of 'do this when these values change'.
+Effects ஏன் component perspective-இல் சிந்திக்கப்படுகின்றன என்று research செய்ய சில நேரம் செலவிட்டோம்; அதற்கான காரணங்களில் ஒன்று dependency array என்று நினைக்கிறோம். அதை நீங்கள் எழுத வேண்டியிருப்பதால், அது நேராக முன்னிலையிலேயே இருந்து நீங்கள் எதற்கு "react" செய்கிறீர்கள் என்பதை நினைவூட்டுகிறது, மேலும் 'இந்த values மாறும் போது இதை செய்' என்ற mental model-க்குள் இழுக்கிறது.
 
-When we released hooks, we knew we could make them easier to use with ahead-of-time compilation. With the React Compiler, you're now able to avoid writing `useCallback` and `useMemo` yourself in most cases. For Effects, the compiler can insert the dependencies for you:
+Hooks-ஐ release செய்தபோது, ahead-of-time compilation மூலம் அவற்றை பயன்படுத்த மேம்படுத்த முடியும் என்று நாங்கள் அறிந்திருந்தோம். React Compiler மூலம், பெரும்பாலான cases-இல் `useCallback` மற்றும் `useMemo`-வை நீங்களே எழுதுவதை தவிர்க்க முடிகிறது. Effects-க்காக, compiler dependencies-ஐ உங்களுக்காக insert செய்ய முடியும்:
 
 ```js
 useEffect(() => {
@@ -14299,67 +14299,67 @@ useEffect(() => {
   return () => {
     connection.disconnect();
   };
-}); // compiler inserted dependencies.
+}); // compiler dependencies-ஐ insert செய்தது.
 ```
 
-With this code, the React Compiler can infer the dependencies for you and insert them automatically so you don't need to see or write them. With features like [the IDE extension](#compiler-ide-extension) and [`useEffectEvent`](/reference/react/useEffectEvent), we can provide a CodeLens to show you what the Compiler inserted for times you need to debug, or to optimize by removing a dependency. This helps reinforce the correct mental model for writing Effects, which can run at any time to synchronize your component or hook's state with something else.
+இந்த code மூலம், React Compiler dependencies-ஐ infer செய்து தானாக insert செய்ய முடியும்; எனவே அவற்றை நீங்கள் பார்க்கவோ எழுதவோ தேவையில்லை. [IDE extension](#compiler-ide-extension) மற்றும் [`useEffectEvent`](/reference/react/useEffectEvent) போன்ற features மூலம், debug செய்ய வேண்டிய நேரங்களில் அல்லது dependency ஒன்றை அகற்றி optimize செய்ய வேண்டிய நேரங்களில் Compiler என்ன insert செய்தது என்பதை காட்ட CodeLens வழங்கலாம். இது Effects எழுதுவதற்கான சரியான mental model-ஐ reinforce செய்ய உதவுகிறது: Effect எப்போது வேண்டுமானாலும் run ஆகி உங்கள் component அல்லது hook-ன் state-ஐ வேறு ஒன்றுடன் synchronize செய்யலாம்.
 
-Our hope is that automatically inserting dependencies is not only easier to write, but that it also makes them easier to understand by forcing you to think in terms of what the Effect does, and not in component lifecycles.
+Dependencies-ஐ தானாக insert செய்வது எழுத மேம்படுத்துவது மட்டுமல்லாமல், component lifecycles அல்ல, Effect என்ன செய்கிறது என்ற அடிப்படையில் சிந்திக்க உங்களை வழிநடத்துவதால் அவற்றை புரிந்துகொள்ளவும் உதவும் என்பதே எங்கள் நம்பிக்கை.
 
 ---
 
 ## Compiler IDE Extension {/*compiler-ide-extension*/}
 
-Later in 2025 [we shared](/blog/2025/10/07/react-compiler-1) the first stable release of React Compiler, and we're continuing to invest in shipping more improvements.
+2025-இல் பின்னர் React Compiler-ன் முதல் stable release-ஐ [பகிர்ந்தோம்](/blog/2025/10/07/react-compiler-1), மேலும் கூடுதல் improvements ship செய்வதில் தொடர்ந்து invest செய்து வருகிறோம்.
 
-We've also begun exploring ways to use the React Compiler to provide information that can improve understanding and debugging your code. One idea we've started exploring is a new experimental LSP-based React IDE extension powered by React Compiler, similar to the extension used in [Lauren Tan's React Conf talk](https://conf2024.react.dev/talks/5).
+உங்கள் code-ஐ புரிந்துகொள்ளவும் debug செய்யவும் உதவும் தகவலை வழங்க React Compiler-ஐ பயன்படுத்தும் வழிகளையும் explore செய்யத் தொடங்கியுள்ளோம். [Lauren Tan-ன் React Conf talk](https://conf2024.react.dev/talks/5)-இல் பயன்படுத்திய extension போல, React Compiler மூலம் இயங்கும் புதிய experimental LSP-based React IDE extension என்பது நாங்கள் explore செய்யத் தொடங்கிய ஒரு idea.
 
-Our idea is that we can use the compiler's static analysis to provide more information, suggestions, and optimization opportunities directly in your IDE. For example, we can provide diagnostics for code breaking the Rules of React, hovers to show if components and hooks were optimized by the compiler, or a CodeLens to see [automatically inserted Effect dependencies](#automatic-effect-dependencies).
+Compiler-ன் static analysis-ஐ பயன்படுத்தி உங்கள் IDE-க்குள் நேரடியாக கூடுதல் தகவல், suggestions, மற்றும் optimization வாய்ப்புகளை வழங்க முடியும் என்பதே எங்கள் idea. உதாரணமாக, Rules of React-ஐ மீறும் code-க்கு diagnostics, components மற்றும் hooks compiler மூலம் optimize செய்யப்பட்டனவா என்பதை காட்ட hovers, அல்லது [தானாக insert செய்யப்பட்ட Effect dependencies](#automatic-effect-dependencies)-ஐ பார்க்க CodeLens வழங்கலாம்.
 
-The IDE extension is still an early exploration, but we'll share our progress in future updates.
+IDE extension இன்னும் ஆரம்பக்கட்ட exploration; ஆனால் எதிர்கால updates-இல் எங்கள் progress-ஐ பகிர்வோம்.
 
 ---
 
 ## Fragment Refs {/*fragment-refs*/}
 
-Many DOM APIs like those for event management, positioning, and focus are difficult to compose when writing with React. This often leads developers to reach for Effects, managing multiple Refs, by using APIs like `findDOMNode` (removed in React 19).
+Event management, positioning, focus போன்ற பல DOM APIs-ஐ React உடன் எழுதும்போது compose செய்வது கடினம். இது developers-ஐ Effects-ஐ நாடவோ, multiple Refs manage செய்யவோ, அல்லது `findDOMNode` (React 19-இல் அகற்றப்பட்டது) போன்ற APIs பயன்படுத்தவோ வழிவகுக்கும்.
 
-We are exploring adding refs to Fragments that would point to a group of DOM elements, rather than just a single element. Our hope is that this will simplify managing multiple children and make it easier to write composable React code when calling DOM APIs.
+ஒரே element-ஐ மட்டும் அல்லாமல் DOM elements குழுவைக் காட்டும் refs-ஐ Fragments-க்கு சேர்ப்பதை explore செய்து வருகிறோம். இது multiple children-ஐ manage செய்வதை simplify செய்து, DOM APIs அழைக்கும் போது composable React code எழுத உதவும் என்பதே எங்கள் நம்பிக்கை.
 
-Fragment refs are still being researched. We'll share more when we're closer to having the final API finished.
+Fragment refs இன்னும் research-இல் உள்ளன. Final API முடிவதற்கு நெருங்கும்போது மேலும் பகிர்வோம்.
 
 ---
 
 ## Gesture Animations {/*gesture-animations*/}
 
-We're also researching ways to enhance View Transitions to support gesture animations such as swiping to open a menu, or scroll through a photo carousel.
+Menu-வை open செய்ய swipe செய்வது, அல்லது photo carousel-இல் scroll செய்வது போன்ற gesture animations-ஐ support செய்ய View Transitions-ஐ மேம்படுத்தும் வழிகளையும் research செய்து வருகிறோம்.
 
-Gestures present new challenges for a few reasons:
+சில காரணங்களால் gestures புதிய challenges-ஐ உருவாக்குகின்றன:
 
-- **Gestures are continuous**: as you swipe the animation is tied to your finger placement time, rather than triggering and running to completion.
-- **Gestures don't complete**: when you release your finger gesture animations can run to completion, or revert to their original state (like when you only partially open a menu) depending on how far you go.
-- **Gestures invert old and new**: while you're animating, you want the page you are animating from to stay "alive" and interactive. This inverts the browser View Transition model where the "old" state is a snapshot and the "new" state is the live DOM.
+- **Gestures தொடர்ச்சியானவை**: நீங்கள் swipe செய்யும் போது, animation trigger ஆகி completion வரை run ஆகுவதற்கு பதிலாக, உங்கள் விரல் இருக்கும் இடத்தோடு கட்டுப்படும்.
+- **Gestures complete ஆகாமல் இருக்கலாம்**: உங்கள் விரலை release செய்யும் போது, நீங்கள் எவ்வளவு தூரம் சென்றீர்கள் என்பதன் அடிப்படையில் gesture animations completion வரை run ஆகலாம், அல்லது அவற்றின் original state-க்கு திரும்பலாம் (menu-வை பகுதியளவு மட்டும் open செய்தால் போல).
+- **Gestures old மற்றும் new-ஐ invert செய்கின்றன**: animate செய்யும் போது, நீங்கள் animate செய்து வெளியேறும் page "alive" மற்றும் interactive ஆகத் தொடர வேண்டும். இது browser View Transition model-ஐ invert செய்கிறது; அந்த model-இல் "old" state snapshot ஆகவும் "new" state live DOM ஆகவும் இருக்கும்.
 
-We believe we’ve found an approach that works well and may introduce a new API for triggering gesture transitions. For now, we're focused on shipping `<ViewTransition>`, and will revisit gestures afterward.
+நன்றாக வேலை செய்யும் ஒரு approach-ஐ கண்டுபிடித்திருக்கிறோம் என்றும் gesture transitions trigger செய்ய புதிய API ஒன்றை அறிமுகப்படுத்தலாம் என்றும் நாங்கள் நம்புகிறோம். இப்போதைக்கு `<ViewTransition>` ship செய்வதில் கவனம் செலுத்துகிறோம்; அதன் பிறகு gestures-ஐ மீண்டும் பார்க்கலாம்.
 
 ---
 
 ## Concurrent Stores {/*concurrent-stores*/}
 
-When we released React 18 with concurrent rendering, we also released `useSyncExternalStore` so external store libraries that did not use React state or context could [support concurrent rendering](https://github.com/reactwg/react-18/discussions/70) by forcing a synchronous render when the store is updated.
+Concurrent rendering உடன் React 18-ஐ release செய்தபோது, React state அல்லது context பயன்படுத்தாத external store libraries, store update ஆகும் போது synchronous render-ஐ force செய்வதன் மூலம் [concurrent rendering-ஐ support செய்ய](https://github.com/reactwg/react-18/discussions/70) `useSyncExternalStore`-ஐயும் release செய்தோம்.
 
-Using `useSyncExternalStore` comes at a cost though, since it forces a bail out from concurrent features like transitions, and forces existing content to show Suspense fallbacks.
+ஆனால் `useSyncExternalStore` பயன்படுத்துவதற்கு ஒரு cost உள்ளது; அது transitions போன்ற concurrent features-இலிருந்து bail out செய்ய force செய்கிறது, மேலும் இருக்கும் content Suspense fallbacks-ஐ show செய்ய force செய்கிறது.
 
-Now that React 19 has shipped, we're revisiting this problem space to create a primitive to fully support concurrent external stores with the `use` API:
+React 19 ship ஆனதால், `use` API உடன் concurrent external stores-ஐ முழுமையாக support செய்யும் primitive உருவாக்க இந்த problem space-ஐ மீண்டும் பார்க்கிறோம்:
 
 ```js
 const value = use(store);
 ```
 
-Our goal is to allow external state to be read during render without tearing, and to work seamlessly with all of the concurrent features React offers.
+Render நேரத்தில் tearing இல்லாமல் external state படிக்க அனுமதிப்பதும், React வழங்கும் எல்லா concurrent features உடனும் seamless ஆக வேலை செய்யச் செய்வதும் எங்கள் goal.
 
-This research is still early. We'll share more, and what the new APIs will look like, when we're further along.
+இந்த research இன்னும் ஆரம்ப நிலையில் உள்ளது. மேலும் முன்னேறியதும், மேலும் தகவல்களையும் புதிய APIs எப்படி இருக்கும் என்பதையும் பகிர்வோம்.
 
 ---
 
-_Thanks to [Aurora Scharff](https://bsky.app/profile/aurorascharff.no), [Dan Abramov](https://bsky.app/profile/danabra.mov), [Eli White](https://twitter.com/Eli_White), [Lauren Tan](https://bsky.app/profile/no.lol), [Luna Wei](https://github.com/lunaleaps), [Matt Carroll](https://twitter.com/mattcarrollcode), [Jack Pope](https://jackpope.me), [Jason Bonta](https://threads.net/someextent), [Jordan Brown](https://github.com/jbrown215), [Jordan Eldredge](https://bsky.app/profile/capt.dev), [Mofei Zhang](https://threads.net/z_mofei), [Sebastien Lorber](https://bsky.app/profile/sebastienlorber.com), [Sebastian Markbåge](https://bsky.app/profile/sebmarkbage.calyptus.eu), and [Tim Yung](https://github.com/yungsters) for reviewing this post._
+_இந்த post-ஐ review செய்த [Aurora Scharff](https://bsky.app/profile/aurorascharff.no), [Dan Abramov](https://bsky.app/profile/danabra.mov), [Eli White](https://twitter.com/Eli_White), [Lauren Tan](https://bsky.app/profile/no.lol), [Luna Wei](https://github.com/lunaleaps), [Matt Carroll](https://twitter.com/mattcarrollcode), [Jack Pope](https://jackpope.me), [Jason Bonta](https://threads.net/someextent), [Jordan Brown](https://github.com/jbrown215), [Jordan Eldredge](https://bsky.app/profile/capt.dev), [Mofei Zhang](https://threads.net/z_mofei), [Sebastien Lorber](https://bsky.app/profile/sebastienlorber.com), [Sebastian Markbåge](https://bsky.app/profile/sebmarkbage.calyptus.eu), மற்றும் [Tim Yung](https://github.com/yungsters)-க்கு நன்றி._

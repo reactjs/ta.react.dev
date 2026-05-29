@@ -4,17 +4,17 @@ title: set-state-in-render
 
 <Intro>
 
-Validates against unconditionally setting state during render, which can trigger additional renders and potential infinite render loops.
+Render நடக்கும் போது state-ஐ unconditionally அமைப்பதை எதிர்த்து validate செய்கிறது; இது கூடுதல் renders மற்றும் infinite render loops ஏற்படுத்தக்கூடும்.
 
 </Intro>
 
-## Rule Details {/*rule-details*/}
+## விதி விவரங்கள் {/*rule-details*/}
 
-Calling `setState` during render unconditionally triggers another render before the current one finishes. This creates an infinite loop that crashes your app.
+Render நடக்கும் போது `setState`-ஐ unconditionally அழைப்பது, தற்போதைய render முடிவதற்கு முன் மற்றொரு render-ஐ trigger செய்கிறது. இது உங்கள் app crash ஆகும் infinite loop ஒன்றை உருவாக்கும்.
 
-## Common Violations {/*common-violations*/}
+## பொதுவான மீறல்கள் {/*common-violations*/}
 
-### Invalid {/*invalid*/}
+### செல்லாதது {/*invalid*/}
 
 ```js {expectedErrors: {'react-compiler': [4]}}
 // ❌ Unconditional setState directly in render
@@ -25,7 +25,7 @@ function Component({value}) {
 }
 ```
 
-### Valid {/*valid*/}
+### செல்லுபடியாகும் {/*valid*/}
 
 ```js
 // ✅ Derive during render
@@ -67,9 +67,9 @@ function Component({ items }) {
 
 ## Troubleshooting {/*troubleshooting*/}
 
-### I want to sync state to a prop {/*clamp-state-to-prop*/}
+### State-ஐ prop ஒன்றுடன் sync செய்ய வேண்டும் {/*clamp-state-to-prop*/}
 
-A common problem is trying to "fix" state after it renders. Suppose you want to keep a counter from exceeding a `max` prop:
+Render ஆன பிறகு state-ஐ "fix" செய்ய முயல்வது ஒரு பொதுவான பிரச்சினை. Counter ஒன்று `max` prop-ஐ விட அதிகமாகாமல் இருக்க வேண்டும் என்று வைத்துக்கொள்ளுங்கள்:
 
 ```js
 // ❌ Wrong: clamps during render
@@ -88,9 +88,9 @@ function Counter({max}) {
 }
 ```
 
-As soon as `count` exceeds `max`, an infinite loop is triggered.
+`count` `max`-ஐ கடந்தவுடன் infinite loop trigger ஆகும்.
 
-Instead, it's often better to move this logic to the event (the place where the state is first set). For example, you can enforce the maximum at the moment you update state:
+அதற்கு பதிலாக, இந்த logic-ஐ event-க்கு (state முதலில் அமைக்கப்படும் இடம்) நகர்த்துவது பெரும்பாலும் சிறந்தது. உதாரணமாக, state update செய்யும் தருணத்திலேயே maximum-ஐ enforce செய்யலாம்:
 
 ```js
 // ✅ Clamp when updating
@@ -105,6 +105,6 @@ function Counter({max}) {
 }
 ```
 
-Now the setter only runs in response to the click, React finishes the render normally, and `count` never crosses `max`.
+இப்போது setter click-க்கு பதிலாக மட்டுமே இயங்கும்; React render-ஐ வழக்கம்போல் முடிக்கும்; `count` ஒருபோதும் `max`-ஐ கடக்காது.
 
-In rare cases, you may need to adjust state based on information from previous renders. For those, follow [this pattern](https://react.dev/reference/react/useState#storing-information-from-previous-renders) of setting state conditionally.
+அரிதான சில நிலைகளில், முந்தைய renders-இலிருந்து கிடைக்கும் தகவலின் அடிப்படையில் state-ஐ adjust செய்ய வேண்டியிருக்கலாம். அத்தகைய நிலைகளில், state-ஐ conditionally அமைக்கும் [இந்த pattern](https://react.dev/reference/react/useState#storing-information-from-previous-renders)-ஐப் பின்பற்றுங்கள்.

@@ -4,44 +4,44 @@ title: exhaustive-deps
 
 <Intro>
 
-Validates that dependency arrays for React hooks contain all necessary dependencies.
+React hooks-க்கான dependency arrays எல்லா தேவையான dependencies-ஐ கொண்டுள்ளனவா என்பதை validate செய்கிறது.
 
 </Intro>
 
-## Rule Details {/*rule-details*/}
+## Rule விவரங்கள் {/*rule-details*/}
 
-React hooks like `useEffect`, `useMemo`, and `useCallback` accept dependency arrays. When a value referenced inside these hooks isn't included in the dependency array, React won't re-run the effect or recalculate the value when that dependency changes. This causes stale closures where the hook uses outdated values.
+`useEffect`, `useMemo`, `useCallback` போன்ற React hooks dependency arrays-ஐ ஏற்கின்றன. இந்த hooks-க்குள் reference செய்யப்படும் value dependency array-இல் சேர்க்கப்படவில்லை என்றால், அந்த dependency மாறும்போது React effect-ஐ மீண்டும் run செய்யாது அல்லது value-ஐ மீண்டும் calculate செய்யாது. இதனால் hook பழைய values-ஐப் பயன்படுத்தும் stale closures ஏற்படும்.
 
-## Common Violations {/*common-violations*/}
+## பொதுவான மீறல்கள் {/*common-violations*/}
 
-This error often happens when you try to "trick" React about dependencies to control when an effect runs. Effects should synchronize your component with external systems. The dependency array tells React which values the effect uses, so React knows when to re-synchronize.
+ஒரு effect எப்போது run ஆக வேண்டும் என்பதை கட்டுப்படுத்த dependencies குறித்து React-ஐ "trick" செய்ய முயன்றால் இந்த error அடிக்கடி ஏற்படும். Effects உங்கள் component-ஐ external systems உடன் synchronize செய்ய வேண்டும். Effect எந்த values-ஐப் பயன்படுத்துகிறது என்பதை dependency array React-க்கு சொல்கிறது; அதனால் எப்போது re-synchronize செய்ய வேண்டும் என்பதை React அறியும்.
 
-If you find yourself fighting with the linter, you likely need to restructure your code. See [Removing Effect Dependencies](/learn/removing-effect-dependencies) to learn how.
+நீங்கள் linter-உடன் போராடிக்கொண்டிருக்கிறீர்கள் எனத் தோன்றினால், உங்கள் code-ஐ restructure செய்ய வேண்டியிருக்கலாம். எப்படி செய்வது என்பதை அறிய [Removing Effect Dependencies](/learn/removing-effect-dependencies)-ஐப் பார்க்கவும்.
 
 ### Invalid {/*invalid*/}
 
-Examples of incorrect code for this rule:
+இந்த rule-க்கான தவறான code உதாரணங்கள்:
 
 ```js
 // ❌ Missing dependency
 useEffect(() => {
   console.log(count);
-}, []); // Missing 'count'
+}, []); // 'count' விடுபட்டுள்ளது
 
 // ❌ Missing prop
 useEffect(() => {
   fetchUser(userId);
-}, []); // Missing 'userId'
+}, []); // 'userId' விடுபட்டுள்ளது
 
 // ❌ Incomplete dependencies
 useMemo(() => {
   return items.sort(sortOrder);
-}, [items]); // Missing 'sortOrder'
+}, [items]); // 'sortOrder' விடுபட்டுள்ளது
 ```
 
 ### Valid {/*valid*/}
 
-Examples of correct code for this rule:
+இந்த rule-க்கான சரியான code உதாரணங்கள்:
 
 ```js
 // ✅ All dependencies included
@@ -55,11 +55,11 @@ useEffect(() => {
 }, [userId]);
 ```
 
-## Troubleshooting {/*troubleshooting*/}
+## சிக்கல் தீர்வு {/*troubleshooting*/}
 
-### Adding a function dependency causes infinite loops {/*function-dependency-loops*/}
+### Function dependency சேர்ப்பது infinite loops ஏற்படுத்துகிறது {/*function-dependency-loops*/}
 
-You have an effect, but you're creating a new function on every render:
+உங்களிடம் ஒரு effect உள்ளது, ஆனால் ஒவ்வொரு render-இலும் புதிய function உருவாக்குகிறீர்கள்:
 
 ```js
 // ❌ Causes infinite loop
@@ -72,7 +72,7 @@ useEffect(() => {
 }, [logItems]); // Infinite loop!
 ```
 
-In most cases, you don't need the effect. Call the function where the action happens instead:
+பெரும்பாலான சூழல்களில் effect தேவையில்லை. அதற்கு பதிலாக action நடக்கும் இடத்திலேயே function-ஐ call செய்யுங்கள்:
 
 ```js
 // ✅ Call it from the event handler
@@ -88,7 +88,7 @@ items.forEach(item => {
 });
 ```
 
-If you genuinely need the effect (for example, to subscribe to something external), make the dependency stable:
+உங்களுக்கு உண்மையிலேயே effect தேவைப்பட்டால் (எடுத்துக்காட்டாக, external ஒன்றுக்கு subscribe செய்ய), dependency-ஐ stable ஆக்குங்கள்:
 
 ```js
 // ✅ useCallback keeps the function reference stable
@@ -106,18 +106,18 @@ useEffect(() => {
 }, [items]);
 ```
 
-### Running an effect only once {/*effect-on-mount*/}
+### Effect-ஐ ஒரே முறை மட்டும் run செய்தல் {/*effect-on-mount*/}
 
-You want to run an effect once on mount, but the linter complains about missing dependencies:
+Mount ஆனபோது effect-ஐ ஒரே முறை run செய்ய விரும்புகிறீர்கள்; ஆனால் missing dependencies குறித்து linter புகார் செய்கிறது:
 
 ```js
 // ❌ Missing dependency
 useEffect(() => {
   sendAnalytics(userId);
-}, []); // Missing 'userId'
+}, []); // 'userId' விடுபட்டுள்ளது
 ```
 
-Either include the dependency (recommended) or use a ref if you truly need to run once:
+Dependency-ஐ சேர்க்கவும் (பரிந்துரைக்கப்படுகிறது), அல்லது உண்மையில் ஒரே முறை run செய்ய வேண்டுமெனில் ref பயன்படுத்தவும்:
 
 ```js
 // ✅ Include dependency
@@ -140,7 +140,7 @@ useEffect(() => {
 
 ## Options {/*options*/}
 
-You can configure custom effect hooks using shared ESLint settings (available in `eslint-plugin-react-hooks` 6.1.1 and later):
+Shared ESLint settings மூலம் custom effect hooks-ஐ configure செய்யலாம் (`eslint-plugin-react-hooks` 6.1.1 மற்றும் அதன் பின்வரும் versions-இல் கிடைக்கும்):
 
 ```js
 {
@@ -152,9 +152,9 @@ You can configure custom effect hooks using shared ESLint settings (available in
 }
 ```
 
-- `additionalEffectHooks`: Regex pattern matching custom hooks that should be checked for exhaustive dependencies. This configuration is shared across all `react-hooks` rules.
+- `additionalEffectHooks`: Exhaustive dependencies-க்காக check செய்ய வேண்டிய custom hooks-ஐ match செய்யும் Regex pattern. இந்த configuration அனைத்து `react-hooks` rules-களிலும் shared ஆகும்.
 
-For backward compatibility, this rule also accepts a rule-level option:
+Backward compatibility-க்காக, இந்த rule ஒரு rule-level option-ஐயும் ஏற்கிறது:
 
 ```js
 {
@@ -166,4 +166,4 @@ For backward compatibility, this rule also accepts a rule-level option:
 }
 ```
 
-- `additionalHooks`: Regex for hooks that should be checked for exhaustive dependencies. **Note:** If this rule-level option is specified, it takes precedence over the shared `settings` configuration.
+- `additionalHooks`: Exhaustive dependencies-க்காக check செய்ய வேண்டிய hooks-க்கான Regex. **குறிப்பு:** இந்த rule-level option குறிப்பிடப்பட்டால், shared `settings` configuration-ஐ விட இது முன்னுரிமை பெறும்.

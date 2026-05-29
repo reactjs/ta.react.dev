@@ -4,17 +4,17 @@ title: error-boundaries
 
 <Intro>
 
-Validates usage of Error Boundaries instead of try/catch for errors in child components.
+Child components-இல் ஏற்படும் errors-க்கு try/catch-க்கு பதிலாக Error Boundaries பயன்படுத்தப்படுகிறதா என்பதை validate செய்கிறது.
 
 </Intro>
 
-## Rule Details {/*rule-details*/}
+## விதி விவரங்கள் {/*rule-details*/}
 
-Try/catch blocks can't catch errors that happen during React's rendering process. Errors thrown in rendering methods or hooks bubble up through the component tree. Only [Error Boundaries](/reference/react/Component#catching-rendering-errors-with-an-error-boundary) can catch these errors.
+React rendering process நடக்கும் போது ஏற்படும் errors-ஐ try/catch blocks பிடிக்க முடியாது. Rendering methods அல்லது hooks-இல் throw செய்யப்படும் errors component tree வழியாக மேலே செல்கின்றன. இந்த errors-ஐ [Error Boundaries](/reference/react/Component#catching-rendering-errors-with-an-error-boundary) மட்டுமே பிடிக்க முடியும்.
 
-### Invalid {/*invalid*/}
+### செல்லாதது {/*invalid*/}
 
-Examples of incorrect code for this rule:
+இந்த விதிக்கான தவறான code உதாரணங்கள்:
 
 ```js {expectedErrors: {'react-compiler': [4]}}
 // ❌ Try/catch won't catch render errors
@@ -27,9 +27,9 @@ function Parent() {
 }
 ```
 
-### Valid {/*valid*/}
+### செல்லுபடியாகும் {/*valid*/}
 
-Examples of correct code for this rule:
+இந்த விதிக்கான சரியான code உதாரணங்கள்:
 
 ```js
 // ✅ Using error boundary
@@ -44,9 +44,9 @@ function Parent() {
 
 ## Troubleshooting {/*troubleshooting*/}
 
-### Why is the linter telling me not to wrap `use` in `try`/`catch`? {/*why-is-the-linter-telling-me-not-to-wrap-use-in-trycatch*/}
+### `use`-ஐ `try`/`catch`-இல் wrap செய்ய வேண்டாம் என்று linter ஏன் சொல்கிறது? {/*why-is-the-linter-telling-me-not-to-wrap-use-in-trycatch*/}
 
-The `use` hook doesn't throw errors in the traditional sense, it suspends component execution. When `use` encounters a pending promise, it suspends the component and lets React show a fallback. Only Suspense and Error Boundaries can handle these cases. The linter warns against `try`/`catch` around `use` to prevent confusion as the `catch` block would never run.
+`use` hook வழக்கமான அர்த்தத்தில் errors throw செய்யாது; அது component execution-ஐ suspend செய்கிறது. `use` pending promise ஒன்றை சந்திக்கும்போது, component-ஐ suspend செய்து React fallback காட்ட அனுமதிக்கிறது. Suspense மற்றும் Error Boundaries மட்டுமே இந்நிலைகளை கையாள முடியும். `catch` block ஒருபோதும் இயங்காது என்பதால் குழப்பத்தைத் தவிர்க்க, `use` சுற்றி `try`/`catch` பயன்படுத்த வேண்டாம் என்று linter எச்சரிக்கிறது.
 
 ```js {expectedErrors: {'react-compiler': [5]}}
 // ❌ Try/catch around `use` hook

@@ -4,7 +4,7 @@ title: resume
 
 <Intro>
 
-`resume` streams a pre-rendered React tree to a [Readable Web Stream.](https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream)
+`resume` pre-render செய்யப்பட்ட React tree-ஐ [Readable Web Stream](https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream)-க்கு stream செய்கிறது.
 
 ```js
 const stream = await resume(reactNode, postponedState, options?)
@@ -16,17 +16,17 @@ const stream = await resume(reactNode, postponedState, options?)
 
 <Note>
 
-This API depends on [Web Streams.](https://developer.mozilla.org/en-US/docs/Web/API/Streams_API) For Node.js, use [`resumeToNodeStream`](/reference/react-dom/server/renderToPipeableStream) instead.
+இந்த API [Web Streams](https://developer.mozilla.org/en-US/docs/Web/API/Streams_API)-ஐ சார்ந்தது. Node.js-க்கு, அதன் பதிலாக [`resumeToNodeStream`](/reference/react-dom/server/renderToPipeableStream)-ஐப் பயன்படுத்துங்கள்.
 
 </Note>
 
 ---
 
-## Reference {/*reference*/}
+## குறிப்பு {/*reference*/}
 
 ### `resume(node, postponedState, options?)` {/*resume*/}
 
-Call `resume` to resume rendering a pre-rendered React tree as HTML into a [Readable Web Stream.](https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream)
+Pre-render செய்யப்பட்ட React tree-ஐ HTML ஆக [Readable Web Stream](https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream)-க்குள் render செய்வதை resume செய்ய `resume`-ஐ call செய்யுங்கள்.
 
 ```js
 import { resume } from 'react-dom/server';
@@ -39,39 +39,39 @@ async function handler(request, writable) {
 }
 ```
 
-[See more examples below.](#usage)
+[மேலும் உதாரணங்களை கீழே பார்க்கவும்.](#usage)
 
 #### Parameters {/*parameters*/}
 
-* `reactNode`: The React node you called `prerender` with. For example, a JSX element like `<App />`. It is expected to represent the entire document, so the `App` component should render the `<html>` tag.
-* `postponedState`: The opaque `postpone` object returned from a [prerender API](/reference/react-dom/static/index), loaded from wherever you stored it (e.g. redis, a file, or S3).
-* **optional** `options`: An object with streaming options.
-  * **optional** `nonce`: A [`nonce`](http://developer.mozilla.org/en-US/docs/Web/HTML/Element/script#nonce) string to allow scripts for [`script-src` Content-Security-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/script-src).
-  * **optional** `signal`: An [abort signal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that lets you [abort server rendering](#aborting-server-rendering) and render the rest on the client.
-  * **optional** `onError`: A callback that fires whenever there is a server error, whether [recoverable](/reference/react-dom/server/renderToReadableStream#recovering-from-errors-outside-the-shell) or [not.](/reference/react-dom/server/renderToReadableStream#recovering-from-errors-inside-the-shell) By default, this only calls `console.error`. If you override it to [log crash reports,](/reference/react-dom/server/renderToReadableStream#logging-crashes-on-the-server) make sure that you still call `console.error`.
+* `reactNode`: நீங்கள் `prerender` call செய்த React node. உதாரணமாக `<App />` போன்ற JSX element. இது முழு document-ஐ represent செய்யும் என்று எதிர்பார்க்கப்படுகிறது; எனவே `App` component `<html>` tag-ஐ render செய்ய வேண்டும்.
+* `postponedState`: [prerender API](/reference/react-dom/static/index) return செய்த opaque `postpone` object; நீங்கள் எங்கே store செய்திருந்தாலும் அங்கிருந்து load செய்யப்பட்டது (எ.கா. redis, file, அல்லது S3).
+* **optional** `options`: Streaming options கொண்ட object.
+  * **optional** `nonce`: [`script-src` Content-Security-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/script-src)-க்கு scripts அனுமதிக்க [`nonce`](http://developer.mozilla.org/en-US/docs/Web/HTML/Element/script#nonce) string.
+  * **optional** `signal`: [Server rendering-ஐ abort செய்து](#aborting-server-rendering) மீதியை client-இல் render செய்ய அனுமதிக்கும் [abort signal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal).
+  * **optional** `onError`: Server error ஏற்படும் போதெல்லாம் fire ஆகும் callback; அது [recoverable](/reference/react-dom/server/renderToReadableStream#recovering-from-errors-outside-the-shell) ஆக இருந்தாலும் [இல்லாவிட்டாலும்](/reference/react-dom/server/renderToReadableStream#recovering-from-errors-inside-the-shell). Default-ஆக, இது `console.error` மட்டும் call செய்யும். [Crash reports log செய்ய](/reference/react-dom/server/renderToReadableStream#logging-crashes-on-the-server) இதை override செய்தால், இன்னும் `console.error` call செய்வதை உறுதிசெய்யுங்கள்.
 
 
 #### Returns {/*returns*/}
 
-`resume` returns a Promise:
+`resume` ஒரு Promise-ஐ return செய்கிறது:
 
-- If `resume` successfully produced a [shell](/reference/react-dom/server/renderToReadableStream#specifying-what-goes-into-the-shell), that Promise will resolve to a [Readable Web Stream.](https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream) that can be piped to a [Writable Web Stream.](https://developer.mozilla.org/en-US/docs/Web/API/WritableStream).
-- If an error happens in the shell, the Promise will reject with that error.
+- `resume` வெற்றிகரமாக [shell](/reference/react-dom/server/renderToReadableStream#specifying-what-goes-into-the-shell) உருவாக்கினால், அந்த Promise [Writable Web Stream](https://developer.mozilla.org/en-US/docs/Web/API/WritableStream)-க்கு pipe செய்யக்கூடிய [Readable Web Stream](https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream)-க்கு resolve ஆகும்.
+- Shell-இல் error ஏற்பட்டால், Promise அந்த error உடன் reject ஆகும்.
 
-The returned stream has an additional property:
+Return செய்யப்பட்ட stream-க்கு கூடுதல் property ஒன்று உள்ளது:
 
-* `allReady`: A Promise that resolves when all rendering is complete. You can `await stream.allReady` before returning a response [for crawlers and static generation.](/reference/react-dom/server/renderToReadableStream#waiting-for-all-content-to-load-for-crawlers-and-static-generation) If you do that, you won't get any progressive loading. The stream will contain the final HTML.
+* `allReady`: எல்லா rendering-உம் முடிந்ததும் resolve ஆகும் Promise. [Crawlers மற்றும் static generation-க்கு](/reference/react-dom/server/renderToReadableStream#waiting-for-all-content-to-load-for-crawlers-and-static-generation) response return செய்வதற்கு முன் `await stream.allReady` செய்யலாம். அப்படிச் செய்தால் progressive loading கிடைக்காது. Stream final HTML-ஐ கொண்டிருக்கும்.
 
 #### Caveats {/*caveats*/}
 
-- `resume` does not accept options for `bootstrapScripts`, `bootstrapScriptContent`, or `bootstrapModules`. Instead, you need to pass these options to the `prerender` call that generates the `postponedState`. You can also inject bootstrap content into the writable stream manually.
-- `resume` does not accept `identifierPrefix` since the prefix needs to be the same in both `prerender` and `resume`.
-- Since `nonce` cannot be provided to prerender, you should only provide `nonce` to `resume` if you're not providing scripts to prerender.
-- `resume` re-renders from the root until it finds a component that was not fully pre-rendered. Only fully prerendered Components (the Component and its children finished prerendering) are skipped entirely.
+- `bootstrapScripts`, `bootstrapScriptContent`, அல்லது `bootstrapModules` options-ஐ `resume` ஏற்காது. அதற்கு பதிலாக, `postponedState` உருவாக்கும் `prerender` call-க்கு இந்த options-ஐ pass செய்ய வேண்டும். Bootstrap content-ஐ writable stream-க்குள் manual-ஆக inject செய்யவும் முடியும்.
+- Prefix `prerender` மற்றும் `resume` இரண்டிலும் ஒன்றாக இருக்க வேண்டியதால், `resume` `identifierPrefix`-ஐ ஏற்காது.
+- `nonce` prerender-க்கு வழங்க முடியாததால், prerender-க்கு scripts வழங்கவில்லை என்றால் மட்டுமே `resume`-க்கு `nonce` வழங்க வேண்டும்.
+- முழுமையாக pre-render செய்யப்படாத component கிடைக்கும் வரை root-இலிருந்து `resume` re-render செய்கிறது. முழுமையாக prerender செய்யப்பட்ட Components மட்டும் (Component மற்றும் அதன் children prerendering முடித்தவை) முழுவதுமாக skip செய்யப்படும்.
 
-## Usage {/*usage*/}
+## பயன்பாடு {/*usage*/}
 
-### Resuming a prerender {/*resuming-a-prerender*/}
+### Prerender-ஐ resume செய்தல் {/*resuming-a-prerender*/}
 
 <Sandpack>
 
@@ -230,7 +230,7 @@ export function sleep(timeoutMS) {
 
 </Sandpack>
 
-### Further reading {/*further-reading*/}
+### மேலும் படிக்க {/*further-reading*/}
 
-Resuming behaves like `renderToReadableStream`. For more examples, check out the [usage section of `renderToReadableStream`](/reference/react-dom/server/renderToReadableStream#usage).
-The [usage section of `prerender`](/reference/react-dom/static/prerender#usage) includes examples of how to use `prerender` specifically.
+Resuming `renderToReadableStream` போல செயல்படுகிறது. மேலும் உதாரணங்களுக்கு, [`renderToReadableStream`-ன் usage section](/reference/react-dom/server/renderToReadableStream#usage)-ஐப் பார்க்கவும்.
+`prerender`-ஐ குறிப்பாக எப்படி பயன்படுத்துவது என்பதற்கான உதாரணங்கள் [`prerender`-ன் usage section](/reference/react-dom/static/prerender#usage)-இல் உள்ளன.

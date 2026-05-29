@@ -5,14 +5,14 @@ titleForTitleTag: "'use client' directive"
 
 <RSC>
 
-`'use client'` is for use with [React Server Components](/reference/rsc/server-components).
+`'use client'` [React Server Components](/reference/rsc/server-components) உடன் பயன்படுத்தப்படுகிறது.
 
 </RSC>
 
 
 <Intro>
 
-`'use client'` lets you mark what code runs on the client.
+எந்த code client-இல் run ஆக வேண்டும் என்பதை mark செய்ய `'use client'` அனுமதிக்கிறது.
 
 </Intro>
 
@@ -24,7 +24,7 @@ titleForTitleTag: "'use client' directive"
 
 ### `'use client'` {/*use-client*/}
 
-Add `'use client'` at the top of a file to mark the module and its transitive dependencies as client code.
+ஒரு file-ன் top-இல் `'use client'` சேர்த்து, அந்த module மற்றும் அதன் transitive dependencies-ஐ client code ஆக mark செய்யவும்.
 
 ```js {1}
 'use client';
@@ -41,26 +41,26 @@ export default function RichTextEditor({ timestamp, text }) {
 }
 ```
 
-When a file marked with `'use client'` is imported from a Server Component, [compatible bundlers](/learn/creating-a-react-app#full-stack-frameworks) will treat the module import as a boundary between server-run and client-run code.
+`'use client'` mark செய்யப்பட்ட file ஒன்று Server Component-இலிருந்து import செய்யப்படும் போது, [compatible bundlers](/learn/creating-a-react-app#full-stack-frameworks) அந்த module import-ஐ server-run code மற்றும் client-run code இடையிலான boundary ஆக treat செய்யும்.
 
-As dependencies of `RichTextEditor`, `formatDate` and `Button` will also be evaluated on the client regardless of whether their modules contain a `'use client'` directive. Note that a single module may be evaluated on the server when imported from server code and on the client when imported from client code.
+`RichTextEditor`-ன் dependencies ஆக, `formatDate` மற்றும் `Button` modules-இல் `'use client'` directive உள்ளதா இல்லையா என்பதைப் பொருட்படுத்தாமல் client-இல் evaluate செய்யப்படும். ஒரே module, server code-இலிருந்து import செய்யப்படும் போது server-இலும், client code-இலிருந்து import செய்யப்படும் போது client-இலும் evaluate செய்யப்படலாம் என்பதை கவனிக்கவும்.
 
 #### Caveats {/*caveats*/}
 
-* `'use client'` must be at the very beginning of a file, above any imports or other code (comments are OK). They must be written with single or double quotes, but not backticks.
-* When a `'use client'` module is imported from another client-rendered module, the directive has no effect.
-* When a component module contains a `'use client'` directive, any usage of that component is guaranteed to be a Client Component. However, a component can still be evaluated on the client even if it does not have a `'use client'` directive.
-	* A component usage is considered a Client Component if it is defined in module with `'use client'` directive or when it is a transitive dependency of a module that contains a `'use client'` directive. Otherwise, it is a Server Component.
-* Code that is marked for client evaluation is not limited to components. All code that is a part of the Client module sub-tree is sent to and run by the client.
-* When a server evaluated module imports values from a `'use client'` module, the values must either be a React component or [supported serializable prop values](#passing-props-from-server-to-client-components) to be passed to a Client Component. Any other use case will throw an exception.
+* `'use client'` file-ன் மிகத் தொடக்கத்தில், imports அல்லது வேறு code-க்கு மேலே இருக்க வேண்டும் (comments OK). இது single அல்லது double quotes உடன் எழுதப்பட வேண்டும்; backticks உடன் அல்ல.
+* `'use client'` module மற்றொரு client-rendered module-இலிருந்து import செய்யப்பட்டால், directive-க்கு effect இல்லை.
+* Component module `'use client'` directive கொண்டிருந்தால், அந்த component-ன் எந்த usage-யும் Client Component ஆக guarantee செய்யப்படும். ஆனால் `'use client'` directive இல்லாவிட்டாலும் component client-இல் evaluate செய்யப்படலாம்.
+	* Component usage, `'use client'` directive கொண்ட module-இல் define செய்யப்பட்டிருந்தாலோ, அல்லது `'use client'` directive கொண்ட module-ன் transitive dependency ஆக இருந்தாலோ Client Component என கருதப்படும். இல்லையெனில் அது Server Component.
+* Client evaluation-க்கு mark செய்யப்பட்ட code components-க்கு மட்டும் வரையறுக்கப்படவில்லை. Client module sub-tree-யின் ஒரு பகுதியாக இருக்கும் அனைத்து code-யும் client-க்கு அனுப்பப்பட்டு client மூலம் run செய்யப்படும்.
+* Server evaluated module ஒன்று `'use client'` module-இலிருந்து values import செய்தால், அந்த values Client Component-க்கு pass செய்ய React component அல்லது [supported serializable prop values](#passing-props-from-server-to-client-components) ஆக இருக்க வேண்டும். வேறு எந்த use case-ம் exception throw செய்யும்.
 
-### How `'use client'` marks client code {/*how-use-client-marks-client-code*/}
+### `'use client'` client code-ஐ எப்படி mark செய்கிறது {/*how-use-client-marks-client-code*/}
 
-In a React app, components are often split into separate files, or [modules](/learn/importing-and-exporting-components#exporting-and-importing-a-component).
+React app-இல், components பெரும்பாலும் தனித்தனி files அல்லது [modules](/learn/importing-and-exporting-components#exporting-and-importing-a-component)-ஆக split செய்யப்படுகின்றன.
 
-For apps that use React Server Components, the app is server-rendered by default. `'use client'` introduces a server-client boundary in the [module dependency tree](/learn/understanding-your-ui-as-a-tree#the-module-dependency-tree), effectively creating a subtree of Client modules.
+React Server Components பயன்படுத்தும் apps-க்கு, app default ஆக server-rendered. `'use client'`, [module dependency tree](/learn/understanding-your-ui-as-a-tree#the-module-dependency-tree)-இல் server-client boundary அறிமுகப்படுத்தி, Client modules-ன் subtree ஒன்றை effectively உருவாக்குகிறது.
 
-To better illustrate this, consider the following React Server Components app.
+இதைக் தெளிவாக illustrate செய்ய, கீழுள்ள React Server Components app-ஐ கவனிக்கவும்.
 
 <Sandpack>
 
@@ -72,7 +72,7 @@ import Copyright from './Copyright';
 export default function App() {
   return (
     <>
-      <FancyText title text="Get Inspired App" />
+      <FancyText title text="ஊக்கம் தரும் app" />
       <InspirationGenerator>
         <Copyright year={2004} />
       </InspirationGenerator>
@@ -104,9 +104,9 @@ export default function InspirationGenerator({children}) {
 
   return (
     <>
-      <p>Your inspirational quote is:</p>
+      <p>உங்கள் inspirational quote:</p>
       <FancyText text={quote} />
-      <button onClick={next}>Inspire me again</button>
+      <button onClick={next}>மீண்டும் ஊக்கம் கொடுங்கள்</button>
       {children}
     </>
   );
@@ -121,9 +121,9 @@ export default function Copyright({year}) {
 
 ```js src/inspirations.js
 export default [
-  "Don’t let yesterday take up too much of today.” — Will Rogers",
-  "Ambition is putting a ladder against the sky.",
-  "A joy that's shared is a joy made double.",
+  "நேற்றையதை இன்று அதிகம் பிடித்துக்கொள்ள விடாதீர்கள். - Will Rogers",
+  "லட்சியம் என்பது வானத்தை நோக்கி ஏணியை சாய்ப்பது.",
+  "பகிரப்பட்ட மகிழ்ச்சி இரட்டிப்பான மகிழ்ச்சி.",
 ];
 ```
 
@@ -145,35 +145,35 @@ export default [
 
 </Sandpack>
 
-In the module dependency tree of this example app, the `'use client'` directive in `InspirationGenerator.js` marks that module and all of its transitive dependencies as Client modules. The subtree starting at `InspirationGenerator.js` is now marked as Client modules.
+இந்த example app-ன் module dependency tree-இல், `InspirationGenerator.js`-இல் உள்ள `'use client'` directive அந்த module மற்றும் அதன் அனைத்து transitive dependencies-ஐ Client modules ஆக mark செய்கிறது. `InspirationGenerator.js`-இல் தொடங்கும் subtree இப்போது Client modules ஆக mark செய்யப்பட்டுள்ளது.
 
-<Diagram name="use_client_module_dependency" height={250} width={545} alt="A tree graph with the top node representing the module 'App.js'. 'App.js' has three children: 'Copyright.js', 'FancyText.js', and 'InspirationGenerator.js'. 'InspirationGenerator.js' has two children: 'FancyText.js' and 'inspirations.js'. The nodes under and including 'InspirationGenerator.js' have a yellow background color to signify that this sub-graph is client-rendered due to the 'use client' directive in 'InspirationGenerator.js'.">
-`'use client'` segments the module dependency tree of the React Server Components app, marking `InspirationGenerator.js` and all of its dependencies as client-rendered.
+<Diagram name="use_client_module_dependency" height={250} width={545} alt="Top node module 'App.js'-ஐ represent செய்யும் tree graph. 'App.js'-க்கு மூன்று children: 'Copyright.js', 'FancyText.js', மற்றும் 'InspirationGenerator.js'. 'InspirationGenerator.js'-க்கு இரண்டு children: 'FancyText.js' மற்றும் 'inspirations.js'. 'InspirationGenerator.js' உட்பட அதன் கீழுள்ள nodes yellow background color கொண்டுள்ளன; இது 'InspirationGenerator.js'-இல் உள்ள 'use client' directive காரணமாக இந்த sub-graph client-rendered என்பதை குறிக்கிறது.">
+`'use client'`, React Server Components app-ன் module dependency tree-ஐ segment செய்து, `InspirationGenerator.js` மற்றும் அதன் எல்லா dependencies-யையும் client-rendered ஆக mark செய்கிறது.
 </Diagram>
 
-During render, the framework will server-render the root component and continue through the [render tree](/learn/understanding-your-ui-as-a-tree#the-render-tree), opting-out of evaluating any code imported from client-marked code.
+Render போது, framework root component-ஐ server-render செய்து [render tree](/learn/understanding-your-ui-as-a-tree#the-render-tree) வழியாக தொடரும்; client-marked code-இலிருந்து import செய்யப்பட்ட எந்த code-யையும் evaluate செய்வதிலிருந்து opt out செய்யும்.
 
-The server-rendered portion of the render tree is then sent to the client. The client, with its client code downloaded, then completes rendering the rest of the tree.
+Render tree-ன் server-rendered பகுதி client-க்கு அனுப்பப்படும். Client, client code download செய்யப்பட்ட பிறகு, tree-ன் மீதியை rendering முடிக்கும்.
 
-<Diagram name="use_client_render_tree" height={250} width={500} alt="A tree graph where each node represents a component and its children as child components. The top-level node is labelled 'App' and it has two child components 'InspirationGenerator' and 'FancyText'. 'InspirationGenerator' has two child components, 'FancyText' and 'Copyright'. Both 'InspirationGenerator' and its child component 'FancyText' are marked to be client-rendered.">
-The render tree for the React Server Components app. `InspirationGenerator` and its child component `FancyText` are components exported from client-marked code and considered Client Components.
+<Diagram name="use_client_render_tree" height={250} width={500} alt="ஒவ்வொரு node-யும் component-ஐவும் அதன் children-ஐ child components ஆகவும் represent செய்யும் tree graph. Top-level node 'App' என labelled; அதற்கு 'InspirationGenerator' மற்றும் 'FancyText' என்ற இரண்டு child components உள்ளன. 'InspirationGenerator'-க்கு 'FancyText' மற்றும் 'Copyright' என்ற இரண்டு child components உள்ளன. 'InspirationGenerator' மற்றும் அதன் child component 'FancyText' இரண்டும் client-rendered ஆக mark செய்யப்பட்டுள்ளன.">
+React Server Components app-க்கான render tree. `InspirationGenerator` மற்றும் அதன் child component `FancyText`, client-marked code-இலிருந்து exported components ஆகும்; அவை Client Components என கருதப்படுகின்றன.
 </Diagram>
 
-We introduce the following definitions:
+பின்வரும் definitions-ஐ அறிமுகப்படுத்துகிறோம்:
 
-* **Client Components** are components in a render tree that are rendered on the client.
-* **Server Components** are components in a render tree that are rendered on the server.
+* **Client Components** என்பது render tree-இல் client-இல் render செய்யப்படும் components.
+* **Server Components** என்பது render tree-இல் server-இல் render செய்யப்படும் components.
 
-Working through the example app, `App`, `FancyText` and `Copyright` are all server-rendered and considered Server Components. As `InspirationGenerator.js` and its transitive dependencies are marked as client code, the component `InspirationGenerator` and its child component `FancyText` are Client Components.
+Example app-ஐப் பார்த்தால், `App`, `FancyText`, மற்றும் `Copyright` அனைத்தும் server-rendered; அவை Server Components என கருதப்படுகின்றன. `InspirationGenerator.js` மற்றும் அதன் transitive dependencies client code ஆக mark செய்யப்பட்டதால், component `InspirationGenerator` மற்றும் அதன் child component `FancyText` Client Components.
 
 <DeepDive>
-#### How is `FancyText` both a Server and a Client Component? {/*how-is-fancytext-both-a-server-and-a-client-component*/}
+#### `FancyText` எப்படி Server மற்றும் Client Component இரண்டாக இருக்கிறது? {/*how-is-fancytext-both-a-server-and-a-client-component*/}
 
-By the above definitions, the component `FancyText` is both a Server and Client Component, how can that be?
+மேலுள்ள definitions படி, component `FancyText` Server Component-யும் Client Component-யும் ஆகிறது; அது எப்படி சாத்தியம்?
 
-First, let's clarify that the term "component" is not very precise. Here are just two ways "component" can be understood:
+முதலில், "component" என்ற term மிகவும் precise அல்ல என்பதை clarify செய்வோம். "Component" இரண்டு ways-இல் புரிந்துகொள்ளப்படலாம்:
 
-1. A "component" can refer to a **component definition**. In most cases this will be a function.
+1. "Component" என்பது **component definition**-ஐ குறிக்கலாம். பெரும்பாலான cases-இல் இது function ஆக இருக்கும்.
 
 ```js
 // This is a definition of a component
@@ -182,7 +182,7 @@ function MyComponent() {
 }
 ```
 
-2. A "component" can also refer to a **component usage** of its definition.
+2. "Component" என்பது அதன் definition-ன் **component usage**-ஐயும் குறிக்கலாம்.
 ```js
 import MyComponent from './MyComponent';
 
@@ -192,67 +192,67 @@ function App() {
 }
 ```
 
-Often, the imprecision is not important when explaining concepts, but in this case it is.
+Concepts விளக்கும் போது இந்த imprecision பெரும்பாலும் முக்கியமில்லை; ஆனால் இந்த case-இல் அது முக்கியம்.
 
-When we talk about Server or Client Components, we are referring to component usages.
+Server அல்லது Client Components பற்றி பேசும்போது, நாங்கள் component usages-ஐ குறிக்கிறோம்.
 
-* If the component is defined in a module with a `'use client'` directive, or the component is imported and called in a Client Component, then the component usage is a Client Component.
-* Otherwise, the component usage is a Server Component.
+* Component `'use client'` directive கொண்ட module-இல் define செய்யப்பட்டிருந்தாலோ, அல்லது component Client Component-இல் import செய்து call செய்யப்பட்டாலோ, அந்த component usage Client Component.
+* இல்லையெனில், அந்த component usage Server Component.
 
 
-<Diagram name="use_client_render_tree" height={150} width={450} alt="A tree graph where each node represents a component and its children as child components. The top-level node is labelled 'App' and it has two child components 'InspirationGenerator' and 'FancyText'. 'InspirationGenerator' has two child components, 'FancyText' and 'Copyright'. Both 'InspirationGenerator' and its child component 'FancyText' are marked to be client-rendered.">A render tree illustrates component usages.</Diagram>
+<Diagram name="use_client_render_tree" height={150} width={450} alt="ஒவ்வொரு node-யும் component-ஐவும் அதன் children-ஐ child components ஆகவும் represent செய்யும் tree graph. Top-level node 'App' என labelled; அதற்கு 'InspirationGenerator' மற்றும் 'FancyText' என்ற இரண்டு child components உள்ளன. 'InspirationGenerator'-க்கு 'FancyText' மற்றும் 'Copyright' என்ற இரண்டு child components உள்ளன. 'InspirationGenerator' மற்றும் அதன் child component 'FancyText' இரண்டும் client-rendered ஆக mark செய்யப்பட்டுள்ளன.">Render tree, component usages-ஐ illustrate செய்கிறது.</Diagram>
 
-Back to the question of `FancyText`, we see that the component definition does _not_ have a `'use client'` directive and it has two usages.
+`FancyText` பற்றிய கேள்விக்கு திரும்பினால், component definition-இல் `'use client'` directive _இல்லை_; ஆனால் அதற்கு இரண்டு usages உள்ளன.
 
-The usage of `FancyText` as a child of `App`, marks that usage as a Server Component. When `FancyText` is imported and called under `InspirationGenerator`, that usage of `FancyText` is a Client Component as `InspirationGenerator` contains a `'use client'` directive.
+`App`-ன் child ஆக உள்ள `FancyText` usage, அந்த usage-ஐ Server Component ஆக mark செய்கிறது. `InspirationGenerator` கீழ் `FancyText` import செய்து call செய்யப்படும் போது, `InspirationGenerator` `'use client'` directive கொண்டிருப்பதால் அந்த `FancyText` usage Client Component ஆகும்.
 
-This means that the component definition for `FancyText` will both be evaluated on the server and also downloaded by the client to render its Client Component usage.
+இதன் அர்த்தம்: `FancyText` component definition server-இலும் evaluate செய்யப்படும்; மேலும் அதன் Client Component usage render செய்ய client-ஆலும் download செய்யப்படும்.
 
 </DeepDive>
 
 <DeepDive>
 
-#### Why is `Copyright` a Server Component? {/*why-is-copyright-a-server-component*/}
+#### `Copyright` ஏன் Server Component? {/*why-is-copyright-a-server-component*/}
 
-Because `Copyright` is rendered as a child of the Client Component `InspirationGenerator`, you might be surprised that it is a Server Component.
+`Copyright`, Client Component ஆன `InspirationGenerator`-ன் child ஆக render செய்யப்படுவதால், அது Server Component என்பது உங்களுக்கு ஆச்சரியமாக இருக்கலாம்.
 
-Recall that `'use client'` defines the boundary between server and client code on the _module dependency tree_, not the render tree.
+`'use client'` server மற்றும் client code இடையிலான boundary-ஐ _module dependency tree_-இல் define செய்கிறது; render tree-இல் அல்ல என்பதை நினைவுகூருங்கள்.
 
-<Diagram name="use_client_module_dependency" height={200} width={500} alt="A tree graph with the top node representing the module 'App.js'. 'App.js' has three children: 'Copyright.js', 'FancyText.js', and 'InspirationGenerator.js'. 'InspirationGenerator.js' has two children: 'FancyText.js' and 'inspirations.js'. The nodes under and including 'InspirationGenerator.js' have a yellow background color to signify that this sub-graph is client-rendered due to the 'use client' directive in 'InspirationGenerator.js'.">
-`'use client'` defines the boundary between server and client code on the module dependency tree.
+<Diagram name="use_client_module_dependency" height={200} width={500} alt="Top node module 'App.js'-ஐ represent செய்யும் tree graph. 'App.js'-க்கு மூன்று children: 'Copyright.js', 'FancyText.js', மற்றும் 'InspirationGenerator.js'. 'InspirationGenerator.js'-க்கு இரண்டு children: 'FancyText.js' மற்றும் 'inspirations.js'. 'InspirationGenerator.js' உட்பட அதன் கீழுள்ள nodes yellow background color கொண்டுள்ளன; இது 'InspirationGenerator.js'-இல் உள்ள 'use client' directive காரணமாக இந்த sub-graph client-rendered என்பதை குறிக்கிறது.">
+`'use client'`, module dependency tree-இல் server மற்றும் client code இடையிலான boundary-ஐ define செய்கிறது.
 </Diagram>
 
-In the module dependency tree, we see that `App.js` imports and calls `Copyright` from the `Copyright.js` module. As `Copyright.js` does not contain a `'use client'` directive, the component usage is rendered on the server. `App` is rendered on the server as it is the root component.
+Module dependency tree-இல், `App.js`, `Copyright.js` module-இலிருந்து `Copyright`-ஐ import செய்து call செய்கிறது என்பதைப் பார்க்கிறோம். `Copyright.js`-இல் `'use client'` directive இல்லாததால், component usage server-இல் render செய்யப்படுகிறது. Root component என்பதால் `App` server-இல் render செய்யப்படுகிறது.
 
-Client Components can render Server Components because you can pass JSX as props. In this case, `InspirationGenerator` receives `Copyright` as [children](/learn/passing-props-to-a-component#passing-jsx-as-children). However, the `InspirationGenerator` module never directly imports the `Copyright` module nor calls the component, all of that is done by `App`. In fact, the `Copyright` component is fully executed before `InspirationGenerator` starts rendering.
+Client Components Server Components-ஐ render செய்யலாம், ஏனெனில் JSX-ஐ props ஆக pass செய்ய முடியும். இந்த case-இல், `InspirationGenerator`, `Copyright`-ஐ [children](/learn/passing-props-to-a-component#passing-jsx-as-children) ஆகப் பெறுகிறது. ஆனால் `InspirationGenerator` module ஒருபோதும் `Copyright` module-ஐ நேரடியாக import செய்யவோ component-ஐ call செய்யவோ இல்லை; அவை அனைத்தும் `App` மூலம் செய்யப்படுகின்றன. உண்மையில், `InspirationGenerator` render ஆகத் தொடங்கும் முன்பே `Copyright` component முழுமையாக execute செய்யப்படுகிறது.
 
-The takeaway is that a parent-child render relationship between components does not guarantee the same render environment.
+Takeaway: components இடையிலான parent-child render relationship, அதே render environment-ஐ guarantee செய்யாது.
 
 </DeepDive>
 
-### When to use `'use client'` {/*when-to-use-use-client*/}
+### `'use client'` எப்போது பயன்படுத்த வேண்டும் {/*when-to-use-use-client*/}
 
-With `'use client'`, you can determine when components are Client Components. As Server Components are default, here is a brief overview of the advantages and limitations to Server Components to determine when you need to mark something as client rendered.
+`'use client'` மூலம் components எப்போது Client Components ஆக இருக்க வேண்டும் என்பதை தீர்மானிக்கலாம். Server Components default என்பதால், எதையாவது client rendered ஆக mark செய்ய வேண்டிய நேரம் எது என்பதை தீர்மானிக்க Server Components-ன் advantages மற்றும் limitations குறித்த brief overview இதோ.
 
-For simplicity, we talk about Server Components, but the same principles apply to all code in your app that is server run.
+Simplicity-க்காக, Server Components பற்றி பேசுகிறோம்; ஆனால் அதே principles உங்கள் app-இல் server run ஆகும் அனைத்து code-க்கும் பொருந்தும்.
 
-#### Advantages of Server Components {/*advantages*/}
-* Server Components can reduce the amount of code sent and run by the client. Only Client modules are bundled and evaluated by the client.
-* Server Components benefit from running on the server. They can access the local filesystem and may experience low latency for data fetches and network requests.
+#### Server Components-ன் advantages {/*advantages*/}
+* Server Components, client-க்கு அனுப்பப்பட்டு run செய்யப்படும் code அளவை குறைக்கலாம். Client modules மட்டுமே bundled செய்து client மூலம் evaluated செய்யப்படும்.
+* Server-இல் run ஆகுவதால் Server Components பயன் பெறுகின்றன. அவை local filesystem access செய்யலாம்; data fetches மற்றும் network requests-க்கு low latency அனுபவிக்கலாம்.
 
-#### Limitations of Server Components {/*limitations*/}
-* Server Components cannot support interaction as event handlers must be registered and triggered by a client.
-	* For example, event handlers like `onClick` can only be defined in Client Components.
-* Server Components cannot use most Hooks.
-	* When Server Components are rendered, their output is essentially a list of components for the client to render. Server Components do not persist in memory after render and cannot have their own state.
+#### Server Components-ன் limitations {/*limitations*/}
+* Event handlers client மூலம் register செய்து trigger செய்யப்பட வேண்டும் என்பதால் Server Components interaction support செய்ய முடியாது.
+	* உதாரணமாக, `onClick` போன்ற event handlers Client Components-இல் மட்டுமே define செய்ய முடியும்.
+* Server Components பெரும்பாலான Hooks-ஐ பயன்படுத்த முடியாது.
+	* Server Components render செய்யப்படும்போது, அவற்றின் output essentially client render செய்ய வேண்டிய components பட்டியல். Server Components render-க்கு பிறகு memory-இல் persist ஆகாது; அவற்றுக்கு சொந்த state இருக்க முடியாது.
 
-### Serializable types returned by Server Components {/*serializable-types*/}
+### Server Components return செய்யும் serializable types {/*serializable-types*/}
 
-As in any React app, parent components pass data to child components. As they are rendered in different environments, passing data from a Server Component to a Client Component requires extra consideration.
+எந்த React app-இலும் போல, parent components child components-க்கு data pass செய்கின்றன. அவை வெவ்வேறு environments-இல் render செய்யப்படுவதால், Server Component-இலிருந்து Client Component-க்கு data pass செய்வதற்கு கூடுதல் கவனம் தேவை.
 
-Prop values passed from a Server Component to Client Component must be serializable.
+Server Component-இலிருந்து Client Component-க்கு pass செய்யப்படும் prop values serializable ஆக இருக்க வேண்டும்.
 
-Serializable props include:
+Serializable props-இல் அடங்குவது:
 * Primitives
 	* [string](https://developer.mozilla.org/en-US/docs/Glossary/String)
 	* [number](https://developer.mozilla.org/en-US/docs/Glossary/Number)
@@ -260,29 +260,29 @@ Serializable props include:
 	* [boolean](https://developer.mozilla.org/en-US/docs/Glossary/Boolean)
 	* [undefined](https://developer.mozilla.org/en-US/docs/Glossary/Undefined)
 	* [null](https://developer.mozilla.org/en-US/docs/Glossary/Null)
-	* [symbol](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol), only symbols registered in the global Symbol registry via [`Symbol.for`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/for)
-* Iterables containing serializable values
+	* [symbol](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol), [`Symbol.for`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/for) மூலம் global Symbol registry-இல் registered symbols மட்டும்
+* Serializable values கொண்ட Iterables
 	* [String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)
 	* [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)
 	* [Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map)
 	* [Set](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set)
-	* [TypedArray](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray) and [ArrayBuffer](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer)
+	* [TypedArray](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray) மற்றும் [ArrayBuffer](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer)
 * [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date)
-* Plain [objects](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object): those created with [object initializers](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer), with serializable properties
-* Functions that are [Server Functions](/reference/rsc/server-functions)
-* Client or Server Component elements (JSX)
+* Plain [objects](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object): [object initializers](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer) மூலம் உருவாக்கப்பட்டவை, serializable properties உடன்
+* [Server Functions](/reference/rsc/server-functions) ஆன functions
+* Client அல்லது Server Component elements (JSX)
 * [Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
 
-Notably, these are not supported:
-* [Functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function) that are not exported from client-marked modules or marked with [`'use server'`](/reference/rsc/use-server)
+குறிப்பாக, இவை supported அல்ல:
+* Client-marked modules-இலிருந்து export செய்யப்படாத அல்லது [`'use server'`](/reference/rsc/use-server) கொண்டு mark செய்யப்படாத [Functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function)
 * [Classes](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Classes_in_JavaScript)
-* Objects that are instances of any class (other than the built-ins mentioned) or objects with [a null prototype](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object#null-prototype_objects)
-* Symbols not registered globally, ex. `Symbol('my new symbol')`
+* எந்த class-ன் instances ஆன objects (மேலே mentioned built-ins தவிர) அல்லது [null prototype](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object#null-prototype_objects) கொண்ட objects
+* Globally registered அல்லாத symbols, எ.கா. `Symbol('my new symbol')`
 
 
 ## Usage {/*usage*/}
 
-### Building with interactivity and state {/*building-with-interactivity-and-state*/}
+### Interactivity மற்றும் state உடன் build செய்தல் {/*building-with-interactivity-and-state*/}
 
 <Sandpack>
 
@@ -297,7 +297,7 @@ export default function Counter({initialValue = 0}) {
   const decrement = () => setCountValue(countValue - 1);
   return (
     <>
-      <h2>Count Value: {countValue}</h2>
+      <h2>Count value: {countValue}</h2>
       <button onClick={increment}>+1</button>
       <button onClick={decrement}>-1</button>
     </>
@@ -307,9 +307,9 @@ export default function Counter({initialValue = 0}) {
 
 </Sandpack>
 
-As `Counter` requires both the `useState` Hook and event handlers to increment or decrement the value, this component must be a Client Component and will require a `'use client'` directive at the top.
+`Counter`-க்கு value increment அல்லது decrement செய்ய `useState` Hook மற்றும் event handlers இரண்டும் தேவைப்படுவதால், இந்த component Client Component ஆக இருக்க வேண்டும்; top-இல் `'use client'` directive தேவைப்படும்.
 
-In contrast, a component that renders UI without interaction will not need to be a Client Component.
+இதற்கு மாறாக, interaction இல்லாமல் UI render செய்யும் component Client Component ஆக இருக்க தேவையில்லை.
 
 ```js
 import { readFile } from 'node:fs/promises';
@@ -321,9 +321,9 @@ export default async function CounterContainer() {
 }
 ```
 
-For example, `Counter`'s parent component, `CounterContainer`, does not require `'use client'` as it is not interactive and does not use state. In addition, `CounterContainer` must be a Server Component as it reads from the local file system on the server, which is possible only in a Server Component.
+உதாரணமாக, `Counter`-ன் parent component `CounterContainer` interactive அல்ல; state பயன்படுத்துவதில்லை; அதனால் அதற்கு `'use client'` தேவையில்லை. கூடுதலாக, `CounterContainer` server-இல் local file system-இலிருந்து read செய்கிறது; அது Server Component-இல் மட்டுமே சாத்தியம். எனவே அது Server Component ஆக இருக்க வேண்டும்.
 
-There are also components that don't use any server or client-only features and can be agnostic to where they render. In our earlier example, `FancyText` is one such component.
+Server-only அல்லது client-only features எதையும் பயன்படுத்தாத, render செய்யும் இடத்துக்கு agnostic ஆக இருக்கக்கூடிய components-யும் உள்ளன. எங்கள் முந்தைய example-இல், `FancyText` அப்படியான component.
 
 ```js
 export default function FancyText({title, text}) {
@@ -333,15 +333,15 @@ export default function FancyText({title, text}) {
 }
 ```
 
-In this case, we don't add the `'use client'` directive, resulting in `FancyText`'s _output_ (rather than its source code) to be sent to the browser when referenced from a Server Component. As demonstrated in the earlier Inspirations app example, `FancyText` is used as both a Server or Client Component, depending on where it is imported and used.
+இந்த case-இல், `'use client'` directive சேர்க்கவில்லை; இதனால் Server Component-இலிருந்து reference செய்யும்போது `FancyText`-ன் source code அல்ல, அதன் _output_ browser-க்கு அனுப்பப்படும். முந்தைய Inspirations app example-இல் demonstrate செய்தபடி, import செய்து பயன்படுத்தப்படும் இடத்தைப் பொறுத்து `FancyText` Server அல்லது Client Component இரண்டாகவும் பயன்படுத்தப்படுகிறது.
 
-But if `FancyText`'s HTML output was large relative to its source code (including dependencies), it might be more efficient to force it to always be a Client Component. Components that return a long SVG path string are one case where it may be more efficient to force a component to be a Client Component.
+ஆனால் `FancyText`-ன் HTML output அதன் source code-ஐ (dependencies உட்பட) ஒப்பிடும்போது பெரியதாக இருந்தால், அதை எப்போதும் Client Component ஆக force செய்வது efficient ஆக இருக்கலாம். Long SVG path string return செய்யும் components, component-ஐ Client Component ஆக force செய்வது more efficient ஆக இருக்கக்கூடிய ஒரு case.
 
-### Using client APIs {/*using-client-apis*/}
+### Client APIs பயன்படுத்துதல் {/*using-client-apis*/}
 
-Your React app may use client-specific APIs, such as the browser's APIs for web storage, audio and video manipulation, and device hardware, among [others](https://developer.mozilla.org/en-US/docs/Web/API).
+உங்கள் React app, web storage, audio மற்றும் video manipulation, device hardware போன்ற browser APIs உட்பட [மற்ற](https://developer.mozilla.org/en-US/docs/Web/API) client-specific APIs பயன்படுத்தலாம்.
 
-In this example, the component uses [DOM APIs](https://developer.mozilla.org/en-US/docs/Glossary/DOM) to manipulate a [`canvas`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/canvas) element. Since those APIs are only available in the browser, it must be marked as a Client Component.
+இந்த example-இல், component [`canvas`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/canvas) element manipulate செய்ய [DOM APIs](https://developer.mozilla.org/en-US/docs/Glossary/DOM) பயன்படுத்துகிறது. அந்த APIs browser-இல் மட்டுமே கிடைப்பதால், இது Client Component ஆக mark செய்யப்பட வேண்டும்.
 
 ```js
 'use client';
@@ -362,18 +362,18 @@ export default function Circle() {
 }
 ```
 
-### Using third-party libraries {/*using-third-party-libraries*/}
+### Third-party libraries பயன்படுத்துதல் {/*using-third-party-libraries*/}
 
-Often in a React app, you'll leverage third-party libraries to handle common UI patterns or logic.
+React app-இல், common UI patterns அல்லது logic handle செய்ய நீங்கள் third-party libraries-ஐ அடிக்கடி leverage செய்வீர்கள்.
 
-These libraries may rely on component Hooks or client APIs. Third-party components that use any of the following React APIs must run on the client:
+இந்த libraries component Hooks அல்லது client APIs-ஐ சார்ந்திருக்கலாம். பின்வரும் React APIs-யில் ஏதேனும் ஒன்றைப் பயன்படுத்தும் third-party components client-இல் run ஆக வேண்டும்:
 * [createContext](/reference/react/createContext)
-* [`react`](/reference/react/hooks) and [`react-dom`](/reference/react-dom/hooks) Hooks, excluding [`use`](/reference/react/use) and [`useId`](/reference/react/useId)
+* [`react`](/reference/react/hooks) மற்றும் [`react-dom`](/reference/react-dom/hooks) Hooks, [`use`](/reference/react/use) மற்றும் [`useId`](/reference/react/useId) தவிர
 * [forwardRef](/reference/react/forwardRef)
 * [memo](/reference/react/memo)
 * [startTransition](/reference/react/startTransition)
-* If they use client APIs, ex. DOM insertion or native platform views
+* Client APIs பயன்படுத்தினால், எ.கா. DOM insertion அல்லது native platform views
 
-If these libraries have been updated to be compatible with React Server Components, then they will already include `'use client'` markers of their own, allowing you to use them directly from your Server Components. If a library hasn't been updated, or if a component needs props like event handlers that can only be specified on the client, you may need to add your own Client Component file in between the third-party Client Component and your Server Component where you'd like to use it.
+இந்த libraries React Server Components உடன் compatible ஆக update செய்யப்பட்டிருந்தால், அவற்றில் ஏற்கனவே சொந்த `'use client'` markers இருக்கும்; எனவே உங்கள் Server Components-இலிருந்து அவற்றை நேரடியாகப் பயன்படுத்தலாம். Library update செய்யப்படவில்லை என்றாலோ, அல்லது component-க்கு client-இல் மட்டுமே specify செய்யக்கூடிய event handlers போன்ற props தேவைப்பட்டாலோ, நீங்கள் பயன்படுத்த விரும்பும் third-party Client Component மற்றும் உங்கள் Server Component இடையில் உங்கள் சொந்த Client Component file சேர்க்க வேண்டியிருக்கலாம்.
 
-[TODO]: <> (Troubleshooting - need use-cases)
+[TODO]: <> (Troubleshooting - use-cases தேவை)

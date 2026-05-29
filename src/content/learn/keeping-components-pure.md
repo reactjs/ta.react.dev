@@ -1,41 +1,41 @@
 ---
-title: Keeping Components Pure
+title: Components-ஐ pure ஆக வைத்திருத்தல்
 ---
 
 <Intro>
 
-Some JavaScript functions are *pure.* Pure functions only perform a calculation and nothing more. By strictly only writing your components as pure functions, you can avoid an entire class of baffling bugs and unpredictable behavior as your codebase grows. To get these benefits, though, there are a few rules you must follow.
+சில JavaScript functions *pure* ஆக இருக்கும். Pure functions ஒரு calculation மட்டும் செய்து அதற்கு மேல் எதையும் செய்யாது. உங்கள் components-ஐ pure functions ஆக மட்டுமே strict ஆக எழுதினால், codebase வளரும்போது குழப்பமான bugs மற்றும் unpredictable behavior-ன் முழு வகையையே தவிர்க்க முடியும். ஆனால் இந்த நன்மைகளைப் பெற, நீங்கள் பின்பற்ற வேண்டிய சில rules உள்ளன.
 
 </Intro>
 
 <YouWillLearn>
 
-* What purity is and how it helps you avoid bugs
-* How to keep components pure by keeping changes out of the render phase
-* How to use Strict Mode to find mistakes in your components
+* Purity என்றால் என்ன, அது bugs தவிர்க்க எப்படி உதவுகிறது
+* Render phase-க்கு வெளியே changes வைத்திருப்பதன் மூலம் components-ஐ pure ஆக வைத்திருப்பது எப்படி
+* Components-இல் mistakes கண்டுபிடிக்க Strict Mode-ஐ எப்படி பயன்படுத்துவது
 
 </YouWillLearn>
 
-## Purity: Components as formulas {/*purity-components-as-formulas*/}
+## Purity: Formulas போல components {/*purity-components-as-formulas*/}
 
-In computer science (and especially the world of functional programming), [a pure function](https://wikipedia.org/wiki/Pure_function) is a function with the following characteristics:
+Computer science-இல் (குறிப்பாக functional programming உலகில்), [pure function](https://wikipedia.org/wiki/Pure_function) என்பது பின்வரும் பண்புகள் கொண்ட function:
 
-* **It minds its own business.** It does not change any objects or variables that existed before it was called.
-* **Same inputs, same output.** Given the same inputs, a pure function should always return the same result.
+* **தன் வேலையை மட்டும் பார்க்கும்.** அது call செய்யப்படுவதற்கு முன் இருந்த எந்த objects அல்லது variables-ஐயும் மாற்றாது.
+* **அதே inputs, அதே output.** அதே inputs கொடுக்கப்பட்டால், pure function எப்போதும் அதே result-ஐ return செய்ய வேண்டும்.
 
-You might already be familiar with one example of pure functions: formulas in math.
+Pure functions-க்கு ஒரு example உங்களுக்கு ஏற்கனவே தெரிந்திருக்கலாம்: கணித formulas.
 
-Consider this math formula: <Math><MathI>y</MathI> = 2<MathI>x</MathI></Math>.
+இந்த கணித formula-ஐ கவனியுங்கள்: <Math><MathI>y</MathI> = 2<MathI>x</MathI></Math>.
 
-If <Math><MathI>x</MathI> = 2</Math> then <Math><MathI>y</MathI> = 4</Math>. Always.
+<Math><MathI>x</MathI> = 2</Math> என்றால் <Math><MathI>y</MathI> = 4</Math>. எப்போதும்.
 
-If <Math><MathI>x</MathI> = 3</Math> then <Math><MathI>y</MathI> = 6</Math>. Always.
+<Math><MathI>x</MathI> = 3</Math> என்றால் <Math><MathI>y</MathI> = 6</Math>. எப்போதும்.
 
-If <Math><MathI>x</MathI> = 3</Math>, <MathI>y</MathI> won't sometimes be <Math>9</Math> or <Math>–1</Math> or <Math>2.5</Math> depending on the time of day or the state of the stock market.
+<Math><MathI>x</MathI> = 3</Math> என்றால், நேரம் அல்லது stock market state-ஐப் பொறுத்து <MathI>y</MathI> சில நேரங்களில் <Math>9</Math> அல்லது <Math>–1</Math> அல்லது <Math>2.5</Math> ஆக இருக்காது.
 
-If <Math><MathI>y</MathI> = 2<MathI>x</MathI></Math> and <Math><MathI>x</MathI> = 3</Math>, <MathI>y</MathI> will _always_ be <Math>6</Math>.
+<Math><MathI>y</MathI> = 2<MathI>x</MathI></Math> மற்றும் <Math><MathI>x</MathI> = 3</Math> என்றால், <MathI>y</MathI> _எப்போதும்_ <Math>6</Math> ஆக இருக்கும்.
 
-If we made this into a JavaScript function, it would look like this:
+இதைக் JavaScript function ஆக மாற்றினால், அது இதுபோல் இருக்கும்:
 
 ```js
 function double(number) {
@@ -43,9 +43,9 @@ function double(number) {
 }
 ```
 
-In the above example, `double` is a **pure function.** If you pass it `3`, it will return `6`. Always.
+மேலுள்ள example-இல், `double` ஒரு **pure function.** அதற்கு `3` pass செய்தால், அது `6` return செய்யும். எப்போதும்.
 
-React is designed around this concept. **React assumes that every component you write is a pure function.** This means that React components you write must always return the same JSX given the same inputs:
+React இந்த concept-ஐச் சுற்றியே design செய்யப்பட்டுள்ளது. **நீங்கள் எழுதும் ஒவ்வொரு component-யும் pure function என்று React கருதுகிறது.** அதாவது, நீங்கள் எழுதும் React components அதே inputs கொடுக்கப்பட்டால் எப்போதும் அதே JSX-ஐ return செய்ய வேண்டும்:
 
 <Sandpack>
 
@@ -53,9 +53,9 @@ React is designed around this concept. **React assumes that every component you 
 function Recipe({ drinkers }) {
   return (
     <ol>
-      <li>Boil {drinkers} cups of water.</li>
-      <li>Add {drinkers} spoons of tea and {0.5 * drinkers} spoons of spice.</li>
-      <li>Add {0.5 * drinkers} cups of milk to boil and sugar to taste.</li>
+      <li>{drinkers} cups தண்ணீரை கொதிக்கவைக்கவும்.</li>
+      <li>{drinkers} spoon tea மற்றும் {0.5 * drinkers} spoon மசாலா சேர்க்கவும்.</li>
+      <li>{0.5 * drinkers} cups பாலை கொதிக்க சேர்த்து, சுவைக்கேற்ப சர்க்கரை சேர்க்கவும்.</li>
     </ol>
   );
 }
@@ -63,10 +63,10 @@ function Recipe({ drinkers }) {
 export default function App() {
   return (
     <section>
-      <h1>Spiced Chai Recipe</h1>
-      <h2>For two</h2>
+      <h1>மசாலா Chai Recipe</h1>
+      <h2>இருவருக்கு</h2>
       <Recipe drinkers={2} />
-      <h2>For a gathering</h2>
+      <h2>ஒரு கூட்டத்துக்கு</h2>
       <Recipe drinkers={4} />
     </section>
   );
@@ -75,21 +75,21 @@ export default function App() {
 
 </Sandpack>
 
-When you pass `drinkers={2}` to `Recipe`, it will return JSX containing `2 cups of water`. Always.
+`Recipe`-க்கு `drinkers={2}` pass செய்தால், அது `2 cups தண்ணீர்` கொண்ட JSX return செய்யும். எப்போதும்.
 
-If you pass `drinkers={4}`, it will return JSX containing `4 cups of water`. Always.
+`drinkers={4}` pass செய்தால், அது `4 cups தண்ணீர்` கொண்ட JSX return செய்யும். எப்போதும்.
 
-Just like a math formula.
+கணித formula போலவே.
 
-You could think of your components as recipes: if you follow them and don't introduce new ingredients during the cooking process, you will get the same dish every time. That "dish" is the JSX that the component serves to React to [render.](/learn/render-and-commit)
+உங்கள் components-ஐ recipes போல நினைக்கலாம்: cooking process போது புதிய ingredients அறிமுகப்படுத்தாமல் அவற்றைப் பின்பற்றினால், ஒவ்வொரு முறையும் அதே dish கிடைக்கும். அந்த "dish" என்பது component React-க்கு [render](/learn/render-and-commit) செய்ய serve செய்யும் JSX.
 
-<Illustration src="/images/docs/illustrations/i_puritea-recipe.png" alt="A tea recipe for x people: take x cups of water, add x spoons of tea and 0.5x spoons of spices, and 0.5x cups of milk" />
+<Illustration src="/images/docs/illustrations/i_puritea-recipe.png" alt="x பேருக்கான tea recipe: x cups தண்ணீர் எடுத்து, x spoons tea மற்றும் 0.5x spoons மசாலா சேர்த்து, 0.5x cups பால் சேர்க்கவும்" />
 
-## Side Effects: (un)intended consequences {/*side-effects-unintended-consequences*/}
+## Side Effects: எதிர்பார்த்த மற்றும் எதிர்பாராத விளைவுகள் {/*side-effects-unintended-consequences*/}
 
-React's rendering process must always be pure. Components should only *return* their JSX, and not *change* any objects or variables that existed before rendering—that would make them impure!
+React-ன் rendering process எப்போதும் pure ஆக இருக்க வேண்டும். Components தங்கள் JSX-ஐ மட்டும் *return* செய்ய வேண்டும்; rendering-க்கு முன் இருந்த எந்த objects அல்லது variables-ஐயும் *மாற்றக்கூடாது*--அப்படிச் செய்தால் அவை impure ஆகிவிடும்!
 
-Here is a component that breaks this rule:
+இந்த rule-ஐ உடைக்கும் component ஒன்று இங்கே:
 
 <Sandpack>
 
@@ -99,7 +99,7 @@ let guest = 0;
 function Cup() {
   // Bad: changing a preexisting variable!
   guest = guest + 1;
-  return <h2>Tea cup for guest #{guest}</h2>;
+  return <h2>விருந்தினர் #{guest}-க்கான tea cup</h2>;
 }
 
 export default function TeaSet() {
@@ -115,17 +115,17 @@ export default function TeaSet() {
 
 </Sandpack>
 
-This component is reading and writing a `guest` variable declared outside of it. This means that **calling this component multiple times will produce different JSX!** And what's more, if _other_ components read `guest`, they will produce different JSX, too, depending on when they were rendered! That's not predictable.
+இந்த component அதற்கு வெளியே declared செய்யப்பட்ட `guest` variable-ஐ read செய்து write செய்கிறது. இதன் பொருள் **இந்த component-ஐ பலமுறை call செய்தால் வெவ்வேறு JSX உருவாகும்!** மேலும், _மற்ற_ components `guest`-ஐ read செய்தால், அவை எப்போது rendered செய்யப்பட்டன என்பதைப் பொறுத்து அவற்றும் வெவ்வேறு JSX உருவாக்கும்! அது predictable அல்ல.
 
-Going back to our formula <Math><MathI>y</MathI> = 2<MathI>x</MathI></Math>, now even if <Math><MathI>x</MathI> = 2</Math>, we cannot trust that <Math><MathI>y</MathI> = 4</Math>. Our tests could fail, our users would be baffled, planes would fall out of the sky—you can see how this would lead to confusing bugs!
+நமது formula <Math><MathI>y</MathI> = 2<MathI>x</MathI></Math>-க்கு திரும்பினால், இப்போது <Math><MathI>x</MathI> = 2</Math> என்றாலும், <Math><MathI>y</MathI> = 4</Math> என்று நம்ப முடியாது. Tests fail ஆகலாம், users குழப்பமடையலாம், planes sky-இலிருந்து விழலாம்--இது எப்படி confusing bugs-க்கு வழிவகுக்கும் என்பதை பார்க்க முடிகிறது!
 
-You can fix this component by [passing `guest` as a prop instead](/learn/passing-props-to-a-component):
+[`guest`-ஐ prop ஆக pass செய்வதன் மூலம்](/learn/passing-props-to-a-component) இந்த component-ஐ fix செய்யலாம்:
 
 <Sandpack>
 
 ```js
 function Cup({ guest }) {
-  return <h2>Tea cup for guest #{guest}</h2>;
+  return <h2>விருந்தினர் #{guest}-க்கான tea cup</h2>;
 }
 
 export default function TeaSet() {
@@ -141,37 +141,37 @@ export default function TeaSet() {
 
 </Sandpack>
 
-Now your component is pure, as the JSX it returns only depends on the `guest` prop.
+இப்போது உங்கள் component pure ஆக உள்ளது, ஏனெனில் அது return செய்யும் JSX `guest` prop-ஐ மட்டுமே சார்ந்துள்ளது.
 
-In general, you should not expect your components to be rendered in any particular order. It doesn't matter if you call <Math><MathI>y</MathI> = 2<MathI>x</MathI></Math> before or after <Math><MathI>y</MathI> = 5<MathI>x</MathI></Math>: both formulas will resolve independently of each other. In the same way, each component should only "think for itself", and not attempt to coordinate with or depend upon others during rendering. Rendering is like a school exam: each component should calculate JSX on their own!
+பொதுவாக, உங்கள் components எந்த particular order-இல் rendered ஆகும் என்று எதிர்பார்க்கக்கூடாது. <Math><MathI>y</MathI> = 2<MathI>x</MathI></Math>-ஐ <Math><MathI>y</MathI> = 5<MathI>x</MathI></Math>-க்கு முன் அல்லது பின் call செய்வது mattered அல்ல: இரண்டு formulas-மும் ஒன்றுக்கொன்று independent ஆக resolve ஆகும். அதேபோல், ஒவ்வொரு component-மும் "தனக்காகவே சிந்திக்க" வேண்டும்; rendering போது மற்றவற்றுடன் coordinate செய்யவோ, அவற்றைச் சாரவோ முயலக்கூடாது. Rendering ஒரு school exam போல: ஒவ்வொரு component-மும் JSX-ஐ தானாக calculate செய்ய வேண்டும்!
 
 <DeepDive>
 
-#### Detecting impure calculations with StrictMode {/*detecting-impure-calculations-with-strict-mode*/}
+#### StrictMode மூலம் impure calculations கண்டறிதல் {/*detecting-impure-calculations-with-strict-mode*/}
 
-Although you might not have used them all yet, in React there are three kinds of inputs that you can read while rendering: [props](/learn/passing-props-to-a-component), [state](/learn/state-a-components-memory), and [context.](/learn/passing-data-deeply-with-context) You should always treat these inputs as read-only.
+அவற்றை எல்லாம் இன்னும் பயன்படுத்தவில்லை என்றாலும், React-இல் rendering போது read செய்யக்கூடிய மூன்று வகை inputs உள்ளன: [props](/learn/passing-props-to-a-component), [state](/learn/state-a-components-memory), மற்றும் [context](/learn/passing-data-deeply-with-context). இந்த inputs-ஐ எப்போதும் read-only ஆக நடத்த வேண்டும்.
 
-When you want to *change* something in response to user input, you should [set state](/learn/state-a-components-memory) instead of writing to a variable. You should never change preexisting variables or objects while your component is rendering.
+User input-க்கு பதிலாக ஏதாவது ஒன்றை *மாற்ற* விரும்பினால், variable-க்கு write செய்வதற்குப் பதிலாக [state set செய்ய](/learn/state-a-components-memory) வேண்டும். Component rendering ஆகும் போது preexisting variables அல்லது objects-ஐ ஒருபோதும் மாற்றக்கூடாது.
 
-React offers a "Strict Mode" in which it calls each component's function twice during development. **By calling the component functions twice, Strict Mode helps find components that break these rules.**
+Development போது ஒவ்வொரு component function-ஐயும் இரண்டு முறை call செய்யும் "Strict Mode" ஒன்றை React வழங்குகிறது. **Component functions-ஐ இருமுறை call செய்வதன் மூலம், இந்த rules-ஐ உடைக்கும் components-ஐ Strict Mode கண்டுபிடிக்க உதவுகிறது.**
 
-Notice how the original example displayed "Guest #2", "Guest #4", and "Guest #6" instead of "Guest #1", "Guest #2", and "Guest #3". The original function was impure, so calling it twice broke it. But the fixed pure version works even if the function is called twice every time. **Pure functions only calculate, so calling them twice won't change anything**--just like calling `double(2)` twice doesn't change what's returned, and solving <Math><MathI>y</MathI> = 2<MathI>x</MathI></Math> twice doesn't change what <MathI>y</MathI> is. Same inputs, same outputs. Always.
+Original example "விருந்தினர் #1", "விருந்தினர் #2", "விருந்தினர் #3" என்பதற்குப் பதிலாக "விருந்தினர் #2", "விருந்தினர் #4", "விருந்தினர் #6" காட்டியதை கவனியுங்கள். Original function impure, எனவே அதை இருமுறை call செய்தது அதை உடைத்தது. ஆனால் fixed pure version function ஒவ்வொரு முறையும் இருமுறை call செய்யப்பட்டாலும் வேலை செய்கிறது. **Pure functions calculate மட்டும் செய்கின்றன; எனவே அவற்றை இருமுறை call செய்தால் எதுவும் மாறாது**--`double(2)`-ஐ இருமுறை call செய்தாலும் return ஆகும் value மாறாதது போல, <Math><MathI>y</MathI> = 2<MathI>x</MathI></Math>-ஐ இருமுறை solve செய்தாலும் <MathI>y</MathI> என்ன என்பது மாறாதது போல. அதே inputs, அதே outputs. எப்போதும்.
 
-Strict Mode has no effect in production, so it won't slow down the app for your users. To opt into Strict Mode, you can wrap your root component into `<React.StrictMode>`. Some frameworks do this by default.
+Strict Mode production-இல் எந்த effect-உம் இல்லை, எனவே அது உங்கள் users-க்கான app-ஐ slow செய்யாது. Strict Mode-ஐ opt in செய்ய, உங்கள் root component-ஐ `<React.StrictMode>`-க்குள் wrap செய்யலாம். சில frameworks இதை default ஆக செய்கின்றன.
 
 </DeepDive>
 
-### Local mutation: Your component's little secret {/*local-mutation-your-components-little-secret*/}
+### Local mutation: உங்கள் component-ன் சிறிய ரகசியம் {/*local-mutation-your-components-little-secret*/}
 
-In the above example, the problem was that the component changed a *preexisting* variable while rendering. This is often called a **"mutation"** to make it sound a bit scarier. Pure functions don't mutate variables outside of the function's scope or objects that were created before the call—that makes them impure!
+மேலுள்ள example-இல், பிரச்சினை என்னவெனில் component rendering போது *preexisting* variable-ஐ மாற்றியது. இது பொதுவாக **"mutation"** என்று அழைக்கப்படுகிறது; கொஞ்சம் பயமுறுத்தும் சொல்லாக. Pure functions function scope-க்கு வெளியே உள்ள variables-ஐயோ, call-க்கு முன் உருவாக்கப்பட்ட objects-ஐயோ mutate செய்யாது--அப்படிச் செய்தால் அவை impure ஆகும்!
 
-However, **it's completely fine to change variables and objects that you've *just* created while rendering.** In this example, you create an `[]` array, assign it to a `cups` variable, and then `push` a dozen cups into it:
+ஆனால், **rendering போது நீங்கள் *இப்போதுதான்* உருவாக்கிய variables மற்றும் objects-ஐ மாற்றுவது முற்றிலும் சரி.** இந்த example-இல், நீங்கள் `[]` array ஒன்றை உருவாக்கி, அதை `cups` variable-க்கு assign செய்து, அதில் ஒரு dozen cups-ஐ `push` செய்கிறீர்கள்:
 
 <Sandpack>
 
 ```js
 function Cup({ guest }) {
-  return <h2>Tea cup for guest #{guest}</h2>;
+  return <h2>விருந்தினர் #{guest}-க்கான tea cup</h2>;
 }
 
 export default function TeaGathering() {
@@ -185,43 +185,43 @@ export default function TeaGathering() {
 
 </Sandpack>
 
-If the `cups` variable or the `[]` array were created outside the `TeaGathering` function, this would be a huge problem! You would be changing a *preexisting* object by pushing items into that array.
+`cups` variable அல்லது `[]` array `TeaGathering` function-க்கு வெளியே உருவாக்கப்பட்டிருந்தால், இது பெரிய பிரச்சினையாக இருக்கும்! அந்த array-க்கு items push செய்வதன் மூலம் *preexisting* object-ஐ மாற்றியிருப்பீர்கள்.
 
-However, it's fine because you've created them *during the same render*, inside `TeaGathering`. No code outside of `TeaGathering` will ever know that this happened. This is called **"local mutation"**—it's like your component's little secret.
+ஆனால் இது சரி, ஏனெனில் அவற்றை *அதே render போது*, `TeaGathering`-க்குள் உருவாக்கியுள்ளீர்கள். `TeaGathering`-க்கு வெளியே உள்ள எந்த code-க்கும் இது நடந்தது ஒருபோதும் தெரியாது. இது **"local mutation"** என்று அழைக்கப்படுகிறது--உங்கள் component-ன் சிறிய ரகசியம் போல.
 
-## Where you _can_ cause side effects {/*where-you-_can_-cause-side-effects*/}
+## எங்கு side effects ஏற்படுத்தலாம் {/*where-you-_can_-cause-side-effects*/}
 
-While functional programming relies heavily on purity, at some point, somewhere, _something_ has to change. That's kind of the point of programming! These changes—updating the screen, starting an animation, changing the data—are called **side effects.** They're things that happen _"on the side"_, not during rendering.
+Functional programming purity-யை அதிகமாக சார்ந்திருந்தாலும், ஒருகட்டத்தில் எங்காவது _ஏதாவது_ மாற வேண்டியிருக்கும். Programming-ன் நோக்கமே அதுதான்! இந்த changes--screen update செய்தல், animation தொடங்குதல், data மாற்றுதல்--**side effects** என்று அழைக்கப்படுகின்றன. அவை rendering போது அல்லாமல் _"side-இல்"_ நடக்கும் விஷயங்கள்.
 
-In React, **side effects usually belong inside [event handlers.](/learn/responding-to-events)** Event handlers are functions that React runs when you perform some action—for example, when you click a button. Even though event handlers are defined *inside* your component, they don't run *during* rendering! **So event handlers don't need to be pure.**
+React-இல், **side effects பொதுவாக [event handlers](/learn/responding-to-events)-க்குள் இருக்க வேண்டும்.** Event handlers என்பது நீங்கள் ஏதாவது action செய்தால் React run செய்யும் functions--உதாரணமாக, button click செய்தால். Event handlers உங்கள் component-க்குள் *defined* செய்யப்பட்டிருந்தாலும், அவை rendering *போது* run ஆகாது! **எனவே event handlers pure ஆக இருக்க வேண்டியதில்லை.**
 
-If you've exhausted all other options and can't find the right event handler for your side effect, you can still attach it to your returned JSX with a [`useEffect`](/reference/react/useEffect) call in your component. This tells React to execute it later, after rendering, when side effects are allowed. **However, this approach should be your last resort.**
+மற்ற எல்லா options-உம் exhausted ஆகி, உங்கள் side effect-க்கு சரியான event handler கண்டுபிடிக்க முடியாவிட்டால், உங்கள் component-இல் [`useEffect`](/reference/react/useEffect) call மூலம் அதை returned JSX-க்கு attach செய்யலாம். Rendering-க்கு பிறகு, side effects allowed ஆகும் நேரத்தில், அதை execute செய்ய React-க்கு இது சொல்கிறது. **ஆனால், இந்த அணுகுமுறை உங்கள் கடைசி வழியாக இருக்க வேண்டும்.**
 
-When possible, try to express your logic with rendering alone. You'll be surprised how far this can take you!
+சாத்தியமானபோது, rendering மட்டும் கொண்டு உங்கள் logic-ஐ express செய்ய முயலுங்கள். அது எவ்வளவு தூரம் அழைத்துச் செல்லும் என்று நீங்கள் ஆச்சரியப்படுவீர்கள்!
 
 <DeepDive>
 
-#### Why does React care about purity? {/*why-does-react-care-about-purity*/}
+#### React purity பற்றி ஏன் கவலைப்படுகிறது? {/*why-does-react-care-about-purity*/}
 
-Writing pure functions takes some habit and discipline. But it also unlocks marvelous opportunities:
+Pure functions எழுத சிறிது பழக்கமும் discipline-உம் தேவை. ஆனால் அது அற்புதமான வாய்ப்புகளையும் unlock செய்கிறது:
 
-* Your components could run in a different environment—for example, on the server! Since they return the same result for the same inputs, one component can serve many user requests.
-* You can improve performance by [skipping rendering](/reference/react/memo) components whose inputs have not changed. This is safe because pure functions always return the same results, so they are safe to cache.
-* If some data changes in the middle of rendering a deep component tree, React can restart rendering without wasting time to finish the outdated render. Purity makes it safe to stop calculating at any time.
+* உங்கள் components வேறு environment-இல் run ஆகலாம்--உதாரணமாக, server-இல்! அதே inputs-க்கு அதே result return செய்வதால், ஒரு component பல user requests-க்கு serve செய்ய முடியும்.
+* Inputs மாறாத components-ன் [rendering-ஐ skip](/reference/react/memo) செய்வதன் மூலம் performance மேம்படுத்தலாம். Pure functions எப்போதும் அதே results return செய்வதால், அவற்றை cache செய்வது safe.
+* Deep component tree ஒன்றின் rendering நடுவே data மாறினால், outdated render-ஐ முடிக்க நேரம் வீணாக்காமல் React rendering-ஐ restart செய்ய முடியும். Purity எந்த நேரத்திலும் calculation stop செய்வதை safe ஆக்குகிறது.
 
-Every new React feature we're building takes advantage of purity. From data fetching to animations to performance, keeping components pure unlocks the power of the React paradigm.
+நாங்கள் கட்டும் ஒவ்வொரு புதிய React feature-மும் purity-யைப் பயன்படுத்துகிறது. Data fetching-இலிருந்து animations, performance வரை, components-ஐ pure ஆக வைத்திருப்பது React paradigm-ன் சக்தியை unlock செய்கிறது.
 
 </DeepDive>
 
 <Recap>
 
-* A component must be pure, meaning:
-  * **It minds its own business.** It should not change any objects or variables that existed before rendering.
-  * **Same inputs, same output.** Given the same inputs, a component should always return the same JSX.
-* Rendering can happen at any time, so components should not depend on each others' rendering sequence.
-* You should not mutate any of the inputs that your components use for rendering. That includes props, state, and context. To update the screen, ["set" state](/learn/state-a-components-memory) instead of mutating preexisting objects.
-* Strive to express your component's logic in the JSX you return. When you need to "change things", you'll usually want to do it in an event handler. As a last resort, you can `useEffect`.
-* Writing pure functions takes a bit of practice, but it unlocks the power of React's paradigm.
+* Component pure ஆக இருக்க வேண்டும், அதாவது:
+  * **தன் வேலையை மட்டும் பார்க்க வேண்டும்.** Rendering-க்கு முன் இருந்த objects அல்லது variables எதையும் மாற்றக்கூடாது.
+  * **அதே inputs, அதே output.** அதே inputs கொடுக்கப்பட்டால், component எப்போதும் அதே JSX-ஐ return செய்ய வேண்டும்.
+* Rendering எந்த நேரத்திலும் நடக்கலாம், எனவே components ஒன்றின் rendering sequence-ஐ மற்றொன்று சாரக்கூடாது.
+* உங்கள் components rendering-க்கு பயன்படுத்தும் inputs எதையும் mutate செய்யக்கூடாது. இதில் props, state, context அடங்கும். Screen update செய்ய, preexisting objects mutate செய்வதற்குப் பதிலாக state-ஐ ["set"](/learn/state-a-components-memory) செய்யுங்கள்.
+* உங்கள் component-ன் logic-ஐ நீங்கள் return செய்யும் JSX-இல் express செய்ய முயலுங்கள். "விஷயங்களை மாற்ற" வேண்டியபோது, வழக்கமாக அதை event handler-இல் செய்ய வேண்டும். கடைசி வழியாக, `useEffect` பயன்படுத்தலாம்.
+* Pure functions எழுத சிறிது practice தேவை, ஆனால் அது React paradigm-ன் சக்தியை unlock செய்கிறது.
 
 </Recap>
 
@@ -229,15 +229,15 @@ Every new React feature we're building takes advantage of purity. From data fetc
 
 <Challenges>
 
-#### Fix a broken clock {/*fix-a-broken-clock*/}
+#### உடைந்த clock-ஐ சரிசெய்யுங்கள் {/*fix-a-broken-clock*/}
 
-This component tries to set the `<h1>`'s CSS class to `"night"` during the time from midnight to six hours in the morning, and `"day"` at all other times. However, it doesn't work. Can you fix this component?
+இந்த component midnight முதல் காலை ஆறு மணி வரை `<h1>`-ன் CSS class-ஐ `"night"` ஆகவும், மற்ற எல்லா நேரங்களிலும் `"day"` ஆகவும் set செய்ய முயல்கிறது. ஆனால் அது வேலை செய்யவில்லை. இந்த component-ஐ சரிசெய்ய முடியுமா?
 
-You can verify whether your solution works by temporarily changing the computer's timezone. When the current time is between midnight and six in the morning, the clock should have inverted colors!
+உங்கள் solution வேலை செய்கிறதா என்பதை verify செய்ய, computer-ன் timezone-ஐ தற்காலிகமாக மாற்றலாம். Current time midnight மற்றும் காலை ஆறு மணிக்கு இடையில் இருந்தால், clock inverted colors கொண்டிருக்க வேண்டும்!
 
 <Hint>
 
-Rendering is a *calculation*, it shouldn't try to "do" things. Can you express the same idea differently?
+Rendering ஒரு *calculation*; அது விஷயங்களை "செய்ய" முயலக்கூடாது. அதே idea-வை வேறுவிதமாக express செய்ய முடியுமா?
 
 </Hint>
 
@@ -301,7 +301,7 @@ body > * {
 
 <Solution>
 
-You can fix this component by calculating the `className` and including it in the render output:
+`className`-ஐ calculate செய்து render output-இல் சேர்ப்பதன் மூலம் இந்த component-ஐ fix செய்யலாம்:
 
 <Sandpack>
 
@@ -362,19 +362,19 @@ body > * {
 
 </Sandpack>
 
-In this example, the side effect (modifying the DOM) was not necessary at all. You only needed to return JSX.
+இந்த example-இல், side effect (DOM modify செய்தல்) முற்றிலும் தேவையில்லை. நீங்கள் JSX மட்டும் return செய்ய வேண்டியது தான்.
 
 </Solution>
 
-#### Fix a broken profile {/*fix-a-broken-profile*/}
+#### உடைந்த profile-ஐ சரிசெய்யுங்கள் {/*fix-a-broken-profile*/}
 
-Two `Profile` components are rendered side by side with different data. Press "Collapse" on the first profile, and then "Expand" it. You'll notice that both profiles now show the same person. This is a bug.
+இரண்டு `Profile` components வெவ்வேறு data-வுடன் side by side render செய்யப்படுகின்றன. முதல் profile-இல் "சுருக்கு" அழுத்தி, பின்னர் அதை "விரி" செய்யுங்கள். இப்போது இரண்டு profiles-மும் ஒரே person-ஐ காட்டுவதைக் கவனிப்பீர்கள். இது bug.
 
-Find the cause of the bug and fix it.
+Bug-ன் காரணத்தை கண்டுபிடித்து அதைச் சரிசெய்யுங்கள்.
 
 <Hint>
 
-The buggy code is in `Profile.js`. Make sure you read it all from top to bottom!
+Buggy code `Profile.js`-இல் உள்ளது. அதை முழுவதும் top to bottom வாசித்துள்ளீர்கள் என்பதை உறுதி செய்யுங்கள்!
 
 </Hint>
 
@@ -421,7 +421,7 @@ export default function Panel({ children }) {
   return (
     <section className="panel">
       <button onClick={() => setOpen(!open)}>
-        {open ? 'Collapse' : 'Expand'}
+        {open ? 'சுருக்கு' : 'விரி'}
       </button>
       {open && children}
     </section>
@@ -475,9 +475,9 @@ h1 { margin: 5px; font-size: 18px; }
 
 <Solution>
 
-The problem is that the `Profile` component writes to a preexisting variable called `currentPerson`, and the `Header` and `Avatar` components read from it. This makes *all three of them* impure and difficult to predict.
+பிரச்சினை என்னவெனில் `Profile` component `currentPerson` எனும் preexisting variable-க்கு write செய்கிறது, மேலும் `Header` மற்றும் `Avatar` components அதிலிருந்து read செய்கின்றன. இதனால் *மூன்றும்* impure ஆகி predict செய்ய கடினமாகிறது.
 
-To fix the bug, remove the `currentPerson` variable. Instead, pass all information from `Profile` to `Header` and `Avatar` via props. You'll need to add a `person` prop to both components and pass it all the way down.
+Bug fix செய்ய, `currentPerson` variable-ஐ remove செய்யுங்கள். அதற்கு பதிலாக, `Profile`-இலிருந்து `Header` மற்றும் `Avatar`-க்கு அனைத்து தகவலையும் props மூலம் pass செய்யுங்கள். இரு components-க்கும் `person` prop சேர்த்து, அதை முழுவதும் கீழே pass செய்ய வேண்டும்.
 
 <Sandpack>
 
@@ -519,7 +519,7 @@ export default function Panel({ children }) {
   return (
     <section className="panel">
       <button onClick={() => setOpen(!open)}>
-        {open ? 'Collapse' : 'Expand'}
+        {open ? 'சுருக்கு' : 'விரி'}
       </button>
       {open && children}
     </section>
@@ -571,15 +571,15 @@ h1 { margin: 5px; font-size: 18px; }
 
 </Sandpack>
 
-Remember that React does not guarantee that component functions will execute in any particular order, so you can't communicate between them by setting variables. All communication must happen through props.
+Component functions எந்த particular order-இல் execute ஆகும் என்று React guarantee செய்யாது என்பதை நினைவில் கொள்ளுங்கள்; எனவே variables set செய்வதன் மூலம் அவற்றுக்கிடையே communicate செய்ய முடியாது. அனைத்து communication-மும் props மூலம் நடக்க வேண்டும்.
 
 </Solution>
 
-#### Fix a broken story tray {/*fix-a-broken-story-tray*/}
+#### உடைந்த story tray-ஐ சரிசெய்யுங்கள் {/*fix-a-broken-story-tray*/}
 
-The CEO of your company is asking you to add "stories" to your online clock app, and you can't say no. You've written a `StoryTray` component that accepts a list of `stories`, followed by a "Create Story" placeholder.
+உங்கள் company-யின் CEO, உங்கள் online clock app-க்கு "stories" சேர்க்கச் சொல்கிறார்; நீங்கள் இல்லை என்று சொல்ல முடியாது. `stories` list ஒன்றை ஏற்று, அதன் பின் "Story உருவாக்கு" placeholder காட்டும் `StoryTray` component ஒன்றை எழுதியுள்ளீர்கள்.
 
-You implemented the "Create Story" placeholder by pushing one more fake story at the end of the `stories` array that you receive as a prop. But for some reason, "Create Story" appears more than once. Fix the issue.
+Prop ஆக பெறும் `stories` array-ன் இறுதியில் இன்னொரு fake story push செய்வதன் மூலம் "Story உருவாக்கு" placeholder-ஐ implement செய்தீர்கள். ஆனால் ஏதோ காரணத்தால், "Story உருவாக்கு" ஒன்றுக்கு மேற்பட்ட முறை தோன்றுகிறது. Issue-ஐ fix செய்யுங்கள்.
 
 <Sandpack>
 
@@ -587,7 +587,7 @@ You implemented the "Create Story" placeholder by pushing one more fake story at
 export default function StoryTray({ stories }) {
   stories.push({
     id: 'create',
-    label: 'Create Story'
+    label: 'Story உருவாக்கு'
   });
 
   return (
@@ -607,8 +607,8 @@ import { useState, useEffect } from 'react';
 import StoryTray from './StoryTray.js';
 
 const initialStories = [
-  {id: 0, label: "Ankit's Story" },
-  {id: 1, label: "Taylor's Story" },
+  {id: 0, label: "Ankit-ன் Story" },
+  {id: 1, label: "Taylor-ன் Story" },
 ];
 
 export default function App() {
@@ -629,7 +629,7 @@ export default function App() {
         textAlign: 'center',
       }}
     >
-      <h2>It is {time.toLocaleTimeString()} now.</h2>
+      <h2>இப்போது நேரம் {time.toLocaleTimeString()}.</h2>
       <StoryTray stories={stories} />
     </div>
   );
@@ -675,11 +675,11 @@ li {
 
 <Solution>
 
-Notice how whenever the clock updates, "Create Story" is added *twice*. This serves as a hint that we have a mutation during rendering--Strict Mode calls components twice to make these issues more noticeable.
+Clock update ஆகும் ஒவ்வொரு முறையும் "Story உருவாக்கு" *இருமுறை* சேர்க்கப்படுவதை கவனியுங்கள். Rendering போது mutation உள்ளது என்பதற்கான hint இது--இத்தகைய issues தெளிவாகத் தெரிய Strict Mode components-ஐ இருமுறை call செய்கிறது.
 
-`StoryTray` function is not pure. By calling `push` on the received `stories` array (a prop!), it is mutating an object that was created *before* `StoryTray` started rendering. This makes it buggy and very difficult to predict.
+`StoryTray` function pure அல்ல. பெற்ற `stories` array (ஒரு prop!)-இல் `push` call செய்வதால், `StoryTray` rendering தொடங்குவதற்கு *முன்* உருவாக்கப்பட்ட object-ஐ அது mutate செய்கிறது. இது buggy ஆகவும் predict செய்ய மிகவும் கடினமாகவும் ஆக்குகிறது.
 
-The simplest fix is to not touch the array at all, and render "Create Story" separately:
+நேரடியான fix, array-ஐத் தொடவே வேண்டாம்; "Story உருவாக்கு"-ஐ தனியாக render செய்யுங்கள்:
 
 <Sandpack>
 
@@ -692,7 +692,7 @@ export default function StoryTray({ stories }) {
           {story.label}
         </li>
       ))}
-      <li>Create Story</li>
+      <li>Story உருவாக்கு</li>
     </ul>
   );
 }
@@ -703,8 +703,8 @@ import { useState, useEffect } from 'react';
 import StoryTray from './StoryTray.js';
 
 const initialStories = [
-  {id: 0, label: "Ankit's Story" },
-  {id: 1, label: "Taylor's Story" },
+  {id: 0, label: "Ankit-ன் Story" },
+  {id: 1, label: "Taylor-ன் Story" },
 ];
 
 export default function App() {
@@ -725,7 +725,7 @@ export default function App() {
         textAlign: 'center',
       }}
     >
-      <h2>It is {time.toLocaleTimeString()} now.</h2>
+      <h2>இப்போது நேரம் {time.toLocaleTimeString()}.</h2>
       <StoryTray stories={stories} />
     </div>
   );
@@ -763,7 +763,7 @@ li {
 
 </Sandpack>
 
-Alternatively, you could create a _new_ array (by copying the existing one) before you push an item into it:
+மாற்றாக, item ஒன்றை push செய்வதற்கு முன் (existing array-ஐ copy செய்து) _புதிய_ array உருவாக்கலாம்:
 
 <Sandpack>
 
@@ -775,7 +775,7 @@ export default function StoryTray({ stories }) {
   // Does not affect the original array:
   storiesToDisplay.push({
     id: 'create',
-    label: 'Create Story'
+    label: 'Story உருவாக்கு'
   });
 
   return (
@@ -795,8 +795,8 @@ import { useState, useEffect } from 'react';
 import StoryTray from './StoryTray.js';
 
 const initialStories = [
-  {id: 0, label: "Ankit's Story" },
-  {id: 1, label: "Taylor's Story" },
+  {id: 0, label: "Ankit-ன் Story" },
+  {id: 1, label: "Taylor-ன் Story" },
 ];
 
 export default function App() {
@@ -817,7 +817,7 @@ export default function App() {
         textAlign: 'center',
       }}
     >
-      <h2>It is {time.toLocaleTimeString()} now.</h2>
+      <h2>இப்போது நேரம் {time.toLocaleTimeString()}.</h2>
       <StoryTray stories={stories} />
     </div>
   );
@@ -855,9 +855,9 @@ li {
 
 </Sandpack>
 
-This keeps your mutation local and your rendering function pure. However, you still need to be careful: for example, if you tried to change any of the array's existing items, you'd have to clone those items too.
+இது உங்கள் mutation-ஐ local ஆகவும், உங்கள் rendering function-ஐ pure ஆகவும் வைத்திருக்கும். ஆனால் இன்னும் கவனமாக இருக்க வேண்டும்: உதாரணமாக, array-யின் existing items ஏதாவது ஒன்றை மாற்ற முயன்றால், அந்த items-ஐயும் clone செய்ய வேண்டும்.
 
-It is useful to remember which operations on arrays mutate them, and which don't. For example, `push`, `pop`, `reverse`, and `sort` will mutate the original array, but `slice`, `filter`, and `map` will create a new one.
+Arrays-இல் எந்த operations அவற்றை mutate செய்கின்றன, எந்தவை செய்யாது என்பதை நினைவில் வைத்திருப்பது பயனுள்ளது. உதாரணமாக, `push`, `pop`, `reverse`, மற்றும் `sort` original array-ஐ mutate செய்யும்; ஆனால் `slice`, `filter`, மற்றும் `map` புதிய ஒன்றை உருவாக்கும்.
 
 </Solution>
 

@@ -1,65 +1,65 @@
 ---
-title: 'Synchronizing with Effects'
+title: 'Effects உடன் synchronize செய்தல்'
 ---
 
 <Intro>
 
-Some components need to synchronize with external systems. For example, you might want to control a non-React component based on the React state, set up a server connection, or send an analytics log when a component appears on the screen. *Effects* let you run some code after rendering so that you can synchronize your component with some system outside of React.
+சில components external systems உடன் synchronize செய்ய வேண்டும். உதாரணமாக, React state அடிப்படையில் non-React component-ஐ control செய்ய, server connection setup செய்ய, அல்லது ஒரு component screen-இல் தோன்றும் போது analytics log அனுப்ப வேண்டும் என்று இருக்கலாம். *Effects* rendering பிறகு சில code-ஐ run செய்ய அனுமதிப்பதால், உங்கள் component-ஐ React-க்கு வெளியே உள்ள system ஒன்றுடன் synchronize செய்ய முடியும்.
 
 </Intro>
 
 <YouWillLearn>
 
-- What Effects are
-- How Effects are different from events
-- How to declare an Effect in your component
-- How to skip re-running an Effect unnecessarily
-- Why Effects run twice in development and how to fix them
+- Effects என்றால் என்ன
+- Effects events-இலிருந்து எப்படி வேறுபடுகின்றன
+- உங்கள் component-இல் Effect declare செய்வது எப்படி
+- தேவையில்லாமல் Effect மீண்டும் run ஆகுவதை skip செய்வது எப்படி
+- Development-இல் Effects ஏன் இருமுறை run ஆகின்றன, அவற்றை எப்படி fix செய்வது
 
 </YouWillLearn>
 
-## What are Effects and how are they different from events? {/*what-are-effects-and-how-are-they-different-from-events*/}
+## Effects என்றால் என்ன, அவை events-இலிருந்து எப்படி வேறுபடுகின்றன? {/*what-are-effects-and-how-are-they-different-from-events*/}
 
-Before getting to Effects, you need to be familiar with two types of logic inside React components:
+Effects-க்கு செல்லும் முன், React components-க்குள் உள்ள இரண்டு வகை logic-ஐ அறிந்திருக்க வேண்டும்:
 
-- **Rendering code** (introduced in [Describing the UI](/learn/describing-the-ui)) lives at the top level of your component. This is where you take the props and state, transform them, and return the JSX you want to see on the screen. [Rendering code must be pure.](/learn/keeping-components-pure) Like a math formula, it should only _calculate_ the result, but not do anything else.
+- **Rendering code** ([UI-ஐ விவரித்தல்](/learn/describing-the-ui) பகுதியில் அறிமுகமானது) உங்கள் component-ன் top level-இல் இருக்கும். இங்கே props மற்றும் state-ஐ எடுத்து, அவற்றை transform செய்து, screen-இல் பார்க்க விரும்பும் JSX-ஐ return செய்கிறீர்கள். [Rendering code pure ஆக இருக்க வேண்டும்.](/learn/keeping-components-pure) Math formula போல, அது result-ஐ மட்டும் _calculate_ செய்ய வேண்டும்; வேறு எதையும் செய்யக்கூடாது.
 
-- **Event handlers** (introduced in [Adding Interactivity](/learn/adding-interactivity)) are nested functions inside your components that *do* things rather than just calculate them. An event handler might update an input field, submit an HTTP POST request to buy a product, or navigate the user to another screen. Event handlers contain ["side effects"](https://en.wikipedia.org/wiki/Side_effect_(computer_science)) (they change the program's state) caused by a specific user action (for example, a button click or typing).
+- **Event handlers** ([Interactivity சேர்த்தல்](/learn/adding-interactivity) பகுதியில் அறிமுகமானது) உங்கள் components-க்குள் உள்ள nested functions; அவை வெறும் calculate செய்வதற்கு பதிலாக விஷயங்களை *செய்கின்றன*. ஒரு event handler input field-ஐ update செய்யலாம், product வாங்க HTTP POST request submit செய்யலாம், அல்லது பயனரை மற்றொரு screen-க்கு navigate செய்யலாம். Event handlers, குறிப்பிட்ட user action-ஆல் (உதாரணமாக button click அல்லது typing) ஏற்படும் ["side effects"](https://en.wikipedia.org/wiki/Side_effect_(computer_science)) கொண்டிருக்கும் (அவை program state-ஐ மாற்றுகின்றன).
 
-Sometimes this isn't enough. Consider a `ChatRoom` component that must connect to the chat server whenever it's visible on the screen. Connecting to a server is not a pure calculation (it's a side effect) so it can't happen during rendering. However, there is no single particular event like a click that causes `ChatRoom` to be displayed.
+சில நேரங்களில் இது போதாது. Screen-இல் visible ஆகும் ஒவ்வொரு முறையும் chat server-க்கு connect செய்ய வேண்டிய `ChatRoom` component-ஐ எடுத்துக் கொள்ளுங்கள். Server-க்கு connect செய்வது pure calculation அல்ல (அது side effect), எனவே rendering போது அது நடக்க முடியாது. ஆனால் `ChatRoom` display ஆக காரணமான click போன்ற single particular event இல்லை.
 
-***Effects* let you specify side effects that are caused by rendering itself, rather than by a particular event.** Sending a message in the chat is an *event* because it is directly caused by the user clicking a specific button. However, setting up a server connection is an *Effect* because it should happen no matter which interaction caused the component to appear. Effects run at the end of a [commit](/learn/render-and-commit) after the screen updates. This is a good time to synchronize the React components with some external system (like network or a third-party library).
+***Effects* என்பது குறிப்பிட்ட event-ஆல் அல்ல, rendering தானே காரணமாகும் side effects-ஐ specify செய்ய அனுமதிக்கிறது.** Chat-இல் message அனுப்புவது ஒரு *event*, ஏனெனில் அது பயனர் குறிப்பிட்ட button-ஐ click செய்வதால் நேரடியாக ஏற்படுகிறது. ஆனால் server connection setup செய்வது ஒரு *Effect*, ஏனெனில் component தோன்ற காரணமான interaction எதுவாக இருந்தாலும் அது நடக்க வேண்டும். Screen update ஆன பிறகு [commit](/learn/render-and-commit)-ன் முடிவில் Effects run ஆகும். React components-ஐ external system (network அல்லது third-party library போன்றவை) உடன் synchronize செய்ய இது நல்ல நேரம்.
 
 <Note>
 
-Here and later in this text, capitalized "Effect" refers to the React-specific definition above, i.e. a side effect caused by rendering. To refer to the broader programming concept, we'll say "side effect".
+இங்கேயும் இந்த text-இல் பின்னரும், capitalized "Effect" என்பது மேலுள்ள React-specific definition-ஐ குறிக்கும், அதாவது rendering காரணமாக ஏற்படும் side effect. பரந்த programming concept-ஐ குறிக்க "side effect" என்று சொல்வோம்.
 
 </Note>
 
 
-## You might not need an Effect {/*you-might-not-need-an-effect*/}
+## உங்களுக்கு Effect தேவைப்படாமல் இருக்கலாம் {/*you-might-not-need-an-effect*/}
 
-**Don't rush to add Effects to your components.** Keep in mind that Effects are typically used to "step out" of your React code and synchronize with some *external* system. This includes browser APIs, third-party widgets, network, and so on. If your Effect only adjusts some state based on other state, [you might not need an Effect.](/learn/you-might-not-need-an-effect)
+**உங்கள் components-க்கு Effects சேர்க்க அவசரப்பட வேண்டாம்.** Effects பொதுவாக உங்கள் React code-இலிருந்து "step out" செய்து, ஏதேனும் *external* system உடன் synchronize செய்யப் பயன்படுகின்றன என்பதை நினைவில் கொள்ளுங்கள். இதில் browser APIs, third-party widgets, network போன்றவை அடங்கும். உங்கள் Effect மற்ற state அடிப்படையில் சில state-ஐ மட்டும் adjust செய்தால், [உங்களுக்கு Effect தேவைப்படாமல் இருக்கலாம்.](/learn/you-might-not-need-an-effect)
 
-## How to write an Effect {/*how-to-write-an-effect*/}
+## Effect எழுதுவது எப்படி {/*how-to-write-an-effect*/}
 
-To write an Effect, follow these three steps:
+Effect எழுத, இந்த மூன்று steps-ஐ பின்பற்றுங்கள்:
 
-1. **Declare an Effect.** By default, your Effect will run after every [commit](/learn/render-and-commit).
-2. **Specify the Effect dependencies.** Most Effects should only re-run *when needed* rather than after every render. For example, a fade-in animation should only trigger when a component appears. Connecting and disconnecting to a chat room should only happen when the component appears and disappears, or when the chat room changes. You will learn how to control this by specifying *dependencies.*
-3. **Add cleanup if needed.** Some Effects need to specify how to stop, undo, or clean up whatever they were doing. For example, "connect" needs "disconnect", "subscribe" needs "unsubscribe", and "fetch" needs either "cancel" or "ignore". You will learn how to do this by returning a *cleanup function*.
+1. **Effect-ஐ declare செய்யுங்கள்.** Default ஆக, உங்கள் Effect ஒவ்வொரு [commit](/learn/render-and-commit) பிறகும் run ஆகும்.
+2. **Effect dependencies-ஐ specify செய்யுங்கள்.** பெரும்பாலான Effects ஒவ்வொரு render பிறகும் அல்ல, *தேவைப்படும் போது* மட்டுமே re-run ஆக வேண்டும். உதாரணமாக, fade-in animation component தோன்றும் போது மட்டுமே trigger ஆக வேண்டும். Chat room-க்கு connect/disconnect செய்வது component தோன்றும் மற்றும் மறையும் போது, அல்லது chat room மாறும் போது மட்டுமே நடக்க வேண்டும். *Dependencies* specify செய்வதன் மூலம் இதை எப்படி control செய்வது என்பதை கற்பீர்கள்.
+3. **தேவைப்பட்டால் cleanup சேர்க்கவும்.** சில Effects தாங்கள் செய்ததை stop, undo, அல்லது clean up செய்வது எப்படி என்பதை specify செய்ய வேண்டும். உதாரணமாக, "connect"-க்கு "disconnect" தேவை, "subscribe"-க்கு "unsubscribe" தேவை, "fetch"-க்கு "cancel" அல்லது "ignore" தேவை. *Cleanup function* return செய்வதன் மூலம் இதை எப்படி செய்வது என்பதை கற்பீர்கள்.
 
-Let's look at each of these steps in detail.
+இந்த steps ஒவ்வொன்றையும் விரிவாகப் பார்ப்போம்.
 
-### Step 1: Declare an Effect {/*step-1-declare-an-effect*/}
+### Step 1: Effect-ஐ declare செய்யுங்கள் {/*step-1-declare-an-effect*/}
 
-To declare an Effect in your component, import the [`useEffect` Hook](/reference/react/useEffect) from React:
+உங்கள் component-இல் Effect declare செய்ய, React-இலிருந்து [`useEffect` Hook](/reference/react/useEffect)-ஐ import செய்யுங்கள்:
 
 ```js
 import { useEffect } from 'react';
 ```
 
-Then, call it at the top level of your component and put some code inside your Effect:
+பிறகு, அதை உங்கள் component-ன் top level-இல் call செய்து, உங்கள் Effect-க்குள் சில code-ஐ வையுங்கள்:
 
 ```js {2-4}
 function MyComponent() {
@@ -70,15 +70,15 @@ function MyComponent() {
 }
 ```
 
-Every time your component renders, React will update the screen *and then* run the code inside `useEffect`. In other words, **`useEffect` "delays" a piece of code from running until that render is reflected on the screen.**
+உங்கள் component render ஆகும் ஒவ்வொரு முறையும், React screen-ஐ update செய்து *பிறகு* `useEffect`-க்குள் உள்ள code-ஐ run செய்யும். வேறு வார்த்தைகளில், **அந்த render screen-இல் பிரதிபலிக்கும் வரை code பகுதி run ஆகாமல் `useEffect` "delay" செய்கிறது.**
 
-Let's see how you can use an Effect to synchronize with an external system. Consider a `<VideoPlayer>` React component. It would be nice to control whether it's playing or paused by passing an `isPlaying` prop to it:
+External system உடன் synchronize செய்ய Effect-ஐ எப்படி use செய்யலாம் என்பதைப் பார்ப்போம். `<VideoPlayer>` React component-ஐ எடுத்துக் கொள்ளுங்கள். அதற்கு `isPlaying` prop pass செய்வதன் மூலம் அது play ஆகிறதா pause ஆகிறதா என்பதை control செய்ய முடியுமானால் நன்றாக இருக்கும்:
 
 ```js
 <VideoPlayer isPlaying={isPlaying} />;
 ```
 
-Your custom `VideoPlayer` component renders the built-in browser [`<video>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video) tag:
+உங்கள் custom `VideoPlayer` component, built-in browser [`<video>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video) tag-ஐ render செய்கிறது:
 
 ```js
 function VideoPlayer({ src, isPlaying }) {
@@ -87,11 +87,11 @@ function VideoPlayer({ src, isPlaying }) {
 }
 ```
 
-However, the browser `<video>` tag does not have an `isPlaying` prop. The only way to control it is to manually call the [`play()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/play) and [`pause()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/pause) methods on the DOM element. **You need to synchronize the value of `isPlaying` prop, which tells whether the video _should_ currently be playing, with calls like `play()` and `pause()`.**
+ஆனால் browser `<video>` tag-க்கு `isPlaying` prop இல்லை. அதை control செய்ய ஒரே வழி, DOM element மீது [`play()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/play) மற்றும் [`pause()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/pause) methods-ஐ manually call செய்வது. **Video தற்போது play ஆக _வேண்டுமா_ என்பதை சொல்லும் `isPlaying` prop-ன் value-ஐ `play()` மற்றும் `pause()` போன்ற calls உடன் synchronize செய்ய வேண்டும்.**
 
-We'll need to first [get a ref](/learn/manipulating-the-dom-with-refs) to the `<video>` DOM node.
+முதலில் `<video>` DOM node-க்கு [ref பெற](/learn/manipulating-the-dom-with-refs) வேண்டும்.
 
-You might be tempted to try to call `play()` or `pause()` during rendering, but that isn't correct:
+Rendering போது `play()` அல்லது `pause()` call செய்ய முயற்சிக்கலாம் என்று தோன்றலாம், ஆனால் அது சரி அல்ல:
 
 <Sandpack>
 
@@ -102,9 +102,9 @@ function VideoPlayer({ src, isPlaying }) {
   const ref = useRef(null);
 
   if (isPlaying) {
-    ref.current.play();  // Calling these while rendering isn't allowed.
+    ref.current.play();  // Rendering போது இவற்றை call செய்வது அனுமதிக்கப்படாது.
   } else {
-    ref.current.pause(); // Also, this crashes.
+    ref.current.pause(); // மேலும், இது crash ஆகும்.
   }
 
   return <video ref={ref} src={src} loop playsInline />;
@@ -115,7 +115,7 @@ export default function App() {
   return (
     <>
       <button onClick={() => setIsPlaying(!isPlaying)}>
-        {isPlaying ? 'Pause' : 'Play'}
+        {isPlaying ? 'Pause செய்' : 'Play செய்'}
       </button>
       <VideoPlayer
         isPlaying={isPlaying}
@@ -133,11 +133,11 @@ video { width: 250px; }
 
 </Sandpack>
 
-The reason this code isn't correct is that it tries to do something with the DOM node during rendering. In React, [rendering should be a pure calculation](/learn/keeping-components-pure) of JSX and should not contain side effects like modifying the DOM.
+இந்த code சரி அல்லாத காரணம், rendering போது DOM node-ஐ வைத்து ஏதாவது செய்ய முயற்சிப்பதுதான். React-இல், [rendering என்பது JSX-ன் pure calculation ஆக இருக்க வேண்டும்](/learn/keeping-components-pure), மேலும் DOM-ஐ modify செய்வது போன்ற side effects இருக்கக் கூடாது.
 
-Moreover, when `VideoPlayer` is called for the first time, its DOM does not exist yet! There isn't a DOM node yet to call `play()` or `pause()` on, because React doesn't know what DOM to create until you return the JSX.
+மேலும், `VideoPlayer` முதல் முறையாக call செய்யப்படும் போது, அதன் DOM இன்னும் இல்லை! `play()` அல்லது `pause()` call செய்ய DOM node இன்னும் இல்லை, ஏனெனில் நீங்கள் JSX return செய்யும் வரை எந்த DOM create செய்ய வேண்டும் என்பதை React அறியாது.
 
-The solution here is to **wrap the side effect with `useEffect` to move it out of the rendering calculation:**
+இதற்கான தீர்வு, **side effect-ஐ `useEffect`-ஆல் wrap செய்து rendering calculation-இலிருந்து வெளியே நகர்த்துவது:**
 
 ```js {6,12}
 import { useEffect, useRef } from 'react';
@@ -157,11 +157,11 @@ function VideoPlayer({ src, isPlaying }) {
 }
 ```
 
-By wrapping the DOM update in an Effect, you let React update the screen first. Then your Effect runs.
+DOM update-ஐ Effect-க்குள் wrap செய்வதன் மூலம், முதலில் screen-ஐ update செய்ய React-க்கு அனுமதிக்கிறீர்கள். பிறகு உங்கள் Effect run ஆகும்.
 
-When your `VideoPlayer` component renders (either the first time or if it re-renders), a few things will happen. First, React will update the screen, ensuring the `<video>` tag is in the DOM with the right props. Then React will run your Effect. Finally, your Effect will call `play()` or `pause()` depending on the value of `isPlaying`.
+உங்கள் `VideoPlayer` component render ஆகும் போது (முதல் முறையோ அல்லது re-render ஆனாலோ), சில விஷயங்கள் நடக்கும். முதலில், சரியான props உடன் `<video>` tag DOM-இல் இருப்பதை உறுதி செய்து React screen-ஐ update செய்யும். பிறகு React உங்கள் Effect-ஐ run செய்யும். இறுதியாக, `isPlaying` value அடிப்படையில் உங்கள் Effect `play()` அல்லது `pause()` call செய்யும்.
 
-Press Play/Pause multiple times and see how the video player stays synchronized to the `isPlaying` value:
+Play/Pause பல முறை press செய்து, video player `isPlaying` value-க்கு எப்படி synchronized ஆக இருக்கிறது என்பதைப் பாருங்கள்:
 
 <Sandpack>
 
@@ -187,7 +187,7 @@ export default function App() {
   return (
     <>
       <button onClick={() => setIsPlaying(!isPlaying)}>
-        {isPlaying ? 'Pause' : 'Play'}
+        {isPlaying ? 'Pause செய்' : 'Play செய்'}
       </button>
       <VideoPlayer
         isPlaying={isPlaying}
@@ -205,13 +205,13 @@ video { width: 250px; }
 
 </Sandpack>
 
-In this example, the "external system" you synchronized to React state was the browser media API. You can use a similar approach to wrap legacy non-React code (like jQuery plugins) into declarative React components.
+இந்த example-இல், React state உடன் நீங்கள் synchronize செய்த "external system" browser media API ஆகும். Legacy non-React code-ஐ (jQuery plugins போன்றவை) declarative React components-க்குள் wrap செய்ய இதே போன்ற அணுகுமுறையை use செய்யலாம்.
 
-Note that controlling a video player is much more complex in practice. Calling `play()` may fail, the user might play or pause using the built-in browser controls, and so on. This example is very simplified and incomplete.
+Video player-ஐ control செய்வது நடைமுறையில் மிகவும் complex என்பதை கவனிக்கவும். `play()` call fail ஆகலாம், பயனர் built-in browser controls மூலம் play அல்லது pause செய்யலாம், போன்றவை. இந்த example மிகவும் simplified மற்றும் incomplete.
 
 <Pitfall>
 
-By default, Effects run after *every* render. This is why code like this will **produce an infinite loop:**
+Default ஆக, Effects *ஒவ்வொரு* render பிறகும் run ஆகும். அதனால்தான் இப்படியான code **infinite loop உருவாக்கும்:**
 
 ```js
 const [count, setCount] = useState(0);
@@ -220,20 +220,20 @@ useEffect(() => {
 });
 ```
 
-Effects run as a *result* of rendering. Setting state *triggers* rendering. Setting state immediately in an Effect is like plugging a power outlet into itself. The Effect runs, it sets the state, which causes a re-render, which causes the Effect to run, it sets the state again, this causes another re-render, and so on.
+Effects rendering-ன் *result* ஆக run ஆகின்றன. State set செய்வது rendering-ஐ *trigger* செய்கிறது. Effect-இல் உடனடியாக state set செய்வது power outlet-ஐ அதே outlet-க்குள் plug செய்வது போல. Effect run ஆகிறது, அது state set செய்கிறது, அது re-render ஏற்படுத்துகிறது, அது Effect மீண்டும் run ஆக காரணமாகிறது, அது மீண்டும் state set செய்கிறது, இது இன்னொரு re-render ஏற்படுத்துகிறது, இப்படியே தொடர்கிறது.
 
-Effects should usually synchronize your components with an *external* system. If there's no external system and you only want to adjust some state based on other state, [you might not need an Effect.](/learn/you-might-not-need-an-effect)
+Effects பொதுவாக உங்கள் components-ஐ *external* system உடன் synchronize செய்ய வேண்டும். External system எதுவும் இல்லாமல், மற்ற state அடிப்படையில் சில state-ஐ மட்டும் adjust செய்ய விரும்பினால், [உங்களுக்கு Effect தேவைப்படாமல் இருக்கலாம்.](/learn/you-might-not-need-an-effect)
 
 </Pitfall>
 
-### Step 2: Specify the Effect dependencies {/*step-2-specify-the-effect-dependencies*/}
+### Step 2: Effect dependencies-ஐ specify செய்யுங்கள் {/*step-2-specify-the-effect-dependencies*/}
 
-By default, Effects run after *every* render. Often, this is **not what you want:**
+Default ஆக, Effects *ஒவ்வொரு* render பிறகும் run ஆகும். பல நேரங்களில், இது **நீங்கள் விரும்புவது அல்ல:**
 
-- Sometimes, it's slow. Synchronizing with an external system is not always instant, so you might want to skip doing it unless it's necessary. For example, you don't want to reconnect to the chat server on every keystroke.
-- Sometimes, it's wrong. For example, you don't want to trigger a component fade-in animation on every keystroke. The animation should only play once when the component appears for the first time.
+- சில நேரங்களில், அது slow. External system உடன் synchronize செய்வது எப்போதும் instant அல்ல, எனவே தேவையில்லாத போது அதை skip செய்ய விரும்பலாம். உதாரணமாக, ஒவ்வொரு keystroke-க்கும் chat server-க்கு reconnect செய்ய விரும்பமாட்டீர்கள்.
+- சில நேரங்களில், அது தவறு. உதாரணமாக, ஒவ்வொரு keystroke-க்கும் component fade-in animation trigger செய்ய விரும்பமாட்டீர்கள். Component முதல் முறையாக தோன்றும் போது மட்டுமே animation play ஆக வேண்டும்.
 
-To demonstrate the issue, here is the previous example with a few `console.log` calls and a text input that updates the parent component's state. Notice how typing causes the Effect to re-run:
+Issue-ஐ demonstrate செய்ய, சில `console.log` calls மற்றும் parent component-ன் state-ஐ update செய்யும் text input உடன் முந்தைய example இதோ. Typing Effect மீண்டும் run ஆக காரணமாக இருப்பதை கவனிக்கவும்:
 
 <Sandpack>
 
@@ -263,7 +263,7 @@ export default function App() {
     <>
       <input value={text} onChange={e => setText(e.target.value)} />
       <button onClick={() => setIsPlaying(!isPlaying)}>
-        {isPlaying ? 'Pause' : 'Play'}
+        {isPlaying ? 'Pause செய்' : 'Play செய்'}
       </button>
       <VideoPlayer
         isPlaying={isPlaying}
@@ -281,7 +281,7 @@ video { width: 250px; }
 
 </Sandpack>
 
-You can tell React to **skip unnecessarily re-running the Effect** by specifying an array of *dependencies* as the second argument to the `useEffect` call. Start by adding an empty `[]` array to the above example on line 14:
+`useEffect` call-க்கு second argument ஆக *dependencies* array-ஐ specify செய்வதன் மூலம், **தேவையில்லாமல் Effect மீண்டும் run ஆகுவதை skip செய்ய** React-க்கு சொல்லலாம். மேலுள்ள example-இல் line 14-க்கு empty `[]` array சேர்த்து தொடங்குங்கள்:
 
 ```js {3}
   useEffect(() => {
@@ -289,7 +289,7 @@ You can tell React to **skip unnecessarily re-running the Effect** by specifying
   }, []);
 ```
 
-You should see an error saying `React Hook useEffect has a missing dependency: 'isPlaying'`:
+`React Hook useEffect has a missing dependency: 'isPlaying'` என்று சொல்லும் error-ஐ நீங்கள் பார்க்க வேண்டும்:
 
 <Sandpack>
 
@@ -307,7 +307,7 @@ function VideoPlayer({ src, isPlaying }) {
       console.log('Calling video.pause()');
       ref.current.pause();
     }
-  }, []); // This causes an error
+  }, []); // இது error ஏற்படுத்தும்
 
   return <video ref={ref} src={src} loop playsInline />;
 }
@@ -319,7 +319,7 @@ export default function App() {
     <>
       <input value={text} onChange={e => setText(e.target.value)} />
       <button onClick={() => setIsPlaying(!isPlaying)}>
-        {isPlaying ? 'Pause' : 'Play'}
+        {isPlaying ? 'Pause செய்' : 'Play செய்'}
       </button>
       <VideoPlayer
         isPlaying={isPlaying}
@@ -337,19 +337,19 @@ video { width: 250px; }
 
 </Sandpack>
 
-The problem is that the code inside of your Effect *depends on* the `isPlaying` prop to decide what to do, but this dependency was not explicitly declared. To fix this issue, add `isPlaying` to the dependency array:
+Problem என்னவெனில், உங்கள் Effect-க்குள் உள்ள code என்ன செய்ய வேண்டும் என்பதை தீர்மானிக்க `isPlaying` prop-ஐ *சார்ந்துள்ளது*, ஆனால் இந்த dependency explicit ஆக declare செய்யப்படவில்லை. இந்த issue-ஐ fix செய்ய, dependency array-க்கு `isPlaying`-ஐ சேர்க்கவும்:
 
 ```js {2,7}
   useEffect(() => {
-    if (isPlaying) { // It's used here...
+    if (isPlaying) { // இது இங்கே use செய்யப்படுகிறது...
       // ...
     } else {
       // ...
     }
-  }, [isPlaying]); // ...so it must be declared here!
+  }, [isPlaying]); // ...அதனால் இங்கே declare செய்யப்பட வேண்டும்!
 ```
 
-Now all dependencies are declared, so there is no error. Specifying `[isPlaying]` as the dependency array tells React that it should skip re-running your Effect if `isPlaying` is the same as it was during the previous render. With this change, typing into the input doesn't cause the Effect to re-run, but pressing Play/Pause does:
+இப்போது எல்லா dependencies-உம் declare செய்யப்பட்டுள்ளதால் error இல்லை. Dependency array ஆக `[isPlaying]` specify செய்வது, previous render போது இருந்தது போலவே `isPlaying` இருந்தால் உங்கள் Effect-ஐ மீண்டும் run செய்வதை skip செய்ய வேண்டும் என்று React-க்கு சொல்கிறது. இந்த மாற்றத்தால், input-இல் type செய்வது Effect மீண்டும் run ஆக காரணமாகாது; ஆனால் Play/Pause press செய்வது காரணமாகும்:
 
 <Sandpack>
 
@@ -379,7 +379,7 @@ export default function App() {
     <>
       <input value={text} onChange={e => setText(e.target.value)} />
       <button onClick={() => setIsPlaying(!isPlaying)}>
-        {isPlaying ? 'Pause' : 'Play'}
+        {isPlaying ? 'Pause செய்' : 'Play செய்'}
       </button>
       <VideoPlayer
         isPlaying={isPlaying}
@@ -397,13 +397,13 @@ video { width: 250px; }
 
 </Sandpack>
 
-The dependency array can contain multiple dependencies. React will only skip re-running the Effect if *all* of the dependencies you specify have exactly the same values as they had during the previous render. React compares the dependency values using the [`Object.is`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is) comparison. See the [`useEffect` reference](/reference/react/useEffect#reference) for details.
+Dependency array பல dependencies கொண்டிருக்கலாம். நீங்கள் specify செய்த *எல்லா* dependencies-உம் previous render போது இருந்த அதே values-ஐ கொண்டிருந்தால் மட்டுமே React Effect மீண்டும் run ஆகுவதை skip செய்யும். React dependency values-ஐ [`Object.is`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is) comparison மூலம் ஒப்பிடுகிறது. விவரங்களுக்கு [`useEffect` reference](/reference/react/useEffect#reference)-ஐ பார்க்கவும்.
 
-**Notice that you can't "choose" your dependencies.** You will get a lint error if the dependencies you specified don't match what React expects based on the code inside your Effect. This helps catch many bugs in your code. If you don't want some code to re-run, [*edit the Effect code itself* to not "need" that dependency.](/learn/lifecycle-of-reactive-effects#what-to-do-when-you-dont-want-to-re-synchronize)
+**உங்கள் dependencies-ஐ "choose" செய்ய முடியாது என்பதை கவனிக்கவும்.** உங்கள் Effect-க்குள் உள்ள code அடிப்படையில் React எதிர்பார்ப்பதுடன் நீங்கள் specify செய்த dependencies match ஆகவில்லை என்றால் lint error கிடைக்கும். இது உங்கள் code-இல் பல bugs-ஐ catch செய்ய உதவும். சில code re-run ஆக வேண்டாம் என்றால், [அந்த dependency "தேவைப்படாதபடி" *Effect code-ஐயே edit செய்யுங்கள்*.](/learn/lifecycle-of-reactive-effects#what-to-do-when-you-dont-want-to-re-synchronize)
 
 <Pitfall>
 
-The behaviors without the dependency array and with an *empty* `[]` dependency array are different:
+Dependency array இல்லாத behavior மற்றும் *empty* `[]` dependency array உடைய behavior வேறுபட்டவை:
 
 ```js {3,7,11}
 useEffect(() => {
@@ -419,15 +419,15 @@ useEffect(() => {
 }, [a, b]);
 ```
 
-We'll take a close look at what "mount" means in the next step.
+அடுத்த step-இல் "mount" என்றால் என்ன என்பதை நெருக்கமாகப் பார்ப்போம்.
 
 </Pitfall>
 
 <DeepDive>
 
-#### Why was the ref omitted from the dependency array? {/*why-was-the-ref-omitted-from-the-dependency-array*/}
+#### Ref dependency array-இலிருந்து ஏன் omit செய்யப்பட்டது? {/*why-was-the-ref-omitted-from-the-dependency-array*/}
 
-This Effect uses _both_ `ref` and `isPlaying`, but only `isPlaying` is declared as a dependency:
+இந்த Effect `ref` மற்றும் `isPlaying` _இரண்டையும்_ use செய்கிறது, ஆனால் dependency ஆக `isPlaying` மட்டும் declare செய்யப்பட்டுள்ளது:
 
 ```js {9}
 function VideoPlayer({ src, isPlaying }) {
@@ -441,7 +441,7 @@ function VideoPlayer({ src, isPlaying }) {
   }, [isPlaying]);
 ```
 
-This is because the `ref` object has a *stable identity:* React guarantees [you'll always get the same object](/reference/react/useRef#returns) from the same `useRef` call on every render. It never changes, so it will never by itself cause the Effect to re-run. Therefore, it does not matter whether you include it or not. Including it is fine too:
+இதற்குக் காரணம் `ref` object-க்கு *stable identity* இருப்பது: ஒவ்வொரு render-இலும் அதே `useRef` call-இலிருந்து [எப்போதும் அதே object கிடைக்கும்](/reference/react/useRef#returns) என்று React guarantee செய்கிறது. அது மாறாது, எனவே அது தனியாக Effect மீண்டும் run ஆக காரணமாகாது. அதனால் அதை include செய்கிறீர்களா இல்லையா என்பது முக்கியமல்ல. Include செய்தாலும் சரி:
 
 ```js {9}
 function VideoPlayer({ src, isPlaying }) {
@@ -455,17 +455,17 @@ function VideoPlayer({ src, isPlaying }) {
   }, [isPlaying, ref]);
 ```
 
-The [`set` functions](/reference/react/useState#setstate) returned by `useState` also have stable identity, so you will often see them omitted from the dependencies too. If the linter lets you omit a dependency without errors, it is safe to do.
+`useState` return செய்யும் [`set` functions](/reference/react/useState#setstate)-க்கும் stable identity உள்ளது, எனவே அவையும் dependencies-இலிருந்து omit செய்யப்பட்டிருப்பதை அடிக்கடி காண்பீர்கள். Linter ஒரு dependency-ஐ errors இல்லாமல் omit செய்ய அனுமதித்தால், அதைச் செய்வது safe.
 
-Omitting always-stable dependencies only works when the linter can "see" that the object is stable. For example, if `ref` was passed from a parent component, you would have to specify it in the dependency array. However, this is good because you can't know whether the parent component always passes the same ref, or passes one of several refs conditionally. So your Effect _would_ depend on which ref is passed.
+Object stable என்பதை linter "பார்க்க" முடிந்தால் மட்டுமே always-stable dependencies-ஐ omit செய்வது வேலை செய்யும். உதாரணமாக, `ref` parent component-இலிருந்து pass செய்யப்பட்டிருந்தால், dependency array-இல் அதை specify செய்ய வேண்டியிருக்கும். ஆனால் இது நல்லது, ஏனெனில் parent component எப்போதும் அதே ref pass செய்கிறதா, அல்லது பல refs-இல் ஒன்றை conditionally pass செய்கிறதா என்பதை நீங்கள் அறிய முடியாது. எனவே உங்கள் Effect pass செய்யப்பட்ட ref-ஐ _சார்ந்திருக்கும்_.
 
 </DeepDive>
 
-### Step 3: Add cleanup if needed {/*step-3-add-cleanup-if-needed*/}
+### Step 3: தேவைப்பட்டால் cleanup சேர்க்கவும் {/*step-3-add-cleanup-if-needed*/}
 
-Consider a different example. You're writing a `ChatRoom` component that needs to connect to the chat server when it appears. You are given a `createConnection()` API that returns an object with `connect()` and `disconnect()` methods. How do you keep the component connected while it is displayed to the user?
+வேறு example-ஐ எடுத்துக் கொள்ளுங்கள். அது தோன்றும் போது chat server-க்கு connect செய்ய வேண்டிய `ChatRoom` component-ஐ நீங்கள் எழுதுகிறீர்கள். `connect()` மற்றும் `disconnect()` methods கொண்ட object-ஐ return செய்யும் `createConnection()` API உங்களுக்கு கொடுக்கப்பட்டுள்ளது. Component பயனருக்கு display ஆகும் வரை அதை connected ஆக வைத்திருப்பது எப்படி?
 
-Start by writing the Effect logic:
+Effect logic எழுதுவதிலிருந்து தொடங்குங்கள்:
 
 ```js
 useEffect(() => {
@@ -474,7 +474,7 @@ useEffect(() => {
 });
 ```
 
-It would be slow to connect to the chat after every re-render, so you add the dependency array:
+ஒவ்வொரு re-render பிறகும் chat-க்கு connect செய்வது slow ஆக இருக்கும், எனவே dependency array-ஐ சேர்க்கிறீர்கள்:
 
 ```js {4}
 useEffect(() => {
@@ -483,9 +483,9 @@ useEffect(() => {
 }, []);
 ```
 
-**The code inside the Effect does not use any props or state, so your dependency array is `[]` (empty). This tells React to only run this code when the component "mounts", i.e. appears on the screen for the first time.**
+**Effect-க்குள் உள்ள code எந்த props அல்லது state-ஐயும் use செய்யவில்லை, எனவே உங்கள் dependency array `[]` (empty). Component "mount" ஆகும் போது, அதாவது screen-இல் முதல் முறையாக தோன்றும் போது மட்டும் இந்த code-ஐ run செய்ய வேண்டும் என்று இது React-க்கு சொல்கிறது.**
 
-Let's try running this code:
+இந்த code-ஐ run செய்து பார்ப்போம்:
 
 <Sandpack>
 
@@ -498,7 +498,7 @@ export default function ChatRoom() {
     const connection = createConnection();
     connection.connect();
   }, []);
-  return <h1>Welcome to the chat!</h1>;
+  return <h1>Chat-க்கு வரவேற்கிறோம்!</h1>;
 }
 ```
 
@@ -507,10 +507,10 @@ export function createConnection() {
   // A real implementation would actually connect to the server
   return {
     connect() {
-      console.log('✅ Connecting...');
+      console.log('✅ Connect செய்கிறது...');
     },
     disconnect() {
-      console.log('❌ Disconnected.');
+      console.log('❌ Disconnect ஆனது.');
     }
   };
 }
@@ -522,15 +522,15 @@ input { display: block; margin-bottom: 20px; }
 
 </Sandpack>
 
-This Effect only runs on mount, so you might expect `"✅ Connecting..."` to be printed once in the console. **However, if you check the console, `"✅ Connecting..."` gets printed twice. Why does it happen?**
+இந்த Effect mount போது மட்டுமே run ஆகும், எனவே console-இல் `"✅ Connect செய்கிறது..."` ஒருமுறை print ஆகும் என்று எதிர்பார்க்கலாம். **ஆனால் console-ஐ check செய்தால், `"✅ Connect செய்கிறது..."` இருமுறை print ஆகிறது. இது ஏன் நடக்கிறது?**
 
-Imagine the `ChatRoom` component is a part of a larger app with many different screens. The user starts their journey on the `ChatRoom` page. The component mounts and calls `connection.connect()`. Then imagine the user navigates to another screen--for example, to the Settings page. The `ChatRoom` component unmounts. Finally, the user clicks Back and `ChatRoom` mounts again. This would set up a second connection--but the first connection was never destroyed! As the user navigates across the app, the connections would keep piling up.
+`ChatRoom` component பல different screens கொண்ட பெரிய app-இன் ஒரு பகுதி என்று கற்பனை செய்யுங்கள். பயனர் `ChatRoom` page-இல் தன் பயணத்தைத் தொடங்குகிறார். Component mount ஆகி `connection.connect()` call செய்கிறது. பிறகு பயனர் மற்றொரு screen-க்கு navigate செய்கிறார் என்று நினைக்கவும்--உதாரணமாக Settings page-க்கு. `ChatRoom` component unmount ஆகிறது. இறுதியாக, பயனர் Back click செய்கிறார்; `ChatRoom` மீண்டும் mount ஆகிறது. இது second connection setup செய்யும்--ஆனால் முதல் connection ஒருபோதும் destroy செய்யப்படவில்லை! பயனர் app முழுவதும் navigate செய்யும்போது connections குவிந்து கொண்டே இருக்கும்.
 
-Bugs like this are easy to miss without extensive manual testing. To help you spot them quickly, in development React remounts every component once immediately after its initial mount.
+இப்படியான bugs extensive manual testing இல்லாமல் நேரடியாக தவறவிடப்படும். அவற்றை விரைவாக கண்டறிய உதவ, development-இல் React ஒவ்வொரு component-ஐயும் அதன் initial mount உடனடியாக பிறகு ஒருமுறை remount செய்கிறது.
 
-Seeing the `"✅ Connecting..."` log twice helps you notice the real issue: your code doesn't close the connection when the component unmounts.
+`"✅ Connect செய்கிறது..."` log இருமுறை தெரிகிறது என்பது உண்மையான issue-ஐ கவனிக்க உதவும்: component unmount ஆகும் போது உங்கள் code connection-ஐ close செய்யவில்லை.
 
-To fix the issue, return a *cleanup function* from your Effect:
+Issue-ஐ fix செய்ய, உங்கள் Effect-இலிருந்து *cleanup function* return செய்யுங்கள்:
 
 ```js {4-6}
   useEffect(() => {
@@ -542,7 +542,7 @@ To fix the issue, return a *cleanup function* from your Effect:
   }, []);
 ```
 
-React will call your cleanup function each time before the Effect runs again, and one final time when the component unmounts (gets removed). Let's see what happens when the cleanup function is implemented:
+Effect மீண்டும் run ஆகும் முன் ஒவ்வொரு முறையும், மேலும் component unmount ஆகும் (remove செய்யப்படும்) போது இறுதியாக ஒருமுறையும் React உங்கள் cleanup function-ஐ call செய்யும். Cleanup function implement செய்யப்பட்டால் என்ன நடக்கிறது என்பதைப் பார்ப்போம்:
 
 <Sandpack>
 
@@ -556,7 +556,7 @@ export default function ChatRoom() {
     connection.connect();
     return () => connection.disconnect();
   }, []);
-  return <h1>Welcome to the chat!</h1>;
+  return <h1>Chat-க்கு வரவேற்கிறோம்!</h1>;
 }
 ```
 
@@ -565,10 +565,10 @@ export function createConnection() {
   // A real implementation would actually connect to the server
   return {
     connect() {
-      console.log('✅ Connecting...');
+      console.log('✅ Connect செய்கிறது...');
     },
     disconnect() {
-      console.log('❌ Disconnected.');
+      console.log('❌ Disconnect ஆனது.');
     }
   };
 }
@@ -580,29 +580,29 @@ input { display: block; margin-bottom: 20px; }
 
 </Sandpack>
 
-Now you get three console logs in development:
+இப்போது development-இல் மூன்று console logs கிடைக்கும்:
 
-1. `"✅ Connecting..."`
-2. `"❌ Disconnected."`
-3. `"✅ Connecting..."`
+1. `"✅ Connect செய்கிறது..."`
+2. `"❌ Disconnect ஆனது."`
+3. `"✅ Connect செய்கிறது..."`
 
-**This is the correct behavior in development.** By remounting your component, React verifies that navigating away and back would not break your code. Disconnecting and then connecting again is exactly what should happen! When you implement the cleanup well, there should be no user-visible difference between running the Effect once vs running it, cleaning it up, and running it again. There's an extra connect/disconnect call pair because React is probing your code for bugs in development. This is normal--don't try to make it go away!
+**இது development-இல் சரியான behavior.** உங்கள் component-ஐ remount செய்வதன் மூலம், away சென்று திரும்ப navigate செய்வது உங்கள் code-ஐ உடைக்காது என்பதை React verify செய்கிறது. Disconnect செய்து மீண்டும் connect செய்வதே சரியாக நடக்க வேண்டியது! Cleanup-ஐ நன்றாக implement செய்தால், Effect ஒருமுறை run ஆகுவதும், run ஆகி clean up செய்து மீண்டும் run ஆகுவதும் user-visible ஆக வேறுபடக் கூடாது. Development-இல் bugs தேட React உங்கள் code-ஐ probe செய்வதால் கூடுதல் connect/disconnect call pair உள்ளது. இது normal--அதை மறையச் செய்ய முயற்சிக்க வேண்டாம்!
 
-**In production, you would only see `"✅ Connecting..."` printed once.** Remounting components only happens in development to help you find Effects that need cleanup. You can turn off [Strict Mode](/reference/react/StrictMode) to opt out of the development behavior, but we recommend keeping it on. This lets you find many bugs like the one above.
+**Production-இல், `"✅ Connect செய்கிறது..."` ஒருமுறை மட்டுமே print ஆகும்.** Cleanup தேவைப்படும் Effects-ஐ கண்டுபிடிக்க உதவ development-இல் மட்டுமே components remount ஆகின்றன. Development behavior-இலிருந்து opt out செய்ய [Strict Mode](/reference/react/StrictMode)-ஐ turn off செய்யலாம், ஆனால் அதை on ஆக வைத்திருக்க நாங்கள் பரிந்துரைக்கிறோம். இது மேலுள்ளதைப் போன்ற பல bugs-ஐ கண்டுபிடிக்க உதவும்.
 
-## How to handle the Effect firing twice in development? {/*how-to-handle-the-effect-firing-twice-in-development*/}
+## Development-இல் Effect இருமுறை fire ஆகுவதை எப்படி handle செய்வது? {/*how-to-handle-the-effect-firing-twice-in-development*/}
 
-React intentionally remounts your components in development to find bugs like in the last example. **The right question isn't "how to run an Effect once", but "how to fix my Effect so that it works after remounting".**
+கடைசி example-இல் உள்ளதைப் போன்ற bugs கண்டுபிடிக்க React development-இல் உங்கள் components-ஐ நினைத்தே remount செய்கிறது. **சரியான கேள்வி "Effect-ஐ ஒருமுறை மட்டும் எப்படி run செய்வது" அல்ல; "remount ஆன பிறகும் என் Effect வேலை செய்ய அதை எப்படி fix செய்வது" என்பதே.**
 
-Usually, the answer is to implement the cleanup function.  The cleanup function should stop or undo whatever the Effect was doing. The rule of thumb is that the user shouldn't be able to distinguish between the Effect running once (as in production) and a _setup → cleanup → setup_ sequence (as you'd see in development).
+பொதுவாக, பதில் cleanup function-ஐ implement செய்வது. Cleanup function, Effect செய்ததை stop அல்லது undo செய்ய வேண்டும். Rule of thumb: Effect ஒருமுறை run ஆகுவது (production போல) மற்றும் _setup → cleanup → setup_ sequence (development-இல் நீங்கள் காண்பது) இவற்றை பயனர் வேறுபடுத்த முடியக்கூடாது.
 
-Most of the Effects you'll write will fit into one of the common patterns below.
+நீங்கள் எழுதும் பெரும்பாலான Effects கீழுள்ள common patterns-இல் ஒன்றுக்குள் பொருந்தும்.
 
 <Pitfall>
 
-#### Don't use refs to prevent Effects from firing {/*dont-use-refs-to-prevent-effects-from-firing*/}
+#### Effects fire ஆகுவதைத் தடுக்க refs use செய்ய வேண்டாம் {/*dont-use-refs-to-prevent-effects-from-firing*/}
 
-A common pitfall for preventing Effects firing twice in development is to use a `ref` to prevent the Effect from running more than once. For example, you could "fix" the above bug with a `useRef`:
+Development-இல் Effects இருமுறை fire ஆகுவதைத் தடுக்க common pitfall என்னவெனில், Effect ஒருமுறைக்கு மேல் run ஆகாமல் தடுக்க `ref` use செய்வது. உதாரணமாக, மேலுள்ள bug-ஐ `useRef` மூலம் "fix" செய்யலாம்:
 
 ```js {1,3-4}
   const connectionRef = useRef(null);
@@ -615,19 +615,19 @@ A common pitfall for preventing Effects firing twice in development is to use a 
   }, []);
 ```
 
-This makes it so you only see `"✅ Connecting..."` once in development, but it doesn't fix the bug.
+இதனால் development-இல் `"✅ Connect செய்கிறது..."` ஒருமுறை மட்டுமே தெரியும், ஆனால் அது bug-ஐ fix செய்யாது.
 
-When the user navigates away, the connection still isn't closed and when they navigate back, a new connection is created. As the user navigates across the app, the connections would keep piling up, the same as it would before the "fix".
+பயனர் away navigate செய்தால், connection இன்னும் close ஆகாது; அவர்கள் திரும்ப navigate செய்தால், புதிய connection create ஆகும். "Fix" முன்பு போலவே, பயனர் app முழுவதும் navigate செய்யும்போது connections குவிந்து கொண்டே இருக்கும்.
 
-To fix the bug, it is not enough to just make the Effect run once. The effect needs to work after re-mounting, which means the connection needs to be cleaned up like in the solution above.
+Bug-ஐ fix செய்ய Effect ஒருமுறை run ஆகச் செய்வது மட்டும் போதாது. Effect re-mounting பிறகும் வேலை செய்ய வேண்டும்; அதாவது மேலுள்ள solution போல connection clean up செய்யப்பட வேண்டும்.
 
-See the examples below for how to handle common patterns.
+Common patterns-ஐ எப்படி handle செய்வது என்பதை கீழுள்ள examples-இல் பார்க்கவும்.
 
 </Pitfall>
 
-### Controlling non-React widgets {/*controlling-non-react-widgets*/}
+### Non-React widgets-ஐ control செய்தல் {/*controlling-non-react-widgets*/}
 
-Sometimes you need to add UI widgets that aren't written in React. For example, let's say you're adding a map component to your page. It has a `setZoomLevel()` method, and you'd like to keep the zoom level in sync with a `zoomLevel` state variable in your React code. Your Effect would look similar to this:
+சில நேரங்களில் React-இல் எழுதப்படாத UI widgets சேர்க்க வேண்டியிருக்கும். உதாரணமாக, உங்கள் page-க்கு map component சேர்க்கிறீர்கள் என்று வைத்துக் கொள்ளுங்கள். அதற்கு `setZoomLevel()` method உள்ளது, மேலும் உங்கள் React code-இல் உள்ள `zoomLevel` state variable உடன் zoom level-ஐ sync-இல் வைத்திருக்க விரும்புகிறீர்கள். உங்கள் Effect இதுபோல இருக்கும்:
 
 ```js
 useEffect(() => {
@@ -636,9 +636,9 @@ useEffect(() => {
 }, [zoomLevel]);
 ```
 
-Note that there is no cleanup needed in this case. In development, React will call the Effect twice, but this is not a problem because calling `setZoomLevel` twice with the same value does not do anything. It may be slightly slower, but this doesn't matter because it won't remount needlessly in production.
+இந்த case-இல் cleanup தேவையில்லை என்பதை கவனிக்கவும். Development-இல் React Effect-ஐ இருமுறை call செய்யும், ஆனால் அதே value உடன் `setZoomLevel` இருமுறை call செய்வது எதையும் செய்யாததால் இது problem அல்ல. சிறிது slow ஆக இருக்கலாம், ஆனால் production-இல் தேவையில்லாமல் remount ஆகாது என்பதால் இது முக்கியமல்ல.
 
-Some APIs may not allow you to call them twice in a row. For example, the [`showModal`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement/showModal) method of the built-in [`<dialog>`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement) element throws if you call it twice. Implement the cleanup function and make it close the dialog:
+சில APIs-ஐ தொடர்ச்சியாக இருமுறை call செய்ய அனுமதிக்காமல் இருக்கலாம். உதாரணமாக, built-in [`<dialog>`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement) element-ன் [`showModal`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement/showModal) method-ஐ இருமுறை call செய்தால் அது throw செய்யும். Cleanup function-ஐ implement செய்து dialog-ஐ close செய்யுங்கள்:
 
 ```js {4}
 useEffect(() => {
@@ -648,11 +648,11 @@ useEffect(() => {
 }, []);
 ```
 
-In development, your Effect will call `showModal()`, then immediately `close()`, and then `showModal()` again. This has the same user-visible behavior as calling `showModal()` once, as you would see in production.
+Development-இல், உங்கள் Effect `showModal()` call செய்து, உடனே `close()` செய்து, பிறகு மீண்டும் `showModal()` call செய்யும். Production-இல் நீங்கள் காண்பது போல `showModal()` ஒருமுறை call செய்வதற்குச் சமமான user-visible behavior இதற்கு இருக்கும்.
 
-### Subscribing to events {/*subscribing-to-events*/}
+### Events-க்கு subscribe செய்தல் {/*subscribing-to-events*/}
 
-If your Effect subscribes to something, the cleanup function should unsubscribe:
+உங்கள் Effect ஏதேனும் ஒன்றுக்கு subscribe செய்தால், cleanup function unsubscribe செய்ய வேண்டும்:
 
 ```js {6}
 useEffect(() => {
@@ -664,27 +664,27 @@ useEffect(() => {
 }, []);
 ```
 
-In development, your Effect will call `addEventListener()`, then immediately `removeEventListener()`, and then `addEventListener()` again with the same handler. So there would be only one active subscription at a time. This has the same user-visible behavior as calling `addEventListener()` once, as in production.
+Development-இல், உங்கள் Effect `addEventListener()` call செய்து, உடனே `removeEventListener()` செய்து, பிறகு அதே handler உடன் மீண்டும் `addEventListener()` call செய்யும். எனவே ஒரே நேரத்தில் ஒரே active subscription மட்டும் இருக்கும். Production-இல் போல `addEventListener()` ஒருமுறை call செய்வதற்குச் சமமான user-visible behavior இதற்கு இருக்கும்.
 
-### Triggering animations {/*triggering-animations*/}
+### Animations-ஐ trigger செய்தல் {/*triggering-animations*/}
 
-If your Effect animates something in, the cleanup function should reset the animation to the initial values:
+உங்கள் Effect ஏதாவது ஒன்றை animate செய்தால், cleanup function animation-ஐ initial values-க்கு reset செய்ய வேண்டும்:
 
 ```js {4-6}
 useEffect(() => {
   const node = ref.current;
-  node.style.opacity = 1; // Trigger the animation
+  node.style.opacity = 1; // Animation-ஐ trigger செய்க
   return () => {
-    node.style.opacity = 0; // Reset to the initial value
+    node.style.opacity = 0; // Initial value-க்கு reset செய்க
   };
 }, []);
 ```
 
-In development, opacity will be set to `1`, then to `0`, and then to `1` again. This should have the same user-visible behavior as setting it to `1` directly, which is what would happen in production. If you use a third-party animation library with support for tweening, your cleanup function should reset the timeline to its initial state.
+Development-இல், opacity `1` ஆக set செய்யப்பட்டு, பிறகு `0`, பின்னர் மீண்டும் `1` ஆக set செய்யப்படும். Production-இல் நேரடியாக `1` ஆக set செய்வதற்குச் சமமான user-visible behavior இதற்கு இருக்க வேண்டும். Tweening support உடைய third-party animation library use செய்தால், உங்கள் cleanup function timeline-ஐ அதன் initial state-க்கு reset செய்ய வேண்டும்.
 
-### Fetching data {/*fetching-data*/}
+### Data fetch செய்தல் {/*fetching-data*/}
 
-If your Effect fetches something, the cleanup function should either [abort the fetch](https://developer.mozilla.org/en-US/docs/Web/API/AbortController) or ignore its result:
+உங்கள் Effect ஏதாவது fetch செய்தால், cleanup function [fetch-ஐ abort](https://developer.mozilla.org/en-US/docs/Web/API/AbortController) செய்யவோ அல்லது அதன் result-ஐ ignore செய்யவோ வேண்டும்:
 
 ```js {2,6,13-15}
 useEffect(() => {
@@ -705,11 +705,11 @@ useEffect(() => {
 }, [userId]);
 ```
 
-You can't "undo" a network request that already happened, but your cleanup function should ensure that the fetch that's _not relevant anymore_ does not keep affecting your application. If the `userId` changes from `'Alice'` to `'Bob'`, cleanup ensures that the `'Alice'` response is ignored even if it arrives after `'Bob'`.
+ஏற்கனவே நடந்த network request-ஐ "undo" செய்ய முடியாது, ஆனால் _இனி relevant அல்லாத_ fetch உங்கள் application-ஐ தொடர்ந்து பாதிக்காததை உங்கள் cleanup function உறுதி செய்ய வேண்டும். `userId` `'Alice'`-இலிருந்து `'Bob'` ஆக மாறினால், `'Bob'` பிறகு `'Alice'` response வந்தாலும் அது ignore செய்யப்படுவதை cleanup உறுதி செய்யும்.
 
-**In development, you will see two fetches in the Network tab.** There is nothing wrong with that. With the approach above, the first Effect will immediately get cleaned up so its copy of the `ignore` variable will be set to `true`. So even though there is an extra request, it won't affect the state thanks to the `if (!ignore)` check.
+**Development-இல், Network tab-இல் இரண்டு fetches காண்பீர்கள்.** அதில் தவறு இல்லை. மேலுள்ள அணுகுமுறையில், முதல் Effect உடனடியாக clean up செய்யப்படும், எனவே அதன் `ignore` variable copy `true` ஆக set செய்யப்படும். அதனால் extra request இருந்தாலும், `if (!ignore)` check காரணமாக அது state-ஐ பாதிக்காது.
 
-**In production, there will only be one request.** If the second request in development is bothering you, the best approach is to use a solution that deduplicates requests and caches their responses between components:
+**Production-இல், ஒரு request மட்டுமே இருக்கும்.** Development-இல் இரண்டாவது request உங்களைத் தொந்தரவு செய்தால், requests-ஐ deduplicate செய்து components இடையில் அவற்றின் responses-ஐ cache செய்யும் solution-ஐ use செய்வதே சிறந்த அணுகுமுறை:
 
 ```js
 function TodoList() {
@@ -717,50 +717,50 @@ function TodoList() {
   // ...
 ```
 
-This will not only improve the development experience, but also make your application feel faster. For example, the user pressing the Back button won't have to wait for some data to load again because it will be cached. You can either build such a cache yourself or use one of the many alternatives to manual fetching in Effects.
+இது development experience-ஐ மட்டும் அல்ல, உங்கள் application வேகமாக உணரப்படவும் செய்யும். உதாரணமாக, பயனர் Back button press செய்தால், data cached ஆக இருப்பதால் மீண்டும் load ஆக காத்திருக்க வேண்டியதில்லை. இப்படிப்பட்ட cache-ஐ நீங்கள் தானே build செய்யலாம் அல்லது Effects-இல் manual fetching-க்கு இருக்கும் பல alternatives-இல் ஒன்றை use செய்யலாம்.
 
 <DeepDive>
 
-#### What are good alternatives to data fetching in Effects? {/*what-are-good-alternatives-to-data-fetching-in-effects*/}
+#### Effects-இல் data fetching-க்கு நல்ல alternatives என்ன? {/*what-are-good-alternatives-to-data-fetching-in-effects*/}
 
-Writing `fetch` calls inside Effects is a [popular way to fetch data](https://www.robinwieruch.de/react-hooks-fetch-data/), especially in fully client-side apps. This is, however, a very manual approach and it has significant downsides:
+Effects-க்குள் `fetch` calls எழுதுவது [data fetch செய்ய popular வழி](https://www.robinwieruch.de/react-hooks-fetch-data/), குறிப்பாக fully client-side apps-இல். ஆனால் இது மிகவும் manual approach, மேலும் குறிப்பிடத்தக்க downsides உள்ளது:
 
-- **Effects don't run on the server.** This means that the initial server-rendered HTML will only include a loading state with no data. The client computer will have to download all JavaScript and render your app only to discover that now it needs to load the data. This is not very efficient.
-- **Fetching directly in Effects makes it easy to create "network waterfalls".** You render the parent component, it fetches some data, renders the child components, and then they start fetching their data. If the network is not very fast, this is significantly slower than fetching all data in parallel.
-- **Fetching directly in Effects usually means you don't preload or cache data.** For example, if the component unmounts and then mounts again, it would have to fetch the data again.
-- **It's not very ergonomic.** There's quite a bit of boilerplate code involved when writing `fetch` calls in a way that doesn't suffer from bugs like [race conditions.](https://maxrozen.com/race-conditions-fetching-data-react-with-useeffect)
+- **Effects server-இல் run ஆகாது.** இதனால் initial server-rendered HTML data இல்லாத loading state மட்டும் கொண்டிருக்கும். Client computer எல்லா JavaScript-ஐயும் download செய்து app-ஐ render செய்த பிறகே data load செய்ய வேண்டும் என்பதை அறியும். இது மிகவும் efficient அல்ல.
+- **Effects-இல் நேரடியாக fetching செய்வது "network waterfalls" உருவாக்க உதவுகிறது.** நீங்கள் parent component-ஐ render செய்கிறீர்கள், அது சில data fetch செய்கிறது, child components-ஐ render செய்கிறது, பிறகு அவை தங்கள் data fetch செய்ய தொடங்குகின்றன. Network மிக வேகமாக இல்லையெனில், எல்லா data-வையும் parallel ஆக fetch செய்வதை விட இது குறிப்பிடத்தக்க அளவு slow.
+- **Effects-இல் நேரடியாக fetching செய்வது பொதுவாக data-ஐ preload அல்லது cache செய்யவில்லை என்பதைக் குறிக்கும்.** உதாரணமாக, component unmount ஆகி மீண்டும் mount ஆனால், data-ஐ மீண்டும் fetch செய்ய வேண்டியிருக்கும்.
+- **இது மிகவும் ergonomic அல்ல.** [Race conditions](https://maxrozen.com/race-conditions-fetching-data-react-with-useeffect) போன்ற bugs வராத வகையில் `fetch` calls எழுதும்போது நிறைய boilerplate code தேவைப்படும்.
 
-This list of downsides is not specific to React. It applies to fetching data on mount with any library. Like with routing, data fetching is not trivial to do well, so we recommend the following approaches:
+இந்த downsides பட்டியல் React-க்கு மட்டும் உரியது அல்ல. எந்த library-யாக இருந்தாலும் mount போது data fetch செய்வதற்கு இது பொருந்தும். Routing போல, data fetching-ஐ நன்றாக செய்வது சுலபமல்ல, எனவே பின்வரும் approaches-ஐ பரிந்துரைக்கிறோம்:
 
-- **If you use a [framework](/learn/creating-a-react-app#full-stack-frameworks), use its built-in data fetching mechanism.** Modern React frameworks have integrated data fetching mechanisms that are efficient and don't suffer from the above pitfalls.
-- **Otherwise, consider using or building a client-side cache.** Popular open source solutions include [TanStack Query](https://tanstack.com/query/latest), [useSWR](https://swr.vercel.app/), and [React Router 6.4+.](https://beta.reactrouter.com/en/main/start/overview) You can build your own solution too, in which case you would use Effects under the hood, but add logic for deduplicating requests, caching responses, and avoiding network waterfalls (by preloading data or hoisting data requirements to routes).
+- **நீங்கள் [framework](/learn/creating-a-react-app#full-stack-frameworks) use செய்தால், அதன் built-in data fetching mechanism-ஐ use செய்யுங்கள்.** Modern React frameworks-க்கு efficient ஆன, மேலுள்ள pitfalls இல்லாத integrated data fetching mechanisms உள்ளன.
+- **இல்லையெனில், client-side cache use செய்வதையோ build செய்வதையோ பரிசீலிக்கவும்.** Popular open source solutions-ல் [TanStack Query](https://tanstack.com/query/latest), [useSWR](https://swr.vercel.app/), மற்றும் [React Router 6.4+](https://beta.reactrouter.com/en/main/start/overview) அடங்கும். உங்கள் சொந்த solution-ஐயும் build செய்யலாம்; அப்போது under the hood Effects use செய்யப்படும், ஆனால் requests deduplicate செய்தல், responses cache செய்தல், network waterfalls தவிர்த்தல் (data preload செய்வதன் மூலம் அல்லது data requirements-ஐ routes-க்கு hoist செய்வதன் மூலம்) ஆகிய logic-ஐ சேர்ப்பீர்கள்.
 
-You can continue fetching data directly in Effects if neither of these approaches suit you.
+இந்த approaches எதுவும் உங்களுக்கு பொருந்தவில்லை என்றால், Effects-இல் நேரடியாக data fetch செய்வதைத் தொடரலாம்.
 
 </DeepDive>
 
-### Sending analytics {/*sending-analytics*/}
+### Analytics அனுப்புதல் {/*sending-analytics*/}
 
-Consider this code that sends an analytics event on the page visit:
+Page visit போது analytics event அனுப்பும் இந்த code-ஐ கருதுங்கள்:
 
 ```js
 useEffect(() => {
-  logVisit(url); // Sends a POST request
+  logVisit(url); // POST request அனுப்பும்
 }, [url]);
 ```
 
-In development, `logVisit` will be called twice for every URL, so you might be tempted to try to fix that. **We recommend keeping this code as is.** Like with earlier examples, there is no *user-visible* behavior difference between running it once and running it twice. From a practical point of view, `logVisit` should not do anything in development because you don't want the logs from the development machines to skew the production metrics. Your component remounts every time you save its file, so it logs extra visits in development anyway.
+Development-இல், ஒவ்வொரு URL-க்கும் `logVisit` இருமுறை call செய்யப்படும், எனவே அதை fix செய்ய முயற்சிக்க வேண்டும் என்று தோன்றலாம். **இந்த code-ஐ இருப்பதுபோலவே வைத்திருக்க பரிந்துரைக்கிறோம்.** முன் examples போல, ஒருமுறை run செய்வதும் இருமுறை run செய்வதும் *user-visible* behavior-இல் வேறுபாடு தராது. Practical point of view-இல், development-இல் `logVisit` எதையும் செய்யக்கூடாது, ஏனெனில் development machines-இலிருந்து வரும் logs production metrics-ஐ skew செய்ய வேண்டாம். File save செய்யும் ஒவ்வொரு முறையும் உங்கள் component remount ஆகிறது, எனவே development-இல் அது anyway extra visits log செய்யும்.
 
-**In production, there will be no duplicate visit logs.**
+**Production-இல் duplicate visit logs இருக்காது.**
 
-To debug the analytics events you're sending, you can deploy your app to a staging environment (which runs in production mode) or temporarily opt out of [Strict Mode](/reference/react/StrictMode) and its development-only remounting checks. You may also send analytics from the route change event handlers instead of Effects. For more precise analytics, [intersection observers](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) can help track which components are in the viewport and how long they remain visible.
+நீங்கள் அனுப்பும் analytics events-ஐ debug செய்ய, உங்கள் app-ஐ staging environment-க்கு deploy செய்யலாம் (அது production mode-இல் run ஆகும்) அல்லது [Strict Mode](/reference/react/StrictMode) மற்றும் அதன் development-only remounting checks-இலிருந்து தற்காலிகமாக opt out செய்யலாம். Effects-க்கு பதிலாக route change event handlers-இலிருந்தும் analytics அனுப்பலாம். மேலும் precise analytics-க்கு, எந்த components viewport-இல் உள்ளன மற்றும் எவ்வளவு நேரம் visible ஆக இருக்கின்றன என்பதை track செய்ய [intersection observers](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) உதவும்.
 
-### Not an Effect: Initializing the application {/*not-an-effect-initializing-the-application*/}
+### Effect அல்ல: Application-ஐ initialize செய்தல் {/*not-an-effect-initializing-the-application*/}
 
-Some logic should only run once when the application starts. You can put it outside your components:
+Application தொடங்கும் போது சில logic ஒருமுறை மட்டுமே run ஆக வேண்டும். அதை உங்கள் components-க்கு வெளியே வைக்கலாம்:
 
 ```js {2-3}
-if (typeof window !== 'undefined') { // Check if we're running in the browser.
+if (typeof window !== 'undefined') { // Browser-இல் run ஆகிறோமா என்று check செய்க.
   checkAuthToken();
   loadDataFromLocalStorage();
 }
@@ -770,11 +770,11 @@ function App() {
 }
 ```
 
-This guarantees that such logic only runs once after the browser loads the page.
+Browser page-ஐ load செய்த பிறகு இப்படிப்பட்ட logic ஒருமுறை மட்டுமே run ஆகும் என்பதை இது guarantee செய்கிறது.
 
-### Not an Effect: Buying a product {/*not-an-effect-buying-a-product*/}
+### Effect அல்ல: Product வாங்குதல் {/*not-an-effect-buying-a-product*/}
 
-Sometimes, even if you write a cleanup function, there's no way to prevent user-visible consequences of running the Effect twice. For example, maybe your Effect sends a POST request like buying a product:
+சில நேரங்களில், cleanup function எழுதினாலும் Effect இருமுறை run ஆகுவதால் ஏற்படும் user-visible consequences-ஐத் தடுக்க வழி இருக்காது. உதாரணமாக, உங்கள் Effect product வாங்குவது போன்ற POST request அனுப்பலாம்:
 
 ```js {2-3}
 useEffect(() => {
@@ -783,9 +783,9 @@ useEffect(() => {
 }, []);
 ```
 
-You wouldn't want to buy the product twice. However, this is also why you shouldn't put this logic in an Effect. What if the user goes to another page and then presses Back? Your Effect would run again. You don't want to buy the product when the user *visits* a page; you want to buy it when the user *clicks* the Buy button.
+Product-ஐ இருமுறை வாங்க விரும்பமாட்டீர்கள். ஆனால் இந்த logic-ஐ Effect-இல் வைக்கக் கூடாததற்கான காரணமும் இதுதான். பயனர் மற்றொரு page-க்கு சென்று பிறகு Back press செய்தால் என்ன? உங்கள் Effect மீண்டும் run ஆகும். பயனர் ஒரு page-ஐ *visit* செய்யும் போது product வாங்க வேண்டாம்; பயனர் Buy button-ஐ *click* செய்யும் போது வாங்க வேண்டும்.
 
-Buying is not caused by rendering; it's caused by a specific interaction. It should run only when the user presses the button. **Delete the Effect and move your `/api/buy` request into the Buy button event handler:**
+Buying rendering காரணமாக ஏற்படவில்லை; அது குறிப்பிட்ட interaction காரணமாக ஏற்படுகிறது. பயனர் button press செய்தால் மட்டுமே அது run ஆக வேண்டும். **Effect-ஐ delete செய்து, உங்கள் `/api/buy` request-ஐ Buy button event handler-க்குள் நகர்த்துங்கள்:**
 
 ```js {2-3}
   function handleClick() {
@@ -794,13 +794,13 @@ Buying is not caused by rendering; it's caused by a specific interaction. It sho
   }
 ```
 
-**This illustrates that if remounting breaks the logic of your application, this usually uncovers existing bugs.** From a user's perspective, visiting a page shouldn't be different from visiting it, clicking a link, then pressing Back to view the page again. React verifies that your components abide by this principle by remounting them once in development.
+**Remounting உங்கள் application logic-ஐ உடைத்தால், அது பொதுவாக ஏற்கனவே உள்ள bugs-ஐ வெளிப்படுத்துகிறது என்பதை இது காட்டுகிறது.** பயனரின் பார்வையில், ஒரு page-ஐ visit செய்வதும், அதை visit செய்து link click செய்து, பின்னர் Back press செய்து page-ஐ மீண்டும் பார்ப்பதும் வேறுபடக்கூடாது. Development-இல் components-ஐ ஒருமுறை remount செய்வதன் மூலம், உங்கள் components இந்த principle-ஐ பின்பற்றுகின்றனவா என்று React verify செய்கிறது.
 
-## Putting it all together {/*putting-it-all-together*/}
+## அனைத்தையும் ஒன்றாக இணைத்தல் {/*putting-it-all-together*/}
 
-This playground can help you "get a feel" for how Effects work in practice.
+Effects நடைமுறையில் எப்படி வேலை செய்கின்றன என்பதற்கான "feel" பெற இந்த playground உதவும்.
 
-This example uses [`setTimeout`](https://developer.mozilla.org/en-US/docs/Web/API/setTimeout) to schedule a console log with the input text to appear three seconds after the Effect runs. The cleanup function cancels the pending timeout. Start by pressing "Mount the component":
+இந்த example, Effect run ஆன மூன்று seconds பிறகு input text உடன் console log தோன்ற [`setTimeout`](https://developer.mozilla.org/en-US/docs/Web/API/setTimeout)-ஐ use செய்கிறது. Cleanup function pending timeout-ஐ cancel செய்கிறது. "Component-ஐ mount செய்" press செய்வதன் மூலம் தொடங்குங்கள்:
 
 <Sandpack>
 
@@ -827,7 +827,7 @@ function Playground() {
   return (
     <>
       <label>
-        What to log:{' '}
+        Log செய்ய வேண்டியது:{' '}
         <input
           value={text}
           onChange={e => setText(e.target.value)}
@@ -843,7 +843,7 @@ export default function App() {
   return (
     <>
       <button onClick={() => setShow(!show)}>
-        {show ? 'Unmount' : 'Mount'} the component
+        Component-ஐ {show ? 'unmount செய்' : 'mount செய்'}
       </button>
       {show && <hr />}
       {show && <Playground />}
@@ -854,21 +854,21 @@ export default function App() {
 
 </Sandpack>
 
-You will see three logs at first: `Schedule "a" log`, `Cancel "a" log`, and `Schedule "a" log` again. Three second later there will also be a log saying `a`. As you learned earlier, the extra schedule/cancel pair is because React remounts the component once in development to verify that you've implemented cleanup well.
+முதலில் மூன்று logs காண்பீர்கள்: `Schedule "a" log`, `Cancel "a" log`, மற்றும் மீண்டும் `Schedule "a" log`. மூன்று seconds பிறகு `a` என்று சொல்லும் log-உம் இருக்கும். முன்பு கற்றதுபோல், cleanup நன்றாக implement செய்துள்ளீர்களா என்று verify செய்ய React development-இல் component-ஐ ஒருமுறை remount செய்வதால் கூடுதல் schedule/cancel pair வருகிறது.
 
-Now edit the input to say `abc`. If you do it fast enough, you'll see `Schedule "ab" log` immediately followed by `Cancel "ab" log` and `Schedule "abc" log`. **React always cleans up the previous render's Effect before the next render's Effect.** This is why even if you type into the input fast, there is at most one timeout scheduled at a time. Edit the input a few times and watch the console to get a feel for how Effects get cleaned up.
+இப்போது input-ஐ `abc` என்று edit செய்யுங்கள். அதை வேகமாக செய்தால், `Schedule "ab" log` உடனடியாக `Cancel "ab" log` மற்றும் `Schedule "abc" log` தொடர்ந்து தெரியும். **அடுத்த render-ன் Effect-க்கு முன் React எப்போதும் previous render-ன் Effect-ஐ clean up செய்கிறது.** அதனால் input-இல் வேகமாக type செய்தாலும், ஒரே நேரத்தில் அதிகபட்சம் ஒரு timeout மட்டுமே scheduled ஆக இருக்கும். Effects எப்படி clean up ஆகின்றன என்பதை உணர input-ஐ சில முறை edit செய்து console-ஐ பாருங்கள்.
 
-Type something into the input and then immediately press "Unmount the component". Notice how unmounting cleans up the last render's Effect. Here, it clears the last timeout before it has a chance to fire.
+Input-இல் ஏதாவது type செய்து உடனே "Component-ஐ unmount செய்" press செய்யுங்கள். Unmounting last render-ன் Effect-ஐ எப்படி clean up செய்கிறது என்பதை கவனிக்கவும். இங்கே, last timeout fire ஆகும் வாய்ப்பு வருவதற்கு முன் அதை clear செய்கிறது.
 
-Finally, edit the component above and comment out the cleanup function so that the timeouts don't get cancelled. Try typing `abcde` fast. What do you expect to happen in three seconds? Will `console.log(text)` inside the timeout print the *latest* `text` and produce five `abcde` logs? Give it a try to check your intuition!
+இறுதியாக, மேலுள்ள component-ஐ edit செய்து, timeouts cancel ஆகாமல் இருக்க cleanup function-ஐ comment out செய்யுங்கள். `abcde`-ஐ வேகமாக type செய்து பாருங்கள். மூன்று seconds-இல் என்ன நடக்கும் என்று எதிர்பார்க்கிறீர்கள்? Timeout-க்குள் உள்ள `console.log(text)` *latest* `text`-ஐ print செய்து ஐந்து `abcde` logs உருவாக்குமா? உங்கள் intuition-ஐ check செய்ய முயற்சிக்கவும்!
 
-Three seconds later, you should see a sequence of logs (`a`, `ab`, `abc`, `abcd`, and `abcde`) rather than five `abcde` logs. **Each Effect "captures" the `text` value from its corresponding render.**  It doesn't matter that the `text` state changed: an Effect from the render with `text = 'ab'` will always see `'ab'`. In other words, Effects from each render are isolated from each other. If you're curious how this works, you can read about [closures](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures).
+மூன்று seconds பிறகு, ஐந்து `abcde` logs-க்கு பதிலாக (`a`, `ab`, `abc`, `abcd`, மற்றும் `abcde`) என்ற logs வரிசையை காண வேண்டும். **ஒவ்வொரு Effect-உம் அதற்கான render-இலிருந்து `text` value-ஐ "capture" செய்கிறது.** `text` state மாறியது முக்கியமல்ல: `text = 'ab'` உடைய render-இலிருந்து வந்த Effect எப்போதும் `'ab'`-ஐத்தான் பார்க்கும். வேறு வார்த்தைகளில், ஒவ்வொரு render-இலிருந்தும் வரும் Effects ஒன்றிலிருந்து ஒன்று isolated. இது எப்படி வேலை செய்கிறது என்று ஆர்வமாக இருந்தால், [closures](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures) பற்றி படிக்கலாம்.
 
 <DeepDive>
 
-#### Each render has its own Effects {/*each-render-has-its-own-effects*/}
+#### ஒவ்வொரு render-க்கும் தனி Effects உள்ளன {/*each-render-has-its-own-effects*/}
 
-You can think of `useEffect` as "attaching" a piece of behavior to the render output. Consider this Effect:
+`useEffect`-ஐ render output-க்கு behavior-ன் ஒரு பகுதியை "attach" செய்வதாக நினைக்கலாம். இந்த Effect-ஐ கருதுங்கள்:
 
 ```js
 export default function ChatRoom({ roomId }) {
@@ -878,22 +878,22 @@ export default function ChatRoom({ roomId }) {
     return () => connection.disconnect();
   }, [roomId]);
 
-  return <h1>Welcome to {roomId}!</h1>;
+  return <h1>{roomId}-க்கு வரவேற்கிறோம்!</h1>;
 }
 ```
 
-Let's see what exactly happens as the user navigates around the app.
+பயனர் app-இல் navigate செய்யும்போது சரியாக என்ன நடக்கிறது என்று பார்ப்போம்.
 
-#### Initial render {/*initial-render*/}
+#### ஆரம்ப render {/*initial-render*/}
 
-The user visits `<ChatRoom roomId="general" />`. Let's [mentally substitute](/learn/state-as-a-snapshot#rendering-takes-a-snapshot-in-time) `roomId` with `'general'`:
+பயனர் `<ChatRoom roomId="general" />`-ஐ visit செய்கிறார். `roomId`-ஐ `'general'` உடன் [மனதளவில் substitute](/learn/state-as-a-snapshot#rendering-takes-a-snapshot-in-time) செய்வோம்:
 
 ```js
   // JSX for the first render (roomId = "general")
-  return <h1>Welcome to general!</h1>;
+  return <h1>general-க்கு வரவேற்கிறோம்!</h1>;
 ```
 
-**The Effect is *also* a part of the rendering output.** The first render's Effect becomes:
+**Effect-உம் rendering output-ன் ஒரு பகுதிதான்.** முதல் render-ன் Effect இதாகிறது:
 
 ```js
   // Effect for the first render (roomId = "general")
@@ -906,20 +906,20 @@ The user visits `<ChatRoom roomId="general" />`. Let's [mentally substitute](/le
   ['general']
 ```
 
-React runs this Effect, which connects to the `'general'` chat room.
+React இந்த Effect-ஐ run செய்கிறது; அது `'general'` chat room-க்கு connect செய்கிறது.
 
-#### Re-render with same dependencies {/*re-render-with-same-dependencies*/}
+#### அதே dependencies உடன் re-render {/*re-render-with-same-dependencies*/}
 
-Let's say `<ChatRoom roomId="general" />` re-renders. The JSX output is the same:
+`<ChatRoom roomId="general" />` re-render ஆகிறது என்று வைத்துக் கொள்ளுங்கள். JSX output அதே:
 
 ```js
   // JSX for the second render (roomId = "general")
-  return <h1>Welcome to general!</h1>;
+  return <h1>general-க்கு வரவேற்கிறோம்!</h1>;
 ```
 
-React sees that the rendering output has not changed, so it doesn't update the DOM.
+Rendering output மாறவில்லை என்று React பார்க்கிறது, எனவே DOM-ஐ update செய்யாது.
 
-The Effect from the second render looks like this:
+இரண்டாவது render-இலிருந்து வரும் Effect இதுபோல் இருக்கும்:
 
 ```js
   // Effect for the second render (roomId = "general")
@@ -932,20 +932,20 @@ The Effect from the second render looks like this:
   ['general']
 ```
 
-React compares `['general']` from the second render with `['general']` from the first render. **Because all dependencies are the same, React *ignores* the Effect from the second render.** It never gets called.
+React இரண்டாவது render-இலிருந்து வந்த `['general']`-ஐ முதல் render-இலிருந்து வந்த `['general']`-உடன் compare செய்கிறது. **எல்லா dependencies-உம் same என்பதால், React இரண்டாவது render-இலிருந்து வந்த Effect-ஐ *ignore* செய்கிறது.** அது ஒருபோதும் call செய்யப்படாது.
 
-#### Re-render with different dependencies {/*re-render-with-different-dependencies*/}
+#### வேறு dependencies உடன் re-render {/*re-render-with-different-dependencies*/}
 
-Then, the user visits `<ChatRoom roomId="travel" />`. This time, the component returns different JSX:
+பிறகு, பயனர் `<ChatRoom roomId="travel" />`-ஐ visit செய்கிறார். இம்முறை, component வேறு JSX return செய்கிறது:
 
 ```js
   // JSX for the third render (roomId = "travel")
-  return <h1>Welcome to travel!</h1>;
+  return <h1>travel-க்கு வரவேற்கிறோம்!</h1>;
 ```
 
-React updates the DOM to change `"Welcome to general"` into `"Welcome to travel"`.
+`"general-க்கு வரவேற்கிறோம்"`-ஐ `"travel-க்கு வரவேற்கிறோம்"` ஆக மாற்ற React DOM-ஐ update செய்கிறது.
 
-The Effect from the third render looks like this:
+மூன்றாவது render-இலிருந்து வரும் Effect இதுபோல் இருக்கும்:
 
 ```js
   // Effect for the third render (roomId = "travel")
@@ -958,43 +958,43 @@ The Effect from the third render looks like this:
   ['travel']
 ```
 
-React compares `['travel']` from the third render with `['general']` from the second render. One dependency is different: `Object.is('travel', 'general')` is `false`. The Effect can't be skipped.
+React மூன்றாவது render-இலிருந்து வந்த `['travel']`-ஐ இரண்டாவது render-இலிருந்து வந்த `['general']`-உடன் compare செய்கிறது. ஒரு dependency வேறாக உள்ளது: `Object.is('travel', 'general')` என்பது `false`. Effect-ஐ skip செய்ய முடியாது.
 
-**Before React can apply the Effect from the third render, it needs to clean up the last Effect that _did_ run.** The second render's Effect was skipped, so React needs to clean up the first render's Effect. If you scroll up to the first render, you'll see that its cleanup calls `disconnect()` on the connection that was created with `createConnection('general')`. This disconnects the app from the `'general'` chat room.
+**மூன்றாவது render-இலிருந்து வந்த Effect-ஐ React apply செய்வதற்கு முன், _run ஆன_ last Effect-ஐ clean up செய்ய வேண்டும்.** இரண்டாவது render-ன் Effect skip செய்யப்பட்டதால், React முதல் render-ன் Effect-ஐ clean up செய்ய வேண்டும். முதல் render-க்கு மேலே scroll செய்தால், அதன் cleanup `createConnection('general')` மூலம் create செய்யப்பட்ட connection மீது `disconnect()` call செய்வதைப் பார்ப்பீர்கள். இது app-ஐ `'general'` chat room-இலிருந்து disconnect செய்கிறது.
 
-After that, React runs the third render's Effect. It connects to the `'travel'` chat room.
+அதற்குப் பிறகு, React மூன்றாவது render-ன் Effect-ஐ run செய்கிறது. அது `'travel'` chat room-க்கு connect செய்கிறது.
 
-#### Unmount {/*unmount*/}
+#### Unmount செய்தல் {/*unmount*/}
 
-Finally, let's say the user navigates away, and the `ChatRoom` component unmounts. React runs the last Effect's cleanup function. The last Effect was from the third render. The third render's cleanup destroys the `createConnection('travel')` connection. So the app disconnects from the `'travel'` room.
+இறுதியாக, பயனர் away navigate செய்கிறார், `ChatRoom` component unmount ஆகிறது என்று வைத்துக் கொள்ளுங்கள். React last Effect-ன் cleanup function-ஐ run செய்கிறது. Last Effect மூன்றாவது render-இலிருந்து வந்தது. மூன்றாவது render-ன் cleanup `createConnection('travel')` connection-ஐ destroy செய்கிறது. எனவே app `'travel'` room-இலிருந்து disconnect ஆகிறது.
 
-#### Development-only behaviors {/*development-only-behaviors*/}
+#### Development-இல் மட்டும் உள்ள behaviors {/*development-only-behaviors*/}
 
-When [Strict Mode](/reference/react/StrictMode) is on, React remounts every component once after mount (state and DOM are preserved). This [helps you find Effects that need cleanup](#step-3-add-cleanup-if-needed) and exposes bugs like race conditions early. Additionally, React will remount the Effects whenever you save a file in development. Both of these behaviors are development-only.
+[Strict Mode](/reference/react/StrictMode) on ஆக இருக்கும்போது, React ஒவ்வொரு component-ஐயும் mount பிறகு ஒருமுறை remount செய்கிறது (state மற்றும் DOM preserve செய்யப்படும்). இது [cleanup தேவைப்படும் Effects-ஐ கண்டுபிடிக்க உதவுகிறது](#step-3-add-cleanup-if-needed) மற்றும் race conditions போன்ற bugs-ஐ ஆரம்பத்திலேயே வெளிப்படுத்துகிறது. கூடுதலாக, development-இல் file save செய்யும் போதெல்லாம் React Effects-ஐ remount செய்யும். இந்த behaviors இரண்டும் development-only.
 
 </DeepDive>
 
 <Recap>
 
-- Unlike events, Effects are caused by rendering itself rather than a particular interaction.
-- Effects let you synchronize a component with some external system (third-party API, network, etc).
-- By default, Effects run after every render (including the initial one).
-- React will skip the Effect if all of its dependencies have the same values as during the last render.
-- You can't "choose" your dependencies. They are determined by the code inside the Effect.
-- Empty dependency array (`[]`) corresponds to the component "mounting", i.e. being added to the screen.
-- In Strict Mode, React mounts components twice (in development only!) to stress-test your Effects.
-- If your Effect breaks because of remounting, you need to implement a cleanup function.
-- React will call your cleanup function before the Effect runs next time, and during the unmount.
+- Events-க்கு மாறாக, Effects குறிப்பிட்ட interaction காரணமாக அல்ல; rendering தானே காரணமாக ஏற்படும்.
+- Effects ஒரு component-ஐ external system (third-party API, network போன்றவை) உடன் synchronize செய்ய அனுமதிக்கின்றன.
+- Default ஆக, Effects ஒவ்வொரு render பிறகும் (initial render உட்பட) run ஆகும்.
+- அதன் dependencies அனைத்தும் last render போது இருந்த அதே values-ஐ கொண்டிருந்தால் React Effect-ஐ skip செய்யும்.
+- உங்கள் dependencies-ஐ "choose" செய்ய முடியாது. அவை Effect-க்குள் உள்ள code மூலம் தீர்மானிக்கப்படுகின்றன.
+- Empty dependency array (`[]`) component "mounting", அதாவது screen-க்கு சேர்க்கப்படுவதை குறிக்கும்.
+- Strict Mode-இல், உங்கள் Effects-ஐ stress-test செய்ய React components-ஐ இருமுறை mount செய்கிறது (development-இல் மட்டும்!).
+- Remounting காரணமாக உங்கள் Effect உடைந்தால், cleanup function implement செய்ய வேண்டும்.
+- Effect அடுத்த முறை run ஆகும் முன்பும், unmount நேரத்திலும் React உங்கள் cleanup function-ஐ call செய்யும்.
 
 </Recap>
 
 <Challenges>
 
-#### Focus a field on mount {/*focus-a-field-on-mount*/}
+#### Mount போது field-ஐ focus செய்யுங்கள் {/*focus-a-field-on-mount*/}
 
-In this example, the form renders a `<MyInput />` component.
+இந்த example-இல், form `<MyInput />` component-ஐ render செய்கிறது.
 
-Use the input's [`focus()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/focus) method to make `MyInput` automatically focus when it appears on the screen. There is already a commented out implementation, but it doesn't quite work. Figure out why it doesn't work, and fix it. (If you're familiar with the `autoFocus` attribute, pretend that it does not exist: we are reimplementing the same functionality from scratch.)
+`MyInput` screen-இல் தோன்றும் போது automatic ஆக focus ஆக, input-ன் [`focus()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/focus) method-ஐ use செய்யுங்கள். ஏற்கனவே commented out implementation உள்ளது, ஆனால் அது முழுமையாக வேலை செய்யவில்லை. அது ஏன் வேலை செய்யவில்லை என்பதை கண்டுபிடித்து fix செய்யுங்கள். (`autoFocus` attribute உங்களுக்கு தெரிந்திருந்தால், அது இல்லை என்று நினைத்துக் கொள்ளுங்கள்: அதே functionality-ஐ scratch-இலிருந்து reimplement செய்கிறோம்.)
 
 <Sandpack>
 
@@ -1027,13 +1027,13 @@ export default function Form() {
   const [upper, setUpper] = useState(false);
   return (
     <>
-      <button onClick={() => setShow(s => !s)}>{show ? 'Hide' : 'Show'} form</button>
+      <button onClick={() => setShow(s => !s)}>{show ? 'மறை' : 'காட்டு'} form</button>
       <br />
       <hr />
       {show && (
         <>
           <label>
-            Enter your name:
+            உங்கள் பெயரை உள்ளிடுங்கள்:
             <MyInput
               value={name}
               onChange={e => setName(e.target.value)}
@@ -1045,9 +1045,9 @@ export default function Form() {
               checked={upper}
               onChange={e => setUpper(e.target.checked)}
             />
-            Make it uppercase
+            Uppercase ஆக மாற்று
           </label>
-          <p>Hello, <b>{upper ? name.toUpperCase() : name}</b></p>
+          <p>வணக்கம், <b>{upper ? name.toUpperCase() : name}</b></p>
         </>
       )}
     </>
@@ -1070,15 +1070,15 @@ body {
 </Sandpack>
 
 
-To verify that your solution works, press "Show form" and verify that the input receives focus (becomes highlighted and the cursor is placed inside). Press "Hide form" and "Show form" again. Verify the input is highlighted again.
+உங்கள் solution வேலை செய்கிறது என்பதை verify செய்ய, "form காட்டு" press செய்து input focus பெறுகிறதா (highlight ஆகி cursor உள்ளே வைக்கப்படுகிறதா) என்பதை verify செய்யுங்கள். "form மறை" மற்றும் "form காட்டு" மீண்டும் press செய்யுங்கள். Input மீண்டும் highlighted ஆகிறதா verify செய்யுங்கள்.
 
-`MyInput` should only focus _on mount_ rather than after every render. To verify that the behavior is right, press "Show form" and then repeatedly press the "Make it uppercase" checkbox. Clicking the checkbox should _not_ focus the input above it.
+`MyInput` ஒவ்வொரு render பிறகும் அல்ல, _mount போது மட்டும்_ focus ஆக வேண்டும். Behavior சரியாக இருக்கிறதா verify செய்ய, "form காட்டு" press செய்து பிறகு "Uppercase ஆக மாற்று" checkbox-ஐ மீண்டும் மீண்டும் press செய்யுங்கள். Checkbox click செய்வது அதன் மேல் உள்ள input-ஐ focus செய்யக் கூடாது.
 
 <Solution>
 
-Calling `ref.current.focus()` during render is wrong because it is a *side effect*. Side effects should either be placed inside an event handler or be declared with `useEffect`. In this case, the side effect is _caused_ by the component appearing rather than by any specific interaction, so it makes sense to put it in an Effect.
+Render போது `ref.current.focus()` call செய்வது தவறு, ஏனெனில் அது *side effect*. Side effects event handler-க்குள் வைக்கப்படவோ அல்லது `useEffect` மூலம் declare செய்யப்படவோ வேண்டும். இந்த case-இல், side effect குறிப்பிட்ட interaction காரணமாக அல்ல; component தோன்றுவதால் _caused_ ஆகிறது, எனவே அதை Effect-இல் வைப்பது பொருத்தமானது.
 
-To fix the mistake, wrap the `ref.current.focus()` call into an Effect declaration. Then, to ensure that this Effect runs only on mount rather than after every render, add the empty `[]` dependencies to it.
+தவறை fix செய்ய, `ref.current.focus()` call-ஐ Effect declaration-க்குள் wrap செய்யுங்கள். பிறகு, இந்த Effect ஒவ்வொரு render பிறகும் அல்ல, mount போது மட்டும் run ஆகுமாறு உறுதி செய்ய, empty `[]` dependencies-ஐ அதற்கு சேர்க்கவும்.
 
 <Sandpack>
 
@@ -1112,13 +1112,13 @@ export default function Form() {
   const [upper, setUpper] = useState(false);
   return (
     <>
-      <button onClick={() => setShow(s => !s)}>{show ? 'Hide' : 'Show'} form</button>
+      <button onClick={() => setShow(s => !s)}>{show ? 'மறை' : 'காட்டு'} form</button>
       <br />
       <hr />
       {show && (
         <>
           <label>
-            Enter your name:
+            உங்கள் பெயரை உள்ளிடுங்கள்:
             <MyInput
               value={name}
               onChange={e => setName(e.target.value)}
@@ -1130,9 +1130,9 @@ export default function Form() {
               checked={upper}
               onChange={e => setUpper(e.target.checked)}
             />
-            Make it uppercase
+            Uppercase ஆக மாற்று
           </label>
-          <p>Hello, <b>{upper ? name.toUpperCase() : name}</b></p>
+          <p>வணக்கம், <b>{upper ? name.toUpperCase() : name}</b></p>
         </>
       )}
     </>
@@ -1156,13 +1156,13 @@ body {
 
 </Solution>
 
-#### Focus a field conditionally {/*focus-a-field-conditionally*/}
+#### Condition அடிப்படையில் field-ஐ focus செய்யுங்கள் {/*focus-a-field-conditionally*/}
 
-This form renders two `<MyInput />` components.
+இந்த form இரண்டு `<MyInput />` components-ஐ render செய்கிறது.
 
-Press "Show form" and notice that the second field automatically gets focused. This is because both of the `<MyInput />` components try to focus the field inside. When you call `focus()` for two input fields in a row, the last one always "wins".
+"form காட்டு" press செய்து, இரண்டாவது field automatic ஆக focus ஆகிறது என்பதை கவனிக்கவும். இரண்டு `<MyInput />` components-உம் உள்ளே உள்ள field-ஐ focus செய்ய முயற்சிப்பதால் இது நடக்கிறது. இரண்டு input fields-க்கு தொடர்ச்சியாக `focus()` call செய்தால், கடைசியாக call செய்யப்பட்டதே எப்போதும் "wins".
 
-Let's say you want to focus the first field. The first `MyInput` component now receives a boolean `shouldFocus` prop set to `true`. Change the logic so that `focus()` is only called if the `shouldFocus` prop received by `MyInput` is `true`.
+நீங்கள் முதல் field-ஐ focus செய்ய விரும்புகிறீர்கள் என்று வைத்துக் கொள்ளுங்கள். முதல் `MyInput` component இப்போது `true` ஆக set செய்யப்பட்ட boolean `shouldFocus` prop பெறுகிறது. `MyInput` பெற்ற `shouldFocus` prop `true` ஆக இருந்தால் மட்டுமே `focus()` call செய்யப்படும் வகையில் logic-ஐ மாற்றுங்கள்.
 
 <Sandpack>
 
@@ -1199,13 +1199,13 @@ export default function Form() {
   const name = firstName + ' ' + lastName;
   return (
     <>
-      <button onClick={() => setShow(s => !s)}>{show ? 'Hide' : 'Show'} form</button>
+      <button onClick={() => setShow(s => !s)}>{show ? 'மறை' : 'காட்டு'} form</button>
       <br />
       <hr />
       {show && (
         <>
           <label>
-            Enter your first name:
+            உங்கள் முதல் பெயரை உள்ளிடுங்கள்:
             <MyInput
               value={firstName}
               onChange={e => setFirstName(e.target.value)}
@@ -1213,14 +1213,14 @@ export default function Form() {
             />
           </label>
           <label>
-            Enter your last name:
+            உங்கள் கடைசி பெயரை உள்ளிடுங்கள்:
             <MyInput
               value={lastName}
               onChange={e => setLastName(e.target.value)}
               shouldFocus={false}
             />
           </label>
-          <p>Hello, <b>{upper ? name.toUpperCase() : name}</b></p>
+          <p>வணக்கம், <b>{upper ? name.toUpperCase() : name}</b></p>
         </>
       )}
     </>
@@ -1242,17 +1242,17 @@ body {
 
 </Sandpack>
 
-To verify your solution, press "Show form" and "Hide form" repeatedly. When the form appears, only the *first* input should get focused. This is because the parent component renders the first input with `shouldFocus={true}` and the second input with `shouldFocus={false}`. Also check that both inputs still work and you can type into both of them.
+உங்கள் solution-ஐ verify செய்ய, "form காட்டு" மற்றும் "form மறை" ஆகியவற்றை மீண்டும் மீண்டும் press செய்யுங்கள். Form தோன்றும் போது, *முதல்* input மட்டும் focus ஆக வேண்டும். ஏனெனில் parent component முதல் input-ஐ `shouldFocus={true}` உடன் மற்றும் இரண்டாவது input-ஐ `shouldFocus={false}` உடன் render செய்கிறது. இரண்டு inputs-உம் இன்னும் வேலை செய்கிறதா, அவற்றில் type செய்ய முடியுமா என்பதையும் check செய்யுங்கள்.
 
 <Hint>
 
-You can't declare an Effect conditionally, but your Effect can include conditional logic.
+Effect-ஐ conditionally declare செய்ய முடியாது, ஆனால் உங்கள் Effect conditional logic-ஐ கொண்டிருக்கலாம்.
 
 </Hint>
 
 <Solution>
 
-Put the conditional logic inside the Effect. You will need to specify `shouldFocus` as a dependency because you are using it inside the Effect. (This means that if some input's `shouldFocus` changes from `false` to `true`, it will focus after mount.)
+Conditional logic-ஐ Effect-க்குள் வையுங்கள். Effect-க்குள் `shouldFocus`-ஐ use செய்வதால், அதை dependency ஆக specify செய்ய வேண்டும். (இதன் பொருள், ஒரு input-ன் `shouldFocus` `false`-இலிருந்து `true` ஆக மாறினால், அது mount பிறகு focus ஆகும்.)
 
 <Sandpack>
 
@@ -1290,13 +1290,13 @@ export default function Form() {
   const name = firstName + ' ' + lastName;
   return (
     <>
-      <button onClick={() => setShow(s => !s)}>{show ? 'Hide' : 'Show'} form</button>
+      <button onClick={() => setShow(s => !s)}>{show ? 'மறை' : 'காட்டு'} form</button>
       <br />
       <hr />
       {show && (
         <>
           <label>
-            Enter your first name:
+            உங்கள் முதல் பெயரை உள்ளிடுங்கள்:
             <MyInput
               value={firstName}
               onChange={e => setFirstName(e.target.value)}
@@ -1304,14 +1304,14 @@ export default function Form() {
             />
           </label>
           <label>
-            Enter your last name:
+            உங்கள் கடைசி பெயரை உள்ளிடுங்கள்:
             <MyInput
               value={lastName}
               onChange={e => setLastName(e.target.value)}
               shouldFocus={false}
             />
           </label>
-          <p>Hello, <b>{upper ? name.toUpperCase() : name}</b></p>
+          <p>வணக்கம், <b>{upper ? name.toUpperCase() : name}</b></p>
         </>
       )}
     </>
@@ -1335,15 +1335,15 @@ body {
 
 </Solution>
 
-#### Fix an interval that fires twice {/*fix-an-interval-that-fires-twice*/}
+#### இருமுறை fire ஆகும் interval-ஐ fix செய்யுங்கள் {/*fix-an-interval-that-fires-twice*/}
 
-This `Counter` component displays a counter that should increment every second. On mount, it calls [`setInterval`.](https://developer.mozilla.org/en-US/docs/Web/API/setInterval) This causes `onTick` to run every second. The `onTick` function increments the counter.
+இந்த `Counter` component ஒவ்வொரு second-க்கும் increment ஆக வேண்டிய counter-ஐ display செய்கிறது. Mount போது, அது [`setInterval`](https://developer.mozilla.org/en-US/docs/Web/API/setInterval) call செய்கிறது. இதனால் `onTick` ஒவ்வொரு second-க்கும் run ஆகும். `onTick` function counter-ஐ increment செய்கிறது.
 
-However, instead of incrementing once per second, it increments twice. Why is that? Find the cause of the bug and fix it.
+ஆனால் ஒவ்வொரு second-க்கும் ஒருமுறை increment ஆகுவதற்கு பதிலாக, அது இருமுறை increment ஆகிறது. ஏன்? Bug-ன் காரணத்தை கண்டுபிடித்து fix செய்யுங்கள்.
 
 <Hint>
 
-Keep in mind that `setInterval` returns an interval ID, which you can pass to [`clearInterval`](https://developer.mozilla.org/en-US/docs/Web/API/clearInterval) to stop the interval.
+`setInterval` interval ID return செய்கிறது; அதை [`clearInterval`](https://developer.mozilla.org/en-US/docs/Web/API/clearInterval)-க்கு pass செய்து interval-ஐ stop செய்யலாம் என்பதை நினைவில் கொள்ளுங்கள்.
 
 </Hint>
 
@@ -1375,7 +1375,7 @@ export default function Form() {
   const [show, setShow] = useState(false);
   return (
     <>
-      <button onClick={() => setShow(s => !s)}>{show ? 'Hide' : 'Show'} counter</button>
+      <button onClick={() => setShow(s => !s)}>{show ? 'மறை' : 'காட்டு'} counter</button>
       <br />
       <hr />
       {show && <Counter />}
@@ -1400,11 +1400,11 @@ body {
 
 <Solution>
 
-When [Strict Mode](/reference/react/StrictMode) is on (like in the sandboxes on this site), React remounts each component once in development. This causes the interval to be set up twice, and this is why each second the counter increments twice.
+[Strict Mode](/reference/react/StrictMode) on ஆக இருக்கும்போது (இந்த site-இல் உள்ள sandboxes போல), React development-இல் ஒவ்வொரு component-ஐயும் ஒருமுறை remount செய்கிறது. இதனால் interval இருமுறை setup செய்யப்படுகிறது, அதனால்தான் counter ஒவ்வொரு second-க்கும் இருமுறை increment ஆகிறது.
 
-However, React's behavior is not the *cause* of the bug: the bug already exists in the code. React's behavior makes the bug more noticeable. The real cause is that this Effect starts a process but doesn't provide a way to clean it up.
+ஆனால் React-ன் behavior bug-ன் *cause* அல்ல: bug ஏற்கனவே code-இல் உள்ளது. React-ன் behavior bug-ஐ மேலும் தெளிவாக காட்டுகிறது. உண்மையான காரணம், இந்த Effect ஒரு process-ஐ தொடங்குகிறது, ஆனால் அதை clean up செய்ய வழி provide செய்யவில்லை.
 
-To fix this code, save the interval ID returned by `setInterval`, and implement a cleanup function with [`clearInterval`](https://developer.mozilla.org/en-US/docs/Web/API/clearInterval):
+இந்த code-ஐ fix செய்ய, `setInterval` return செய்யும் interval ID-ஐ save செய்து, [`clearInterval`](https://developer.mozilla.org/en-US/docs/Web/API/clearInterval) உடன் cleanup function implement செய்யுங்கள்:
 
 <Sandpack>
 
@@ -1435,7 +1435,7 @@ export default function App() {
   const [show, setShow] = useState(false);
   return (
     <>
-      <button onClick={() => setShow(s => !s)}>{show ? 'Hide' : 'Show'} counter</button>
+      <button onClick={() => setShow(s => !s)}>{show ? 'மறை' : 'காட்டு'} counter</button>
       <br />
       <hr />
       {show && <Counter />}
@@ -1458,17 +1458,17 @@ body {
 
 </Sandpack>
 
-In development, React will still remount your component once to verify that you've implemented cleanup well. So there will be a `setInterval` call, immediately followed by `clearInterval`, and `setInterval` again. In production, there will be only one `setInterval` call. The user-visible behavior in both cases is the same: the counter increments once per second.
+Development-இல், cleanup நன்றாக implement செய்துள்ளீர்களா என்று verify செய்ய React இன்னும் உங்கள் component-ஐ ஒருமுறை remount செய்யும். எனவே ஒரு `setInterval` call, உடனடியாக `clearInterval`, பின்னர் மீண்டும் `setInterval` இருக்கும். Production-இல், ஒரே ஒரு `setInterval` call மட்டுமே இருக்கும். இரு cases-இலும் user-visible behavior ஒன்றே: counter ஒவ்வொரு second-க்கும் ஒருமுறை increment ஆகும்.
 
 </Solution>
 
-#### Fix fetching inside an Effect {/*fix-fetching-inside-an-effect*/}
+#### Effect-க்குள் fetching-ஐ fix செய்யுங்கள் {/*fix-fetching-inside-an-effect*/}
 
-This component shows the biography for the selected person. It loads the biography by calling an asynchronous function `fetchBio(person)` on mount and whenever `person` changes. That asynchronous function returns a [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) which eventually resolves to a string. When fetching is done, it calls `setBio` to display that string under the select box.
+இந்த component selected person-க்கான biography-ஐ காட்டுகிறது. Mount போது மற்றும் `person` மாறும் ஒவ்வொரு முறையும் asynchronous function `fetchBio(person)` call செய்து biography-ஐ load செய்கிறது. அந்த asynchronous function ஒரு [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) return செய்கிறது; அது இறுதியில் string ஆக resolve ஆகும். Fetching முடிந்ததும், select box-க்கு கீழே அந்த string-ஐ display செய்ய `setBio` call செய்கிறது.
 
 <Sandpack>
 
-{/* not the most efficient, but this validation is enabled in the linter only, so it's fine to ignore it here since we know what we're doing */}
+{/* மிக efficient அல்ல, ஆனால் இந்த validation linter-இல் மட்டும் enabled; எனவே நாங்கள் என்ன செய்கிறோம் என தெரிந்ததால் இங்கே ignore செய்வது சரி */}
 ```js {expectedErrors: {'react-compiler': [9]}} src/App.js
 import { useState, useEffect } from 'react';
 import { fetchBio } from './api.js';
@@ -1505,7 +1505,7 @@ export async function fetchBio(person) {
   const delay = person === 'Bob' ? 2000 : 200;
   return new Promise(resolve => {
     setTimeout(() => {
-      resolve('This is ' + person + '’s bio.');
+      resolve('இது ' + person + ' உடைய bio.');
     }, delay);
   })
 }
@@ -1515,34 +1515,34 @@ export async function fetchBio(person) {
 </Sandpack>
 
 
-There is a bug in this code. Start by selecting "Alice". Then select "Bob" and then immediately after that select "Taylor". If you do this fast enough, you will notice that bug: Taylor is selected, but the paragraph below says "This is Bob's bio."
+இந்த code-இல் bug உள்ளது. "Alice" select செய்வதிலிருந்து தொடங்குங்கள். பிறகு "Bob" select செய்து உடனடியாக "Taylor" select செய்யுங்கள். இதை வேகமாக செய்தால், bug-ஐ கவனிப்பீர்கள்: Taylor selected ஆக உள்ளது, ஆனால் கீழுள்ள paragraph "இது Bob உடைய bio." என்று சொல்கிறது.
 
-Why does this happen? Fix the bug inside this Effect.
+இது ஏன் நடக்கிறது? இந்த Effect-க்குள் bug-ஐ fix செய்யுங்கள்.
 
 <Hint>
 
-If an Effect fetches something asynchronously, it usually needs cleanup.
+Effect ஏதேனும் ஒன்றை asynchronously fetch செய்தால், அதற்கு பொதுவாக cleanup தேவைப்படும்.
 
 </Hint>
 
 <Solution>
 
-To trigger the bug, things need to happen in this order:
+Bug-ஐ trigger செய்ய, விஷயங்கள் இந்த order-இல் நடக்க வேண்டும்:
 
-- Selecting `'Bob'` triggers `fetchBio('Bob')`
-- Selecting `'Taylor'` triggers `fetchBio('Taylor')`
-- **Fetching `'Taylor'` completes *before* fetching `'Bob'`**
-- The Effect from the `'Taylor'` render calls `setBio('This is Taylor’s bio')`
-- Fetching `'Bob'` completes
-- The Effect from the `'Bob'` render calls `setBio('This is Bob’s bio')`
+- `'Bob'` select செய்வது `fetchBio('Bob')`-ஐ trigger செய்கிறது
+- `'Taylor'` select செய்வது `fetchBio('Taylor')`-ஐ trigger செய்கிறது
+- **`'Bob'` fetching முடிவதற்கு *முன்* `'Taylor'` fetching முடிகிறது**
+- `'Taylor'` render-இலிருந்து வந்த Effect `setBio('இது Taylor உடைய bio')` call செய்கிறது
+- `'Bob'` fetching முடிகிறது
+- `'Bob'` render-இலிருந்து வந்த Effect `setBio('இது Bob உடைய bio')` call செய்கிறது
 
-This is why you see Bob's bio even though Taylor is selected. Bugs like this are called [race conditions](https://en.wikipedia.org/wiki/Race_condition) because two asynchronous operations are "racing" with each other, and they might arrive in an unexpected order.
+அதனால்தான் Taylor selected ஆக இருந்தாலும் Bob-ன் bio-ஐ பார்க்கிறீர்கள். இப்படியான bugs [race conditions](https://en.wikipedia.org/wiki/Race_condition) என்று அழைக்கப்படுகின்றன, ஏனெனில் இரண்டு asynchronous operations ஒன்றுடன் ஒன்று "race" செய்கின்றன, அவை எதிர்பாராத order-இல் வந்து சேரலாம்.
 
-To fix this race condition, add a cleanup function:
+இந்த race condition-ஐ fix செய்ய, cleanup function சேர்க்கவும்:
 
 <Sandpack>
 
-{/* not the most efficient, but this validation is enabled in the linter only, so it's fine to ignore it here since we know what we're doing */}
+{/* மிக efficient அல்ல, ஆனால் இந்த validation linter-இல் மட்டும் enabled; எனவே நாங்கள் என்ன செய்கிறோம் என தெரிந்ததால் இங்கே ignore செய்வது சரி */}
 ```js {expectedErrors: {'react-compiler': [9]}} src/App.js
 import { useState, useEffect } from 'react';
 import { fetchBio } from './api.js';
@@ -1584,7 +1584,7 @@ export async function fetchBio(person) {
   const delay = person === 'Bob' ? 2000 : 200;
   return new Promise(resolve => {
     setTimeout(() => {
-      resolve('This is ' + person + '’s bio.');
+      resolve('இது ' + person + ' உடைய bio.');
     }, delay);
   })
 }
@@ -1593,16 +1593,16 @@ export async function fetchBio(person) {
 
 </Sandpack>
 
-Each render's Effect has its own `ignore` variable. Initially, the `ignore` variable is set to `false`. However, if an Effect gets cleaned up (such as when you select a different person), its `ignore` variable becomes `true`. So now it doesn't matter in which order the requests complete. Only the last person's Effect will have `ignore` set to `false`, so it will call `setBio(result)`. Past Effects have been cleaned up, so the `if (!ignore)` check will prevent them from calling `setBio`:
+ஒவ்வொரு render-ன் Effect-க்கும் தனித்தனி `ignore` variable உள்ளது. ஆரம்பத்தில், `ignore` variable `false` ஆக set செய்யப்படுகிறது. ஆனால் ஒரு Effect clean up செய்யப்பட்டால் (உதாரணமாக, வேறு person select செய்யும் போது), அதன் `ignore` variable `true` ஆகிறது. எனவே requests எந்த order-இல் complete ஆகின்றன என்பது இப்போது முக்கியமில்லை. கடைசி person-ன் Effect மட்டும் `ignore` `false` ஆக இருக்கும், எனவே அது `setBio(result)` call செய்யும். கடந்த Effects clean up செய்யப்பட்டுள்ளதால், `if (!ignore)` check அவற்றை `setBio` call செய்வதைத் தடுக்கும்:
 
-- Selecting `'Bob'` triggers `fetchBio('Bob')`
-- Selecting `'Taylor'` triggers `fetchBio('Taylor')` **and cleans up the previous (Bob's) Effect**
-- Fetching `'Taylor'` completes *before* fetching `'Bob'`
-- The Effect from the `'Taylor'` render calls `setBio('This is Taylor’s bio')`
-- Fetching `'Bob'` completes
-- The Effect from the `'Bob'` render **does not do anything because its `ignore` flag was set to `true`**
+- `'Bob'` select செய்வது `fetchBio('Bob')`-ஐ trigger செய்கிறது
+- `'Taylor'` select செய்வது `fetchBio('Taylor')`-ஐ trigger செய்கிறது **மேலும் previous (Bob-ன்) Effect-ஐ clean up செய்கிறது**
+- `'Bob'` fetching முடிவதற்கு *முன்* `'Taylor'` fetching முடிகிறது
+- `'Taylor'` render-இலிருந்து வந்த Effect `setBio('இது Taylor உடைய bio')` call செய்கிறது
+- `'Bob'` fetching முடிகிறது
+- `'Bob'` render-இலிருந்து வந்த Effect **எதையும் செய்யாது, ஏனெனில் அதன் `ignore` flag `true` ஆக set செய்யப்பட்டது**
 
-In addition to ignoring the result of an outdated API call, you can also use [`AbortController`](https://developer.mozilla.org/en-US/docs/Web/API/AbortController) to cancel the requests that are no longer needed. However, by itself this is not enough to protect against race conditions. More asynchronous steps could be chained after the fetch, so using an explicit flag like `ignore` is the most reliable way to fix this type of problem.
+Outdated API call-ன் result-ஐ ignore செய்வதுடன், இனி தேவையில்லாத requests-ஐ cancel செய்ய [`AbortController`](https://developer.mozilla.org/en-US/docs/Web/API/AbortController)-ஐயும் use செய்யலாம். ஆனால் இது மட்டும் race conditions-இலிருந்து பாதுகாக்க போதாது. Fetch பிறகு மேலும் asynchronous steps chain ஆக இருக்கலாம், எனவே `ignore` போன்ற explicit flag use செய்வதே இந்த வகை problem-ஐ fix செய்ய மிகவும் reliable வழி.
 
 </Solution>
 

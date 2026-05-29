@@ -4,7 +4,7 @@ title: useSyncExternalStore
 
 <Intro>
 
-`useSyncExternalStore` is a React Hook that lets you subscribe to an external store.
+`useSyncExternalStore` என்பது external store ஒன்றுக்கு subscribe செய்ய உதவும் React Hook ஆகும்.
 
 ```js
 const snapshot = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot?)
@@ -16,11 +16,11 @@ const snapshot = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot?
 
 ---
 
-## Reference {/*reference*/}
+## குறிப்பு {/*reference*/}
 
 ### `useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot?)` {/*usesyncexternalstore*/}
 
-Call `useSyncExternalStore` at the top level of your component to read a value from an external data store.
+External data store-இலிருந்து value ஒன்றை படிக்க, உங்கள் component-ன் top level-இல் `useSyncExternalStore` call செய்யவும்.
 
 ```js
 import { useSyncExternalStore } from 'react';
@@ -32,36 +32,36 @@ function TodosApp() {
 }
 ```
 
-It returns the snapshot of the data in the store. You need to pass two functions as arguments:
+இது store-இல் உள்ள data-வின் snapshot-ஐ return செய்கிறது. நீங்கள் arguments ஆக இரண்டு functions அனுப்ப வேண்டும்:
 
-1. The `subscribe` function should subscribe to the store and return a function that unsubscribes.
-2. The `getSnapshot` function should read a snapshot of the data from the store.
+1. `subscribe` function store-க்கு subscribe செய்து, unsubscribe செய்யும் function ஒன்றை return செய்ய வேண்டும்.
+2. `getSnapshot` function store-இலிருந்து data snapshot ஒன்றை படிக்க வேண்டும்.
 
-[See more examples below.](#usage)
+[மேலும் examples-ஐ கீழே பார்க்கவும்.](#usage)
 
 #### Parameters {/*parameters*/}
 
-* `subscribe`: A function that takes a single `callback` argument and subscribes it to the store. When the store changes, it should invoke the provided `callback`, which will cause React to re-call `getSnapshot` and (if needed) re-render the component. The `subscribe` function should return a function that cleans up the subscription.
+* `subscribe`: ஒற்றை `callback` argument-ஐ எடுத்து அதை store-க்கு subscribe செய்யும் function. Store மாறும்போது, வழங்கப்பட்ட `callback`-ஐ invoke செய்ய வேண்டும்; இதனால் React `getSnapshot`-ஐ மீண்டும் call செய்து, தேவைப்பட்டால் component-ஐ re-render செய்யும். `subscribe` function subscription-ஐ clean up செய்யும் function ஒன்றை return செய்ய வேண்டும்.
 
-* `getSnapshot`: A function that returns a snapshot of the data in the store that's needed by the component. While the store has not changed, repeated calls to `getSnapshot` must return the same value. If the store changes and the returned value is different (as compared by [`Object.is`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is)), React re-renders the component.
+* `getSnapshot`: Component-க்கு தேவையான store data-வின் snapshot-ஐ return செய்யும் function. Store மாறாதவரை, `getSnapshot`-க்கு மீண்டும் மீண்டும் வரும் calls அதே value-ஐ return செய்ய வேண்டும். Store மாறி, return செய்யப்பட்ட value வேறுபட்டிருந்தால் ([`Object.is`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is) மூலம் ஒப்பிடப்படுகிறது), React component-ஐ re-render செய்கிறது.
 
-* **optional** `getServerSnapshot`: A function that returns the initial snapshot of the data in the store. It will be used only during server rendering and during hydration of server-rendered content on the client. The server snapshot must be the same between the client and the server, and is usually serialized and passed from the server to the client. If you omit this argument, rendering the component on the server will throw an error.
+* **optional** `getServerSnapshot`: Store data-வின் initial snapshot-ஐ return செய்யும் function. இது server rendering போது மற்றும் server-rendered content client-இல் hydration ஆகும் போது மட்டுமே பயன்படுத்தப்படும். Server snapshot client மற்றும் server இடையே ஒன்றாகவே இருக்க வேண்டும்; பொதுவாக அது serialize செய்யப்பட்டு server-இலிருந்து client-க்கு அனுப்பப்படும். இந்த argument-ஐ விடுவிட்டால், component-ஐ server-இல் render செய்வது error throw செய்யும்.
 
 #### Returns {/*returns*/}
 
-The current snapshot of the store which you can use in your rendering logic.
+உங்கள் rendering logic-இல் பயன்படுத்தக்கூடிய store-ன் தற்போதைய snapshot.
 
-#### Caveats {/*caveats*/}
+#### கவனிக்க வேண்டியவை {/*caveats*/}
 
-* The store snapshot returned by `getSnapshot` must be immutable. If the underlying store has mutable data, return a new immutable snapshot if the data has changed. Otherwise, return a cached last snapshot.
+* `getSnapshot` return செய்யும் store snapshot immutable ஆக இருக்க வேண்டும். அடிப்படையான store mutable data கொண்டிருந்தால், data மாறியிருந்தால் புதிய immutable snapshot-ஐ return செய்யவும். இல்லையெனில், cached last snapshot-ஐ return செய்யவும்.
 
-* If a different `subscribe` function is passed during a re-render, React will re-subscribe to the store using the newly passed `subscribe` function. You can prevent this by declaring `subscribe` outside the component.
+* Re-render போது வேறு `subscribe` function அனுப்பப்பட்டால், React புதியதாக அனுப்பப்பட்ட `subscribe` function-ஐப் பயன்படுத்தி store-க்கு மீண்டும் subscribe செய்யும். இதைத் தவிர்க்க, `subscribe`-ஐ component-க்கு வெளியே declare செய்யலாம்.
 
-* If the store is mutated during a [non-blocking Transition update](/reference/react/useTransition), React will fall back to performing that update as blocking. Specifically, for every Transition update, React will call `getSnapshot` a second time just before applying changes to the DOM. If it returns a different value than when it was called originally, React will restart the update from scratch, this time applying it as a blocking update, to ensure that every component on screen is reflecting the same version of the store.
+* [Non-blocking Transition update](/reference/react/useTransition) போது store mutate செய்யப்பட்டால், React அந்த update-ஐ blocking ஆகச் செய்யும் நிலைக்கு fallback செய்யும். குறிப்பாக, ஒவ்வொரு Transition update-க்கும், DOM-க்கு changes apply செய்வதற்கு முன் React `getSnapshot`-ஐ இரண்டாவது முறை call செய்யும். அது முதலில் call செய்யப்பட்டபோது இருந்த value-யிலிருந்து வேறு value return செய்தால், React update-ஐ scratch-இலிருந்து restart செய்து, இந்த முறை blocking update ஆக apply செய்யும்; இதனால் screen-இல் உள்ள ஒவ்வொரு component-உம் store-ன் அதே version-ஐ பிரதிபலிக்கிறது என்பதை உறுதிசெய்யும்.
 
-* It's not recommended to _suspend_ a render based on a store value returned by `useSyncExternalStore`. The reason is that mutations to the external store cannot be marked as [non-blocking Transition updates](/reference/react/useTransition), so they will trigger the nearest [`Suspense` fallback](/reference/react/Suspense), replacing already-rendered content on screen with a loading spinner, which typically makes a poor UX.
+* `useSyncExternalStore` return செய்யும் store value அடிப்படையில் render-ஐ _suspend_ செய்வது பரிந்துரைக்கப்படவில்லை. காரணம், external store-க்கு mutations-ஐ [non-blocking Transition updates](/reference/react/useTransition) ஆக mark செய்ய முடியாது; ஆகவே அவை அருகிலுள்ள [`Suspense` fallback](/reference/react/Suspense)-ஐ trigger செய்து, screen-இல் ஏற்கனவே rendered content-ஐ loading spinner-ஆல் மாற்றும். இது பொதுவாக மோசமான UX ஆகும்.
 
-  For example, the following are discouraged:
+  உதாரணமாக, கீழ்கண்டவை discouraged:
 
   ```js
   const LazyProductDetailPage = lazy(() => import('./ProductDetailPage.js'));
@@ -79,16 +79,16 @@ The current snapshot of the store which you can use in your rendering logic.
 
 ---
 
-## Usage {/*usage*/}
+## பயன்பாடு {/*usage*/}
 
-### Subscribing to an external store {/*subscribing-to-an-external-store*/}
+### External store-க்கு subscribe செய்தல் {/*subscribing-to-an-external-store*/}
 
-Most of your React components will only read data from their [props,](/learn/passing-props-to-a-component) [state,](/reference/react/useState) and [context.](/reference/react/useContext) However, sometimes a component needs to read some data from some store outside of React that changes over time. This includes:
+உங்கள் பெரும்பாலான React components data-வை அவற்றின் [props,](/learn/passing-props-to-a-component) [state,](/reference/react/useState) மற்றும் [context](/reference/react/useContext)-இலிருந்தே படிக்கும். ஆனால் சில நேரங்களில், காலப்போக்கில் மாறும் React-க்கு வெளியே உள்ள store ஒன்றிலிருந்து component சில data-வை படிக்க வேண்டும். இதில் அடங்குபவை:
 
-* Third-party state management libraries that hold state outside of React.
-* Browser APIs that expose a mutable value and events to subscribe to its changes.
+* React-க்கு வெளியே state வைத்திருக்கும் third-party state management libraries.
+* Mutable value ஒன்றையும் அதன் changes-க்கு subscribe செய்ய events-ஐயும் expose செய்யும் Browser APIs.
 
-Call `useSyncExternalStore` at the top level of your component to read a value from an external data store.
+External data store-இலிருந்து value ஒன்றை படிக்க, உங்கள் component-ன் top level-இல் `useSyncExternalStore` call செய்யவும்.
 
 ```js [[1, 5, "todosStore.subscribe"], [2, 5, "todosStore.getSnapshot"], [3, 5, "todos", 0]]
 import { useSyncExternalStore } from 'react';
@@ -100,14 +100,14 @@ function TodosApp() {
 }
 ```
 
-It returns the <CodeStep step={3}>snapshot</CodeStep> of the data in the store. You need to pass two functions as arguments:
+இது store-இல் உள்ள data-வின் <CodeStep step={3}>snapshot</CodeStep>-ஐ return செய்கிறது. நீங்கள் arguments ஆக இரண்டு functions அனுப்ப வேண்டும்:
 
-1. The <CodeStep step={1}>`subscribe` function</CodeStep> should subscribe to the store and return a function that unsubscribes.
-2. The <CodeStep step={2}>`getSnapshot` function</CodeStep> should read a snapshot of the data from the store.
+1. <CodeStep step={1}>`subscribe` function</CodeStep> store-க்கு subscribe செய்து, unsubscribe செய்யும் function ஒன்றை return செய்ய வேண்டும்.
+2. <CodeStep step={2}>`getSnapshot` function</CodeStep> store-இலிருந்து data snapshot ஒன்றை படிக்க வேண்டும்.
 
-React will use these functions to keep your component subscribed to the store and re-render it on changes.
+உங்கள் component store-க்கு subscribed ஆக இருக்கவும், changes வந்தால் re-render ஆகவும் React இந்த functions-ஐப் பயன்படுத்தும்.
 
-For example, in the sandbox below, `todosStore` is implemented as an external store that stores data outside of React. The `TodosApp` component connects to that external store with the `useSyncExternalStore` Hook.
+உதாரணமாக, கீழே உள்ள sandbox-இல், `todosStore` React-க்கு வெளியே data சேமிக்கும் external store ஆக implement செய்யப்பட்டுள்ளது. `TodosApp` component, `useSyncExternalStore` Hook மூலம் அந்த external store-க்கு connect ஆகிறது.
 
 <Sandpack>
 
@@ -119,7 +119,7 @@ export default function TodosApp() {
   const todos = useSyncExternalStore(todosStore.subscribe, todosStore.getSnapshot);
   return (
     <>
-      <button onClick={() => todosStore.addTodo()}>Add todo</button>
+      <button onClick={() => todosStore.addTodo()}>Todo சேர்க்க</button>
       <hr />
       <ul>
         {todos.map(todo => (
@@ -169,17 +169,17 @@ function emitChange() {
 
 <Note>
 
-When possible, we recommend using built-in React state with [`useState`](/reference/react/useState) and [`useReducer`](/reference/react/useReducer) instead. The `useSyncExternalStore` API is mostly useful if you need to integrate with existing non-React code.
+முடிந்தவரை, [`useState`](/reference/react/useState) மற்றும் [`useReducer`](/reference/react/useReducer) உடன் built-in React state பயன்படுத்த பரிந்துரைக்கிறோம். Existing non-React code உடன் integrate செய்ய வேண்டியிருந்தால் `useSyncExternalStore` API பெரும்பாலும் பயனுள்ளதாக இருக்கும்.
 
 </Note>
 
 ---
 
-### Subscribing to a browser API {/*subscribing-to-a-browser-api*/}
+### Browser API-க்கு subscribe செய்தல் {/*subscribing-to-a-browser-api*/}
 
-Another reason to add `useSyncExternalStore` is when you want to subscribe to some value exposed by the browser that changes over time. For example, suppose that you want your component to display whether the network connection is active. The browser exposes this information via a property called [`navigator.onLine`.](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/onLine)
+காலப்போக்கில் மாறும் browser expose செய்யும் value ஒன்றுக்கு subscribe செய்ய விரும்பும்போது `useSyncExternalStore` சேர்க்கும் மற்றொரு காரணம் கிடைக்கும். உதாரணமாக, network connection active ஆக உள்ளதா என்பதை உங்கள் component display செய்ய வேண்டுமென்று நினைக்கலாம். Browser இந்த தகவலை [`navigator.onLine`](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/onLine) என்ற property மூலம் expose செய்கிறது.
 
-This value can change without React's knowledge, so you should read it with `useSyncExternalStore`.
+இந்த value React அறியாமல் மாறக்கூடும்; எனவே அதை `useSyncExternalStore` மூலம் படிக்க வேண்டும்.
 
 ```js
 import { useSyncExternalStore } from 'react';
@@ -190,7 +190,7 @@ function ChatIndicator() {
 }
 ```
 
-To implement the `getSnapshot` function, read the current value from the browser API:
+`getSnapshot` function-ஐ implement செய்ய, browser API-இலிருந்து current value-ஐ படிக்கவும்:
 
 ```js
 function getSnapshot() {
@@ -198,7 +198,7 @@ function getSnapshot() {
 }
 ```
 
-Next, you need to implement the `subscribe` function. For example, when `navigator.onLine` changes, the browser fires the [`online`](https://developer.mozilla.org/en-US/docs/Web/API/Window/online_event) and [`offline`](https://developer.mozilla.org/en-US/docs/Web/API/Window/offline_event) events on the `window` object. You need to subscribe the `callback` argument to the corresponding events, and then return a function that cleans up the subscriptions:
+அடுத்து, `subscribe` function-ஐ implement செய்ய வேண்டும். உதாரணமாக, `navigator.onLine` மாறும்போது, browser `window` object-இல் [`online`](https://developer.mozilla.org/en-US/docs/Web/API/Window/online_event) மற்றும் [`offline`](https://developer.mozilla.org/en-US/docs/Web/API/Window/offline_event) events fire செய்கிறது. `callback` argument-ஐ தொடர்புடைய events-க்கு subscribe செய்து, பிறகு subscriptions-ஐ clean up செய்யும் function ஒன்றை return செய்ய வேண்டும்:
 
 ```js
 function subscribe(callback) {
@@ -211,7 +211,7 @@ function subscribe(callback) {
 }
 ```
 
-Now React knows how to read the value from the external `navigator.onLine` API and how to subscribe to its changes. Disconnect your device from the network and notice that the component re-renders in response:
+இப்போது external `navigator.onLine` API-இலிருந்து value-ஐ எப்படி படிக்க வேண்டும், அதன் changes-க்கு எப்படி subscribe செய்ய வேண்டும் என்பதை React அறியும். உங்கள் device-ஐ network-இலிருந்து disconnect செய்து, அதற்கு பதிலாக component re-render ஆகும் என்பதை கவனிக்கவும்:
 
 <Sandpack>
 
@@ -220,7 +220,7 @@ import { useSyncExternalStore } from 'react';
 
 export default function ChatIndicator() {
   const isOnline = useSyncExternalStore(subscribe, getSnapshot);
-  return <h1>{isOnline ? '✅ Online' : '❌ Disconnected'}</h1>;
+  return <h1>{isOnline ? '✅ ஆன்லைன்' : '❌ துண்டிக்கப்பட்டது'}</h1>;
 }
 
 function getSnapshot() {
@@ -241,11 +241,11 @@ function subscribe(callback) {
 
 ---
 
-### Extracting the logic to a custom Hook {/*extracting-the-logic-to-a-custom-hook*/}
+### Logic-ஐ custom Hook-க்கு பிரித்தெடுத்தல் {/*extracting-the-logic-to-a-custom-hook*/}
 
-Usually you won't write `useSyncExternalStore` directly in your components. Instead, you'll typically call it from your own custom Hook. This lets you use the same external store from different components.
+பொதுவாக உங்கள் components-இல் `useSyncExternalStore`-ஐ நேரடியாக எழுத மாட்டீர்கள். அதற்கு பதிலாக, உங்கள் சொந்த custom Hook-இலிருந்து அதை call செய்வீர்கள். இது ஒரே external store-ஐ வெவ்வேறு components-இலிருந்து பயன்படுத்த உதவுகிறது.
 
-For example, this custom `useOnlineStatus` Hook tracks whether the network is online:
+உதாரணமாக, இந்த custom `useOnlineStatus` Hook network online ஆக உள்ளதா என்பதை track செய்கிறது:
 
 ```js {3,6}
 import { useSyncExternalStore } from 'react';
@@ -264,7 +264,7 @@ function subscribe(callback) {
 }
 ```
 
-Now different components can call `useOnlineStatus` without repeating the underlying implementation:
+இப்போது வெவ்வேறு components underlying implementation-ஐ repeat செய்யாமல் `useOnlineStatus` call செய்யலாம்:
 
 <Sandpack>
 
@@ -273,19 +273,19 @@ import { useOnlineStatus } from './useOnlineStatus.js';
 
 function StatusBar() {
   const isOnline = useOnlineStatus();
-  return <h1>{isOnline ? '✅ Online' : '❌ Disconnected'}</h1>;
+  return <h1>{isOnline ? '✅ ஆன்லைன்' : '❌ துண்டிக்கப்பட்டது'}</h1>;
 }
 
 function SaveButton() {
   const isOnline = useOnlineStatus();
 
   function handleSaveClick() {
-    console.log('✅ Progress saved');
+    console.log('✅ முன்னேற்றம் சேமிக்கப்பட்டது');
   }
 
   return (
     <button disabled={!isOnline} onClick={handleSaveClick}>
-      {isOnline ? 'Save progress' : 'Reconnecting...'}
+      {isOnline ? 'முன்னேற்றத்தை சேமி' : 'மீண்டும் இணைக்கிறது...'}
     </button>
   );
 }
@@ -326,14 +326,14 @@ function subscribe(callback) {
 
 ---
 
-### Adding support for server rendering {/*adding-support-for-server-rendering*/}
+### Server rendering-க்கு support சேர்த்தல் {/*adding-support-for-server-rendering*/}
 
-If your React app uses [server rendering,](/reference/react-dom/server) your React components will also run outside the browser environment to generate the initial HTML. This creates a few challenges when connecting to an external store:
+உங்கள் React app [server rendering](/reference/react-dom/server) பயன்படுத்தினால், initial HTML உருவாக்க உங்கள் React components browser environment-க்கு வெளியிலும் run ஆகும். External store-க்கு connect செய்யும்போது இது சில சவால்களை உருவாக்குகிறது:
 
-- If you're connecting to a browser-only API, it won't work because it does not exist on the server.
-- If you're connecting to a third-party data store, you'll need its data to match between the server and client.
+- Browser-only API-க்கு connect செய்தால், அது server-இல் இல்லாததால் வேலை செய்யாது.
+- Third-party data store-க்கு connect செய்தால், அதன் data server மற்றும் client இடையே match ஆக வேண்டும்.
 
-To solve these issues, pass a `getServerSnapshot` function as the third argument to `useSyncExternalStore`:
+இந்த சிக்கல்களைத் தீர்க்க, `useSyncExternalStore`-க்கு மூன்றாவது argument ஆக `getServerSnapshot` function ஒன்றை அனுப்பவும்:
 
 ```js {4,12-14}
 import { useSyncExternalStore } from 'react';
@@ -348,7 +348,7 @@ function getSnapshot() {
 }
 
 function getServerSnapshot() {
-  return true; // Always show "Online" for server-generated HTML
+  return true; // Server-generated HTML-க்கு எப்போதும் "Online" காட்டவும்
 }
 
 function subscribe(callback) {
@@ -356,16 +356,16 @@ function subscribe(callback) {
 }
 ```
 
-The `getServerSnapshot` function is similar to `getSnapshot`, but it runs only in two situations:
+`getServerSnapshot` function `getSnapshot`-க்கு ஒத்ததாக இருக்கும்; ஆனால் இரண்டு சூழல்களில் மட்டுமே run ஆகும்:
 
-- It runs on the server when generating the HTML.
-- It runs on the client during [hydration](/reference/react-dom/client/hydrateRoot), i.e. when React takes the server HTML and makes it interactive.
+- HTML generate செய்யும்போது அது server-இல் run ஆகும்.
+- [Hydration](/reference/react-dom/client/hydrateRoot) போது client-இல் run ஆகும்; அதாவது React server HTML-ஐ எடுத்து interactive ஆக்கும் போது.
 
-This lets you provide the initial snapshot value which will be used before the app becomes interactive. If there is no meaningful initial value for the server rendering, omit this argument to [force rendering on the client.](/reference/react/Suspense#providing-a-fallback-for-server-errors-and-client-only-content)
+App interactive ஆகும்முன் பயன்படுத்தப்படும் initial snapshot value-ஐ இது வழங்க உதவுகிறது. Server rendering-க்கு அர்த்தமுள்ள initial value இல்லை என்றால், [client-இல் rendering force செய்ய](/reference/react/Suspense#providing-a-fallback-for-server-errors-and-client-only-content) இந்த argument-ஐ விடுங்கள்.
 
 <Note>
 
-Make sure that `getServerSnapshot` returns the same exact data on the initial client render as it returned on the server. For example, if `getServerSnapshot` returned some prepopulated store content on the server, you need to transfer this content to the client. One way to do this is to emit a `<script>` tag during server rendering that sets a global like `window.MY_STORE_DATA`, and read from that global on the client in `getServerSnapshot`. Your external store should provide instructions on how to do that.
+`getServerSnapshot` server-இல் return செய்த அதே data-வை initial client render-இலும் return செய்கிறது என்பதை உறுதிசெய்யவும். உதாரணமாக, `getServerSnapshot` server-இல் prepopulated store content return செய்திருந்தால், அந்த content-ஐ client-க்கு transfer செய்ய வேண்டும். இதைச் செய்யும் ஒரு வழி, server rendering போது `window.MY_STORE_DATA` போன்ற global ஒன்றை set செய்யும் `<script>` tag emit செய்து, client-இல் `getServerSnapshot` உள்ளே அந்த global-இலிருந்து படிப்பது. உங்கள் external store இதை எப்படி செய்வது என்பதைப் பற்றிய instructions வழங்க வேண்டும்.
 
 </Note>
 
@@ -373,9 +373,9 @@ Make sure that `getServerSnapshot` returns the same exact data on the initial cl
 
 ## Troubleshooting {/*troubleshooting*/}
 
-### I'm getting an error: "The result of `getSnapshot` should be cached" {/*im-getting-an-error-the-result-of-getsnapshot-should-be-cached*/}
+### எனக்கு error வருகிறது: "The result of `getSnapshot` should be cached" {/*im-getting-an-error-the-result-of-getsnapshot-should-be-cached*/}
 
-This error means your `getSnapshot` function returns a new object every time it's called, for example:
+இந்த error உங்கள் `getSnapshot` function ஒவ்வொரு முறை call செய்யும்போதும் புதிய object return செய்கிறது என்பதைக் குறிக்கிறது, உதாரணமாக:
 
 ```js {2-5}
 function getSnapshot() {
@@ -386,9 +386,9 @@ function getSnapshot() {
 }
 ```
 
-React will re-render the component if `getSnapshot` return value is different from the last time. This is why, if you always return a different value, you will enter an infinite loop and get this error.
+`getSnapshot` return value கடந்த முறை இருந்ததை விட வேறுபட்டிருந்தால் React component-ஐ re-render செய்யும். அதனால் தான், எப்போதும் வேறு value return செய்தால், infinite loop-இல் சென்று இந்த error கிடைக்கும்.
 
-Your `getSnapshot` object should only return a different object if something has actually changed. If your store contains immutable data, you can return that data directly:
+உங்கள் `getSnapshot` object, ஏதாவது உண்மையில் மாறியிருந்தால் மட்டுமே வேறு object return செய்ய வேண்டும். உங்கள் store immutable data கொண்டிருந்தால், அந்த data-வை நேரடியாக return செய்யலாம்:
 
 ```js {2-3}
 function getSnapshot() {
@@ -397,13 +397,13 @@ function getSnapshot() {
 }
 ```
 
-If your store data is mutable, your `getSnapshot` function should return an immutable snapshot of it. This means it *does* need to create new objects, but it shouldn't do this for every single call. Instead, it should store the last calculated snapshot, and return the same snapshot as the last time if the data in the store has not changed. How you determine whether mutable data has changed depends on your mutable store.
+உங்கள் store data mutable ஆக இருந்தால், உங்கள் `getSnapshot` function அதற்கான immutable snapshot-ஐ return செய்ய வேண்டும். இதன் அர்த்தம் அது புதிய objects உருவாக்க *வேண்டும்*; ஆனால் ஒவ்வொரு call-க்கும் இதைச் செய்யக்கூடாது. அதற்கு பதிலாக, கடைசியாக கணக்கிடப்பட்ட snapshot-ஐ store செய்து, store-இல் data மாறவில்லை என்றால் கடந்த முறை இருந்த அதே snapshot-ஐ return செய்ய வேண்டும். Mutable data மாறியுள்ளதா என்பதை நீங்கள் எப்படி தீர்மானிப்பது, உங்கள் mutable store-ஐப் பொறுத்தது.
 
 ---
 
-### My `subscribe` function gets called after every re-render {/*my-subscribe-function-gets-called-after-every-re-render*/}
+### ஒவ்வொரு re-render-க்கும் என் `subscribe` function call ஆகிறது {/*my-subscribe-function-gets-called-after-every-re-render*/}
 
-This `subscribe` function is defined *inside* a component so it is different on every re-render:
+இந்த `subscribe` function component-க்கு *உள்ளே* define செய்யப்பட்டதால் ஒவ்வொரு re-render-க்கும் அது வேறுபட்டதாக இருக்கும்:
 
 ```js {2-5}
 function ChatIndicator() {
@@ -418,7 +418,7 @@ function ChatIndicator() {
 }
 ```
 
-React will resubscribe to your store if you pass a different `subscribe` function between re-renders. If this causes performance issues and you'd like to avoid resubscribing, move the `subscribe` function outside:
+Re-renders இடையில் வேறு `subscribe` function அனுப்பினால் React உங்கள் store-க்கு resubscribe செய்யும். இது performance சிக்கல்களை ஏற்படுத்தி, resubscribe செய்வதைத் தவிர்க்க விரும்பினால், `subscribe` function-ஐ வெளியே நகர்த்தவும்:
 
 ```js {1-4}
 // ✅ Always the same function, so React won't need to resubscribe
@@ -432,7 +432,7 @@ function ChatIndicator() {
 }
 ```
 
-Alternatively, wrap `subscribe` into [`useCallback`](/reference/react/useCallback) to only resubscribe when some argument changes:
+மாற்றாக, ஏதாவது argument மாறும்போது மட்டுமே resubscribe செய்ய `subscribe`-ஐ [`useCallback`](/reference/react/useCallback)-க்குள் wrap செய்யலாம்:
 
 ```js {2-5}
 function ChatIndicator({ userId }) {

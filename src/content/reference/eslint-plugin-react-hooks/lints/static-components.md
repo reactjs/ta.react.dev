@@ -4,17 +4,17 @@ title: static-components
 
 <Intro>
 
-Validates that components are static, not recreated every render. Components that are recreated dynamically can reset state and trigger excessive re-rendering.
+Components static ஆக உள்ளனவா, ஒவ்வொரு render-இலும் மறுபடியும் உருவாக்கப்படுகிறதா என்பதை validate செய்கிறது. Dynamically மறுபடியும் உருவாக்கப்படும் components state-ஐ reset செய்து அதிகப்படியான re-rendering-ஐ trigger செய்யலாம்.
 
 </Intro>
 
-## Rule Details {/*rule-details*/}
+## விதி விவரங்கள் {/*rule-details*/}
 
-Components defined inside other components are recreated on every render. React sees each as a brand new component type, unmounting the old one and mounting the new one, destroying all state and DOM nodes in the process.
+மற்ற components உள்ளே வரையறுக்கப்படும் components ஒவ்வொரு render-இலும் மறுபடியும் உருவாக்கப்படுகின்றன. React ஒவ்வொன்றையும் புதிய component type ஆகக் காண்கிறது; பழையதை unmount செய்து புதியதை mount செய்யும் போது state மற்றும் DOM nodes அனைத்தும் அழிக்கப்படுகின்றன.
 
-### Invalid {/*invalid*/}
+### செல்லாதது {/*invalid*/}
 
-Examples of incorrect code for this rule:
+இந்த விதிக்கான தவறான code உதாரணங்கள்:
 
 ```js
 // ❌ Component defined inside component
@@ -37,9 +37,9 @@ function Parent({type}) {
 }
 ```
 
-### Valid {/*valid*/}
+### செல்லுபடியாகும் {/*valid*/}
 
-Examples of correct code for this rule:
+இந்த விதிக்கான சரியான code உதாரணங்கள்:
 
 ```js
 // ✅ Components at module level
@@ -57,9 +57,9 @@ function Parent({type}) {
 
 ## Troubleshooting {/*troubleshooting*/}
 
-### I need to render different components conditionally {/*conditional-components*/}
+### வேறு components-ஐ conditionally render செய்ய வேண்டும் {/*conditional-components*/}
 
-You might define components inside to access local state:
+Local state-ஐ அணுக components-ஐ உள்ளே வரையறுக்கலாம் என்று நினைக்கலாம்:
 
 ```js {expectedErrors: {'react-compiler': [13]}}
 // ❌ Wrong: Inner component to access parent state
@@ -78,7 +78,7 @@ function Parent() {
 }
 ```
 
-Pass data as props instead:
+அதற்கு பதிலாக data-வை props ஆக pass செய்யுங்கள்:
 
 ```js
 // ✅ Better: Pass props to static component
@@ -98,6 +98,6 @@ function Parent() {
 
 <Note>
 
-If you find yourself wanting to define components inside other components to access local variables, that's a sign you should be passing props instead. This makes components more reusable and testable.
+Local variables-ஐ அணுக மற்ற components உள்ளே components வரையறுக்க வேண்டும் என்று தோன்றினால், அதற்கு பதிலாக props pass செய்ய வேண்டும் என்பதற்கான அறிகுறி அது. இது components-ஐ மீண்டும் பயன்படுத்தக்கூடியதாகவும் test செய்ய நேரடியானதாகவும் ஆக்கும்.
 
 </Note>

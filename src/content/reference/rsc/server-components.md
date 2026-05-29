@@ -4,28 +4,28 @@ title: Server Components
 
 <Intro>
 
-Server Components are a new type of Component that renders ahead of time, before bundling, in an environment separate from your client app or SSR server.
+Server Components என்பது bundling-க்கு முன், உங்கள் client app அல்லது SSR server-இலிருந்து தனியான environment-இல் முன்கூட்டியே render ஆகும் புதிய வகை Component.
 
 </Intro>
 
-This separate environment is the "server" in React Server Components. Server Components can run once at build time on your CI server, or they can be run for each request using a web server.
+இந்த தனி environment தான் React Server Components-இல் உள்ள "server". Server Components உங்கள் CI server-இல் build time-இல் ஒருமுறை run ஆகலாம், அல்லது web server பயன்படுத்தி ஒவ்வொரு request-க்கும் run ஆகலாம்.
 
 <InlineToc />
 
 <Note>
 
-#### How do I build support for Server Components? {/*how-do-i-build-support-for-server-components*/}
+#### Server Components-க்கு support எப்படி build செய்வது? {/*how-do-i-build-support-for-server-components*/}
 
-While React Server Components in React 19 are stable and will not break between minor versions, the underlying APIs used to implement a React Server Components bundler or framework do not follow semver and may break between minors in React 19.x.
+React 19-இல் React Server Components stable; minor versions இடையே break ஆகாது. ஆனால் React Server Components bundler அல்லது framework implement செய்ய பயன்படுத்தப்படும் underlying APIs semver-ஐ பின்பற்றாது; React 19.x minors இடையே break ஆகலாம்.
 
-To support React Server Components as a bundler or framework, we recommend pinning to a specific React version, or using the Canary release. We will continue working with bundlers and frameworks to stabilize the APIs used to implement React Server Components in the future.
+Bundler அல்லது framework ஆக React Server Components support செய்ய, குறிப்பிட்ட React version-க்கு pin செய்வதையோ அல்லது Canary release பயன்படுத்துவதையோ பரிந்துரைக்கிறோம். எதிர்காலத்தில் React Server Components implement செய்யப்படும் APIs-ஐ stabilize செய்ய bundlers மற்றும் frameworks உடன் தொடர்ந்து வேலை செய்வோம்.
 
 </Note>
 
-### Server Components without a Server {/*server-components-without-a-server*/}
-Server components can run at build time to read from the filesystem or fetch static content, so a web server is not required. For example, you may want to read static data from a content management system.
+### Server இல்லாமல் Server Components {/*server-components-without-a-server*/}
+Filesystem-இலிருந்து read செய்யவோ static content fetch செய்யவோ Server Components build time-இல் run ஆகலாம்; எனவே web server தேவையில்லை. உதாரணமாக, content management system-இலிருந்து static data read செய்ய நீங்கள் விரும்பலாம்.
 
-Without Server Components, it's common to fetch static data on the client with an Effect:
+Server Components இல்லாமல், client-இல் Effect மூலம் static data fetch செய்வது பொதுவானது:
 ```js
 // bundle.js
 import marked from 'marked'; // 35.9K (11.2K gzipped)
@@ -52,13 +52,13 @@ app.get(`/api/content/:page`, async (req, res) => {
 });
 ```
 
-This pattern means users need to download and parse an additional 75K (gzipped) of libraries, and wait for a second request to fetch the data after the page loads, just to render static content that will not change for the lifetime of the page.
+இந்த pattern-ன் பொருள்: page-ன் lifetime முழுவதும் மாறாத static content render செய்யவே users கூடுதலாக 75K (gzipped) libraries download செய்து parse செய்ய வேண்டும்; மேலும் page load ஆன பிறகு data fetch செய்ய இரண்டாவது request-க்காக காத்திருக்க வேண்டும்.
 
-With Server Components, you can render these components once at build time:
+Server Components உடன், இந்த components-ஐ build time-இல் ஒருமுறை render செய்யலாம்:
 
 ```js
-import marked from 'marked'; // Not included in bundle
-import sanitizeHtml from 'sanitize-html'; // Not included in bundle
+import marked from 'marked'; // bundle-இல் சேர்க்கப்படாது
+import sanitizeHtml from 'sanitize-html'; // bundle-இல் சேர்க்கப்படாது
 
 async function Page({page}) {
   // NOTE: loads *during* render, when the app is built.
@@ -68,17 +68,17 @@ async function Page({page}) {
 }
 ```
 
-The rendered output can then be server-side rendered (SSR) to HTML and uploaded to a CDN. When the app loads, the client will not see the original `Page` component, or the expensive libraries for rendering the markdown. The client will only see the rendered output:
+Rendered output பின்னர் HTML-ஆக server-side rendered (SSR) செய்யப்பட்டு CDN-க்கு upload செய்யப்படலாம். App load ஆகும்போது, client original `Page` component-ஐயோ markdown render செய்யும் expensive libraries-ஐயோ பார்க்காது. Client rendered output மட்டும் பார்க்கும்:
 
 ```js
 <div><!-- html for markdown --></div>
 ```
 
-This means the content is visible during first page load, and the bundle does not include the expensive libraries needed to render the static content.
+இதன் பொருள்: முதல் page load நேரத்திலேயே content visible ஆகும்; static content render செய்ய தேவையான expensive libraries bundle-இல் சேர்க்கப்படாது.
 
 <Note>
 
-You may notice that the Server Component above is an async function:
+மேலுள்ள Server Component async function என்பதை நீங்கள் கவனிக்கலாம்:
 
 ```js
 async function Page({page}) {
@@ -86,16 +86,16 @@ async function Page({page}) {
 }
 ```
 
-Async Components are a new feature of Server Components that allow you to `await` in render.
+Async Components என்பது render-இல் `await` செய்ய அனுமதிக்கும் Server Components-ன் புதிய feature.
 
-See [Async components with Server Components](#async-components-with-server-components) below.
+கீழே [Server Components உடன் Async components](#async-components-with-server-components)-ஐப் பார்க்கவும்.
 
 </Note>
 
-### Server Components with a Server {/*server-components-with-a-server*/}
-Server Components can also run on a web server during a request for a page, letting you access your data layer without having to build an API. They are rendered before your application is bundled, and can pass data and JSX as props to Client Components.
+### Server உடன் Server Components {/*server-components-with-a-server*/}
+ஒரு page-க்கான request நேரத்தில் Server Components web server-இலும்கூட run ஆகலாம்; API build செய்யாமல் உங்கள் data layer-ஐ access செய்ய இது அனுமதிக்கிறது. உங்கள் application bundle செய்யப்படுவதற்கு முன் அவை render செய்யப்படுகின்றன; மேலும் data மற்றும் JSX-ஐ props ஆக Client Components-க்கு pass செய்யலாம்.
 
-Without Server Components, it's common to fetch dynamic data on the client in an Effect:
+Server Components இல்லாமல், client-இல் Effect மூலம் dynamic data fetch செய்வது பொதுவானது:
 
 ```js
 // bundle.js
@@ -144,7 +144,7 @@ app.get(`/api/authors/:id`, async (req, res) => {
 });
 ```
 
-With Server Components, you can read the data and render it in the component:
+Server Components உடன், component-இல் data read செய்து render செய்யலாம்:
 
 ```js
 import db from './database';
@@ -168,7 +168,7 @@ async function Author({id}) {
 }
 ```
 
-The bundler then combines the data, rendered Server Components and dynamic Client Components into a bundle. Optionally, that bundle can then be server-side rendered (SSR) to create the initial HTML for the page. When the page loads, the browser does not see the original `Note` and `Author` components; only the rendered output is sent to the client:
+Bundler பின்னர் data, rendered Server Components, மற்றும் dynamic Client Components-ஐ bundle-ஆக combine செய்கிறது. விருப்பமாக, அந்த bundle page-க்கான initial HTML உருவாக்க server-side rendered (SSR) செய்யப்படலாம். Page load ஆகும்போது, browser original `Note` மற்றும் `Author` components-ஐ பார்க்காது; rendered output மட்டும் client-க்கு அனுப்பப்படும்:
 
 ```js
 <div>
@@ -177,24 +177,24 @@ The bundler then combines the data, rendered Server Components and dynamic Clien
 </div>
 ```
 
-Server Components can be made dynamic by re-fetching them from a server, where they can access the data and render again. This new application architecture combines the simple “request/response” mental model of server-centric Multi-Page Apps with the seamless interactivity of client-centric Single-Page Apps, giving you the best of both worlds.
+Server-இலிருந்து அவற்றை re-fetch செய்வதன் மூலம் Server Components dynamic ஆக மாற்றப்படலாம்; அங்கே அவை data access செய்து மீண்டும் render செய்ய முடியும். இந்த புதிய application architecture, server-centric Multi-Page Apps-ன் நேரடியான “request/response” mental model-ஐ client-centric Single-Page Apps-ன் seamless interactivity உடன் இணைக்கிறது; இரண்டின் சிறந்த அம்சங்களையும் தருகிறது.
 
-### Adding interactivity to Server Components {/*adding-interactivity-to-server-components*/}
+### Server Components-க்கு interactivity சேர்த்தல் {/*adding-interactivity-to-server-components*/}
 
-Server Components are not sent to the browser, so they cannot use interactive APIs like `useState`. To add interactivity to Server Components, you can compose them with Client Component using the `"use client"` directive.
+Server Components browser-க்கு அனுப்பப்படாது; எனவே `useState` போன்ற interactive APIs-ஐ அவை பயன்படுத்த முடியாது. Server Components-க்கு interactivity சேர்க்க, `"use client"` directive பயன்படுத்தி அவற்றை Client Component உடன் compose செய்யலாம்.
 
 <Note>
 
-#### There is no directive for Server Components. {/*there-is-no-directive-for-server-components*/}
+#### Server Components-க்கு directive இல்லை. {/*there-is-no-directive-for-server-components*/}
 
-A common misunderstanding is that Server Components are denoted by `"use server"`, but there is no directive for Server Components. The `"use server"` directive is used for Server Functions.
+பொதுவான தவறான புரிதல்: Server Components `"use server"` மூலம் குறிக்கப்படுகின்றன என்று நினைப்பது. ஆனால் Server Components-க்கு directive இல்லை. `"use server"` directive Server Functions-க்காக பயன்படுத்தப்படுகிறது.
 
-For more info, see the docs for [Directives](/reference/rsc/directives).
+மேலும் தகவலுக்கு [Directives](/reference/rsc/directives) docs-ஐப் பார்க்கவும்.
 
 </Note>
 
 
-In the following example, the `Notes` Server Component imports an `Expandable` Client Component that uses state to toggle its `expanded` state:
+பின்வரும் உதாரணத்தில், `Notes` Server Component தனது `expanded` state-ஐ toggle செய்ய state பயன்படுத்தும் `Expandable` Client Component-ஐ import செய்கிறது:
 ```js
 // Server Component
 import Expandable from './Expandable';
@@ -231,11 +231,11 @@ export default function Expandable({children}) {
 }
 ```
 
-This works by first rendering `Notes` as a Server Component, and then instructing the bundler to create a bundle for the Client Component `Expandable`. In the browser, the Client Components will see output of the Server Components passed as props:
+இது முதலில் `Notes`-ஐ Server Component ஆக render செய்து, பின்னர் Client Component `Expandable`-க்கான bundle உருவாக்க bundler-க்கு அறிவுறுத்துவதன் மூலம் வேலை செய்கிறது. Browser-இல், Client Components props ஆக pass செய்யப்பட்ட Server Components-ன் output-ஐப் பார்க்கும்:
 
 ```js
 <head>
-  <!-- the bundle for Client Components -->
+  <!-- Client Components-க்கான bundle -->
   <script src="bundle.js" />
 </head>
 <body>
@@ -251,11 +251,11 @@ This works by first rendering `Notes` as a Server Component, and then instructin
 </body>
 ```
 
-### Async components with Server Components {/*async-components-with-server-components*/}
+### Server Components உடன் Async components {/*async-components-with-server-components*/}
 
-Server Components introduce a new way to write Components using async/await. When you `await` in an async component, React will suspend and wait for the promise to resolve before resuming rendering. This works across server/client boundaries with streaming support for Suspense.
+Async/await பயன்படுத்தி Components எழுத புதிய வழியை Server Components அறிமுகப்படுத்துகின்றன. Async component-இல் `await` செய்தால், React suspend செய்து, promise resolve ஆகும் வரை காத்திருந்து பிறகு rendering-ஐ resume செய்யும். இது Suspense-க்கான streaming support உடன் server/client boundaries முழுவதும் வேலை செய்கிறது.
 
-You can even create a promise on the server, and await it on the client:
+Server-இல் promise உருவாக்கி, client-இல் அதை await கூட செய்யலாம்:
 
 ```js
 // Server Component
@@ -291,6 +291,6 @@ function Comments({commentsPromise}) {
 }
 ```
 
-The `note` content is important data for the page to render, so we `await` it on the server. The comments are below the fold and lower-priority, so we start the promise on the server, and wait for it on the client with the `use` API. This will Suspend on the client, without blocking the `note` content from rendering.
+Page render ஆக `note` content முக்கியமான data என்பதால், அதை server-இல் `await` செய்கிறோம். Comments fold-க்கு கீழே உள்ள lower-priority content; எனவே promise-ஐ server-இல் தொடங்கி, client-இல் `use` API மூலம் அதற்காக காத்திருக்கிறோம். இது `note` content render ஆகுவதை block செய்யாமல் client-இல் Suspend ஆகும்.
 
-Since async components are not supported on the client, we await the promise with `use`.
+Client-இல் async components support செய்யப்படாததால், promise-ஐ `use` மூலம் await செய்கிறோம்.

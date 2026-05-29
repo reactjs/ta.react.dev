@@ -1,39 +1,39 @@
 ---
-title: "Sunsetting Create React App"
+title: "Create React App-ஐ sunsetting செய்தல்"
 author: Matt Carroll and Ricky Hanlon
 date: 2025/02/14
-description: Today, we’re deprecating Create React App for new apps, and encouraging existing apps to migrate to a framework, or to migrate to a build tool like Vite, Parcel, or RSBuild. We’re also providing docs for when a framework isn’t a good fit for your project, you want to build your own framework, or you just want to learn how React works by building a React app from scratch.
+description: இன்று, புதிய apps-க்காக Create React App-ஐ deprecate செய்கிறோம்; existing apps framework-க்கு migrate செய்யவோ, Vite, Parcel, அல்லது RSBuild போன்ற build tool-க்கு migrate செய்யவோ ஊக்குவிக்கிறோம். Framework உங்கள் project-க்கு சரியான fit அல்லாதபோது, நீங்கள் உங்கள் சொந்த framework உருவாக்க விரும்பும்போது, அல்லது React app ஒன்றை scratch-இலிருந்து build செய்து React எப்படி வேலை செய்கிறது என்பதை கற்க விரும்பும்போது உதவும் docs-யையும் வழங்குகிறோம்.
 ---
 
-February 14, 2025 by [Matt Carroll](https://twitter.com/mattcarrollcode) and [Ricky Hanlon](https://bsky.app/profile/ricky.fm)
+February 14, 2025 அன்று [Matt Carroll](https://twitter.com/mattcarrollcode) and [Ricky Hanlon](https://bsky.app/profile/ricky.fm) எழுதியது
 
 ---
 
 <Intro>
 
-Today, we’re deprecating [Create React App](https://create-react-app.dev/) for new apps, and encouraging existing apps to migrate to a [framework](#how-to-migrate-to-a-framework), or to [migrate to a build tool](#how-to-migrate-to-a-build-tool) like Vite, Parcel, or RSBuild.
+இன்று, புதிய apps-க்காக [Create React App](https://create-react-app.dev/)-ஐ deprecate செய்கிறோம்; existing apps ஒரு [framework](#how-to-migrate-to-a-framework)-க்கு migrate செய்யவோ, Vite, Parcel, அல்லது RSBuild போன்ற [build tool-க்கு migrate செய்யவோ](#how-to-migrate-to-a-build-tool) ஊக்குவிக்கிறோம்.
 
-We’re also providing docs for when a framework isn’t a good fit for your project, you want to build your own framework, or you just want to learn how React works by [building a React app from scratch](/learn/build-a-react-app-from-scratch).
+Framework உங்கள் project-க்கு சரியான fit அல்லாதபோது, நீங்கள் உங்கள் சொந்த framework உருவாக்க விரும்பும்போது, அல்லது [React app ஒன்றை scratch-இலிருந்து build செய்து](/learn/build-a-react-app-from-scratch) React எப்படி வேலை செய்கிறது என்பதை கற்க விரும்பும்போது உதவும் docs-யையும் வழங்குகிறோம்.
 
 </Intro>
 
 -----
 
-When we released Create React App in 2016, there was no clear way to build a new React app.
+2016-இல் Create React App-ஐ release செய்தபோது, புதிய React app ஒன்றை build செய்ய தெளிவான வழி இல்லை.
 
-To create a React app, you had to install a bunch of tools and wire them up together yourself to support basic features like JSX, linting, and hot reloading. This was very tricky to do correctly, so the [community](https://github.com/react-boilerplate/react-boilerplate) [created](https://github.com/kriasoft/react-starter-kit) [boilerplates](https://github.com/petehunt/react-boilerplate) for [common](https://github.com/gaearon/react-hot-boilerplate) [setups](https://github.com/erikras/react-redux-universal-hot-example). However, boilerplates were difficult to update and fragmentation made it difficult for React to release new features.
+React app உருவாக்க, JSX, linting, மற்றும் hot reloading போன்ற basic features support செய்ய பல tools install செய்து, அவற்றை நீங்களே wire up செய்ய வேண்டியிருந்தது. இதை சரியாக செய்வது மிகவும் tricky; அதனால் [community](https://github.com/react-boilerplate/react-boilerplate) [பொதுவான](https://github.com/gaearon/react-hot-boilerplate) [setups-க்காக](https://github.com/erikras/react-redux-universal-hot-example) [boilerplates](https://github.com/petehunt/react-boilerplate) [உருவாக்கியது](https://github.com/kriasoft/react-starter-kit). ஆனால் boilerplates update செய்ய கடினமாக இருந்தன; fragmentation காரணமாக React புதிய features release செய்வதும் கடினமானது.
 
-Create React App solved these problems by combining several tools into a single recommended configuration. This allowed apps a simple way to upgrade to new tooling features, and allowed the React team to deploy non-trivial tooling changes (Fast Refresh support, React Hooks lint rules) to the broadest possible audience.
+Create React App, பல tools-ஐ ஒரே recommended configuration-ஆக இணைப்பதன் மூலம் இந்த பிரச்சினைகளை தீர்த்தது. இதனால் apps புதிய tooling features-க்கு நேரடியாக upgrade செய்ய முடிந்தது; மேலும் React team, non-trivial tooling changes (Fast Refresh support, React Hooks lint rules) மிகப் பரந்த audience-க்கு deploy செய்ய முடிந்தது.
 
-This model became so popular that there's an entire category of tools working this way today.
+இந்த model இவ்வளவு பிரபலமானதால், இன்று இதே முறையில் வேலை செய்யும் முழு tools category ஒன்று உள்ளது.
 
-## Deprecating Create React App {/*deprecating-create-react-app*/}
+## Create React App-ஐ deprecate செய்தல் {/*deprecating-create-react-app*/}
 
-Although Create React App makes it easy to get started, [there are several limitations](#limitations-of-build-tools) that make it difficult to build high performant production apps. In principle, we could solve these problems by essentially evolving it into a [framework](#why-we-recommend-frameworks).
+Create React App தொடங்க வசதியாக்கினாலும், high performant production apps build செய்வதை கடினமாக்கும் [பல limitations](#limitations-of-build-tools) உள்ளன. கொள்கை ரீதியாக, இதை [framework](#why-we-recommend-frameworks)-ஆக evolve செய்வதன் மூலம் இந்த பிரச்சினைகளை தீர்க்கலாம்.
 
-However, since Create React App currently has no active maintainers, and there are many existing frameworks that solve these problems already, we’ve decided to deprecate Create React App.
+ஆனால் Create React App-க்கு தற்போது active maintainers இல்லை; மேலும் இந்த பிரச்சினைகளை ஏற்கனவே தீர்க்கும் பல existing frameworks உள்ளன. எனவே Create React App-ஐ deprecate செய்ய தீர்மானித்துள்ளோம்.
 
-Starting today, if you install a new app, you will see a deprecation warning:
+இன்று முதல், நீங்கள் புதிய app install செய்தால், deprecation warning பார்க்கிறீர்கள்:
 
 <ConsoleBlockMulti>
 <ConsoleLogLine level="error">
@@ -48,66 +48,66 @@ This error message will only be shown once per install.
 </ConsoleLogLine>
 </ConsoleBlockMulti>
 
-We've also added a deprecation notice to the Create React App [website](https://create-react-app.dev/) and GitHub [repo](https://github.com/facebook/create-react-app). Create React App will continue working in maintenance mode, and we've published a new version of Create React App to work with React 19.
+Create React App [website](https://create-react-app.dev/) மற்றும் GitHub [repo](https://github.com/facebook/create-react-app)-விலும் deprecation notice சேர்த்துள்ளோம். Create React App maintenance mode-இல் தொடர்ந்து வேலை செய்யும்; மேலும் React 19 உடன் வேலை செய்ய Create React App-ன் புதிய version ஒன்றை publish செய்துள்ளோம்.
 
-## How to Migrate to a Framework {/*how-to-migrate-to-a-framework*/}
-We recommend [creating new React apps](/learn/creating-a-react-app) with a framework. All the frameworks we recommend support client-side rendering ([CSR](https://developer.mozilla.org/en-US/docs/Glossary/CSR)) and single-page apps ([SPA](https://developer.mozilla.org/en-US/docs/Glossary/SPA)), and can be deployed to a CDN or static hosting service without a server.
+## Framework-க்கு migrate செய்வது எப்படி {/*how-to-migrate-to-a-framework*/}
+புதிய React apps-ஐ [framework உடன் உருவாக்க](/learn/creating-a-react-app) பரிந்துரைக்கிறோம். நாங்கள் பரிந்துரைக்கும் அனைத்து frameworks-யும் client-side rendering ([CSR](https://developer.mozilla.org/en-US/docs/Glossary/CSR)) மற்றும் single-page apps ([SPA](https://developer.mozilla.org/en-US/docs/Glossary/SPA))-ஐ support செய்கின்றன; server இல்லாமல் CDN அல்லது static hosting service-க்கு deploy செய்யலாம்.
 
-For existing apps, these guides will help you migrate to a client-only SPA:
+Existing apps-க்கு, client-only SPA-க்கு migrate செய்ய இந்த guides உதவும்:
 
-* [Next.js’ Create React App migration guide](https://nextjs.org/docs/app/building-your-application/upgrading/from-create-react-app)
-* [React Router’s framework adoption guide](https://reactrouter.com/upgrading/component-routes).
-* [Expo webpack to Expo Router migration guide](https://docs.expo.dev/router/migrate/from-expo-webpack/)
+* [Next.js-ன் Create React App migration guide](https://nextjs.org/docs/app/building-your-application/upgrading/from-create-react-app)
+* [React Router-ன் framework adoption guide](https://reactrouter.com/upgrading/component-routes).
+* [Expo webpack-இலிருந்து Expo Router-க்கு migration guide](https://docs.expo.dev/router/migrate/from-expo-webpack/)
 
-## How to Migrate to a Build Tool {/*how-to-migrate-to-a-build-tool*/}
+## Build tool-க்கு migrate செய்வது எப்படி {/*how-to-migrate-to-a-build-tool*/}
 
-If your app has unusual constraints, or you prefer to solve these problems by building your own framework, or you just want to learn how react works from scratch, you can roll your own custom setup with React using Vite, Parcel or Rsbuild.
+உங்கள் app-க்கு unusual constraints இருந்தால், அல்லது இந்த பிரச்சினைகளை உங்கள் சொந்த framework build செய்வதன் மூலம் solve செய்ய விரும்பினால், அல்லது React scratch-இலிருந்து எப்படி வேலை செய்கிறது என்பதை கற்கவே விரும்பினால், Vite, Parcel அல்லது Rsbuild பயன்படுத்தி React உடன் உங்கள் சொந்த custom setup உருவாக்கலாம்.
 
-For existing apps, these guides will help you migrate to a build tool:
+Existing apps-க்கு, build tool-க்கு migrate செய்ய இந்த guides உதவும்:
 
 * [Vite Create React App migration guide](https://www.robinwieruch.de/vite-create-react-app/)
 * [Parcel Create React App migration guide](https://parceljs.org/migration/cra/)
 * [Rsbuild Create React App migration guide](https://rsbuild.dev/guide/migration/cra)
 
-To help get started with Vite, Parcel or Rsbuild, we've added new docs for [Building a React App from Scratch](/learn/build-a-react-app-from-scratch).
+Vite, Parcel அல்லது Rsbuild உடன் தொடங்க உதவ, [React App ஒன்றை Scratch-இலிருந்து Build செய்தல்](/learn/build-a-react-app-from-scratch) என்ற புதிய docs சேர்த்துள்ளோம்.
 
 <DeepDive>
 
-#### Do I need a framework? {/*do-i-need-a-framework*/}
+#### எனக்கு framework தேவையா? {/*do-i-need-a-framework*/}
 
-Most apps would benefit from a framework, but there are valid cases to build a React app from scratch. A good rule of thumb is if your app needs routing, you would probably benefit from a framework.
+பெரும்பாலான apps framework-ன் பயனைப் பெறும்; ஆனால் React app ஒன்றை scratch-இலிருந்து build செய்யும் valid cases உள்ளன. நல்ல thumb rule: உங்கள் app-க்கு routing தேவைப்பட்டால், framework உங்களுக்கு பயனாக இருக்கும்.
 
-Just like Svelte has Sveltekit, Vue has Nuxt, and Solid has SolidStart, [React recommends using a framework](#why-we-recommend-frameworks) that fully integrates routing into features like data-fetching and code-splitting out of the box. This avoids the pain of needing to write your own complex configurations and essentially build a framework yourself.
+Svelte-க்கு Sveltekit, Vue-க்கு Nuxt, Solid-க்கு SolidStart இருப்பது போல, data-fetching மற்றும் code-splitting போன்ற features-இல் routing-ஐ out of the box முழுமையாக integrate செய்யும் [framework பயன்படுத்த React பரிந்துரைக்கிறது](#why-we-recommend-frameworks). இது உங்கள் சொந்த complex configurations எழுத வேண்டிய சிரமத்தையும், உண்மையில் framework ஒன்றை நீங்களே build செய்ய வேண்டிய நிலையும் தவிர்க்கிறது.
 
-However, you can always [build a React app from scratch](/learn/build-a-react-app-from-scratch) using a build tool like Vite, Parcel, or Rsbuild.
+ஆனால் Vite, Parcel, அல்லது Rsbuild போன்ற build tool பயன்படுத்தி நீங்கள் எப்போதும் [React app ஒன்றை scratch-இலிருந்து build செய்யலாம்](/learn/build-a-react-app-from-scratch).
 
 </DeepDive>
 
-Continue reading to learn more about the [limitations of build tools](#limitations-of-build-tools) and [why we recommend frameworks](#why-we-recommend-frameworks).
+[Build tools-ன் limitations](#limitations-of-build-tools) மற்றும் [ஏன் frameworks பரிந்துரைக்கிறோம்](#why-we-recommend-frameworks) என்பதை மேலும் அறிய தொடர்ந்து படிக்கவும்.
 
-## Limitations of Build Tools {/*limitations-of-build-tools*/}
+## Build tools-ன் limitations {/*limitations-of-build-tools*/}
 
-Create React App and build tools like it make it easy to get started building a React app. After running `npx create-react-app my-app`, you get a fully configured React app with a development server, linting, and a production build.
+Create React App மற்றும் அதுபோன்ற build tools, React app build செய்ய தொடங்குவதை உதவுகின்றன. `npx create-react-app my-app` run செய்த பிறகு, development server, linting, மற்றும் production build உடன் fully configured React app கிடைக்கும்.
 
-For example, if you're building an internal admin tool, you can start with a landing page:
+உதாரணமாக, நீங்கள் internal admin tool build செய்தால், landing page ஒன்றிலிருந்து தொடங்கலாம்:
 
 ```js
 export default function App() {
   return (
     <div>
-      <h1>Welcome to the Admin Tool!</h1>
+      <h1>Admin Tool-க்கு வரவேற்கிறோம்!</h1>
     </div>
   )
 }
 ```
 
-This allows you to immediately start coding in React with features like JSX, default linting rules, and a bundler to run in both development and production. However, this setup is missing the tools you need to build a real production app.
+இதனால் JSX, default linting rules, மற்றும் development மற்றும் production இரண்டிலும் run செய்ய bundler போன்ற features உடன் React-இல் உடனடியாக coding தொடங்கலாம். ஆனால் real production app build செய்ய தேவையான tools இந்த setup-இல் இல்லை.
 
-Most production apps need solutions to problems like routing, data fetching, and code splitting.
+பெரும்பாலான production apps routing, data fetching, மற்றும் code splitting போன்ற problems-க்கு solutions தேவைப்படும்.
 
 ### Routing {/*routing*/}
 
-Create React App does not include a specific routing solution. If you're just getting started, one option is to use `useState` to switch between routes. But doing this means that you can't share links to your app - every link would go to the same page - and structuring your app becomes difficult over time:
+Create React App குறிப்பிட்ட routing solution ஒன்றை include செய்யாது. நீங்கள் இப்போது தொடங்குகிறீர்கள் என்றால், routes இடையே switch செய்ய `useState` பயன்படுத்துவது ஒரு option. ஆனால் இதைச் செய்தால், உங்கள் app-க்கு links share செய்ய முடியாது - ஒவ்வொரு link-யும் அதே page-க்கு செல்லும் - மேலும் காலப்போக்கில் app structure கடினமாகிறது:
 
 ```js
 import {useState} from 'react';
@@ -127,7 +127,7 @@ export default function App() {
 }
 ```
 
-This is why most apps that use Create React App solve add routing with a routing library like [React Router](https://reactrouter.com/) or [Tanstack Router](https://tanstack.com/router/latest). With a routing library, you can add additional routes to the app, which provides opinions on the structure of your app, and allows you to start sharing links to routes. For example, with React Router you can define routes:
+இதனால் தான் Create React App பயன்படுத்தும் பெரும்பாலான apps, [React Router](https://reactrouter.com/) அல்லது [Tanstack Router](https://tanstack.com/router/latest) போன்ற routing library சேர்த்து routing solve செய்கின்றன. Routing library உடன், app-க்கு கூடுதல் routes சேர்க்கலாம்; இது உங்கள் app structure பற்றி opinions வழங்குகிறது, மேலும் routes-க்கு links share செய்ய தொடங்க அனுமதிக்கிறது. உதாரணமாக, React Router உடன் routes define செய்யலாம்:
 
 ```js
 import {RouterProvider, createBrowserRouter} from 'react-router';
@@ -148,15 +148,15 @@ export default function App() {
 }
 ```
 
-With this change, you can share a link to `/dashboard` and the app will navigate to the dashboard page . Once you have a routing library, you can add additional features like nested routes, route guards, and route transitions, which are difficult to implement without a routing library.
+இந்த change-இன் மூலம், `/dashboard`-க்கு link share செய்யலாம்; app dashboard page-க்கு navigate செய்யும். Routing library கிடைத்த பிறகு, nested routes, route guards, மற்றும் route transitions போன்ற கூடுதல் features சேர்க்கலாம்; routing library இல்லாமல் அவற்றை implement செய்வது கடினம்.
 
-There's a tradeoff being made here: the routing library adds complexity to the app, but it also adds features that are difficult to implement without it.
+இங்கே ஒரு tradeoff உள்ளது: routing library app-க்கு complexity சேர்க்கிறது; அதே சமயம் அது இல்லாமல் implement செய்ய கடினமான features-யையும் சேர்க்கிறது.
 
-### Data Fetching {/*data-fetching*/}
+### Data fetching {/*data-fetching*/}
 
-Another common problem in Create React App is data fetching. Create React App does not include a specific data fetching solution. If you're just getting started, a common option is to use `fetch` in an effect to load data.
+Create React App-இல் இன்னொரு பொதுவான problem data fetching. Create React App குறிப்பிட்ட data fetching solution ஒன்றை include செய்யாது. நீங்கள் தொடங்குகிறீர்கள் என்றால், data load செய்ய effect-இல் `fetch` பயன்படுத்துவது பொதுவான option.
 
-But doing this means that the data is fetched after the component renders, which can cause network waterfalls. Network waterfalls are caused by fetching data when your app renders instead of in parallel while the code is downloading:
+ஆனால் இதைச் செய்தால், component render ஆன பிறகே data fetch செய்யப்படும்; இதனால் network waterfalls ஏற்படலாம். உங்கள் app render ஆகும்போது data fetch செய்வதால், code download ஆகும் நேரத்திலேயே parallel-ஆக fetch செய்யாமல் network waterfalls உருவாகின்றன:
 
 ```js
 export default function Dashboard() {
@@ -177,9 +177,9 @@ export default function Dashboard() {
 }
 ```
 
-Fetching in an effect means the user has to wait longer to see the content, even though the data could have been fetched earlier. To solve this, you can use a data fetching library like [TanStack Query](https://tanstack.com/query/), [SWR](https://swr.vercel.app/), [Apollo](https://www.apollographql.com/docs/react), or [Relay](https://relay.dev/) which provide options to prefetch data so the request is started before the component renders.
+Effect-இல் fetching செய்வதால், data முன்பே fetch செய்ய முடிந்திருந்தாலும், user content பார்க்க இன்னும் நீண்ட நேரம் காத்திருக்க வேண்டும். இதை solve செய்ய, [TanStack Query](https://tanstack.com/query/), [SWR](https://swr.vercel.app/), [Apollo](https://www.apollographql.com/docs/react), அல்லது [Relay](https://relay.dev/) போன்ற data fetching library பயன்படுத்தலாம்; இவை component render ஆகும்முன் request தொடங்க data prefetch செய்யும் options வழங்குகின்றன.
 
-These libraries work best when integrated with your routing "loader" pattern to specify data dependencies at the route level, which allows the router to optimize your data fetches:
+Route level-இல் data dependencies specify செய்ய உங்கள் routing "loader" pattern உடன் integrate செய்யும்போது இந்த libraries சிறப்பாக வேலை செய்கின்றன; இதனால் router உங்கள் data fetches-ஐ optimize செய்ய முடியும்:
 
 ```js
 export async function loader() {
@@ -198,21 +198,21 @@ export default function Dashboard({loaderData}) {
 }
 ```
 
-On initial load, the router can fetch the data immediately before the route is rendered. As the user navigates around the app, the router is able to fetch both the data and the route at the same time, parallelizing the fetches. This reduces the time it takes to see the content on the screen, and can improve the user experience.
+Initial load-இல், route render ஆகும்முன் router data-வை உடனடியாக fetch செய்ய முடியும். User app-இல் navigate செய்யும்போது, router data மற்றும் route இரண்டையும் ஒரே நேரத்தில் fetch செய்து fetches-ஐ parallelize செய்ய முடியும். இதனால் screen-இல் content காணும் நேரம் குறைகிறது; user experience மேம்படலாம்.
 
-However, this requires correctly configuring the loaders in your app and trades off complexity for performance.
+ஆனால் இதற்கு உங்கள் app-இல் loaders சரியாக configure செய்ய வேண்டும்; performance-க்காக complexity tradeoff செய்யப்படுகிறது.
 
-### Code Splitting {/*code-splitting*/}
+### Code splitting {/*code-splitting*/}
 
-Another common problem in Create React App is [code splitting](https://www.patterns.dev/vanilla/bundle-splitting). Create React App does not include a specific code splitting solution. If you're just getting started, you might not consider code splitting at all.
+Create React App-இல் இன்னொரு பொதுவான problem [code splitting](https://www.patterns.dev/vanilla/bundle-splitting). Create React App குறிப்பிட்ட code splitting solution ஒன்றை include செய்யாது. நீங்கள் இப்போது தொடங்குகிறீர்கள் என்றால், code splitting பற்றி யோசிக்கவோமல் இருக்கலாம்.
 
-This means your app is shipped as a single bundle:
+இதனால் உங்கள் app ஒரே bundle ஆக ship செய்யப்படும்:
 
 ```txt
 - bundle.js    75kb
 ```
 
-But for ideal performance, you should "split" your code into separate bundles so the user only needs to download what they need. This decreases the time the user needs to wait to load your app, by only downloading the code they need to see the page they are on.
+ஆனால் ideal performance-க்கு, உங்கள் code-ஐ தனித்தனியான bundles-ஆக "split" செய்ய வேண்டும்; இதனால் user-க்கு தேவைப்படுவது மட்டுமே download செய்ய வேண்டும். அவர்கள் இருக்கும் page பார்க்க தேவையான code மட்டுமே download செய்வதால், app load ஆக user காத்திருக்கும் நேரம் குறையும்.
 
 ```txt
 - core.js      25kb
@@ -220,7 +220,7 @@ But for ideal performance, you should "split" your code into separate bundles so
 - dashboard.js 25kb
 ```
 
-One way to do code-splitting is with `React.lazy`. However, this means that the code is not fetched until the component renders, which can cause network waterfalls. A more optimal solution is to use a router feature that fetches the code in parallel while the code is downloading. For example, React Router provides a `lazy` option to specify that a route should be code split and optimize when it is loaded:
+Code-splitting செய்வதற்கான ஒரு வழி `React.lazy`. ஆனால் இதனால் component render ஆகும் வரை code fetch செய்யப்படாது; network waterfalls ஏற்படலாம். இன்னும் optimal solution, code download ஆகும் நேரத்திலேயே code-ஐ parallel-ஆக fetch செய்யும் router feature பயன்படுத்துவது. உதாரணமாக, route code split செய்யப்பட வேண்டும் என்றும் அது load ஆகும் நேரத்தை optimize செய்ய வேண்டும் என்றும் குறிப்பிட React Router `lazy` option வழங்குகிறது:
 
 ```js
 import Home from './Home';
@@ -233,13 +233,13 @@ const router = createBrowserRouter([
 ]);
 ```
 
-Optimized code-splitting is tricky to get right, and it's easy to make mistakes that can cause the user to download more code than they need. It works best when integrated with your router and data loading solutions to maximize caching, parallelize fetches, and support ["import on interaction"](https://www.patterns.dev/vanilla/import-on-interaction) patterns.
+Optimized code-splitting சரியாக செய்வது tricky; user-க்கு தேவையானதைவிட அதிக code download செய்யும் mistakes செய்வது சாத்தியம். Caching maximize செய்ய, fetches parallelize செய்ய, மற்றும் ["import on interaction"](https://www.patterns.dev/vanilla/import-on-interaction) patterns support செய்ய, router மற்றும் data loading solutions உடன் integrate ஆனபோது இது சிறப்பாக வேலை செய்கிறது.
 
-### And more... {/*and-more*/}
+### மேலும்... {/*and-more*/}
 
-These are just a few examples of the limitations of Create React App.
+இவை Create React App-ன் limitations-இன் சில examples மட்டுமே.
 
-Once you've integrated routing, data-fetching, and code splitting, you now also need to consider pending states, navigation interruptions, error messages to the user, and revalidation of the data. There are entire categories of problems that users need to solve like:
+Routing, data-fetching, மற்றும் code splitting integrate செய்த பிறகு, pending states, navigation interruptions, user-க்கு error messages, மற்றும் data revalidation ஆகியவற்றையும் consider செய்ய வேண்டும். Users solve செய்ய வேண்டிய முழு categories உள்ளன:
 
 <div style={{display: 'flex', width: '100%', justifyContent: 'space-around'}}>
   <ul>
@@ -262,59 +262,58 @@ Once you've integrated routing, data-fetching, and code splitting, you now also 
   </ul>
 </div>
 
-All of these work together to create the most optimal [loading sequence](https://www.patterns.dev/vanilla/loading-sequence).
+இவை அனைத்தும் சேர்ந்து மிகவும் optimal [loading sequence](https://www.patterns.dev/vanilla/loading-sequence)-ஐ உருவாக்குகின்றன.
 
-Solving each of these problems individually in Create React App can be difficult as each problem is interconnected with the others and can require deep expertise in problem areas users may not be familiar with. In order to solve these problems, users end up building their own bespoke solutions on top of Create React App, which was the problem Create React App originally tried to solve.
+Create React App-இல் இந்த பிரச்சினைகள் ஒவ்வொன்றையும் தனித்தனியாக solve செய்வது கடினமாக இருக்கலாம்; ஏனெனில் ஒவ்வொரு problem-மும் மற்றவற்றுடன் interconnected ஆக உள்ளது, மேலும் users-க்கு அறிமுகம் இல்லாத problem areas-இல் deep expertise தேவைப்படலாம். இந்த பிரச்சினைகளை solve செய்ய, users Create React App மேல் தங்கள் சொந்த bespoke solutions build செய்ய வேண்டிய நிலை ஏற்படுகிறது; இதுவே Create React App ஆரம்பத்தில் solve செய்ய முயன்ற problem.
 
-## Why we Recommend Frameworks {/*why-we-recommend-frameworks*/}
+## ஏன் frameworks பரிந்துரைக்கிறோம் {/*why-we-recommend-frameworks*/}
 
-Although you could solve all these pieces yourself in a build tool like Create React App, Vite, or Parcel, it is hard to do well. Just like when Create React App itself integrated several build tools together, you need a tool to integrate all of these features together to provide the best experience to users.
+Create React App, Vite, அல்லது Parcel போன்ற build tool-இல் இந்த எல்லா pieces-ஐயும் நீங்கள் solve செய்ய முடியும்; ஆனால் அதை நன்றாக செய்வது கடினம். Create React App பல build tools-ஐ ஒன்றாக integrate செய்தது போலவே, users-க்கு சிறந்த experience வழங்க இந்த features அனைத்தையும் ஒன்றாக integrate செய்யும் tool தேவை.
 
-This category of tools that integrates build tools, rendering, routing, data fetching, and code splitting are known as "frameworks" -- or if you prefer to call React itself a framework, you might call them "metaframeworks".
+Build tools, rendering, routing, data fetching, மற்றும் code splitting-ஐ integrate செய்யும் இந்த tools category "frameworks" என அழைக்கப்படுகிறது - அல்லது React-ஐயே framework என்று அழைக்க விரும்பினால், இவற்றை "metaframeworks" என்று அழைக்கலாம்.
 
-Frameworks impose some opinions about structuring your app in order to provide a much better user experience, in the same way build tools impose some opinions to make tooling easier. This is why we started recommending frameworks like [Next.js](https://nextjs.org/), [React Router](https://reactrouter.com/), and [Expo](https://expo.dev/) for new projects.
+Build tools, tooling-ஐ மேம்படுத்த சில opinions impose செய்வதைப் போலவே, frameworks மிகச் சிறந்த user experience வழங்க உங்கள் app-ஐ structure செய்வது பற்றி சில opinions impose செய்கின்றன. இதனால் தான் புதிய projects-க்கு [Next.js](https://nextjs.org/), [React Router](https://reactrouter.com/), மற்றும் [Expo](https://expo.dev/) போன்ற frameworks-ஐ பரிந்துரைக்கத் தொடங்கினோம்.
 
-Frameworks provide the same getting started experience as Create React App, but also provide solutions to problems users need to solve anyway in real production apps.
+Frameworks, Create React App போலவே getting started experience வழங்குகின்றன; ஆனால் real production apps-இல் users எப்படியும் solve செய்ய வேண்டிய problems-க்கும் solutions வழங்குகின்றன.
 
 <DeepDive>
 
-#### Server rendering is optional {/*server-rendering-is-optional*/}
+#### Server rendering விருப்பத் தேர்வு {/*server-rendering-is-optional*/}
 
-The frameworks we recommend all provide the option to create a [client-side rendered (CSR)](https://developer.mozilla.org/en-US/docs/Glossary/CSR) app.
+நாங்கள் பரிந்துரைக்கும் frameworks அனைத்தும் [client-side rendered (CSR)](https://developer.mozilla.org/en-US/docs/Glossary/CSR) app உருவாக்கும் option வழங்குகின்றன.
 
-In some cases, CSR is the right choice for a page, but many times it's not. Even if most of your app is client-side, there are often individual pages that could benefit from server rendering features like [static-site generation (SSG)](https://developer.mozilla.org/en-US/docs/Glossary/SSG) or [server-side rendering (SSR)](https://developer.mozilla.org/en-US/docs/Glossary/SSR), for example a Terms of Service page, or documentation.
+சில cases-இல் CSR ஒரு page-க்கு சரியான தேர்வு; ஆனால் பல நேரங்களில் அது சரியானது அல்ல. உங்கள் app-ன் பெரும்பாலான பகுதி client-side ஆக இருந்தாலும், [static-site generation (SSG)](https://developer.mozilla.org/en-US/docs/Glossary/SSG) அல்லது [server-side rendering (SSR)](https://developer.mozilla.org/en-US/docs/Glossary/SSR) போன்ற server rendering features-இன் பயன் பெறக்கூடிய individual pages அடிக்கடி இருக்கும்; உதாரணமாக Terms of Service page அல்லது documentation.
 
-Server rendering generally sends less JavaScript to the client, and a full HTML document which produces a faster [First Contentful Paint (FCP)](https://web.dev/articles/fcp) by reducing [Total Blocking Time (TBD)](https://web.dev/articles/tbt), which can also lower [Interaction to Next Paint (INP)](https://web.dev/articles/inp). This is why the [Chrome team has encouraged](https://web.dev/articles/rendering-on-the-web) developers to consider static or server-side render over a full client-side approach to achieve the best possible performance.
+Server rendering பொதுவாக client-க்கு குறைவான JavaScript மற்றும் முழு HTML document அனுப்புகிறது; இது [Total Blocking Time (TBD)](https://web.dev/articles/tbt)-ஐ குறைப்பதன் மூலம் வேகமான [First Contentful Paint (FCP)](https://web.dev/articles/fcp) உருவாக்கும்; இது [Interaction to Next Paint (INP)](https://web.dev/articles/inp)-ஐயும் குறைக்க முடியும். இதனால் தான் [Chrome team](https://web.dev/articles/rendering-on-the-web), சிறந்த possible performance பெற full client-side approach-க்கு பதிலாக static அல்லது server-side render-ஐ consider செய்ய developers-ஐ ஊக்குவித்துள்ளது.
 
-There are tradeoffs to using a server, and it is not always the best option for every page. Generating pages on the server incurs additional cost and takes time to generate which can increase [Time to First Byte (TTFB)](https://web.dev/articles/ttfb). The best performing apps are able to pick the right rendering strategy on a per-page basis, based on the tradeoffs of each strategy.
+Server பயன்படுத்துவதில் tradeoffs உள்ளன; அது ஒவ்வொரு page-க்கும் எப்போதும் சிறந்த option அல்ல. Server-இல் pages generate செய்வது கூடுதல் cost ஏற்படுத்துகிறது மற்றும் generate செய்ய நேரம் எடுக்கும்; இது [Time to First Byte (TTFB)](https://web.dev/articles/ttfb)-ஐ அதிகரிக்கலாம். மிகச்சிறந்த performance கொண்ட apps, ஒவ்வொரு strategy-யின் tradeoffs அடிப்படையில் page-by-page சரியான rendering strategy-ஐ தேர்ந்தெடுக்க முடியும்.
 
-Frameworks provide the option to use a server on any page if you want to, but do not force you to use a server. This allows you to pick the right rendering strategy for each page in your app.
+Frameworks நீங்கள் விரும்பினால் எந்த page-இலும் server பயன்படுத்தும் option வழங்குகின்றன; ஆனால் server பயன்படுத்த உங்களை force செய்யாது. இதனால் உங்கள் app-ன் ஒவ்வொரு page-க்கும் சரியான rendering strategy தேர்வு செய்ய முடியும்.
 
-#### What About Server Components {/*server-components*/}
+#### Server Components பற்றி என்ன? {/*server-components*/}
 
-The frameworks we recommend also include support for React Server Components.
+நாங்கள் பரிந்துரைக்கும் frameworks, React Server Components support-யும் கொண்டுள்ளன.
 
-Server Components help solve these problems by moving routing and data fetching to the server, and allowing code splitting to be done for client components based on the data you render, instead of just the route rendered, and reducing the amount of JavaScript shipped for the best possible [loading sequence](https://www.patterns.dev/vanilla/loading-sequence).
+Server Components, routing மற்றும் data fetching-ஐ server-க்கு நகர்த்துவதன் மூலம் இந்த பிரச்சினைகளை solve செய்ய உதவுகின்றன; மேலும் rendered route மட்டும் அடிப்படையாக அல்லாமல், நீங்கள் render செய்யும் data அடிப்படையில் client components-க்கு code splitting செய்ய அனுமதிக்கின்றன. சிறந்த possible [loading sequence](https://www.patterns.dev/vanilla/loading-sequence)-க்காக ship செய்யப்படும் JavaScript அளவையும் குறைக்கின்றன.
 
-Server Components do not require a server. They can be run at build time on your CI server to create a static-site generated app (SSG) app, at runtime on a web server for a server-side rendered (SSR) app.
+Server Components-க்கு server அவசியமில்லை. Static-site generated app (SSG) உருவாக்க build time-இல் உங்கள் CI server-இல் run செய்யலாம்; server-side rendered (SSR) app-க்காக runtime-இல் web server-இல் run செய்யலாம்.
 
-See [Introducing zero-bundle size React Server Components](/blog/2020/12/21/data-fetching-with-react-server-components) and [the docs](/reference/rsc/server-components) for more info.
+மேலும் தகவலுக்கு [Introducing zero-bundle size React Server Components](/blog/2020/12/21/data-fetching-with-react-server-components) மற்றும் [docs](/reference/rsc/server-components)-ஐ பார்க்கவும்.
 
 </DeepDive>
 
 <Note>
 
-#### Server Rendering is not just for SEO {/*server-rendering-is-not-just-for-seo*/}
+#### Server rendering SEO-க்காக மட்டும் அல்ல {/*server-rendering-is-not-just-for-seo*/}
 
-A common misunderstanding is that server rendering is only for [SEO](https://developer.mozilla.org/en-US/docs/Glossary/SEO).
+பொதுவான misunderstanding ஒன்று: server rendering [SEO](https://developer.mozilla.org/en-US/docs/Glossary/SEO)-க்காக மட்டுமே என்பது.
 
-While server rendering can improve SEO, it also improves performance by reducing the amount of JavaScript the user needs to download and parse before they can see the content on the screen.
+Server rendering SEO-ஐ மேம்படுத்தலாம்; அதே சமயம் user screen-இல் content பார்க்கும்முன் download மற்றும் parse செய்ய வேண்டிய JavaScript அளவை குறைப்பதால் performance-யையும் மேம்படுத்துகிறது.
 
-This is why the Chrome team [has encouraged](https://web.dev/articles/rendering-on-the-web) developers to consider static or server-side render over a full client-side approach to achieve the best possible performance.
+இதனால் தான் சிறந்த possible performance பெற, full client-side approach-க்கு பதிலாக static அல்லது server-side render consider செய்ய [Chrome team](https://web.dev/articles/rendering-on-the-web) developers-ஐ ஊக்குவித்துள்ளது.
 
 </Note>
 
 ---
 
-_Thank you to [Dan Abramov](https://bsky.app/profile/danabra.mov) for creating Create React App, and [Joe Haddad](https://github.com/Timer), [Ian Schmitz](https://github.com/ianschmitz), [Brody McKee](https://github.com/mrmckeb), and [many others](https://github.com/facebook/create-react-app/graphs/contributors) for maintaining Create React App over the years. Thank you to [Brooks Lybrand](https://bsky.app/profile/brookslybrand.bsky.social), [Dan Abramov](https://bsky.app/profile/danabra.mov), [Devon Govett](https://bsky.app/profile/devongovett.bsky.social), [Eli White](https://x.com/Eli_White), [Jack Herrington](https://bsky.app/profile/jherr.dev), [Joe Savona](https://x.com/en_JS), [Lauren Tan](https://bsky.app/profile/no.lol), [Lee Robinson](https://x.com/leeerob), [Mark Erikson](https://bsky.app/profile/acemarke.dev), [Ryan Florence](https://x.com/ryanflorence), [Sophie Alpert](https://bsky.app/profile/sophiebits.com), [Tanner Linsley](https://bsky.app/profile/tannerlinsley.com), and [Theo Browne](https://x.com/theo) for reviewing and providing feedback on this post._
-
+_Create React App-ஐ உருவாக்கிய [Dan Abramov](https://bsky.app/profile/danabra.mov)-க்கும், பல ஆண்டுகளாக Create React App-ஐ maintain செய்த [Joe Haddad](https://github.com/Timer), [Ian Schmitz](https://github.com/ianschmitz), [Brody McKee](https://github.com/mrmckeb), மற்றும் [பலருக்கும்](https://github.com/facebook/create-react-app/graphs/contributors) நன்றி. இந்த post-ஐ review செய்து feedback வழங்கிய [Brooks Lybrand](https://bsky.app/profile/brookslybrand.bsky.social), [Dan Abramov](https://bsky.app/profile/danabra.mov), [Devon Govett](https://bsky.app/profile/devongovett.bsky.social), [Eli White](https://x.com/Eli_White), [Jack Herrington](https://bsky.app/profile/jherr.dev), [Joe Savona](https://x.com/en_JS), [Lauren Tan](https://bsky.app/profile/no.lol), [Lee Robinson](https://x.com/leeerob), [Mark Erikson](https://bsky.app/profile/acemarke.dev), [Ryan Florence](https://x.com/ryanflorence), [Sophie Alpert](https://bsky.app/profile/sophiebits.com), [Tanner Linsley](https://bsky.app/profile/tannerlinsley.com), மற்றும் [Theo Browne](https://x.com/theo)-க்கும் நன்றி._

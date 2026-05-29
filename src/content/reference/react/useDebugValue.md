@@ -4,7 +4,7 @@ title: useDebugValue
 
 <Intro>
 
-`useDebugValue` is a React Hook that lets you add a label to a custom Hook in [React DevTools.](/learn/react-developer-tools)
+`useDebugValue` என்பது [React DevTools](/learn/react-developer-tools)-இல் custom Hook ஒன்றுக்கு label சேர்க்க உதவும் React Hook.
 
 ```js
 useDebugValue(value, format?)
@@ -20,7 +20,7 @@ useDebugValue(value, format?)
 
 ### `useDebugValue(value, format?)` {/*usedebugvalue*/}
 
-Call `useDebugValue` at the top level of your [custom Hook](/learn/reusing-logic-with-custom-hooks) to display a readable debug value:
+வாசிக்கக்கூடிய debug value ஒன்றைக் காட்ட, உங்கள் [custom Hook](/learn/reusing-logic-with-custom-hooks)-இன் top level-இல் `useDebugValue`-ஐ அழைக்கவும்:
 
 ```js
 import { useDebugValue } from 'react';
@@ -32,22 +32,22 @@ function useOnlineStatus() {
 }
 ```
 
-[See more examples below.](#usage)
+[மேலும் உதாரணங்களை கீழே பார்க்கவும்.](#usage)
 
 #### Parameters {/*parameters*/}
 
-* `value`: The value you want to display in React DevTools. It can have any type.
-* **optional** `format`: A formatting function. When the component is inspected, React DevTools will call the formatting function with the `value` as the argument, and then display the returned formatted value (which may have any type). If you don't specify the formatting function, the original `value` itself will be displayed.
+* `value`: React DevTools-இல் காட்ட விரும்பும் value. இது எந்த type-ஆகவும் இருக்கலாம்.
+* **optional** `format`: Formatting function. Component inspect செய்யப்படும் போது, React DevTools இந்த formatting function-ஐ `value` argument-உடன் அழைத்து, return செய்யப்படும் formatted value-ஐ (அதுவும் எந்த type-ஆகவும் இருக்கலாம்) காட்டும். Formatting function குறிப்பிடவில்லை என்றால், அசல் `value` தானே காட்டப்படும்.
 
 #### Returns {/*returns*/}
 
-`useDebugValue` does not return anything.
+`useDebugValue` எதையும் return செய்யாது.
 
 ## Usage {/*usage*/}
 
-### Adding a label to a custom Hook {/*adding-a-label-to-a-custom-hook*/}
+### Custom Hook-க்கு label சேர்த்தல் {/*adding-a-label-to-a-custom-hook*/}
 
-Call `useDebugValue` at the top level of your [custom Hook](/learn/reusing-logic-with-custom-hooks) to display a readable <CodeStep step={1}>debug value</CodeStep> for [React DevTools.](/learn/react-developer-tools)
+[React DevTools](/learn/react-developer-tools)-க்காக வாசிக்கக்கூடிய <CodeStep step={1}>debug value</CodeStep> காட்ட, உங்கள் [custom Hook](/learn/reusing-logic-with-custom-hooks)-இன் top level-இல் `useDebugValue`-ஐ அழைக்கவும்.
 
 ```js [[1, 5, "isOnline ? 'Online' : 'Offline'"]]
 import { useDebugValue } from 'react';
@@ -59,11 +59,11 @@ function useOnlineStatus() {
 }
 ```
 
-This gives components calling `useOnlineStatus` a label like `OnlineStatus: "Online"` when you inspect them:
+`useOnlineStatus`-ஐ அழைக்கும் components-ஐ inspect செய்யும்போது, அவற்றுக்கு `OnlineStatus: "Online"` போன்ற label கிடைக்கும்:
 
-![A screenshot of React DevTools showing the debug value](/images/docs/react-devtools-usedebugvalue.png)
+![Debug value-ஐ காட்டும் React DevTools screenshot](/images/docs/react-devtools-usedebugvalue.png)
 
-Without the `useDebugValue` call, only the underlying data (in this example, `true`) would be displayed.
+`useDebugValue` call இல்லாமல், underlying data மட்டும் (இந்த உதாரணத்தில் `true`) காட்டப்படும்.
 
 <Sandpack>
 
@@ -103,20 +103,20 @@ function subscribe(callback) {
 
 <Note>
 
-Don't add debug values to every custom Hook. It's most valuable for custom Hooks that are part of shared libraries and that have a complex internal data structure that's difficult to inspect.
+ஒவ்வொரு custom Hook-க்கும் debug values சேர்க்க வேண்டாம். Shared libraries-இன் பகுதியாக உள்ள, inspect செய்ய கடினமான complex internal data structure கொண்ட custom Hooks-க்கு இது மிகவும் மதிப்புடையது.
 
 </Note>
 
 ---
 
-### Deferring formatting of a debug value {/*deferring-formatting-of-a-debug-value*/}
+### Debug value formatting-ஐ தள்ளிப்போடுதல் {/*deferring-formatting-of-a-debug-value*/}
 
-You can also pass a formatting function as the second argument to `useDebugValue`:
+`useDebugValue`-க்கு இரண்டாவது argument ஆக formatting function ஒன்றையும் pass செய்யலாம்:
 
 ```js [[1, 1, "date", 18], [2, 1, "date.toDateString()"]]
 useDebugValue(date, date => date.toDateString());
 ```
 
-Your formatting function will receive the <CodeStep step={1}>debug value</CodeStep> as a parameter and should return a <CodeStep step={2}>formatted display value</CodeStep>. When your component is inspected, React DevTools will call this function and display its result.
+உங்கள் formatting function <CodeStep step={1}>debug value</CodeStep>-ஐ parameter ஆகப் பெற்று, <CodeStep step={2}>formatted display value</CodeStep>-ஐ return செய்ய வேண்டும். உங்கள் component inspect செய்யப்படும் போது, React DevTools இந்த function-ஐ அழைத்து அதன் result-ஐ காட்டும்.
 
-This lets you avoid running potentially expensive formatting logic unless the component is actually inspected. For example, if `date` is a Date value, this avoids calling `toDateString()` on it for every render.
+Component உண்மையில் inspect செய்யப்படாவிட்டால் potentially expensive formatting logic ஓடுவதை இதனால் தவிர்க்கலாம். உதாரணமாக, `date` ஒரு Date value என்றால், ஒவ்வொரு render-க்கும் அதில் `toDateString()` அழைப்பதை இது தவிர்க்கிறது.

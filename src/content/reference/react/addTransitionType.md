@@ -5,15 +5,15 @@ version: canary
 
 <Canary>
 
-**The `addTransitionType` API is currently only available in React’s Canary and Experimental channels.**
+**`addTransitionType` API தற்போது React-ன் Canary மற்றும் Experimental channels-இல் மட்டுமே கிடைக்கிறது.**
 
-[Learn more about React’s release channels here.](/community/versioning-policy#all-release-channels)
+[React-ன் release channels பற்றி இங்கே மேலும் அறிக.](/community/versioning-policy#all-release-channels)
 
 </Canary>
 
 <Intro>
 
-`addTransitionType` lets you specify the cause of a transition.
+ஒரு transition-ன் காரணத்தை குறிப்பிட `addTransitionType` உதவுகிறது.
 
 
 ```js
@@ -29,30 +29,30 @@ startTransition(() => {
 
 ---
 
-## Reference {/*reference*/}
+## குறிப்பு {/*reference*/}
 
 ### `addTransitionType` {/*addtransitiontype*/}
 
 #### Parameters {/*parameters*/}
 
-- `type`: The type of transition to add. This can be any string.
+- `type`: சேர்க்க வேண்டிய transition வகை. இது எந்த string ஆகவும் இருக்கலாம்.
 
 #### Returns {/*returns*/}
 
-`addTransitionType` does not return anything.
+`addTransitionType` எதையும் return செய்யாது.
 
 #### Caveats {/*caveats*/}
 
-- If multiple transitions are combined, all Transition Types are collected. You can also add more than one type to a Transition.
-- Transition Types are reset after each commit. This means a `<Suspense>` fallback will associate the types after a `startTransition`, but revealing the content does not.
+- பல transitions ஒன்றாக combine செய்யப்பட்டால், அனைத்து Transition Types-உம் collect செய்யப்படும். ஒரு Transition-க்கு ஒன்றுக்கு மேற்பட்ட type-ஐயும் சேர்க்கலாம்.
+- ஒவ்வொரு commit-க்கும் பிறகு Transition Types reset செய்யப்படும். இதன் பொருள்: `startTransition`-க்கு பிறகு ஒரு `<Suspense>` fallback types-ஐ associate செய்யும்; ஆனால் content reveal ஆகும்போது அது செய்யாது.
 
 ---
 
-## Usage {/*usage*/}
+## பயன்பாடு {/*usage*/}
 
-### Adding the cause of a transition {/*adding-the-cause-of-a-transition*/}
+### Transition-ன் காரணத்தைச் சேர்த்தல் {/*adding-the-cause-of-a-transition*/}
 
-Call `addTransitionType` inside of `startTransition` to indicate the cause of a transition:
+Transition-ன் காரணத்தை காட்ட `startTransition`-க்குள் `addTransitionType`-ஐ call செய்யுங்கள்:
 
 ``` [[1, 6, "addTransitionType"], [2, 5, "startTransition", [3, 6, "'submit-click'"]]
 import { startTransition, addTransitionType } from 'react';
@@ -70,22 +70,22 @@ function Submit({action) {
 
 ```
 
-When you call <CodeStep step={1}>addTransitionType</CodeStep> inside the scope of <CodeStep step={2}>startTransition</CodeStep>, React will associate <CodeStep step={3}>submit-click</CodeStep> as one of the causes for the Transition.
+<CodeStep step={2}>startTransition</CodeStep> scope-க்குள் <CodeStep step={1}>addTransitionType</CodeStep>-ஐ call செய்தால், React <CodeStep step={3}>submit-click</CodeStep>-ஐ Transition-ன் காரணங்களில் ஒன்றாக associate செய்யும்.
 
-Currently, Transition Types can be used to customize different animations based on what caused the Transition. You have three different ways to choose from for how to use them:
+தற்போது, Transition-க்கு என்ன காரணம் என்பதை அடிப்படையாகக் கொண்டு வெவ்வேறு animations-ஐ customize செய்ய Transition Types பயன்படுத்தலாம். அவற்றைப் பயன்படுத்த மூன்று வழிகளில் தேர்வு செய்யலாம்:
 
-- [Customize animations using browser view transition types](#customize-animations-using-browser-view-transition-types)
-- [Customize animations using `View Transition` Class](#customize-animations-using-view-transition-class)
-- [Customize animations using `ViewTransition` events](#customize-animations-using-viewtransition-events)
+- [Browser view transition types பயன்படுத்தி animations-ஐ customize செய்தல்](#customize-animations-using-browser-view-transition-types)
+- [`View Transition` Class பயன்படுத்தி animations-ஐ customize செய்தல்](#customize-animations-using-view-transition-class)
+- [`ViewTransition` events பயன்படுத்தி animations-ஐ customize செய்தல்](#customize-animations-using-viewtransition-events)
 
-In the future, we plan to support more use cases for using the cause of a transition.
+எதிர்காலத்தில் transition-ன் காரணத்தைப் பயன்படுத்தும் மேலும் பல use cases-ஐ support செய்ய திட்டமிட்டுள்ளோம்.
 
 ---
-### Customize animations using browser view transition types {/*customize-animations-using-browser-view-transition-types*/}
+### Browser view transition types பயன்படுத்தி animations-ஐ customize செய்தல் {/*customize-animations-using-browser-view-transition-types*/}
 
-When a [`ViewTransition`](/reference/react/ViewTransition) activates from a transition, React adds all the Transition Types as browser [view transition types](https://www.w3.org/TR/css-view-transitions-2/#active-view-transition-pseudo-examples) to the element.
+ஒரு transition-இலிருந்து [`ViewTransition`](/reference/react/ViewTransition) activate ஆகும்போது, React அனைத்து Transition Types-ஐயும் browser [view transition types](https://www.w3.org/TR/css-view-transitions-2/#active-view-transition-pseudo-examples) ஆக element-க்கு சேர்க்கும்.
 
-This allows you to customize different animations based on CSS scopes:
+இதனால் CSS scopes அடிப்படையில் வெவ்வேறு animations-ஐ customize செய்யலாம்:
 
 ```js [11]
 function Component() {
@@ -112,9 +112,9 @@ startTransition(() => {
 
 ---
 
-### Customize animations using `View Transition` Class {/*customize-animations-using-view-transition-class*/}
+### `View Transition` Class பயன்படுத்தி animations-ஐ customize செய்தல் {/*customize-animations-using-view-transition-class*/}
 
-You can customize animations for an activated `ViewTransition` based on type by passing an object to the View Transition Class:
+View Transition Class-க்கு ஒரு object pass செய்வதன் மூலம், type அடிப்படையில் activated `ViewTransition`-க்கான animations-ஐ customize செய்யலாம்:
 
 ```js
 function Component() {
@@ -134,9 +134,9 @@ startTransition(() => {
 });
 ```
 
-If multiple types match, then they're joined together. If no types match then the special "default" entry is used instead. If any type has the value "none" then that wins and the ViewTransition is disabled (not assigned a name).
+பல types match ஆனால், அவை ஒன்றாக இணைக்கப்படும். எந்த types-உம் match ஆகவில்லை என்றால், அதற்கு பதிலாக சிறப்பு `"default"` entry பயன்படுத்தப்படும். எந்த type-க்கும் `"none"` value இருந்தால், அது முன்னுரிமை பெற்று ViewTransition disable செய்யப்படும் (name assign செய்யப்படாது).
 
-These can be combined with enter/exit/update/layout/share props to match based on kind of trigger and Transition Type.
+Trigger வகை மற்றும் Transition Type அடிப்படையில் match செய்ய, இவற்றை enter/exit/update/layout/share props உடன் combine செய்யலாம்.
 
 ```js
 <ViewTransition enter={{
@@ -151,9 +151,9 @@ exit={{
 
 ---
 
-### Customize animations using `ViewTransition` events {/*customize-animations-using-viewtransition-events*/}
+### `ViewTransition` events பயன்படுத்தி animations-ஐ customize செய்தல் {/*customize-animations-using-viewtransition-events*/}
 
-You can imperatively customize animations for an activated `ViewTransition` based on type using View Transition events:
+View Transition events பயன்படுத்தி, type அடிப்படையில் activated `ViewTransition`-க்கான animations-ஐ imperatively customize செய்யலாம்:
 
 ```
 <ViewTransition onUpdate={(inst, types) => {
@@ -167,4 +167,4 @@ You can imperatively customize animations for an activated `ViewTransition` base
 }}>
 ```
 
-This allows you to pick different imperative Animations based on the cause.
+இதனால் காரணத்தை அடிப்படையாகக் கொண்டு வெவ்வேறு imperative Animations-ஐ தேர்வு செய்யலாம்.

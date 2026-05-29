@@ -9,13 +9,13 @@ version: canary
 
 <Canary>
 
-**The `<ViewTransition />` API is currently only available in React’s Canary and Experimental channels.**
+**`<ViewTransition />` API தற்போது React-ன் Canary மற்றும் Experimental channel-களில் மட்டுமே கிடைக்கிறது.**
 
-[Learn more about React’s release channels here.](/community/versioning-policy#all-release-channels)
+[React-ன் release channel-கள் பற்றி இங்கே மேலும் அறிக.](/community/versioning-policy#all-release-channels)
 
 </Canary>
 
-`<ViewTransition>` lets you animate a component tree with Transitions and Suspense.
+`<ViewTransition>` Transitions மற்றும் Suspense உடன் component tree ஒன்றை animate செய்ய அனுமதிக்கிறது.
 
 ```js
 import {ViewTransition} from 'react';
@@ -35,7 +35,7 @@ import {ViewTransition} from 'react';
 
 ### `<ViewTransition>` {/*viewtransition*/}
 
-Wrap a component tree in `<ViewTransition>` to animate it:
+ஒரு component tree-ஐ animate செய்ய அதை `<ViewTransition>`-இல் wrap செய்யுங்கள்:
 
 ```js
 <ViewTransition>
@@ -43,77 +43,77 @@ Wrap a component tree in `<ViewTransition>` to animate it:
 </ViewTransition>
 ```
 
-[See more examples below.](#usage)
+[மேலும் உதாரணங்களை கீழே பார்க்கவும்.](#usage)
 
 <DeepDive>
 
-#### How does `<ViewTransition>` work? {/*how-does-viewtransition-work*/}
+#### `<ViewTransition>` எப்படி வேலை செய்கிறது? {/*how-does-viewtransition-work*/}
 
-Under the hood, React applies `view-transition-name` to inline styles of the nearest DOM node nested inside the `<ViewTransition>` component. If there are multiple sibling DOM nodes like `<ViewTransition><div /><div /></ViewTransition>` then React adds a suffix to the name to make each unique but conceptually they're part of the same one. React doesn't apply these eagerly but only at the time that boundary should participate in an animation.
+உள்ளே, `<ViewTransition>` component-க்குள் nested ஆன மிக அருகிலுள்ள DOM node-ன் inline style-களுக்கு React `view-transition-name`-ஐப் பயன்படுத்துகிறது. `<ViewTransition><div /><div /></ViewTransition>` போன்ற பல sibling DOM node-கள் இருந்தால், ஒவ்வொன்றும் unique ஆக இருக்க React பெயருக்கு suffix சேர்க்கிறது; ஆனால் கருத்து ரீதியாக அவை அதே ஒன்றின் பகுதிகளாகும். React இவற்றை முன்கூட்டியே apply செய்யாது; அந்த boundary animation-இல் பங்கேற்க வேண்டிய நேரத்தில் மட்டுமே apply செய்யும்.
 
-React automatically calls `startViewTransition` itself behind the scenes so you should never do that yourself. In fact, if you have something else on the page running a ViewTransition React will interrupt it. So it's recommended that you use React itself to coordinate these. If you had other ways to trigger ViewTransitions in the past, we recommend that you migrate to the built-in way.
+React பின்னணியில் தானாகவே `startViewTransition`-ஐ call செய்கிறது; எனவே அதை நீங்கள் நீங்களே ஒருபோதும் செய்யக்கூடாது. உண்மையில், page-இல் வேறு ஏதாவது ViewTransition ஓடிக்கொண்டிருந்தால் React அதை interrupt செய்யும். எனவே இவற்றை coordinate செய்ய React-ஐயே பயன்படுத்துவது பரிந்துரைக்கப்படுகிறது. முன்பு ViewTransition-களை trigger செய்ய வேறு வழிகளைப் பயன்படுத்தியிருந்தால், built-in வழிக்கு migrate செய்ய பரிந்துரைக்கிறோம்.
 
-If there are other React ViewTransitions already running then React will wait for them to finish before starting the next one. However, importantly if there are multiple updates happening while the first one is running, those will all be batched into one. If you start A->B. Then in the meantime you get an update to go to C and then D. When the first A->B animation finishes the next one will animate from B->D.
+மற்ற React ViewTransition-கள் ஏற்கனவே ஓடிக்கொண்டிருந்தால், அடுத்ததைத் தொடங்கும் முன் அவை முடியும் வரை React காத்திருக்கும். ஆனால் முக்கியமாக, முதல் animation ஓடிக்கொண்டிருக்கும்போது பல update-கள் நடந்தால், அவை அனைத்தும் ஒன்றாக batch செய்யப்படும். நீங்கள் A->B-ஐத் தொடங்கினால், நடுவில் C-க்கும் பிறகு D-க்கும் செல்ல update கிடைத்தால், முதல் A->B animation முடிந்ததும் அடுத்தது B->D-ஐ animate செய்யும்.
 
-The `getSnapshotBeforeUpdate` lifecycle will be called before `startViewTransition` and some `view-transition-name` will update at the same time.
+`startViewTransition`-க்கு முன் `getSnapshotBeforeUpdate` lifecycle call செய்யப்படும்; அதே நேரத்தில் சில `view-transition-name` update ஆகும்.
 
-Then React calls `startViewTransition`. Inside the `updateCallback`, React will:
+பின்னர் React `startViewTransition`-ஐ call செய்கிறது. `updateCallback`-க்குள் React:
 
-- Apply its mutations to the DOM and invoke `useInsertionEffect`.
-- Wait for fonts to load.
-- Call `componentDidMount`, `componentDidUpdate`, `useLayoutEffect` and refs.
-- Wait for any pending Navigation to finish.
-- Then React will measure any changes to the layout to see which boundaries will need to animate.
+- DOM-க்கு அதன் mutation-களை apply செய்து `useInsertionEffect`-ஐ invoke செய்யும்.
+- font-கள் load ஆக காத்திருக்கும்.
+- `componentDidMount`, `componentDidUpdate`, `useLayoutEffect` மற்றும் ref-களை call செய்யும்.
+- pending Navigation ஏதேனும் முடியும் வரை காத்திருக்கும்.
+- பிறகு எந்த boundary-கள் animate ஆக வேண்டும் என்பதைப் பார்க்க layout-இல் உள்ள மாற்றங்களை React measure செய்யும்.
 
-After the ready Promise of the `startViewTransition` is resolved, React will then revert the `view-transition-name`. Then React will invoke the `onEnter`, `onExit`, `onUpdate` and `onShare` callbacks to allow for manual programmatic control over the animations. This will be after the built-in default ones have already been computed.
+`startViewTransition`-ன் ready Promise resolve ஆன பிறகு, React `view-transition-name`-ஐ revert செய்யும். பின்னர் animations மீது manual programmatic control வழங்க `onEnter`, `onExit`, `onUpdate`, மற்றும் `onShare` callback-களை React invoke செய்யும். built-in default animation-கள் ஏற்கனவே compute செய்யப்பட்ட பிறகு இது நடக்கும்.
 
-If a `flushSync` happens to get in the middle of this sequence, then React will skip the Transition since it relies on being able to complete synchronously.
+இந்த sequence-ன் நடுவில் `flushSync` நடந்தால், synchronously முடிக்க முடிய வேண்டும் என்பதையே இது சார்ந்திருப்பதால் React Transition-ஐ skip செய்யும்.
 
-After the finished Promise of the `startViewTransition` is resolved, React will then invoke `useEffect`. This prevents those from interfering with the performance of the animation. However, this is not a guarantee because if another `setState` happens while the animation is running it'll still have to invoke the `useEffect` earlier to preserve the sequential guarantees.
+`startViewTransition`-ன் finished Promise resolve ஆன பிறகு, React `useEffect`-ஐ invoke செய்யும். இது அவை animation performance-இல் குறுக்கிடுவதைத் தடுக்கிறது. ஆனால் இது ஒரு guarantee அல்ல; animation ஓடிக்கொண்டிருக்கும்போது இன்னொரு `setState` நடந்தால், sequential guarantee-களைப் பாதுகாக்க `useEffect`-ஐ முன்னதாகவே invoke செய்ய வேண்டியிருக்கும்.
 
 </DeepDive>
 
 #### Props {/*props*/}
 
-- **optional** `name`: A string or object. The name of the View Transition used for shared element transitions. If not provided, React will use a unique name for each View Transition to prevent unexpected animations.
+- **optional** `name`: string அல்லது object. shared element transition-களுக்கு பயன்படுத்தப்படும் View Transition-ன் பெயர். இது வழங்கப்படாவிட்டால், எதிர்பாராத animation-களைத் தடுக்க ஒவ்வொரு View Transition-க்கும் React unique பெயரைப் பயன்படுத்தும்.
 - [View Transition Class](#view-transition-class) props.
 - [View Transition Event](#view-transition-event) props.
 
-#### Caveats {/*caveats*/}
+#### எச்சரிக்கைகள் {/*caveats*/}
 
-- Only use `name` for [shared element transitions](#animating-a-shared-element). For all other animations, React automatically generates a unique name to prevent unexpected animations.
-- By default, `setState` updates immediately and does not activate `<ViewTransition>`, only updates wrapped in a [Transition](/reference/react/useTransition), [`<Suspense>`](/reference/react/Suspense), or `useDeferredValue` activate ViewTransition.
-- `<ViewTransition>` creates an image that can be moved around, scaled and cross-faded. Unlike Layout Animations you may have seen in React Native or Motion, this means that not every individual Element inside of it animates its position. This can lead to better performance and a more continuous feeling, smooth animation compared to animating every individual piece. However, it can also lose continuity in things that should be moving by themselves. So you might have to add more `<ViewTransition>` boundaries manually as a result.
-- Currently, `<ViewTransition>` only works in the DOM. We're working on adding support for React Native and other platforms.
+- `name`-ஐ [shared element transition-களுக்கு](#animating-a-shared-element) மட்டும் பயன்படுத்துங்கள். மற்ற எல்லா animation-களுக்கும், எதிர்பாராத animation-களைத் தடுக்க React தானாகவே unique பெயரை உருவாக்கும்.
+- இயல்பாக, `setState` உடனடியாக update ஆகும்; அது `<ViewTransition>`-ஐ activate செய்யாது. [Transition](/reference/react/useTransition), [`<Suspense>`](/reference/react/Suspense), அல்லது `useDeferredValue`-இல் wrap செய்யப்பட்ட update-கள் மட்டுமே ViewTransition-ஐ activate செய்யும்.
+- `<ViewTransition>` நகர்த்தவும் scale செய்யவும் cross-fade செய்யவும் முடியும் image ஒன்றை உருவாக்குகிறது. React Native அல்லது Motion-இல் நீங்கள் பார்த்திருக்கக்கூடிய Layout Animation-களுக்கு மாறாக, இதன் உள்ளே இருக்கும் ஒவ்வொரு தனிப்பட்ட Element-மும் அதன் position-ஐ animate செய்யாது. ஒவ்வொரு தனிப்பட்ட துண்டையும் animate செய்வதைவிட, இது மேம்பட்ட performance-க்கும் தொடர்ச்சியான, smooth animation உணர்வுக்கும் வழிவகுக்கலாம். ஆனால் தனியே நகர வேண்டும் என எதிர்பார்க்கப்படும் விஷயங்களில் continuity இழக்கலாம். எனவே அதன் விளைவாக கூடுதல் `<ViewTransition>` boundary-களை கைமுறையாகச் சேர்க்க வேண்டியிருக்கும்.
+- தற்போது, `<ViewTransition>` DOM-இல் மட்டுமே வேலை செய்கிறது. React Native மற்றும் பிற platform-களுக்கான support-ஐச் சேர்க்க நாங்கள் பணிபுரிகிறோம்.
 
-#### Animation triggers {/*animation-triggers*/}
+#### Animation trigger-கள் {/*animation-triggers*/}
 
-React automatically decides the type of View Transition animation to trigger:
+எந்த வகை View Transition animation-ஐ trigger செய்ய வேண்டும் என்பதை React தானாக தீர்மானிக்கும்:
 
-- `enter`: If a `ViewTransition` is the first component inserted in this Transition, then this will activate.
-- `exit`: If a `ViewTransition` is the first component deleted in this Transition, then this will activate.
-- `update`: If a `ViewTransition` has any DOM mutations inside it that React is doing (such as a prop changing) or if the `ViewTransition` boundary itself changes size or position due to an immediate sibling. If there are nested `ViewTransition` then the mutation applies to them and not the parent.
-- `share`: If a named `ViewTransition` is inside a deleted subtree and another named `ViewTransition` with the same name is part of an inserted subtree in the same Transition, they form a Shared Element Transition, and it animates from the deleted one to the inserted one.
+- `enter`: இந்த Transition-இல் insert செய்யப்படும் முதல் component `ViewTransition` ஆக இருந்தால், இது activate ஆகும்.
+- `exit`: இந்த Transition-இல் delete செய்யப்படும் முதல் component `ViewTransition` ஆக இருந்தால், இது activate ஆகும்.
+- `update`: React செய்யும் DOM mutation ஏதேனும் `ViewTransition`-க்குள் இருந்தால் (prop மாறுவது போன்றது), அல்லது immediate sibling காரணமாக `ViewTransition` boundary-யே size அல்லது position மாறினால். nested `ViewTransition` இருந்தால் mutation அவற்றுக்கு apply ஆகும்; parent-க்கு அல்ல.
+- `share`: named `ViewTransition` ஒன்று deleted subtree-க்குள் இருந்து, அதே பெயருள்ள மற்றொரு named `ViewTransition` அதே Transition-இல் inserted subtree-ன் பகுதியாக இருந்தால், அவை Shared Element Transition உருவாக்கும்; அது deleted ஒன்றிலிருந்து inserted ஒன்றுக்குச் animate செய்கிறது.
 
-By default, `<ViewTransition>` animates with a smooth cross-fade (the browser default view transition).
+இயல்பாக, `<ViewTransition>` smooth cross-fade உடன் animate ஆகும் (browser-ன் default view transition).
 
-You can customize the animation by providing a [View Transition Class](#view-transition-class) to the `<ViewTransition>` component for each kind of trigger (see [Styling View Transitions](#styling-view-transitions)), or by using [ViewTransition Events](#view-transition-events) to control the animation with JavaScript using the [Web Animations API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API).
+ஒவ்வொரு வகை trigger-க்கும் `<ViewTransition>` component-க்கு [View Transition Class](#view-transition-class) வழங்கி animation-ஐ customize செய்யலாம் ([Styling View Transitions](#styling-view-transitions) பார்க்கவும்), அல்லது [ViewTransition Event-களை](#view-transition-events) பயன்படுத்தி [Web Animations API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API) மூலம் JavaScript-இல் animation-ஐ control செய்யலாம்.
 
 <Note>
 
-#### Always check `prefers-reduced-motion` {/*always-check-prefers-reduced-motion*/}
+#### எப்போதும் `prefers-reduced-motion`-ஐச் சரிபார்க்கவும் {/*always-check-prefers-reduced-motion*/}
 
-Many users may prefer not having animations on the page. React doesn't automatically disable animations for this case.
+பல பயனர்கள் page-இல் animation-கள் இல்லாமலிருக்க விரும்பலாம். இந்தச் சூழலில் React தானாக animation-களை disable செய்யாது.
 
-We recommend always using the `@media (prefers-reduced-motion)` media query to disable animations or tone them down based on user preference.
+பயனர் விருப்பத்தின் அடிப்படையில் animation-களை disable செய்ய அல்லது குறைக்க `@media (prefers-reduced-motion)` media query-ஐ எப்போதும் பயன்படுத்த பரிந்துரைக்கிறோம்.
 
-In the future, CSS libraries may have this built-in to their presets.
+எதிர்காலத்தில், CSS library-களின் preset-களில் இது built-in ஆக இருக்கலாம்.
 
 </Note>
 
 ### View Transition Class {/*view-transition-class*/}
 
-`<ViewTransition>` provides props to define what animations trigger:
+எந்த animation-கள் trigger ஆக வேண்டும் என்பதை வரையறுக்க `<ViewTransition>` props வழங்குகிறது:
 
 ```js
 <ViewTransition
@@ -131,22 +131,22 @@ In the future, CSS libraries may have this built-in to their presets.
 - **optional** `share`: `"auto"`, `"none"`, a string, or an object.
 - **optional** `default`: `"auto"`, `"none"`, a string, or an object.
 
-#### Caveats {/*view-transition-class-caveats*/}
+#### எச்சரிக்கைகள் {/*view-transition-class-caveats*/}
 
-- If `default` is `"none"` then all other triggers are turned off unless explicitly listed.
+- `default` `"none"` ஆக இருந்தால், வெளிப்படையாக பட்டியலிடப்படாத அனைத்து trigger-களும் off செய்யப்படும்.
 
-#### Values {/*view-transition-values*/}
+#### மதிப்புகள் {/*view-transition-values*/}
 
-View Transition class values can be:
-- `auto`: the default. Uses the browser default animation.
-- `none`: disable animations for this type.
-- `<classname>`: a custom CSS class name to use for [customizing View Transitions](#styling-view-transitions).
+View Transition class value-கள் இவையாக இருக்கலாம்:
+- `auto`: default. browser default animation-ஐப் பயன்படுத்தும்.
+- `none`: இந்த வகைக்கான animation-களை disable செய்யும்.
+- `<classname>`: [View Transition-களை customize செய்ய](#styling-view-transitions) பயன்படுத்தும் custom CSS class name.
 
-Object values can be an object with string keys and a value of `auto`, `none` or a custom className:
-- `{[type]: value}`: applies `value` if the animation matches the [Transition Type](/reference/react/addTransitionType).
-- `{default: value}`: the default value to apply if no [Transition Type](/reference/react/addTransitionType) is matched.
+Object value-கள் string key-களும் `auto`, `none` அல்லது custom className மதிப்பும் கொண்ட object ஆக இருக்கலாம்:
+- `{[type]: value}`: animation [Transition Type](/reference/react/addTransitionType)-க்கு match ஆனால் `value`-ஐ apply செய்கிறது.
+- `{default: value}`: எந்த [Transition Type](/reference/react/addTransitionType)-மும் match ஆகாவிட்டால் apply செய்யப்படும் default value.
 
-For example, you can define a ViewTransition as:
+உதாரணமாக, ViewTransition-ஐ இவ்வாறு define செய்யலாம்:
 
 ```js
 <ViewTransition
@@ -165,13 +165,13 @@ For example, you can define a ViewTransition as:
 >
 ```
 
-See [Styling View Transitions](#styling-view-transitions) for how to define CSS classes for custom animations.
+custom animation-களுக்கான CSS class-களை எப்படி define செய்வது என்பதை [Styling View Transitions](#styling-view-transitions)-இல் பார்க்கவும்.
 
 ---
 
 ### View Transition Event {/*view-transition-event*/}
 
-View Transition Events allow you to control the animation with JavaScript using the [Web Animations API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API):
+View Transition Event-கள் [Web Animations API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API)-யைப் பயன்படுத்தி JavaScript மூலம் animation-ஐ control செய்ய அனுமதிக்கின்றன:
 
 ```js
 <ViewTransition
@@ -182,29 +182,29 @@ View Transition Events allow you to control the animation with JavaScript using 
 
 #### Props {/*view-transition-event-props*/}
 
-- **optional** `onEnter`: Called when an "enter" animation is triggered.
-- **optional** `onExit`: Called when an "exit" animation is triggered.
-- **optional** `onShare`: Called when a "share" animation is triggered.
-- **optional** `onUpdate`: Called when an "update" animation is triggered.
+- **optional** `onEnter`: "enter" animation trigger ஆகும் போது call செய்யப்படும்.
+- **optional** `onExit`: "exit" animation trigger ஆகும் போது call செய்யப்படும்.
+- **optional** `onShare`: "share" animation trigger ஆகும் போது call செய்யப்படும்.
+- **optional** `onUpdate`: "update" animation trigger ஆகும் போது call செய்யப்படும்.
 
 
-#### Caveats {/*view-transition-event-caveats*/}
-- Only one event fires per `<ViewTransition>` per Transition. `onShare` takes precedence over `onEnter` and `onExit`.
-- Each event should return a **cleanup function**. The cleanup function is called when the View Transition finishes, allowing you to cancel or cleanup any animations.
+#### எச்சரிக்கைகள் {/*view-transition-event-caveats*/}
+- ஒவ்வொரு Transition-க்கும் ஒவ்வொரு `<ViewTransition>`-க்கு ஒரு event மட்டுமே fire ஆகும். `onEnter` மற்றும் `onExit`-ஐ விட `onShare` முன்னுரிமை பெறுகிறது.
+- ஒவ்வொரு event-மும் **cleanup function** ஒன்றை return செய்ய வேண்டும். View Transition முடிந்ததும் cleanup function call செய்யப்படும்; இதனால் எந்த animation-களையும் cancel அல்லது cleanup செய்ய முடியும்.
 
-#### Arguments {/*view-transition-event-arguments*/}
+#### Argument-கள் {/*view-transition-event-arguments*/}
 
-Each event receives two arguments:
+ஒவ்வொரு event-க்கும் இரண்டு argument-கள் கிடைக்கும்:
 
-- `instance`: A View Transition instance that provides access to the view transition [pseudo-elements](https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API/Using#the_view_transition_process)
-  - `old`: The `::view-transition-old` pseudo-element.
-  - `new`: The `::view-transition-new` pseudo-element.
-  - `name`: The `view-transition-name` string for this boundary.
-  - `group`: The `::view-transition-group` pseudo-element.
-  - `imagePair`: The `::view-transition-image-pair` pseudo-element.
-- `types`: An `Array<string>` of [Transition Types](/reference/react/addTransitionType) included in the animation. Empty array if no types were specified.
+- `instance`: view transition [pseudo-element-களுக்கு](https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API/Using#the_view_transition_process) அணுகலை வழங்கும் View Transition instance.
+  - `old`: `::view-transition-old` pseudo-element.
+  - `new`: `::view-transition-new` pseudo-element.
+  - `name`: இந்த boundary-க்கான `view-transition-name` string.
+  - `group`: `::view-transition-group` pseudo-element.
+  - `imagePair`: `::view-transition-image-pair` pseudo-element.
+- `types`: animation-இல் உள்ள [Transition Type-களின்](/reference/react/addTransitionType) `Array<string>`. type எதுவும் குறிப்பிடப்படவில்லை என்றால் காலியான array.
 
-For example, you can define a `onEnter` event that drives the animation using JavaScript:
+உதாரணமாக, JavaScript மூலம் animation-ஐ இயக்கும் `onEnter` event ஒன்றை define செய்யலாம்:
 
 ```js
 <ViewTransition
@@ -218,27 +218,27 @@ For example, you can define a `onEnter` event that drives the animation using Ja
 </ViewTransition>
 ```
 
-See [Animating with JavaScript](#animating-with-javascript) for more examples.
+மேலும் உதாரணங்களுக்கு [Animating with JavaScript](#animating-with-javascript) பார்க்கவும்.
 
 ---
 
-## Styling View Transitions {/*styling-view-transitions*/}
+## View Transition-களை style செய்தல் {/*styling-view-transitions*/}
 
 <Note>
 
-In many early examples of View Transitions around the web, you'll have seen using a [`view-transition-name`](https://developer.mozilla.org/en-US/docs/Web/CSS/view-transition-name) and then style it using `::view-transition-...(my-name)` selectors. We don't recommend that for styling. Instead, we normally recommend using a View Transition Class instead.
+web-இல் உள்ள View Transition-களின் பல ஆரம்ப உதாரணங்களில், [`view-transition-name`](https://developer.mozilla.org/en-US/docs/Web/CSS/view-transition-name)-ஐப் பயன்படுத்தி, பிறகு `::view-transition-...(my-name)` selector-கள் மூலம் style செய்வதை பார்த்திருப்பீர்கள். styling-க்கு அதை பரிந்துரைக்கவில்லை. அதற்கு பதிலாக பொதுவாக View Transition Class-ஐப் பயன்படுத்த பரிந்துரைக்கிறோம்.
 
 </Note>
 
-To customize the animation for a `<ViewTransition>` you can provide a View Transition Class to one of the activation props. The View Transition Class is a CSS class name that React applies to the child elements when the ViewTransition activates.
+`<ViewTransition>`-க்கான animation-ஐ customize செய்ய, activation prop-களில் ஒன்றுக்கு View Transition Class வழங்கலாம். View Transition activate ஆகும் போது child element-களுக்கு React apply செய்யும் CSS class name-தான் View Transition Class.
 
-For example, to customize an "enter" animation, provide a class name to the `enter` prop:
+உதாரணமாக, "enter" animation-ஐ customize செய்ய, `enter` prop-க்கு class name ஒன்றை வழங்குங்கள்:
 
 ```js
 <ViewTransition enter="slide-in">
 ```
 
-When the `<ViewTransition>` activates an "enter" animation, React will add the class name `slide-in`. Then you can refer to this class using [view transition pseudo selectors](https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API#pseudo-elements) to build reusable animations:
+`<ViewTransition>` "enter" animation-ஐ activate செய்யும்போது, React `slide-in` class name-ஐச் சேர்க்கும். பிறகு reusable animation-களை உருவாக்க [view transition pseudo selector-களை](https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API#pseudo-elements) பயன்படுத்தி இந்த class-ஐ refer செய்யலாம்:
 
 ```css
 ::view-transition-group(.slide-in) {
@@ -249,21 +249,21 @@ When the `<ViewTransition>` activates an "enter" animation, React will add the c
 }
 ```
 
-In the future, CSS libraries may add built-in animations using View Transition Classes to make this easier to use.
+எதிர்காலத்தில், இதைப் பயன்படுத்த மேம்படுத்த CSS library-கள் View Transition Class-களைப் பயன்படுத்தி built-in animation-களைச் சேர்க்கலாம்.
 
 ---
 
 ## Usage {/*usage*/}
 
-### Animating an element on enter/exit {/*animating-an-element-on-enter*/}
+### enter/exit-இல் ஒரு element-ஐ animate செய்தல் {/*animating-an-element-on-enter*/}
 
-Enter/Exit Transitions trigger when a `<ViewTransition>` is added or removed by a component in a transition:
+ஒரு transition-இல் component ஒன்று `<ViewTransition>`-ஐ சேர்க்கும்போது அல்லது நீக்கும்போது Enter/Exit Transition-கள் trigger ஆகும்:
 
 ```js {3}
 function Child() {
   return (
     <ViewTransition enter="auto" exit="auto" default="none">
-      <div>Hi</div>
+      <div>வணக்கம்</div>
     </ViewTransition>
   );
 }
@@ -277,9 +277,9 @@ function Parent() {
 }
 ```
 
-When `setShow` is called, `show` switches to `true` and the `Child` component is rendered. When `setShow` is called inside `startTransition`, and `Child` renders a `ViewTransition` before any other DOM nodes, an `enter` animation is triggered.
+`setShow` call செய்யப்படும் போது, `show` `true` ஆக மாறி `Child` component render ஆகும். `startTransition`-க்குள் `setShow` call செய்யப்படும்போது, மேலும் `Child` வேறு எந்த DOM node-க்கும் முன் `ViewTransition`-ஐ render செய்தால், `enter` animation trigger ஆகும்.
 
-When `show` switches back to `false`, an `exit` animation is triggered.
+`show` மீண்டும் `false` ஆக மாறும்போது, `exit` animation trigger ஆகும்.
 
 <Sandpack>
 
@@ -345,8 +345,8 @@ export default function Component() {
 export default [
   {
     id: '1',
-    title: 'First video',
-    description: 'Video description',
+    title: 'முதல் வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'blue',
   },
 ];
@@ -447,11 +447,11 @@ button:hover {
 
 <Pitfall>
 
-#### Only top-level ViewTransitions animate on exit/enter {/*only-top-level-viewtransition-animates-on-exit-enter*/}
+#### top-level ViewTransition-கள் மட்டுமே exit/enter-இல் animate ஆகும் {/*only-top-level-viewtransition-animates-on-exit-enter*/}
 
-`<ViewTransition>` only activates exit/enter if it is placed _before_ any DOM nodes.
+`<ViewTransition>` எந்த DOM node-க்கும் _முன்_ வைக்கப்பட்டால் மட்டுமே exit/enter-ஐ activate செய்யும்.
 
-If there's a `<div>` above `<ViewTransition>`, no exit/enter animations trigger:
+`<ViewTransition>`-க்கு மேலே `<div>` இருந்தால், exit/enter animation எதுவும் trigger ஆகாது:
 
 ```js [3, 5]
 function Item() {
@@ -465,15 +465,15 @@ function Item() {
 }
 ```
 
-This constraint prevents subtle bugs where too much or too little animates.
+அதிகமாகவோ குறைவாகவோ animate ஆகும் நுணுக்கமான bug-களை இந்த கட்டுப்பாடு தடுக்கிறது.
 
 </Pitfall>
 
 ---
 
-### Animating enter/exit with Activity {/*animating-enter-exit-with-activity*/}
+### Activity உடன் enter/exit-ஐ animate செய்தல் {/*animating-enter-exit-with-activity*/}
 
-If you want to animate a component in and out while preserving its state, or pre-rendering content for an animation, you can use [`<Activity>`](/reference/react/Activity). When a `<ViewTransition>` inside an `<Activity>` becomes visible, the `enter` animation activates. When it becomes hidden, the `exit` animation activates:
+ஒரு component-ன் state-ஐப் பாதுகாத்தபடி அதை உள்ளே/வெளியே animate செய்ய, அல்லது animation-க்காக content-ஐ pre-render செய்ய விரும்பினால், [`<Activity>`](/reference/react/Activity)-ஐப் பயன்படுத்தலாம். `<Activity>`-க்குள் உள்ள `<ViewTransition>` visible ஆகும்போது, `enter` animation activate ஆகும். அது hidden ஆகும்போது, `exit` animation activate ஆகும்:
 
 ```js
 <Activity mode={isVisible ? 'visible' : 'hidden'}>
@@ -484,7 +484,7 @@ If you want to animate a component in and out while preserving its state, or pre
 
 ```
 
-In this example, `Counter` has a counter with internal state. Try incrementing the counter, hiding it, then showing it again. The counter's value is preserved while the sidebar animates in and out:
+இந்த உதாரணத்தில், `Counter`-க்கு internal state உடைய counter உள்ளது. counter-ஐ increment செய்து, அதை hide செய்து, பிறகு மீண்டும் show செய்து பாருங்கள். sidebar உள்ளே/வெளியே animate ஆகும்போது counter-ன் மதிப்பு பாதுகாக்கப்படுகிறது:
 
 <Sandpack>
 
@@ -513,7 +513,7 @@ function Toggle({show, setShow}) {
           setShow(s => !s);
         });
       }}>
-      {show ? 'Hide' : 'Show'}
+      {show ? 'மறை' : 'காட்டு'}
     </button>
   )
 }
@@ -521,10 +521,10 @@ function Counter() {
   const [count, setCount] = useState(0);
   return (
     <div className="counter">
-      <h2>Counter</h2>
-      <p>Count: {count}</p>
+      <h2>எண்ணி</h2>
+      <p>எண்ணிக்கை: {count}</p>
       <button onClick={() => setCount(count + 1)}>
-        Increment
+        அதிகரி
       </button>
     </div>
   );
@@ -585,13 +585,13 @@ function Counter() {
 
 </Sandpack>
 
-Without `<Activity>`, the counter would reset to `0` every time the sidebar reappears.
+`<Activity>` இல்லாமல், sidebar மீண்டும் தோன்றும் ஒவ்வொரு முறையும் counter `0`-க்கு reset ஆகும்.
 
 ---
 
-### Animating a shared element {/*animating-a-shared-element*/}
+### shared element ஒன்றை animate செய்தல் {/*animating-a-shared-element*/}
 
-Normally, we don't recommend assigning a name to a `<ViewTransition>` and instead let React assign it an automatic name. The reason you might want to assign a name is to animate between completely different components when one tree unmounts and another tree mounts at the same time, to preserve continuity.
+பொதுவாக, `<ViewTransition>`-க்கு பெயர் assign செய்வதை பரிந்துரைக்க மாட்டோம்; அதற்கு பதிலாக React தானாக பெயர் assign செய்ய அனுமதிக்கிறோம். continuity-ஐப் பாதுகாக்க, ஒரு tree unmount ஆகி மற்றொரு tree அதே நேரத்தில் mount ஆகும்போது முற்றிலும் வேறு component-களுக்கிடையே animate செய்ய வேண்டுமெனில் பெயர் assign செய்ய விரும்பலாம்.
 
 ```js
 <ViewTransition name={UNIQUE_NAME}>
@@ -599,11 +599,11 @@ Normally, we don't recommend assigning a name to a `<ViewTransition>` and instea
 </ViewTransition>
 ```
 
-When one tree unmounts and another mounts, if there's a pair where the same name exists in the unmounting tree and the mounting tree, they trigger the "share" animation on both. It animates from the unmounting side to the mounting side.
+ஒரு tree unmount ஆகி மற்றொன்று mount ஆகும்போது, unmount ஆகும் tree-யிலும் mount ஆகும் tree-யிலும் அதே பெயர் இருக்கும் pair இருந்தால், அவை இரண்டிலும் "share" animation-ஐ trigger செய்யும். அது unmount ஆகும் பக்கத்திலிருந்து mount ஆகும் பக்கத்துக்கு animate செய்கிறது.
 
-Unlike an exit/enter animation this can be deeply inside the deleted/mounted tree. If a `<ViewTransition>` would also be eligible for exit/enter, then the "share" animation takes precedence.
+exit/enter animation-க்கு மாறாக, இது deleted/mounted tree-க்குள் ஆழமாக இருக்கலாம். ஒரு `<ViewTransition>` exit/enter-க்கும் eligible ஆக இருந்தால், "share" animation முன்னுரிமை பெறும்.
 
-If Transition first unmounts one side and then leads to a `<Suspense>` fallback being shown before eventually the new name being mounted, then no shared element transition happens.
+Transition முதலில் ஒரு பக்கத்தை unmount செய்து, பிறகு இறுதியில் புதிய பெயர் mount ஆகும் முன் `<Suspense>` fallback காட்டப்படுமாறு செய்தால், shared element transition நடக்காது.
 
 <Sandpack>
 
@@ -684,8 +684,8 @@ export function FullscreenVideo({video, onExit}) {
 export default [
   {
     id: '1',
-    title: 'First video',
-    description: 'Video description',
+    title: 'முதல் வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'blue',
   },
 ];
@@ -811,17 +811,17 @@ button:hover {
 
 <Note>
 
-If either the mounted or unmounted side of a pair is outside the viewport, then no pair is formed. This ensures that it doesn't fly in or out of the viewport when something is scrolled. Instead it's treated as a regular enter/exit by itself.
+ஒரு pair-இன் mounted அல்லது unmounted பக்கம் viewport-க்கு வெளியே இருந்தால், pair உருவாகாது. ஏதாவது scroll செய்யப்படும் போது அது viewport-க்கு உள்ளே அல்லது வெளியே பறந்து வராமல் இருப்பதை இது உறுதிசெய்கிறது. அதற்கு பதிலாக அது தனியாக regular enter/exit ஆக நடத்தப்படும்.
 
-This does not happen if the same Component instance changes position, which triggers an "update". Those animate regardless of whether one position is outside the viewport.
+அதே Component instance position மாறினால் இது நடக்காது; அது "update"-ஐ trigger செய்கிறது. ஒரு position viewport-க்கு வெளியே இருந்தாலும் அவை animate ஆகும்.
 
-There is a known case where if a deeply nested unmounted `<ViewTransition>` is inside the viewport but the mounted side is not within the viewport, then the unmounted side animates as its own "exit" animation even if it's deeply nested instead of as part of the parent animation.
+ஆழமாக nested ஆன unmounted `<ViewTransition>` viewport-க்குள் இருந்தும் mounted பக்கம் viewport-க்குள் இல்லாத known case ஒன்று உள்ளது; அப்போது unmounted பக்கம் parent animation-ன் பகுதியாக அல்லாமல், அது ஆழமாக nested இருந்தாலும் தன் சொந்த "exit" animation ஆக animate ஆகும்.
 
 </Note>
 
 <Pitfall>
 
-It's important that there's only one thing with the same name mounted at a time in the entire app. Therefore it's important to use unique namespaces for the name to avoid conflicts. To ensure you can do this you might want to add a constant in a separate module that you import.
+முழு app-இல் ஒரே நேரத்தில் அதே பெயருடன் mount ஆன ஒன்று மட்டுமே இருப்பது முக்கியம். எனவே conflict-களைத் தவிர்க்க பெயருக்கு unique namespace-களைப் பயன்படுத்துவது முக்கியம். இதைச் செய்ய முடியும் என்பதை உறுதிசெய்ய, நீங்கள் import செய்யும் தனி module-இல் constant ஒன்றைச் சேர்க்கலாம்.
 
 ```js
 export const MY_NAME = "my-globally-unique-name";
@@ -834,15 +834,15 @@ import {MY_NAME} from './shared-name';
 
 ---
 
-### Animating reorder of items in a list {/*animating-reorder-of-items-in-a-list*/}
+### list-இல் item-களின் reorder-ஐ animate செய்தல் {/*animating-reorder-of-items-in-a-list*/}
 
 ```js
 items.map((item) => <Component key={item.id} item={item} />);
 ```
 
-When reordering a list, without updating the content, the "update" animation triggers on each `<ViewTransition>` in the list if they're outside a DOM node. Similar to enter/exit animations.
+content-ஐ update செய்யாமல் list-ஐ reorder செய்யும்போது, அவை DOM node-க்கு வெளியே இருந்தால், list-இல் உள்ள ஒவ்வொரு `<ViewTransition>`-க்கும் "update" animation trigger ஆகும். enter/exit animation-களைப் போல.
 
-This means that this will trigger the animation on this `<ViewTransition>`:
+இதன் பொருள், இது இந்த `<ViewTransition>`-இல் animation-ஐ trigger செய்யும்:
 
 ```js
 function Component() {
@@ -917,26 +917,26 @@ export default function Component() {
 export default [
   {
     id: '1',
-    title: 'First video',
-    description: 'Video description',
+    title: 'முதல் வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'blue',
   },
   {
     id: '2',
-    title: 'Second video',
-    description: 'Video description',
+    title: 'இரண்டாவது வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'red',
   },
   {
     id: '3',
-    title: 'Third video',
-    description: 'Video description',
+    title: 'மூன்றாவது வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'green',
   },
   {
     id: '4',
-    title: 'Fourth video',
-    description: 'Video description',
+    title: 'நான்காவது வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'purple',
   },
 ];
@@ -1043,7 +1043,7 @@ button:hover {
 
 </Sandpack>
 
-However, this wouldn't animate each individual item:
+ஆனால் இது ஒவ்வொரு தனிப்பட்ட item-ஐ animate செய்யாது:
 
 ```js
 function Component() {
@@ -1055,7 +1055,7 @@ function Component() {
 }
 ```
 
-Instead, any parent `<ViewTransition>` would cross-fade. If there is no parent `<ViewTransition>` then there's no animation in that case.
+அதற்கு பதிலாக, parent `<ViewTransition>` ஏதேனும் இருந்தால் அது cross-fade ஆகும். parent `<ViewTransition>` இல்லையெனில், அந்தச் சூழலில் animation இல்லை.
 
 <Sandpack>
 
@@ -1118,26 +1118,26 @@ export default function Component() {
 export default [
   {
     id: '1',
-    title: 'First video',
-    description: 'Video description',
+    title: 'முதல் வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'blue',
   },
   {
     id: '2',
-    title: 'Second video',
-    description: 'Video description',
+    title: 'இரண்டாவது வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'red',
   },
   {
     id: '3',
-    title: 'Third video',
-    description: 'Video description',
+    title: 'மூன்றாவது வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'green',
   },
   {
     id: '4',
-    title: 'Fourth video',
-    description: 'Video description',
+    title: 'நான்காவது வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'purple',
   },
 ];
@@ -1244,31 +1244,31 @@ button:hover {
 
 </Sandpack>
 
-This means you might want to avoid wrapper elements in lists where you want to allow the Component to control its own reorder animation:
+Component தன் சொந்த reorder animation-ஐ control செய்ய அனுமதிக்க விரும்பும் list-களில் wrapper element-களைத் தவிர்க்கலாம் என்பதைக் குறிக்கிறது:
 
 ```
 items.map(item => <div><Component key={item.id} item={item} /></div>)
 ```
 
-The above rule also applies if one of the items updates to resize, which then causes the siblings to resize, it'll also animate its sibling `<ViewTransition>` but only if they're immediate siblings.
+item-களில் ஒன்று resize ஆக update ஆகி, அதனால் sibling-களும் resize ஆகும் சூழலுக்கும் மேலுள்ள விதி பொருந்தும்; அவை immediate sibling-களாக இருந்தால் மட்டுமே அது sibling `<ViewTransition>`-ஐயும் animate செய்யும்.
 
-This means that during an update, which causes a lot of re-layout, it doesn't individually animate every `<ViewTransition>` on the page. That would lead to a lot of noisy animations which distracts from the actual change. Therefore React is more conservative about when an individual animation triggers.
+அதாவது அதிக re-layout ஏற்படுத்தும் update-இன் போது, page-இல் உள்ள ஒவ்வொரு `<ViewTransition>`-யையும் தனித்தனியாக animate செய்யாது. அது உண்மையான மாற்றத்திலிருந்து கவனத்தைத் திருப்பும் பல noisy animation-களுக்கு வழிவகுக்கும். எனவே தனிப்பட்ட animation எப்போது trigger ஆக வேண்டும் என்பதில் React சற்றுக் கவனமாக இருக்கும்.
 
 <Pitfall>
 
-It's important to properly use keys to preserve identity when reordering lists. It might seem like you could use "name", shared element transitions, to animate reorders but that would not trigger if one side was outside the viewport. To animate a reorder you often want to show that it went to a position outside the viewport.
+list-களை reorder செய்யும்போது identity-ஐப் பாதுகாக்க key-களை சரியாகப் பயன்படுத்துவது முக்கியம். reorder-களை animate செய்ய "name", shared element transition-களைப் பயன்படுத்தலாம் போல தோன்றலாம்; ஆனால் ஒரு பக்கம் viewport-க்கு வெளியே இருந்தால் அது trigger ஆகாது. reorder-ஐ animate செய்யும்போது அது viewport-க்கு வெளியே உள்ள position-க்கு சென்றதைப் பல நேரங்களில் காட்ட விரும்புவீர்கள்.
 
 </Pitfall>
 
 ---
 
-### Animating from Suspense content {/*animating-from-suspense-content*/}
+### Suspense content-இலிருந்து animate செய்தல் {/*animating-from-suspense-content*/}
 
-Like any Transition, React waits for data and new CSS (`<link rel="stylesheet" precedence="...">`) before running the animation. In addition to this, ViewTransitions also wait up to 500ms for new fonts to load before starting the animation to avoid them flickering in later. For the same reason, an image wrapped in ViewTransition will wait for the image to load.
+எந்த Transition போலவே, animation ஓடுவதற்கு முன் data மற்றும் புதிய CSS (`<link rel="stylesheet" precedence="...">`) க்காக React காத்திருக்கும். இதற்கு கூடுதலாக, புதிய font-கள் பின்னர் flicker ஆகாமல் இருக்க animation தொடங்குவதற்கு முன் ViewTransition-கள் அவை load ஆக 500ms வரை காத்திருக்கும். அதே காரணத்திற்காக, ViewTransition-இல் wrap செய்யப்பட்ட image, image load ஆக காத்திருக்கும்.
 
-If it's inside a new Suspense boundary instance, then the fallback is shown first. After the Suspense boundary fully loads, it triggers the `<ViewTransition>` to animate the reveal to the content.
+இது புதிய Suspense boundary instance-க்குள் இருந்தால், fallback முதலில் காட்டப்படும். Suspense boundary முழுமையாக load ஆன பிறகு, content reveal-ஐ animate செய்ய அது `<ViewTransition>`-ஐ trigger செய்கிறது.
 
-There are two ways to animate Suspense boundaries depending on where you place the `<ViewTransition>`:
+`<ViewTransition>`-ஐ எங்கே வைக்கிறீர்கள் என்பதன் அடிப்படையில் Suspense boundary-களை animate செய்ய இரண்டு வழிகள் உள்ளன:
 
 **Update:**
 
@@ -1280,7 +1280,7 @@ There are two ways to animate Suspense boundaries depending on where you place t
 </ViewTransition>
 ```
 
-In this scenario when the content goes from A to B, it'll be treated as an "update" and apply that class if appropriate. Both A and B will get the same view-transition-name and therefore they're acting as a cross-fade by default.
+இந்தச் சூழலில் content A-இலிருந்து B-க்கு மாறும்போது, அது "update" ஆக நடத்தப்படும்; பொருத்தமானால் அந்த class apply செய்யப்படும். A மற்றும் B இரண்டுக்கும் அதே view-transition-name கிடைக்கும், எனவே இயல்பாக அவை cross-fade போல செயல்படும்.
 
 <Sandpack>
 
@@ -1370,8 +1370,8 @@ function fetchVideo() {
       setTimeout(() => {
         resolve({
           id: '1',
-          title: 'First video',
-          description: 'Video description',
+          title: 'முதல் வீடியோ',
+          description: 'வீடியோ விளக்கம்',
           image: 'blue',
         });
       }, 1000);
@@ -1514,17 +1514,17 @@ button:hover {
 </Suspense>
 ```
 
-In this scenario, these are two separate ViewTransition instances each with their own `view-transition-name`. This will be treated as an "exit" of the `<A>` and an "enter" of the `<B>`.
+இந்தச் சூழலில், இவை தத்தமுடைய `view-transition-name` கொண்ட இரண்டு தனித்தனி ViewTransition instance-கள். இது `<A>`-ன் "exit" மற்றும் `<B>`-ன் "enter" ஆக நடத்தப்படும்.
 
-You can achieve different effects depending on where you choose to place the `<ViewTransition>` boundary.
+`<ViewTransition>` boundary-ஐ எங்கே வைக்கிறீர்கள் என்பதன் அடிப்படையில் வேறு effect-களைப் பெறலாம்.
 
 ---
 
-### Opting-out of an animation {/*opting-out-of-an-animation*/}
+### animation ஒன்றிலிருந்து opt out செய்தல் {/*opting-out-of-an-animation*/}
 
-Sometimes you're wrapping a large existing component, like a whole page, and you want to animate some updates, such as changing the theme. However, you don't want it to opt-in all updates inside the whole page to cross-fade when they're updating. Especially if you're incrementally adding more animations.
+சில நேரங்களில் முழு page போன்ற பெரிய existing component ஒன்றை wrap செய்து, theme மாற்றம் போன்ற சில update-களை animate செய்ய விரும்பலாம். ஆனால் முழு page-க்குள் update ஆகும் எல்லா update-களும் cross-fade ஆக opt-in ஆக வேண்டாம் என்று நினைக்கலாம். குறிப்பாக நீங்கள் animation-களை படிப்படியாகச் சேர்க்கும்போது.
 
-You can use the class "none" to opt-out of an animation. By wrapping your children in a "none" you can disable animations for updates to them while the parent still triggers.
+animation ஒன்றிலிருந்து opt out செய்ய "none" class-ஐப் பயன்படுத்தலாம். உங்கள் children-ஐ "none"-இல் wrap செய்வதன் மூலம், parent இன்னும் trigger ஆகினாலும் அவற்றின் update-களுக்கான animation-களை disable செய்யலாம்.
 
 ```js
 <ViewTransition>
@@ -1534,17 +1534,17 @@ You can use the class "none" to opt-out of an animation. By wrapping your childr
 </ViewTransition>
 ```
 
-This will only animate if the theme changes and not if only the children update. The children can still opt-in again with their own `<ViewTransition>` but at least it's manual again.
+theme மாறினால் மட்டுமே இது animate ஆகும்; children மட்டும் update ஆனால் அல்ல. children தங்களுடைய `<ViewTransition>` மூலம் மீண்டும் opt-in ஆகலாம், ஆனால் குறைந்தது அது மீண்டும் manual ஆக இருக்கும்.
 
 ---
 
-### Customizing animations {/*customizing-animations*/}
+### animation-களை customize செய்தல் {/*customizing-animations*/}
 
-By default, `<ViewTransition>` includes the default cross-fade from the browser.
+இயல்பாக, `<ViewTransition>` browser-இலிருந்து default cross-fade-ஐ உட்கொண்டுள்ளது.
 
-To customize animations, you can provide props to the `<ViewTransition>` component to specify which animations to use, based on how the `<ViewTransition>` activates.
+animation-களை customize செய்ய, `<ViewTransition>` எப்படி activate ஆகிறது என்பதன் அடிப்படையில் எந்த animation-களை பயன்படுத்த வேண்டும் என்பதை குறிப்பிட `<ViewTransition>` component-க்கு props வழங்கலாம்.
 
-For example, we can slow down the default cross fade animation:
+உதாரணமாக, default cross fade animation-ஐ மெதுவாக்கலாம்:
 
 ```js
 <ViewTransition default="slow-fade">
@@ -1552,7 +1552,7 @@ For example, we can slow down the default cross fade animation:
 </ViewTransition>
 ```
 
-And define slow-fade in CSS using view transition classes:
+மேலும் view transition class-களைப் பயன்படுத்தி CSS-இல் slow-fade-ஐ define செய்யலாம்:
 
 ```css
 ::view-transition-old(.slow-fade) {
@@ -1629,8 +1629,8 @@ export default function Component() {
 export default [
   {
     id: '1',
-    title: 'First video',
-    description: 'Video description',
+    title: 'முதல் வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'blue',
   },
 ];
@@ -1737,7 +1737,7 @@ button:hover {
 
 </Sandpack>
 
-In addition to setting the `default`, you can also provide configurations for `enter`, `exit`, `update`, and `share` animations.
+`default`-ஐ அமைப்பதற்குப் கூடுதலாக, `enter`, `exit`, `update`, மற்றும் `share` animation-களுக்கான configuration-களையும் வழங்கலாம்.
 
 <Sandpack>
 
@@ -1804,8 +1804,8 @@ export default function Component() {
 export default [
   {
     id: '1',
-    title: 'First video',
-    description: 'Video description',
+    title: 'முதல் வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'blue',
   },
 ];
@@ -1985,11 +1985,11 @@ button:hover {
 
 ---
 
-### Customizing animations with types {/*customizing-animations-with-types*/}
+### type-களுடன் animation-களை customize செய்தல் {/*customizing-animations-with-types*/}
 
-You can use the [`addTransitionType`](/reference/react/addTransitionType) API to add a class name to the child elements when a specific transition type is activated for a specific activation trigger. This allows you to customize the animation for each type of transition.
+குறிப்பிட்ட activation trigger-க்கு குறிப்பிட்ட transition type activate ஆகும்போது child element-களுக்கு class name சேர்க்க [`addTransitionType`](/reference/react/addTransitionType) API-யைப் பயன்படுத்தலாம். இது ஒவ்வொரு transition type-க்கும் animation-ஐ customize செய்ய அனுமதிக்கிறது.
 
-For example, to customize the animation for all forward and backward navigations:
+உதாரணமாக, அனைத்து forward மற்றும் backward navigation-களுக்கான animation-ஐ customize செய்ய:
 
 ```js
 <ViewTransition
@@ -2006,9 +2006,9 @@ startTransition(() => {
 });
 ```
 
-When the ViewTransition activates a "navigation-back" animation, React will add the class name "slide-right". When the ViewTransition activates a "navigation-forward" animation, React will add the class name "slide-left".
+ViewTransition "navigation-back" animation-ஐ activate செய்யும்போது, React "slide-right" class name-ஐச் சேர்க்கும். ViewTransition "navigation-forward" animation-ஐ activate செய்யும்போது, React "slide-left" class name-ஐச் சேர்க்கும்.
 
-In the future, routers and other libraries may add support for standard view-transition types and styles.
+எதிர்காலத்தில், router-களும் பிற library-களும் standard view-transition type-களுக்கும் style-களுக்கும் support சேர்க்கலாம்.
 
 <Sandpack>
 
@@ -2106,8 +2106,8 @@ export default function Component() {
 export default [
   {
     id: '1',
-    title: 'First video',
-    description: 'Video description',
+    title: 'முதல் வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'blue',
   },
 ];
@@ -2314,11 +2314,11 @@ button:hover {
 
 ---
 
-### Animating with JavaScript {/*animating-with-javascript*/}
+### JavaScript மூலம் animate செய்தல் {/*animating-with-javascript*/}
 
-While [View Transition Classes](#view-transition-class) let you define animations with CSS, sometimes you need imperative control over the animation. The `onEnter`, `onExit`, `onUpdate`, and `onShare` callbacks give you direct access to the view transition pseudo-elements so you can animate them using the [Web Animations API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API).
+[View Transition Class-கள்](#view-transition-class) CSS மூலம் animation-களை define செய்ய அனுமதித்தாலும், சில நேரங்களில் animation மீது imperative control தேவைப்படும். `onEnter`, `onExit`, `onUpdate`, மற்றும் `onShare` callback-கள் view transition pseudo-element-களுக்கு நேரடி அணுகலை வழங்குகின்றன; எனவே [Web Animations API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API)-யைப் பயன்படுத்தி அவற்றை animate செய்யலாம்.
 
-Each callback receives an `instance` with `.old` and `.new` properties representing the view transition pseudo-elements. You can call `.animate()` on them just like you would on a DOM element:
+ஒவ்வொரு callback-க்கும் view transition pseudo-element-களை பிரதிநிதித்துவப்படுத்தும் `.old` மற்றும் `.new` property-கள் கொண்ட `instance` கிடைக்கும். DOM element-இல் செய்வது போலவே அவற்றிலும் `.animate()`-ஐ call செய்யலாம்:
 
 ```js
 <ViewTransition
@@ -2336,9 +2336,9 @@ Each callback receives an `instance` with `.old` and `.new` properties represent
 </ViewTransition>
 ```
 
-This allows you to combine CSS-driven animations and JavaScript-driven animations.
+இது CSS-driven animation-களையும் JavaScript-driven animation-களையும் இணைக்க அனுமதிக்கிறது.
 
-In the following example, the default cross-fade is handled by CSS, and the slide animations are driven by JavaScript in the `onEnter` and `onExit` animations:
+பின்வரும் உதாரணத்தில், default cross-fade CSS மூலம் கையாளப்படுகிறது; slide animation-கள் `onEnter` மற்றும் `onExit` animation-களில் JavaScript மூலம் இயக்கப்படுகின்றன:
 
 <Sandpack>
 
@@ -2437,8 +2437,8 @@ export const SLIDE_OUT = [
 export default [
   {
     id: '1',
-    title: 'First video',
-    description: 'Video description',
+    title: 'முதல் வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'blue',
   },
 ];
@@ -2540,9 +2540,9 @@ button:hover {
 
 <Note>
 
-#### Always clean up View Transition Events {/*always-clean-up-view-transition-events*/}
+#### View Transition Event-களை எப்போதும் clean up செய்யுங்கள் {/*always-clean-up-view-transition-events*/}
 
-View Transition Events should always return a cleanup function:
+View Transition Event-கள் எப்போதும் cleanup function ஒன்றை return செய்ய வேண்டும்:
 
 ```js {7}
 <ViewTransition
@@ -2556,15 +2556,15 @@ View Transition Events should always return a cleanup function:
 >
 ```
 
-This allows the browser to cancel the animation when the View Transition is interrupted.
+View Transition interrupt செய்யப்படும் போது animation-ஐ cancel செய்ய இது browser-க்கு அனுமதிக்கிறது.
 
 </Note>
 
 ---
 
-### Animating transition types with JavaScript {/*animating-transition-types-with-javascript*/}
+### JavaScript மூலம் transition type-களை animate செய்தல் {/*animating-transition-types-with-javascript*/}
 
-You can use `types` passed to `ViewTransition` events to conditionally apply different animations based on how the Transition was triggered.
+Transition எப்படி trigger செய்யப்பட்டது என்பதன் அடிப்படையில் வேறு animation-களை conditionally apply செய்ய, `ViewTransition` event-களுக்கு pass செய்யப்படும் `types`-ஐப் பயன்படுத்தலாம்.
 
 ```js {3}
  <ViewTransition
@@ -2579,7 +2579,7 @@ You can use `types` passed to `ViewTransition` events to conditionally apply dif
 >
 ```
 
-This example calls [`addTransitionType`](/reference/react/addTransitionType) to mark a Transition as "fast" and then adjust the animation duration:
+இந்த உதாரணம் Transition-ஐ "fast" என குறிக்க [`addTransitionType`](/reference/react/addTransitionType)-ஐ call செய்து, பின்னர் animation duration-ஐ adjust செய்கிறது:
 
 <Sandpack>
 
@@ -2646,7 +2646,7 @@ export default function Component() {
   return (
     <>
       <div>
-        Fast: <input type="checkbox" onChange={() => {setIsFast(f => !f)}} value={isFast}></input>
+        வேகம்: <input type="checkbox" onChange={() => {setIsFast(f => !f)}} value={isFast}></input>
       </div><br />
       <button
         onClick={() => {
@@ -2682,8 +2682,8 @@ export const SLIDE_OUT = [
 export default [
   {
     id: '1',
-    title: 'First video',
-    description: 'Video description',
+    title: 'முதல் வீடியோ',
+    description: 'வீடியோ விளக்கம்',
     image: 'blue',
   },
 ];
@@ -2785,45 +2785,45 @@ button:hover {
 
 ---
 
-### Building View Transition enabled routers {/*building-view-transition-enabled-routers*/}
+### View Transition enabled router-களை உருவாக்குதல் {/*building-view-transition-enabled-routers*/}
 
-React waits for any pending Navigation to finish to ensure that scroll restoration happens within the animation. If the Navigation is blocked on React, your router must unblock in `useLayoutEffect` since `useEffect` would lead to a deadlock.
+scroll restoration animation-க்குள் நடப்பதை உறுதிசெய்ய, pending Navigation ஏதேனும் முடியும் வரை React காத்திருக்கும். Navigation React-இல் blocked ஆக இருந்தால், `useEffect` deadlock-க்கு வழிவகுக்கும் என்பதால், உங்கள் router `useLayoutEffect`-இல் unblock செய்ய வேண்டும்.
 
-If a `startTransition` is started from the legacy popstate event, such as during a "back"-navigation then it must finish synchronously to ensure scroll and form restoration works correctly. This is in conflict with running a View Transition animation. Therefore, React will skip animations from popstate and animations won't run for the back button. You can fix this by upgrading your router to use the Navigation API.
+legacy popstate event-இலிருந்து `startTransition` தொடங்கப்பட்டால், உதாரணமாக "back" navigation-இன் போது, scroll மற்றும் form restoration சரியாக வேலை செய்வதை உறுதிசெய்ய அது synchronously முடிக்கப்பட வேண்டும். இது View Transition animation ஓடுவதுடன் முரண்படும். எனவே React popstate-இலிருந்து வரும் animation-களை skip செய்யும்; back button-க்கு animation ஓடாது. உங்கள் router-ஐ Navigation API பயன்படுத்துமாறு upgrade செய்வதன் மூலம் இதைச் சரிசெய்யலாம்.
 
 ---
 
 ## Troubleshooting {/*troubleshooting*/}
 
-### My `<ViewTransition>` is not activating {/*my-viewtransition-is-not-activating*/}
+### என் `<ViewTransition>` activate ஆகவில்லை {/*my-viewtransition-is-not-activating*/}
 
-`<ViewTransition>` only activates if it is placed before any DOM node:
+`<ViewTransition>` எந்த DOM node-க்கும் முன் வைக்கப்பட்டால் மட்டுமே activate ஆகும்:
 
 ```js [3, 5]
 function Component() {
   return (
     <div>
-      <ViewTransition>Hi</ViewTransition>
+      <ViewTransition>வணக்கம்</ViewTransition>
     </div>
   );
 }
 ```
 
-To fix, ensure that the `<ViewTransition>` comes before any other DOM nodes:
+சரிசெய்ய, `<ViewTransition>` மற்ற எந்த DOM node-க்கும் முன் வருவதை உறுதிசெய்யுங்கள்:
 
 ```js [3, 5]
 function Component() {
   return (
     <ViewTransition>
-      <div>Hi</div>
+      <div>வணக்கம்</div>
     </ViewTransition>
   );
 }
 ```
 
-### I'm getting an error "There are two `<ViewTransition name=%s>` components with the same name mounted at the same time." {/*two-viewtransition-with-same-name*/}
+### "There are two `<ViewTransition name=%s>` components with the same name mounted at the same time." என்ற error வருகிறது {/*two-viewtransition-with-same-name*/}
 
-This error occurs when two `<ViewTransition>` components with the same `name` are mounted at the same time:
+ஒரே `name` கொண்ட இரண்டு `<ViewTransition>` component-கள் ஒரே நேரத்தில் mount ஆனால் இந்த error ஏற்படும்:
 
 ```js [3]
 function Item() {
@@ -2842,7 +2842,7 @@ function ItemList({items}) {
 }
 ```
 
-This will cause the View Transition to error. In development, React detects this issue to surface it and logs two errors:
+இதனால் View Transition error ஆகும். development-இல், React இந்த issue-வை வெளிக்காட்ட detect செய்து இரண்டு error-களை log செய்கிறது:
 
 <ConsoleBlockMulti>
 <ConsoleLogLine level="error">
@@ -2862,7 +2862,7 @@ The existing `<ViewTransition name=%s>` duplicate has this stack trace.
 </ConsoleLogLine>
 </ConsoleBlockMulti>
 
-To fix, ensure that there's only one `<ViewTransition>` with the same name mounted at a time in the entire app by ensuring the `name` is unique, or adding an `id` to the name:
+சரிசெய்ய, `name` unique என்பதை உறுதிசெய்தோ அல்லது பெயருக்கு `id` சேர்த்தோ, முழு app-இல் ஒரே நேரத்தில் அதே பெயருடன் ஒரே ஒரு `<ViewTransition>` மட்டுமே mount ஆகும் என்பதை உறுதிசெய்யுங்கள்:
 
 ```js [3]
 function Item({id}) {

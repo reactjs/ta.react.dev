@@ -1,49 +1,49 @@
 ---
-title: Components and Hooks must be pure
+title: Components மற்றும் Hooks pure ஆக இருக்க வேண்டும்
 ---
 
 <Intro>
-Pure functions only perform a calculation and nothing more. It makes your code easier to understand, debug, and allows React to automatically optimize your components and Hooks correctly.
+Pure functions ஒரு calculation மட்டுமே செய்கின்றன; அதற்கு மேல் எதுவும் செய்யாது. இது உங்கள் code-ஐ புரிந்துகொள்ளவும் debug செய்யவும் உதவுகிறது, மேலும் React உங்கள் components மற்றும் Hooks-ஐ சரியாக automatically optimize செய்ய அனுமதிக்கிறது.
 </Intro>
 
 <Note>
-This reference page covers advanced topics and requires familiarity with the concepts covered in the [Keeping Components Pure](/learn/keeping-components-pure) page.
+இந்த reference page advanced topics-ஐ cover செய்கிறது; [Components-ஐ Pure ஆக வைத்திருத்தல்](/learn/keeping-components-pure) page-இல் உள்ள concepts குறித்து familiarity தேவை.
 </Note>
 
 <InlineToc />
 
-### Why does purity matter? {/*why-does-purity-matter*/}
+### Purity ஏன் முக்கியம்? {/*why-does-purity-matter*/}
 
-One of the key concepts that makes React, _React_ is _purity_. A pure component or hook is one that is:
+React-ஐ _React_ ஆக்கும் முக்கிய concepts-இல் ஒன்று _purity_. Pure component அல்லது hook என்பது:
 
-* **Idempotent** – You [always get the same result every time](/learn/keeping-components-pure#purity-components-as-formulas) you run it with the same inputs – props, state, context for component inputs; and arguments for hook inputs.
-* **Has no side effects in render** – Code with side effects should run [**separately from rendering**](#how-does-react-run-your-code). For example as an [event handler](/learn/responding-to-events) – where the user interacts with the UI and causes it to update; or as an [Effect](/reference/react/useEffect) – which runs after render.
-* **Does not mutate non-local values**: Components and Hooks should [never modify values that aren't created locally](#mutation) in render.
+* **Idempotent** - அதே inputs உடன் run செய்தால் [ஒவ்வொரு முறையும் அதே result கிடைக்கும்](/learn/keeping-components-pure#purity-components-as-formulas) - component inputs-க்கு props, state, context; hook inputs-க்கு arguments.
+* **Render-இல் side effects இல்லை** - Side effects கொண்ட code [**rendering-இலிருந்து தனியாக**](#how-does-react-run-your-code) run ஆக வேண்டும். உதாரணமாக [event handler](/learn/responding-to-events) ஆக - user UI உடன் interact செய்து update ஏற்படுத்தும் இடம்; அல்லது [Effect](/reference/react/useEffect) ஆக - render-க்கு பிறகு run ஆகும்.
+* **Non-local values mutate செய்யாது**: Components மற்றும் Hooks render-இல் [locally create செய்யப்படாத values-ஐ ஒருபோதும் modify செய்யக்கூடாது](#mutation).
 
-When render is kept pure, React can understand how to prioritize which updates are most important for the user to see first. This is made possible because of render purity: since components don't have side effects [in render](#how-does-react-run-your-code), React can pause rendering components that aren't as important to update, and only come back to them later when it's needed.
+Render pure ஆக வைத்தால், user முதலில் பார்க்க மிகவும் முக்கியமான updates எவை என்பதை React புரிந்துகொண்டு prioritize செய்ய முடியும். இது render purity காரணமாக சாத்தியமாகிறது: components [render-இல்](#how-does-react-run-your-code) side effects இல்லாததால், update செய்ய அவ்வளவு முக்கியமில்லாத components-ஐ React pause செய்து, தேவைப்படும் போது பின்னர் திரும்பிச் செய்யலாம்.
 
-Concretely, this means that rendering logic can be run multiple times in a way that allows React to give your user a pleasant user experience. However, if your component has an untracked side effect – like modifying the value of a global variable [during render](#how-does-react-run-your-code) – when React runs your rendering code again, your side effects will be triggered in a way that won't match what you want. This often leads to unexpected bugs that can degrade how your users experience your app. You can see an [example of this in the Keeping Components Pure page](/learn/keeping-components-pure#side-effects-unintended-consequences).
+Concretely, இதன் அர்த்தம் rendering logic பலமுறை run ஆகக்கூடும்; அதனால் React உங்கள் user-க்கு pleasant user experience தர முடியும். ஆனால் உங்கள் component-இல் untracked side effect இருந்தால் - உதாரணமாக [render போது](#how-does-react-run-your-code) global variable value modify செய்தால் - React உங்கள் rendering code-ஐ மீண்டும் run செய்யும்போது, உங்கள் side effects நீங்கள் விரும்பும் விதத்துக்கு match ஆகாத முறையில் trigger ஆகும். இது users உங்கள் app-ஐ அனுபவிக்கும் விதத்தை பாதிக்கும் unexpected bugs-க்கு வழிவகுக்கும். இதற்கான [example-ஐ Keeping Components Pure page-இல்](/learn/keeping-components-pure#side-effects-unintended-consequences) பார்க்கலாம்.
 
-#### How does React run your code? {/*how-does-react-run-your-code*/}
+#### React உங்கள் code-ஐ எப்படி run செய்கிறது? {/*how-does-react-run-your-code*/}
 
-React is declarative: you tell React _what_ to render, and React will figure out _how_ best to display it to your user. To do this, React has a few phases where it runs your code. You don't need to know about all of these phases to use React well. But at a high level, you should know about what code runs in _render_, and what runs outside of it.
+React declarative: React-க்கு _எதை_ render செய்ய வேண்டும் என்று சொல்கிறீர்கள்; அதை user-க்கு _எப்படி_ சிறப்பாக display செய்வது React கண்டறியும். இதை செய்ய, React உங்கள் code run செய்யும் சில phases கொண்டுள்ளது. React நன்றாகப் பயன்படுத்த இந்த phases அனைத்தையும் தெரிந்திருக்க வேண்டியதில்லை. ஆனால் high level-இல், _render_-இல் எந்த code run ஆகிறது, அதன் வெளியே என்ன run ஆகிறது என்பதை அறிந்திருக்க வேண்டும்.
 
-_Rendering_ refers to calculating what the next version of your UI should look like. After rendering, React takes this new calculation and compares it to the calculation used to create the previous version of your UI. Then React commits just the minimum changes needed to the [DOM](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model) (what your user actually sees) to apply the changes. Finally, [Effects](/learn/synchronizing-with-effects) are flushed (meaning they are run until there are no more left). For more detailed information see the docs for [Render](/learn/render-and-commit) and [Commit and Effect Hooks](/reference/react/hooks#effect-hooks).
+_Rendering_ என்பது உங்கள் UI-ன் அடுத்த version எப்படி இருக்க வேண்டும் என்பதை calculate செய்வது. Rendering-க்கு பிறகு, React இந்த புதிய calculation-ஐ எடுத்து, உங்கள் UI-ன் முந்தைய version உருவாக்க பயன்படுத்திய calculation உடன் compare செய்கிறது. பிறகு changes apply செய்ய, [DOM](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model)-க்கு (உங்கள் user உண்மையில் பார்க்கும் பகுதி) தேவையான குறைந்தபட்ச changes மட்டும் commit செய்கிறது. இறுதியாக, [Effects](/learn/synchronizing-with-effects) flushed செய்யப்படுகின்றன (மீதமில்லை வரை அவை run செய்யப்படுகின்றன). மேலும் விரிவான தகவலுக்கு [Render](/learn/render-and-commit) மற்றும் [Commit and Effect Hooks](/reference/react/hooks#effect-hooks) docs-ஐ பார்க்கவும்.
 
 <DeepDive>
 
-#### How to tell if code runs in render {/*how-to-tell-if-code-runs-in-render*/}
+#### Code render-இல் run ஆகிறதா என்பதை எப்படி அறிதல் {/*how-to-tell-if-code-runs-in-render*/}
 
-One quick heuristic to tell if code runs during render is to examine where it is: if it's written at the top level like in the example below, there's a good chance it runs during render.
+Code render போது run ஆகிறதா என்பதை அறிய விரைவான heuristic ஒன்று: அது எங்கே உள்ளது என்று பாருங்கள். கீழுள்ள example போல top level-இல் எழுதப்பட்டிருந்தால், அது render போது run ஆக வாய்ப்பு அதிகம்.
 
 ```js {2}
 function Dropdown() {
-  const selectedItems = new Set(); // created during render
+  const selectedItems = new Set(); // render போது உருவாக்கப்படுகிறது
   // ...
 }
 ```
 
-Event handlers and Effects don't run in render:
+Event handlers மற்றும் Effects render-இல் run ஆகாது:
 
 ```js {4}
 function Dropdown() {
@@ -68,22 +68,22 @@ function Dropdown() {
 
 ---
 
-## Components and Hooks must be idempotent {/*components-and-hooks-must-be-idempotent*/}
+## Components மற்றும் Hooks idempotent ஆக இருக்க வேண்டும் {/*components-and-hooks-must-be-idempotent*/}
 
-Components must always return the same output with respect to their inputs – props, state, and context. This is known as _idempotency_. [Idempotency](https://en.wikipedia.org/wiki/Idempotence) is a term popularized in functional programming. It refers to the idea that you [always get the same result every time](learn/keeping-components-pure) you run that piece of code with the same inputs.
+Components தங்கள் inputs - props, state, மற்றும் context - அடிப்படையில் எப்போதும் அதே output return செய்ய வேண்டும். இதுவே _idempotency_. [Idempotency](https://en.wikipedia.org/wiki/Idempotence) என்பது functional programming-இல் பிரபலமான term. அதே inputs உடன் அந்த code piece run செய்தால் [ஒவ்வொரு முறையும் அதே result கிடைக்கும்](learn/keeping-components-pure) என்ற கருத்தை குறிக்கிறது.
 
-This means that _all_ code that runs [during render](#how-does-react-run-your-code) must also be idempotent in order for this rule to hold. For example, this line of code is not idempotent (and therefore, neither is the component):
+இந்த rule நிலைக்க, [render போது](#how-does-react-run-your-code) run ஆகும் _அனைத்து_ code-யும் idempotent ஆக இருக்க வேண்டும். உதாரணமாக, இந்த code line idempotent அல்ல (அதனால் component-யும் idempotent அல்ல):
 
 ```js {2}
 function Clock() {
-  const time = new Date(); // 🔴 Bad: always returns a different result!
+  const time = new Date(); // 🔴 Bad: எப்போதும் வேறு result return செய்கிறது!
   return <span>{time.toLocaleString()}</span>
 }
 ```
 
-`new Date()` is not idempotent as it always returns the current date and changes its result every time it's called. When you render the above component, the time displayed on the screen will stay stuck on the time that the component was rendered. Similarly, functions like `Math.random()` also aren't idempotent, because they return different results every time they're called, even when the inputs are the same.
+`new Date()` idempotent அல்ல; அது எப்போதும் current date return செய்கிறது, மேலும் call செய்யும் ஒவ்வொரு முறையும் result மாறுகிறது. மேலுள்ள component render செய்தால், screen-இல் காட்டப்படும் time, component render செய்யப்பட்ட நேரத்தில் stuck ஆகிவிடும். அதேபோல் `Math.random()` போன்ற functions-யும் idempotent அல்ல; inputs அதே இருந்தாலும் ஒவ்வொரு call-க்கும் வேறு results return செய்கின்றன.
 
-This doesn't mean you shouldn't use non-idempotent functions like `new Date()` _at all_ – you should just avoid using them [during render](#how-does-react-run-your-code). In this case, we can _synchronize_ the latest date to this component using an [Effect](/reference/react/useEffect):
+இதன் அர்த்தம் `new Date()` போன்ற non-idempotent functions-ஐ _முழுவதும்_ பயன்படுத்தக்கூடாது என்பதல்ல - அவற்றை [render போது](#how-does-react-run-your-code) பயன்படுத்துவதை தவிர்க்க வேண்டும். இந்த case-இல், [Effect](/reference/react/useEffect) பயன்படுத்தி latest date-ஐ இந்த component உடன் _synchronize_ செய்யலாம்:
 
 <Sandpack>
 
@@ -99,7 +99,7 @@ function useTime() {
   useEffect(() => {
     // 2. Update the current date every second using `setInterval`.
     const id = setInterval(() => {
-      setTime(new Date()); // ✅ Good: non-idempotent code no longer runs in render
+      setTime(new Date()); // ✅ Good: non-idempotent code இனி render-இல் run ஆகாது
     }, 1000);
     // 3. Return a cleanup function so we don't leak the `setInterval` timer.
     return () => clearInterval(id);
@@ -116,28 +116,28 @@ export default function Clock() {
 
 </Sandpack>
 
-By wrapping the non-idempotent `new Date()` call in an Effect, it moves that calculation [outside of rendering](#how-does-react-run-your-code).
+Non-idempotent `new Date()` call-ஐ Effect-இல் wrap செய்வதால், அந்த calculation [rendering-க்கு வெளியே](#how-does-react-run-your-code) நகர்கிறது.
 
-If you don't need to synchronize some external state with React, you can also consider using an [event handler](/learn/responding-to-events) if it only needs to be updated in response to a user interaction.
+React உடன் external state ஒன்றை synchronize செய்ய வேண்டியதில்லை என்றால், user interaction-க்கு response ஆக மட்டுமே update செய்ய வேண்டுமானால் [event handler](/learn/responding-to-events) பயன்படுத்துவதையும் பரிசீலிக்கலாம்.
 
 ---
 
-## Side effects must run outside of render {/*side-effects-must-run-outside-of-render*/}
+## Side effects render-க்கு வெளியே run ஆக வேண்டும் {/*side-effects-must-run-outside-of-render*/}
 
-[Side effects](/learn/keeping-components-pure#side-effects-unintended-consequences) should not run [in render](#how-does-react-run-your-code), as React can render components multiple times to create the best possible user experience.
+[Side effects](/learn/keeping-components-pure#side-effects-unintended-consequences) [render-இல்](#how-does-react-run-your-code) run ஆகக்கூடாது; ஏனெனில் சிறந்த possible user experience உருவாக்க React components-ஐ பலமுறை render செய்யலாம்.
 
 <Note>
-Side effects are a broader term than Effects. Effects specifically refer to code that's wrapped in `useEffect`, while a side effect is a general term for code that has any observable effect other than its primary result of returning a value to the caller.
+Side effects என்பது Effects-ஐ விட broader term. Effects என்பது குறிப்பாக `useEffect`-இல் wrap செய்யப்பட்ட code-ஐ குறிக்கிறது; side effect என்பது caller-க்கு value return செய்வது என்ற primary result தவிர வேறு observable effect கொண்ட எந்த code-க்கும் general term.
 
-Side effects are typically written inside of [event handlers](/learn/responding-to-events) or Effects. But never during render.
+Side effects பொதுவாக [event handlers](/learn/responding-to-events) அல்லது Effects உள்ளே எழுதப்படுகின்றன. ஆனால் render போது ஒருபோதும் இல்லை.
 </Note>
 
-While render must be kept pure, side effects are necessary at some point in order for your app to do anything interesting, like showing something on the screen! The key point of this rule is that side effects should not run [in render](#how-does-react-run-your-code), as React can render components multiple times. In most cases, you'll use [event handlers](learn/responding-to-events) to handle side effects. Using an event handler explicitly tells React that this code doesn't need to run during render, keeping render pure. If you've exhausted all options – and only as a last resort – you can also handle side effects using `useEffect`.
+Render pure ஆக இருக்க வேண்டும் என்றாலும், உங்கள் app screen-இல் ஏதாவது interesting காட்டுவது போன்றவற்றைச் செய்ய side effects ஓர் இடத்தில் அவசியம்! இந்த rule-ன் முக்கிய point: side effects [render-இல்](#how-does-react-run-your-code) run ஆகக்கூடாது, ஏனெனில் React components-ஐ பலமுறை render செய்யலாம். பெரும்பாலான cases-இல், side effects handle செய்ய [event handlers](learn/responding-to-events) பயன்படுத்துவீர்கள். Event handler பயன்படுத்துவது, இந்த code render போது run ஆக வேண்டியதில்லை என்று React-க்கு explicit ஆகச் சொல்கிறது; இதனால் render pure ஆக இருக்கும். அனைத்து options-யும் exhausted ஆன பிறகு - கடைசி resort ஆக மட்டும் - `useEffect` பயன்படுத்தி side effects handle செய்யலாம்.
 
-### When is it okay to have mutation? {/*mutation*/}
+### Mutation எப்போது okay? {/*mutation*/}
 
 #### Local mutation {/*local-mutation*/}
-One common example of a side effect is mutation, which in JavaScript refers to changing the value of a non-[primitive](https://developer.mozilla.org/en-US/docs/Glossary/Primitive) value. In general, while mutation is not idiomatic in React, _local_ mutation is absolutely fine:
+Side effect-க்கு பொதுவான example mutation. JavaScript-இல் இது non-[primitive](https://developer.mozilla.org/en-US/docs/Glossary/Primitive) value-ன் value மாற்றுவதை குறிக்கிறது. பொதுவாக mutation React-இல் idiomatic அல்ல; ஆனால் _local_ mutation முற்றிலும் fine:
 
 ```js {2,7}
 function FriendList({ friends }) {
@@ -146,103 +146,103 @@ function FriendList({ friends }) {
     const friend = friends[i];
     items.push(
       <Friend key={friend.id} friend={friend} />
-    ); // ✅ Good: local mutation is okay
+    ); // ✅ Good: local mutation okay
   }
   return <section>{items}</section>;
 }
 ```
 
-There is no need to contort your code to avoid local mutation. [`Array.map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) could also be used here for brevity, but there is nothing wrong with creating a local array and then pushing items into it [during render](#how-does-react-run-your-code).
+Local mutation தவிர்க்க உங்கள் code-ஐ சிரமப்படுத்த தேவையில்லை. Brevity-க்காக இங்கே [`Array.map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) பயன்படுத்தலாம்; ஆனால் local array ஒன்றை உருவாக்கி [render போது](#how-does-react-run-your-code) அதில் items push செய்வதில் தவறு இல்லை.
 
-Even though it looks like we are mutating `items`, the key point to note is that this code only does so _locally_ – the mutation isn't "remembered" when the component is rendered again. In other words, `items` only stays around as long as the component does. Because `items` is always _recreated_ every time `<FriendList />` is rendered, the component will always return the same result.
+நாம் `items` mutate செய்கிறோம் போலத் தெரிந்தாலும், கவனிக்க வேண்டிய முக்கிய point: இந்த code அதை _locally_ மட்டும் செய்கிறது - component மீண்டும் render செய்யப்படும் போது mutation "remembered" ஆகாது. வேறு வார்த்தைகளில், component இருக்கும் வரை மட்டுமே `items` இருக்கும். `<FriendList />` render செய்யப்படும் ஒவ்வொரு முறையும் `items` எப்போதும் _recreated_ ஆகுவதால், component எப்போதும் அதே result return செய்யும்.
 
-On the other hand, if `items` was created outside of the component, it holds on to its previous values and remembers changes:
+மாறாக, `items` component வெளியே உருவாக்கப்பட்டிருந்தால், அது முந்தைய values-ஐ வைத்துக்கொண்டு changes-ஐ நினைவில் வைக்கும்:
 
 ```js {1,7}
-const items = []; // 🔴 Bad: created outside of the component
+const items = []; // 🔴 Bad: component வெளியே உருவாக்கப்பட்டது
 function FriendList({ friends }) {
   for (let i = 0; i < friends.length; i++) {
     const friend = friends[i];
     items.push(
       <Friend key={friend.id} friend={friend} />
-    ); // 🔴 Bad: mutates a value created outside of render
+    ); // 🔴 Bad: render வெளியே உருவாக்கப்பட்ட value-ஐ mutate செய்கிறது
   }
   return <section>{items}</section>;
 }
 ```
 
-When `<FriendList />` runs again, we will continue appending `friends` to `items` every time that component is run, leading to multiple duplicated results. This version of `<FriendList />` has observable side effects [during render](#how-does-react-run-your-code) and **breaks the rule**.
+`<FriendList />` மீண்டும் run ஆகும் போது, அந்த component run ஆகும் ஒவ்வொரு முறையும் `friends`-ஐ `items`-க்கு append செய்வோம்; இதனால் duplicated results பல உருவாகும். இந்த `<FriendList />` version [render போது](#how-does-react-run-your-code) observable side effects கொண்டுள்ளது மற்றும் **rule-ஐ உடைக்கிறது**.
 
 #### Lazy initialization {/*lazy-initialization*/}
 
-Lazy initialization is also fine despite not being fully "pure":
+முழுமையாக "pure" அல்லாதிருந்தாலும் lazy initialization fine:
 
 ```js {2}
 function ExpenseForm() {
-  SuperCalculator.initializeIfNotReady(); // ✅ Good: if it doesn't affect other components
+  SuperCalculator.initializeIfNotReady(); // ✅ Good: மற்ற components-ஐ பாதிக்காவிட்டால்
   // Continue rendering...
 }
 ```
 
-#### Changing the DOM {/*changing-the-dom*/}
+#### DOM-ஐ மாற்றுதல் {/*changing-the-dom*/}
 
-Side effects that are directly visible to the user are not allowed in the render logic of React components. In other words, merely calling a component function shouldn’t by itself produce a change on the screen.
+User-க்கு நேரடியாக visible ஆன side effects, React components-ன் render logic-இல் அனுமதிக்கப்படாது. வேறு வார்த்தைகளில், component function call செய்வது மட்டுமே screen-இல் change உருவாக்கக்கூடாது.
 
 ```js {2}
 function ProductDetailPage({ product }) {
-  document.title = product.title; // 🔴 Bad: Changes the DOM
+  document.title = product.title; // 🔴 Bad: DOM-ஐ மாற்றுகிறது
 }
 ```
 
-One way to achieve the desired result of updating `document.title` outside of render is to [synchronize the component with `document`](/learn/synchronizing-with-effects).
+Render-க்கு வெளியே `document.title` update செய்ய desired result பெற ஒரு வழி, [component-ஐ `document` உடன் synchronize செய்வது](/learn/synchronizing-with-effects).
 
-As long as calling a component multiple times is safe and doesn’t affect the rendering of other components, React doesn’t care if it’s 100% pure in the strict functional programming sense of the word. It is more important that [components must be idempotent](/reference/rules/components-and-hooks-must-be-pure).
+Component பலமுறை call செய்யப்படுவது safe ஆகவும், மற்ற components rendering-ஐ பாதிக்காததாகவும் இருந்தால், strict functional programming sense-இல் அது 100% pure ஆக இல்லாவிட்டாலும் React கவலைப்படாது. [Components idempotent ஆக இருக்க வேண்டும்](/reference/rules/components-and-hooks-must-be-pure) என்பதே அதிக முக்கியம்.
 
 ---
 
-## Props and state are immutable {/*props-and-state-are-immutable*/}
+## Props மற்றும் state immutable {/*props-and-state-are-immutable*/}
 
-A component's props and state are immutable [snapshots](learn/state-as-a-snapshot). Never mutate them directly. Instead, pass new props down, and use the setter function from `useState`.
+Component-ன் props மற்றும் state immutable [snapshots](learn/state-as-a-snapshot). அவற்றை நேரடியாக mutate செய்யாதீர்கள். அதற்கு பதிலாக, புதிய props-ஐ கீழே pass செய்யவும், `useState`-இலிருந்து setter function-ஐ பயன்படுத்தவும்.
 
-You can think of the props and state values as snapshots that are updated after rendering. For this reason, you don't modify the props or state variables directly: instead you pass new props, or use the setter function provided to you to tell React that state needs to update the next time the component is rendered.
+Props மற்றும் state values rendering-க்கு பிறகு update செய்யப்படும் snapshots என்று சிந்திக்கலாம். இந்த காரணத்தால், props அல்லது state variables-ஐ நேரடியாக modify செய்ய வேண்டாம்: அதற்கு பதிலாக புதிய props pass செய்யவும், அல்லது அடுத்த முறை component render செய்யும்போது state update செய்ய வேண்டும் என்று React-க்கு சொல்ல உங்களுக்கு வழங்கப்பட்ட setter function பயன்படுத்தவும்.
 
-### Don't mutate Props {/*props*/}
-Props are immutable because if you mutate them, the application will produce inconsistent output, which can be hard to debug as it may or may not work depending on the circumstances.
+### Props mutate செய்யாதீர்கள் {/*props*/}
+Props immutable; அவற்றை mutate செய்தால் application inconsistent output உருவாக்கும். Circumstances-ஐப் பொறுத்து அது வேலை செய்யலாம் அல்லது செய்யாமல் இருக்கலாம் என்பதால் debug செய்ய கடினமாக இருக்கும்.
 
 ```js {expectedErrors: {'react-compiler': [2]}} {2}
 function Post({ item }) {
-  item.url = new Url(item.url, base); // 🔴 Bad: never mutate props directly
+  item.url = new Url(item.url, base); // 🔴 Bad: props-ஐ நேரடியாக ஒருபோதும் mutate செய்யாதீர்கள்
   return <Link url={item.url}>{item.title}</Link>;
 }
 ```
 
 ```js {2}
 function Post({ item }) {
-  const url = new Url(item.url, base); // ✅ Good: make a copy instead
+  const url = new Url(item.url, base); // ✅ Good: அதற்கு பதிலாக copy உருவாக்கவும்
   return <Link url={url}>{item.title}</Link>;
 }
 ```
 
-### Don't mutate State {/*state*/}
-`useState` returns the state variable and a setter to update that state.
+### State mutate செய்யாதீர்கள் {/*state*/}
+`useState` state variable மற்றும் அந்த state update செய்ய setter return செய்கிறது.
 
 ```js
 const [stateVariable, setter] = useState(0);
 ```
 
-Rather than updating the state variable in-place, we need to update it using the setter function that is returned by `useState`. Changing values on the state variable doesn't cause the component to update, leaving your users with an outdated UI. Using the setter function informs React that the state has changed, and that we need to queue a re-render to update the UI.
+State variable-ஐ in-place update செய்வதற்குப் பதிலாக, `useState` return செய்யும் setter function பயன்படுத்தி update செய்ய வேண்டும். State variable-இல் values மாற்றுவது component update ஆக காரணமில்லை; users outdated UI-யுடன் விடப்படுவார்கள். Setter function பயன்படுத்துவது state மாறியுள்ளது, UI update செய்ய re-render queue செய்ய வேண்டும் என்று React-க்கு தெரிவிக்கிறது.
 
 ```js {expectedErrors: {'react-compiler': [2, 5]}} {5}
 function Counter() {
   const [count, setCount] = useState(0);
 
   function handleClick() {
-    count = count + 1; // 🔴 Bad: never mutate state directly
+    count = count + 1; // 🔴 Bad: state-ஐ நேரடியாக ஒருபோதும் mutate செய்யாதீர்கள்
   }
 
   return (
     <button onClick={handleClick}>
-      You pressed me {count} times
+      என்னை {count} முறை அழுத்தினீர்கள்
     </button>
   );
 }
@@ -253,12 +253,12 @@ function Counter() {
   const [count, setCount] = useState(0);
 
   function handleClick() {
-    setCount(count + 1); // ✅ Good: use the setter function returned by useState
+    setCount(count + 1); // ✅ Good: useState return செய்த setter function பயன்படுத்தவும்
   }
 
   return (
     <button onClick={handleClick}>
-      You pressed me {count} times
+      என்னை {count} முறை அழுத்தினீர்கள்
     </button>
   );
 }
@@ -266,15 +266,15 @@ function Counter() {
 
 ---
 
-## Return values and arguments to Hooks are immutable {/*return-values-and-arguments-to-hooks-are-immutable*/}
+## Hooks-க்கு return values மற்றும் arguments immutable {/*return-values-and-arguments-to-hooks-are-immutable*/}
 
-Once values are passed to a hook, you should not modify them. Like props in JSX, values become immutable when passed to a hook.
+Values hook-க்கு pass செய்யப்பட்டவுடன், அவற்றை modify செய்யக்கூடாது. JSX-இல் props போலவே, values hook-க்கு pass செய்யப்பட்டபோது immutable ஆகும்.
 
 ```js {expectedErrors: {'react-compiler': [4]}} {4}
 function useIconStyle(icon) {
   const theme = useContext(ThemeContext);
   if (icon.enabled) {
-    icon.className = computeStyle(icon, theme); // 🔴 Bad: never mutate hook arguments directly
+    icon.className = computeStyle(icon, theme); // 🔴 Bad: hook arguments-ஐ நேரடியாக mutate செய்யாதீர்கள்
   }
   return icon;
 }
@@ -283,7 +283,7 @@ function useIconStyle(icon) {
 ```js {3}
 function useIconStyle(icon) {
   const theme = useContext(ThemeContext);
-  const newIcon = { ...icon }; // ✅ Good: make a copy instead
+  const newIcon = { ...icon }; // ✅ Good: அதற்கு பதிலாக copy உருவாக்கவும்
   if (icon.enabled) {
     newIcon.className = computeStyle(icon, theme);
   }
@@ -291,7 +291,7 @@ function useIconStyle(icon) {
 }
 ```
 
-One important principle in React is _local reasoning_: the ability to understand what a component or hook does by looking at its code in isolation. Hooks should be treated like "black boxes" when they are called. For example, a custom hook might have used its arguments as dependencies to memoize values inside it:
+React-இல் முக்கியமான principle ஒன்று _local reasoning_: component அல்லது hook என்ன செய்கிறது என்பதை அதன் code-ஐ தனியாகப் பார்த்து புரிந்துகொள்ளும் திறன். Hooks call செய்யப்படும் போது அவற்றை "black boxes" போல treat செய்ய வேண்டும். உதாரணமாக, custom hook ஒன்று தனது arguments-ஐ dependencies ஆகப் பயன்படுத்தி அதன் உள்ளே values memoize செய்திருக்கலாம்:
 
 ```js {4}
 function useIconStyle(icon) {
@@ -307,35 +307,35 @@ function useIconStyle(icon) {
 }
 ```
 
-If you were to mutate the Hook's arguments, the custom hook's memoization will become incorrect,  so it's important to avoid doing that.
+Hook-ன் arguments mutate செய்தால், custom hook-ன் memoization incorrect ஆகும்; எனவே அதைத் தவிர்ப்பது முக்கியம்.
 
 ```js {4}
-style = useIconStyle(icon);         // `style` is memoized based on `icon`
-icon.enabled = false;               // Bad: 🔴 never mutate hook arguments directly
-style = useIconStyle(icon);         // previously memoized result is returned
+style = useIconStyle(icon);         // `style`, `icon` அடிப்படையில் memoized
+icon.enabled = false;               // Bad: 🔴 hook arguments-ஐ நேரடியாக mutate செய்யாதீர்கள்
+style = useIconStyle(icon);         // முன்பு memoized result return ஆகிறது
 ```
 
 ```js {4}
-style = useIconStyle(icon);         // `style` is memoized based on `icon`
-icon = { ...icon, enabled: false }; // Good: ✅ make a copy instead
-style = useIconStyle(icon);         // new value of `style` is calculated
+style = useIconStyle(icon);         // `style`, `icon` அடிப்படையில் memoized
+icon = { ...icon, enabled: false }; // Good: ✅ அதற்கு பதிலாக copy உருவாக்கவும்
+style = useIconStyle(icon);         // `style`-ன் புதிய value calculate செய்யப்படுகிறது
 ```
 
-Similarly, it's important to not modify the return values of Hooks, as they may have been memoized.
+அதேபோல், Hooks-ன் return values-ஐ modify செய்யாமல் இருப்பதும் முக்கியம்; அவை memoized ஆகியிருக்கலாம்.
 
 ---
 
-## Values are immutable after being passed to JSX {/*values-are-immutable-after-being-passed-to-jsx*/}
+## JSX-க்கு pass செய்த பிறகு values immutable {/*values-are-immutable-after-being-passed-to-jsx*/}
 
-Don't mutate values after they've been used in JSX. Move the mutation to before the JSX is created.
+Values JSX-இல் பயன்படுத்தப்பட்ட பிறகு அவற்றை mutate செய்யாதீர்கள். Mutation-ஐ JSX உருவாக்கப்படும் முன் நகர்த்தவும்.
 
-When you use JSX in an expression, React may eagerly evaluate the JSX before the component finishes rendering. This means that mutating values after they've been passed to JSX can lead to outdated UIs, as React won't know to update the component's output.
+Expression-இல் JSX பயன்படுத்தும்போது, component rendering முடிவதற்கு முன் React JSX-ஐ eagerly evaluate செய்யலாம். இதன் அர்த்தம்: values JSX-க்கு pass செய்த பிறகு அவற்றை mutate செய்தால் outdated UIs உருவாகலாம்; component output update செய்ய வேண்டும் என்பதை React அறியாது.
 
 ```js {expectedErrors: {'react-compiler': [4]}} {4}
 function Page({ colour }) {
   const styles = { colour, size: "large" };
   const header = <Header styles={styles} />;
-  styles.size = "small"; // 🔴 Bad: styles was already used in the JSX above
+  styles.size = "small"; // 🔴 Bad: மேலுள்ள JSX-இல் styles ஏற்கனவே பயன்படுத்தப்பட்டது
   const footer = <Footer styles={styles} />;
   return (
     <>
@@ -351,7 +351,7 @@ function Page({ colour }) {
 function Page({ colour }) {
   const headerStyles = { colour, size: "large" };
   const header = <Header styles={headerStyles} />;
-  const footerStyles = { colour, size: "small" }; // ✅ Good: we created a new value
+  const footerStyles = { colour, size: "small" }; // ✅ Good: புதிய value உருவாக்கினோம்
   const footer = <Footer styles={footerStyles} />;
   return (
     <>

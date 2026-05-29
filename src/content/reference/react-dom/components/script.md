@@ -4,7 +4,7 @@ script: "<script>"
 
 <Intro>
 
-The [built-in browser `<script>` component](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script) lets you add a script to your document.
+[உலாவியில் உள்ளமைந்த `<script>` component](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script), உங்கள் document-க்கு script சேர்க்க உதவுகிறது.
 
 ```js
 <script> alert("hi!") </script>
@@ -16,71 +16,71 @@ The [built-in browser `<script>` component](https://developer.mozilla.org/en-US/
 
 ---
 
-## Reference {/*reference*/}
+## குறிப்பு {/*reference*/}
 
 ### `<script>` {/*script*/}
 
-To add inline or external scripts to your document, render the [built-in browser `<script>` component](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script). You can render `<script>` from any component and React will [in certain cases](#special-rendering-behavior) place the corresponding DOM element in the document head and de-duplicate identical scripts.
+உங்கள் document-க்கு inline அல்லது external scripts சேர்க்க, [உலாவியில் உள்ளமைந்த `<script>` component](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script)-ஐ render செய்யுங்கள். எந்த component-இலிருந்தும் `<script>`-ஐ render செய்யலாம்; React [சில சூழல்களில்](#special-rendering-behavior) தொடர்புடைய DOM element-ஐ document head-இல் வைத்து, ஒரே மாதிரியான scripts-ஐ de-duplicate செய்யும்.
 
 ```js
 <script> alert("hi!") </script>
 <script src="script.js" />
 ```
 
-[See more examples below.](#usage)
+[மேலும் உதாரணங்களை கீழே பார்க்கவும்.](#usage)
 
 #### Props {/*props*/}
 
-`<script>` supports all [common element props.](/reference/react-dom/components/common#common-props)
+`<script>` அனைத்து [common element props](/reference/react-dom/components/common#common-props)-ஐ ஆதரிக்கிறது.
 
-It should have *either* `children` or a `src` prop.
+இதில் `children` அல்லது `src` prop ஆகியவற்றில் *ஒன்றாவது* இருக்க வேண்டும்.
 
-* `children`: a string. The source code of an inline script.
-* `src`: a string. The URL of an external script.
+* `children`: ஒரு string. Inline script-ன் source code.
+* `src`: ஒரு string. External script-ன் URL.
 
-Other supported props:
+ஆதரிக்கப்படும் பிற props:
 
-* `async`: a boolean. Allows the browser to defer execution of the script until the rest of the document has been processed — the preferred behavior for performance.
-*  `crossOrigin`: a string. The [CORS policy](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/crossorigin) to use. Its possible values are `anonymous` and `use-credentials`.
-* `fetchPriority`: a string. Lets the browser rank scripts in priority when fetching multiple scripts at the same time. Can be `"high"`, `"low"`, or `"auto"` (the default).
-* `integrity`: a string. A cryptographic hash of the script, to [verify its authenticity](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity).
-* `noModule`: a boolean. Disables the script in browsers that support ES modules — allowing for a fallback script for browsers that do not.
-* `nonce`: a string. A cryptographic [nonce to allow the resource](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/nonce) when using a strict Content Security Policy.
-* `referrer`: a string. Says [what Referer header to send](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script#referrerpolicy) when fetching the script and any resources that the script fetches in turn.
-* `type`: a string. Says whether the script is a [classic script, ES module, or import map](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script/type).
+* `async`: ஒரு boolean. Document-ன் மீதமுள்ள பகுதி process ஆகும் வரை script execution-ஐ browser defer செய்ய அனுமதிக்கிறது; performance-க்கான விரும்பத்தக்க behavior இது.
+*  `crossOrigin`: ஒரு string. பயன்படுத்த வேண்டிய [CORS policy](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/crossorigin). இதன் சாத்தியமான values `anonymous` மற்றும் `use-credentials`.
+* `fetchPriority`: ஒரு string. ஒரே நேரத்தில் பல scripts fetch செய்யும்போது அவற்றை priority அடிப்படையில் browser rank செய்ய அனுமதிக்கிறது. `"high"`, `"low"`, அல்லது `"auto"` (default) ஆக இருக்கலாம்.
+* `integrity`: ஒரு string. Script-ன் authenticity-ஐ [verify செய்ய](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity) பயன்படும் cryptographic hash.
+* `noModule`: ஒரு boolean. ES modules ஆதரிக்கும் browsers-இல் script-ஐ disable செய்கிறது; ஆதரிக்காத browsers-க்கு fallback script வழங்க அனுமதிக்கிறது.
+* `nonce`: ஒரு string. Strict Content Security Policy பயன்படுத்தும்போது resource-ஐ அனுமதிக்க cryptographic [nonce](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/nonce).
+* `referrer`: ஒரு string. Script மற்றும் அந்த script பின்னர் fetch செய்யும் resources-ஐ fetch செய்யும்போது [எந்த Referer header அனுப்ப வேண்டும்](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script#referrerpolicy) என்பதைச் சொல்கிறது.
+* `type`: ஒரு string. Script [classic script, ES module, அல்லது import map](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script/type) ஆக உள்ளதா என்பதைச் சொல்கிறது.
 
-Props that disable React's [special treatment of scripts](#special-rendering-behavior):
+Scripts-க்கான React-ன் [சிறப்பு கையாளுதலை](#special-rendering-behavior) disable செய்யும் props:
 
-* `onError`: a function. Called when the script fails to load.
-* `onLoad`: a function. Called when the script finishes being loaded.
+* `onError`: ஒரு function. Script load ஆகத் தவறும்போது call செய்யப்படும்.
+* `onLoad`: ஒரு function. Script load ஆகி முடிந்ததும் call செய்யப்படும்.
 
-Props that are **not recommended** for use with React:
+React உடன் பயன்படுத்த **பரிந்துரைக்கப்படாத** props:
 
-* `blocking`: a string. If set to `"render"`, instructs the browser not to render the page until the scriptsheet is loaded. React provides more fine-grained control using Suspense.
-* `defer`: a string. Prevents the browser from executing the script until the document is done loading. Not compatible with streaming server-rendered components. Use the `async` prop instead.
+* `blocking`: ஒரு string. `"render"` ஆக அமைத்தால், script load ஆகும் வரை page-ஐ render செய்ய வேண்டாம் என்று browser-க்கு அறிவுறுத்துகிறது. React Suspense மூலம் இன்னும் fine-grained control வழங்குகிறது.
+* `defer`: ஒரு string. Document load ஆகி முடியும் வரை script-ஐ execute செய்வதை browser-க்கு தடுக்கிறது. Streaming server-rendered components உடன் compatible அல்ல. அதற்கு பதிலாக `async` prop-ஐப் பயன்படுத்துங்கள்.
 
-#### Special rendering behavior {/*special-rendering-behavior*/}
+#### சிறப்பு rendering behavior {/*special-rendering-behavior*/}
 
-React can move `<script>` components to the document's `<head>` and de-duplicate identical scripts.
+React `<script>` components-ஐ document-ன் `<head>`-க்கு நகர்த்தி, ஒரே மாதிரியான scripts-ஐ de-duplicate செய்ய முடியும்.
 
-To opt into this behavior, provide the `src` and `async={true}` props. React will de-duplicate scripts if they have the same `src`. The `async` prop must be true to allow scripts to be safely moved.
+இந்த behavior-க்கு opt in செய்ய, `src` மற்றும் `async={true}` props வழங்குங்கள். Scripts-க்கு அதே `src` இருந்தால் React அவற்றை de-duplicate செய்யும். Scripts பாதுகாப்பாக நகர்த்தப்பட அனுமதிக்க `async` prop true ஆக இருக்க வேண்டும்.
 
-This special treatment comes with two caveats:
+இந்த சிறப்பு கையாளுதலுக்கு இரண்டு எச்சரிக்கைகள் உள்ளன:
 
-* React will ignore changes to props after the script has been rendered. (React will issue a warning in development if this happens.)
-* React may leave the script in the DOM even after the component that rendered it has been unmounted. (This has no effect as scripts just execute once when they are inserted into the DOM.)
+* Script render ஆன பிறகு props-இல் வரும் மாற்றங்களை React புறக்கணிக்கும். (இது நடந்தால் development-இல் React warning வழங்கும்.)
+* அதை render செய்த component unmount ஆன பிறகும் React script-ஐ DOM-இல் விட்டு விடலாம். (Scripts DOM-இல் insert செய்யப்படும் போது ஒரே முறை மட்டும் execute ஆகும் என்பதால் இதனால் விளைவு இல்லை.)
 
 ---
 
-## Usage {/*usage*/}
+## பயன்பாடு {/*usage*/}
 
-### Rendering an external script {/*rendering-an-external-script*/}
+### External script-ஐ render செய்தல் {/*rendering-an-external-script*/}
 
-If a component depends on certain scripts in order to be displayed correctly, you can render a `<script>` within the component.
-However, the component might be committed before the script has finished loading.
-You can start depending on the script content once the `load` event is fired e.g. by using the `onLoad` prop.
+ஒரு component சரியாக display ஆக சில scripts-ஐ சார்ந்திருந்தால், அந்த component-க்குள் `<script>`-ஐ render செய்யலாம்.
+ஆனால் script load ஆகி முடியும் முன்பே component commit ஆகலாம்.
+`onLoad` prop-ஐப் பயன்படுத்துவது போன்ற முறையில் `load` event fire ஆன பிறகு script content-ஐ சார்ந்து செயல்படலாம்.
 
-React will de-duplicate scripts that have the same `src`, inserting only one of them into the DOM even if multiple components render it.
+பல components அதை render செய்தாலும், அதே `src` உள்ள scripts-ஐ React de-duplicate செய்து, அவற்றில் ஒன்றை மட்டும் DOM-இல் insert செய்யும்.
 
 <SandpackWithHTMLOutput>
 
@@ -108,12 +108,12 @@ export default function Page() {
 </SandpackWithHTMLOutput>
 
 <Note>
-When you want to use a script, it can be beneficial to call the [preinit](/reference/react-dom/preinit) function. Calling this function may allow the browser to start fetching the script earlier than if you just render a `<script>` component, for example by sending an [HTTP Early Hints response](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/103).
+ஒரு script-ஐப் பயன்படுத்த விரும்பும்போது, [preinit](/reference/react-dom/preinit) function-ஐ call செய்வது பயனுள்ளதாக இருக்கலாம். `<script>` component-ஐ மட்டும் render செய்வதைவிட, இந்த function-ஐ call செய்வது browser script-ஐ முன்னதாக fetch செய்யத் தொடங்க அனுமதிக்கலாம்; உதாரணமாக [HTTP Early Hints response](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/103) அனுப்புவதன் மூலம்.
 </Note>
 
-### Rendering an inline script {/*rendering-an-inline-script*/}
+### Inline script-ஐ render செய்தல் {/*rendering-an-inline-script*/}
 
-To include an inline script, render the `<script>` component with the script source code as its children. Inline scripts are not de-duplicated or moved to the document `<head>`.
+Inline script சேர்க்க, script source code-ஐ children ஆகக் கொண்டு `<script>` component-ஐ render செய்யுங்கள். Inline scripts de-duplicate செய்யப்படாது, document `<head>`-க்கு நகர்த்தப்படாது.
 
 <SandpackWithHTMLOutput>
 

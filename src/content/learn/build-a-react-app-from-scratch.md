@@ -1,87 +1,87 @@
 ---
-title: Build a React app from Scratch
+title: புதிதாக React app உருவாக்குதல்
 ---
 
 <Intro>
 
-If your app has constraints not well-served by existing frameworks, you prefer to build your own framework, or you just want to learn the basics of a React app, you can build a React app from scratch.
+உங்கள் app-க்கு existing frameworks சரியாகப் பூர்த்தி செய்யாத constraints இருந்தால், உங்கள் சொந்த framework உருவாக்க விரும்பினால், அல்லது React app-ன் அடிப்படைகளை மட்டும் கற்றுக்கொள்ள விரும்பினால், React app-ஐ புதிதாக உருவாக்கலாம்.
 
 </Intro>
 
 <DeepDive>
 
-#### Consider using a framework {/*consider-using-a-framework*/}
+#### Framework பயன்படுத்துவதை பரிசீலிக்கவும் {/*consider-using-a-framework*/}
 
-Starting from scratch is an easy way to get started using React, but a major tradeoff to be aware of is that going this route is often the same as building your own adhoc framework. As your requirements evolve, you may need to solve more framework-like problems that our recommended frameworks already have well developed and supported solutions for.
+புதிதாகத் தொடங்குவது React பயன்படுத்த ஆரம்பிக்க நேரடியான வழி. ஆனால் கவனிக்க வேண்டிய முக்கிய tradeoff என்னவென்றால், இந்த வழி பெரும்பாலும் உங்கள் சொந்த ad hoc framework உருவாக்குவதற்குச் சமம். உங்கள் requirements வளரும்போது, நாங்கள் பரிந்துரைக்கும் frameworks ஏற்கனவே நன்றாக உருவாக்கி support செய்யும் framework போன்ற பல பிரச்சினைகளை நீங்களே தீர்க்க வேண்டியிருக்கும்.
 
-For example, if in the future your app needs support for server-side rendering (SSR), static site generation (SSG), and/or React Server Components (RSC), you will have to implement those on your own. Similarly, future React features that require integrating at the framework level will have to be implemented on your own if you want to use them.
+உதாரணமாக, எதிர்காலத்தில் உங்கள் app-க்கு server-side rendering (SSR), static site generation (SSG), மற்றும்/அல்லது React Server Components (RSC) support தேவைப்பட்டால், அவற்றை நீங்களே implement செய்ய வேண்டும். அதேபோல், framework level-இல் integration தேவைப்படும் எதிர்கால React features-ஐ பயன்படுத்த விரும்பினால் அவற்றையும் நீங்களே implement செய்ய வேண்டும்.
 
-Our recommended frameworks also help you build better performing apps. For example, reducing or eliminating waterfalls from network requests makes for a better user experience. This might not be a high priority when you are building a toy project, but if your app gains users you may want to improve its performance.
+நாங்கள் பரிந்துரைக்கும் frameworks, மேலும் நல்ல performance கொண்ட apps உருவாக்கவும் உதவுகின்றன. உதாரணமாக, network requests-இல் waterfalls-ஐ குறைப்பது அல்லது நீக்குவது நல்ல user experience தரும். Toy project உருவாக்கும்போது இது பெரிய priority ஆக இருக்காமல் இருக்கலாம்; ஆனால் உங்கள் app users பெறத் தொடங்கினால், அதன் performance-ஐ மேம்படுத்த விரும்பலாம்.
 
-Going this route also makes it more difficult to get support, since the way you develop routing, data-fetching, and other features will be unique to your situation. You should only choose this option if you are comfortable tackling these problems on your own, or if you’re confident that you will never need these features.
+இந்த வழியில் சென்றால் support பெறுவதும் கடினமாகும்; ஏனெனில் routing, data-fetching, மற்றும் பிற features-ஐ நீங்கள் உருவாக்கும் முறை உங்கள் சூழ்நிலைக்கே தனிப்பட்டதாக இருக்கும். இந்த பிரச்சினைகளை நீங்களே கையாளத் தயார் என்றால், அல்லது இந்த features உங்களுக்கு ஒருபோதும் தேவைப்படாது என நம்பிக்கை இருந்தால் மட்டுமே இந்த option-ஐத் தேர்ந்தெடுக்கவும்.
 
-For a list of recommended frameworks, check out [Creating a React App](/learn/creating-a-react-app).
+பரிந்துரைக்கப்படும் frameworks பட்டியலுக்கு, [React App உருவாக்குதல்](/learn/creating-a-react-app)-ஐ பார்க்கவும்.
 
 </DeepDive>
 
 
-## Step 1: Install a build tool {/*step-1-install-a-build-tool*/}
+## படி 1: Build tool install செய்யுங்கள் {/*step-1-install-a-build-tool*/}
 
-The first step is to install a build tool like `vite`, `parcel`, or `rsbuild`. These build tools provide features to package and run source code, provide a development server for local development and a build command to deploy your app to a production server.
+முதல் படி `vite`, `parcel`, அல்லது `rsbuild` போன்ற build tool install செய்வது. இந்த build tools source code-ஐ package செய்து run செய்ய features வழங்குகின்றன; local development-க்கு development server-ஐயும், production server-க்கு உங்கள் app-ஐ deploy செய்ய build command-ஐயும் வழங்குகின்றன.
 
 ### Vite {/*vite*/}
 
-[Vite](https://vite.dev/) is a build tool that aims to provide a faster and leaner development experience for modern web projects.
+[Vite](https://vite.dev/) என்பது modern web projects-க்கு வேகமான மற்றும் lean development experience வழங்கும் நோக்கம் கொண்ட build tool.
 
 <TerminalBlock>
 npm create vite@latest my-app -- --template react-ts
 </TerminalBlock>
 
-Vite is opinionated and comes with sensible defaults out of the box. Vite has a rich ecosystem of plugins to support fast refresh, JSX,  Babel/SWC, and other common features. See Vite's [React plugin](https://vite.dev/plugins/#vitejs-plugin-react) or [React SWC plugin](https://vite.dev/plugins/#vitejs-plugin-react-swc) and [React SSR example project](https://vite.dev/guide/ssr.html#example-projects) to get started.
+Vite opinionated ஆக இருப்பதுடன், out of the box sensible defaults உடன் வருகிறது. Fast refresh, JSX, Babel/SWC, மற்றும் பிற பொதுவான features support செய்ய Vite-க்கு வளமான plugins ecosystem உள்ளது. தொடங்குவதற்கு Vite-ன் [React plugin](https://vite.dev/plugins/#vitejs-plugin-react) அல்லது [React SWC plugin](https://vite.dev/plugins/#vitejs-plugin-react-swc) மற்றும் [React SSR example project](https://vite.dev/guide/ssr.html#example-projects)-ஐ பார்க்கவும்.
 
-Vite is already being used as a build tool in one of our [recommended frameworks](/learn/creating-a-react-app): [React Router](https://reactrouter.com/start/framework/installation).
+நாங்கள் [பரிந்துரைக்கும் frameworks](/learn/creating-a-react-app)-இல் ஒன்றான [React Router](https://reactrouter.com/start/framework/installation)-இல் Vite ஏற்கனவே build tool ஆக பயன்படுத்தப்படுகிறது.
 
 ### Parcel {/*parcel*/}
 
-[Parcel](https://parceljs.org/) combines a great out-of-the-box development experience with a scalable architecture that can take your project from just getting started to massive production applications.
+[Parcel](https://parceljs.org/) சிறந்த out-of-the-box development experience-ஐ, உங்கள் project-ஐ ஆரம்ப நிலையிலிருந்து பெரிய production applications வரை கொண்டு செல்லக்கூடிய scalable architecture உடன் இணைக்கிறது.
 
 <TerminalBlock>
 npm install --save-dev parcel
 </TerminalBlock>
 
-Parcel supports fast refresh, JSX, TypeScript, Flow, and styling out of the box. See [Parcel's React recipe](https://parceljs.org/recipes/react/#getting-started) to get started.
+Parcel fast refresh, JSX, TypeScript, Flow, மற்றும் styling-க்கு out of the box support தருகிறது. தொடங்க [Parcel-ன் React recipe](https://parceljs.org/recipes/react/#getting-started)-ஐ பார்க்கவும்.
 
 ### Rsbuild {/*rsbuild*/}
 
-[Rsbuild](https://rsbuild.dev/) is an Rspack-powered build tool that provides a seamless development experience for React applications. It comes with carefully tuned defaults and performance optimizations ready to use.
+[Rsbuild](https://rsbuild.dev/) என்பது React applications-க்கு seamless development experience வழங்கும் Rspack-powered build tool. கவனமாக tune செய்யப்பட்ட defaults மற்றும் பயன்படுத்தத் தயாரான performance optimizations உடன் வருகிறது.
 
 <TerminalBlock>
 npx create-rsbuild --template react
 </TerminalBlock>
 
-Rsbuild includes built-in support for React features like fast refresh, JSX, TypeScript, and styling. See [Rsbuild's React guide](https://rsbuild.dev/guide/framework/react) to get started.
+Fast refresh, JSX, TypeScript, மற்றும் styling போன்ற React features-க்கு Rsbuild built-in support கொண்டுள்ளது. தொடங்க [Rsbuild-ன் React guide](https://rsbuild.dev/guide/framework/react)-ஐ பார்க்கவும்.
 
 <Note>
 
-#### Metro for React Native {/*react-native*/}
+#### React Native-க்கான Metro {/*react-native*/}
 
-If you'd you're starting from scratch with React Native you'll need to use [Metro](https://metrobundler.dev/), the JavaScript bundler for React Native. Metro supports bundling for platforms like iOS and Android, but lacks many features when compared to the tools here. We recommend starting with Vite, Parcel, or Rsbuild unless your project requires React Native support.
+React Native உடன் புதிதாகத் தொடங்குகிறீர்கள் என்றால், React Native-க்கான JavaScript bundler ஆன [Metro](https://metrobundler.dev/)-வை பயன்படுத்த வேண்டும். iOS மற்றும் Android போன்ற platforms-க்கு bundling செய்ய Metro support தருகிறது; ஆனால் இங்கே உள்ள tools-களுடன் ஒப்பிடும்போது பல features குறைவாக உள்ளன. உங்கள் project-க்கு React Native support தேவைப்படாவிட்டால் Vite, Parcel, அல்லது Rsbuild-இலிருந்து தொடங்க பரிந்துரைக்கிறோம்.
 
 </Note>
 
-## Step 2: Build Common Application Patterns {/*step-2-build-common-application-patterns*/}
+## படி 2: பொதுவான application patterns உருவாக்குதல் {/*step-2-build-common-application-patterns*/}
 
-The build tools listed above start off with a client-only, single-page app (SPA), but don't include any further solutions for common functionality like routing, data fetching, or styling.
+மேலே பட்டியலிட்ட build tools client-only, single-page app (SPA)-ஆக தொடங்குகின்றன; ஆனால் routing, data fetching, அல்லது styling போன்ற பொதுவான functionality-க்கு கூடுதல் solutions சேர்த்து தருவதில்லை.
 
-The React ecosystem includes many tools for these problems. We've listed a few that are widely used as a starting point, but feel free to choose other tools if those work better for you.
+இந்த பிரச்சினைகளுக்காக React ecosystem பல tools கொண்டுள்ளது. Starting point ஆக பரவலாக பயன்படுத்தப்படும் சிலவற்றை பட்டியலிட்டுள்ளோம்; ஆனால் உங்களுக்கு வேறு tools சிறப்பாக வேலை செய்தால் அவற்றை தேர்வு செய்யலாம்.
 
 ### Routing {/*routing*/}
 
-Routing determines what content or pages to display when a user visits a particular URL. You need to set up a router to map URLs to different parts of your app. You'll also need to handle nested routes, route parameters, and query parameters.  Routers can be configured within your code, or defined based on your component folder and file structures.
+ஒரு user குறிப்பிட்ட URL-ஐ visit செய்யும் போது எந்த content அல்லது pages display செய்யப்பட வேண்டும் என்பதை routing தீர்மானிக்கிறது. URLs-ஐ உங்கள் app-ன் வேறு பகுதிகளுடன் map செய்ய router அமைக்க வேண்டும். Nested routes, route parameters, மற்றும் query parameters-ஐயும் handle செய்ய வேண்டும். Routers-ஐ உங்கள் code-க்குள் configure செய்யலாம், அல்லது உங்கள் component folder மற்றும் file structures அடிப்படையில் define செய்யலாம்.
 
-Routers are a core part of modern applications, and are usually integrated with data fetching (including prefetching data for a whole page for faster loading), code splitting (to minimize client bundle sizes), and page rendering approaches (to decide how each page gets generated).
+Routers modern applications-ன் core பகுதி; அவை பொதுவாக data fetching (வேகமான loading-க்காக முழு page-க்கான data prefetch செய்தல் உட்பட), code splitting (client bundle sizes-ஐ குறைக்க), மற்றும் page rendering approaches (ஒவ்வொரு page எப்படி generate ஆக வேண்டும் என்பதை முடிவு செய்ய) உடன் integrate செய்யப்படுகின்றன.
 
-We suggest using:
+பயன்படுத்த பரிந்துரைப்பவை:
 
 - [React Router](https://reactrouter.com/start/framework/custom)
 - [Tanstack Router](https://tanstack.com/router/latest)
@@ -89,19 +89,19 @@ We suggest using:
 
 ### Data Fetching {/*data-fetching*/}
 
-Fetching data from a server or other data source is a key part of most applications. Doing this properly requires handling loading states, error states, and caching the fetched data, which can be complex.
+Server அல்லது பிற data source-இலிருந்து data fetch செய்வது பெரும்பாலான applications-ன் முக்கிய பகுதி. இதை சரியாகச் செய்ய loading states, error states, மற்றும் fetched data caching ஆகியவற்றை handle செய்ய வேண்டும்; இது சிக்கலாக இருக்கலாம்.
 
-Purpose-built data fetching libraries do the hard work of fetching and caching the data for you, letting you focus on what data your app needs and how to display it.  These libraries are typically used directly in your components, but can also be integrated into routing loaders for faster pre-fetching and better performance, and in server rendering as well.
+இதற்கென உருவாக்கப்பட்ட data fetching libraries, data fetch செய்வதும் cache செய்வதும் போன்ற கடின வேலையை உங்களுக்காகச் செய்கின்றன; உங்கள் app-க்கு எந்த data தேவை, அதை எப்படி display செய்வது என்பதில் கவனம் செலுத்தலாம். இந்த libraries பொதுவாக உங்கள் components-இல் நேரடியாகப் பயன்படுத்தப்படுகின்றன; ஆனால் வேகமான pre-fetching மற்றும் சிறந்த performance-க்காக routing loaders-இலும், server rendering-இலும் integrate செய்யலாம்.
 
-Note that fetching data directly in components can lead to slower loading times due to network request waterfalls, so we recommend prefetching data in router loaders or on the server as much as possible!  This allows a page's data to be fetched all at once as the page is being displayed.
+Components-இல் data-வை நேரடியாக fetch செய்வது network request waterfalls காரணமாக loading time-ஐ மெதுவாக்கலாம். ஆகவே முடிந்தவரை router loaders-இல் அல்லது server-இல் data prefetch செய்ய பரிந்துரைக்கிறோம்! இதனால் page display ஆகும் போதே அந்த page-ன் data அனைத்தும் ஒரே நேரத்தில் fetch செய்யப்படும்.
 
-If you're fetching data from most backends or REST-style APIs, we suggest using:
+பெரும்பாலான backends அல்லது REST-style APIs-இலிருந்து data fetch செய்தால், இவற்றைப் பயன்படுத்த பரிந்துரைக்கிறோம்:
 
 - [TanStack Query](https://tanstack.com/query/)
 - [SWR](https://swr.vercel.app/)
 - [RTK Query](https://redux-toolkit.js.org/rtk-query/overview)
 
-If you're fetching data from a GraphQL API, we suggest using:
+GraphQL API-இலிருந்து data fetch செய்தால், இவற்றைப் பயன்படுத்த பரிந்துரைக்கிறோம்:
 
 - [Apollo](https://www.apollographql.com/docs/react)
 - [Relay](https://relay.dev/)
@@ -109,35 +109,35 @@ If you're fetching data from a GraphQL API, we suggest using:
 
 ### Code-splitting {/*code-splitting*/}
 
-Code-splitting is the process of breaking your app into smaller bundles that can be loaded on demand. An app's code size increases with every new feature and additional dependency. Apps can become slow to load because all of the code for the entire app needs to be sent before it can be used. Caching, reducing features/dependencies, and moving some code to run on the server can help mitigate slow loading but are incomplete solutions that can sacrifice functionality if overused.
+Code-splitting என்பது உங்கள் app-ஐ demand அடிப்படையில் load செய்யக்கூடிய சிறிய bundles ஆகப் பிரிக்கும் process. ஒவ்வொரு புதிய feature மற்றும் கூடுதல் dependency உடன் app-ன் code size அதிகரிக்கும். பயன்படுத்துவதற்கு முன் முழு app-க்கான code அனைத்தும் அனுப்பப்பட வேண்டியதால் apps load ஆக மெதுவாகலாம். Caching, features/dependencies குறைத்தல், மற்றும் சில code-ஐ server-இல் run செய்ய நகர்த்துதல் ஆகியவை slow loading-ஐ mitigate செய்ய உதவலாம்; ஆனால் overuse செய்தால் functionality-ஐ இழக்கச் செய்யக்கூடிய incomplete solutions.
 
-Similarly, if you rely on the apps using your framework to split the code, you might encounter situations where loading becomes slower than if no code splitting were happening at all. For example, [lazily loading](/reference/react/lazy) a chart delays sending the code needed to render the chart, splitting the chart code from the rest of the app. [Parcel supports code splitting with React.lazy](https://parceljs.org/recipes/react/#code-splitting). However, if the chart loads its data *after* it has been initially rendered you are now waiting twice. This is a waterfall: rather than fetching the data for the chart and sending the code to render it simultaneously, you must wait for each step to complete one after the other.
+அதேபோல், உங்கள் framework பயன்படுத்தும் apps code-ஐ split செய்யும் என்ற நம்பிக்கையில் இருந்தால், code splitting இல்லாததை விட loading மெதுவாகும் நிலைகள் வரலாம். உதாரணமாக, chart-ஐ [lazily loading](/reference/react/lazy) செய்வது, chart render செய்ய வேண்டிய code அனுப்புவதை தாமதப்படுத்தி, chart code-ஐ app-ன் மீதமுள்ள பகுதியிலிருந்து பிரிக்கிறது. [Parcel React.lazy உடன் code splitting support செய்கிறது](https://parceljs.org/recipes/react/#code-splitting). ஆனால் chart முதலில் render ஆன *பிறகு* அதன் data-வை load செய்தால், நீங்கள் இப்போது இரண்டு முறை காத்திருக்கிறீர்கள். இது waterfall: chart-க்கான data fetch செய்து அதை render செய்ய code-ஐ ஒரே நேரத்தில் அனுப்புவதற்கு பதிலாக, ஒவ்வொரு படியும் ஒன்றன் பின் ஒன்றாக முடியும் வரை காத்திருக்க வேண்டும்.
 
-Splitting code by route, when integrated with bundling and data fetching, can reduce the initial load time of your app and the time it takes for the largest visible content of the app to render ([Largest Contentful Paint](https://web.dev/articles/lcp)).
+Bundling மற்றும் data fetching உடன் integrate செய்யப்பட்ட route அடிப்படையிலான code splitting, உங்கள் app-ன் initial load time-ஐயும் app-ன் largest visible content render ஆக எடுக்கும் நேரத்தையும் ([Largest Contentful Paint](https://web.dev/articles/lcp)) குறைக்கலாம்.
 
-For code-splitting instructions, see your build tool docs:
+Code-splitting வழிமுறைகளுக்கு, உங்கள் build tool docs-ஐ பார்க்கவும்:
 - [Vite build optimizations](https://vite.dev/guide/features.html#build-optimizations)
 - [Parcel code splitting](https://parceljs.org/features/code-splitting/)
 - [Rsbuild code splitting](https://rsbuild.dev/guide/optimization/code-splitting)
 
-### Improving Application Performance {/*improving-application-performance*/}
+### Application performance மேம்படுத்துதல் {/*improving-application-performance*/}
 
-Since the build tool you select only supports single page apps (SPAs), you'll need to implement other [rendering patterns](https://www.patterns.dev/vanilla/rendering-patterns) like server-side rendering (SSR), static site generation (SSG), and/or React Server Components (RSC). Even if you don't need these features at first, in the future there may be some routes that would benefit SSR, SSG or RSC.
+நீங்கள் தேர்ந்தெடுக்கும் build tool single page apps (SPAs)-க்கு மட்டும் support தருவதால், server-side rendering (SSR), static site generation (SSG), மற்றும்/அல்லது React Server Components (RSC) போன்ற பிற [rendering patterns](https://www.patterns.dev/vanilla/rendering-patterns)-ஐ implement செய்ய வேண்டும். ஆரம்பத்தில் இந்த features தேவையில்லாவிட்டாலும், எதிர்காலத்தில் SSR, SSG, அல்லது RSC மூலம் பயன் பெறும் routes இருக்கலாம்.
 
-* **Single-page apps (SPA)** load a single HTML page and dynamically updates the page as the user interacts with the app. SPAs are easier to get started with, but they can have slower initial load times. SPAs are the default architecture for most build tools.
+* **Single-page apps (SPA)** ஒரு HTML page-ஐ load செய்து, user app உடன் interact செய்யும் போது page-ஐ dynamically update செய்கின்றன. SPAs-ஐ தொடங்குவது சாத்தியம்; ஆனால் initial load times மெதுவாக இருக்கலாம். பெரும்பாலான build tools-க்கு SPAs default architecture.
 
-* **Streaming Server-side rendering (SSR)** renders a page on the server and sends the fully rendered page to the client. SSR can improve performance, but it can be more complex to set up and maintain than a single-page app. With the addition of streaming, SSR can be very complex to set up and maintain. See [Vite's SSR guide]( https://vite.dev/guide/ssr).
+* **Streaming Server-side rendering (SSR)** server-இல் page-ஐ render செய்து, முழுமையாக rendered page-ஐ client-க்கு அனுப்புகிறது. SSR performance-ஐ மேம்படுத்தலாம்; ஆனால் single-page app-ஐ விட set up மற்றும் maintain செய்வது சிக்கலாக இருக்கலாம். Streaming சேர்க்கப்பட்டால், SSR set up மற்றும் maintain செய்வது மிகவும் சிக்கலாகலாம். [Vite-ன் SSR guide]( https://vite.dev/guide/ssr)-ஐ பார்க்கவும்.
 
-* **Static site generation (SSG)** generates static HTML files for your app at build time. SSG can improve performance, but it can be more complex to set up and maintain than server-side rendering. See [Vite's SSG guide](https://vite.dev/guide/ssr.html#pre-rendering-ssg).
+* **Static site generation (SSG)** build time-இல் உங்கள் app-க்கான static HTML files generate செய்கிறது. SSG performance-ஐ மேம்படுத்தலாம்; ஆனால் server-side rendering-ஐ விட set up மற்றும் maintain செய்வது சிக்கலாக இருக்கலாம். [Vite-ன் SSG guide](https://vite.dev/guide/ssr.html#pre-rendering-ssg)-ஐ பார்க்கவும்.
 
-* **React Server Components (RSC)** lets you mix build-time, server-only, and interactive components in a single React tree. RSC can improve performance, but it currently requires deep expertise to set up and maintain. See [Parcel's RSC examples](https://github.com/parcel-bundler/rsc-examples).
+* **React Server Components (RSC)** build-time, server-only, மற்றும் interactive components-ஐ single React tree-இல் mix செய்ய அனுமதிக்கிறது. RSC performance-ஐ மேம்படுத்தலாம்; ஆனால் தற்போது set up மற்றும் maintain செய்ய ஆழமான expertise தேவை. [Parcel-ன் RSC examples](https://github.com/parcel-bundler/rsc-examples)-ஐ பார்க்கவும்.
 
-Your rendering strategies need to integrate with your router so apps built with your framework can choose the rendering strategy on a per-route level. This will enable different rendering strategies without having to rewrite your whole app. For example, the landing page for your app might benefit from being statically generated (SSG), while a page with a content feed might perform best with server-side rendering.
+உங்கள் framework கொண்டு உருவாக்கப்படும் apps ஒவ்வொரு route level-இலும் rendering strategy-ஐ தேர்வு செய்ய, உங்கள் rendering strategies உங்கள் router உடன் integrate ஆக வேண்டும். இதனால் முழு app-ஐ rewrite செய்யாமல் வேறு rendering strategies பயன்படுத்த முடியும். உதாரணமாக, உங்கள் app-ன் landing page statically generated (SSG) ஆக இருப்பதால் பயன் பெறலாம்; content feed கொண்ட page server-side rendering-இல் சிறப்பாக செயல்படலாம்.
 
-Using the right rendering strategy for the right routes can decrease the time it takes for the first byte of content to be loaded ([Time to First Byte](https://web.dev/articles/ttfb)), the first piece of content to render ([First Contentful Paint](https://web.dev/articles/fcp)), and the largest visible content of the app to render ([Largest Contentful Paint](https://web.dev/articles/lcp)).
+சரியான routes-க்கு சரியான rendering strategy பயன்படுத்துவது, content-ன் முதல் byte load ஆக எடுக்கும் நேரம் ([Time to First Byte](https://web.dev/articles/ttfb)), முதல் content render ஆகும் நேரம் ([First Contentful Paint](https://web.dev/articles/fcp)), மற்றும் app-ன் largest visible content render ஆகும் நேரம் ([Largest Contentful Paint](https://web.dev/articles/lcp)) ஆகியவற்றைக் குறைக்க முடியும்.
 
-### And more... {/*and-more*/}
+### மேலும்... {/*and-more*/}
 
-These are just a few examples of the features a new app will need to consider when building from scratch. Many limitations you'll hit can be difficult to solve as each problem is interconnected with the others and can require deep expertise in problem areas you may not be familiar with.
+புதிதாக build செய்யும் போது புதிய app பரிசீலிக்க வேண்டிய features-க்கான சில உதாரணங்கள் மட்டுமே இவை. நீங்கள் சந்திக்கும் பல limitations தீர்க்க கடினமாக இருக்கலாம்; ஏனெனில் ஒவ்வொரு பிரச்சினையும் மற்றவற்றுடன் ஒன்றோடொன்று தொடர்புடையதாக இருக்கும், மேலும் உங்களுக்கு பரிச்சயம் இல்லாத problem areas-இல் ஆழமான expertise தேவைப்படலாம்.
 
-If you don't want to solve these problems on your own, you can [get started with a framework](/learn/creating-a-react-app) that provides these features out of the box.
+இந்த பிரச்சினைகளை நீங்களே தீர்க்க விரும்பவில்லை என்றால், இந்த features-ஐ out of the box வழங்கும் [framework-இலிருந்து தொடங்கலாம்](/learn/creating-a-react-app).

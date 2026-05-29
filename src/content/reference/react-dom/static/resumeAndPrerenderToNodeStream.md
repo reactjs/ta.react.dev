@@ -4,7 +4,7 @@ title: resumeAndPrerenderToNodeStream
 
 <Intro>
 
-`resumeAndPrerenderToNodeStream` continues a prerendered React tree to a static HTML string using a a [Node.js Stream.](https://nodejs.org/api/stream.html).
+`resumeAndPrerenderToNodeStream`, prerender செய்யப்பட்ட React tree ஒன்றை [Node.js Stream](https://nodejs.org/api/stream.html) பயன்படுத்தி static HTML string ஆகத் தொடர்கிறது.
 
 ```js
 const {prelude, postponed} = await resumeAndPrerenderToNodeStream(reactNode, postponedState, options?)
@@ -16,7 +16,7 @@ const {prelude, postponed} = await resumeAndPrerenderToNodeStream(reactNode, pos
 
 <Note>
 
-This API is specific to Node.js. Environments with [Web Streams,](https://developer.mozilla.org/en-US/docs/Web/API/Streams_API) like Deno and modern edge runtimes, should use [`prerender`](/reference/react-dom/static/prerender) instead.
+இந்த API Node.js-க்கு குறிப்பானது. Deno மற்றும் நவீன edge runtimes போன்ற [Web Streams](https://developer.mozilla.org/en-US/docs/Web/API/Streams_API) உள்ள சூழல்கள் இதற்கு பதிலாக [`prerender`](/reference/react-dom/static/prerender)-ஐப் பயன்படுத்த வேண்டும்.
 
 </Note>
 
@@ -26,7 +26,7 @@ This API is specific to Node.js. Environments with [Web Streams,](https://develo
 
 ### `resumeAndPrerenderToNodeStream(reactNode, postponedState, options?)` {/*resumeandprerendertolnodestream*/}
 
-Call `resumeAndPrerenderToNodeStream` to continue a prerendered React tree to a static HTML string.
+Prerender செய்யப்பட்ட React tree-ஐ static HTML string ஆகத் தொடர `resumeAndPrerenderToNodeStream`-ஐ அழைக்கவும்.
 
 ```js
 import { resumeAndPrerenderToNodeStream } from 'react-dom/static';
@@ -39,37 +39,37 @@ async function handler(request, writable) {
 }
 ```
 
-On the client, call [`hydrateRoot`](/reference/react-dom/client/hydrateRoot) to make the server-generated HTML interactive.
+Client-இல், server உருவாக்கிய HTML-ஐ interactive ஆக்க [`hydrateRoot`](/reference/react-dom/client/hydrateRoot)-ஐ அழைக்கவும்.
 
-[See more examples below.](#usage)
+[மேலும் உதாரணங்களை கீழே பார்க்கவும்.](#usage)
 
 #### Parameters {/*parameters*/}
 
-* `reactNode`: The React node you called `prerender` (or a previous `resumeAndPrerenderToNodeStream`) with. For example, a JSX element like `<App />`. It is expected to represent the entire document, so the `App` component should render the `<html>` tag.
-* `postponedState`: The opaque `postpone` object returned from a [prerender API](/reference/react-dom/static/index), loaded from wherever you stored it (e.g. redis, a file, or S3).
-* **optional** `options`: An object with streaming options.
-  * **optional** `signal`: An [abort signal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that lets you [abort server rendering](#aborting-server-rendering) and render the rest on the client.
-  * **optional** `onError`: A callback that fires whenever there is a server error, whether [recoverable](#recovering-from-errors-outside-the-shell) or [not.](#recovering-from-errors-inside-the-shell) By default, this only calls `console.error`. If you override it to [log crash reports,](#logging-crashes-on-the-server) make sure that you still call `console.error`.
+* `reactNode`: நீங்கள் `prerender` (அல்லது முந்தைய `resumeAndPrerenderToNodeStream`) அழைத்த React node. உதாரணமாக, `<App />` போன்ற JSX element. இது முழு document-ஐ பிரதிநிதித்துவப்படுத்தும் என எதிர்பார்க்கப்படுகிறது; எனவே `App` component `<html>` tag-ஐ render செய்ய வேண்டும்.
+* `postponedState`: [prerender API](/reference/react-dom/static/index)-இலிருந்து return ஆன opaque `postpone` object; நீங்கள் அதை எங்கு சேமித்திருந்தாலும் அங்கிருந்து load செய்யப்பட்டது (உதா. redis, file, அல்லது S3).
+* **optional** `options`: Streaming options கொண்ட object.
+  * **optional** `signal`: [Server rendering-ஐ abort](#aborting-server-rendering) செய்து, மீதமுள்ளதை client-இல் render செய்ய அனுமதிக்கும் [abort signal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal).
+  * **optional** `onError`: Server error ஏற்படும் போதெல்லாம் fire ஆகும் callback; அது [recoverable](#recovering-from-errors-outside-the-shell) ஆனதா [இல்லையா](#recovering-from-errors-inside-the-shell) என்பதைக் கருத்தில் கொள்ளாது. Default ஆக இது `console.error` மட்டுமே அழைக்கும். [Crash reports log செய்ய](#logging-crashes-on-the-server) இதை override செய்தால், `console.error`-ஐ இன்னும் அழைக்கிறீர்களா என்பதை உறுதிசெய்யுங்கள்.
 
 #### Returns {/*returns*/}
 
-`resumeAndPrerenderToNodeStream` returns a Promise:
-- If rendering the is successful, the Promise will resolve to an object containing:
-  - `prelude`: a [Web Stream](https://developer.mozilla.org/en-US/docs/Web/API/Streams_API) of HTML. You can use this stream to send a response in chunks, or you can read the entire stream into a string.
-  - `postponed`: an JSON-serializeable, opaque object that can be passed to [`resumeToNodeStream`](/reference/react-dom/server/resume) or [`resumeAndPrerenderToNodeStream`](/reference/react-dom/static/resumeAndPrerenderToNodeStream) if `resumeAndPrerenderToNodeStream` is aborted.
-- If rendering fails, the Promise will be rejected. [Use this to output a fallback shell.](/reference/react-dom/server/renderToReadableStream#recovering-from-errors-inside-the-shell)
+`resumeAndPrerenderToNodeStream` ஒரு Promise-ஐ return செய்கிறது:
+- Rendering வெற்றிகரமாக இருந்தால், Promise பின்வற்றைக் கொண்ட object ஆக resolve ஆகும்:
+  - `prelude`: HTML-இன் [Web Stream](https://developer.mozilla.org/en-US/docs/Web/API/Streams_API). இந்த stream-ஐ response-ஐ chunks ஆக அனுப்பப் பயன்படுத்தலாம், அல்லது முழு stream-ஐ string ஆக வாசிக்கலாம்.
+  - `postponed`: `resumeAndPrerenderToNodeStream` abort செய்யப்பட்டால் [`resumeToNodeStream`](/reference/react-dom/server/resume) அல்லது [`resumeAndPrerenderToNodeStream`](/reference/react-dom/static/resumeAndPrerenderToNodeStream)-க்கு pass செய்யக்கூடிய JSON-serializeable, opaque object.
+- Rendering தோல்வியடைந்தால், Promise reject செய்யப்படும். [Fallback shell-ஐ output செய்ய இதைப் பயன்படுத்துங்கள்.](/reference/react-dom/server/renderToReadableStream#recovering-from-errors-inside-the-shell)
 
 #### Caveats {/*caveats*/}
 
-`nonce` is not an available option when prerendering. Nonces must be unique per request and if you use nonces to secure your application with [CSP](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP) it would be inappropriate and insecure to include the nonce value in the prerender itself.
+Prerendering செய்யும்போது `nonce` கிடைக்கும் option அல்ல. Nonces ஒவ்வொரு request-க்கும் unique ஆக இருக்க வேண்டும்; [CSP](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP) மூலம் உங்கள் application-ஐ secure செய்ய nonces பயன்படுத்தினால், nonce value-ஐ prerender-இலேயே சேர்ப்பது பொருத்தமற்றதும் பாதுகாப்பற்றதுமானது.
 
 <Note>
 
-### When should I use `resumeAndPrerenderToNodeStream`? {/*when-to-use-prerender*/}
+### `resumeAndPrerenderToNodeStream`-ஐ எப்போது பயன்படுத்த வேண்டும்? {/*when-to-use-prerender*/}
 
-The static `resumeAndPrerenderToNodeStream` API is used for static server-side generation (SSG). Unlike `renderToString`, `resumeAndPrerenderToNodeStream` waits for all data to load before resolving. This makes it suitable for generating static HTML for a full page, including data that needs to be fetched using Suspense. To stream content as it loads, use a streaming server-side render (SSR) API like [renderToReadableStream](/reference/react-dom/server/renderToReadableStream).
+Static `resumeAndPrerenderToNodeStream` API static server-side generation (SSG)-க்கு பயன்படுத்தப்படுகிறது. `renderToString` போல இல்லாமல், `resumeAndPrerenderToNodeStream` resolve ஆகும் முன் அனைத்து data load ஆகும் வரை காத்திருக்கும். Suspense பயன்படுத்தி fetch செய்ய வேண்டிய data உட்பட முழு page-க்கான static HTML உருவாக்க இதை ஏற்றதாக ஆக்குகிறது. Content load ஆகும் போதே stream செய்ய, [renderToReadableStream](/reference/react-dom/server/renderToReadableStream) போன்ற streaming server-side render (SSR) API-யைப் பயன்படுத்துங்கள்.
 
-`resumeAndPrerenderToNodeStream` can be aborted and later either continued with another `resumeAndPrerenderToNodeStream` or resumed with `resume` to support partial pre-rendering.
+Partial pre-rendering-ஐ ஆதரிக்க `resumeAndPrerenderToNodeStream` abort செய்யப்படலாம்; பின்னர் மற்றொரு `resumeAndPrerenderToNodeStream` மூலம் தொடரலாம் அல்லது `resume` மூலம் resume செய்யலாம்.
 
 </Note>
 
@@ -77,8 +77,7 @@ The static `resumeAndPrerenderToNodeStream` API is used for static server-side g
 
 ## Usage {/*usage*/}
 
-### Further reading {/*further-reading*/}
+### மேலும் படிக்க {/*further-reading*/}
 
-`resumeAndPrerenderToNodeStream` behaves similarly to [`prerender`](/reference/react-dom/static/prerender) but can be used to continue a previously started prerendering process that was aborted.
-For more information about resuming a prerendered tree, see the [resume documentation](/reference/react-dom/server/resume#resuming-a-prerender).
-
+`resumeAndPrerenderToNodeStream`, [`prerender`](/reference/react-dom/static/prerender)-க்கு ஒத்ததாக நடக்கிறது; ஆனால் abort செய்யப்பட்ட, முன்பே தொடங்கிய prerendering process-ஐத் தொடர இதைப் பயன்படுத்தலாம்.
+Prerender செய்யப்பட்ட tree-ஐ resume செய்வது பற்றிய கூடுதல் தகவல்களுக்கு, [resume documentation](/reference/react-dom/server/resume#resuming-a-prerender)-ஐப் பார்க்கவும்.

@@ -4,30 +4,29 @@ title: React Compiler
 
 ## Introduction {/*introduction*/}
 
-Learn [what React Compiler does](/learn/react-compiler/introduction) and how it automatically optimizes your React application by handling memoization for you, eliminating the need for manual `useMemo`, `useCallback`, and `React.memo`.
+[React Compiler என்ன செய்கிறது](/learn/react-compiler/introduction), மேலும் memoization-ஐ உங்களுக்குப் பதிலாக கையாளுவதன் மூலம் உங்கள் React application-ஐ அது எவ்வாறு தானாக optimize செய்கிறது என்பதை அறியுங்கள். இதனால் `useMemo`, `useCallback`, மற்றும் `React.memo` ஆகியவற்றை கைமுறையாகப் பயன்படுத்த வேண்டிய தேவை நீங்குகிறது.
 
 ## Installation {/*installation*/}
 
-Get started with [installing React Compiler](/learn/react-compiler/installation) and learn how to configure it with your build tools.
+[React Compiler-ஐ நிறுவுவதால்](/learn/react-compiler/installation) தொடங்குங்கள்; உங்கள் build tools-உடன் அதை எவ்வாறு configure செய்வது என்பதையும் அறியுங்கள்.
 
 
 ## Incremental Adoption {/*incremental-adoption*/}
 
-Learn [strategies for gradually adopting React Compiler](/learn/react-compiler/incremental-adoption) in your existing codebase if you're not ready to enable it everywhere yet.
+உங்கள் தற்போதைய codebase முழுவதும் இதை இன்னும் enable செய்யத் தயாராக இல்லையெனில், [React Compiler-ஐ படிப்படியாக ஏற்றுக்கொள்ளும் வழிமுறைகளை](/learn/react-compiler/incremental-adoption) அறியுங்கள்.
 
 ## Debugging and Troubleshooting {/*debugging-and-troubleshooting*/}
 
-When things don't work as expected, use our [debugging guide](/learn/react-compiler/debugging) to understand the difference between compiler errors and runtime issues, identify common breaking patterns, and follow a systematic debugging workflow.
+எதிர்பார்த்தபடி விஷயங்கள் வேலை செய்யாதபோது, compiler errors மற்றும் runtime பிரச்சினைகளின் வேறுபாட்டைப் புரிந்துகொள்ளவும், பொதுவான breaking patterns-ஐ கண்டறியவும், ஒழுங்கான debugging workflow-ஐப் பின்பற்றவும் எங்கள் [debugging வழிகாட்டியை](/learn/react-compiler/debugging) பயன்படுத்துங்கள்.
 
 ## Configuration and Reference {/*configuration-and-reference*/}
 
-For detailed configuration options and API reference:
+விரிவான configuration options மற்றும் API reference-க்கு:
 
-- [Configuration Options](/reference/react-compiler/configuration) - All compiler configuration options including React version compatibility
+- [Configuration Options](/reference/react-compiler/configuration) - React version compatibility உட்பட அனைத்து compiler configuration options
 - [Directives](/reference/react-compiler/directives) - Function-level compilation control
-- [Compiling Libraries](/reference/react-compiler/compiling-libraries) - Shipping pre-compiled libraries
+- [Compiling Libraries](/reference/react-compiler/compiling-libraries) - முன்கூட்டியே compiled செய்யப்பட்ட libraries-ஐ வெளியிடுதல்
 
 ## Additional resources {/*additional-resources*/}
 
-In addition to these docs, we recommend checking the [React Compiler Working Group](https://github.com/reactwg/react-compiler) for additional information and discussion about the compiler.
-
+இந்த docs-க்கு கூடுதலாக, compiler பற்றிய மேலதிக தகவல்களுக்கும் விவாதங்களுக்கும் [React Compiler Working Group](https://github.com/reactwg/react-compiler)-ஐப் பார்க்க பரிந்துரைக்கிறோம்.

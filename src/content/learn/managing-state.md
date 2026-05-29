@@ -1,30 +1,30 @@
 ---
-title: Managing State
+title: State-ஐ நிர்வகித்தல்
 ---
 
 <Intro>
 
-As your application grows, it helps to be more intentional about how your state is organized and how the data flows between your components. Redundant or duplicate state is a common source of bugs. In this chapter, you'll learn how to structure your state well, how to keep your state update logic maintainable, and how to share state between distant components.
+உங்கள் application வளரும்போது, உங்கள் state எப்படி ஒழுங்குபடுத்தப்படுகிறது மற்றும் data உங்கள் components இடையே எப்படி flows ஆகிறது என்பதில் அதிகமாக திட்டமிட்டு செயல்படுவது உதவியாக இருக்கும். Redundant அல்லது duplicate state என்பது bugs-க்கு பொதுவான காரணம். இந்த chapter-இல், state-ஐ நன்றாக structure செய்வது எப்படி, state update logic-ஐ maintainable ஆக வைத்திருப்பது எப்படி, மற்றும் தொலைவில் உள்ள components இடையே state-ஐ share செய்வது எப்படி என்பதை கற்றுக்கொள்வீர்கள்.
 
 </Intro>
 
 <YouWillLearn isChapter={true}>
 
-* [How to think about UI changes as state changes](/learn/reacting-to-input-with-state)
-* [How to structure state well](/learn/choosing-the-state-structure)
-* [How to "lift state up" to share it between components](/learn/sharing-state-between-components)
-* [How to control whether the state gets preserved or reset](/learn/preserving-and-resetting-state)
-* [How to consolidate complex state logic in a function](/learn/extracting-state-logic-into-a-reducer)
-* [How to pass information without "prop drilling"](/learn/passing-data-deeply-with-context)
-* [How to scale state management as your app grows](/learn/scaling-up-with-reducer-and-context)
+* [UI changes-ஐ state changes ஆக எப்படி சிந்திப்பது](/learn/reacting-to-input-with-state)
+* [State-ஐ நன்றாக structure செய்வது எப்படி](/learn/choosing-the-state-structure)
+* [Components இடையே share செய்ய state-ஐ "lift state up" செய்வது எப்படி](/learn/sharing-state-between-components)
+* [State preserve ஆகுமா அல்லது reset ஆகுமா என்பதை control செய்வது எப்படி](/learn/preserving-and-resetting-state)
+* [Complex state logic-ஐ ஒரு function-இல் consolidate செய்வது எப்படி](/learn/extracting-state-logic-into-a-reducer)
+* ["Prop drilling" இல்லாமல் information pass செய்வது எப்படி](/learn/passing-data-deeply-with-context)
+* [உங்கள் app வளரும்போது state management-ஐ scale செய்வது எப்படி](/learn/scaling-up-with-reducer-and-context)
 
 </YouWillLearn>
 
-## Reacting to input with state {/*reacting-to-input-with-state*/}
+## State மூலம் input-க்கு react செய்தல் {/*reacting-to-input-with-state*/}
 
-With React, you won't modify the UI from code directly. For example, you won't write commands like "disable the button", "enable the button", "show the success message", etc. Instead, you will describe the UI you want to see for the different visual states of your component ("initial state", "typing state", "success state"), and then trigger the state changes in response to user input. This is similar to how designers think about UI.
+React-இல், code-இலிருந்து UI-ஐ நேரடியாக modify செய்யமாட்டீர்கள். உதாரணமாக, "button-ஐ disable செய்", "button-ஐ enable செய்", "success message-ஐ காட்டு" போன்ற commands எழுதமாட்டீர்கள். அதற்கு பதிலாக, உங்கள் component-ன் வெவ்வேறு visual states-க்கு ("initial state", "typing state", "success state") நீங்கள் பார்க்க விரும்பும் UI-ஐ describe செய்வீர்கள்; பின்னர் user input-க்கு பதிலாக state changes-ஐ trigger செய்வீர்கள். இது designers UI பற்றி சிந்திக்கும் முறைக்கு ஒத்தது.
 
-Here is a quiz form built using React. Note how it uses the `status` state variable to determine whether to enable or disable the submit button, and whether to show the success message instead.
+React பயன்படுத்தி build செய்யப்பட்ட quiz form இதோ. Submit button-ஐ enable அல்லது disable செய்வதையும், அதன் பதிலாக success message காட்ட வேண்டுமா என்பதையும் தீர்மானிக்க இது `status` state variable-ஐ எப்படி பயன்படுத்துகிறது என்பதை கவனியுங்கள்.
 
 <Sandpack>
 
@@ -37,7 +37,7 @@ export default function Form() {
   const [status, setStatus] = useState('typing');
 
   if (status === 'success') {
-    return <h1>That's right!</h1>
+    return <h1>அது சரி!</h1>
   }
 
   async function handleSubmit(e) {
@@ -58,9 +58,9 @@ export default function Form() {
 
   return (
     <>
-      <h2>City quiz</h2>
+      <h2>நகர quiz</h2>
       <p>
-        In which city is there a billboard that turns air into drinkable water?
+        காற்றை குடிக்கக்கூடிய தண்ணீராக மாற்றும் billboard எந்த நகரத்தில் உள்ளது?
       </p>
       <form onSubmit={handleSubmit}>
         <textarea
@@ -73,7 +73,7 @@ export default function Form() {
           answer.length === 0 ||
           status === 'submitting'
         }>
-          Submit
+          Submit செய்
         </button>
         {error !== null &&
           <p className="Error">
@@ -91,7 +91,7 @@ function submitForm(answer) {
     setTimeout(() => {
       let shouldError = answer.toLowerCase() !== 'lima'
       if (shouldError) {
-        reject(new Error('Good guess but a wrong answer. Try again!'));
+        reject(new Error('நல்ல guess, ஆனால் தவறான பதில். மீண்டும் முயற்சிக்கவும்!'));
       } else {
         resolve();
       }
@@ -108,15 +108,15 @@ function submitForm(answer) {
 
 <LearnMore path="/learn/reacting-to-input-with-state">
 
-Read **[Reacting to Input with State](/learn/reacting-to-input-with-state)** to learn how to approach interactions with a state-driven mindset.
+State-driven mindset உடன் interactions-ஐ எப்படி அணுகுவது என்பதை அறிய **[State மூலம் Input-க்கு React செய்தல்](/learn/reacting-to-input-with-state)** வாசிக்கவும்.
 
 </LearnMore>
 
-## Choosing the state structure {/*choosing-the-state-structure*/}
+## State structure-ஐ தேர்வு செய்தல் {/*choosing-the-state-structure*/}
 
-Structuring state well can make a difference between a component that is pleasant to modify and debug, and one that is a constant source of bugs. The most important principle is that state shouldn't contain redundant or duplicated information. If there's unnecessary state, it's easy to forget to update it, and introduce bugs!
+State-ஐ நன்றாக structure செய்வது, modify மற்றும் debug செய்ய இனிமையான component மற்றும் தொடர்ந்து bugs உண்டாக்கும் component ஆகியவற்றுக்கிடையே வித்தியாசத்தை உருவாக்கலாம். மிக முக்கியமான principle: state-இல் redundant அல்லது duplicated information இருக்கக்கூடாது. தேவையற்ற state இருந்தால், அதை update செய்ய மறப்பது சாத்தியம், bugs அறிமுகமாகும்!
 
-For example, this form has a **redundant** `fullName` state variable:
+உதாரணமாக, இந்த form-இல் **redundant** `fullName` state variable உள்ளது:
 
 <Sandpack>
 
@@ -140,23 +140,23 @@ export default function Form() {
 
   return (
     <>
-      <h2>Let’s check you in</h2>
+      <h2>உங்களை check in செய்வோம்</h2>
       <label>
-        First name:{' '}
+        முதல் பெயர்:{' '}
         <input
           value={firstName}
           onChange={handleFirstNameChange}
         />
       </label>
       <label>
-        Last name:{' '}
+        கடைசி பெயர்:{' '}
         <input
           value={lastName}
           onChange={handleLastNameChange}
         />
       </label>
       <p>
-        Your ticket will be issued to: <b>{fullName}</b>
+        உங்கள் ticket வழங்கப்படும் பெயர்: <b>{fullName}</b>
       </p>
     </>
   );
@@ -169,7 +169,7 @@ label { display: block; margin-bottom: 5px; }
 
 </Sandpack>
 
-You can remove it and simplify the code by calculating `fullName` while the component is rendering:
+Component render ஆகும்போது `fullName`-ஐ calculate செய்வதன் மூலம் அதை remove செய்து code-ஐ simplify செய்யலாம்:
 
 <Sandpack>
 
@@ -192,23 +192,23 @@ export default function Form() {
 
   return (
     <>
-      <h2>Let’s check you in</h2>
+      <h2>உங்களை check in செய்வோம்</h2>
       <label>
-        First name:{' '}
+        முதல் பெயர்:{' '}
         <input
           value={firstName}
           onChange={handleFirstNameChange}
         />
       </label>
       <label>
-        Last name:{' '}
+        கடைசி பெயர்:{' '}
         <input
           value={lastName}
           onChange={handleLastNameChange}
         />
       </label>
       <p>
-        Your ticket will be issued to: <b>{fullName}</b>
+        உங்கள் ticket வழங்கப்படும் பெயர்: <b>{fullName}</b>
       </p>
     </>
   );
@@ -221,19 +221,19 @@ label { display: block; margin-bottom: 5px; }
 
 </Sandpack>
 
-This might seem like a small change, but many bugs in React apps are fixed this way.
+இது சிறிய change போலத் தோன்றலாம், ஆனால் React apps-இல் பல bugs இதே முறையில் fix செய்யப்படுகின்றன.
 
 <LearnMore path="/learn/choosing-the-state-structure">
 
-Read **[Choosing the State Structure](/learn/choosing-the-state-structure)** to learn how to design the state shape to avoid bugs.
+Bugs தவிர்க்க state shape-ஐ எப்படி design செய்வது என்பதை அறிய **[State Structure-ஐ தேர்வு செய்தல்](/learn/choosing-the-state-structure)** வாசிக்கவும்.
 
 </LearnMore>
 
-## Sharing state between components {/*sharing-state-between-components*/}
+## Components இடையே state share செய்தல் {/*sharing-state-between-components*/}
 
-Sometimes, you want the state of two components to always change together. To do it, remove state from both of them, move it to their closest common parent, and then pass it down to them via props. This is known as "lifting state up", and it's one of the most common things you will do writing React code.
+சில நேரங்களில், இரண்டு components-ன் state எப்போதும் ஒன்றாக மாற வேண்டும் என்று நீங்கள் விரும்பலாம். அதைச் செய்ய, இரண்டிலிருந்தும் state-ஐ remove செய்து, அவற்றின் nearest common parent-க்கு move செய்து, பின்னர் props மூலம் அவற்றுக்கு pass செய்யுங்கள். இது "lifting state up" என்று அழைக்கப்படுகிறது; React code எழுதும்போது நீங்கள் செய்யும் மிகவும் பொதுவான செயல்களில் ஒன்று.
 
-In this example, only one panel should be active at a time. To achieve this, instead of keeping the active state inside each individual panel, the parent component holds the state and specifies the props for its children.
+இந்த example-இல், ஒரே நேரத்தில் ஒரு panel மட்டும் active ஆக இருக்க வேண்டும். இதை அடைய, ஒவ்வொரு individual panel-க்குள் active state வைத்திருப்பதற்கு பதிலாக, parent component state-ஐ வைத்துக்கொண்டு அதன் children-க்கான props-ஐ குறிப்பிடுகிறது.
 
 <Sandpack>
 
@@ -246,18 +246,18 @@ export default function Accordion() {
     <>
       <h2>Almaty, Kazakhstan</h2>
       <Panel
-        title="About"
+        title="பற்றி"
         isActive={activeIndex === 0}
         onShow={() => setActiveIndex(0)}
       >
-        With a population of about 2 million, Almaty is Kazakhstan's largest city. From 1929 to 1997, it was its capital city.
+        சுமார் 2 million மக்கள் தொகையுடன், Almaty Kazakhstan-ன் மிகப்பெரிய நகரம். 1929 முதல் 1997 வரை அது அதன் தலைநகரமாக இருந்தது.
       </Panel>
       <Panel
-        title="Etymology"
+        title="சொற்பிறப்பு"
         isActive={activeIndex === 1}
         onShow={() => setActiveIndex(1)}
       >
-        The name comes from <span lang="kk-KZ">алма</span>, the Kazakh word for "apple" and is often translated as "full of apples". In fact, the region surrounding Almaty is thought to be the ancestral home of the apple, and the wild <i lang="la">Malus sieversii</i> is considered a likely candidate for the ancestor of the modern domestic apple.
+        பெயர் <span lang="kk-KZ">алма</span> என்பதிலிருந்து வருகிறது; அது Kazakh மொழியில் "apple" என்ற பொருள், மேலும் "apples நிரம்பியது" என்று அடிக்கடி மொழிபெயர்க்கப்படுகிறது. உண்மையில், Almaty சுற்றிய பகுதி apple-ன் ancestral home என்று கருதப்படுகிறது; wild <i lang="la">Malus sieversii</i> modern domestic apple-ன் ancestor ஆக இருக்கக்கூடிய candidate என கருதப்படுகிறது.
       </Panel>
     </>
   );
@@ -276,7 +276,7 @@ function Panel({
         <p>{children}</p>
       ) : (
         <button onClick={onShow}>
-          Show
+          காட்டு
         </button>
       )}
     </section>
@@ -296,15 +296,15 @@ h3, p { margin: 5px 0px; }
 
 <LearnMore path="/learn/sharing-state-between-components">
 
-Read **[Sharing State Between Components](/learn/sharing-state-between-components)** to learn how to lift state up and keep components in sync.
+State-ஐ lift up செய்வது மற்றும் components-ஐ sync-இல் வைத்திருப்பது பற்றி அறிய **[Components இடையே State Share செய்தல்](/learn/sharing-state-between-components)** வாசிக்கவும்.
 
 </LearnMore>
 
-## Preserving and resetting state {/*preserving-and-resetting-state*/}
+## State-ஐ preserve செய்தல் மற்றும் reset செய்தல் {/*preserving-and-resetting-state*/}
 
-When you re-render a component, React needs to decide which parts of the tree to keep (and update), and which parts to discard or re-create from scratch. In most cases, React's automatic behavior works well enough. By default, React preserves the parts of the tree that "match up" with the previously rendered component tree.
+ஒரு component-ஐ re-render செய்யும்போது, tree-ன் எந்த பகுதிகளை keep செய்ய வேண்டும் (மற்றும் update செய்ய வேண்டும்), எந்த பகுதிகளை discard செய்ய வேண்டும் அல்லது scratch-இலிருந்து re-create செய்ய வேண்டும் என்பதை React தீர்மானிக்க வேண்டும். பெரும்பாலான சூழல்களில், React-ன் automatic behavior போதுமான அளவு நன்றாக வேலை செய்கிறது. Default ஆக, முந்தைய rendered component tree-உடன் "match up" ஆகும் tree பகுதிகளை React preserve செய்கிறது.
 
-However, sometimes this is not what you want. In this chat app, typing a message and then switching the recipient does not reset the input. This can make the user accidentally send a message to the wrong person:
+ஆனால் சில நேரங்களில் இது நீங்கள் விரும்புவது அல்ல. இந்த chat app-இல், message type செய்து பிறகு recipient-ஐ switch செய்தால் input reset ஆகாது. இதனால் user தவறுதலாக தவறான person-க்கு message அனுப்பலாம்:
 
 <Sandpack>
 
@@ -367,11 +367,11 @@ export default function Chat({ contact }) {
     <section className="chat">
       <textarea
         value={text}
-        placeholder={'Chat to ' + contact.name}
+        placeholder={contact.name + ' உடன் chat'}
         onChange={e => setText(e.target.value)}
       />
       <br />
-      <button>Send to {contact.email}</button>
+      <button>{contact.email}-க்கு அனுப்பு</button>
     </section>
   );
 }
@@ -399,7 +399,7 @@ textarea {
 
 </Sandpack>
 
-React lets you override the default behavior, and *force* a component to reset its state by passing it a different `key`, like `<Chat key={email} />`. This tells React that if the recipient is different, it should be considered a *different* `Chat` component that needs to be re-created from scratch with the new data (and UI like inputs). Now switching between the recipients resets the input field--even though you render the same component.
+`<Chat key={email} />` போல வேறு `key` pass செய்வதன் மூலம் default behavior-ஐ override செய்து, ஒரு component தனது state-ஐ reset செய்ய React-ஐ *force* செய்யலாம். Recipient வேறுபட்டால், அது புதிய data (மற்றும் inputs போன்ற UI) உடன் scratch-இலிருந்து re-create செய்யப்பட வேண்டிய *வேறு* `Chat` component என்று கருதப்பட வேண்டும் என்பதைக் React-க்கு இது சொல்கிறது. இப்போது recipients இடையே switch செய்தால் input field reset ஆகிறது--அதே component-ஐ render செய்தாலும்.
 
 <Sandpack>
 
@@ -462,11 +462,11 @@ export default function Chat({ contact }) {
     <section className="chat">
       <textarea
         value={text}
-        placeholder={'Chat to ' + contact.name}
+        placeholder={contact.name + ' உடன் chat'}
         onChange={e => setText(e.target.value)}
       />
       <br />
-      <button>Send to {contact.email}</button>
+      <button>{contact.email}-க்கு அனுப்பு</button>
     </section>
   );
 }
@@ -496,13 +496,13 @@ textarea {
 
 <LearnMore path="/learn/preserving-and-resetting-state">
 
-Read **[Preserving and Resetting State](/learn/preserving-and-resetting-state)** to learn the lifetime of state and how to control it.
+State-ன் lifetime மற்றும் அதை எப்படி control செய்வது என்பதை அறிய **[State-ஐ Preserve மற்றும் Reset செய்தல்](/learn/preserving-and-resetting-state)** வாசிக்கவும்.
 
 </LearnMore>
 
-## Extracting state logic into a reducer {/*extracting-state-logic-into-a-reducer*/}
+## State logic-ஐ reducer-க்கு extract செய்தல் {/*extracting-state-logic-into-a-reducer*/}
 
-Components with many state updates spread across many event handlers can get overwhelming. For these cases, you can consolidate all the state update logic outside your component in a single function, called "reducer". Your event handlers become concise because they only specify the user "actions". At the bottom of the file, the reducer function specifies how the state should update in response to each action!
+பல event handlers முழுவதும் பரவிய பல state updates கொண்ட components overwhelming ஆகலாம். இத்தகைய சூழல்களுக்கு, அனைத்து state update logic-ஐ உங்கள் component-க்கு வெளியே "reducer" என்று அழைக்கப்படும் single function-இல் consolidate செய்யலாம். உங்கள் event handlers concise ஆகும், ஏனெனில் அவை user "actions"-ஐ மட்டும் specify செய்கின்றன. File-ன் bottom-இல், ஒவ்வொரு action-க்கும் response ஆக state எப்படி update ஆக வேண்டும் என்பதை reducer function specify செய்கிறது!
 
 <Sandpack>
 
@@ -541,7 +541,7 @@ export default function TaskApp() {
 
   return (
     <>
-      <h1>Prague itinerary</h1>
+      <h1>Prague பயணத்திட்டம்</h1>
       <AddTask
         onAddTask={handleAddTask}
       />
@@ -576,16 +576,16 @@ function tasksReducer(tasks, action) {
       return tasks.filter(t => t.id !== action.id);
     }
     default: {
-      throw Error('Unknown action: ' + action.type);
+      throw Error('தெரியாத action: ' + action.type);
     }
   }
 }
 
 let nextId = 3;
 const initialTasks = [
-  { id: 0, text: 'Visit Kafka Museum', done: true },
-  { id: 1, text: 'Watch a puppet show', done: false },
-  { id: 2, text: 'Lennon Wall pic', done: false }
+  { id: 0, text: 'Kafka Museum பார்க்கவும்', done: true },
+  { id: 1, text: 'Puppet show பார்க்கவும்', done: false },
+  { id: 2, text: 'Lennon Wall படம்', done: false }
 ];
 ```
 
@@ -597,14 +597,14 @@ export default function AddTask({ onAddTask }) {
   return (
     <>
       <input
-        placeholder="Add task"
+        placeholder="Task சேர்க்கவும்"
         value={text}
         onChange={e => setText(e.target.value)}
       />
       <button onClick={() => {
         setText('');
         onAddTask(text);
-      }}>Add</button>
+      }}>சேர்</button>
     </>
   )
 }
@@ -648,7 +648,7 @@ function Task({ task, onChange, onDelete }) {
             });
           }} />
         <button onClick={() => setIsEditing(false)}>
-          Save
+          சேமி
         </button>
       </>
     );
@@ -657,7 +657,7 @@ function Task({ task, onChange, onDelete }) {
       <>
         {task.text}
         <button onClick={() => setIsEditing(true)}>
-          Edit
+          திருத்து
         </button>
       </>
     );
@@ -676,7 +676,7 @@ function Task({ task, onChange, onDelete }) {
       />
       {taskContent}
       <button onClick={() => onDelete(task.id)}>
-        Delete
+        நீக்கு
       </button>
     </label>
   );
@@ -693,15 +693,15 @@ ul, li { margin: 0; padding: 0; }
 
 <LearnMore path="/learn/extracting-state-logic-into-a-reducer">
 
-Read **[Extracting State Logic into a Reducer](/learn/extracting-state-logic-into-a-reducer)** to learn how to consolidate logic in the reducer function.
+Logic-ஐ reducer function-இல் consolidate செய்வது எப்படி என்பதை அறிய **[State Logic-ஐ Reducer-க்கு Extract செய்தல்](/learn/extracting-state-logic-into-a-reducer)** வாசிக்கவும்.
 
 </LearnMore>
 
-## Passing data deeply with context {/*passing-data-deeply-with-context*/}
+## Context மூலம் data-வை ஆழமாக pass செய்தல் {/*passing-data-deeply-with-context*/}
 
-Usually, you will pass information from a parent component to a child component via props. But passing props can become inconvenient if you need to pass some prop through many components, or if many components need the same information. Context lets the parent component make some information available to any component in the tree below it—no matter how deep it is—without passing it explicitly through props.
+பொதுவாக, parent component-இலிருந்து child component-க்கு props மூலம் information pass செய்வீர்கள். ஆனால் பல components வழியாக ஏதாவது prop pass செய்ய வேண்டியிருந்தால், அல்லது பல components-க்கு ஒரே information தேவைப்பட்டால், props pass செய்வது சிரமமாகலாம். Context, parent component-க்கு அதன் கீழுள்ள tree-இல் உள்ள எந்த component-க்கும்--அது எவ்வளவு ஆழமாக இருந்தாலும்--props வழியாக explicit ஆக pass செய்யாமல் information வழங்க அனுமதிக்கிறது.
 
-Here, the `Heading` component determines its heading level by "asking" the closest `Section` for its level. Each `Section` tracks its own level by asking the parent `Section` and adding one to it. Every `Section` provides information to all components below it without passing props--it does that through context.
+இங்கே, `Heading` component தனது heading level-ஐ nearest `Section`-இடம் அதன் level-ஐ "கேட்டு" தீர்மானிக்கிறது. ஒவ்வொரு `Section`-மும் parent `Section`-ஐ கேட்டு அதில் ஒன்று சேர்ப்பதன் மூலம் தனது சொந்த level-ஐ track செய்கிறது. ஒவ்வொரு `Section`-மும் கீழுள்ள அனைத்து components-க்கும் props pass செய்யாமல் information வழங்குகிறது--அதை context மூலம் செய்கிறது.
 
 <Sandpack>
 
@@ -712,19 +712,19 @@ import Section from './Section.js';
 export default function Page() {
   return (
     <Section>
-      <Heading>Title</Heading>
+      <Heading>தலைப்பு</Heading>
       <Section>
         <Heading>Heading</Heading>
         <Heading>Heading</Heading>
         <Heading>Heading</Heading>
         <Section>
-          <Heading>Sub-heading</Heading>
-          <Heading>Sub-heading</Heading>
-          <Heading>Sub-heading</Heading>
+          <Heading>துணை-heading</Heading>
+          <Heading>துணை-heading</Heading>
+          <Heading>துணை-heading</Heading>
           <Section>
-            <Heading>Sub-sub-heading</Heading>
-            <Heading>Sub-sub-heading</Heading>
-            <Heading>Sub-sub-heading</Heading>
+            <Heading>துணை-துணை-heading</Heading>
+            <Heading>துணை-துணை-heading</Heading>
+            <Heading>துணை-துணை-heading</Heading>
           </Section>
         </Section>
       </Section>
@@ -757,7 +757,7 @@ export default function Heading({ children }) {
   const level = useContext(LevelContext);
   switch (level) {
     case 0:
-      throw Error('Heading must be inside a Section!');
+      throw Error('Heading ஒரு Section-க்குள் இருக்க வேண்டும்!');
     case 1:
       return <h1>{children}</h1>;
     case 2:
@@ -771,7 +771,7 @@ export default function Heading({ children }) {
     case 6:
       return <h6>{children}</h6>;
     default:
-      throw Error('Unknown level: ' + level);
+      throw Error('தெரியாத level: ' + level);
   }
 }
 ```
@@ -795,15 +795,15 @@ export const LevelContext = createContext(0);
 
 <LearnMore path="/learn/passing-data-deeply-with-context">
 
-Read **[Passing Data Deeply with Context](/learn/passing-data-deeply-with-context)** to learn about using context as an alternative to passing props.
+Props pass செய்வதற்கான alternative ஆக context பயன்படுத்துவது பற்றி அறிய **[Context மூலம் Data-வை ஆழமாக Pass செய்தல்](/learn/passing-data-deeply-with-context)** வாசிக்கவும்.
 
 </LearnMore>
 
-## Scaling up with reducer and context {/*scaling-up-with-reducer-and-context*/}
+## Reducer மற்றும் context உடன் scale செய்தல் {/*scaling-up-with-reducer-and-context*/}
 
-Reducers let you consolidate a component’s state update logic. Context lets you pass information deep down to other components. You can combine reducers and context together to manage state of a complex screen.
+Reducers ஒரு component-ன் state update logic-ஐ consolidate செய்ய அனுமதிக்கின்றன. Context, information-ஐ ஆழமாக பிற components-க்கு pass செய்ய அனுமதிக்கிறது. Complex screen ஒன்றின் state-ஐ manage செய்ய reducers மற்றும் context-ஐ ஒன்றாக combine செய்யலாம்.
 
-With this approach, a parent component with complex state manages it with a reducer. Other components anywhere deep in the tree can read its state via context. They can also dispatch actions to update that state.
+இந்த approach-இல், complex state கொண்ட parent component அதை reducer மூலம் manage செய்கிறது. Tree-இல் எவ்வளவு ஆழத்தில் இருந்தாலும் மற்ற components அதன் state-ஐ context மூலம் read செய்யலாம். அந்த state-ஐ update செய்ய actions dispatch செய்யவும் அவற்றால் முடியும்.
 
 <Sandpack>
 
@@ -815,7 +815,7 @@ import { TasksProvider } from './TasksContext.js';
 export default function TaskApp() {
   return (
     <TasksProvider>
-      <h1>Day off in Kyoto</h1>
+      <h1>Kyoto-வில் ஓய்வு நாள்</h1>
       <AddTask />
       <TaskList />
     </TasksProvider>
@@ -874,15 +874,15 @@ function tasksReducer(tasks, action) {
       return tasks.filter(t => t.id !== action.id);
     }
     default: {
-      throw Error('Unknown action: ' + action.type);
+      throw Error('தெரியாத action: ' + action.type);
     }
   }
 }
 
 const initialTasks = [
   { id: 0, text: 'Philosopher’s Path', done: true },
-  { id: 1, text: 'Visit the temple', done: false },
-  { id: 2, text: 'Drink matcha', done: false }
+  { id: 1, text: 'Temple-ஐ பார்வையிடு', done: false },
+  { id: 2, text: 'Matcha குடி', done: false }
 ];
 ```
 
@@ -896,7 +896,7 @@ export default function AddTask({ onAddTask }) {
   return (
     <>
       <input
-        placeholder="Add task"
+        placeholder="Task சேர்க்கவும்"
         value={text}
         onChange={e => setText(e.target.value)}
       />
@@ -907,7 +907,7 @@ export default function AddTask({ onAddTask }) {
           id: nextId++,
           text: text,
         });
-      }}>Add</button>
+      }}>சேர்</button>
     </>
   );
 }
@@ -951,7 +951,7 @@ function Task({ task }) {
             });
           }} />
         <button onClick={() => setIsEditing(false)}>
-          Save
+          சேமி
         </button>
       </>
     );
@@ -960,7 +960,7 @@ function Task({ task }) {
       <>
         {task.text}
         <button onClick={() => setIsEditing(true)}>
-          Edit
+          திருத்து
         </button>
       </>
     );
@@ -987,7 +987,7 @@ function Task({ task }) {
           id: task.id
         });
       }}>
-        Delete
+        நீக்கு
       </button>
     </label>
   );
@@ -1004,12 +1004,12 @@ ul, li { margin: 0; padding: 0; }
 
 <LearnMore path="/learn/scaling-up-with-reducer-and-context">
 
-Read **[Scaling Up with Reducer and Context](/learn/scaling-up-with-reducer-and-context)** to learn how state management scales in a growing app.
+வளரும் app-இல் state management எப்படி scale ஆகிறது என்பதை அறிய **[Reducer மற்றும் Context உடன் Scale செய்தல்](/learn/scaling-up-with-reducer-and-context)** வாசிக்கவும்.
 
 </LearnMore>
 
-## What's next? {/*whats-next*/}
+## அடுத்து என்ன? {/*whats-next*/}
 
-Head over to [Reacting to Input with State](/learn/reacting-to-input-with-state) to start reading this chapter page by page!
+இந்த chapter-ஐ page by page வாசிக்கத் தொடங்க [State மூலம் Input-க்கு React செய்தல்](/learn/reacting-to-input-with-state)-க்கு செல்லுங்கள்!
 
-Or, if you're already familiar with these topics, why not read about [Escape Hatches](/learn/escape-hatches)?
+அல்லது, இந்த topics ஏற்கனவே தெரிந்திருந்தால், [Escape Hatches](/learn/escape-hatches) பற்றி வாசிக்கலாமே?

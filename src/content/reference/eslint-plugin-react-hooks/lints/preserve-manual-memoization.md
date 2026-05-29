@@ -4,17 +4,17 @@ title: preserve-manual-memoization
 
 <Intro>
 
-Validates that existing manual memoization is preserved by the compiler. React Compiler will only compile components and hooks if its inference [matches or exceeds the existing manual memoization](/learn/react-compiler/introduction#what-should-i-do-about-usememo-usecallback-and-reactmemo).
+ஏற்கனவே உள்ள manual memoization-ஐ compiler பாதுகாக்கிறதா என்பதை validate செய்கிறது. React Compiler-இன் inference [ஏற்கனவே உள்ள manual memoization-ஐப் பொருந்தினாலோ அதைவிட மேம்பட்டதாக இருந்தாலோ](/learn/react-compiler/introduction#what-should-i-do-about-usememo-usecallback-and-reactmemo) மட்டுமே components மற்றும் hooks-ஐ compile செய்யும்.
 
 </Intro>
 
-## Rule Details {/*rule-details*/}
+## விதி விவரங்கள் {/*rule-details*/}
 
-React Compiler preserves your existing `useMemo`, `useCallback`, and `React.memo` calls. If you've manually memoized something, the compiler assumes you had a good reason and won't remove it. However, incomplete dependencies prevent the compiler from understanding your code's data flow and applying further optimizations.
+React Compiler உங்கள் ஏற்கனவே உள்ள `useMemo`, `useCallback`, மற்றும் `React.memo` calls-ஐ பாதுகாக்கிறது. நீங்கள் ஏதாவது ஒன்றை கைமுறையாக memoize செய்திருந்தால், அதற்கு நல்ல காரணம் உண்டு என்று compiler கருதி அதை நீக்காது. ஆனால் முழுமையற்ற dependencies உங்கள் code-இன் data flow-ஐ compiler புரிந்துகொண்டு மேலும் optimizations செய்யத் தடையாகின்றன.
 
-### Invalid {/*invalid*/}
+### செல்லாதது {/*invalid*/}
 
-Examples of incorrect code for this rule:
+இந்த விதிக்கான தவறான code உதாரணங்கள்:
 
 ```js
 // ❌ Missing dependencies in useMemo
@@ -37,9 +37,9 @@ function Component({ onUpdate, value }) {
 }
 ```
 
-### Valid {/*valid*/}
+### செல்லுபடியாகும் {/*valid*/}
 
-Examples of correct code for this rule:
+இந்த விதிக்கான சரியான code உதாரணங்கள்:
 
 ```js
 // ✅ Complete dependencies
@@ -62,9 +62,9 @@ function Component({ data, filter }) {
 
 ## Troubleshooting {/*troubleshooting*/}
 
-### Should I remove my manual memoization? {/*remove-manual-memoization*/}
+### என் manual memoization-ஐ நீக்க வேண்டுமா? {/*remove-manual-memoization*/}
 
-You might wonder if React Compiler makes manual memoization unnecessary:
+React Compiler manual memoization-ஐ தேவையற்றதாக ஆக்குகிறதா என்று நீங்கள் யோசிக்கலாம்:
 
 ```js
 // Do I still need this?
@@ -79,7 +79,7 @@ function Component({items, sortBy}) {
 }
 ```
 
-You can safely remove it if using React Compiler:
+React Compiler பயன்படுத்தினால், இதைப் பாதுகாப்பாக நீக்கலாம்:
 
 ```js
 // ✅ Better: Let the compiler optimize

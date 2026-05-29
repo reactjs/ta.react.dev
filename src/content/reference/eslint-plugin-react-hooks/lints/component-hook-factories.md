@@ -4,17 +4,17 @@ title: component-hook-factories
 
 <Intro>
 
-Validates against higher order functions defining nested components or hooks. Components and hooks should be defined at the module level.
+Nested components அல்லது hooks-ஐ வரையறுக்கும் higher order functions-ஐ எதிர்த்து validate செய்கிறது. Components மற்றும் hooks module level-இல் வரையறுக்கப்பட வேண்டும்.
 
 </Intro>
 
-## Rule Details {/*rule-details*/}
+## விதி விவரங்கள் {/*rule-details*/}
 
-Defining components or hooks inside other functions creates new instances on every call. React treats each as a completely different component, destroying and recreating the entire component tree, losing all state, and causing performance problems.
+மற்ற functions உள்ளே components அல்லது hooks-ஐ வரையறுப்பது ஒவ்வொரு call-இலும் புதிய instances உருவாக்கும். React ஒவ்வொன்றையும் முற்றிலும் வேறு component ஆகக் கருதி, முழு component tree-ஐ அழித்து மறுபடியும் உருவாக்கும்; இதனால் state அனைத்தும் இழக்கப்படும் மற்றும் performance பிரச்சினைகள் ஏற்படும்.
 
-### Invalid {/*invalid*/}
+### செல்லாதது {/*invalid*/}
 
-Examples of incorrect code for this rule:
+இந்த விதிக்கான தவறான code உதாரணங்கள்:
 
 ```js {expectedErrors: {'react-compiler': [14]}}
 // ❌ Factory function creating components
@@ -41,9 +41,9 @@ function createCustomHook(endpoint) {
 }
 ```
 
-### Valid {/*valid*/}
+### செல்லுபடியாகும் {/*valid*/}
 
-Examples of correct code for this rule:
+இந்த விதிக்கான சரியான code உதாரணங்கள்:
 
 ```js
 // ✅ Component defined at module level
@@ -59,9 +59,9 @@ function useData(endpoint) {
 
 ## Troubleshooting {/*troubleshooting*/}
 
-### I need dynamic component behavior {/*dynamic-behavior*/}
+### Dynamic component behavior தேவை {/*dynamic-behavior*/}
 
-You might think you need a factory to create customized components:
+Customized components உருவாக்க factory தேவை என்று நினைக்கலாம்:
 
 ```js
 // ❌ Wrong: Factory pattern
@@ -79,7 +79,7 @@ const RedButton = makeButton('red');
 const BlueButton = makeButton('blue');
 ```
 
-Pass [JSX as children](/learn/passing-props-to-a-component#passing-jsx-as-children) instead:
+அதற்கு பதிலாக [JSX-ஐ children ஆக pass செய்யுங்கள்](/learn/passing-props-to-a-component#passing-jsx-as-children):
 
 ```js
 // ✅ Better: Pass JSX as children

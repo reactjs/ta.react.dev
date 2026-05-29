@@ -1,71 +1,71 @@
 ---
-title: "The Plan for React 18"
-author: Andrew Clark, Brian Vaughn, Christine Abernathy, Dan Abramov, Rachel Nabors, Rick Hanlon, Sebastian Markbage, and Seth Webster
+title: "React 18-க்கான திட்டம்"
+author: Andrew Clark, Brian Vaughn, Christine Abernathy, Dan Abramov, Rachel Nabors, Rick Hanlon, Sebastian Markbage, மற்றும் Seth Webster
 date: 2021/06/08
-description: The React team is excited to share a few updates. We’ve started work on the React 18 release, which will be our next major version. We’ve created a Working Group to prepare the community for gradual adoption of new features in React 18. We’ve published a React 18 Alpha so that library authors can try it and provide feedback...
+description: சில updates-ஐ பகிர React team மகிழ்ச்சியடைகிறது. எங்கள் அடுத்த major version ஆன React 18 release-க்கு வேலை தொடங்கியுள்ளோம். React 18-இல் வரும் புதிய அம்சங்களை படிப்படியாக ஏற்றுக்கொள்ள சமூகத்தைத் தயார்படுத்த Working Group ஒன்றை உருவாக்கியுள்ளோம். Library authors அதை முயற்சி செய்து feedback வழங்க React 18 Alpha-வை வெளியிட்டுள்ளோம்...
 ---
 
-June 8, 2021 by [Andrew Clark](https://twitter.com/acdlite), [Brian Vaughn](https://github.com/bvaughn), [Christine Abernathy](https://twitter.com/abernathyca), [Dan Abramov](https://bsky.app/profile/danabra.mov), [Rachel Nabors](https://twitter.com/rachelnabors), [Rick Hanlon](https://twitter.com/rickhanlonii), [Sebastian Markbåge](https://twitter.com/sebmarkbage), and [Seth Webster](https://twitter.com/sethwebster)
+June 8, 2021 அன்று [Andrew Clark](https://twitter.com/acdlite), [Brian Vaughn](https://github.com/bvaughn), [Christine Abernathy](https://twitter.com/abernathyca), [Dan Abramov](https://bsky.app/profile/danabra.mov), [Rachel Nabors](https://twitter.com/rachelnabors), [Rick Hanlon](https://twitter.com/rickhanlonii), [Sebastian Markbåge](https://twitter.com/sebmarkbage), and [Seth Webster](https://twitter.com/sethwebster) எழுதியது
 
 ---
 
 <Intro>
 
-The React team is excited to share a few updates:
+சில updates-ஐ பகிர React team மகிழ்ச்சியடைகிறது:
 
-1. We’ve started work on the React 18 release, which will be our next major version.
-2. We’ve created a Working Group to prepare the community for gradual adoption of new features in React 18.
-3. We’ve published a React 18 Alpha so that library authors can try it and provide feedback.
+1. எங்கள் அடுத்த major version ஆன React 18 release-க்கு வேலை தொடங்கியுள்ளோம்.
+2. React 18-இல் வரும் புதிய அம்சங்களை படிப்படியாக ஏற்றுக்கொள்ள சமூகத்தைத் தயார்படுத்த Working Group ஒன்றை உருவாக்கியுள்ளோம்.
+3. Library authors அதை முயற்சி செய்து feedback வழங்க React 18 Alpha-வை வெளியிட்டுள்ளோம்.
 
-These updates are primarily aimed at maintainers of third-party libraries. If you’re learning, teaching, or using React to build user-facing applications, you can safely ignore this post. But you are welcome to follow the discussions in the React 18 Working Group if you're curious!
+இந்த updates முதன்மையாக third-party libraries-இன் maintainers-க்காக உள்ளன. நீங்கள் React-ஐ கற்றுக்கொண்டு இருக்கிறீர்களானாலும், கற்பிக்கிறீர்களானாலும், அல்லது user-facing applications உருவாக்க பயன்படுத்துகிறீர்களானாலும், இந்த post-ஐ பாதுகாப்பாக புறக்கணிக்கலாம். ஆனால் ஆர்வமிருந்தால் React 18 Working Group-இல் உள்ள விவாதங்களைப் பின்தொடரலாம்!
 
 ---
 
 </Intro>
 
-## What’s coming in React 18 {/*whats-coming-in-react-18*/}
+## React 18-இல் என்ன வருகிறது {/*whats-coming-in-react-18*/}
 
-When it’s released, React 18 will include out-of-the-box improvements (like [automatic batching](https://github.com/reactwg/react-18/discussions/21)), new APIs (like [`startTransition`](https://github.com/reactwg/react-18/discussions/41)), and a [new streaming server renderer](https://github.com/reactwg/react-18/discussions/37) with built-in support for `React.lazy`.
+Release ஆகும் போது, React 18-இல் out-of-the-box மேம்பாடுகள் ([automatic batching](https://github.com/reactwg/react-18/discussions/21) போன்றவை), புதிய API-கள் ([`startTransition`](https://github.com/reactwg/react-18/discussions/41) போன்றவை), மற்றும் `React.lazy`-க்கு built-in ஆதரவு கொண்ட [புதிய streaming server renderer](https://github.com/reactwg/react-18/discussions/37) இருக்கும்.
 
-These features are possible thanks to a new opt-in mechanism we’re adding in React 18. It’s called “concurrent rendering” and it lets React prepare multiple versions of the UI at the same time. This change is mostly behind-the-scenes, but it unlocks new possibilities to improve both real and perceived performance of your app.
+React 18-இல் சேர்க்கும் புதிய opt-in mechanism காரணமாக இந்த அம்சங்கள் சாத்தியமாகின்றன. அது “concurrent rendering” என்று அழைக்கப்படுகிறது; React ஒரே நேரத்தில் UI-யின் பல versions-ஐத் தயாரிக்க இது உதவுகிறது. இந்த மாற்றம் பெரும்பாலும் பின்னணியில் இருக்கும், ஆனால் உங்கள் app-இன் உண்மையான செயல்திறனையும் user உணரும் செயல்திறனையும் மேம்படுத்த புதிய வாய்ப்புகளைத் திறக்கிறது.
 
-If you've been following our research into the future of React (we don't expect you to!), you might have heard of something called “concurrent mode” or that it might break your app. In response to this feedback from the community, we’ve redesigned the upgrade strategy for gradual adoption. Instead of an all-or-nothing “mode”, concurrent rendering will only be enabled for updates triggered by one of the new features. In practice, this means **you will be able to adopt React 18 without rewrites and try the new features at your own pace.**
+React-இன் எதிர்காலம் குறித்த எங்கள் ஆராய்ச்சியை நீங்கள் பின்தொடர்ந்து இருந்தால் (அதை எதிர்பார்ப்பதில்லை!), “concurrent mode” என்று ஒன்றைப் பற்றியோ அது உங்கள் app-ஐ உடைக்கலாம் என்பதையோ கேட்டிருக்கலாம். சமூகத்திலிருந்து வந்த இந்த feedback-க்கு பதிலாக, படிப்படியாக ஏற்றுக்கொள்ளும் upgrade strategy-ஐ மறுவடிவமைத்துள்ளோம். எல்லாவற்றையும் ஒரே நேரத்தில் மாற்ற வேண்டிய “mode” ஆக இல்லாமல், புதிய அம்சங்களில் ஒன்றால் trigger செய்யப்படும் updates-க்கு மட்டுமே concurrent rendering enable செய்யப்படும். நடைமுறையில் இதன் பொருள்: **rewrites இல்லாமல் React 18-ஐ ஏற்றுக்கொண்டு, புதிய அம்சங்களை உங்கள் வேகத்தில் முயற்சி செய்ய முடியும்.**
 
-## A gradual adoption strategy {/*a-gradual-adoption-strategy*/}
+## படிப்படியான ஏற்றுக்கொள்ளும் strategy {/*a-gradual-adoption-strategy*/}
 
-Since concurrency in React 18 is opt-in, there are no significant out-of-the-box breaking changes to component behavior. **You can upgrade to React 18 with minimal or no changes to your application code, with a level of effort comparable to a typical major React release**. Based on our experience converting several apps to React 18, we expect that many users will be able to upgrade within a single afternoon.
+React 18-இல் concurrency opt-in ஆக இருப்பதால், component behavior-க்கு குறிப்பிடத்தக்க out-of-the-box breaking changes இல்லை. **சாதாரண major React release-க்கு ஒத்த முயற்சியிலேயே, உங்கள் application code-இல் குறைந்த மாற்றங்களோ மாற்றமே இல்லாமலோ React 18-க்கு upgrade செய்ய முடியும்**. பல apps-ஐ React 18-க்கு மாற்றிய எங்கள் அனுபவத்தின் அடிப்படையில், பல users ஒரு பிற்பகலுக்குள் upgrade செய்ய முடியும் என்று எதிர்பார்க்கிறோம்.
 
-We successfully shipped concurrent features to tens of thousands of components at Facebook, and in our experience, we've found that most React components “just work” without additional changes. We're committed to making sure this is a smooth upgrade for the entire community, so today we're announcing the React 18 Working Group.
+Facebook-இல் ஆயிரக்கணக்கான components-க்கு concurrent features-ஐ வெற்றிகரமாக ship செய்துள்ளோம்; எங்கள் அனுபவத்தில், பெரும்பாலான React components கூடுதல் மாற்றங்கள் இல்லாமல் “அப்படியே வேலை செய்கின்றன” என்று கண்டறிந்துள்ளோம். முழு சமூகத்திற்கும் இது smooth upgrade ஆக இருப்பதை உறுதிசெய்ய நாங்கள் உறுதியாக உள்ளோம்; அதனால் இன்று React 18 Working Group-ஐ அறிவிக்கிறோம்.
 
-## Working with the community {/*working-with-the-community*/}
+## சமூகத்துடன் பணிபுரிதல் {/*working-with-the-community*/}
 
-We’re trying something new for this release: We've invited a panel of experts, developers, library authors, and educators from across the React community to participate in our [React 18 Working Group](https://github.com/reactwg/react-18) to provide feedback, ask questions, and collaborate on the release. We couldn't invite everyone we wanted to this initial, small group, but if this experiment works out, we hope there will be more in the future!
+இந்த release-க்காக புதிதாக ஒன்றை முயற்சி செய்கிறோம்: React சமூகத்தின் பல பகுதிகளிலிருந்து experts, developers, library authors, மற்றும் educators கொண்ட குழுவை feedback வழங்க, கேள்விகள் கேட்க, release-இல் இணைந்து பணியாற்ற எங்கள் [React 18 Working Group](https://github.com/reactwg/react-18)-இல் பங்கேற்க அழைத்துள்ளோம். இந்த தொடக்க சிறிய குழுவுக்கு அழைக்க விரும்பிய அனைவரையும் அழைக்க முடியவில்லை; ஆனால் இந்த முயற்சி நன்றாக செயல்பட்டால், எதிர்காலத்தில் மேலும் பலர் இருப்பார்கள் என்று நம்புகிறோம்!
 
-**The goal of the React 18 Working Group is to prepare the ecosystem for a smooth, gradual adoption of React 18 by existing applications and libraries.** The Working Group is hosted on [GitHub Discussions](https://github.com/reactwg/react-18/discussions) and is available for the public to read. Members of the working group can leave feedback, ask questions, and share ideas. The core team will also use the discussions repo to share our research findings. As the stable release gets closer, any important information will also be posted on this blog.
+**இருக்கும் applications மற்றும் libraries React 18-ஐ smooth ஆகவும் படிப்படியாகவும் ஏற்றுக்கொள்ள ecosystem-ஐத் தயார்படுத்துவதே React 18 Working Group-இன் குறிக்கோள்.** Working Group [GitHub Discussions](https://github.com/reactwg/react-18/discussions)-இல் hosted ஆக உள்ளது; public அதை வாசிக்கலாம். Working group உறுப்பினர்கள் feedback இடலாம், கேள்விகள் கேட்கலாம், ideas பகிரலாம். Core team எங்கள் research findings-ஐ பகிரவும் discussions repo-வைப் பயன்படுத்தும். Stable release நெருங்கும் போது, முக்கிய தகவல்கள் இந்த blog-இலும் வெளியிடப்படும்.
 
-For more information on upgrading to React 18, or additional resources about the release, see the [React 18 announcement post](https://github.com/reactwg/react-18/discussions/4).
+React 18-க்கு upgrade செய்வது பற்றிய கூடுதல் தகவல்களுக்கு, அல்லது release பற்றிய கூடுதல் resources-க்கு, [React 18 announcement post](https://github.com/reactwg/react-18/discussions/4)-ஐப் பார்க்கவும்.
 
-## Accessing the React 18 Working Group {/*accessing-the-react-18-working-group*/}
+## React 18 Working Group-ஐ அணுகுதல் {/*accessing-the-react-18-working-group*/}
 
-Everyone can read the discussions in the [React 18 Working Group repo](https://github.com/reactwg/react-18).
+[React 18 Working Group repo](https://github.com/reactwg/react-18)-இல் உள்ள discussions-ஐ அனைவரும் வாசிக்கலாம்.
 
-Because we expect an initial surge of interest in the Working Group, only invited members will be allowed to create or comment on threads. However, the threads are fully visible to the public, so everyone has access to the same information. We believe this is a good compromise between creating a productive environment for working group members, while maintaining transparency with the wider community.
+Working Group-இல் ஆரம்பத்தில் பெரும் ஆர்வம் இருக்கும் என்று எதிர்பார்ப்பதால், invited members மட்டுமே threads உருவாக்கவோ comment செய்யவோ அனுமதிக்கப்படுவர். இருப்பினும், threads முழுவதும் public-க்கு தெரியும்; எனவே அனைவருக்கும் அதே தகவல் கிடைக்கும். Working group உறுப்பினர்களுக்கு productive environment உருவாக்குவதற்கும், பெரிய சமூகத்துடன் transparency வைத்திருப்பதற்கும் இடையிலான நல்ல சமநிலை இது என்று நாங்கள் நம்புகிறோம்.
 
-As always, you can submit bug reports, questions, and general feedback to our [issue tracker](https://github.com/facebook/react/issues).
+எப்போதும் போல, bug reports, கேள்விகள், மற்றும் பொதுவான feedback-ஐ எங்கள் [issue tracker](https://github.com/facebook/react/issues)-இல் submit செய்யலாம்.
 
-## How to try React 18 Alpha today {/*how-to-try-react-18-alpha-today*/}
+## இன்று React 18 Alpha-வை முயற்சி செய்வது எப்படி {/*how-to-try-react-18-alpha-today*/}
 
-New alphas are [regularly published to npm using the `@alpha` tag](https://github.com/reactwg/react-18/discussions/9). These releases are built using the most recent commit to our main repo. When a feature or bugfix is merged, it will appear in an alpha the following weekday.
+புதிய alphas [`@alpha` tag பயன்படுத்தி npm-க்கு சீராக publish செய்யப்படுகின்றன](https://github.com/reactwg/react-18/discussions/9). இந்த releases எங்கள் main repo-வின் சமீபத்திய commit கொண்டு build செய்யப்படுகின்றன. ஒரு feature அல்லது bugfix merge செய்யப்பட்டால், அடுத்த வேலை நாளில் அது alpha-வில் தோன்றும்.
 
-There may be significant behavioral or API changes between alpha releases. Please remember that **alpha releases are not recommended for user-facing, production applications**.
+Alpha releases இடையே குறிப்பிடத்தக்க behavioral அல்லது API மாற்றங்கள் இருக்கலாம். **User-facing, production applications-க்கு alpha releases பரிந்துரைக்கப்படவில்லை** என்பதை நினைவில் கொள்ளுங்கள்.
 
-## Projected React 18 release timeline {/*projected-react-18-release-timeline*/}
+## React 18 release-க்கான எதிர்பார்க்கப்படும் timeline {/*projected-react-18-release-timeline*/}
 
-We don't have a specific release date scheduled, but we expect it will take several months of feedback and iteration before React 18 is ready for most production applications.
+குறிப்பிட்ட release date இன்னும் schedule செய்யப்படவில்லை; ஆனால் பெரும்பாலான production applications-க்கு React 18 தயாராகும் முன் பல மாதங்கள் feedback மற்றும் iteration தேவைப்படும் என்று எதிர்பார்க்கிறோம்.
 
-* Library Alpha: Available today
-* Public Beta: At least several months
-* Release Candidate (RC): At least several weeks after Beta
-* General Availability: At least several weeks after RC
+* Library Alpha: இன்று கிடைக்கிறது
+* Public Beta: குறைந்தது பல மாதங்கள்
+* Release Candidate (RC): Beta-க்கு பிறகு குறைந்தது பல வாரங்கள்
+* General Availability: RC-க்கு பிறகு குறைந்தது பல வாரங்கள்
 
-More details about our projected release timeline are [available in the Working Group](https://github.com/reactwg/react-18/discussions/9). We'll post updates on this blog when we're closer to a public release.
+எங்கள் எதிர்பார்க்கப்படும் release timeline பற்றிய கூடுதல் விவரங்கள் [Working Group-இல் கிடைக்கின்றன](https://github.com/reactwg/react-18/discussions/9). Public release நெருங்கும் போது இந்த blog-இல் updates post செய்வோம்.

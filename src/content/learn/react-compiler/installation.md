@@ -3,59 +3,59 @@ title: Installation
 ---
 
 <Intro>
-This guide will help you install and configure React Compiler in your React application.
+உங்கள் React application-இல் React Compiler-ஐ install செய்து configure செய்ய இந்த guide உதவும்.
 </Intro>
 
 <YouWillLearn>
 
-* How to install React Compiler
-* Basic configuration for different build tools
-* How to verify your setup is working
+* React Compiler install செய்வது எப்படி
+* வெவ்வேறு build tools-க்கான basic configuration
+* உங்கள் setup வேலை செய்கிறதா என்பதை verify செய்வது எப்படி
 
 </YouWillLearn>
 
 ## Prerequisites {/*prerequisites*/}
 
-React Compiler is designed to work best with React 19, but it also supports React 17 and 18. Learn more about [React version compatibility](/reference/react-compiler/target).
+React Compiler, React 19 உடன் சிறப்பாக வேலை செய்ய வடிவமைக்கப்பட்டுள்ளது; ஆனால் React 17 மற்றும் 18-ஐயும் support செய்கிறது. [React version compatibility](/reference/react-compiler/target) பற்றி மேலும் அறியவும்.
 
 ## Installation {/*installation*/}
 
-Install React Compiler as a `devDependency`:
+React Compiler-ஐ `devDependency` ஆக install செய்யவும்:
 
 <TerminalBlock>
 npm install -D babel-plugin-react-compiler@latest
 </TerminalBlock>
 
-Or with Yarn:
+அல்லது Yarn உடன்:
 
 <TerminalBlock>
 yarn add -D babel-plugin-react-compiler@latest
 </TerminalBlock>
 
-Or with pnpm:
+அல்லது pnpm உடன்:
 
 <TerminalBlock>
 pnpm install -D babel-plugin-react-compiler@latest
 </TerminalBlock>
 
-## Basic Setup {/*basic-setup*/}
+## Basic setup {/*basic-setup*/}
 
-React Compiler is designed to work by default without any configuration. However, if you need to configure it in special circumstances (for example, to target React versions below 19), refer to the [compiler options reference](/reference/react-compiler/configuration).
+React Compiler எந்த configuration இல்லாமலேயே default ஆக வேலை செய்ய வடிவமைக்கப்பட்டுள்ளது. ஆனால் சிறப்பு சூழ்நிலைகளில் configure செய்ய வேண்டுமெனில் (உதாரணமாக, React 19-க்கு கீழான versions target செய்ய), [compiler options reference](/reference/react-compiler/configuration)-ஐ பார்க்கவும்.
 
-The setup process depends on your build tool. React Compiler includes a Babel plugin that integrates with your build pipeline.
+Setup process உங்கள் build tool-ஐப் பொறுத்தது. உங்கள் build pipeline உடன் integrate ஆகும் Babel plugin ஒன்றை React Compiler கொண்டுள்ளது.
 
 <Pitfall>
-React Compiler must run **first** in your Babel plugin pipeline. The compiler needs the original source information for proper analysis, so it must process your code before other transformations.
+React Compiler உங்கள் Babel plugin pipeline-இல் **முதலில்** run ஆக வேண்டும். சரியான analysis-க்கு compiler-க்கு original source information தேவை; எனவே பிற transformations-க்கு முன் உங்கள் code-ஐ அது process செய்ய வேண்டும்.
 </Pitfall>
 
 ### Babel {/*babel*/}
 
-Create or update your `babel.config.js`:
+உங்கள் `babel.config.js`-ஐ create அல்லது update செய்யவும்:
 
 ```js {3}
 module.exports = {
   plugins: [
-    'babel-plugin-react-compiler', // must run first!
+    'babel-plugin-react-compiler', // முதலில் run ஆக வேண்டும்!
     // ... other plugins
   ],
   // ... other config
@@ -64,7 +64,7 @@ module.exports = {
 
 ### Vite {/*vite*/}
 
-If you use Vite with version 6.0.0 or later of `@vitejs/plugin-react`, you can use the `reactCompilerPreset`:
+`@vitejs/plugin-react` version 6.0.0 அல்லது அதற்குப் பிறகு உள்ள Vite பயன்படுத்தினால், `reactCompilerPreset` பயன்படுத்தலாம்:
 
 <TerminalBlock>
 npm install -D @rolldown/plugin-babel
@@ -87,7 +87,7 @@ export default defineConfig({
 ```
 
 <Note>
-In `@vitejs/plugin-react@6.0.0`, the inline Babel option was removed. If you're using an older version, you can use:
+`@vitejs/plugin-react@6.0.0`-இல் inline Babel option remove செய்யப்பட்டது. பழைய version பயன்படுத்தினால், இதைப் பயன்படுத்தலாம்:
 
 ```js
 // vite.config.js
@@ -106,7 +106,7 @@ export default defineConfig({
 ```
 </Note>
 
-Alternatively, you can use the Babel plugin directly with `@rolldown/plugin-babel`:
+மாற்றாக, `@rolldown/plugin-babel` உடன் Babel plugin-ஐ நேரடியாகப் பயன்படுத்தலாம்:
 
 ```js {3,9}
 // vite.config.js
@@ -126,10 +126,10 @@ export default defineConfig({
 
 ### Next.js {/*usage-with-nextjs*/}
 
-Please refer to the [Next.js docs](https://nextjs.org/docs/app/api-reference/next-config-js/reactCompiler) for more information.
+மேலும் தகவலுக்கு [Next.js docs](https://nextjs.org/docs/app/api-reference/next-config-js/reactCompiler)-ஐ பார்க்கவும்.
 
 ### React Router {/*usage-with-react-router*/}
-Install `vite-plugin-babel`, and add the compiler's Babel plugin to it:
+`vite-plugin-babel` install செய்து, compiler-ன் Babel plugin-ஐ அதில் சேர்க்கவும்:
 
 <TerminalBlock>
 npm install vite-plugin-babel
@@ -149,7 +149,7 @@ export default defineConfig({
     babel({
       filter: /\.[jt]sx?$/,
       babelConfig: {
-        presets: ["@babel/preset-typescript"], // if you use TypeScript
+        presets: ["@babel/preset-typescript"], // TypeScript பயன்படுத்தினால்
         plugins: [
           ["babel-plugin-react-compiler", ReactCompilerConfig],
         ],
@@ -161,63 +161,63 @@ export default defineConfig({
 
 ### Webpack {/*usage-with-webpack*/}
 
-A community webpack loader is [now available here](https://github.com/SukkaW/react-compiler-webpack).
+Community webpack loader ஒன்று [இங்கே கிடைக்கிறது](https://github.com/SukkaW/react-compiler-webpack).
 
 ### Expo {/*usage-with-expo*/}
 
-Please refer to [Expo's docs](https://docs.expo.dev/guides/react-compiler/) to enable and use the React Compiler in Expo apps.
+Expo apps-இல் React Compiler-ஐ enable செய்து பயன்படுத்த [Expo docs](https://docs.expo.dev/guides/react-compiler/)-ஐ பார்க்கவும்.
 
 ### Metro (React Native) {/*usage-with-react-native-metro*/}
 
-React Native uses Babel via Metro, so refer to the [Usage with Babel](#babel) section for installation instructions.
+React Native, Metro வழியாக Babel பயன்படுத்துகிறது; எனவே installation instructions-க்கு [Babel உடன் usage](#babel) section-ஐ பார்க்கவும்.
 
 ### Rspack {/*usage-with-rspack*/}
 
-Please refer to [Rspack's docs](https://rspack.dev/guide/tech/react#react-compiler) to enable and use the React Compiler in Rspack apps.
+Rspack apps-இல் React Compiler-ஐ enable செய்து பயன்படுத்த [Rspack docs](https://rspack.dev/guide/tech/react#react-compiler)-ஐ பார்க்கவும்.
 
 ### Rsbuild {/*usage-with-rsbuild*/}
 
-Please refer to [Rsbuild's docs](https://rsbuild.dev/guide/framework/react#react-compiler) to enable and use the React Compiler in Rsbuild apps.
+Rsbuild apps-இல் React Compiler-ஐ enable செய்து பயன்படுத்த [Rsbuild docs](https://rsbuild.dev/guide/framework/react#react-compiler)-ஐ பார்க்கவும்.
 
 
-## ESLint Integration {/*eslint-integration*/}
+## ESLint integration {/*eslint-integration*/}
 
-React Compiler includes an ESLint rule that helps identify code that can't be optimized. When the ESLint rule reports an error, it means the compiler will skip optimizing that specific component or hook. This is safe: the compiler will continue optimizing other parts of your codebase. You don't need to fix all violations immediately. Address them at your own pace to gradually increase the number of optimized components.
+Optimize செய்ய முடியாத code-ஐ identify செய்ய உதவும் ESLint rule ஒன்றை React Compiler கொண்டுள்ளது. ESLint rule error report செய்தால், அந்த குறிப்பிட்ட component அல்லது hook-ஐ compiler optimize செய்யாமல் skip செய்யும் என்று அர்த்தம். இது safe: compiler உங்கள் codebase-ன் பிற பகுதிகளை தொடர்ந்து optimize செய்யும். எல்லா violations-யையும் உடனடியாக fix செய்ய தேவையில்லை. Optimized components எண்ணிக்கையை gradual-ஆக அதிகரிக்க, உங்கள் சொந்த pace-இல் அவற்றை address செய்யவும்.
 
-Install the ESLint plugin:
+ESLint plugin install செய்யவும்:
 
 <TerminalBlock>
 npm install -D eslint-plugin-react-hooks@latest
 </TerminalBlock>
 
-If you haven't already configured eslint-plugin-react-hooks, follow the [installation instructions in the readme](https://github.com/facebook/react/blob/main/packages/eslint-plugin-react-hooks/README.md#installation). The compiler rules are available in the `recommended-latest` preset.
+eslint-plugin-react-hooks ஏற்கனவே configure செய்யப்படவில்லை என்றால், [readme-இல் உள்ள installation instructions](https://github.com/facebook/react/blob/main/packages/eslint-plugin-react-hooks/README.md#installation)-ஐ பின்பற்றவும். Compiler rules `recommended-latest` preset-இல் கிடைக்கின்றன.
 
-The ESLint rule will:
-- Identify violations of the [Rules of React](/reference/rules)
-- Show which components can't be optimized
-- Provide helpful error messages for fixing issues
+ESLint rule:
+- [React விதிகள்](/reference/rules) violations-ஐ identify செய்யும்
+- எந்த components optimize செய்ய முடியாது என்பதை காட்டும்
+- Issues fix செய்ய உதவும் error messages வழங்கும்
 
-## Verify Your Setup {/*verify-your-setup*/}
+## உங்கள் setup-ஐ verify செய்யுங்கள் {/*verify-your-setup*/}
 
-After installation, verify that React Compiler is working correctly.
+Installation முடிந்த பிறகு, React Compiler சரியாக வேலை செய்கிறதா என்பதை verify செய்யவும்.
 
-### Check React DevTools {/*check-react-devtools*/}
+### React DevTools-ஐ check செய்யுங்கள் {/*check-react-devtools*/}
 
-Components optimized by React Compiler will show a "Memo ✨" badge in React DevTools:
+React Compiler optimize செய்த components, React DevTools-இல் "Memo ✨" badge காட்டும்:
 
-1. Install the [React Developer Tools](/learn/react-developer-tools) browser extension
-2. Open your app in development mode
-3. Open React DevTools
-4. Look for the ✨ emoji next to component names
+1. [React Developer Tools](/learn/react-developer-tools) browser extension install செய்யவும்
+2. Development mode-இல் உங்கள் app-ஐ திறக்கவும்
+3. React DevTools-ஐ திறக்கவும்
+4. Component names அருகில் ✨ emoji தேடவும்
 
-If the compiler is working:
-- Components will show a "Memo ✨" badge in React DevTools
-- Expensive calculations will be automatically memoized
-- No manual `useMemo` is required
+Compiler வேலை செய்தால்:
+- Components, React DevTools-இல் "Memo ✨" badge காட்டும்
+- Expensive calculations தானாக memoize செய்யப்படும்
+- Manual `useMemo` தேவையில்லை
 
-### Check Build Output {/*check-build-output*/}
+### Build output-ஐ check செய்யுங்கள் {/*check-build-output*/}
 
-You can also verify the compiler is running by checking your build output. The compiled code will include automatic memoization logic that the compiler adds automatically.
+உங்கள் build output-ஐப் பார்த்தும் compiler run ஆகிறதா verify செய்யலாம். Compiled code-இல் compiler தானாக சேர்க்கும் automatic memoization logic இருக்கும்.
 
 ```js
 import { c as _c } from "react/compiler-runtime";
@@ -225,7 +225,7 @@ export default function MyApp() {
   const $ = _c(1);
   let t0;
   if ($[0] === Symbol.for("react.memo_cache_sentinel")) {
-    t0 = <div>Hello World</div>;
+    t0 = <div>வணக்கம் உலகம்</div>;
     $[0] = t0;
   } else {
     t0 = $[0];
@@ -237,9 +237,9 @@ export default function MyApp() {
 
 ## Troubleshooting {/*troubleshooting*/}
 
-### Opting out specific components {/*opting-out-specific-components*/}
+### குறிப்பிட்ட components-ஐ opt out செய்தல் {/*opting-out-specific-components*/}
 
-If a component is causing issues after compilation, you can temporarily opt it out using the `"use no memo"` directive:
+Compilation-க்கு பிறகு component ஒன்று issues ஏற்படுத்தினால், `"use no memo"` directive பயன்படுத்தி அதை temporary ஆக opt out செய்யலாம்:
 
 ```js
 function ProblematicComponent() {
@@ -248,16 +248,16 @@ function ProblematicComponent() {
 }
 ```
 
-This tells the compiler to skip optimization for this specific component. You should fix the underlying issue and remove the directive once resolved.
+இந்த specific component-க்கு optimization skip செய்ய compiler-க்கு இது சொல்கிறது. Underlying issue-ஐ fix செய்து, resolve ஆனதும் directive-ஐ remove செய்ய வேண்டும்.
 
-For more troubleshooting help, see the [debugging guide](/learn/react-compiler/debugging).
+மேலும் troubleshooting உதவிக்கு, [debugging guide](/learn/react-compiler/debugging)-ஐ பார்க்கவும்.
 
-## Next Steps {/*next-steps*/}
+## அடுத்த steps {/*next-steps*/}
 
-Now that you have React Compiler installed, learn more about:
+இப்போது React Compiler install செய்யப்பட்டுள்ளதால், இவற்றைப் பற்றி மேலும் அறியவும்:
 
-- [React version compatibility](/reference/react-compiler/target) for React 17 and 18
-- [Configuration options](/reference/react-compiler/configuration) to customize the compiler
-- [Incremental adoption strategies](/learn/react-compiler/incremental-adoption) for existing codebases
-- [Debugging techniques](/learn/react-compiler/debugging) for troubleshooting issues
-- [Compiling Libraries guide](/reference/react-compiler/compiling-libraries) for compiling your React library
+- React 17 மற்றும் 18-க்கான [React version compatibility](/reference/react-compiler/target)
+- Compiler-ஐ customize செய்ய [configuration options](/reference/react-compiler/configuration)
+- Existing codebases-க்கான [incremental adoption strategies](/learn/react-compiler/incremental-adoption)
+- Issues troubleshoot செய்ய [debugging techniques](/learn/react-compiler/debugging)
+- உங்கள் React library-ஐ compile செய்ய [Compiling Libraries guide](/reference/react-compiler/compiling-libraries)

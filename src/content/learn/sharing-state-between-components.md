@@ -1,31 +1,31 @@
 ---
-title: Sharing State Between Components
+title: Components இடையே State பகிர்தல்
 ---
 
 <Intro>
 
-Sometimes, you want the state of two components to always change together. To do it, remove state from both of them, move it to their closest common parent, and then pass it down to them via props. This is known as *lifting state up,* and it's one of the most common things you will do writing React code.
+சில நேரங்களில், இரண்டு components-ன் state எப்போதும் ஒன்றாக மாற வேண்டும் என்று நீங்கள் விரும்புவீர்கள். அதைச் செய்ய, அவை இரண்டிலிருந்தும் state-ஐ remove செய்து, அவற்றின் closest common parent-க்கு நகர்த்தி, பின்னர் props மூலம் கீழே pass செய்யவும். இது *lifting state up* என்று அழைக்கப்படுகிறது; React code எழுதும்போது நீங்கள் அடிக்கடி செய்யும் விஷயங்களில் இதுவும் ஒன்று.
 
 </Intro>
 
 <YouWillLearn>
 
-- How to share state between components by lifting it up
-- What are controlled and uncontrolled components
+- State-ஐ மேலே lift செய்து components இடையே state பகிர்வது எப்படி
+- Controlled மற்றும் uncontrolled components என்றால் என்ன
 
 </YouWillLearn>
 
-## Lifting state up by example {/*lifting-state-up-by-example*/}
+## Example மூலம் state-ஐ lift செய்தல் {/*lifting-state-up-by-example*/}
 
-In this example, a parent `Accordion` component renders two separate `Panel`s:
+இந்த example-இல், parent `Accordion` component இரண்டு தனித்தனி `Panel`-களை render செய்கிறது:
 
 * `Accordion`
   - `Panel`
   - `Panel`
 
-Each `Panel` component has a boolean `isActive` state that determines whether its content is visible.
+ஒவ்வொரு `Panel` component-க்கும் அதன் content visible ஆக உள்ளதா என்பதை தீர்மானிக்கும் boolean `isActive` state உள்ளது.
 
-Press the Show button for both panels:
+இரண்டு panels-க்கும் Show button அழுத்திப் பாருங்கள்:
 
 <Sandpack>
 
@@ -41,7 +41,7 @@ function Panel({ title, children }) {
         <p>{children}</p>
       ) : (
         <button onClick={() => setIsActive(true)}>
-          Show
+          காட்டு
         </button>
       )}
     </section>
@@ -52,11 +52,11 @@ export default function Accordion() {
   return (
     <>
       <h2>Almaty, Kazakhstan</h2>
-      <Panel title="About">
-        With a population of about 2 million, Almaty is Kazakhstan's largest city. From 1929 to 1997, it was its capital city.
+      <Panel title="பற்றி">
+        சுமார் 2 மில்லியன் மக்கள் தொகையுடன், Almaty Kazakhstan-ன் மிகப்பெரிய நகரம். 1929 முதல் 1997 வரை, அது அதன் தலைநகரமாக இருந்தது.
       </Panel>
-      <Panel title="Etymology">
-        The name comes from <span lang="kk-KZ">алма</span>, the Kazakh word for "apple" and is often translated as "full of apples". In fact, the region surrounding Almaty is thought to be the ancestral home of the apple, and the wild <i lang="la">Malus sieversii</i> is considered a likely candidate for the ancestor of the modern domestic apple.
+      <Panel title="பெயர்க்காரணம்">
+        இந்த பெயர் <span lang="kk-KZ">алма</span> என்பதிலிருந்து வந்தது; அது Kazakh மொழியில் "apple" என்பதைக் குறிக்கும், மேலும் "apples நிறைந்தது" என்று அடிக்கடி மொழிபெயர்க்கப்படுகிறது. உண்மையில், Almaty சுற்றியுள்ள பகுதி apple-ன் ancestral home என்று கருதப்படுகிறது; wild <i lang="la">Malus sieversii</i> modern domestic apple-ன் ancestor ஆக இருக்கக்கூடிய candidate என்று கருதப்படுகிறது.
       </Panel>
     </>
   );
@@ -73,59 +73,59 @@ h3, p { margin: 5px 0px; }
 
 </Sandpack>
 
-Notice how pressing one panel's button does not affect the other panel--they are independent.
+ஒரு panel-ன் button அழுத்துவது மற்ற panel-ஐ பாதிக்கவில்லை என்பதை கவனிக்கவும்; அவை independent.
 
 <DiagramGroup>
 
-<Diagram name="sharing_state_child" height={367} width={477} alt="Diagram showing a tree of three components, one parent labeled Accordion and two children labeled Panel. Both Panel components contain isActive with value false.">
+<Diagram name="sharing_state_child" height={367} width={477} alt="மூன்று components கொண்ட tree-ஐ காட்டும் diagram: Accordion என்று label செய்யப்பட்ட parent, Panel என்று label செய்யப்பட்ட இரண்டு children. இரண்டு Panel components-உம் false value கொண்ட isActive-ஐ கொண்டுள்ளன.">
 
-Initially, each `Panel`'s `isActive` state is `false`, so they both appear collapsed
+ஆரம்பத்தில், ஒவ்வொரு `Panel`-ன் `isActive` state `false`, எனவே இரண்டும் collapsed ஆக தோன்றுகின்றன
 
 </Diagram>
 
-<Diagram name="sharing_state_child_clicked" height={367} width={480} alt="The same diagram as the previous, with the isActive of the first child Panel component highlighted indicating a click with the isActive value set to true. The second Panel component still contains value false." >
+<Diagram name="sharing_state_child_clicked" height={367} width={480} alt="முந்தைய diagram-இன் அதே அமைப்பு; முதல் child Panel component-ன் isActive highlight செய்யப்பட்டு click-ஐ குறிக்கிறது, isActive value true ஆக set செய்யப்பட்டுள்ளது. இரண்டாவது Panel component இன்னும் false value கொண்டுள்ளது." >
 
-Clicking either `Panel`'s button will only update that `Panel`'s `isActive` state alone
+எந்த `Panel`-ன் button-ஐ click செய்தாலும், அந்த `Panel`-ன் `isActive` state மட்டும் update ஆகும்
 
 </Diagram>
 
 </DiagramGroup>
 
-**But now let's say you want to change it so that only one panel is expanded at any given time.** With that design, expanding the second panel should collapse the first one. How would you do that?
+**ஆனால் இப்போது எந்த நேரத்திலும் ஒரு panel மட்டும் expanded ஆக இருக்க வேண்டும் என்று மாற்ற விரும்புகிறீர்கள் என வைத்துக்கொள்ளுங்கள்.** அந்த design-இல், இரண்டாவது panel expand ஆனால் முதல் panel collapse ஆக வேண்டும். அதை எப்படி செய்வீர்கள்?
 
-To coordinate these two panels, you need to "lift their state up" to a parent component in three steps:
+இந்த இரண்டு panels-ஐ coordinate செய்ய, மூன்று steps-இல் அவற்றின் state-ஐ parent component-க்கு "lift up" செய்ய வேண்டும்:
 
-1. **Remove** state from the child components.
-2. **Pass** hardcoded data from the common parent.
-3. **Add** state to the common parent and pass it down together with the event handlers.
+1. Child components-இலிருந்து state-ஐ **remove** செய்யவும்.
+2. Common parent-இலிருந்து hardcoded data-வை **pass** செய்யவும்.
+3. Common parent-க்கு state-ஐ **add** செய்து, event handlers உடன் அதை கீழே pass செய்யவும்.
 
-This will allow the `Accordion` component to coordinate both `Panel`s and only expand one at a time.
+இதனால் `Accordion` component இரு `Panel`-களையும் coordinate செய்து, ஒரே நேரத்தில் ஒன்றை மட்டும் expand செய்ய முடியும்.
 
-### Step 1: Remove state from the child components {/*step-1-remove-state-from-the-child-components*/}
+### Step 1: Child components-இலிருந்து state-ஐ remove செய்யவும் {/*step-1-remove-state-from-the-child-components*/}
 
-You will give control of the `Panel`'s `isActive` to its parent component. This means that the parent component will pass `isActive` to `Panel` as a prop instead. Start by **removing this line** from the `Panel` component:
+`Panel`-ன் `isActive` மீது control-ஐ அதன் parent component-க்கு நீங்கள் கொடுப்பீர்கள். அதாவது parent component `isActive`-ஐ `Panel`-க்கு prop ஆக pass செய்யும். `Panel` component-இலிருந்து **இந்த line-ஐ remove செய்வதால்** தொடங்குங்கள்:
 
 ```js
 const [isActive, setIsActive] = useState(false);
 ```
 
-And instead, add `isActive` to the `Panel`'s list of props:
+அதற்கு பதிலாக, `Panel`-ன் props list-இல் `isActive` சேர்க்கவும்:
 
 ```js
 function Panel({ title, children, isActive }) {
 ```
 
-Now the `Panel`'s parent component can *control* `isActive` by [passing it down as a prop.](/learn/passing-props-to-a-component) Conversely, the `Panel` component now has *no control* over the value of `isActive`--it's now up to the parent component!
+இப்போது `Panel`-ன் parent component, [prop ஆக கீழே pass செய்வதன் மூலம்](/learn/passing-props-to-a-component) `isActive`-ஐ *control* செய்ய முடியும். மாறாக, `Panel` component-க்கு இப்போது `isActive` value மீது *control இல்லை*; அது parent component-ன் பொறுப்பு!
 
-### Step 2: Pass hardcoded data from the common parent {/*step-2-pass-hardcoded-data-from-the-common-parent*/}
+### Step 2: Common parent-இலிருந்து hardcoded data pass செய்யவும் {/*step-2-pass-hardcoded-data-from-the-common-parent*/}
 
-To lift state up, you must locate the closest common parent component of *both* of the child components that you want to coordinate:
+State-ஐ lift up செய்ய, coordinate செய்ய விரும்பும் *இரண்டு* child components-க்கும் closest common parent component-ஐ கண்டுபிடிக்க வேண்டும்:
 
 * `Accordion` *(closest common parent)*
   - `Panel`
   - `Panel`
 
-In this example, it's the `Accordion` component. Since it's above both panels and can control their props, it will become the "source of truth" for which panel is currently active. Make the `Accordion` component pass a hardcoded value of `isActive` (for example, `true`) to both panels:
+இந்த example-இல், அது `Accordion` component. இது இரண்டு panels-க்கும் மேலே இருப்பதால் மற்றும் அவற்றின் props-ஐ control செய்ய முடிவதால், எந்த panel தற்போது active என்பது குறித்து "source of truth" ஆக மாறும். `Accordion` component இரண்டு panels-க்கும் `isActive`-ன் hardcoded value ஒன்றை (உதாரணமாக, `true`) pass செய்யட்டும்:
 
 <Sandpack>
 
@@ -136,11 +136,11 @@ export default function Accordion() {
   return (
     <>
       <h2>Almaty, Kazakhstan</h2>
-      <Panel title="About" isActive={true}>
-        With a population of about 2 million, Almaty is Kazakhstan's largest city. From 1929 to 1997, it was its capital city.
+      <Panel title="பற்றி" isActive={true}>
+        சுமார் 2 மில்லியன் மக்கள் தொகையுடன், Almaty Kazakhstan-ன் மிகப்பெரிய நகரம். 1929 முதல் 1997 வரை, அது அதன் தலைநகரமாக இருந்தது.
       </Panel>
-      <Panel title="Etymology" isActive={true}>
-        The name comes from <span lang="kk-KZ">алма</span>, the Kazakh word for "apple" and is often translated as "full of apples". In fact, the region surrounding Almaty is thought to be the ancestral home of the apple, and the wild <i lang="la">Malus sieversii</i> is considered a likely candidate for the ancestor of the modern domestic apple.
+      <Panel title="பெயர்க்காரணம்" isActive={true}>
+        இந்த பெயர் <span lang="kk-KZ">алма</span> என்பதிலிருந்து வந்தது; அது Kazakh மொழியில் "apple" என்பதைக் குறிக்கும், மேலும் "apples நிறைந்தது" என்று அடிக்கடி மொழிபெயர்க்கப்படுகிறது. உண்மையில், Almaty சுற்றியுள்ள பகுதி apple-ன் ancestral home என்று கருதப்படுகிறது; wild <i lang="la">Malus sieversii</i> modern domestic apple-ன் ancestor ஆக இருக்கக்கூடிய candidate என்று கருதப்படுகிறது.
       </Panel>
     </>
   );
@@ -154,7 +154,7 @@ function Panel({ title, children, isActive }) {
         <p>{children}</p>
       ) : (
         <button onClick={() => setIsActive(true)}>
-          Show
+          காட்டு
         </button>
       )}
     </section>
@@ -172,21 +172,21 @@ h3, p { margin: 5px 0px; }
 
 </Sandpack>
 
-Try editing the hardcoded `isActive` values in the `Accordion` component and see the result on the screen.
+`Accordion` component-இல் hardcoded `isActive` values-ஐ edit செய்து screen-இல் result-ஐ பாருங்கள்.
 
-### Step 3: Add state to the common parent {/*step-3-add-state-to-the-common-parent*/}
+### Step 3: Common parent-க்கு state சேர்க்கவும் {/*step-3-add-state-to-the-common-parent*/}
 
-Lifting state up often changes the nature of what you're storing as state.
+State-ஐ lift up செய்வது, state ஆக நீங்கள் store செய்யும் விஷயத்தின் nature-ஐ அடிக்கடி மாற்றும்.
 
-In this case, only one panel should be active at a time. This means that the `Accordion` common parent component needs to keep track of *which* panel is the active one. Instead of a `boolean` value, it could use a number as the index of the active `Panel` for the state variable:
+இந்த case-இல், ஒரே நேரத்தில் ஒரு panel மட்டும் active ஆக இருக்க வேண்டும். அதாவது `Accordion` common parent component, *எந்த* panel active என்பதை track செய்ய வேண்டும். `boolean` value-க்கு பதிலாக, active `Panel`-ன் index ஆக number ஒன்றை state variable-க்கு பயன்படுத்தலாம்:
 
 ```js
 const [activeIndex, setActiveIndex] = useState(0);
 ```
 
-When the `activeIndex` is `0`, the first panel is active, and when it's `1`, it's the second one.
+`activeIndex` `0` என்றால் முதல் panel active; அது `1` என்றால் இரண்டாவது panel active.
 
-Clicking the "Show" button in either `Panel` needs to change the active index in `Accordion`. A `Panel` can't set the `activeIndex` state directly because it's defined inside the `Accordion`. The `Accordion` component needs to *explicitly allow* the `Panel` component to change its state by [passing an event handler down as a prop](/learn/responding-to-events#passing-event-handlers-as-props):
+எந்த `Panel`-இலுள்ள "காட்டு" button click செய்தாலும், `Accordion`-இல் active index மாற வேண்டும். `Panel` `activeIndex` state-ஐ நேரடியாக set செய்ய முடியாது; ஏனெனில் அது `Accordion`-க்குள் define செய்யப்பட்டுள்ளது. `Accordion` component, [event handler-ஐ prop ஆக கீழே pass செய்வதன் மூலம்](/learn/responding-to-events#passing-event-handlers-as-props) `Panel` component தனது state-ஐ மாற்ற *explicitly allow* செய்ய வேண்டும்:
 
 ```js
 <>
@@ -205,7 +205,7 @@ Clicking the "Show" button in either `Panel` needs to change the active index in
 </>
 ```
 
-The `<button>` inside the `Panel` will now use the `onShow` prop as its click event handler:
+`Panel`-க்குள் உள்ள `<button>` இப்போது `onShow` prop-ஐ click event handler ஆக பயன்படுத்தும்:
 
 <Sandpack>
 
@@ -218,18 +218,18 @@ export default function Accordion() {
     <>
       <h2>Almaty, Kazakhstan</h2>
       <Panel
-        title="About"
+        title="பற்றி"
         isActive={activeIndex === 0}
         onShow={() => setActiveIndex(0)}
       >
-        With a population of about 2 million, Almaty is Kazakhstan's largest city. From 1929 to 1997, it was its capital city.
+        சுமார் 2 மில்லியன் மக்கள் தொகையுடன், Almaty Kazakhstan-ன் மிகப்பெரிய நகரம். 1929 முதல் 1997 வரை, அது அதன் தலைநகரமாக இருந்தது.
       </Panel>
       <Panel
-        title="Etymology"
+        title="பெயர்க்காரணம்"
         isActive={activeIndex === 1}
         onShow={() => setActiveIndex(1)}
       >
-        The name comes from <span lang="kk-KZ">алма</span>, the Kazakh word for "apple" and is often translated as "full of apples". In fact, the region surrounding Almaty is thought to be the ancestral home of the apple, and the wild <i lang="la">Malus sieversii</i> is considered a likely candidate for the ancestor of the modern domestic apple.
+        இந்த பெயர் <span lang="kk-KZ">алма</span> என்பதிலிருந்து வந்தது; அது Kazakh மொழியில் "apple" என்பதைக் குறிக்கும், மேலும் "apples நிறைந்தது" என்று அடிக்கடி மொழிபெயர்க்கப்படுகிறது. உண்மையில், Almaty சுற்றியுள்ள பகுதி apple-ன் ancestral home என்று கருதப்படுகிறது; wild <i lang="la">Malus sieversii</i> modern domestic apple-ன் ancestor ஆக இருக்கக்கூடிய candidate என்று கருதப்படுகிறது.
       </Panel>
     </>
   );
@@ -248,7 +248,7 @@ function Panel({
         <p>{children}</p>
       ) : (
         <button onClick={onShow}>
-          Show
+          காட்டு
         </button>
       )}
     </section>
@@ -266,19 +266,19 @@ h3, p { margin: 5px 0px; }
 
 </Sandpack>
 
-This completes lifting state up! Moving state into the common parent component allowed you to coordinate the two panels. Using the active index instead of two "is shown" flags ensured that only one panel is active at a given time. And passing down the event handler to the child allowed the child to change the parent's state.
+இதனால் state lift up செய்வது முடிந்தது! State-ஐ common parent component-க்கு நகர்த்தியது, இரண்டு panels-ஐ coordinate செய்ய உங்களுக்கு அனுமதித்தது. இரண்டு "is shown" flags-க்கு பதிலாக active index பயன்படுத்தியது, எந்த நேரத்திலும் ஒரு panel மட்டும் active என்பதை உறுதிசெய்தது. Event handler-ஐ child-க்கு pass செய்தது, child parent-ன் state-ஐ மாற்ற அனுமதித்தது.
 
 <DiagramGroup>
 
-<Diagram name="sharing_state_parent" height={385} width={487} alt="Diagram showing a tree of three components, one parent labeled Accordion and two children labeled Panel. Accordion contains an activeIndex value of zero which turns into isActive value of true passed to the first Panel, and isActive value of false passed to the second Panel." >
+<Diagram name="sharing_state_parent" height={385} width={487} alt="மூன்று components கொண்ட tree-ஐ காட்டும் diagram: Accordion என்று label செய்யப்பட்ட parent, Panel என்று label செய்யப்பட்ட இரண்டு children. Accordion zero value கொண்ட activeIndex-ஐ கொண்டுள்ளது; அது முதல் Panel-க்கு true என்ற isActive value-ஆகவும், இரண்டாவது Panel-க்கு false என்ற isActive value-ஆகவும் pass செய்யப்படுகிறது." >
 
-Initially, `Accordion`'s `activeIndex` is `0`, so the first `Panel` receives `isActive = true`
+ஆரம்பத்தில், `Accordion`-ன் `activeIndex` `0`, எனவே முதல் `Panel` `isActive = true` பெறுகிறது
 
 </Diagram>
 
-<Diagram name="sharing_state_parent_clicked" height={385} width={521} alt="The same diagram as the previous, with the activeIndex value of the parent Accordion component highlighted indicating a click with the value changed to one. The flow to both of the children Panel components is also highlighted, and the isActive value passed to each child is set to the opposite: false for the first Panel and true for the second one." >
+<Diagram name="sharing_state_parent_clicked" height={385} width={521} alt="முந்தைய diagram-இன் அதே அமைப்பு; parent Accordion component-ன் activeIndex value highlight செய்யப்பட்டு click-ஐ குறிக்கிறது, value one ஆக மாறியுள்ளது. இரு child Panel components-க்கு செல்லும் flow-யும் highlight செய்யப்பட்டுள்ளது; ஒவ்வொரு child-க்கும் pass செய்யப்பட்ட isActive value எதிர்மாறாக set செய்யப்பட்டுள்ளது: முதல் Panel-க்கு false, இரண்டாவதற்கு true." >
 
-When `Accordion`'s `activeIndex` state changes to `1`, the second `Panel` receives `isActive = true` instead
+`Accordion`-ன் `activeIndex` state `1` ஆக மாறும்போது, இரண்டாவது `Panel` அதற்கு பதிலாக `isActive = true` பெறுகிறது
 
 </Diagram>
 
@@ -286,48 +286,48 @@ When `Accordion`'s `activeIndex` state changes to `1`, the second `Panel` receiv
 
 <DeepDive>
 
-#### Controlled and uncontrolled components {/*controlled-and-uncontrolled-components*/}
+#### Controlled மற்றும் uncontrolled components {/*controlled-and-uncontrolled-components*/}
 
-It is common to call a component with some local state "uncontrolled". For example, the original `Panel` component with an `isActive` state variable is uncontrolled because its parent cannot influence whether the panel is active or not.
+சில local state கொண்ட component-ஐ "uncontrolled" என்று அழைப்பது பொதுவானது. உதாரணமாக, `isActive` state variable கொண்ட original `Panel` component uncontrolled; ஏனெனில் panel active ஆக இருக்கிறதா இல்லையா என்பதை அதன் parent பாதிக்க முடியாது.
 
-In contrast, you might say a component is "controlled" when the important information in it is driven by props rather than its own local state. This lets the parent component fully specify its behavior. The final `Panel` component with the `isActive` prop is controlled by the `Accordion` component.
+மாறாக, ஒரு component-இல் உள்ள முக்கிய information அதன் சொந்த local state-க்கு பதிலாக props மூலம் driven ஆக இருந்தால், அந்த component "controlled" என்று சொல்லலாம். இது parent component அதன் behavior-ஐ முழுமையாக specify செய்ய அனுமதிக்கிறது. `isActive` prop கொண்ட final `Panel` component, `Accordion` component மூலம் controlled ஆகிறது.
 
-Uncontrolled components are easier to use within their parents because they require less configuration. But they're less flexible when you want to coordinate them together. Controlled components are maximally flexible, but they require the parent components to fully configure them with props.
+Uncontrolled components தங்கள் parents-க்குள் பயன்படுத்த நேரடியானவை; ஏனெனில் அவற்றுக்கு குறைந்த configuration போதும். ஆனால் அவற்றை ஒன்றாக coordinate செய்ய விரும்பும்போது அவை குறைவான flexible. Controlled components மிக அதிக flexible; ஆனால் parent components அவற்றை props மூலம் முழுமையாக configure செய்ய வேண்டும்.
 
-In practice, "controlled" and "uncontrolled" aren't strict technical terms--each component usually has some mix of both local state and props. However, this is a useful way to talk about how components are designed and what capabilities they offer.
+நடைமுறையில், "controlled" மற்றும் "uncontrolled" என்பது strict technical terms அல்ல; ஒவ்வொரு component-க்கும் பொதுவாக local state மற்றும் props இரண்டின் mix இருக்கும். இருந்தாலும், components எப்படி design செய்யப்பட்டுள்ளன, அவை என்ன capabilities வழங்குகின்றன என்பதைப் பற்றி பேச இது பயனுள்ள வழி.
 
-When writing a component, consider which information in it should be controlled (via props), and which information should be uncontrolled (via state). But you can always change your mind and refactor later.
+Component எழுதும்போது, அதில் எந்த information controlled (props மூலம்) ஆக இருக்க வேண்டும், எந்த information uncontrolled (state மூலம்) ஆக இருக்க வேண்டும் என்பதை சிந்தியுங்கள். ஆனால் உங்கள் எண்ணத்தை எப்போது வேண்டுமானாலும் மாற்றி பின்னர் refactor செய்யலாம்.
 
 </DeepDive>
 
-## A single source of truth for each state {/*a-single-source-of-truth-for-each-state*/}
+## ஒவ்வொரு state-க்கும் single source of truth {/*a-single-source-of-truth-for-each-state*/}
 
-In a React application, many components will have their own state. Some state may "live" close to the leaf components (components at the bottom of the tree) like inputs. Other state may "live" closer to the top of the app. For example, even client-side routing libraries are usually implemented by storing the current route in the React state, and passing it down by props!
+React application-இல், பல components தங்களுக்கே உரிய state கொண்டிருக்கும். சில state, inputs போன்ற leaf components-க்கு (tree-ன் அடிப்பகுதியில் உள்ள components) அருகில் "live" செய்யலாம். மற்ற state app-ன் மேல் பகுதிக்கு அருகில் "live" செய்யலாம். உதாரணமாக, client-side routing libraries கூட பொதுவாக current route-ஐ React state-இல் store செய்து, props மூலம் கீழே pass செய்வதன் மூலம் implement செய்யப்படுகின்றன!
 
-**For each unique piece of state, you will choose the component that "owns" it.** This principle is also known as having a ["single source of truth".](https://en.wikipedia.org/wiki/Single_source_of_truth) It doesn't mean that all state lives in one place--but that for _each_ piece of state, there is a _specific_ component that holds that piece of information. Instead of duplicating shared state between components, *lift it up* to their common shared parent, and *pass it down* to the children that need it.
+**ஒவ்வொரு unique state துண்டிற்கும், அதை "own" செய்யும் component-ஐ நீங்கள் தேர்வு செய்வீர்கள்.** இந்த principle ["single source of truth"](https://en.wikipedia.org/wiki/Single_source_of_truth) கொண்டிருப்பது என்றும் அழைக்கப்படுகிறது. எல்லா state-உம் ஒரே இடத்தில் lives செய்கிறது என்று இதன் அர்த்தம் இல்லை; ஆனால் _ஒவ்வொரு_ state துண்டிற்கும், அந்த information-ஐ hold செய்யும் _குறிப்பிட்ட_ component ஒன்று இருக்கும். Components இடையே shared state-ஐ duplicate செய்வதற்கு பதிலாக, அதை அவற்றின் common shared parent-க்கு *lift up* செய்து, தேவைப்படும் children-க்கு *pass down* செய்யவும்.
 
-Your app will change as you work on it. It is common that you will move state down or back up while you're still figuring out where each piece of the state "lives". This is all part of the process!
+நீங்கள் app-இல் வேலை செய்யும் போது அது மாறும். State-ன் ஒவ்வொரு பகுதியும் எங்கு "lives" செய்கிறது என்பதை புரிந்துகொண்டிருக்கும் போது, state-ஐ கீழே அல்லது மீண்டும் மேலே நகர்த்துவது பொதுவானது. இது process-ன் ஒரு பகுதியே!
 
-To see what this feels like in practice with a few more components, read [Thinking in React.](/learn/thinking-in-react)
+இது இன்னும் சில components உடன் நடைமுறையில் எப்படி உணரப்படுகிறது என்பதைப் பார்க்க, [React-இல் சிந்தித்தல்](/learn/thinking-in-react) படிக்கவும்.
 
 <Recap>
 
-* When you want to coordinate two components, move their state to their common parent.
-* Then pass the information down through props from their common parent.
-* Finally, pass the event handlers down so that the children can change the parent's state.
-* It's useful to consider components as "controlled" (driven by props) or "uncontrolled" (driven by state).
+* இரண்டு components-ஐ coordinate செய்ய விரும்பும்போது, அவற்றின் state-ஐ common parent-க்கு நகர்த்தவும்.
+* பின்னர் common parent-இலிருந்து props மூலம் information-ஐ கீழே pass செய்யவும்.
+* இறுதியாக, children parent-ன் state-ஐ மாற்ற event handlers-ஐ கீழே pass செய்யவும்.
+* Components-ஐ "controlled" (props மூலம் driven) அல்லது "uncontrolled" (state மூலம் driven) என சிந்திப்பது பயனுள்ளது.
 
 </Recap>
 
 <Challenges>
 
-#### Synced inputs {/*synced-inputs*/}
+#### Sync ஆன inputs {/*synced-inputs*/}
 
-These two inputs are independent. Make them stay in sync: editing one input should update the other input with the same text, and vice versa.
+இந்த இரண்டு inputs independent. அவற்றை sync-இல் வைத்திருங்கள்: ஒரு input edit செய்தால் மற்ற input அதே text உடன் update ஆக வேண்டும்; அதற்கு மாறாகவும்.
 
 <Hint>
 
-You'll need to lift their state up into the parent component.
+அவற்றின் state-ஐ parent component-க்குள் lift up செய்ய வேண்டும்.
 
 </Hint>
 
@@ -339,8 +339,8 @@ import { useState } from 'react';
 export default function SyncedInputs() {
   return (
     <>
-      <Input label="First input" />
-      <Input label="Second input" />
+      <Input label="முதல் input" />
+      <Input label="இரண்டாவது input" />
     </>
   );
 }
@@ -374,7 +374,7 @@ label { display: block; }
 
 <Solution>
 
-Move the `text` state variable into the parent component along with the `handleChange` handler. Then pass them down as props to both of the `Input` components. This will keep them in sync.
+`text` state variable-ஐ `handleChange` handler உடன் parent component-க்குள் நகர்த்தவும். பின்னர் அவற்றை இரண்டு `Input` components-க்கும் props ஆக pass செய்யவும். இதனால் அவை sync-இல் இருக்கும்.
 
 <Sandpack>
 
@@ -391,12 +391,12 @@ export default function SyncedInputs() {
   return (
     <>
       <Input
-        label="First input"
+        label="முதல் input"
         value={text}
         onChange={handleChange}
       />
       <Input
-        label="Second input"
+        label="இரண்டாவது input"
         value={text}
         onChange={handleChange}
       />
@@ -427,17 +427,17 @@ label { display: block; }
 
 </Solution>
 
-#### Filtering a list {/*filtering-a-list*/}
+#### List-ஐ filter செய்தல் {/*filtering-a-list*/}
 
-In this example, the `SearchBar` has its own `query` state that controls the text input. Its parent `FilterableList` component displays a `List` of items, but it doesn't take the search query into account.
+இந்த example-இல், `SearchBar` தனது text input-ஐ control செய்யும் சொந்த `query` state கொண்டுள்ளது. அதன் parent `FilterableList` component items-ன் `List` display செய்கிறது; ஆனால் அது search query-ஐ கருத்தில் கொள்ளவில்லை.
 
-Use the `filterItems(foods, query)` function to filter the list according to the search query. To test your changes, verify that typing "s" into the input filters down the list to "Sushi", "Shish kebab", and "Dim sum".
+Search query-க்கு ஏற்ப list-ஐ filter செய்ய `filterItems(foods, query)` function-ஐ பயன்படுத்தவும். உங்கள் changes சோதிக்க, input-இல் "s" type செய்தால் list "Sushi", "Shish kebab", மற்றும் "Dim sum" ஆகக் குறைகிறது என்பதை verify செய்யவும்.
 
-Note that `filterItems` is already implemented and imported so you don't need to write it yourself!
+`filterItems` ஏற்கனவே implemented மற்றும் imported ஆக உள்ளது; அதனால் அதை நீங்களே எழுத வேண்டியதில்லை என்பதை கவனிக்கவும்!
 
 <Hint>
 
-You will want to remove the `query` state and the `handleChange` handler from the `SearchBar`, and move them to the `FilterableList`. Then pass them down to `SearchBar` as `query` and `onChange` props.
+`SearchBar`-இலிருந்து `query` state மற்றும் `handleChange` handler-ஐ remove செய்து, அவற்றை `FilterableList`-க்கு நகர்த்த வேண்டும். பின்னர் அவற்றை `SearchBar`-க்கு `query` மற்றும் `onChange` props ஆக pass செய்யவும்.
 
 </Hint>
 
@@ -466,7 +466,7 @@ function SearchBar() {
 
   return (
     <label>
-      Search:{' '}
+      தேடு:{' '}
       <input
         value={query}
         onChange={handleChange}
@@ -504,23 +504,23 @@ export function filterItems(items, query) {
 export const foods = [{
   id: 0,
   name: 'Sushi',
-  description: 'Sushi is a traditional Japanese dish of prepared vinegared rice'
+  description: 'Sushi என்பது தயாரிக்கப்பட்ட vinegared rice கொண்ட பாரம்பரிய Japanese dish'
 }, {
   id: 1,
   name: 'Dal',
-  description: 'The most common way of preparing dal is in the form of a soup to which onions, tomatoes and various spices may be added'
+  description: 'Dal தயாரிக்கும் மிகவும் பொதுவான முறை soup வடிவில்; அதில் onions, tomatoes மற்றும் பல spices சேர்க்கப்படலாம்'
 }, {
   id: 2,
   name: 'Pierogi',
-  description: 'Pierogi are filled dumplings made by wrapping unleavened dough around a savoury or sweet filling and cooking in boiling water'
+  description: 'Pierogi என்பது savoury அல்லது sweet filling-ஐ unleavened dough-ஆல் சுற்றி boiling water-இல் சமைத்து செய்யப்படும் filled dumplings'
 }, {
   id: 3,
   name: 'Shish kebab',
-  description: 'Shish kebab is a popular meal of skewered and grilled cubes of meat.'
+  description: 'Shish kebab என்பது skewered மற்றும் grilled meat cubes கொண்டு செய்யப்படும் பிரபலமான உணவு.'
 }, {
   id: 4,
   name: 'Dim sum',
-  description: 'Dim sum is a large range of small dishes that Cantonese people traditionally enjoy in restaurants for breakfast and lunch'
+  description: 'Dim sum என்பது Cantonese மக்கள் breakfast மற்றும் lunch-க்கு restaurants-இல் பாரம்பரியமாக சுவைக்கும் பல சிறிய dishes தொகுப்பு'
 }];
 ```
 
@@ -528,7 +528,7 @@ export const foods = [{
 
 <Solution>
 
-Lift the `query` state up into the `FilterableList` component. Call `filterItems(foods, query)` to get the filtered list and pass it down to the `List`. Now changing the query input is reflected in the list:
+`query` state-ஐ `FilterableList` component-க்குள் lift up செய்யவும். Filtered list பெற `filterItems(foods, query)` call செய்து அதை `List`-க்கு pass செய்யவும். இப்போது query input மாறுவது list-இல் பிரதிபலிக்கும்:
 
 <Sandpack>
 
@@ -559,7 +559,7 @@ export default function FilterableList() {
 function SearchBar({ query, onChange }) {
   return (
     <label>
-      Search:{' '}
+      தேடு:{' '}
       <input
         value={query}
         onChange={onChange}
@@ -597,23 +597,23 @@ export function filterItems(items, query) {
 export const foods = [{
   id: 0,
   name: 'Sushi',
-  description: 'Sushi is a traditional Japanese dish of prepared vinegared rice'
+  description: 'Sushi என்பது தயாரிக்கப்பட்ட vinegared rice கொண்ட பாரம்பரிய Japanese dish'
 }, {
   id: 1,
   name: 'Dal',
-  description: 'The most common way of preparing dal is in the form of a soup to which onions, tomatoes and various spices may be added'
+  description: 'Dal தயாரிக்கும் மிகவும் பொதுவான முறை soup வடிவில்; அதில் onions, tomatoes மற்றும் பல spices சேர்க்கப்படலாம்'
 }, {
   id: 2,
   name: 'Pierogi',
-  description: 'Pierogi are filled dumplings made by wrapping unleavened dough around a savoury or sweet filling and cooking in boiling water'
+  description: 'Pierogi என்பது savoury அல்லது sweet filling-ஐ unleavened dough-ஆல் சுற்றி boiling water-இல் சமைத்து செய்யப்படும் filled dumplings'
 }, {
   id: 3,
   name: 'Shish kebab',
-  description: 'Shish kebab is a popular meal of skewered and grilled cubes of meat.'
+  description: 'Shish kebab என்பது skewered மற்றும் grilled meat cubes கொண்டு செய்யப்படும் பிரபலமான உணவு.'
 }, {
   id: 4,
   name: 'Dim sum',
-  description: 'Dim sum is a large range of small dishes that Cantonese people traditionally enjoy in restaurants for breakfast and lunch'
+  description: 'Dim sum என்பது Cantonese மக்கள் breakfast மற்றும் lunch-க்கு restaurants-இல் பாரம்பரியமாக சுவைக்கும் பல சிறிய dishes தொகுப்பு'
 }];
 ```
 

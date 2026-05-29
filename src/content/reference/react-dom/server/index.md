@@ -1,44 +1,44 @@
 ---
-title: Server React DOM APIs
+title: Server React DOM API-கள்
 ---
 
 <Intro>
 
-The `react-dom/server` APIs let you server-side render React components to HTML. These APIs are only used on the server at the top level of your app to generate the initial HTML. A [framework](/learn/creating-a-react-app#full-stack-frameworks) may call them for you. Most of your components don't need to import or use them.
+`react-dom/server` API-கள் React components-ஐ server-side-இல் HTML ஆக render செய்ய உதவுகின்றன. Initial HTML-ஐ உருவாக்க, இந்த API-கள் உங்கள் app-இன் மேல் நிலையில் server-இல் மட்டுமே பயன்படுத்தப்படுகின்றன. ஒரு [framework](/learn/creating-a-react-app#full-stack-frameworks) உங்களுக்குப் பதிலாக அவற்றை அழைக்கலாம். உங்கள் பெரும்பாலான components அவற்றை import செய்யவோ பயன்படுத்தவோ தேவையில்லை.
 
 </Intro>
 
 ---
 
-## Server APIs for Web Streams {/*server-apis-for-web-streams*/}
+## Web Streams-க்கான Server API-கள் {/*server-apis-for-web-streams*/}
 
-These methods are only available in the environments with [Web Streams](https://developer.mozilla.org/en-US/docs/Web/API/Streams_API), which includes browsers, Deno, and some modern edge runtimes:
+இந்த methods, [Web Streams](https://developer.mozilla.org/en-US/docs/Web/API/Streams_API) உள்ள சூழல்களில் மட்டுமே கிடைக்கும். இதில் உலாவிகள், Deno, மற்றும் சில நவீன edge runtimes அடங்கும்:
 
-* [`renderToReadableStream`](/reference/react-dom/server/renderToReadableStream) renders a React tree to a [Readable Web Stream.](https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream)
-* [`resume`](/reference/react-dom/server/renderToPipeableStream) resumes [`prerender`](/reference/react-dom/static/prerender) to a [Readable Web Stream](https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream).
+* [`renderToReadableStream`](/reference/react-dom/server/renderToReadableStream) ஒரு React tree-ஐ [Readable Web Stream](https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream) ஆக render செய்கிறது.
+* [`resume`](/reference/react-dom/server/renderToPipeableStream) [`prerender`](/reference/react-dom/static/prerender)-ஐ [Readable Web Stream](https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream) ஆகத் தொடர்கிறது.
 
 
 <Note>
 
-Node.js also includes these methods for compatibility, but they are not recommended due to worse performance. Use the [dedicated Node.js APIs](#server-apis-for-nodejs-streams) instead.
+இணக்கத்திற்காக Node.js-லும் இந்த methods உள்ளன, ஆனால் குறைந்த செயல்திறன் காரணமாக அவை பரிந்துரைக்கப்படவில்லை. அதற்கு பதிலாக [Node.js-க்கு தனியாக உள்ள API-களை](#server-apis-for-nodejs-streams) பயன்படுத்துங்கள்.
 
 </Note>
 ---
 
-## Server APIs for Node.js Streams {/*server-apis-for-nodejs-streams*/}
+## Node.js Streams-க்கான Server API-கள் {/*server-apis-for-nodejs-streams*/}
 
-These methods are only available in the environments with [Node.js Streams:](https://nodejs.org/api/stream.html)
+இந்த methods, [Node.js Streams](https://nodejs.org/api/stream.html) உள்ள சூழல்களில் மட்டுமே கிடைக்கும்:
 
-* [`renderToPipeableStream`](/reference/react-dom/server/renderToPipeableStream) renders a React tree to a pipeable [Node.js Stream.](https://nodejs.org/api/stream.html)
-* [`resumeToPipeableStream`](/reference/react-dom/server/renderToPipeableStream) resumes [`prerenderToNodeStream`](/reference/react-dom/static/prerenderToNodeStream) to a pipeable [Node.js Stream.](https://nodejs.org/api/stream.html)
+* [`renderToPipeableStream`](/reference/react-dom/server/renderToPipeableStream) ஒரு React tree-ஐ pipe செய்யக்கூடிய [Node.js Stream](https://nodejs.org/api/stream.html) ஆக render செய்கிறது.
+* [`resumeToPipeableStream`](/reference/react-dom/server/renderToPipeableStream) [`prerenderToNodeStream`](/reference/react-dom/static/prerenderToNodeStream)-ஐ pipe செய்யக்கூடிய [Node.js Stream](https://nodejs.org/api/stream.html) ஆகத் தொடர்கிறது.
 
 ---
 
-## Legacy Server APIs for non-streaming environments {/*legacy-server-apis-for-non-streaming-environments*/}
+## Streaming இல்லாத சூழல்களுக்கான Legacy Server API-கள் {/*legacy-server-apis-for-non-streaming-environments*/}
 
-These methods can be used in the environments that don't support streams:
+Streams-ஐ ஆதரிக்காத சூழல்களில் இந்த methods-ஐப் பயன்படுத்தலாம்:
 
-* [`renderToString`](/reference/react-dom/server/renderToString) renders a React tree to a string.
-* [`renderToStaticMarkup`](/reference/react-dom/server/renderToStaticMarkup) renders a non-interactive React tree to a string.
+* [`renderToString`](/reference/react-dom/server/renderToString) ஒரு React tree-ஐ string ஆக render செய்கிறது.
+* [`renderToStaticMarkup`](/reference/react-dom/server/renderToStaticMarkup) interactive அல்லாத React tree-ஐ string ஆக render செய்கிறது.
 
-They have limited functionality compared to the streaming APIs.
+Streaming API-களுடன் ஒப்பிடும்போது இவற்றின் செயல்பாடு வரம்புடையது.

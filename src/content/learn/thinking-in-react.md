@@ -1,18 +1,18 @@
 ---
-title: Thinking in React
+title: React-இல் சிந்தித்தல்
 ---
 
 <Intro>
 
-React can change how you think about the designs you look at and the apps you build. When you build a user interface with React, you will first break it apart into pieces called *components*. Then, you will describe the different visual states for each of your components. Finally, you will connect your components together so that the data flows through them. In this tutorial, we’ll guide you through the thought process of building a searchable product data table with React.
+நீங்கள் பார்க்கும் designs பற்றியும், நீங்கள் கட்டும் apps பற்றியும் சிந்திக்கும் முறையை React மாற்றக்கூடும். React-இல் user interface ஒன்றை கட்டும்போது, முதலில் அதை *components* எனப்படும் துண்டுகளாகப் பிரிப்பீர்கள். பிறகு, உங்கள் ஒவ்வொரு component-க்கும் உள்ள வெவ்வேறு காட்சி நிலைகளை விவரிப்பீர்கள். இறுதியாக, data அவற்றின் வழியாக பாயும் வகையில் உங்கள் components-ஐ ஒன்றோடொன்று இணைப்பீர்கள். இந்த tutorial-இல், React கொண்டு தேடக்கூடிய product data table ஒன்றை கட்டுவதற்கான சிந்தனை செயல்முறையை உங்களுக்கு வழிகாட்டுகிறோம்.
 
 </Intro>
 
-## Start with the mockup {/*start-with-the-mockup*/}
+## Mockup-இலிருந்து தொடங்குங்கள் {/*start-with-the-mockup*/}
 
-Imagine that you already have a JSON API and a mockup from a designer.
+உங்களிடம் ஏற்கனவே ஒரு JSON API-யும், designer ஒருவரிடமிருந்து ஒரு mockup-உம் உள்ளதாகக் கற்பனை செய்யுங்கள்.
 
-The JSON API returns some data that looks like this:
+JSON API இதுபோன்ற data-வைத் திருப்பித் தருகிறது:
 
 ```json
 [
@@ -25,25 +25,25 @@ The JSON API returns some data that looks like this:
 ]
 ```
 
-The mockup looks like this:
+Mockup இதுபோல் இருக்கும்:
 
 <img src="/images/docs/s_thinking-in-react_ui.png" width="300" style={{margin: '0 auto'}} />
 
-To implement a UI in React, you will usually follow the same five steps.
+React-இல் UI ஒன்றை செயல்படுத்த, பொதுவாக இதே ஐந்து படிகளைப் பின்பற்றுவீர்கள்.
 
-## Step 1: Break the UI into a component hierarchy {/*step-1-break-the-ui-into-a-component-hierarchy*/}
+## படி 1: UI-யை component hierarchy ஆகப் பிரியுங்கள் {/*step-1-break-the-ui-into-a-component-hierarchy*/}
 
-Start by drawing boxes around every component and subcomponent in the mockup and naming them. If you work with a designer, they may have already named these components in their design tool. Ask them!
+Mockup-இல் உள்ள ஒவ்வொரு component மற்றும் subcomponent-ஐச் சுற்றி பெட்டிகள் வரைந்து அவற்றுக்கு பெயர் வைப்பதிலிருந்து தொடங்குங்கள். நீங்கள் designer உடன் பணிபுரிந்தால், அவர்கள் தங்கள் design tool-இல் இந்த components-க்கு ஏற்கனவே பெயர் வைத்திருக்கலாம். அவர்களிடம் கேளுங்கள்!
 
-Depending on your background, you can think about splitting up a design into components in different ways:
+உங்கள் பின்னணியைப் பொறுத்து, design ஒன்றை components ஆகப் பிரிப்பதை வெவ்வேறு வழிகளில் சிந்திக்கலாம்:
 
-* **Programming**--use the same techniques for deciding if you should create a new function or object. One such technique is the [separation of concerns](https://en.wikipedia.org/wiki/Separation_of_concerns), that is, a component should ideally only be concerned with one thing. If it ends up growing, it should be decomposed into smaller subcomponents.
-* **CSS**--consider what you would make class selectors for. (However, components are a bit less granular.)
-* **Design**--consider how you would organize the design's layers.
+* **Programming**--புதிய function அல்லது object ஒன்றை உருவாக்க வேண்டுமா என்பதை முடிவு செய்யும் அதே techniques-ஐப் பயன்படுத்துங்கள். அவற்றில் ஒரு technique [separation of concerns](https://en.wikipedia.org/wiki/Separation_of_concerns): அதாவது, ஒரு component சிறந்த முறையில் ஒரே ஒரு விஷயத்திற்கே பொறுப்பாக இருக்க வேண்டும். அது பெரிதாக வளர்ந்தால், சிறிய subcomponents ஆகப் பிரிக்கப்பட வேண்டும்.
+* **CSS**--எதற்காக class selectors உருவாக்குவீர்கள் என்பதைச் சிந்தியுங்கள். (ஆனால், components கொஞ்சம் குறைவான granular ஆக இருக்கும்.)
+* **Design**--design-ன் layers-ஐ எப்படி ஒழுங்குபடுத்துவீர்கள் என்பதைச் சிந்தியுங்கள்.
 
-If your JSON is well-structured, you'll often find that it naturally maps to the component structure of your UI. That's because UI and data models often have the same information architecture--that is, the same shape. Separate your UI into components, where each component matches one piece of your data model.
+உங்கள் JSON நன்றாக அமைக்கப்பட்டிருந்தால், அது உங்கள் UI-யின் component structure-க்கு இயல்பாகவே பொருந்துவதை அடிக்கடி காண்பீர்கள். ஏனெனில் UI மற்றும் data models பெரும்பாலும் அதே information architecture-ஐக் கொண்டிருக்கும்--அதாவது, அதே வடிவத்தை. உங்கள் UI-யை components ஆகப் பிரியுங்கள்; ஒவ்வொரு component-உம் உங்கள் data model-இன் ஒரு பகுதியுடன் பொருந்தட்டும்.
 
-There are five components on this screen:
+இந்த திரையில் ஐந்து components உள்ளன:
 
 <FullWidth>
 
@@ -51,19 +51,19 @@ There are five components on this screen:
 
 <img src="/images/docs/s_thinking-in-react_ui_outline.png" width="500" style={{margin: '0 auto'}} />
 
-1. `FilterableProductTable` (grey) contains the entire app.
-2. `SearchBar` (blue) receives the user input.
-3. `ProductTable` (lavender) displays and filters the list according to the user input.
-4. `ProductCategoryRow` (green) displays a heading for each category.
-5. `ProductRow`	(yellow) displays a row for each product.
+1. `FilterableProductTable` (grey) முழு app-ஐக் கொண்டுள்ளது.
+2. `SearchBar` (blue) user input-ஐப் பெறுகிறது.
+3. `ProductTable` (lavender) user input-க்கு ஏற்ப பட்டியலைக் காட்டி filter செய்கிறது.
+4. `ProductCategoryRow` (green) ஒவ்வொரு category-க்கும் heading-ஐக் காட்டுகிறது.
+5. `ProductRow`	(yellow) ஒவ்வொரு product-க்கும் ஒரு row-வை காட்டுகிறது.
 
 </CodeDiagram>
 
 </FullWidth>
 
-If you look at `ProductTable` (lavender), you'll see that the table header (containing the "Name" and "Price" labels) isn't its own component. This is a matter of preference, and you could go either way. For this example, it is a part of `ProductTable` because it appears inside the `ProductTable`'s list. However, if this header grows to be complex (e.g., if you add sorting), you can move it into its own `ProductTableHeader` component.
+`ProductTable` (lavender)-ஐப் பார்த்தால், table header ("Name" மற்றும் "Price" labels-ஐ கொண்டது) தனி component ஆக இல்லை என்பதை காண்பீர்கள். இது விருப்பத் தேர்வு; எந்த வழியையும் எடுக்கலாம். இந்த எடுத்துக்காட்டில், அது `ProductTable`-இன் ஒரு பகுதியாக இருக்கிறது, ஏனெனில் அது `ProductTable`-இன் list-க்குள் தோன்றுகிறது. ஆனால் இந்த header சிக்கலானதாக வளர்ந்தால் (எ.கா. sorting சேர்த்தால்), அதை தனி `ProductTableHeader` component-க்கு நகர்த்தலாம்.
 
-Now that you've identified the components in the mockup, arrange them into a hierarchy. Components that appear within another component in the mockup should appear as a child in the hierarchy:
+Mockup-இல் components-ஐ அடையாளம் கண்ட பிறகு, அவற்றை hierarchy-ஆக ஒழுங்குபடுத்துங்கள். Mockup-இல் மற்றொரு component-க்குள் தோன்றும் components, hierarchy-யில் child ஆகத் தோன்ற வேண்டும்:
 
 * `FilterableProductTable`
     * `SearchBar`
@@ -71,13 +71,13 @@ Now that you've identified the components in the mockup, arrange them into a hie
         * `ProductCategoryRow`
         * `ProductRow`
 
-## Step 2: Build a static version in React {/*step-2-build-a-static-version-in-react*/}
+## படி 2: React-இல் static version ஒன்றை கட்டுங்கள் {/*step-2-build-a-static-version-in-react*/}
 
-Now that you have your component hierarchy, it's time to implement your app. The most straightforward approach is to build a version that renders the UI from your data model without adding any interactivity... yet! It's often easier to build the static version first and add interactivity later. Building a static version requires a lot of typing and no thinking, but adding interactivity requires a lot of thinking and not a lot of typing.
+இப்போது உங்கள் component hierarchy தயார்; உங்கள் app-ஐ செயல்படுத்த வேண்டிய நேரம் இது. மிக நேரடியான அணுகுமுறை என்னவெனில், எந்த interactivity-யும் சேர்க்காமல், உங்கள் data model-இலிருந்து UI-யை render செய்யும் version ஒன்றை கட்டுவது... இப்போதைக்கு! முதலில் static version-ஐ கட்டி, பின்னர் interactivity-யைச் சேர்ப்பது பெரும்பாலும் சாத்தியம். Static version-ஐ கட்ட அதிக typing வேண்டும்; அதிக சிந்தனை தேவையில்லை. ஆனால் interactivity சேர்க்க அதிக சிந்தனை வேண்டும்; typing அதிகம் தேவையில்லை.
 
-To build a static version of your app that renders your data model, you'll want to build [components](/learn/your-first-component) that reuse other components and pass data using [props.](/learn/passing-props-to-a-component) Props are a way of passing data from parent to child. (If you're familiar with the concept of [state](/learn/state-a-components-memory), don't use state at all to build this static version. State is reserved only for interactivity, that is, data that changes over time. Since this is a static version of the app, you don't need it.)
+உங்கள் data model-ஐ render செய்யும் static version-ஐ கட்ட, மற்ற components-ஐ reuse செய்து, [props](/learn/passing-props-to-a-component) மூலம் data-வை அனுப்பும் [components](/learn/your-first-component)-ஐ உருவாக்க வேண்டும். Props என்பது parent-இலிருந்து child-க்கு data அனுப்பும் ஒரு வழி. ([state](/learn/state-a-components-memory) என்ற கருத்து உங்களுக்கு தெரிந்திருந்தால், இந்த static version-ஐ கட்ட state-ஐ எக்காரணம் கொண்டும் பயன்படுத்த வேண்டாம். State என்பது interactivity-க்காக மட்டுமே வைத்திருக்கப்படுகிறது; அதாவது காலத்துடன் மாறும் data-க்காக. இது app-இன் static version என்பதால், உங்களுக்கு அது தேவையில்லை.)
 
-You can either build "top down" by starting with building the components higher up in the hierarchy (like `FilterableProductTable`) or "bottom up" by working from components lower down (like `ProductRow`). In simpler examples, it’s usually easier to go top-down, and on larger projects, it’s easier to go bottom-up.
+Hierarchy-யில் மேலே உள்ள components-ஐ (உதாரணமாக `FilterableProductTable`) கட்டுவதிலிருந்து தொடங்கி "top down" ஆகவும், கீழே உள்ள components-இலிருந்து (உதாரணமாக `ProductRow`) வேலை செய்து "bottom up" ஆகவும் கட்டலாம். நேரடியான எடுத்துக்காட்டுகளில் top-down ஆகச் செல்லுவது வழக்கமாக சாத்தியம்; பெரிய projects-இல் bottom-up ஆகச் செல்லுவது சாத்தியம்.
 
 <Sandpack>
 
@@ -130,8 +130,8 @@ function ProductTable({ products }) {
     <table>
       <thead>
         <tr>
-          <th>Name</th>
-          <th>Price</th>
+          <th>பெயர்</th>
+          <th>விலை</th>
         </tr>
       </thead>
       <tbody>{rows}</tbody>
@@ -142,11 +142,11 @@ function ProductTable({ products }) {
 function SearchBar() {
   return (
     <form>
-      <input type="text" placeholder="Search..." />
+      <input type="text" placeholder="தேடு..." />
       <label>
         <input type="checkbox" />
         {' '}
-        Only show products in stock
+        கையிருப்பில் உள்ள products மட்டும் காட்டு
       </label>
     </form>
   );
@@ -195,85 +195,85 @@ td {
 
 </Sandpack>
 
-(If this code looks intimidating, go through the [Quick Start](/learn/) first!)
+(இந்த code அச்சுறுத்தலாகத் தெரிந்தால், முதலில் [Quick Start](/learn/)-ஐப் பாருங்கள்!)
 
-After building your components, you'll have a library of reusable components that render your data model. Because this is a static app, the components will only return JSX. The component at the top of the hierarchy (`FilterableProductTable`) will take your data model as a prop. This is called _one-way data flow_ because the data flows down from the top-level component to the ones at the bottom of the tree.
+உங்கள் components-ஐ கட்டிய பிறகு, உங்கள் data model-ஐ render செய்யும் reusable components-ன் library ஒன்று உங்களிடம் இருக்கும். இது static app என்பதால், components JSX-ஐ மட்டும் திருப்பித் தரும். Hierarchy-யின் மேலேயுள்ள component (`FilterableProductTable`) உங்கள் data model-ஐ prop ஆகப் பெறும். இதை _one-way data flow_ என்று அழைக்கிறோம், ஏனெனில் data top-level component-இலிருந்து tree-யின் கீழே உள்ள components-க்கு கீழ்நோக்கிப் பாய்கிறது.
 
 <Pitfall>
 
-At this point, you should not be using any state values. That’s for the next step!
+இந்த கட்டத்தில், நீங்கள் எந்த state values-ஐயும் பயன்படுத்தக்கூடாது. அது அடுத்த படிக்கானது!
 
 </Pitfall>
 
-## Step 3: Find the minimal but complete representation of UI state {/*step-3-find-the-minimal-but-complete-representation-of-ui-state*/}
+## படி 3: UI state-ன் குறைந்தபட்சமான ஆனால் முழுமையான பிரதிநிதித்துவத்தை கண்டறியுங்கள் {/*step-3-find-the-minimal-but-complete-representation-of-ui-state*/}
 
-To make the UI interactive, you need to let users change your underlying data model. You will use *state* for this.
+UI-யை interactive ஆக்க, users உங்கள் அடிப்படை data model-ஐ மாற்ற அனுமதிக்க வேண்டும். இதற்காக நீங்கள் *state* பயன்படுத்துவீர்கள்.
 
-Think of state as the minimal set of changing data that your app needs to remember. The most important principle for structuring state is to keep it [DRY (Don't Repeat Yourself).](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) Figure out the absolute minimal representation of the state your application needs and compute everything else on-demand. For example, if you're building a shopping list, you can store the items as an array in state. If you want to also display the number of items in the list, don't store the number of items as another state value--instead, read the length of your array.
+உங்கள் app நினைவில் வைத்திருக்க வேண்டிய மாறும் data-வின் குறைந்தபட்ச தொகுப்பாக state-ஐ நினைத்துப் பாருங்கள். State-ஐ அமைப்பதற்கான மிக முக்கியக் கொள்கை [DRY (Don't Repeat Yourself)](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) ஆக வைத்திருப்பதுதான். உங்கள் application-க்கு தேவையான state-ன் முற்றிலும் குறைந்தபட்ச representation-ஐ கண்டறிந்து, மற்ற அனைத்தையும் தேவையான நேரத்தில் compute செய்யுங்கள். உதாரணமாக, shopping list ஒன்றை கட்டினால், items-ஐ state-இல் array ஆக வைத்திருக்கலாம். பட்டியலில் உள்ள items எண்ணிக்கையையும் காட்ட வேண்டுமென்றால், items எண்ணிக்கையை வேறு state value ஆக வைத்திருக்க வேண்டாம்--அதற்கு பதிலாக உங்கள் array-யின் length-ஐ படியுங்கள்.
 
-Now think of all of the pieces of data in this example application:
+இப்போது இந்த எடுத்துக்காட்டு application-இல் உள்ள data துண்டுகள் அனைத்தையும் சிந்தியுங்கள்:
 
-1. The original list of products
-2. The search text the user has entered
-3. The value of the checkbox
-4. The filtered list of products
+1. Products-ன் அசல் list
+2. User உள்ளிட்ட search text
+3. Checkbox-ன் value
+4. Products-ன் filtered list
 
-Which of these are state? Identify the ones that are not:
+இவற்றில் எவை state? State அல்லாதவற்றை அடையாளம் காணுங்கள்:
 
-* Does it **remain unchanged** over time? If so, it isn't state.
-* Is it **passed in from a parent** via props? If so, it isn't state.
-* **Can you compute it** based on existing state or props in your component? If so, it *definitely* isn't state!
+* அது காலப்போக்கில் **மாறாமல் இருக்கிறதா**? அப்படியானால் அது state அல்ல.
+* அது parent-இலிருந்து props மூலம் **அனுப்பப்படுகிறதா**? அப்படியானால் அது state அல்ல.
+* உங்கள் component-இல் ஏற்கனவே உள்ள state அல்லது props அடிப்படையில் அதை **compute செய்ய முடியுமா**? அப்படியானால் அது *நிச்சயமாக* state அல்ல!
 
-What's left is probably state.
+மீதமுள்ளதே state ஆக இருக்கலாம்.
 
-Let's go through them one by one again:
+அவற்றை மீண்டும் ஒன்றன்பின் ஒன்றாகப் பார்ப்போம்:
 
-1. The original list of products is **passed in as props, so it's not state.**
-2. The search text seems to be state since it changes over time and can't be computed from anything.
-3. The value of the checkbox seems to be state since it changes over time and can't be computed from anything.
-4. The filtered list of products **isn't state because it can be computed** by taking the original list of products and filtering it according to the search text and value of the checkbox.
+1. Products-ன் அசல் list **props ஆக அனுப்பப்படுகிறது, எனவே அது state அல்ல.**
+2. Search text காலப்போக்கில் மாறுகிறது மற்றும் வேறு எதிலிருந்தும் compute செய்ய முடியாது; எனவே அது state போல் தெரிகிறது.
+3. Checkbox-ன் value காலப்போக்கில் மாறுகிறது மற்றும் வேறு எதிலிருந்தும் compute செய்ய முடியாது; எனவே அது state போல் தெரிகிறது.
+4. Products-ன் filtered list **state அல்ல, ஏனெனில் அதை compute செய்ய முடியும்**: products-ன் அசல் list-ஐ எடுத்து, search text மற்றும் checkbox value-க்கு ஏற்ப filter செய்வதால் அது கிடைக்கும்.
 
-This means only the search text and the value of the checkbox are state! Nicely done!
+இதனால் search text மற்றும் checkbox-ன் value மட்டுமே state! நன்றாக செய்தீர்கள்!
 
 <DeepDive>
 
 #### Props vs State {/*props-vs-state*/}
 
-There are two types of "model" data in React: props and state. The two are very different:
+React-இல் "model" data-விற்கு இரண்டு வகைகள் உள்ளன: props மற்றும் state. இரண்டும் மிகவும் வேறுபட்டவை:
 
-* [**Props** are like arguments you pass](/learn/passing-props-to-a-component) to a function. They let a parent component pass data to a child component and customize its appearance. For example, a `Form` can pass a `color` prop to a `Button`.
-* [**State** is like a component’s memory.](/learn/state-a-components-memory) It lets a component keep track of some information and change it in response to interactions. For example, a `Button` might keep track of `isHovered` state.
+* [**Props** என்பது function-க்கு அனுப்பும் arguments போன்றவை](/learn/passing-props-to-a-component). அவை parent component-ஐ child component-க்கு data அனுப்பவும், அதன் தோற்றத்தை customize செய்யவும் அனுமதிக்கின்றன. உதாரணமாக, `Form` ஒரு `color` prop-ஐ `Button`-க்கு அனுப்பலாம்.
+* [**State** என்பது component-ன் நினைவகம் போன்றது.](/learn/state-a-components-memory) அது ஒரு component சில தகவலைப் பின்தொடர்ந்து, interactions-க்கு பதிலாக அதை மாற்ற அனுமதிக்கிறது. உதாரணமாக, `Button` `isHovered` state-ஐப் பின்தொடரலாம்.
 
-Props and state are different, but they work together. A parent component will often keep some information in state (so that it can change it), and *pass it down* to child components as their props. It's okay if the difference still feels fuzzy on the first read. It takes a bit of practice for it to really stick!
+Props மற்றும் state வேறுபட்டவை, ஆனால் அவை ஒன்றாகச் செயல்படுகின்றன. ஒரு parent component சில தகவலை state-இல் வைத்திருக்கும் (அதை மாற்ற முடியும் என்பதற்காக), அதை child components-க்கு அவற்றின் props ஆக *கீழே அனுப்பும்*. முதல் வாசிப்பில் இந்த வேறுபாடு இன்னும் மங்கலாகத் தோன்றினாலும் பரவாயில்லை. அது உண்மையில் பதிய சிறிது பயிற்சி தேவை!
 
 </DeepDive>
 
-## Step 4: Identify where your state should live {/*step-4-identify-where-your-state-should-live*/}
+## படி 4: உங்கள் state எங்கு இருக்க வேண்டும் என்பதை அடையாளம் காணுங்கள் {/*step-4-identify-where-your-state-should-live*/}
 
-After identifying your app’s minimal state data, you need to identify which component is responsible for changing this state, or *owns* the state. Remember: React uses one-way data flow, passing data down the component hierarchy from parent to child component. It may not be immediately clear which component should own what state. This can be challenging if you’re new to this concept, but you can figure it out by following these steps!
+உங்கள் app-இன் குறைந்தபட்ச state data-வை அடையாளம் கண்ட பிறகு, இந்த state-ஐ மாற்றுவதற்கு எந்த component பொறுப்பாக இருக்கிறது, அல்லது state-ஐ *owns* செய்கிறது என்பதை அடையாளம் காண வேண்டும். நினைவில் கொள்ளுங்கள்: React one-way data flow-ஐப் பயன்படுத்துகிறது; parent-இலிருந்து child component-க்கு component hierarchy வழியாக data-வை கீழே அனுப்புகிறது. எந்த component எந்த state-ஐ own செய்ய வேண்டும் என்பது உடனடியாகத் தெளிவாக இருக்காமல் இருக்கலாம். இந்த கருத்துக்கு நீங்கள் புதியவராக இருந்தால் இது சவாலாக இருக்கலாம், ஆனால் கீழே உள்ள படிகளைப் பின்பற்றி அதை கண்டறியலாம்!
 
-For each piece of state in your application:
+உங்கள் application-இல் உள்ள ஒவ்வொரு state துண்டுக்கும்:
 
-1. Identify *every* component that renders something based on that state.
-2. Find their closest common parent component--a component above them all in the hierarchy.
-3. Decide where the state should live:
-    1. Often, you can put the state directly into their common parent.
-    2. You can also put the state into some component above their common parent.
-    3. If you can't find a component where it makes sense to own the state, create a new component solely for holding the state and add it somewhere in the hierarchy above the common parent component.
+1. அந்த state அடிப்படையில் ஏதாவது render செய்யும் *ஒவ்வொரு* component-ஐயும் அடையாளம் காணுங்கள்.
+2. அவற்றின் அருகிலுள்ள common parent component-ஐக் கண்டறியுங்கள்--hierarchy-யில் அவற்றிற்கெல்லாம் மேலே இருக்கும் component.
+3. State எங்கு இருக்க வேண்டும் என்பதை முடிவு செய்யுங்கள்:
+    1. பெரும்பாலும், state-ஐ அவற்றின் common parent-இல் நேரடியாக வைக்கலாம்.
+    2. State-ஐ அவற்றின் common parent-க்கு மேலே உள்ள ஏதேனும் component-இலும் வைக்கலாம்.
+    3. State-ஐ own செய்ய பொருத்தமான component ஒன்றைக் கண்டுபிடிக்க முடியாவிட்டால், state-ஐ வைத்திருக்க மட்டும் ஒரு புதிய component உருவாக்கி, common parent component-க்கு மேலே hierarchy-யில் எங்காவது சேர்க்கவும்.
 
-In the previous step, you found two pieces of state in this application: the search input text, and the value of the checkbox. In this example, they always appear together, so it makes sense to put them into the same place.
+முந்தைய படியில், இந்த application-இல் இரண்டு state துண்டுகளை கண்டீர்கள்: search input text மற்றும் checkbox-ன் value. இந்த எடுத்துக்காட்டில் அவை எப்போதும் ஒன்றாகத் தோன்றுகின்றன, எனவே அவற்றை ஒரே இடத்தில் வைப்பது பொருத்தமாகும்.
 
-Now let's run through our strategy for them:
+இப்போது அவற்றுக்கான நமது strategy-யை படிப்படியாகப் பார்ப்போம்:
 
-1. **Identify components that use state:**
-    * `ProductTable` needs to filter the product list based on that state (search text and checkbox value).
-    * `SearchBar` needs to display that state (search text and checkbox value).
-2. **Find their common parent:** The first parent component both components share is `FilterableProductTable`.
-3. **Decide where the state lives**: We'll keep the filter text and checked state values in `FilterableProductTable`.
+1. **State-ஐ பயன்படுத்தும் components-ஐ அடையாளம் காணுங்கள்:**
+    * `ProductTable` அந்த state (search text மற்றும் checkbox value) அடிப்படையில் product list-ஐ filter செய்ய வேண்டும்.
+    * `SearchBar` அந்த state-ஐ (search text மற்றும் checkbox value) காட்ட வேண்டும்.
+2. **அவற்றின் common parent-ஐக் கண்டறியுங்கள்:** இரு components-மும் பகிரும் முதல் parent component `FilterableProductTable`.
+3. **State எங்கு வாழ வேண்டும் என்பதை முடிவு செய்யுங்கள்**: filter text மற்றும் checked state values-ஐ `FilterableProductTable`-இல் வைத்திருப்போம்.
 
-So the state values will live in `FilterableProductTable`.
+ஆகவே state values `FilterableProductTable`-இல் வாழும்.
 
-Add state to the component with the [`useState()` Hook.](/reference/react/useState) Hooks are special functions that let you "hook into" React. Add two state variables at the top of `FilterableProductTable` and specify their initial state:
+[`useState()` Hook](/reference/react/useState) மூலம் component-க்கு state சேர்க்கவும். Hooks என்பது React-இல் "hook into" செய்ய அனுமதிக்கும் சிறப்பு functions. `FilterableProductTable`-ன் மேலே இரண்டு state variables-ஐச் சேர்த்து, அவற்றின் initial state-ஐ குறிப்பிடுங்கள்:
 
 ```js
 function FilterableProductTable({ products }) {
@@ -281,7 +281,7 @@ function FilterableProductTable({ products }) {
   const [inStockOnly, setInStockOnly] = useState(false);
 ```
 
-Then, pass `filterText` and `inStockOnly` to `ProductTable` and `SearchBar` as props:
+பிறகு, `filterText` மற்றும் `inStockOnly`-ஐ props ஆக `ProductTable` மற்றும் `SearchBar`-க்கு அனுப்புங்கள்:
 
 ```js
 <div>
@@ -295,7 +295,7 @@ Then, pass `filterText` and `inStockOnly` to `ProductTable` and `SearchBar` as p
 </div>
 ```
 
-You can start seeing how your application will behave. Edit the `filterText` initial value from `useState('')` to `useState('fruit')` in the sandbox code below. You'll see both the search input text and the table update:
+உங்கள் application எப்படி நடக்கும் என்பதை பார்க்கத் தொடங்கலாம். கீழே உள்ள sandbox code-இல் `filterText` initial value-ஐ `useState('')` இலிருந்து `useState('fruit')` ஆக மாற்றிப் பாருங்கள். Search input text மற்றும் table இரண்டும் update ஆகும்:
 
 <Sandpack>
 
@@ -377,8 +377,8 @@ function ProductTable({ products, filterText, inStockOnly }) {
     <table>
       <thead>
         <tr>
-          <th>Name</th>
-          <th>Price</th>
+          <th>பெயர்</th>
+          <th>விலை</th>
         </tr>
       </thead>
       <tbody>{rows}</tbody>
@@ -392,13 +392,13 @@ function SearchBar({ filterText, inStockOnly }) {
       <input
         type="text"
         value={filterText}
-        placeholder="Search..."/>
+        placeholder="தேடு..."/>
       <label>
         <input
           type="checkbox"
           checked={inStockOnly} />
         {' '}
-        Only show products in stock
+        கையிருப்பில் உள்ள products மட்டும் காட்டு
       </label>
     </form>
   );
@@ -437,15 +437,15 @@ td {
 
 </Sandpack>
 
-Notice that editing the form doesn't work yet. There is a console error in the sandbox above explaining why:
+Form-ஐ edit செய்வது இன்னும் வேலை செய்யவில்லை என்பதை கவனியுங்கள். ஏன் என்பதை விளக்கும் console error மேலுள்ள sandbox-இல் உள்ளது:
 
 <ConsoleBlock level="error">
 
-You provided a \`value\` prop to a form field without an \`onChange\` handler. This will render a read-only field.
+You provided a `value` prop to a form field without an `onChange` handler. This will render a read-only field.
 
 </ConsoleBlock>
 
-In the sandbox above, `ProductTable` and `SearchBar` read the `filterText` and `inStockOnly` props to render the table, the input, and the checkbox. For example, here is how `SearchBar` populates the input value:
+மேலுள்ள sandbox-இல், `ProductTable` மற்றும் `SearchBar` table, input, checkbox ஆகியவற்றை render செய்ய `filterText` மற்றும் `inStockOnly` props-ஐப் படிக்கின்றன. உதாரணமாக, `SearchBar` input value-ஐ இவ்வாறு நிரப்புகிறது:
 
 ```js {1,6}
 function SearchBar({ filterText, inStockOnly }) {
@@ -454,19 +454,19 @@ function SearchBar({ filterText, inStockOnly }) {
       <input
         type="text"
         value={filterText}
-        placeholder="Search..."/>
+        placeholder="தேடு..."/>
 ```
 
-However, you haven't added any code to respond to the user actions like typing yet. This will be your final step.
+ஆனால், typing போன்ற user actions-க்கு பதிலளிக்க நீங்கள் இன்னும் எந்த code-யும் சேர்க்கவில்லை. அது உங்கள் இறுதி படியாகும்.
 
 
-## Step 5: Add inverse data flow {/*step-5-add-inverse-data-flow*/}
+## படி 5: inverse data flow சேர்க்கவும் {/*step-5-add-inverse-data-flow*/}
 
-Currently your app renders correctly with props and state flowing down the hierarchy. But to change the state according to user input, you will need to support data flowing the other way: the form components deep in the hierarchy need to update the state in `FilterableProductTable`.
+தற்போது உங்கள் app, props மற்றும் state hierarchy வழியாக கீழே பாய்வதால் சரியாக render செய்கிறது. ஆனால் user input-க்கு ஏற்ப state-ஐ மாற்ற, data எதிர் திசையில் பாய்வதையும் ஆதரிக்க வேண்டும்: hierarchy-யின் ஆழத்தில் உள்ள form components, `FilterableProductTable`-இல் உள்ள state-ஐ update செய்ய வேண்டும்.
 
-React makes this data flow explicit, but it requires a little more typing than two-way data binding. If you try to type or check the box in the example above, you'll see that React ignores your input. This is intentional. By writing `<input value={filterText} />`, you've set the `value` prop of the `input` to always be equal to the `filterText` state passed in from `FilterableProductTable`. Since `filterText` state is never set, the input never changes.
+React இந்த data flow-ஐ வெளிப்படையாக ஆக்குகிறது, ஆனால் two-way data binding-ஐவிட இது கொஞ்சம் அதிக typing தேவைப்படுத்துகிறது. மேலுள்ள எடுத்துக்காட்டில் type செய்யவோ checkbox-ஐ check செய்யவோ முயன்றால், React உங்கள் input-ஐ புறக்கணிப்பதை காண்பீர்கள். இது திட்டமிட்டதே. `<input value={filterText} />` என்று எழுதுவதன் மூலம், `input`-ன் `value` prop எப்போதும் `FilterableProductTable`-இலிருந்து அனுப்பப்படும் `filterText` state-க்கு சமமாக இருக்கும்படி அமைத்துள்ளீர்கள். `filterText` state ஒருபோதும் set செய்யப்படாததால், input ஒருபோதும் மாறாது.
 
-You want to make it so whenever the user changes the form inputs, the state updates to reflect those changes. The state is owned by `FilterableProductTable`, so only it can call `setFilterText` and `setInStockOnly`. To let `SearchBar` update the `FilterableProductTable`'s state, you need to pass these functions down to `SearchBar`:
+User form inputs-ஐ மாற்றும் ஒவ்வொரு முறையும், அந்த மாற்றங்களை பிரதிபலிக்க state update ஆக வேண்டும். State-ஐ `FilterableProductTable` own செய்கிறது, எனவே அதுவே `setFilterText` மற்றும் `setInStockOnly`-ஐ call செய்ய முடியும். `SearchBar` `FilterableProductTable`-ன் state-ஐ update செய்ய அனுமதிக்க, இந்த functions-ஐ `SearchBar`-க்கு கீழே அனுப்ப வேண்டும்:
 
 ```js {2,3,10,11}
 function FilterableProductTable({ products }) {
@@ -482,7 +482,7 @@ function FilterableProductTable({ products }) {
         onInStockOnlyChange={setInStockOnly} />
 ```
 
-Inside the `SearchBar`, you will add the `onChange` event handlers and set the parent state from them:
+`SearchBar`-க்குள், `onChange` event handlers-ஐச் சேர்த்து, அவற்றிலிருந்து parent state-ஐ set செய்வீர்கள்:
 
 ```js {4,5,13,19}
 function SearchBar({
@@ -496,7 +496,7 @@ function SearchBar({
       <input
         type="text"
         value={filterText}
-        placeholder="Search..."
+        placeholder="தேடு..."
         onChange={(e) => onFilterTextChange(e.target.value)}
       />
       <label>
@@ -506,7 +506,7 @@ function SearchBar({
           onChange={(e) => onInStockOnlyChange(e.target.checked)}
 ```
 
-Now the application fully works!
+இப்போது application முழுமையாக வேலை செய்கிறது!
 
 <Sandpack>
 
@@ -590,8 +590,8 @@ function ProductTable({ products, filterText, inStockOnly }) {
     <table>
       <thead>
         <tr>
-          <th>Name</th>
-          <th>Price</th>
+          <th>பெயர்</th>
+          <th>விலை</th>
         </tr>
       </thead>
       <tbody>{rows}</tbody>
@@ -609,7 +609,7 @@ function SearchBar({
     <form>
       <input
         type="text"
-        value={filterText} placeholder="Search..."
+        value={filterText} placeholder="தேடு..."
         onChange={(e) => onFilterTextChange(e.target.value)} />
       <label>
         <input
@@ -617,7 +617,7 @@ function SearchBar({
           checked={inStockOnly}
           onChange={(e) => onInStockOnlyChange(e.target.checked)} />
         {' '}
-        Only show products in stock
+        கையிருப்பில் உள்ள products மட்டும் காட்டு
       </label>
     </form>
   );
@@ -656,8 +656,8 @@ td {
 
 </Sandpack>
 
-You can learn all about handling events and updating state in the [Adding Interactivity](/learn/adding-interactivity) section.
+Events-ஐ handle செய்வதும் state-ஐ update செய்வதும் பற்றி அனைத்தையும் [Adding Interactivity](/learn/adding-interactivity) பகுதியில் கற்றுக்கொள்ளலாம்.
 
-## Where to go from here {/*where-to-go-from-here*/}
+## அடுத்து எங்கு செல்லலாம் {/*where-to-go-from-here*/}
 
-This was a very brief introduction to how to think about building components and applications with React. You can [start a React project](/learn/installation) right now or [dive deeper on all the syntax](/learn/describing-the-ui) used in this tutorial.
+React கொண்டு components மற்றும் applications கட்டுவது பற்றி எப்படி சிந்திப்பது என்பதற்கான மிகச் சுருக்கமான அறிமுகம் இதுவாகும். இப்போதே நீங்கள் [React project ஒன்றைத் தொடங்கலாம்](/learn/installation) அல்லது இந்த tutorial-இல் பயன்படுத்தப்பட்ட [syntax அனைத்திலும் மேலும் ஆழமாகச் செல்லலாம்](/learn/describing-the-ui).

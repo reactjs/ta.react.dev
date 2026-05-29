@@ -4,7 +4,7 @@ title: useOptimistic
 
 <Intro>
 
-`useOptimistic` is a React Hook that lets you optimistically update the UI.
+`useOptimistic` என்பது UI-ஐ optimistic ஆக update செய்ய உதவும் React Hook ஆகும்.
 
 ```js
 const [optimisticState, setOptimistic] = useOptimistic(value, reducer?);
@@ -16,11 +16,11 @@ const [optimisticState, setOptimistic] = useOptimistic(value, reducer?);
 
 ---
 
-## Reference {/*reference*/}
+## குறிப்பு {/*reference*/}
 
 ### `useOptimistic(value, reducer?)` {/*useoptimistic*/}
 
-Call `useOptimistic` at the top level of your component to create optimistic state for a value.
+ஒரு value-க்கான optimistic state உருவாக்க, உங்கள் component-ன் top level-இல் `useOptimistic`-ஐ call செய்யுங்கள்.
 
 ```js
 import { useOptimistic } from 'react';
@@ -33,25 +33,25 @@ function MyComponent({name, todos}) {
 }
 ```
 
-[See more examples below.](#usage)
+[கீழே மேலும் examples பார்க்கவும்.](#usage)
 
-#### Parameters {/*parameters*/}
+#### அளவுருக்கள் {/*parameters*/}
 
-* `value`: The value returned when there are no pending Actions.
-* **optional** `reducer(currentState, action)`: The reducer function that specifies how the optimistic state gets updated. It must be pure, should take the current state and reducer action arguments, and should return the next optimistic state.
+* `value`: Pending Actions எதுவும் இல்லாதபோது return செய்யப்படும் value.
+* **optional** `reducer(currentState, action)`: Optimistic state எப்படி update ஆக வேண்டும் என்பதை specify செய்யும் reducer function. இது pure ஆக இருக்க வேண்டும், current state மற்றும் reducer action arguments-ஐ எடுக்க வேண்டும், மேலும் அடுத்த optimistic state-ஐ return செய்ய வேண்டும்.
 
-#### Returns {/*returns*/}
+#### திருப்பி அளிப்பது {/*returns*/}
 
-`useOptimistic` returns an array with exactly two values:
+`useOptimistic` சரியாக இரண்டு values கொண்ட array ஒன்றை return செய்கிறது:
 
-1. `optimisticState`: The current optimistic state. It is equal to `value` unless an Action is pending, in which case it is equal to the state returned by `reducer` (or the value passed to the set function if no `reducer` was provided).
-2. The [`set` function](#setoptimistic) that lets you update the optimistic state to a different value inside an Action.
+1. `optimisticState`: தற்போதைய optimistic state. Action pending இல்லை என்றால் இது `value`-க்கு சமம்; Action pending இருந்தால், `reducer` return செய்த state-க்கு சமம் (அல்லது `reducer` provide செய்யப்படவில்லை என்றால் set function-க்கு pass செய்யப்பட்ட value-க்கு சமம்).
+2. Action-க்குள் optimistic state-ஐ வேறு value-க்கு update செய்ய அனுமதிக்கும் [`set` function](#setoptimistic).
 
 ---
 
-### `set` functions, like `setOptimistic(optimisticState)` {/*setoptimistic*/}
+### `setOptimistic(optimisticState)` போன்ற `set` functions {/*setoptimistic*/}
 
-The `set` function returned by `useOptimistic` lets you update the state for the duration of an [Action](reference/react/useTransition#functions-called-in-starttransition-are-called-actions). You can pass the next state directly, or a function that calculates it from the previous state:
+`useOptimistic` return செய்யும் `set` function, ஒரு [Action](reference/react/useTransition#functions-called-in-starttransition-are-called-actions) நடக்கும் காலத்துக்கு state-ஐ update செய்ய அனுமதிக்கிறது. அடுத்த state-ஐ நேரடியாக pass செய்யலாம், அல்லது முந்தைய state-இலிருந்து அதை calculate செய்யும் function ஒன்றை pass செய்யலாம்:
 
 ```js
 const [optimisticLike, setOptimisticLike] = useOptimistic(false);
@@ -66,24 +66,24 @@ function handleClick() {
 }
 ```
 
-#### Parameters {/*setoptimistic-parameters*/}
+#### அளவுருக்கள் {/*setoptimistic-parameters*/}
 
-* `optimisticState`: The value that you want the optimistic state to be during an [Action](reference/react/useTransition#functions-called-in-starttransition-are-called-actions). If you provided a `reducer` to `useOptimistic`, this value will be passed as the second argument to your reducer. It can be a value of any type.
-    * If you pass a function as `optimisticState`, it will be treated as an _updater function_. It must be pure, should take the pending state as its only argument, and should return the next optimistic state. React will put your updater function in a queue and re-render your component. During the next render, React will calculate the next state by applying the queued updaters to the previous state similar to [`useState` updaters](/reference/react/useState#setstate-parameters).
+* `optimisticState`: ஒரு [Action](reference/react/useTransition#functions-called-in-starttransition-are-called-actions) நடக்கும்போது optimistic state ஆக இருக்க வேண்டும் என்று நீங்கள் விரும்பும் value. `useOptimistic`-க்கு `reducer` provide செய்திருந்தால், இந்த value உங்கள் reducer-க்கு second argument ஆக pass செய்யப்படும். இது எந்த type value ஆகவும் இருக்கலாம்.
+    * `optimisticState` ஆக function ஒன்றை pass செய்தால், அது _updater function_ ஆக treat செய்யப்படும். அது pure ஆக இருக்க வேண்டும், pending state-ஐ அதன் ஒரே argument ஆக எடுக்க வேண்டும், மேலும் அடுத்த optimistic state-ஐ return செய்ய வேண்டும். React உங்கள் updater function-ஐ queue-இல் வைத்து உங்கள் component-ஐ re-render செய்யும். அடுத்த render போது, [`useState` updaters](/reference/react/useState#setstate-parameters)-க்கு ஒத்தபடி queued updaters-ஐ previous state-க்கு apply செய்து React next state-ஐ calculate செய்யும்.
 
-#### Returns {/*setoptimistic-returns*/}
+#### திருப்பி அளிப்பது {/*setoptimistic-returns*/}
 
-`set` functions do not have a return value.
+`set` functions-க்கு return value இல்லை.
 
-#### Caveats {/*setoptimistic-caveats*/}
+#### கவனிக்க வேண்டியவை {/*setoptimistic-caveats*/}
 
-* The `set` function must be called inside an [Action](reference/react/useTransition#functions-called-in-starttransition-are-called-actions). If you call the setter outside an Action, [React will show a warning](#an-optimistic-state-update-occurred-outside-a-transition-or-action) and the optimistic state will briefly render.
+* `set` function ஒரு [Action](reference/react/useTransition#functions-called-in-starttransition-are-called-actions)-க்குள் call செய்யப்பட வேண்டும். Setter-ஐ Action-க்கு வெளியே call செய்தால், [React warning காட்டும்](#an-optimistic-state-update-occurred-outside-a-transition-or-action), மேலும் optimistic state சிறிது நேரம் render ஆகும்.
 
 <DeepDive>
 
-#### How optimistic state works {/*how-optimistic-state-works*/}
+#### Optimistic state எப்படி வேலை செய்கிறது {/*how-optimistic-state-works*/}
 
-`useOptimistic` lets you show a temporary value while an Action is in progress:
+Action நடந்து கொண்டிருக்கும்போது temporary value காட்ட `useOptimistic` உதவுகிறது:
 
 ```js
 const [value, setValue] = useState('a');
@@ -96,57 +96,57 @@ startTransition(async () => {
 });
 ```
 
-When the setter is called inside an Action, `useOptimistic` will trigger a re-render to show that state while the Action is in progress. Otherwise, the `value` passed to `useOptimistic` is returned.
+Setter ஒரு Action-க்குள் call செய்யப்பட்டால், அந்த Action நடந்து கொண்டிருக்கும் போது அந்த state-ஐ காட்ட `useOptimistic` re-render trigger செய்யும். இல்லையெனில், `useOptimistic`-க்கு pass செய்யப்பட்ட `value` return செய்யப்படும்.
 
-This state is called the "optimistic" because it is used to immediately present the user with the result of performing an Action, even though the Action actually takes time to complete.
+இந்த state "optimistic" என்று அழைக்கப்படுகிறது, ஏனெனில் Action உண்மையில் முடிவடைய நேரம் எடுத்தாலும், Action செய்ததின் result-ஐ உடனடியாக user-க்கு காட்ட இது பயன்படுத்தப்படுகிறது.
 
-**How the update flows**
+**Update flow எப்படி நடக்கிறது**
 
-1. **Update immediately**: When `setOptimistic('b')` is called, React immediately renders with `'b'`.
+1. **உடனடி update**: `setOptimistic('b')` call செய்யப்பட்டதும், React உடனே `'b'` உடன் render செய்கிறது.
 
-2. **(Optional) await in Action**: If you await in the Action, React continues showing `'b'`.
+2. **(Optional) Action-இல் await**: Action-இல் நீங்கள் await செய்தால், React `'b'`-ஐ தொடர்ந்து காட்டும்.
 
-3. **Transition scheduled**: `setValue(newValue)` schedules an update to the real state.
+3. **Transition schedule செய்யப்பட்டது**: `setValue(newValue)` real state-க்கு update schedule செய்கிறது.
 
-4. **(Optional) wait for Suspense**: If `newValue` suspends, React continues showing `'b'`.
+4. **(Optional) Suspense-க்காக wait**: `newValue` suspend ஆனால், React `'b'`-ஐ தொடர்ந்து காட்டும்.
 
-5. **Single render commit**: Finally, the `newValue` commits for `value` and `optimistic`.
+5. **Single render commit**: இறுதியில், `newValue` `value` மற்றும் `optimistic` இரண்டிற்கும் commit ஆகிறது.
 
-There's no extra render to "clear" the optimistic state. The optimistic and real state converge in the same render when the Transition completes.
+Optimistic state-ஐ "clear" செய்ய extra render இல்லை. Transition முடியும் போது, optimistic மற்றும் real state ஒரே render-இல் converge ஆகின்றன.
 
 <Note>
 
-#### Optimistic state is temporary {/*optimistic-state-is-temporary*/}
+#### Optimistic state temporary ஆகும் {/*optimistic-state-is-temporary*/}
 
-Optimistic state only renders while an Action is in progress, otherwise `value` is rendered.
+Optimistic state Action நடந்து கொண்டிருக்கும்போது மட்டுமே render ஆகும்; இல்லையெனில் `value` render ஆகும்.
 
-If `saveChanges` returned `'c'`, then both `value` and `optimistic` will be `'c'`, not `'b'`.
+`saveChanges` `'c'` return செய்தால், `value` மற்றும் `optimistic` இரண்டும் `'c'` ஆக இருக்கும், `'b'` அல்ல.
 
 </Note>
 
-**How the final state is determined**
+**இறுதி state எப்படி தீர்மானிக்கப்படுகிறது**
 
-The `value` argument to `useOptimistic` determines what displays after the Action finishes. How this works depends on the pattern you use:
+`useOptimistic`-க்கு கொடுக்கப்படும் `value` argument, Action முடிந்தபின் என்ன display ஆகும் என்பதை தீர்மானிக்கிறது. இது எப்படி வேலை செய்கிறது என்பது நீங்கள் பயன்படுத்தும் pattern-ஐப் பொறுத்தது:
 
-- **Hardcoded values** like `useOptimistic(false)`: After the Action, `state` is still `false`, so the UI shows `false`. This is useful for pending states where you always start from `false`.
+- `useOptimistic(false)` போன்ற **hardcoded values**: Action-க்கு பிறகு, `state` இன்னும் `false` ஆக இருக்கும்; எனவே UI `false` காட்டும். எப்போதும் `false`-இலிருந்து தொடங்கும் pending states-க்கு இது பயனுள்ளதாக இருக்கும்.
 
-- **Props or state passed in** like `useOptimistic(isLiked)`: If the parent updates `isLiked` during the Action, the new value is used after the Action completes. This is how the UI reflects the result of the Action.
+- `useOptimistic(isLiked)` போன்ற **props அல்லது state pass செய்தல்**: Action நடக்கும் போது parent `isLiked`-ஐ update செய்தால், Action முடிந்தபின் புதிய value பயன்படுத்தப்படும். Action-ன் result-ஐ UI பிரதிபலிப்பது இதுவே.
 
-- **Reducer pattern** like `useOptimistic(items, fn)`: If `items` changes while the Action is pending, React re-runs your `reducer` with the new `items` to recalculate the state. This keeps your optimistic additions on top of the latest data.
+- `useOptimistic(items, fn)` போன்ற **reducer pattern**: Action pending இருக்கும்போது `items` மாறினால், state-ஐ recalculate செய்ய React உங்கள் `reducer`-ஐ புதிய `items` உடன் re-run செய்யும். இது latest data-க்கு மேலாக உங்கள் optimistic additions-ஐ வைத்திருக்கிறது.
 
-**What happens when the Action fails**
+**Action fail ஆனால் என்ன நடக்கும்**
 
-If the Action throws an error, the Transition still ends, and React renders with whatever `value` currently is. Since the parent typically only updates `value` on success, a failure means `value` hasn't changed, so the UI shows what it showed before the optimistic update. You can catch the error to show a message to the user.
+Action error throw செய்தால், Transition இன்னும் முடியும், மேலும் React தற்போது உள்ள `value` எதுவோ அதுடன் render செய்கிறது. Parent பொதுவாக success-இல் மட்டுமே `value` update செய்வதால், failure என்றால் `value` மாறவில்லை; எனவே UI optimistic update-க்கு முன் காட்டியதை காட்டும். User-க்கு message காட்ட error-ஐ catch செய்யலாம்.
 
 </DeepDive>
 
 ---
 
-## Usage {/*usage*/}
+## பயன்பாடு {/*usage*/}
 
-### Adding optimistic state to a component {/*adding-optimistic-state-to-a-component*/}
+### Component-க்கு optimistic state சேர்த்தல் {/*adding-optimistic-state-to-a-component*/}
 
-Call `useOptimistic` at the top level of your component to declare one or more optimistic states.
+ஒரு அல்லது பல optimistic states declare செய்ய, உங்கள் component-ன் top level-இல் `useOptimistic`-ஐ call செய்யுங்கள்.
 
 ```js [[1, 4, "age"], [1, 5, "name"], [1, 6, "todos"], [2, 4, "optimisticAge"], [2, 5, "optimisticName"], [2, 6, "optimisticTodos"], [3, 4, "setOptimisticAge"], [3, 5, "setOptimisticName"], [3, 6, "setOptimisticTodos"], [4, 6, "reducer"]]
 import { useOptimistic } from 'react';
@@ -158,15 +158,15 @@ function MyComponent({age, name, todos}) {
   // ...
 ```
 
-`useOptimistic` returns an array with exactly two items:
+`useOptimistic` சரியாக இரண்டு items கொண்ட array ஒன்றை return செய்கிறது:
 
-1. The <CodeStep step={2}>optimistic state</CodeStep>, initially set to the <CodeStep step={1}>value</CodeStep> provided.
-2. The <CodeStep step={3}>set function</CodeStep> that lets you temporarily change the state during an [Action](reference/react/useTransition#functions-called-in-starttransition-are-called-actions).
-   * If a <CodeStep step={4}>reducer</CodeStep> is provided, it will run before returning the optimistic state.
+1. <CodeStep step={1}>value</CodeStep> ஆக provide செய்யப்பட்ட value-க்கு initially set செய்யப்பட்ட <CodeStep step={2}>optimistic state</CodeStep>.
+2. [Action](reference/react/useTransition#functions-called-in-starttransition-are-called-actions) நடக்கும் போது state-ஐ temporary ஆக change செய்ய அனுமதிக்கும் <CodeStep step={3}>set function</CodeStep>.
+   * <CodeStep step={4}>reducer</CodeStep> provide செய்யப்பட்டிருந்தால், optimistic state return செய்வதற்கு முன் அது run ஆகும்.
 
-To use the <CodeStep step={2}>optimistic state</CodeStep>, call the `set` function inside an Action.
+<CodeStep step={2}>optimistic state</CodeStep>-ஐ பயன்படுத்த, Action-க்குள் `set` function-ஐ call செய்யுங்கள்.
 
-Actions are functions called inside `startTransition`:
+Actions என்பது `startTransition`-க்குள் call செய்யப்படும் functions:
 
 ```js {3}
 function onAgeChange(e) {
@@ -178,13 +178,13 @@ function onAgeChange(e) {
 }
 ```
 
-React will render the optimistic state `42` first while the `age` remains the current age. The Action waits for POST, and then renders the `newAge` for both `age` and `optimisticAge`.
+`age` தற்போதைய age ஆகவே இருக்கும் போது React முதலில் optimistic state `42`-ஐ render செய்யும். Action POST-க்காக காத்திருந்து, பிறகு `age` மற்றும் `optimisticAge` இரண்டிற்கும் `newAge` render செய்கிறது.
 
-See [How optimistic state works](#how-optimistic-state-works) for a deep dive.
+Deep dive-க்கு [Optimistic state எப்படி வேலை செய்கிறது](#how-optimistic-state-works) பார்க்கவும்.
 
 <Note>
 
-When using [Action props](/reference/react/useTransition#exposing-action-props-from-components), you can call the set function without `startTransition`:
+[Action props](/reference/react/useTransition#exposing-action-props-from-components) பயன்படுத்தும்போது, `startTransition` இல்லாமல் set function-ஐ call செய்யலாம்:
 
 ```js [[3, 2, "setOptimisticName"]]
 async function submitAction() {
@@ -193,19 +193,19 @@ async function submitAction() {
 }
 ```
 
-This works because Action props are already called inside `startTransition`.
+இது வேலை செய்கிறது, ஏனெனில் Action props ஏற்கனவே `startTransition`-க்குள் call செய்யப்படுகின்றன.
 
-For an example, see: [Using optimistic state in Action props](#using-optimistic-state-in-action-props).
+Example-க்கு பார்க்கவும்: [Action props-இல் optimistic state பயன்படுத்துதல்](#using-optimistic-state-in-action-props).
 
 </Note>
 
 ---
 
-### Using optimistic state in Action props {/*using-optimistic-state-in-action-props*/}
+### Action props-இல் optimistic state பயன்படுத்துதல் {/*using-optimistic-state-in-action-props*/}
 
-In an [Action prop](/reference/react/useTransition#exposing-action-props-from-components), you can call the optimistic setter directly without `startTransition`.
+[Action prop](/reference/react/useTransition#exposing-action-props-from-components)-இல், `startTransition` இல்லாமல் optimistic setter-ஐ நேரடியாக call செய்யலாம்.
 
-This example sets optimistic state inside a `<form>` `submitAction` prop:
+இந்த example, `<form>` `submitAction` prop-க்குள் optimistic state set செய்கிறது:
 
 <Sandpack>
 
@@ -239,9 +239,9 @@ export default function EditName({ name, action }) {
 
   return (
     <form action={submitAction}>
-      <p>Your name is: {optimisticName}</p>
+      <p>உங்கள் பெயர்: {optimisticName}</p>
       <p>
-        <label>Change it: </label>
+        <label>அதை மாற்றுங்கள்: </label>
         <input
           type="text"
           name="name"
@@ -262,27 +262,27 @@ export async function updateName(name) {
 
 </Sandpack>
 
-In this example, when the user submits the form, the `optimisticName` updates immediately to show the `newName` optimistically while the server request is in progress. When the request completes, `name` and `optimisticName` are rendered with the actual `updatedName` from the response.
+இந்த example-இல், user form submit செய்தால், server request நடந்து கொண்டிருக்கும்போது `newName`-ஐ optimistic ஆக காட்ட `optimisticName` உடனடியாக update ஆகிறது. Request முடிந்ததும், response-இல் இருந்து வரும் actual `updatedName` உடன் `name` மற்றும் `optimisticName` render ஆகின்றன.
 
 <DeepDive>
 
-#### Why doesn't this need `startTransition`? {/*why-doesnt-this-need-starttransition*/}
+#### இதற்கு `startTransition` ஏன் தேவையில்லை? {/*why-doesnt-this-need-starttransition*/}
 
-By convention, props called inside `startTransition` are named with "Action".
+Convention படி, `startTransition`-க்குள் call செய்யப்படும் props "Action" என்று பெயரிடப்படுகின்றன.
 
-Since `submitAction` is named with "Action", you know it's already called inside `startTransition`.
+`submitAction` "Action" என்ற பெயருடன் இருப்பதால், அது ஏற்கனவே `startTransition`-க்குள் call செய்யப்படுகிறது என்பதை நீங்கள் அறியலாம்.
 
-See [Exposing `action` prop from components](/reference/react/useTransition#exposing-action-props-from-components) for the Action prop pattern.
+Action prop pattern-க்கு [Components-இலிருந்து `action` prop expose செய்தல்](/reference/react/useTransition#exposing-action-props-from-components) பார்க்கவும்.
 
 </DeepDive>
 
 ---
 
-### Adding optimistic state to Action props {/*adding-optimistic-state-to-action-props*/}
+### Action props-க்கு optimistic state சேர்த்தல் {/*adding-optimistic-state-to-action-props*/}
 
-When creating an [Action prop](/reference/react/useTransition#exposing-action-props-from-components), you can add `useOptimistic` to show immediate feedback.
+[Action prop](/reference/react/useTransition#exposing-action-props-from-components) உருவாக்கும்போது, உடனடி feedback காட்ட `useOptimistic` சேர்க்கலாம்.
 
-Here's a button that shows "Submitting..." while the `action` is pending:
+`action` pending இருக்கும் போது "Submit செய்யப்படுகிறது..." காட்டும் button இதோ:
 
 <Sandpack>
 
@@ -300,8 +300,8 @@ export default function App() {
         startTransition(() => {
           setCount(c => c + 1);
         });
-      }}>Increment</Button>
-      {count > 0 && <p>Submitted {count}!</p>}
+      }}>அதிகரி</Button>
+      {count > 0 && <p>{count} முறை submit செய்யப்பட்டது!</p>}
     </div>
   );
 }
@@ -323,7 +323,7 @@ export default function Button({ action, children }) {
         });
       }}
     >
-      {isPending ? 'Submitting...' : children}
+      {isPending ? 'Submit செய்யப்படுகிறது...' : children}
     </button>
   );
 }
@@ -337,9 +337,9 @@ export async function submitForm() {
 
 </Sandpack>
 
-When the button is clicked, `setIsPending(true)` uses optimistic state to immediately show "Submitting..." and disable the button. When the Action is done, `isPending` is rendered as `false` automatically.
+Button click செய்தால், `setIsPending(true)` optimistic state-ஐ பயன்படுத்தி உடனடியாக "Submit செய்யப்படுகிறது..." காட்டி button-ஐ disable செய்கிறது. Action முடிந்ததும், `isPending` தானாக `false` ஆக render ஆகிறது.
 
-This pattern automatically shows a pending state however `action` prop is used with `Button`:
+இந்த pattern, `Button` உடன் `action` prop எப்படி பயன்படுத்தப்பட்டாலும் pending state-ஐ தானாக காட்டுகிறது:
 
 ```js
 // Show pending state for a state update
@@ -359,23 +359,23 @@ This pattern automatically shows a pending state however `action` prop is used w
 }} />
 ```
 
-The pending state will be shown until everything in the `action` prop is finished.
+`action` prop-இல் உள்ள அனைத்தும் முடியும் வரை pending state காட்டப்படும்.
 
 <Note>
 
-You can also use [`useTransition`](/reference/react/useTransition) to get pending state via `isPending`.
+`isPending` மூலம் pending state பெற [`useTransition`](/reference/react/useTransition)-யையும் பயன்படுத்தலாம்.
 
-The difference is that `useTransition` gives you the `startTransition` function, while `useOptimistic` works with any Transition. Use whichever fits your component's needs.
+வேறுபாடு: `useTransition` உங்களுக்கு `startTransition` function-ஐ தருகிறது; `useOptimistic` எந்த Transition உடனும் வேலை செய்கிறது. உங்கள் component தேவைகளுக்கு பொருந்துவது எதுவோ அதை பயன்படுத்துங்கள்.
 
 </Note>
 
 ---
 
-### Updating props or state optimistically {/*updating-props-or-state-optimistically*/}
+### Props அல்லது state-ஐ optimistically update செய்தல் {/*updating-props-or-state-optimistically*/}
 
-You can wrap props or state in `useOptimistic` to update it immediately while an Action is in progress.
+Action நடந்து கொண்டிருக்கும்போது உடனடியாக update செய்ய props அல்லது state-ஐ `useOptimistic`-இல் wrap செய்யலாம்.
 
-In this example, `LikeButton` receives `isLiked` as a prop and immediately toggles it when clicked:
+இந்த example-இல், `LikeButton` `isLiked`-ஐ prop ஆக receive செய்து click செய்தவுடன் அதை உடனடியாக toggle செய்கிறது:
 
 <Sandpack>
 
@@ -390,28 +390,28 @@ export default function App() {
   function handleClick() {
     startTransition(async () => {
       const newValue = !optimisticIsLiked
-      console.log('⏳ setting optimistic state: ' + newValue);
+      console.log('⏳ optimistic state set செய்கிறது: ' + newValue);
 
       setOptimisticIsLiked(newValue);
       const updatedValue = await toggleLike(newValue);
 
       startTransition(() => {
-        console.log('⏳ setting real state: ' + updatedValue );
+        console.log('⏳ real state set செய்கிறது: ' + updatedValue );
         setIsLiked(updatedValue);
       });
     });
   }
 
   if (optimisticIsLiked !== isLiked) {
-    console.log('✅ rendering optimistic state: ' + optimisticIsLiked);
+    console.log('✅ optimistic state render ஆகிறது: ' + optimisticIsLiked);
   } else {
-    console.log('✅ rendering real value: ' + optimisticIsLiked);
+    console.log('✅ real value render ஆகிறது: ' + optimisticIsLiked);
   }
 
 
   return (
     <button onClick={handleClick}>
-      {optimisticIsLiked ? '❤️ Unlike' : '🤍 Like'}
+      {optimisticIsLiked ? '❤️ விருப்பத்தை நீக்கு' : '🤍 விருப்பு தெரிவி'}
     </button>
   );
 }
@@ -438,23 +438,23 @@ root.render(<App />);
 
 </Sandpack>
 
-When the button is clicked, `setOptimisticIsLiked` immediately updates the displayed state to show the heart as liked. Meanwhile, `await toggleLike` runs in the background. When the `await` completes, `setIsLiked` parent updates the "real" `isLiked` state, and the optimistic state is rendered to match this new value.
+Button click செய்தால், heart liked ஆக காட்டப்படும் வகையில் displayed state-ஐ `setOptimisticIsLiked` உடனடியாக update செய்கிறது. அதே நேரத்தில், `await toggleLike` background-இல் run ஆகிறது. `await` முடிந்ததும், "real" `isLiked` state-ஐ `setIsLiked` parent update செய்கிறது, மேலும் இந்த புதிய value-க்கு match ஆக optimistic state render ஆகிறது.
 
 <Note>
 
-This example reads from `optimisticIsLiked` to calculate the next value. This works when the base state won't change, but if the base state might change while your Action is pending, you may want to use a state updater or the reducer.
+இந்த example, next value calculate செய்ய `optimisticIsLiked`-இலிருந்து read செய்கிறது. Base state மாறாது என்றால் இது வேலை செய்கிறது; ஆனால் உங்கள் Action pending இருக்கும்போது base state மாறக்கூடும் என்றால், state updater அல்லது reducer பயன்படுத்த விரும்பலாம்.
 
-See [Updating state based on the current state](#updating-state-based-on-current-state) for an example.
+Example-க்கு [தற்போதைய state அடிப்படையில் state update செய்தல்](#updating-state-based-on-current-state) பார்க்கவும்.
 
 </Note>
 
 ---
 
-### Updating multiple values together {/*updating-multiple-values-together*/}
+### பல values-ஐ ஒன்றாக update செய்தல் {/*updating-multiple-values-together*/}
 
-When an optimistic update affects multiple related values, use a reducer to update them together. This ensures the UI stays consistent.
+ஒரு optimistic update பல related values-ஐ பாதித்தால், அவற்றை ஒன்றாக update செய்ய reducer பயன்படுத்துங்கள். இது UI consistent ஆக இருப்பதை உறுதி செய்கிறது.
 
-Here's a follow button that updates both the follow state and follower count:
+Follow state மற்றும் follower count இரண்டையும் update செய்யும் follow button இதோ:
 
 <Sandpack>
 
@@ -512,9 +512,9 @@ export default function FollowButton({ user, followAction }) {
   return (
     <div>
       <p><strong>{user.name}</strong></p>
-      <p>{optimisticState.followerCount} followers</p>
+      <p>{optimisticState.followerCount} பின்தொடர்பவர்கள்</p>
       <button onClick={handleClick}>
-        {optimisticState.isFollowing ? 'Unfollow' : 'Follow'}
+        {optimisticState.isFollowing ? 'Unfollow செய்' : 'Follow செய்'}
       </button>
     </div>
   );
@@ -533,23 +533,23 @@ export async function unfollowUser(name) {
 
 </Sandpack>
 
-The reducer receives the new `isFollowing` value and calculates both the new follow state and the updated follower count in a single update. This ensures the button text and count always stay in sync.
+Reducer புதிய `isFollowing` value-ஐ receive செய்து, புதிய follow state மற்றும் updated follower count இரண்டையும் single update-இல் calculate செய்கிறது. இதனால் button text மற்றும் count எப்போதும் sync-இல் இருக்கும்.
 
 
 <DeepDive>
 
-#### Choosing between updaters and reducers {/*choosing-between-updaters-and-reducers*/}
+#### Updaters மற்றும் reducers இடையே தேர்வு செய்தல் {/*choosing-between-updaters-and-reducers*/}
 
-`useOptimistic` supports two patterns for calculating state based on current state:
+Current state அடிப்படையில் state calculate செய்ய `useOptimistic` இரண்டு patterns-ஐ support செய்கிறது:
 
-**Updater functions** work like [useState updaters](/reference/react/useState#updating-state-based-on-the-previous-state). Pass a function to the setter:
+**Updater functions** [useState updaters](/reference/react/useState#updating-state-based-on-the-previous-state) போல வேலை செய்கின்றன. Setter-க்கு function ஒன்றை pass செய்யுங்கள்:
 
 ```js
 const [optimistic, setOptimistic] = useOptimistic(value);
 setOptimistic(current => !current);
 ```
 
-**Reducers** separate the update logic from the setter call:
+**Reducers** update logic-ஐ setter call-இலிருந்து பிரிக்கின்றன:
 
 ```js
 const [optimistic, dispatch] = useOptimistic(value, (current, action) => {
@@ -558,23 +558,23 @@ const [optimistic, dispatch] = useOptimistic(value, (current, action) => {
 dispatch(action);
 ```
 
-**Use updaters** for calculations where the setter call naturally describes the update. This is similar to using `setState(prev => ...)` with `useState`.
+Setter call இயல்பாக update-ஐ describe செய்யும் calculations-க்கு **updaters பயன்படுத்துங்கள்**. இது `useState` உடன் `setState(prev => ...)` பயன்படுத்துவதற்கு ஒத்தது.
 
-**Use reducers** when you need to pass data to the update (like which item to add) or when handling multiple types of updates with a single hook.
+Update-க்கு data pass செய்ய வேண்டியபோது (எந்த item சேர்க்க வேண்டும் போன்றது) அல்லது single hook கொண்டு பல update types handle செய்யும்போது **reducers பயன்படுத்துங்கள்**.
 
-**Why use a reducer?**
+**Reducer ஏன் பயன்படுத்த வேண்டும்?**
 
-Reducers are essential when the base state might change while your Transition is pending. If `todos` changes while your add is pending (for example, another user added a todo), React will re-run your reducer with the new `todos` to recalculate what to show. This ensures your new todo is added to the latest list, not an outdated copy.
+உங்கள் Transition pending இருக்கும்போது base state மாறக்கூடும் என்றால் reducers அவசியம். Add pending இருக்கும்போது `todos` மாறினால் (உதாரணமாக, வேறு user todo சேர்த்தால்), என்ன காட்ட வேண்டும் என்பதை recalculate செய்ய React உங்கள் reducer-ஐ புதிய `todos` உடன் re-run செய்யும். இது outdated copy-க்கு பதிலாக latest list-இல் உங்கள் புதிய todo சேர்க்கப்படுவதை உறுதி செய்கிறது.
 
-An updater function like `setOptimistic(prev => [...prev, newItem])` would only see the state from when the Transition started, missing any updates that happened during the async work.
+`setOptimistic(prev => [...prev, newItem])` போன்ற updater function, Transition தொடங்கியபோதைய state-ஐ மட்டும் பார்க்கும்; async work நடக்கும் போது ஏற்பட்ட updates-ஐ தவறவிடும்.
 
 </DeepDive>
 
 ---
 
-### Optimistically adding to a list {/*optimistically-adding-to-a-list*/}
+### List-இல் optimistically சேர்த்தல் {/*optimistically-adding-to-a-list*/}
 
-When you need to optimistically add items to a list, use a `reducer`:
+List-இல் items-ஐ optimistically சேர்க்க வேண்டுமெனில், `reducer` பயன்படுத்துங்கள்:
 
 <Sandpack>
 
@@ -585,7 +585,7 @@ import TodoList from './TodoList';
 
 export default function App() {
   const [todos, setTodos] = useState([
-    { id: 1, text: 'Learn React' }
+    { id: 1, text: 'React கற்றுக்கொள்' }
   ]);
 
   async function addTodoAction(newTodo) {
@@ -621,11 +621,11 @@ export default function TodoList({ todos, addTodoAction }) {
 
   return (
     <div>
-      <button onClick={() => handleAddTodo('New todo')}>Add Todo</button>
+      <button onClick={() => handleAddTodo('புதிய todo')}>Todo சேர்க்கவும்</button>
       <ul>
         {optimisticTodos.map(todo => (
           <li key={todo.id}>
-            {todo.text} {todo.pending && "(Adding...)"}
+            {todo.text} {todo.pending && "(சேர்க்கப்படுகிறது...)"}
           </li>
         ))}
       </ul>
@@ -644,21 +644,21 @@ export async function addTodo(todo) {
 
 </Sandpack>
 
-The `reducer` receives the current list of todos and the new todo to add. This is important because if the `todos` prop changes while your add is pending (for example, another user added a todo), React will update your optimistic state by re-running the reducer with the updated list. This ensures your new todo is added to the latest list, not an outdated copy.
+`reducer` தற்போதைய todos list மற்றும் சேர்க்க வேண்டிய new todo-ஐ receive செய்கிறது. இது முக்கியம்; ஏனெனில் உங்கள் add pending இருக்கும்போது `todos` prop மாறினால் (உதாரணமாக, வேறு user todo சேர்த்தால்), updated list உடன் reducer-ஐ re-run செய்வதன் மூலம் React உங்கள் optimistic state-ஐ update செய்யும். இது outdated copy-க்கு பதிலாக latest list-இல் உங்கள் புதிய todo சேர்க்கப்படுவதை உறுதி செய்கிறது.
 
 <Note>
 
-Each optimistic item includes a `pending: true` flag so you can show loading state for individual items. When the server responds and the parent updates the canonical `todos` list with the saved item, the optimistic state updates to the confirmed item without the pending flag.
+ஒவ்வொரு optimistic item-உம் `pending: true` flag-ஐ கொண்டுள்ளது; அதனால் individual items-க்கு loading state காட்டலாம். Server respond செய்து parent saved item உடன் canonical `todos` list-ஐ update செய்ததும், pending flag இல்லாத confirmed item-க்கு optimistic state update ஆகிறது.
 
 </Note>
 
 ---
 
-### Handling multiple `action` types {/*handling-multiple-action-types*/}
+### பல `action` types handle செய்தல் {/*handling-multiple-action-types*/}
 
-When you need to handle multiple types of optimistic updates (like adding and removing items), use a reducer pattern with `action` objects.
+பல வகை optimistic updates (items சேர்த்தல் மற்றும் நீக்குதல் போன்றவை) handle செய்ய வேண்டுமெனில், `action` objects உடன் reducer pattern பயன்படுத்துங்கள்.
 
-This shopping cart example shows how to handle add and remove with a single reducer:
+இந்த shopping cart example, single reducer மூலம் add மற்றும் remove handle செய்வதை காட்டுகிறது:
 
 <Sandpack>
 
@@ -767,21 +767,21 @@ export default function ShoppingCart({ cart, cartActions }) {
 
   return (
     <div>
-      <h2>Shopping Cart</h2>
+      <h2>கொள்முதல் வண்டி</h2>
       <div style={{ marginBottom: 16 }}>
         <button onClick={() => handleAdd({
           id: 1, name: 'T-Shirt', price: 25
         })}>
-          Add T-Shirt ($25)
+          T-Shirt சேர் ($25)
         </button>{' '}
         <button onClick={() => handleAdd({
           id: 2, name: 'Mug', price: 15
         })}>
-          Add Mug ($15)
+          Mug சேர் ($15)
         </button>
       </div>
       {optimisticCart.length === 0 ? (
-        <p>Your cart is empty</p>
+        <p>உங்கள் cart காலியாக உள்ளது</p>
       ) : (
         <ul>
           {optimisticCart.map(item => (
@@ -793,14 +793,14 @@ export default function ShoppingCart({ cart, cartActions }) {
                 onClick={() => handleRemove(item.id)}
                 style={{ marginLeft: 8 }}
               >
-                Remove
+                நீக்கு
               </button>
               {item.pending && ' ...'}
             </li>
           ))}
         </ul>
       )}
-      <p><strong>Total: ${total}</strong></p>
+      <p><strong>மொத்தம்: ${total}</strong></p>
     </div>
   );
 }
@@ -822,15 +822,15 @@ export async function updateQuantity(id, quantity) {
 
 </Sandpack>
 
-The reducer handles three `action` types (`add`, `remove`, `update_quantity`) and returns the new optimistic state for each. Each `action` sets a `pending: true` flag so you can show visual feedback while the [Server Function](/reference/rsc/server-functions) runs.
+Reducer மூன்று `action` types (`add`, `remove`, `update_quantity`) handle செய்து, ஒவ்வொன்றிற்கும் புதிய optimistic state return செய்கிறது. ஒவ்வொரு `action`-மும் `pending: true` flag set செய்கிறது; இதனால் [Server Function](/reference/rsc/server-functions) run ஆகும்போது visual feedback காட்டலாம்.
 
 ---
 
-### Optimistic delete with error recovery {/*optimistic-delete-with-error-recovery*/}
+### Error recovery உடன் optimistic ஆக நீக்குதல் {/*optimistic-delete-with-error-recovery*/}
 
-When deleting items optimistically, you should handle the case where the Action fails.
+Items-ஐ optimistically delete செய்யும்போது, Action fail ஆகும் சூழலை handle செய்ய வேண்டும்.
 
-This example shows how to display an error message when a delete fails, and the UI automatically rolls back to show the item again.
+Delete fail ஆனால் error message எப்படி display செய்வது, மேலும் UI தானாக rollback ஆகி item-ஐ மீண்டும் காட்டுவது எப்படி என்பதை இந்த example காட்டுகிறது.
 
 <Sandpack>
 
@@ -841,9 +841,9 @@ import ItemList from './ItemList';
 
 export default function App() {
   const [items, setItems] = useState([
-    { id: 1, name: 'Learn React' },
-    { id: 2, name: 'Build an app' },
-    { id: 3, name: 'Deploy to production' },
+    { id: 1, name: 'React கற்றுக்கொள்' },
+    { id: 2, name: 'App ஒன்றை build செய்' },
+    { id: 3, name: 'Production-க்கு deploy செய்' },
   ]);
 
   async function deleteAction(id) {
@@ -886,7 +886,7 @@ export default function ItemList({ items, deleteAction }) {
 
   return (
     <div>
-      <h2>Your Items</h2>
+      <h2>உங்கள் items</h2>
       <ul>
         {optimisticItems.map(item => (
           <li
@@ -903,7 +903,7 @@ export default function ItemList({ items, deleteAction }) {
               disabled={item.deleting}
               style={{ marginLeft: 8 }}
             >
-              {item.deleting ? 'Deleting...' : 'Delete'}
+              {item.deleting ? 'நீக்கப்படுகிறது...' : 'நீக்கு'}
             </button>
           </li>
         ))}
@@ -923,22 +923,22 @@ export async function deleteItem(id) {
   await new Promise((res) => setTimeout(res, 1000));
   // Item 3 always fails to demonstrate error recovery
   if (id === 3) {
-    throw new Error('Cannot delete. Permission denied.');
+    throw new Error('நீக்க முடியாது. Permission denied.');
   }
 }
 ```
 
 </Sandpack>
 
-Try deleting 'Deploy to production'. When the delete fails, the item automatically reappears in the list.
+'Production-க்கு deploy செய்' என்பதை delete செய்து பாருங்கள். Delete fail ஆனதும், item தானாக list-இல் மீண்டும் தோன்றும்.
 
 ---
 
-## Troubleshooting {/*troubleshooting*/}
+## சிக்கல் தீர்த்தல் {/*troubleshooting*/}
 
-### I'm getting an error: "An optimistic state update occurred outside a Transition or Action" {/*an-optimistic-state-update-occurred-outside-a-transition-or-action*/}
+### எனக்கு error வருகிறது: "An optimistic state update occurred outside a Transition or Action" {/*an-optimistic-state-update-occurred-outside-a-transition-or-action*/}
 
-You may see this error:
+இந்த error-ஐ நீங்கள் பார்க்கலாம்:
 
 <ConsoleBlockMulti>
 
@@ -950,7 +950,7 @@ An optimistic state update occurred outside a Transition or Action. To fix, move
 
 </ConsoleBlockMulti>
 
-The optimistic setter function must be called inside `startTransition`:
+Optimistic setter function `startTransition`-க்குள் call செய்யப்பட வேண்டும்:
 
 ```js
 // 🚩 Incorrect: outside a Transition
@@ -974,11 +974,11 @@ function submitAction(formData) {
 }
 ```
 
-When you call the setter outside an Action, the optimistic state will briefly appear and then immediately revert back to the original value. This happens because there's no Transition to "hold" the optimistic state while your Action runs.
+Action-க்கு வெளியே setter call செய்தால், optimistic state சிறிது நேரம் தோன்றி உடனே original value-க்கு திரும்பிவிடும். உங்கள் Action run ஆகும் போது optimistic state-ஐ "hold" செய்ய Transition இல்லாததால் இது நடக்கிறது.
 
-### I'm getting an error: "Cannot update optimistic state while rendering" {/*cannot-update-optimistic-state-while-rendering*/}
+### எனக்கு error வருகிறது: "Cannot update optimistic state while rendering" {/*cannot-update-optimistic-state-while-rendering*/}
 
-You may see this error:
+இந்த error-ஐ நீங்கள் பார்க்கலாம்:
 
 <ConsoleBlockMulti>
 
@@ -990,7 +990,7 @@ Cannot update optimistic state while rendering.
 
 </ConsoleBlockMulti>
 
-This error occurs when you call the optimistic setter during the render phase of a component. You can only call it from event handlers, effects, or other callbacks:
+Component-ன் render phase போது optimistic setter call செய்தால் இந்த error ஏற்படும். Event handlers, effects, அல்லது பிற callbacks-இலிருந்து மட்டுமே அதை call செய்யலாம்:
 
 ```js
 // 🚩 Incorrect: calling during render
@@ -1030,36 +1030,36 @@ function MyComponent({ items }) {
 }
 ```
 
-### My optimistic updates show stale values {/*my-optimistic-updates-show-stale-values*/}
+### என் optimistic updates பழைய values காட்டுகின்றன {/*my-optimistic-updates-show-stale-values*/}
 
-If your optimistic state seems to be based on old data, consider using an updater function or reducer to calculate the optimistic state relative to the current state.
+உங்கள் optimistic state பழைய data அடிப்படையாக இருப்பது போலத் தோன்றினால், current state-க்கு relative ஆக optimistic state calculate செய்ய updater function அல்லது reducer பயன்படுத்தவும்.
 
 ```js
 // May show stale data if state changes during Action
 const [optimistic, setOptimistic] = useOptimistic(count);
-setOptimistic(5);  // Always sets to 5, even if count changed
+setOptimistic(5);  // count மாறினாலும் எப்போதும் 5 ஆக set செய்கிறது
 
 // Better: relative updates handle state changes correctly
 const [optimistic, adjust] = useOptimistic(count, (current, delta) => current + delta);
-adjust(1);  // Always adds 1 to whatever the current count is
+adjust(1);  // தற்போதைய count எதுவாக இருந்தாலும் அதற்கு 1 சேர்க்கிறது
 ```
 
-See [Updating state based on the current state](#updating-state-based-on-current-state) for details.
+விவரங்களுக்கு [தற்போதைய state அடிப்படையில் state update செய்தல்](#updating-state-based-on-current-state) பார்க்கவும்.
 
-### I don't know if my optimistic update is pending {/*i-dont-know-if-my-optimistic-update-is-pending*/}
+### என் optimistic update pending ஆக உள்ளதா என தெரியவில்லை {/*i-dont-know-if-my-optimistic-update-is-pending*/}
 
-To know when `useOptimistic` is pending, you have three options:
+`useOptimistic` எப்போது pending என்பதை அறிய உங்களுக்கு மூன்று options உள்ளன:
 
-1. **Check if `optimisticValue === value`**
+1. **`optimisticValue === value` என check செய்யுங்கள்**
 
 ```js
 const [optimistic, setOptimistic] = useOptimistic(value);
 const isPending = optimistic !== value;
 ```
 
-If the values are not equal, there's a Transition in progress.
+Values equal இல்லை என்றால், Transition ஒன்று நடந்து கொண்டிருக்கிறது.
 
-2. **Add a `useTransition`**
+2. **`useTransition` ஒன்றை சேர்க்கவும்**
 
 ```js
 const [isPending, startTransition] = useTransition();
@@ -1071,9 +1071,9 @@ startTransition(() => {
 })
 ```
 
-Since `useTransition` uses `useOptimistic` for `isPending` under the hood, this is equivalent to option 1.
+`useTransition` உள்ளார்ந்த முறையில் `isPending`-க்கு `useOptimistic` பயன்படுத்துவதால், இது option 1-க்கு சமமானது.
 
-3. **Add a `pending` flag in your reducer**
+3. **உங்கள் reducer-இல் `pending` flag சேர்க்கவும்**
 
 ```js
 const [optimistic, addOptimistic] = useOptimistic(
@@ -1082,4 +1082,4 @@ const [optimistic, addOptimistic] = useOptimistic(
 );
 ```
 
-Since each optimistic item has its own flag, you can show loading state for individual items.
+ஒவ்வொரு optimistic item-க்கும் தனி flag இருப்பதால், individual items-க்கு loading state காட்டலாம்.

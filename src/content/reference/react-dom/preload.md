@@ -4,13 +4,13 @@ title: preload
 
 <Note>
 
-[React-based frameworks](/learn/creating-a-react-app) frequently handle resource loading for you, so you might not have to call this API yourself. Consult your framework's documentation for details.
+[React அடிப்படையிலான frameworks](/learn/creating-a-react-app) பெரும்பாலும் resource loading-ஐ உங்களுக்காக கையாளும்; எனவே இந்த API-ஐ நீங்கள் நேரடியாக call செய்ய வேண்டியிருக்காமல் இருக்கலாம். விவரங்களுக்கு உங்கள் framework-ன் documentation-ஐப் பார்க்கவும்.
 
 </Note>
 
 <Intro>
 
-`preload` lets you eagerly fetch a resource such as a stylesheet, font, or external script that you expect to use.
+நீங்கள் பயன்படுத்துவீர்கள் என்று எதிர்பார்க்கும் stylesheet, font, அல்லது external script போன்ற resource-ஐ முன்கூட்டியே fetch செய்ய `preload` உதவுகிறது.
 
 ```js
 preload("https://example.com/font.woff2", {as: "font"});
@@ -22,11 +22,11 @@ preload("https://example.com/font.woff2", {as: "font"});
 
 ---
 
-## Reference {/*reference*/}
+## குறிப்பு {/*reference*/}
 
 ### `preload(href, options)` {/*preload*/}
 
-To preload a resource, call the `preload` function from `react-dom`.
+ஒரு resource-ஐ preload செய்ய, `react-dom`-இலிருந்து `preload` function-ஐ call செய்யுங்கள்.
 
 ```js
 import { preload } from 'react-dom';
@@ -38,47 +38,47 @@ function AppRoot() {
 
 ```
 
-[See more examples below.](#usage)
+[மேலும் உதாரணங்களை கீழே பார்க்கவும்.](#usage)
 
-The `preload` function provides the browser with a hint that it should start downloading the given resource, which can save time.
+கொடுக்கப்பட்ட resource-ஐ download செய்யத் தொடங்க வேண்டும் என்ற hint-ஐ `preload` function browser-க்கு வழங்குகிறது; இதனால் நேரம் சேமிக்கலாம்.
 
 #### Parameters {/*parameters*/}
 
-* `href`: a string. The URL of the resource you want to download.
-* `options`: an object. It contains the following properties:
-  *  `as`: a required string. The type of resource. Its [possible values](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link#as) are `audio`, `document`, `embed`, `fetch`, `font`, `image`, `object`, `script`, `style`, `track`, `video`, `worker`.
-  *  `crossOrigin`: a string. The [CORS policy](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/crossorigin) to use. Its possible values are `anonymous` and `use-credentials`. It is required when `as` is set to `"fetch"`.
-  *  `referrerPolicy`: a string. The [Referrer header](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link#referrerpolicy) to send when fetching. Its possible values are `no-referrer-when-downgrade` (the default), `no-referrer`, `origin`, `origin-when-cross-origin`, and `unsafe-url`.
-  *  `integrity`: a string. A cryptographic hash of the resource, to [verify its authenticity](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity).
-  *  `type`: a string. The MIME type of the resource.
-  *  `nonce`: a string. A cryptographic [nonce to allow the resource](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/nonce) when using a strict Content Security Policy.
-  *  `fetchPriority`: a string. Suggests a relative priority for fetching the resource. The possible values are `auto` (the default), `high`, and `low`.
-  *  `imageSrcSet`: a string. For use only with `as: "image"`. Specifies the [source set of the image](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images).
-  *  `imageSizes`: a string. For use only with `as: "image"`. Specifies the [sizes of the image](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images).
+* `href`: ஒரு string. நீங்கள் download செய்ய விரும்பும் resource-ன் URL.
+* `options`: ஒரு object. இதில் பின்வரும் properties உள்ளன:
+  *  `as`: தேவைப்படும் string. Resource-ன் வகை. இதன் [சாத்தியமான values](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link#as): `audio`, `document`, `embed`, `fetch`, `font`, `image`, `object`, `script`, `style`, `track`, `video`, `worker`.
+  *  `crossOrigin`: ஒரு string. பயன்படுத்த வேண்டிய [CORS policy](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/crossorigin). இதன் சாத்தியமான values `anonymous` மற்றும் `use-credentials`. `as` `"fetch"` ஆக அமைக்கப்பட்டால் இது தேவைப்படும்.
+  *  `referrerPolicy`: ஒரு string. Fetch செய்யும்போது அனுப்ப வேண்டிய [Referrer header](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link#referrerpolicy). இதன் சாத்தியமான values `no-referrer-when-downgrade` (default), `no-referrer`, `origin`, `origin-when-cross-origin`, மற்றும் `unsafe-url`.
+  *  `integrity`: ஒரு string. Resource-ன் authenticity-ஐ [verify செய்ய](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity) பயன்படும் cryptographic hash.
+  *  `type`: ஒரு string. Resource-ன் MIME type.
+  *  `nonce`: ஒரு string. Strict Content Security Policy பயன்படுத்தும்போது resource-ஐ அனுமதிக்க cryptographic [nonce](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/nonce).
+  *  `fetchPriority`: ஒரு string. Resource-ஐ fetch செய்ய relative priority-ஐ suggest செய்கிறது. சாத்தியமான values `auto` (default), `high`, மற்றும் `low`.
+  *  `imageSrcSet`: ஒரு string. `as: "image"` உடன் மட்டும் பயன்படும். [Image-ன் source set](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images)-ஐ குறிப்பிடுகிறது.
+  *  `imageSizes`: ஒரு string. `as: "image"` உடன் மட்டும் பயன்படும். [Image-ன் sizes](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images)-ஐ குறிப்பிடுகிறது.
 
 #### Returns {/*returns*/}
 
-`preload` returns nothing.
+`preload` எதையும் return செய்யாது.
 
 #### Caveats {/*caveats*/}
 
-* Multiple equivalent calls to `preload` have the same effect as a single call. Calls to `preload` are considered equivalent according to the following rules:
-  * Two calls are equivalent if they have the same `href`, except:
-  * If `as` is set to `image`, two calls are equivalent if they have the same `href`, `imageSrcSet`, and `imageSizes`.
-* In the browser, you can call `preload` in any situation: while rendering a component, in an Effect, in an event handler, and so on.
-* In server-side rendering or when rendering Server Components, `preload` only has an effect if you call it while rendering a component or in an async context originating from rendering a component. Any other calls will be ignored.
+* `preload`-க்கு செய்யப்படும் பல equivalent calls, ஒரே call போலவே விளைவு தரும். பின்வரும் rules அடிப்படையில் `preload` calls equivalent எனக் கருதப்படும்:
+  * அவற்றுக்கு அதே `href` இருந்தால் இரண்டு calls equivalent; ஆனால்:
+  * `as` `image` ஆக அமைக்கப்பட்டால், அதே `href`, `imageSrcSet`, மற்றும் `imageSizes` இருந்தால் இரண்டு calls equivalent.
+* Browser-இல், எந்த சூழலிலும் `preload`-ஐ call செய்யலாம்: component render ஆகும்போது, Effect-இல், event handler-இல், போன்றவை.
+* Server-side rendering-இல் அல்லது Server Components render செய்யும்போது, ஒரு component render ஆகும்போது அல்லது component render-இலிருந்து உருவான async context-இல் call செய்தால் மட்டுமே `preload` விளைவு தரும். மற்ற calls அனைத்தும் புறக்கணிக்கப்படும்.
 
 ---
 
-## Usage {/*usage*/}
+## பயன்பாடு {/*usage*/}
 
-### Preloading when rendering {/*preloading-when-rendering*/}
+### Rendering நேரத்தில் preloading {/*preloading-when-rendering*/}
 
-Call `preload` when rendering a component if you know that it or its children will use a specific resource.
+ஒரு component அல்லது அதன் children குறிப்பிட்ட resource-ஐப் பயன்படுத்தும் என்று தெரிந்தால், அந்த component render ஆகும்போது `preload`-ஐ call செய்யுங்கள்.
 
-<Recipes titleText="Examples of preloading">
+<Recipes titleText="Preloading உதாரணங்கள்">
 
-#### Preloading an external script {/*preloading-an-external-script*/}
+#### External script-ஐ preload செய்தல் {/*preloading-an-external-script*/}
 
 ```js
 import { preload } from 'react-dom';
@@ -89,11 +89,11 @@ function AppRoot() {
 }
 ```
 
-If you want the browser to start executing the script immediately (rather than just downloading it), use [`preinit`](/reference/react-dom/preinit) instead. If you want to load an ESM module, use [`preloadModule`](/reference/react-dom/preloadModule).
+Browser script-ஐ download செய்வதோடு மட்டும் இல்லாமல் உடனே execute செய்யத் தொடங்க வேண்டும் என்றால், அதற்கு பதிலாக [`preinit`](/reference/react-dom/preinit)-ஐப் பயன்படுத்துங்கள். ESM module load செய்ய விரும்பினால், [`preloadModule`](/reference/react-dom/preloadModule)-ஐப் பயன்படுத்துங்கள்.
 
 <Solution />
 
-#### Preloading a stylesheet {/*preloading-a-stylesheet*/}
+#### Stylesheet-ஐ preload செய்தல் {/*preloading-a-stylesheet*/}
 
 ```js
 import { preload } from 'react-dom';
@@ -104,11 +104,11 @@ function AppRoot() {
 }
 ```
 
-If you want the stylesheet to be inserted into the document immediately (which means the browser will start parsing it immediately rather than just downloading it), use [`preinit`](/reference/react-dom/preinit) instead.
+Stylesheet document-இல் உடனே insert செய்யப்பட வேண்டும் என்றால் (அதாவது browser அதை download செய்வதோடு மட்டும் இல்லாமல் உடனே parse செய்யத் தொடங்கும்), அதற்கு பதிலாக [`preinit`](/reference/react-dom/preinit)-ஐப் பயன்படுத்துங்கள்.
 
 <Solution />
 
-#### Preloading a font {/*preloading-a-font*/}
+#### Font-ஐ preload செய்தல் {/*preloading-a-font*/}
 
 ```js
 import { preload } from 'react-dom';
@@ -120,11 +120,11 @@ function AppRoot() {
 }
 ```
 
-If you preload a stylesheet, it's smart to also preload any fonts that the stylesheet refers to. That way, the browser can start downloading the font before it's downloaded and parsed the stylesheet.
+ஒரு stylesheet-ஐ preload செய்தால், அந்த stylesheet refer செய்யும் fonts-ஐயும் preload செய்வது நல்லது. அப்படிச் செய்தால், stylesheet download ஆகி parse செய்யப்படுவதற்கு முன்பே browser font-ஐ download செய்யத் தொடங்கலாம்.
 
 <Solution />
 
-#### Preloading an image {/*preloading-an-image*/}
+#### Image-ஐ preload செய்தல் {/*preloading-an-image*/}
 
 ```js
 import { preload } from 'react-dom';
@@ -139,15 +139,15 @@ function AppRoot() {
 }
 ```
 
-When preloading an image, the `imageSrcSet` and `imageSizes` options help the browser [fetch the correctly sized image for the size of the screen](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images).
+Image preload செய்யும்போது, screen அளவுக்கு [சரியான அளவுள்ள image-ஐ fetch செய்ய](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images) `imageSrcSet` மற்றும் `imageSizes` options browser-க்கு உதவுகின்றன.
 
 <Solution />
 
 </Recipes>
 
-### Preloading in an event handler {/*preloading-in-an-event-handler*/}
+### Event handler-இல் preloading {/*preloading-in-an-event-handler*/}
 
-Call `preload` in an event handler before transitioning to a page or state where external resources will be needed. This gets the process started earlier than if you call it during the rendering of the new page or state.
+External resources தேவைப்படும் page அல்லது state-க்கு transition ஆகும் முன் event handler-இல் `preload`-ஐ call செய்யுங்கள். புதிய page அல்லது state render ஆகும் போது call செய்வதைவிட, இது process-ஐ முன்னதாகத் தொடங்க வைக்கிறது.
 
 ```js
 import { preload } from 'react-dom';

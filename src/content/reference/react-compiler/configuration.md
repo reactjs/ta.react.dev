@@ -4,13 +4,13 @@ title: Configuration
 
 <Intro>
 
-This page lists all configuration options available in React Compiler.
+இந்தப் பக்கம் React Compiler-இல் கிடைக்கும் அனைத்து configuration options-ஐ பட்டியலிடுகிறது.
 
 </Intro>
 
 <Note>
 
-For most apps, the default options should work out of the box. If you have a special need, you can use these advanced options.
+பெரும்பாலான apps-க்கு default options எந்த கூடுதல் அமைப்புமின்றி வேலை செய்ய வேண்டும். உங்களுக்கு சிறப்பு தேவை இருந்தால், இந்த advanced options-ஐப் பயன்படுத்தலாம்.
 
 </Note>
 
@@ -29,45 +29,45 @@ module.exports = {
 
 ---
 
-## Compilation Control {/*compilation-control*/}
+## Compilation கட்டுப்பாடு {/*compilation-control*/}
 
-These options control *what* the compiler optimizes and *how* it selects components and hooks to compile.
+Compiler *எதை* optimize செய்கிறது மற்றும் compile செய்ய வேண்டிய components, hooks-ஐ *எப்படி* தேர்வு செய்கிறது என்பதை இந்த options கட்டுப்படுத்துகின்றன.
 
-* [`compilationMode`](/reference/react-compiler/compilationMode) controls the strategy for selecting functions to compile (e.g., all functions, only annotated ones, or intelligent detection).
+* [`compilationMode`](/reference/react-compiler/compilationMode) compile செய்ய வேண்டிய functions-ஐத் தேர்வு செய்யும் strategy-ஐ கட்டுப்படுத்துகிறது (எ.கா. அனைத்து functions, annotated functions மட்டும், அல்லது intelligent detection).
 
 ```js
 {
-  compilationMode: 'annotation' // Only compile "use memo" functions
+  compilationMode: 'annotation' // "use memo" functions மட்டும் compile செய்யவும்
 }
 ```
 
 ---
 
-## Version Compatibility {/*version-compatibility*/}
+## Version compatibility {/*version-compatibility*/}
 
-React version configuration ensures the compiler generates code compatible with your React version.
+React version configuration, compiler உங்கள் React version-க்கு compatible ஆன code-ஐ உருவாக்குவதை உறுதிசெய்கிறது.
 
-[`target`](/reference/react-compiler/target) specifies which React version you're using (17, 18, or 19).
+நீங்கள் எந்த React version-ஐப் பயன்படுத்துகிறீர்கள் (17, 18, அல்லது 19) என்பதை [`target`](/reference/react-compiler/target) குறிப்பிடுகிறது.
 
 ```js
 // For React 18 projects
 {
-  target: '18' // Also requires react-compiler-runtime package
+  target: '18' // react-compiler-runtime package-உம் தேவை
 }
 ```
 
 ---
 
-## Error Handling {/*error-handling*/}
+## Error handling {/*error-handling*/}
 
-These options control how the compiler responds to code that doesn't follow the [Rules of React](/reference/rules).
+[Rules of React](/reference/rules)-ஐப் பின்பற்றாத code-க்கு compiler எவ்வாறு பதிலளிக்க வேண்டும் என்பதை இந்த options கட்டுப்படுத்துகின்றன.
 
-[`panicThreshold`](/reference/react-compiler/panicThreshold) determines whether to fail the build or skip problematic components.
+Build-ஐ fail செய்ய வேண்டுமா அல்லது பிரச்சினையான components-ஐ skip செய்ய வேண்டுமா என்பதை [`panicThreshold`](/reference/react-compiler/panicThreshold) தீர்மானிக்கிறது.
 
 ```js
 // Recommended for production
 {
-  panicThreshold: 'none' // Skip components with errors instead of failing the build
+  panicThreshold: 'none' // Build-ஐ fail செய்யாமல் errors உள்ள components-ஐ skip செய்யவும்
 }
 ```
 
@@ -75,9 +75,9 @@ These options control how the compiler responds to code that doesn't follow the 
 
 ## Debugging {/*debugging*/}
 
-Logging and analysis options help you understand what the compiler is doing.
+Compiler என்ன செய்கிறது என்பதைப் புரிந்துகொள்ள logging மற்றும் analysis options உதவுகின்றன.
 
-[`logger`](/reference/react-compiler/logger) provides custom logging for compilation events.
+Compilation events-க்கு [`logger`](/reference/react-compiler/logger) custom logging வழங்குகிறது.
 
 ```js
 {
@@ -93,11 +93,11 @@ Logging and analysis options help you understand what the compiler is doing.
 
 ---
 
-## Feature Flags {/*feature-flags*/}
+## Feature flags {/*feature-flags*/}
 
-Conditional compilation lets you control when optimized code is used.
+Optimized code எப்போது பயன்படுத்தப்பட வேண்டும் என்பதை conditional compilation மூலம் கட்டுப்படுத்தலாம்.
 
-[`gating`](/reference/react-compiler/gating) enables runtime feature flags for A/B testing or gradual rollouts.
+A/B testing அல்லது gradual rollouts-க்கு [`gating`](/reference/react-compiler/gating) runtime feature flags-ஐ enable செய்கிறது.
 
 ```js
 {
@@ -110,11 +110,11 @@ Conditional compilation lets you control when optimized code is used.
 
 ---
 
-## Common Configuration Patterns {/*common-patterns*/}
+## பொதுவான configuration patterns {/*common-patterns*/}
 
 ### Default configuration {/*default-configuration*/}
 
-For most React 19 applications, the compiler works without configuration:
+பெரும்பாலான React 19 applications-இல் compiler configuration இல்லாமலே வேலை செய்கிறது:
 
 ```js
 // babel.config.js
@@ -127,7 +127,7 @@ module.exports = {
 
 ### React 17/18 projects {/*react-17-18*/}
 
-Older React versions need the runtime package and target configuration:
+பழைய React versions-க்கு runtime package மற்றும் target configuration தேவை:
 
 ```bash
 npm install react-compiler-runtime@latest
@@ -135,17 +135,16 @@ npm install react-compiler-runtime@latest
 
 ```js
 {
-  target: '18' // or '17'
+  target: '18' // அல்லது '17'
 }
 ```
 
-### Incremental adoption {/*incremental-adoption*/}
+### படிப்படியான adoption {/*incremental-adoption*/}
 
-Start with specific directories and expand gradually:
+குறிப்பிட்ட directories-இல் தொடங்கி, படிப்படியாக விரிவாக்குங்கள்:
 
 ```js
 {
-  compilationMode: 'annotation' // Only compile "use memo" functions
+  compilationMode: 'annotation' // "use memo" functions மட்டும் compile செய்யவும்
 }
 ```
-

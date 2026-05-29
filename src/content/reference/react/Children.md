@@ -4,13 +4,13 @@ title: Children
 
 <Pitfall>
 
-Using `Children` is uncommon and can lead to fragile code. [See common alternatives.](#alternatives)
+`Children` பயன்படுத்துவது அரிதானது, மேலும் fragile code-க்கு வழிவகுக்கலாம். [பொதுவான alternatives-ஐப் பார்க்கவும்.](#alternatives)
 
 </Pitfall>
 
 <Intro>
 
-`Children` lets you manipulate and transform the JSX you received as the [`children` prop.](/learn/passing-props-to-a-component#passing-jsx-as-children)
+[`children` prop](/learn/passing-props-to-a-component#passing-jsx-as-children) ஆக நீங்கள் பெற்ற JSX-ஐ manipulate செய்து transform செய்ய `Children` உதவுகிறது.
 
 ```js
 const mappedChildren = Children.map(children, child =>
@@ -27,11 +27,11 @@ const mappedChildren = Children.map(children, child =>
 
 ---
 
-## Reference {/*reference*/}
+## குறிப்பு {/*reference*/}
 
 ### `Children.count(children)` {/*children-count*/}
 
-Call `Children.count(children)` to count the number of children in the `children` data structure.
+`children` data structure-இல் உள்ள children எண்ணிக்கையை count செய்ய `Children.count(children)`-ஐ call செய்யுங்கள்.
 
 ```js src/RowList.js active
 import { Children } from 'react';
@@ -39,32 +39,32 @@ import { Children } from 'react';
 function RowList({ children }) {
   return (
     <>
-      <h1>Total rows: {Children.count(children)}</h1>
+      <h1>மொத்த rows: {Children.count(children)}</h1>
       ...
     </>
   );
 }
 ```
 
-[See more examples below.](#counting-children)
+[கீழே மேலும் examples பார்க்கவும்.](#counting-children)
 
-#### Parameters {/*children-count-parameters*/}
+#### அளவுருக்கள் {/*children-count-parameters*/}
 
-* `children`: The value of the [`children` prop](/learn/passing-props-to-a-component#passing-jsx-as-children) received by your component.
+* `children`: உங்கள் component பெற்ற [`children` prop](/learn/passing-props-to-a-component#passing-jsx-as-children)-ன் value.
 
-#### Returns {/*children-count-returns*/}
+#### திருப்பி அளிப்பது {/*children-count-returns*/}
 
-The number of nodes inside these `children`.
+இந்த `children`-க்குள் உள்ள nodes எண்ணிக்கை.
 
-#### Caveats {/*children-count-caveats*/}
+#### கவனிக்க வேண்டியவை {/*children-count-caveats*/}
 
-- Empty nodes (`null`, `undefined`, and Booleans), strings, numbers, and [React elements](/reference/react/createElement) count as individual nodes. Arrays don't count as individual nodes, but their children do. **The traversal does not go deeper than React elements:** they don't get rendered, and their children aren't traversed. [Fragments](/reference/react/Fragment) don't get traversed.
+- Empty nodes (`null`, `undefined`, மற்றும் Booleans), strings, numbers, மற்றும் [React elements](/reference/react/createElement) ஒவ்வொன்றும் தனித்தனி nodes ஆக count செய்யப்படும். Arrays தனித்தனி nodes ஆக count செய்யப்படாது, ஆனால் அவற்றின் children count செய்யப்படும். **Traversal React elements-ஐ விட ஆழமாக செல்லாது:** அவை render செய்யப்படாது, அவற்றின் children traverse செய்யப்படாது. [Fragments](/reference/react/Fragment) traverse செய்யப்படாது.
 
 ---
 
 ### `Children.forEach(children, fn, thisArg?)` {/*children-foreach*/}
 
-Call `Children.forEach(children, fn, thisArg?)` to run some code for each child in the `children` data structure.
+`children` data structure-இல் உள்ள ஒவ்வொரு child-க்கும் சில code run செய்ய `Children.forEach(children, fn, thisArg?)`-ஐ call செய்யுங்கள்.
 
 ```js src/RowList.js active
 import { Children } from 'react';
@@ -78,27 +78,27 @@ function SeparatorList({ children }) {
   // ...
 ```
 
-[See more examples below.](#running-some-code-for-each-child)
+[கீழே மேலும் examples பார்க்கவும்.](#running-some-code-for-each-child)
 
-#### Parameters {/*children-foreach-parameters*/}
+#### அளவுருக்கள் {/*children-foreach-parameters*/}
 
-* `children`: The value of the [`children` prop](/learn/passing-props-to-a-component#passing-jsx-as-children) received by your component.
-* `fn`: The function you want to run for each child, similar to the [array `forEach` method](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach) callback. It will be called with the child as the first argument and its index as the second argument. The index starts at `0` and increments on each call.
-* **optional** `thisArg`: The [`this` value](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this) with which the `fn` function should be called. If omitted, it's `undefined`.
+* `children`: உங்கள் component பெற்ற [`children` prop](/learn/passing-props-to-a-component#passing-jsx-as-children)-ன் value.
+* `fn`: ஒவ்வொரு child-க்கும் run செய்ய விரும்பும் function; [array `forEach` method](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach) callback போல. இது child-ஐ first argument ஆகவும் அதன் index-ஐ second argument ஆகவும் கொண்டு call செய்யப்படும். Index `0`-இல் தொடங்கி ஒவ்வொரு call-இலும் increment ஆகும்.
+* **optional** `thisArg`: `fn` function call செய்யப்பட வேண்டிய [`this` value](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this). Omit செய்தால், அது `undefined`.
 
-#### Returns {/*children-foreach-returns*/}
+#### திருப்பி அளிப்பது {/*children-foreach-returns*/}
 
-`Children.forEach` returns `undefined`.
+`Children.forEach` `undefined` return செய்கிறது.
 
-#### Caveats {/*children-foreach-caveats*/}
+#### கவனிக்க வேண்டியவை {/*children-foreach-caveats*/}
 
-- Empty nodes (`null`, `undefined`, and Booleans), strings, numbers, and [React elements](/reference/react/createElement) count as individual nodes. Arrays don't count as individual nodes, but their children do. **The traversal does not go deeper than React elements:** they don't get rendered, and their children aren't traversed. [Fragments](/reference/react/Fragment) don't get traversed.
+- Empty nodes (`null`, `undefined`, மற்றும் Booleans), strings, numbers, மற்றும் [React elements](/reference/react/createElement) ஒவ்வொன்றும் தனித்தனி nodes ஆக count செய்யப்படும். Arrays தனித்தனி nodes ஆக count செய்யப்படாது, ஆனால் அவற்றின் children count செய்யப்படும். **Traversal React elements-ஐ விட ஆழமாக செல்லாது:** அவை render செய்யப்படாது, அவற்றின் children traverse செய்யப்படாது. [Fragments](/reference/react/Fragment) traverse செய்யப்படாது.
 
 ---
 
 ### `Children.map(children, fn, thisArg?)` {/*children-map*/}
 
-Call `Children.map(children, fn, thisArg?)` to map or transform each child in the `children` data structure.
+`children` data structure-இல் உள்ள ஒவ்வொரு child-ஐ map செய்ய அல்லது transform செய்ய `Children.map(children, fn, thisArg?)`-ஐ call செய்யுங்கள்.
 
 ```js src/RowList.js active
 import { Children } from 'react';
@@ -116,32 +116,32 @@ function RowList({ children }) {
 }
 ```
 
-[See more examples below.](#transforming-children)
+[கீழே மேலும் examples பார்க்கவும்.](#transforming-children)
 
-#### Parameters {/*children-map-parameters*/}
+#### அளவுருக்கள் {/*children-map-parameters*/}
 
-* `children`: The value of the [`children` prop](/learn/passing-props-to-a-component#passing-jsx-as-children) received by your component.
-* `fn`: The mapping function, similar to the [array `map` method](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) callback. It will be called with the child as the first argument and its index as the second argument. The index starts at `0` and increments on each call. You need to return a React node from this function. This may be an empty node (`null`, `undefined`, or a Boolean), a string, a number, a React element, or an array of other React nodes.
-* **optional** `thisArg`: The [`this` value](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this) with which the `fn` function should be called. If omitted, it's `undefined`.
+* `children`: உங்கள் component பெற்ற [`children` prop](/learn/passing-props-to-a-component#passing-jsx-as-children)-ன் value.
+* `fn`: [array `map` method](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) callback போல இருக்கும் mapping function. இது child-ஐ first argument ஆகவும் அதன் index-ஐ second argument ஆகவும் கொண்டு call செய்யப்படும். Index `0`-இல் தொடங்கி ஒவ்வொரு call-இலும் increment ஆகும். இந்த function-இலிருந்து React node ஒன்றை return செய்ய வேண்டும். அது empty node (`null`, `undefined`, அல்லது Boolean), string, number, React element, அல்லது மற்ற React nodes-ன் array ஆக இருக்கலாம்.
+* **optional** `thisArg`: `fn` function call செய்யப்பட வேண்டிய [`this` value](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this). Omit செய்தால், அது `undefined`.
 
-#### Returns {/*children-map-returns*/}
+#### திருப்பி அளிப்பது {/*children-map-returns*/}
 
-If `children` is `null` or `undefined`, returns the same value.
+`children` `null` அல்லது `undefined` ஆக இருந்தால், அதே value-ஐ return செய்கிறது.
 
-Otherwise, returns a flat array consisting of the nodes you've returned from the `fn` function. The returned array will contain all nodes you returned except for `null` and `undefined`.
+இல்லையெனில், `fn` function-இலிருந்து நீங்கள் return செய்த nodes கொண்ட flat array ஒன்றை return செய்கிறது. Returned array-இல் நீங்கள் return செய்த அனைத்து nodes-உம் இருக்கும்; `null` மற்றும் `undefined` மட்டும் இருக்காது.
 
-#### Caveats {/*children-map-caveats*/}
+#### கவனிக்க வேண்டியவை {/*children-map-caveats*/}
 
-- Empty nodes (`null`, `undefined`, and Booleans), strings, numbers, and [React elements](/reference/react/createElement) count as individual nodes. Arrays don't count as individual nodes, but their children do. **The traversal does not go deeper than React elements:** they don't get rendered, and their children aren't traversed. [Fragments](/reference/react/Fragment) don't get traversed.
+- Empty nodes (`null`, `undefined`, மற்றும் Booleans), strings, numbers, மற்றும் [React elements](/reference/react/createElement) ஒவ்வொன்றும் தனித்தனி nodes ஆக count செய்யப்படும். Arrays தனித்தனி nodes ஆக count செய்யப்படாது, ஆனால் அவற்றின் children count செய்யப்படும். **Traversal React elements-ஐ விட ஆழமாக செல்லாது:** அவை render செய்யப்படாது, அவற்றின் children traverse செய்யப்படாது. [Fragments](/reference/react/Fragment) traverse செய்யப்படாது.
 
-- If you return an element or an array of elements with keys from `fn`, **the returned elements' keys will be automatically combined with the key of the corresponding original item from `children`.** When you return multiple elements from `fn` in an array, their keys only need to be unique locally amongst each other.
+- `fn`-இலிருந்து keys உடன் element அல்லது elements array ஒன்றை return செய்தால், **returned elements-ன் keys, `children`-இல் உள்ள corresponding original item-ன் key-உடன் தானாக combine செய்யப்படும்.** `fn`-இலிருந்து ஒரு array-இல் பல elements return செய்யும்போது, அவற்றின் keys அவற்றுக்கிடையே உள்ளூர் அளவில் unique ஆக இருந்தால் போதும்.
 
 ---
 
 ### `Children.only(children)` {/*children-only*/}
 
 
-Call `Children.only(children)` to assert that `children` represent a single React element.
+`children` ஒரு single React element-ஐ represent செய்கிறது என்பதை assert செய்ய `Children.only(children)`-ஐ call செய்யுங்கள்.
 
 ```js
 function Box({ children }) {
@@ -149,25 +149,25 @@ function Box({ children }) {
   // ...
 ```
 
-#### Parameters {/*children-only-parameters*/}
+#### அளவுருக்கள் {/*children-only-parameters*/}
 
-* `children`: The value of the [`children` prop](/learn/passing-props-to-a-component#passing-jsx-as-children) received by your component.
+* `children`: உங்கள் component பெற்ற [`children` prop](/learn/passing-props-to-a-component#passing-jsx-as-children)-ன் value.
 
-#### Returns {/*children-only-returns*/}
+#### திருப்பி அளிப்பது {/*children-only-returns*/}
 
-If `children` [is a valid element,](/reference/react/isValidElement) returns that element.
+`children` [valid element ஆக இருந்தால்,](/reference/react/isValidElement) அந்த element-ஐ return செய்கிறது.
 
-Otherwise, throws an error.
+இல்லையெனில், error throw செய்கிறது.
 
-#### Caveats {/*children-only-caveats*/}
+#### கவனிக்க வேண்டியவை {/*children-only-caveats*/}
 
-- This method always **throws if you pass an array (such as the return value of `Children.map`) as `children`.** In other words, it enforces that `children` is a single React element, not that it's an array with a single element.
+- இந்த method **array ஒன்றை (`Children.map`-ன் return value போன்றது) `children` ஆக pass செய்தால் எப்போதும் throw செய்யும்.** வேறு வார்த்தைகளில் சொன்னால், `children` single React element ஆக இருக்க வேண்டும் என்பதையே இது enforce செய்கிறது; single element கொண்ட array ஆக இருக்க வேண்டும் என்பதல்ல.
 
 ---
 
 ### `Children.toArray(children)` {/*children-toarray*/}
 
-Call `Children.toArray(children)` to create an array out of the `children` data structure.
+`children` data structure-இலிருந்து array ஒன்றை உருவாக்க `Children.toArray(children)`-ஐ call செய்யுங்கள்.
 
 ```js src/ReversedList.js active
 import { Children } from 'react';
@@ -178,25 +178,25 @@ export default function ReversedList({ children }) {
   // ...
 ```
 
-#### Parameters {/*children-toarray-parameters*/}
+#### அளவுருக்கள் {/*children-toarray-parameters*/}
 
-* `children`: The value of the [`children` prop](/learn/passing-props-to-a-component#passing-jsx-as-children) received by your component.
+* `children`: உங்கள் component பெற்ற [`children` prop](/learn/passing-props-to-a-component#passing-jsx-as-children)-ன் value.
 
-#### Returns {/*children-toarray-returns*/}
+#### திருப்பி அளிப்பது {/*children-toarray-returns*/}
 
-Returns a flat array of elements in `children`.
+`children`-இல் உள்ள elements-ன் flat array-ஐ return செய்கிறது.
 
-#### Caveats {/*children-toarray-caveats*/}
+#### கவனிக்க வேண்டியவை {/*children-toarray-caveats*/}
 
-- Empty nodes (`null`, `undefined`, and Booleans) will be omitted in the returned array. **The returned elements' keys will be calculated from the original elements' keys and their level of nesting and position.** This ensures that flattening the array does not introduce changes in behavior.
+- Empty nodes (`null`, `undefined`, மற்றும் Booleans) returned array-இல் விடப்படும். **Returned elements-ன் keys, original elements-ன் keys மற்றும் அவற்றின் nesting level மற்றும் position அடிப்படையில் calculate செய்யப்படும்.** இதனால் array-ஐ flatten செய்வது behavior-இல் changes கொண்டு வராது.
 
 ---
 
-## Usage {/*usage*/}
+## பயன்பாடு {/*usage*/}
 
-### Transforming children {/*transforming-children*/}
+### Children-ஐ transform செய்தல் {/*transforming-children*/}
 
-To transform the children JSX that your component [receives as the `children` prop,](/learn/passing-props-to-a-component#passing-jsx-as-children) call `Children.map`:
+உங்கள் component [`children` prop ஆக receive செய்யும்](/learn/passing-props-to-a-component#passing-jsx-as-children) children JSX-ஐ transform செய்ய, `Children.map`-ஐ call செய்யுங்கள்:
 
 ```js {6,10}
 import { Children } from 'react';
@@ -214,33 +214,33 @@ function RowList({ children }) {
 }
 ```
 
-In the example above, the `RowList` wraps every child it receives into a `<div className="Row">` container. For example, let's say the parent component passes three `<p>` tags as the `children` prop to `RowList`:
+மேலுள்ள example-இல், `RowList` அது receive செய்யும் ஒவ்வொரு child-ஐயும் `<div className="Row">` container-க்குள் wrap செய்கிறது. உதாரணமாக, parent component மூன்று `<p>` tags-ஐ `children` prop ஆக `RowList`-க்கு pass செய்கிறது என்று வைத்துக் கொள்ளுங்கள்:
 
 ```js
 <RowList>
-  <p>This is the first item.</p>
-  <p>This is the second item.</p>
-  <p>This is the third item.</p>
+  <p>இது முதல் உருப்படி.</p>
+  <p>இது இரண்டாவது உருப்படி.</p>
+  <p>இது மூன்றாவது உருப்படி.</p>
 </RowList>
 ```
 
-Then, with the `RowList` implementation above, the final rendered result will look like this:
+பிறகு, மேலுள்ள `RowList` implementation உடன், இறுதி rendered result இதுபோல் இருக்கும்:
 
 ```js
 <div className="RowList">
   <div className="Row">
-    <p>This is the first item.</p>
+    <p>இது முதல் உருப்படி.</p>
   </div>
   <div className="Row">
-    <p>This is the second item.</p>
+    <p>இது இரண்டாவது உருப்படி.</p>
   </div>
   <div className="Row">
-    <p>This is the third item.</p>
+    <p>இது மூன்றாவது உருப்படி.</p>
   </div>
 </div>
 ```
 
-`Children.map` is similar to [to transforming arrays with `map()`.](/learn/rendering-lists) The difference is that the `children` data structure is considered *opaque.* This means that even if it's sometimes an array, you should not assume it's an array or any other particular data type. This is why you should use `Children.map` if you need to transform it.
+`Children.map` [arrays-ஐ `map()` மூலம் transform செய்வதற்கு](/learn/rendering-lists) ஒத்தது. வேறுபாடு என்னவெனில், `children` data structure *opaque* என்று கருதப்படுகிறது. இதன் பொருள் அது சில நேரங்களில் array ஆக இருந்தாலும், அது array அல்லது வேறு குறிப்பிட்ட data type என்று நீங்கள் assume செய்யக்கூடாது. அதனால் அதை transform செய்ய வேண்டுமானால் `Children.map` பயன்படுத்த வேண்டும்.
 
 <Sandpack>
 
@@ -250,9 +250,9 @@ import RowList from './RowList.js';
 export default function App() {
   return (
     <RowList>
-      <p>This is the first item.</p>
-      <p>This is the second item.</p>
-      <p>This is the third item.</p>
+      <p>இது முதல் உருப்படி.</p>
+      <p>இது இரண்டாவது உருப்படி.</p>
+      <p>இது மூன்றாவது உருப்படி.</p>
     </RowList>
   );
 }
@@ -293,24 +293,24 @@ export default function RowList({ children }) {
 
 <DeepDive>
 
-#### Why is the children prop not always an array? {/*why-is-the-children-prop-not-always-an-array*/}
+#### children prop எப்போதும் array ஆக இல்லாதது ஏன்? {/*why-is-the-children-prop-not-always-an-array*/}
 
-In React, the `children` prop is considered an *opaque* data structure. This means that you shouldn't rely on how it is structured. To transform, filter, or count children, you should use the `Children` methods.
+React-இல், `children` prop ஒரு *opaque* data structure ஆக கருதப்படுகிறது. இதன் structure எப்படி உள்ளது என்பதை நீங்கள் சார்ந்திருக்கக் கூடாது. Children-ஐ transform செய்ய, filter செய்ய, அல்லது count செய்ய, `Children` methods-ஐ பயன்படுத்த வேண்டும்.
 
-In practice, the `children` data structure is often represented as an array internally. However, if there is only a single child, then React won't create an extra array since this would lead to unnecessary memory overhead. As long as you use the `Children` methods instead of directly introspecting the `children` prop, your code will not break even if React changes how the data structure is actually implemented.
+நடைமுறையில், `children` data structure உள்ளார்ந்தவாறு பெரும்பாலும் array ஆக represent செய்யப்படுகிறது. ஆனால் single child மட்டும் இருந்தால், unnecessary memory overhead ஏற்படும் என்பதால் React கூடுதல் array உருவாக்காது. `children` prop-ஐ நேரடியாக introspect செய்வதற்கு பதிலாக `Children` methods-ஐ பயன்படுத்தும் வரை, React data structure உண்மையில் எப்படி implement செய்யப்படுகிறது என்பதை மாற்றினாலும் உங்கள் code உடையாது.
 
-Even when `children` is an array, `Children.map` has useful special behavior. For example, `Children.map` combines the [keys](/learn/rendering-lists#keeping-list-items-in-order-with-key) on the returned elements with the keys on the `children` you've passed to it. This ensures the original JSX children don't "lose" keys even if they get wrapped like in the example above.
+`children` array ஆக இருந்தாலும், `Children.map`-க்கு பயனுள்ள சிறப்பு behavior உள்ளது. உதாரணமாக, `Children.map` returned elements-இல் உள்ள [keys](/learn/rendering-lists#keeping-list-items-in-order-with-key)-ஐ நீங்கள் pass செய்த `children`-இன் keys-உடன் combine செய்கிறது. இதனால் மேலுள்ள example போல wrap செய்யப்பட்டாலும் original JSX children keys-ஐ "இழக்காது" என்பதை உறுதி செய்கிறது.
 
 </DeepDive>
 
 <Pitfall>
 
-The `children` data structure **does not include rendered output** of the components you pass as JSX. In the example below, the `children` received by the `RowList` only contains two items rather than three:
+நீங்கள் JSX ஆக pass செய்யும் components-ன் render செய்யப்பட்ட output, `children` data structure-இல் **சேராது**. கீழுள்ள example-இல், `RowList` receive செய்யும் `children` மூன்றுக்கு பதிலாக இரண்டு items மட்டுமே கொண்டுள்ளது:
 
-1. `<p>This is the first item.</p>`
+1. `<p>இது முதல் உருப்படி.</p>`
 2. `<MoreRows />`
 
-This is why only two row wrappers are generated in this example:
+இதனால் இந்த example-இல் இரண்டு row wrappers மட்டும் generate செய்யப்படுகின்றன:
 
 <Sandpack>
 
@@ -320,7 +320,7 @@ import RowList from './RowList.js';
 export default function App() {
   return (
     <RowList>
-      <p>This is the first item.</p>
+      <p>இது முதல் உருப்படி.</p>
       <MoreRows />
     </RowList>
   );
@@ -329,8 +329,8 @@ export default function App() {
 function MoreRows() {
   return (
     <>
-      <p>This is the second item.</p>
-      <p>This is the third item.</p>
+      <p>இது இரண்டாவது உருப்படி.</p>
+      <p>இது மூன்றாவது உருப்படி.</p>
     </>
   );
 }
@@ -369,15 +369,15 @@ export default function RowList({ children }) {
 
 </Sandpack>
 
-**There is no way to get the rendered output of an inner component** like `<MoreRows />` when manipulating `children`. This is why [it's usually better to use one of the alternative solutions.](#alternatives)
+`children`-ஐ manipulate செய்யும்போது `<MoreRows />` போன்ற inner component-ன் render செய்யப்பட்ட output-ஐ பெற **எந்த வழியும் இல்லை**. அதனால் [மாற்று solutions-இல் ஒன்றை பயன்படுத்துவது பொதுவாகச் சிறந்தது.](#alternatives)
 
 </Pitfall>
 
 ---
 
-### Running some code for each child {/*running-some-code-for-each-child*/}
+### ஒவ்வொரு child-க்கும் சில code run செய்தல் {/*running-some-code-for-each-child*/}
 
-Call `Children.forEach` to iterate over each child in the `children` data structure. It does not return any value and is similar to the [array `forEach` method.](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach) You can use it to run custom logic like constructing your own array.
+`children` data structure-இல் உள்ள ஒவ்வொரு child-க்கும் iterate செய்ய `Children.forEach`-ஐ call செய்யுங்கள். இது எந்த value-யும் return செய்யாது, மேலும் [array `forEach` method](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach)-க்கு ஒத்தது. உங்கள் சொந்த array உருவாக்குவது போன்ற custom logic run செய்ய இதைப் பயன்படுத்தலாம்.
 
 <Sandpack>
 
@@ -387,9 +387,9 @@ import SeparatorList from './SeparatorList.js';
 export default function App() {
   return (
     <SeparatorList>
-      <p>This is the first item.</p>
-      <p>This is the second item.</p>
-      <p>This is the third item.</p>
+      <p>இது முதல் உருப்படி.</p>
+      <p>இது இரண்டாவது உருப்படி.</p>
+      <p>இது மூன்றாவது உருப்படி.</p>
     </SeparatorList>
   );
 }
@@ -404,7 +404,7 @@ export default function SeparatorList({ children }) {
     result.push(child);
     result.push(<hr key={index} />);
   });
-  result.pop(); // Remove the last separator
+  result.pop(); // கடைசி separator-ஐ remove செய்
   return result;
 }
 ```
@@ -413,15 +413,15 @@ export default function SeparatorList({ children }) {
 
 <Pitfall>
 
-As mentioned earlier, there is no way to get the rendered output of an inner component when manipulating `children`. This is why [it's usually better to use one of the alternative solutions.](#alternatives)
+முன்பு குறிப்பிடப்பட்டதுபோல், `children`-ஐ manipulate செய்யும்போது inner component-ன் render செய்யப்பட்ட output-ஐ பெற வழியில்லை. அதனால் [மாற்று solutions-இல் ஒன்றை பயன்படுத்துவது பொதுவாகச் சிறந்தது.](#alternatives)
 
 </Pitfall>
 
 ---
 
-### Counting children {/*counting-children*/}
+### Children-ஐ count செய்தல் {/*counting-children*/}
 
-Call `Children.count(children)` to calculate the number of children.
+Children எண்ணிக்கையை calculate செய்ய `Children.count(children)`-ஐ call செய்யுங்கள்.
 
 <Sandpack>
 
@@ -431,9 +431,9 @@ import RowList from './RowList.js';
 export default function App() {
   return (
     <RowList>
-      <p>This is the first item.</p>
-      <p>This is the second item.</p>
-      <p>This is the third item.</p>
+      <p>இது முதல் உருப்படி.</p>
+      <p>இது இரண்டாவது உருப்படி.</p>
+      <p>இது மூன்றாவது உருப்படி.</p>
     </RowList>
   );
 }
@@ -446,7 +446,7 @@ export default function RowList({ children }) {
   return (
     <div className="RowList">
       <h1 className="RowListHeader">
-        Total rows: {Children.count(children)}
+        மொத்த rows: {Children.count(children)}
       </h1>
       {Children.map(children, child =>
         <div className="Row">
@@ -484,15 +484,15 @@ export default function RowList({ children }) {
 
 <Pitfall>
 
-As mentioned earlier, there is no way to get the rendered output of an inner component when manipulating `children`. This is why [it's usually better to use one of the alternative solutions.](#alternatives)
+முன்பு குறிப்பிடப்பட்டதுபோல், `children`-ஐ manipulate செய்யும்போது inner component-ன் render செய்யப்பட்ட output-ஐ பெற வழியில்லை. அதனால் [மாற்று solutions-இல் ஒன்றை பயன்படுத்துவது பொதுவாகச் சிறந்தது.](#alternatives)
 
 </Pitfall>
 
 ---
 
-### Converting children to an array {/*converting-children-to-an-array*/}
+### Children-ஐ array ஆக மாற்றுதல் {/*converting-children-to-an-array*/}
 
-Call `Children.toArray(children)` to turn the `children` data structure into a regular JavaScript array. This lets you manipulate the array with built-in array methods like [`filter`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter), [`sort`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort), or [`reverse`.](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reverse)
+`children` data structure-ஐ regular JavaScript array ஆக மாற்ற `Children.toArray(children)`-ஐ call செய்யுங்கள். இதனால் [`filter`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter), [`sort`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort), அல்லது [`reverse`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reverse) போன்ற built-in array methods-ஐ பயன்படுத்தி array-ஐ manipulate செய்ய முடியும்.
 
 <Sandpack>
 
@@ -502,9 +502,9 @@ import ReversedList from './ReversedList.js';
 export default function App() {
   return (
     <ReversedList>
-      <p>This is the first item.</p>
-      <p>This is the second item.</p>
-      <p>This is the third item.</p>
+      <p>இது முதல் உருப்படி.</p>
+      <p>இது இரண்டாவது உருப்படி.</p>
+      <p>இது மூன்றாவது உருப்படி.</p>
     </ReversedList>
   );
 }
@@ -524,31 +524,31 @@ export default function ReversedList({ children }) {
 
 <Pitfall>
 
-As mentioned earlier, there is no way to get the rendered output of an inner component when manipulating `children`. This is why [it's usually better to use one of the alternative solutions.](#alternatives)
+முன்பு குறிப்பிடப்பட்டதுபோல், `children`-ஐ manipulate செய்யும்போது inner component-ன் render செய்யப்பட்ட output-ஐ பெற வழியில்லை. அதனால் [மாற்று solutions-இல் ஒன்றை பயன்படுத்துவது பொதுவாகச் சிறந்தது.](#alternatives)
 
 </Pitfall>
 
 ---
 
-## Alternatives {/*alternatives*/}
+## மாற்று வழிகள் {/*alternatives*/}
 
 <Note>
 
-This section describes alternatives to the `Children` API (with capital `C`) that's imported like this:
+இந்த section, இப்படி import செய்யப்படும் `Children` API-க்கு (capital `C` உடன்) alternatives-ஐ விவரிக்கிறது:
 
 ```js
 import { Children } from 'react';
 ```
 
-Don't confuse it with [using the `children` prop](/learn/passing-props-to-a-component#passing-jsx-as-children) (lowercase `c`), which is good and encouraged.
+இதைக் நல்லதும் ஊக்குவிக்கப்படுவதுமான [`children` prop பயன்படுத்துவதுடன்](/learn/passing-props-to-a-component#passing-jsx-as-children) (lowercase `c`) குழப்பிக் கொள்ள வேண்டாம்.
 
 </Note>
 
-### Exposing multiple components {/*exposing-multiple-components*/}
+### பல components-ஐ expose செய்தல் {/*exposing-multiple-components*/}
 
-Manipulating children with the `Children` methods often leads to fragile code. When you pass children to a component in JSX, you don't usually expect the component to manipulate or transform the individual children.
+`Children` methods மூலம் children-ஐ manipulate செய்வது பெரும்பாலும் fragile code-க்கு வழிவகுக்கும். JSX-இல் component ஒன்றுக்கு children pass செய்யும்போது, அந்த component individual children-ஐ manipulate அல்லது transform செய்யும் என்று நீங்கள் வழக்கமாக எதிர்பார்ப்பதில்லை.
 
-When you can, try to avoid using the `Children` methods. For example, if you want every child of `RowList` to be wrapped in `<div className="Row">`, export a `Row` component, and manually wrap every row into it like this:
+முடிந்தால், `Children` methods பயன்படுத்துவதைத் தவிர்க்க முயலுங்கள். உதாரணமாக, `RowList`-ன் ஒவ்வொரு child-மும் `<div className="Row">`-இல் wrap செய்யப்பட வேண்டும் என்றால், `Row` component ஒன்றை export செய்து, ஒவ்வொரு row-ஐயும் இதுபோல் manually wrap செய்யுங்கள்:
 
 <Sandpack>
 
@@ -559,13 +559,13 @@ export default function App() {
   return (
     <RowList>
       <Row>
-        <p>This is the first item.</p>
+        <p>இது முதல் உருப்படி.</p>
       </Row>
       <Row>
-        <p>This is the second item.</p>
+        <p>இது இரண்டாவது உருப்படி.</p>
       </Row>
       <Row>
-        <p>This is the third item.</p>
+        <p>இது மூன்றாவது உருப்படி.</p>
       </Row>
     </RowList>
   );
@@ -607,7 +607,7 @@ export function Row({ children }) {
 
 </Sandpack>
 
-Unlike using `Children.map`, this approach does not wrap every child automatically. **However, this approach has a significant benefit compared to the [earlier example with `Children.map`](#transforming-children) because it works even if you keep extracting more components.** For example, it still works if you extract your own `MoreRows` component:
+`Children.map` பயன்படுத்துவதற்கு மாறாக, இந்த approach ஒவ்வொரு child-ஐயும் automatically wrap செய்யாது. **ஆனால் [முந்தைய `Children.map` example](#transforming-children)-உடன் ஒப்பிடும்போது, இந்த approach-க்கு முக்கியமான நன்மை உள்ளது: மேலும் components extract செய்தாலும் இது வேலை செய்கிறது.** உதாரணமாக, உங்கள் சொந்த `MoreRows` component-ஐ extract செய்தாலும் இது இன்னும் வேலை செய்கிறது:
 
 <Sandpack>
 
@@ -618,7 +618,7 @@ export default function App() {
   return (
     <RowList>
       <Row>
-        <p>This is the first item.</p>
+        <p>இது முதல் உருப்படி.</p>
       </Row>
       <MoreRows />
     </RowList>
@@ -629,10 +629,10 @@ function MoreRows() {
   return (
     <>
       <Row>
-        <p>This is the second item.</p>
+        <p>இது இரண்டாவது உருப்படி.</p>
       </Row>
       <Row>
-        <p>This is the third item.</p>
+        <p>இது மூன்றாவது உருப்படி.</p>
       </Row>
     </>
   );
@@ -674,13 +674,13 @@ export function Row({ children }) {
 
 </Sandpack>
 
-This wouldn't work with `Children.map` because it would "see" `<MoreRows />` as a single child (and a single row).
+இது `Children.map` உடன் வேலை செய்யாது; ஏனெனில் அது `<MoreRows />`-ஐ single child (மேலும் single row) ஆகவே "பார்க்கும்".
 
 ---
 
-### Accepting an array of objects as a prop {/*accepting-an-array-of-objects-as-a-prop*/}
+### Objects array ஒன்றை prop ஆக accept செய்தல் {/*accepting-an-array-of-objects-as-a-prop*/}
 
-You can also explicitly pass an array as a prop. For example, this `RowList` accepts a `rows` array as a prop:
+Array ஒன்றை prop ஆக explicit ஆக pass செய்யவும் முடியும். உதாரணமாக, இந்த `RowList` `rows` array-ஐ prop ஆக accept செய்கிறது:
 
 <Sandpack>
 
@@ -690,9 +690,9 @@ import { RowList, Row } from './RowList.js';
 export default function App() {
   return (
     <RowList rows={[
-      { id: 'first', content: <p>This is the first item.</p> },
-      { id: 'second', content: <p>This is the second item.</p> },
-      { id: 'third', content: <p>This is the third item.</p> }
+      { id: 'first', content: <p>இது முதல் உருப்படி.</p> },
+      { id: 'second', content: <p>இது இரண்டாவது உருப்படி.</p> },
+      { id: 'third', content: <p>இது மூன்றாவது உருப்படி.</p> }
     ]} />
   );
 }
@@ -729,9 +729,9 @@ export function RowList({ rows }) {
 
 </Sandpack>
 
-Since `rows` is a regular JavaScript array, the `RowList` component can use built-in array methods like [`map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) on it.
+`rows` regular JavaScript array என்பதால், `RowList` component அதில் [`map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) போன்ற built-in array methods-ஐ பயன்படுத்த முடியும்.
 
-This pattern is especially useful when you want to be able to pass more information as structured data together with children. In the below example, the `TabSwitcher` component receives an array of objects as the `tabs` prop:
+Children உடன் structured data ஆக கூடுதல் தகவலையும் pass செய்ய விரும்பும்போது இந்த pattern குறிப்பாக பயனுள்ளதாக இருக்கும். கீழுள்ள example-இல், `TabSwitcher` component `tabs` prop ஆக objects array ஒன்றை receive செய்கிறது:
 
 <Sandpack>
 
@@ -743,18 +743,18 @@ export default function App() {
     <TabSwitcher tabs={[
       {
         id: 'first',
-        header: 'First',
-        content: <p>This is the first item.</p>
+        header: 'முதல்',
+        content: <p>இது முதல் உருப்படி.</p>
       },
       {
         id: 'second',
-        header: 'Second',
-        content: <p>This is the second item.</p>
+        header: 'இரண்டாவது',
+        content: <p>இது இரண்டாவது உருப்படி.</p>
       },
       {
         id: 'third',
-        header: 'Third',
-        content: <p>This is the third item.</p>
+        header: 'மூன்றாவது',
+        content: <p>இது மூன்றாவது உருப்படி.</p>
       }
     ]} />
   );
@@ -789,13 +789,13 @@ export default function TabSwitcher({ tabs }) {
 
 </Sandpack>
 
-Unlike passing the children as JSX, this approach lets you associate some extra data like `header` with each item. Because you are working with the `tabs` directly, and it is an array, you do not need the `Children` methods.
+Children-ஐ JSX ஆக pass செய்வதற்கு மாறாக, இந்த approach ஒவ்வொரு item-உடனும் `header` போன்ற extra data-வை associate செய்ய அனுமதிக்கிறது. நீங்கள் `tabs`-உடன் நேரடியாக வேலை செய்கிறீர்கள், அது array என்பதால், `Children` methods தேவையில்லை.
 
 ---
 
-### Calling a render prop to customize rendering {/*calling-a-render-prop-to-customize-rendering*/}
+### Rendering customize செய்ய render prop call செய்தல் {/*calling-a-render-prop-to-customize-rendering*/}
 
-Instead of producing JSX for every single item, you can also pass a function that returns JSX, and call that function when necessary. In this example, the `App` component passes a `renderContent` function to the `TabSwitcher` component. The `TabSwitcher` component calls `renderContent` only for the selected tab:
+ஒவ்வொரு தனிப்பட்ட item-க்கும் JSX produce செய்வதற்கு பதிலாக, JSX return செய்யும் function ஒன்றை pass செய்து, தேவைப்படும் போது அந்த function-ஐ call செய்யலாம். இந்த example-இல், `App` component `renderContent` function-ஐ `TabSwitcher` component-க்கு pass செய்கிறது. `TabSwitcher` component selected tab-க்காக மட்டும் `renderContent`-ஐ call செய்கிறது:
 
 <Sandpack>
 
@@ -810,7 +810,7 @@ export default function App() {
         return tabId[0].toUpperCase() + tabId.slice(1);
       }}
       renderContent={tabId => {
-        return <p>This is the {tabId} item.</p>;
+        return <p>இது {tabId} item.</p>;
       }}
     />
   );
@@ -844,9 +844,9 @@ export default function TabSwitcher({ tabIds, getHeader, renderContent }) {
 
 </Sandpack>
 
-A prop like `renderContent` is called a *render prop* because it is a prop that specifies how to render a piece of the user interface. However, there is nothing special about it: it is a regular prop which happens to be a function.
+`renderContent` போன்ற prop *render prop* என்று அழைக்கப்படுகிறது, ஏனெனில் அது user interface-ன் ஒரு பகுதியை எப்படி render செய்ய வேண்டும் என்பதை குறிப்பிடும் prop ஆகும். ஆனால் அதில் சிறப்பு எதுவும் இல்லை: அது function ஆக இருக்கும் regular prop மட்டுமே.
 
-Render props are functions, so you can pass information to them. For example, this `RowList` component passes the `id` and the `index` of each row to the `renderRow` render prop, which uses `index` to highlight even rows:
+Render props functions என்பதால், அவற்றுக்கு தகவலை pass செய்யலாம். உதாரணமாக, இந்த `RowList` component ஒவ்வொரு row-வின் `id` மற்றும் `index`-ஐ `renderRow` render prop-க்கு pass செய்கிறது; அது `index`-ஐப் பயன்படுத்தி even rows-ஐ highlight செய்கிறது:
 
 <Sandpack>
 
@@ -860,7 +860,7 @@ export default function App() {
       renderRow={(id, index) => {
         return (
           <Row isHighlighted={index % 2 === 0}>
-            <p>This is the {id} item.</p>
+            <p>இது {id} item.</p>
           </Row>
         );
       }}
@@ -876,7 +876,7 @@ export function RowList({ rowIds, renderRow }) {
   return (
     <div className="RowList">
       <h1 className="RowListHeader">
-        Total rows: {rowIds.length}
+        மொத்த rows: {rowIds.length}
       </h1>
       {rowIds.map((rowId, index) =>
         <Fragment key={rowId}>
@@ -927,23 +927,23 @@ export function Row({ children, isHighlighted }) {
 
 </Sandpack>
 
-This is another example of how parent and child components can cooperate without manipulating the children.
+Children-ஐ manipulate செய்யாமல் parent மற்றும் child components எப்படி cooperate செய்ய முடியும் என்பதற்கான இன்னொரு example இது.
 
 ---
 
-## Troubleshooting {/*troubleshooting*/}
+## சிக்கல் தீர்த்தல் {/*troubleshooting*/}
 
-### I pass a custom component, but the `Children` methods don't show its render result {/*i-pass-a-custom-component-but-the-children-methods-dont-show-its-render-result*/}
+### நான் custom component pass செய்கிறேன், ஆனால் `Children` methods அதன் render result-ஐ காட்டவில்லை {/*i-pass-a-custom-component-but-the-children-methods-dont-show-its-render-result*/}
 
-Suppose you pass two children to `RowList` like this:
+இப்படி `RowList`-க்கு இரண்டு children pass செய்கிறீர்கள் என்று வைத்துக் கொள்ளுங்கள்:
 
 ```js
 <RowList>
-  <p>First item</p>
+  <p>முதல் உருப்படி</p>
   <MoreRows />
 </RowList>
 ```
 
-If you do `Children.count(children)` inside `RowList`, you will get `2`. Even if `MoreRows` renders 10 different items, or if it returns `null`, `Children.count(children)` will still be `2`. From the `RowList`'s perspective, it only "sees" the JSX it has received. It does not "see" the internals of the `MoreRows` component.
+`RowList`-க்குள் `Children.count(children)` செய்தால், உங்களுக்கு `2` கிடைக்கும். `MoreRows` 10 வெவ்வேறு items render செய்தாலும், அல்லது அது `null` return செய்தாலும், `Children.count(children)` இன்னும் `2` ஆகவே இருக்கும். `RowList`-ன் perspective-இல், அது receive செய்த JSX-ஐ மட்டுமே "பார்க்கிறது". `MoreRows` component-ன் internals-ஐ அது "பார்க்காது".
 
-The limitation makes it hard to extract a component. This is why [alternatives](#alternatives) are preferred to using `Children`.
+இந்த limitation, component ஒன்றை extract செய்வதை கடினமாக்குகிறது. அதனால்தான் `Children` பயன்படுத்துவதற்கு பதிலாக [alternatives](#alternatives) விரும்பப்படுகின்றன.

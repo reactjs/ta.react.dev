@@ -1,23 +1,23 @@
 ---
-title: Rules of Hooks
+title: Hooks விதிகள்
 ---
 
 <Intro>
-Hooks are defined using JavaScript functions, but they represent a special type of reusable UI logic with restrictions on where they can be called.
+Hooks JavaScript functions-ஐப் பயன்படுத்தி வரையறுக்கப்படுகின்றன; ஆனால் அவை எங்கு அழைக்கப்படலாம் என்பதில் கட்டுப்பாடுகளைக் கொண்ட, மீண்டும் பயன்படுத்தக்கூடிய UI logic-இன் ஒரு சிறப்பு வகையை குறிக்கின்றன.
 </Intro>
 
 <InlineToc />
 
 ---
 
-##  Only call Hooks at the top level {/*only-call-hooks-at-the-top-level*/}
+## Hooks-ஐ top level-இல் மட்டுமே அழைக்கவும் {/*only-call-hooks-at-the-top-level*/}
 
-Functions whose names start with `use` are called [*Hooks*](/reference/react) in React.
+`use` என்று தொடங்கும் பெயர் கொண்ட functions React-இல் [*Hooks*](/reference/react) என்று அழைக்கப்படுகின்றன.
 
-**Don’t call Hooks inside loops, conditions, nested functions, or `try`/`catch`/`finally` blocks.** Instead, always use Hooks at the top level of your React function, before any early returns. You can only call Hooks while React is rendering a function component:
+**Loops, conditions, nested functions, அல்லது `try`/`catch`/`finally` blocks உள்ளே Hooks-ஐ அழைக்க வேண்டாம்.** அதற்கு பதிலாக, எந்த early returns-க்கும் முன், உங்கள் React function-இன் top level-இல் எப்போதும் Hooks-ஐப் பயன்படுத்துங்கள். React function component ஒன்றை render செய்யும் போது மட்டுமே Hooks-ஐ அழைக்கலாம்:
 
-* ✅ Call them at the top level in the body of a [function component](/learn/your-first-component).
-* ✅ Call them at the top level in the body of a [custom Hook](/learn/reusing-logic-with-custom-hooks).
+* ✅ [Function component](/learn/your-first-component)-இன் body-இல் top level-இல் அவற்றை அழைக்கவும்.
+* ✅ [Custom Hook](/learn/reusing-logic-with-custom-hooks)-இன் body-இல் top level-இல் அவற்றை அழைக்கவும்.
 
 ```js{2-3,8-9}
 function Counter() {
@@ -33,16 +33,16 @@ function useWindowWidth() {
 }
 ```
 
-It’s **not** supported to call Hooks (functions starting with `use`) in any other cases, for example:
+மற்ற எந்த நிலைகளிலும் Hooks (`use` என்று தொடங்கும் functions) அழைப்பது ஆதரிக்கப்படவில்லை. உதாரணமாக:
 
-* 🔴 Do not call Hooks inside conditions or loops.
-* 🔴 Do not call Hooks after a conditional `return` statement.
-* 🔴 Do not call Hooks in event handlers.
-* 🔴 Do not call Hooks in class components.
-* 🔴 Do not call Hooks inside functions passed to `useMemo`, `useReducer`, or `useEffect`.
-* 🔴 Do not call Hooks inside `try`/`catch`/`finally` blocks.
+* 🔴 Conditions அல்லது loops உள்ளே Hooks-ஐ அழைக்க வேண்டாம்.
+* 🔴 Conditional `return` statement-க்கு பிறகு Hooks-ஐ அழைக்க வேண்டாம்.
+* 🔴 Event handlers-இல் Hooks-ஐ அழைக்க வேண்டாம்.
+* 🔴 Class components-இல் Hooks-ஐ அழைக்க வேண்டாம்.
+* 🔴 `useMemo`, `useReducer`, அல்லது `useEffect`-க்கு pass செய்யப்படும் functions உள்ளே Hooks-ஐ அழைக்க வேண்டாம்.
+* 🔴 `try`/`catch`/`finally` blocks உள்ளே Hooks-ஐ அழைக்க வேண்டாம்.
 
-If you break these rules, you might see this error.
+இந்த விதிகளை மீறினால், இந்த error-ஐக் காணலாம்.
 
 ```js{3-4,11-12,20-21}
 function Bad({ cond }) {
@@ -105,31 +105,31 @@ function Bad() {
 }
 ```
 
-You can use the [`eslint-plugin-react-hooks` plugin](https://www.npmjs.com/package/eslint-plugin-react-hooks) to catch these mistakes.
+இந்த பிழைகளைப் பிடிக்க [`eslint-plugin-react-hooks` plugin](https://www.npmjs.com/package/eslint-plugin-react-hooks)-ஐப் பயன்படுத்தலாம்.
 
 <Note>
 
-[Custom Hooks](/learn/reusing-logic-with-custom-hooks) *may* call other Hooks (that's their whole purpose). This works because custom Hooks are also supposed to only be called while a function component is rendering.
+[Custom Hooks](/learn/reusing-logic-with-custom-hooks) மற்ற Hooks-ஐ அழைக்க *முடியும்* (அதுவே அவற்றின் நோக்கம்). இது வேலை செய்வதன் காரணம், custom Hooks-உம் function component render ஆகும் போது மட்டுமே அழைக்கப்பட வேண்டும் என்பதுதான்.
 
 </Note>
 
 ---
 
-## Only call Hooks from React functions {/*only-call-hooks-from-react-functions*/}
+## React functions-இலிருந்து மட்டுமே Hooks-ஐ அழைக்கவும் {/*only-call-hooks-from-react-functions*/}
 
-Don’t call Hooks from regular JavaScript functions. Instead, you can:
+சாதாரண JavaScript functions-இலிருந்து Hooks-ஐ அழைக்க வேண்டாம். அதற்கு பதிலாக:
 
-✅ Call Hooks from React function components.
-✅ Call Hooks from [custom Hooks](/learn/reusing-logic-with-custom-hooks#extracting-your-own-custom-hook-from-a-component).
+✅ React function components-இலிருந்து Hooks-ஐ அழைக்கலாம்.
+✅ [Custom Hooks](/learn/reusing-logic-with-custom-hooks#extracting-your-own-custom-hook-from-a-component)-இலிருந்து Hooks-ஐ அழைக்கலாம்.
 
-By following this rule, you ensure that all stateful logic in a component is clearly visible from its source code.
+இந்த விதியைப் பின்பற்றுவதன் மூலம், ஒரு component-இல் உள்ள அனைத்து stateful logic-உம் அதன் source code-இலிருந்து தெளிவாகத் தெரிகிறது என்பதை உறுதிசெய்கிறீர்கள்.
 
 ```js {2,5}
 function FriendList() {
   const [onlineStatus, setOnlineStatus] = useOnlineStatus(); // ✅
 }
 
-function setOnlineStatus() { // ❌ Not a component or custom Hook!
+function setOnlineStatus() { // ❌ Component அல்லது custom Hook அல்ல!
   const [onlineStatus, setOnlineStatus] = useOnlineStatus();
 }
 ```
