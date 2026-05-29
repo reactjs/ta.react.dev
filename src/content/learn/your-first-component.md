@@ -1,41 +1,41 @@
 ---
-title: Your First Component
+title: உங்கள் முதல் Component
 ---
 
 <Intro>
 
-*Components* are one of the core concepts of React. They are the foundation upon which you build user interfaces (UI), which makes them the perfect place to start your React journey!
+*Components* React-ன் core concepts-இல் ஒன்று. User interfaces (UI) உருவாக்கும் அடித்தளம் அவைதான்; அதனால் உங்கள் React பயணத்தை தொடங்க சிறந்த இடம் components ஆகும்!
 
 </Intro>
 
 <YouWillLearn>
 
-* What a component is
-* What role components play in a React application
-* How to write your first React component
+* Component என்றால் என்ன
+* React application-இல் components என்ன பங்கு வகிக்கின்றன
+* உங்கள் முதல் React component-ஐ எழுதுவது எப்படி
 
 </YouWillLearn>
 
-## Components: UI building blocks {/*components-ui-building-blocks*/}
+## Components: UI கட்டுமானக் கூறுகள் {/*components-ui-building-blocks*/}
 
-On the Web, HTML lets us create rich structured documents with its built-in set of tags like `<h1>` and `<li>`:
+Web-இல், `<h1>` மற்றும் `<li>` போன்ற built-in tags தொகுப்பைக் கொண்டு rich structured documents உருவாக்க HTML உதவுகிறது:
 
 ```html
 <article>
-  <h1>My First Component</h1>
+  <h1>என் முதல் Component</h1>
   <ol>
-    <li>Components: UI Building Blocks</li>
-    <li>Defining a Component</li>
-    <li>Using a Component</li>
+    <li>Components: UI கட்டுமானக் கூறுகள்</li>
+    <li>Component-ஐ வரையறுத்தல்</li>
+    <li>Component-ஐ பயன்படுத்துதல்</li>
   </ol>
 </article>
 ```
 
-This markup represents this article `<article>`, its heading `<h1>`, and an (abbreviated) table of contents as an ordered list `<ol>`. Markup like this, combined with CSS for style, and JavaScript for interactivity, lies behind every sidebar, avatar, modal, dropdown—every piece of UI you see on the Web.
+இந்த markup, இந்த article-ஐ `<article>` ஆகவும், அதன் heading-ஐ `<h1>` ஆகவும், சுருக்கப்பட்ட table of contents-ஐ ordered list `<ol>` ஆகவும் குறிக்கிறது. இப்படிப்பட்ட markup, styling-க்கு CSS மற்றும் interactivity-க்கு JavaScript உடன் சேர்ந்து, Web-இல் நீங்கள் பார்க்கும் ஒவ்வொரு sidebar, avatar, modal, dropdown மற்றும் UI-ன் ஒவ்வொரு பகுதியின் பின்னணியில் உள்ளது.
 
-React lets you combine your markup, CSS, and JavaScript into custom "components", **reusable UI elements for your app.** The table of contents code you saw above could be turned into a `<TableOfContents />` component you could render on every page. Under the hood, it still uses the same HTML tags like `<article>`, `<h1>`, etc.
+React உங்கள் markup, CSS, JavaScript ஆகியவற்றை custom "components" ஆக இணைக்க உதவுகிறது; அவை **உங்கள் app-க்கான reusable UI elements.** மேலே பார்த்த table of contents code-ஐ ஒவ்வொரு page-இலும் render செய்யக்கூடிய `<TableOfContents />` component ஆக மாற்றலாம். Under the hood, அது இன்னும் `<article>`, `<h1>` போன்ற அதே HTML tags-ஐப் பயன்படுத்துகிறது.
 
-Just like with HTML tags, you can compose, order and nest components to design whole pages. For example, the documentation page you're reading is made out of React components:
+HTML tags போலவே, முழு pages-ஐ design செய்ய components-ஐ compose, order, nest செய்யலாம். உதாரணமாக, நீங்கள் படிக்கும் documentation page React components-ஆல் உருவாக்கப்பட்டுள்ளது:
 
 ```js
 <PageLayout>
@@ -51,11 +51,11 @@ Just like with HTML tags, you can compose, order and nest components to design w
 </PageLayout>
 ```
 
-As your project grows, you will notice that many of your designs can be composed by reusing components you already wrote, speeding up your development. Our table of contents above could be added to any screen with `<TableOfContents />`! You can even jumpstart your project with the thousands of components shared by the React open source community like [Chakra UI](https://chakra-ui.com/) and [Material UI.](https://material-ui.com/)
+உங்கள் project வளரும்போது, ஏற்கனவே எழுதிய components-ஐ reuse செய்வதன் மூலம் பல designs compose செய்யப்படலாம் என்பதை கவனிப்பீர்கள்; இது development-ஐ வேகப்படுத்தும். மேலுள்ள table of contents-ஐ எந்த screen-க்கும் `<TableOfContents />` மூலம் சேர்க்கலாம்! [Chakra UI](https://chakra-ui.com/) மற்றும் [Material UI](https://material-ui.com/) போன்ற React open source community பகிர்ந்திருக்கும் ஆயிரக்கணக்கான components மூலம் உங்கள் project-ஐ jumpstart கூட செய்யலாம்.
 
-## Defining a component {/*defining-a-component*/}
+## Component-ஐ வரையறுத்தல் {/*defining-a-component*/}
 
-Traditionally when creating web pages, web developers marked up their content and then added interaction by sprinkling on some JavaScript. This worked great when interaction was a nice-to-have on the web. Now it is expected for many sites and all apps. React puts interactivity first while still using the same technology: **a React component is a JavaScript function that you can _sprinkle with markup_.** Here's what that looks like (you can edit the example below):
+பாரம்பரியமாக web pages உருவாக்கும்போது, web developers முதலில் content-ஐ markup செய்து, பின்னர் சில JavaScript சேர்த்து interaction சேர்த்தனர். Interaction web-இல் nice-to-have ஆக இருந்தபோது இது மிக நன்றாக வேலை செய்தது. இப்போது பல sites மற்றும் எல்லா apps-க்கும் அது எதிர்பார்க்கப்படுகிறது. React அதே technology-ஐ பயன்படுத்தியபடியே interactivity-க்கு முன்னுரிமை தருகிறது: **React component என்பது _markup சேர்க்கக்கூடிய_ JavaScript function.** அது எப்படி இருக்கும் என்பதை இங்கே பார்க்கலாம் (கீழே உள்ள example-ஐ edit செய்யலாம்):
 
 <Sandpack>
 
@@ -76,33 +76,33 @@ img { height: 200px; }
 
 </Sandpack>
 
-And here's how to build a component:
+Component உருவாக்குவது எப்படி:
 
-### Step 1: Export the component {/*step-1-export-the-component*/}
+### Step 1: Component-ஐ export செய்யுங்கள் {/*step-1-export-the-component*/}
 
-The `export default` prefix is a [standard JavaScript syntax](https://developer.mozilla.org/docs/web/javascript/reference/statements/export) (not specific to React). It lets you mark the main function in a file so that you can later import it from other files. (More on importing in [Importing and Exporting Components](/learn/importing-and-exporting-components)!)
+`export default` prefix என்பது [standard JavaScript syntax](https://developer.mozilla.org/docs/web/javascript/reference/statements/export) (React-க்கு மட்டும் சொந்தமானது அல்ல). ஒரு file-இல் main function-ஐ mark செய்ய இது உதவுகிறது; பின்னர் அதை மற்ற files-இலிருந்து import செய்யலாம். (Import செய்வது பற்றி [Components-ஐ Import மற்றும் Export செய்தல்](/learn/importing-and-exporting-components)-இல் மேலும் பார்க்கலாம்!)
 
-### Step 2: Define the function {/*step-2-define-the-function*/}
+### Step 2: Function-ஐ define செய்யுங்கள் {/*step-2-define-the-function*/}
 
-With `function Profile() { }` you define a JavaScript function with the name `Profile`.
+`function Profile() { }` மூலம் `Profile` என்ற பெயர் கொண்ட JavaScript function ஒன்றை define செய்கிறீர்கள்.
 
 <Pitfall>
 
-React components are regular JavaScript functions, but **their names must start with a capital letter** or they won't work!
+React components வழக்கமான JavaScript functions தான், ஆனால் **அவற்றின் பெயர்கள் capital letter-ஆல் தொடங்க வேண்டும்**; இல்லையெனில் அவை வேலை செய்யாது!
 
 </Pitfall>
 
-### Step 3: Add markup {/*step-3-add-markup*/}
+### Step 3: Markup சேர்க்கவும் {/*step-3-add-markup*/}
 
-The component returns an `<img />` tag with `src` and `alt` attributes. `<img />` is written like HTML, but it is actually JavaScript under the hood! This syntax is called [JSX](/learn/writing-markup-with-jsx), and it lets you embed markup inside JavaScript.
+Component `src` மற்றும் `alt` attributes கொண்ட `<img />` tag ஒன்றை return செய்கிறது. `<img />` HTML போல எழுதப்படுகிறது, ஆனால் under the hood அது உண்மையில் JavaScript! இந்த syntax [JSX](/learn/writing-markup-with-jsx) என்று அழைக்கப்படுகிறது; இது JavaScript-க்குள் markup embed செய்ய உதவுகிறது.
 
-Return statements can be written all on one line, as in this component:
+Return statements இந்த component போல ஒரே line-இல் எழுதலாம்:
 
 ```js
 return <img src="https://react.dev/images/docs/scientists/MK3eW3As.jpg" alt="Katherine Johnson" />;
 ```
 
-But if your markup isn't all on the same line as the `return` keyword, you must wrap it in a pair of parentheses:
+ஆனால் உங்கள் markup `return` keyword இருக்கும் அதே line-இல் முழுவதும் இல்லாவிட்டால், அதை parentheses ஜோடிக்குள் wrap செய்ய வேண்டும்:
 
 ```js
 return (
@@ -114,13 +114,13 @@ return (
 
 <Pitfall>
 
-Without parentheses, any code on the lines after `return` [will be ignored](https://stackoverflow.com/questions/2846283/what-are-the-rules-for-javascripts-automatic-semicolon-insertion-asi)!
+Parentheses இல்லாமல், `return`-க்கு அடுத்த lines-இல் உள்ள code [ignored செய்யப்படும்](https://stackoverflow.com/questions/2846283/what-are-the-rules-for-javascripts-automatic-semicolon-insertion-asi)!
 
 </Pitfall>
 
-## Using a component {/*using-a-component*/}
+## Component-ஐ பயன்படுத்துதல் {/*using-a-component*/}
 
-Now that you've defined your `Profile` component, you can nest it inside other components. For example, you can export a `Gallery` component that uses multiple `Profile` components:
+இப்போது உங்கள் `Profile` component-ஐ define செய்துள்ளீர்கள்; அதை மற்ற components-க்குள் nest செய்யலாம். உதாரணமாக, பல `Profile` components-ஐ பயன்படுத்தும் `Gallery` component ஒன்றை export செய்யலாம்:
 
 <Sandpack>
 
@@ -137,7 +137,7 @@ function Profile() {
 export default function Gallery() {
   return (
     <section>
-      <h1>Amazing scientists</h1>
+      <h1>அற்புதமான விஞ்ஞானிகள்</h1>
       <Profile />
       <Profile />
       <Profile />
@@ -152,33 +152,33 @@ img { margin: 0 10px 10px 0; height: 90px; }
 
 </Sandpack>
 
-### What the browser sees {/*what-the-browser-sees*/}
+### Browser பார்க்கும் விஷயம் {/*what-the-browser-sees*/}
 
-Notice the difference in casing:
+Casing-இல் உள்ள வேறுபாட்டைக் கவனிக்கவும்:
 
-* `<section>` is lowercase, so React knows we refer to an HTML tag.
-* `<Profile />` starts with a capital `P`, so React knows that we want to use our component called `Profile`.
+* `<section>` lowercase; ஆகவே நாம் HTML tag-ஐ குறிக்கிறோம் என்று React அறியும்.
+* `<Profile />` capital `P`-ஆல் தொடங்குகிறது; ஆகவே `Profile` என்ற நமது component-ஐ பயன்படுத்த வேண்டும் என்று React அறியும்.
 
-And `Profile` contains even more HTML: `<img />`. In the end, this is what the browser sees:
+மேலும் `Profile` இன்னும் அதிகமான HTML கொண்டுள்ளது: `<img />`. இறுதியில், browser பார்க்குவது இதுதான்:
 
 ```html
 <section>
-  <h1>Amazing scientists</h1>
+  <h1>அற்புதமான விஞ்ஞானிகள்</h1>
   <img src="https://react.dev/images/docs/scientists/MK3eW3As.jpg" alt="Katherine Johnson" />
   <img src="https://react.dev/images/docs/scientists/MK3eW3As.jpg" alt="Katherine Johnson" />
   <img src="https://react.dev/images/docs/scientists/MK3eW3As.jpg" alt="Katherine Johnson" />
 </section>
 ```
 
-### Nesting and organizing components {/*nesting-and-organizing-components*/}
+### Components-ஐ nest மற்றும் organize செய்தல் {/*nesting-and-organizing-components*/}
 
-Components are regular JavaScript functions, so you can keep multiple components in the same file. This is convenient when components are relatively small or tightly related to each other. If this file gets crowded, you can always move `Profile` to a separate file. You will learn how to do this shortly on the [page about imports.](/learn/importing-and-exporting-components)
+Components வழக்கமான JavaScript functions; ஆகவே ஒரே file-இல் பல components வைத்திருக்கலாம். Components சற்றுச் சிறியதாகவோ ஒன்றுக்கொன்று நெருக்கமாக தொடர்புடையதாகவோ இருந்தால் இது வசதியானது. இந்த file நெரிசலாகினால், `Profile`-ஐ எப்போதும் தனி file-க்கு நகர்த்தலாம். இதை எப்படி செய்வது என்பதை விரைவில் [imports பற்றிய page](/learn/importing-and-exporting-components)-இல் கற்பீர்கள்.
 
-Because the `Profile` components are rendered inside `Gallery`—even several times!—we can say that `Gallery` is a **parent component,** rendering each `Profile` as a "child". This is part of the magic of React: you can define a component once, and then use it in as many places and as many times as you like.
+`Profile` components `Gallery`-க்குள் rendered ஆகின்றன, அதுவும் பல முறை; ஆகவே `Gallery` ஒரு **parent component**, ஒவ்வொரு `Profile`-ஐ "child" ஆக render செய்கிறது என்று சொல்லலாம். இதுவே React-ன் magic-இன் ஒரு பகுதி: component ஒன்றை ஒருமுறை define செய்து, நீங்கள் விரும்பும் அளவு இடங்களிலும் விரும்பும் அளவு முறைகளிலும் பயன்படுத்தலாம்.
 
 <Pitfall>
 
-Components can render other components, but **you must never nest their definitions:**
+Components மற்ற components-ஐ render செய்யலாம்; ஆனால் **அவற்றின் definitions-ஐ ஒருபோதும் nest செய்யக்கூடாது:**
 
 ```js {2-5}
 export default function Gallery() {
@@ -190,7 +190,7 @@ export default function Gallery() {
 }
 ```
 
-The snippet above is [very slow and causes bugs.](/learn/preserving-and-resetting-state#different-components-at-the-same-position-reset-state) Instead, define every component at the top level:
+மேலுள்ள snippet [மிகவும் மெதுவாக இருக்கும் மற்றும் bugs ஏற்படுத்தும்](/learn/preserving-and-resetting-state#different-components-at-the-same-position-reset-state). அதற்கு பதிலாக, ஒவ்வொரு component-ஐயும் top level-இல் define செய்யவும்:
 
 ```js {5-8}
 export default function Gallery() {
@@ -203,34 +203,34 @@ function Profile() {
 }
 ```
 
-When a child component needs some data from a parent, [pass it by props](/learn/passing-props-to-a-component) instead of nesting definitions.
+Child component-க்கு parent-இலிருந்து data தேவைப்பட்டால், definitions-ஐ nest செய்வதற்கு பதிலாக [props மூலம் pass செய்யவும்](/learn/passing-props-to-a-component).
 
 </Pitfall>
 
 <DeepDive>
 
-#### Components all the way down {/*components-all-the-way-down*/}
+#### எல்லா நிலைகளிலும் components {/*components-all-the-way-down*/}
 
-Your React application begins at a "root" component. Usually, it is created automatically when you start a new project. For example, if you use [CodeSandbox](https://codesandbox.io/) or if you use the framework [Next.js](https://nextjs.org/), the root component is defined in `pages/index.js`. In these examples, you've been exporting root components.
+உங்கள் React application ஒரு "root" component-இல் தொடங்குகிறது. பொதுவாக, புதிய project தொடங்கும்போது அது தானாக உருவாக்கப்படும். உதாரணமாக, நீங்கள் [CodeSandbox](https://codesandbox.io/) பயன்படுத்தினாலோ அல்லது [Next.js](https://nextjs.org/) framework பயன்படுத்தினாலோ, root component `pages/index.js`-இல் define செய்யப்படுகிறது. இந்த examples-இல், நீங்கள் root components export செய்து வந்துள்ளீர்கள்.
 
-Most React apps use components all the way down. This means that you won't only use components for reusable pieces like buttons, but also for larger pieces like sidebars, lists, and ultimately, complete pages! Components are a handy way to organize UI code and markup, even if some of them are only used once.
+பெரும்பாலான React apps அனைத்துநிலைகளிலும் components-ஐ பயன்படுத்துகின்றன. இதன் அர்த்தம், buttons போன்ற reusable pieces-க்கு மட்டுமல்லாமல், sidebars, lists, இறுதியில் complete pages போன்ற பெரிய pieces-க்கும் components பயன்படுத்துவீர்கள்! அவற்றில் சில ஒருமுறை மட்டுமே பயன்படுத்தப்பட்டாலும், UI code மற்றும் markup-ஐ organize செய்ய components ஒரு வசதியான வழி.
 
-[React-based frameworks](/learn/creating-a-react-app) take this a step further. Instead of using an empty HTML file and letting React "take over" managing the page with JavaScript, they *also* generate the HTML automatically from your React components. This allows your app to show some content before the JavaScript code loads.
+[React-based frameworks](/learn/creating-a-react-app) இதை இன்னும் ஒரு படி முன்னேற்றுகின்றன. Empty HTML file ஒன்றைப் பயன்படுத்தி page management-ஐ JavaScript மூலம் React "take over" செய்ய விடுவதற்கு பதிலாக, அவை உங்கள் React components-இலிருந்து HTML-ஐ தானாக generate செய்கின்றன. இதனால் JavaScript code load ஆகும்முன் உங்கள் app சில content-ஐ காட்ட முடியும்.
 
-Still, many websites only use React to [add interactivity to existing HTML pages.](/learn/add-react-to-an-existing-project#using-react-for-a-part-of-your-existing-page) They have many root components instead of a single one for the entire page. You can use as much—or as little—React as you need.
+இன்னும் பல websites, [ஏற்கனவே உள்ள HTML pages-க்கு interactivity சேர்க்க](/learn/add-react-to-an-existing-project#using-react-for-a-part-of-your-existing-page) மட்டுமே React-ஐ பயன்படுத்துகின்றன. முழு page-க்கு ஒரே root component-க்கு பதிலாக, அவற்றுக்கு பல root components இருக்கும். உங்களுக்கு தேவையான அளவு அதிகமாகவோ குறைவாகவோ React பயன்படுத்தலாம்.
 
 </DeepDive>
 
 <Recap>
 
-You've just gotten your first taste of React! Let's recap some key points.
+React-ன் முதல் சுவையை இப்போது பார்த்துவிட்டீர்கள்! சில முக்கிய points-ஐ recap செய்வோம்.
 
-* React lets you create components, **reusable UI elements for your app.**
-* In a React app, every piece of UI is a component.
-* React components are regular JavaScript functions except:
+* React components உருவாக்க உதவுகிறது; அவை **உங்கள் app-க்கான reusable UI elements.**
+* React app-இல் UI-ன் ஒவ்வொரு பகுதியும் component ஆகும்.
+* React components வழக்கமான JavaScript functions தான், ஆனால்:
 
-  1. Their names always begin with a capital letter.
-  2. They return JSX markup.
+  1. அவற்றின் பெயர்கள் எப்போதும் capital letter-ஆல் தொடங்கும்.
+  2. அவை JSX markup return செய்கின்றன.
 
 </Recap>
 
@@ -238,9 +238,9 @@ You've just gotten your first taste of React! Let's recap some key points.
 
 <Challenges>
 
-#### Export the component {/*export-the-component*/}
+#### Component-ஐ export செய்யுங்கள் {/*export-the-component*/}
 
-This sandbox doesn't work because the root component is not exported:
+இந்த sandbox வேலை செய்யவில்லை; ஏனெனில் root component export செய்யப்படவில்லை:
 
 <Sandpack>
 
@@ -261,11 +261,11 @@ img { height: 181px; }
 
 </Sandpack>
 
-Try to fix it yourself before looking at the solution!
+Solution பார்க்கும்முன் நீங்களே சரிசெய்ய முயற்சிக்கவும்!
 
 <Solution>
 
-Add `export default` before the function definition like so:
+Function definition-க்கு முன் `export default` சேர்க்கவும்:
 
 <Sandpack>
 
@@ -286,17 +286,17 @@ img { height: 181px; }
 
 </Sandpack>
 
-You might be wondering why writing `export` alone is not enough to fix this example. You can learn the difference between `export` and `export default` in [Importing and Exporting Components.](/learn/importing-and-exporting-components)
+இந்த example-ஐ சரிசெய்ய `export` மட்டும் எழுதுவது ஏன் போதாது என்று நீங்கள் யோசிக்கலாம். `export` மற்றும் `export default` இடையிலான வேறுபாட்டை [Components-ஐ Import மற்றும் Export செய்தல்](/learn/importing-and-exporting-components)-இல் கற்றுக்கொள்ளலாம்.
 
 </Solution>
 
-#### Fix the return statement {/*fix-the-return-statement*/}
+#### Return statement-ஐ சரிசெய்யுங்கள் {/*fix-the-return-statement*/}
 
-Something isn't right about this `return` statement. Can you fix it?
+இந்த `return` statement-இல் ஏதோ சரியில்லை. அதை சரிசெய்ய முடியுமா?
 
 <Hint>
 
-You may get an "Unexpected token" error while trying to fix this. In that case, check that the semicolon appears *after* the closing parenthesis. Leaving a semicolon inside `return ( )` will cause an error.
+இதை சரிசெய்ய முயலும்போது "Unexpected token" error கிடைக்கலாம். அப்படியானால், semicolon closing parenthesis-க்கு *பிறகு* வருகிறது என்பதை check செய்யவும். `return ( )`-க்குள் semicolon விட்டால் error ஏற்படும்.
 
 </Hint>
 
@@ -318,7 +318,7 @@ img { height: 180px; }
 
 <Solution>
 
-You can fix this component by moving the return statement to one line like so:
+Return statement-ஐ இவ்வாறு ஒரே line-க்கு நகர்த்தி இந்த component-ஐ சரிசெய்யலாம்:
 
 <Sandpack>
 
@@ -334,7 +334,7 @@ img { height: 180px; }
 
 </Sandpack>
 
-Or by wrapping the returned JSX markup in parentheses that open right after `return`:
+அல்லது returned JSX markup-ஐ `return`-க்கு உடனே பிறகு தொடங்கும் parentheses-க்குள் wrap செய்யலாம்:
 
 <Sandpack>
 
@@ -357,9 +357,9 @@ img { height: 180px; }
 
 </Solution>
 
-#### Spot the mistake {/*spot-the-mistake*/}
+#### தவறைக் கண்டுபிடிக்கவும் {/*spot-the-mistake*/}
 
-Something's wrong with how the `Profile` component is declared and used. Can you spot the mistake? (Try to remember how React distinguishes components from the regular HTML tags!)
+`Profile` component declare மற்றும் use செய்யப்பட்டுள்ள முறையில் ஏதோ தவறு உள்ளது. தவறைக் கண்டுபிடிக்க முடியுமா? (React components-ஐ வழக்கமான HTML tags-இலிருந்து எப்படி வேறுபடுத்துகிறது என்பதை நினைவில் கொள்ளுங்கள்!)
 
 <Sandpack>
 
@@ -376,7 +376,7 @@ function profile() {
 export default function Gallery() {
   return (
     <section>
-      <h1>Amazing scientists</h1>
+      <h1>அற்புதமான விஞ்ஞானிகள்</h1>
       <profile />
       <profile />
       <profile />
@@ -393,9 +393,9 @@ img { margin: 0 10px 10px 0; height: 90px; }
 
 <Solution>
 
-React component names must start with a capital letter.
+React component names capital letter-ஆல் தொடங்க வேண்டும்.
 
-Change `function profile()` to `function Profile()`, and then change every `<profile />` to `<Profile />`:
+`function profile()`-ஐ `function Profile()` ஆக மாற்றி, பிறகு ஒவ்வொரு `<profile />`-ஐ `<Profile />` ஆக மாற்றவும்:
 
 <Sandpack>
 
@@ -412,7 +412,7 @@ function Profile() {
 export default function Gallery() {
   return (
     <section>
-      <h1>Amazing scientists</h1>
+      <h1>அற்புதமான விஞ்ஞானிகள்</h1>
       <Profile />
       <Profile />
       <Profile />
@@ -429,9 +429,9 @@ img { margin: 0 10px 10px 0; }
 
 </Solution>
 
-#### Your own component {/*your-own-component*/}
+#### உங்கள் சொந்த component {/*your-own-component*/}
 
-Write a component from scratch. You can give it any valid name and return any markup. If you're out of ideas, you can write a `Congratulations` component that shows `<h1>Good job!</h1>`. Don't forget to export it!
+புதிதாக ஒரு component எழுதுங்கள். அதற்கு எந்த valid name வேண்டுமானாலும் கொடுத்து, எந்த markup வேண்டுமானாலும் return செய்யலாம். Ideas இல்லையெனில், `<h1>நன்றாக செய்தீர்கள்!</h1>` காட்டும் `Congratulations` component எழுதலாம். அதை export செய்ய மறக்காதீர்கள்!
 
 <Sandpack>
 
@@ -449,7 +449,7 @@ Write a component from scratch. You can give it any valid name and return any ma
 ```js
 export default function Congratulations() {
   return (
-    <h1>Good job!</h1>
+    <h1>நன்றாக செய்தீர்கள்!</h1>
   );
 }
 ```

@@ -4,7 +4,7 @@ title: <Activity>
 
 <Intro>
 
-`<Activity>` lets you hide and restore the UI and internal state of its children.
+`<Activity>` அதன் children-ன் UI மற்றும் internal state-ஐ hide செய்து restore செய்ய அனுமதிக்கிறது.
 
 ```js
 <Activity mode={visibility}>
@@ -22,7 +22,7 @@ title: <Activity>
 
 ### `<Activity>` {/*activity*/}
 
-You can use Activity to hide part of your application:
+உங்கள் application-ன் ஒரு பகுதியை hide செய்ய Activity-ஐ பயன்படுத்தலாம்:
 
 ```js [[1, 1, "\\"hidden\\""], [2, 2, "<Sidebar />"], [3, 1, "\\"visible\\""]]
 <Activity mode={isShowingSidebar ? "visible" : "hidden"}>
@@ -30,33 +30,33 @@ You can use Activity to hide part of your application:
 </Activity>
 ```
 
-When an Activity boundary is <CodeStep step={1}>hidden</CodeStep>, React will visually hide <CodeStep step={2}>its children</CodeStep> using the `display: "none"` CSS property. It will also destroy their Effects, cleaning up any active subscriptions.
+Activity boundary <CodeStep step={1}>hidden</CodeStep> ஆக இருக்கும் போது, React `display: "none"` CSS property பயன்படுத்தி <CodeStep step={2}>அதன் children</CodeStep>-ஐ visual ஆக hide செய்யும். அவற்றின் Effects-ஐயும் destroy செய்து, active subscriptions ஏதேனும் இருந்தால் cleanup செய்யும்.
 
-While hidden, children still re-render in response to new props, albeit at a lower priority than the rest of the content.
+Hidden ஆக இருக்கும் போது, children புதிய props-க்கு பதிலாக இன்னும் re-render ஆகும்; ஆனால் மீதமுள்ள content-ஐ விட குறைந்த priority-யில்.
 
-When the boundary becomes <CodeStep step={3}>visible</CodeStep> again, React will reveal the children with their previous state restored, and re-create their Effects.
+Boundary மீண்டும் <CodeStep step={3}>visible</CodeStep> ஆகும் போது, React children-ஐ அவற்றின் previous state restore செய்யப்பட்டபடி reveal செய்யும்; மேலும் அவற்றின் Effects-ஐ மீண்டும் create செய்யும்.
 
-In this way, Activity can be thought of as a mechanism for rendering "background activity". Rather than completely discarding content that's likely to become visible again, you can use Activity to maintain and restore that content's UI and internal state, while ensuring that your hidden content has no unwanted side effects.
+இந்த முறையில், Activity-ஐ "background activity" render செய்யும் mechanism ஆக நினைக்கலாம். மீண்டும் visible ஆக வாய்ப்புள்ள content-ஐ முழுமையாக discard செய்வதற்குப் பதிலாக, அந்த content-ன் UI மற்றும் internal state-ஐ maintain செய்து restore செய்ய Activity-ஐ பயன்படுத்தலாம்; அதே நேரத்தில் hidden content-க்கு வேண்டாத side effects இல்லை என்பதையும் உறுதி செய்யலாம்.
 
-[See more examples below.](#usage)
+[மேலும் examples-ஐ கீழே பார்க்கவும்.](#usage)
 
 #### Props {/*props*/}
 
-* `children`: The UI you intend to show and hide.
-* `mode`: A string value of either `'visible'` or `'hidden'`. If omitted, defaults to `'visible'`.
+* `children`: நீங்கள் show மற்றும் hide செய்ய விரும்பும் UI.
+* `mode`: `'visible'` அல்லது `'hidden'` ஆகியவற்றில் ஒன்றான string value. விடப்பட்டால் default ஆக `'visible'`.
 
 #### Caveats {/*caveats*/}
 
-- If an Activity is rendered inside of a [ViewTransition](/reference/react/ViewTransition), and it becomes visible as a result of an update caused by [startTransition](/reference/react/startTransition), it will activate the ViewTransition's `enter` animation. If it becomes hidden, it will activate its `exit` animation.
-- A *hidden* Activity that just renders text will not render anything rather than rendering hidden text, because there’s no corresponding DOM element to apply visibility changes to. For example, `<Activity mode="hidden"><ComponentThatJustReturnsText /></Activity>` will not produce any output in the DOM for `const ComponentThatJustReturnsText = () => "Hello, World!"`. `<Activity mode="visible"><ComponentThatJustReturnsText /></Activity>` will render visible text.
+- ஒரு Activity [ViewTransition](/reference/react/ViewTransition)-க்குள் render செய்யப்பட்டு, [startTransition](/reference/react/startTransition) காரணமான update மூலம் visible ஆனால், அது ViewTransition-ன் `enter` animation-ஐ activate செய்யும். அது hidden ஆனால், அதன் `exit` animation-ஐ activate செய்யும்.
+- Text மட்டும் render செய்யும் *hidden* Activity, hidden text render செய்வதற்குப் பதிலாக எதையும் render செய்யாது; ஏனெனில் visibility changes apply செய்ய தொடர்புடைய DOM element இல்லை. உதாரணமாக, `<Activity mode="hidden"><ComponentThatJustReturnsText /></Activity>` என்பது `const ComponentThatJustReturnsText = () => "வணக்கம், உலகம்!"`-க்காக DOM-இல் எந்த output-ஐயும் உருவாக்காது. `<Activity mode="visible"><ComponentThatJustReturnsText /></Activity>` visible text render செய்யும்.
 
 ---
 
 ## Usage {/*usage*/}
 
-### Restoring the state of hidden components {/*restoring-the-state-of-hidden-components*/}
+### மறைக்கப்பட்ட components-ன் state-ஐ restore செய்தல் {/*restoring-the-state-of-hidden-components*/}
 
-In React, when you want to conditionally show or hide a component, you typically mount or unmount it based on that condition:
+React-இல், component ஒன்றை conditionally show அல்லது hide செய்ய வேண்டுமானால், பொதுவாக அந்த condition அடிப்படையில் அதை mount அல்லது unmount செய்வீர்கள்:
 
 ```jsx
 {isShowingSidebar && (
@@ -64,9 +64,9 @@ In React, when you want to conditionally show or hide a component, you typically
 )}
 ```
 
-But unmounting a component destroys its internal state, which is not always what you want.
+ஆனால் component-ஐ unmount செய்வது அதன் internal state-ஐ destroy செய்கிறது; அது எப்போதும் நீங்கள் விரும்புவது அல்ல.
 
-When you hide a component using an Activity boundary instead, React will "save" its state for later:
+அதற்கு பதிலாக Activity boundary மூலம் component-ஐ hide செய்தால், React அதன் state-ஐ பின்னர் பயன்படுத்த "save" செய்யும்:
 
 ```jsx
 <Activity mode={isShowingSidebar ? "visible" : "hidden"}>
@@ -74,11 +74,11 @@ When you hide a component using an Activity boundary instead, React will "save" 
 </Activity>
 ```
 
-This makes it possible to hide and then later restore components in the state they were previously in.
+இதனால் components-ஐ hide செய்து, பின்னர் அவை இருந்த previous state-இல் restore செய்வது சாத்தியமாகிறது.
 
-The following example has a sidebar with an expandable section. You can press "Overview" to reveal the three subitems below it. The main app area also has a button that hides and shows the sidebar.
+கீழுள்ள example-இல் expandable section கொண்ட sidebar உள்ளது. "மேலோட்டம்" அழுத்தினால், அதன் கீழே மூன்று subitems தெரியும். Main app area-விலும் sidebar-ஐ hide மற்றும் show செய்யும் button உள்ளது.
 
-Try expanding the Overview section, and then toggling the sidebar closed then open:
+"மேலோட்டம்" section-ஐ expand செய்து, பின்னர் sidebar-ஐ மூடி மீண்டும் திறந்து பாருங்கள்:
 
 <Sandpack>
 
@@ -97,9 +97,9 @@ export default function App() {
 
       <main>
         <button onClick={() => setIsShowingSidebar(!isShowingSidebar)}>
-          Toggle sidebar
+          Sidebar-ஐ toggle செய்
         </button>
-        <h1>Main content</h1>
+        <h1>முக்கிய content</h1>
       </main>
     </>
   );
@@ -115,7 +115,7 @@ export default function Sidebar() {
   return (
     <nav>
       <button onClick={() => setIsExpanded(!isExpanded)}>
-        Overview
+        மேலோட்டம்
         <span className={`indicator ${isExpanded ? 'down' : 'right'}`}>
           &#9650;
         </span>
@@ -167,11 +167,11 @@ h1 {
 
 </Sandpack>
 
-The Overview section always starts out collapsed. Because we unmount the sidebar when `isShowingSidebar` flips to `false`, all its internal state is lost.
+`மேலோட்டம்` section எப்போதும் collapsed நிலையில் தொடங்குகிறது. `isShowingSidebar` `false` ஆக மாறும்போது sidebar-ஐ unmount செய்வதால், அதன் internal state முழுவதும் இழக்கப்படுகிறது.
 
-This is a perfect use case for Activity. We can preserve the internal state of our sidebar, even when visually hiding it.
+இது Activity-க்கான சரியான use case. Sidebar-ஐ visual ஆக hide செய்தாலும், அதன் internal state-ஐ preserve செய்ய முடியும்.
 
-Let's replace the conditional rendering of our sidebar with an Activity boundary:
+Sidebar-ன் conditional rendering-ஐ Activity boundary-ஆல் மாற்றுவோம்:
 
 ```jsx {7,9}
 // Before
@@ -185,7 +185,7 @@ Let's replace the conditional rendering of our sidebar with an Activity boundary
 </Activity>
 ```
 
-and check out the new behavior:
+புதிய behavior-ஐ பாருங்கள்:
 
 <Sandpack>
 
@@ -205,9 +205,9 @@ export default function App() {
 
       <main>
         <button onClick={() => setIsShowingSidebar(!isShowingSidebar)}>
-          Toggle sidebar
+          Sidebar-ஐ toggle செய்
         </button>
-        <h1>Main content</h1>
+        <h1>முக்கிய content</h1>
       </main>
     </>
   );
@@ -223,7 +223,7 @@ export default function Sidebar() {
   return (
     <nav>
       <button onClick={() => setIsExpanded(!isExpanded)}>
-        Overview
+        மேலோட்டம்
         <span className={`indicator ${isExpanded ? 'down' : 'right'}`}>
           &#9650;
         </span>
@@ -275,15 +275,15 @@ h1 {
 
 </Sandpack>
 
-Our sidebar's internal state is now restored, without any changes to its implementation.
+Sidebar implementation-இல் எந்த changes-உம் இல்லாமல், அதன் internal state இப்போது restore செய்யப்படுகிறது.
 
 ---
 
-### Restoring the DOM of hidden components {/*restoring-the-dom-of-hidden-components*/}
+### மறைக்கப்பட்ட components-ன் DOM-ஐ restore செய்தல் {/*restoring-the-dom-of-hidden-components*/}
 
-Since Activity boundaries hide their children using `display: none`, their children's DOM is also preserved when hidden. This makes them great for maintaining ephemeral state in parts of the UI that the user is likely to interact with again.
+Activity boundaries `display: none` பயன்படுத்தி children-ஐ hide செய்வதால், hidden ஆக இருக்கும் போது அவற்றின் DOM-உம் preserve செய்யப்படுகிறது. User மீண்டும் interact செய்ய வாய்ப்புள்ள UI பகுதிகளில் ephemeral state maintain செய்ய இவை சிறந்தவை.
 
-In this example, the Contact tab has a `<textarea>` where the user can enter a message. If you enter some text, change to the Home tab, then change back to the Contact tab, the draft message is lost:
+இந்த example-இல், Contact tab-இல் user message உள்ளிடக்கூடிய `<textarea>` உள்ளது. நீங்கள் text உள்ளிட்டு, Home tab-க்கு மாறி, பிறகு மீண்டும் Contact tab-க்கு வந்தால், draft message இழக்கப்படுகிறது:
 
 <Sandpack>
 
@@ -302,13 +302,13 @@ export default function App() {
         isActive={activeTab === 'home'}
         onClick={() => setActiveTab('home')}
       >
-        Home
+        முகப்பு
       </TabButton>
       <TabButton
         isActive={activeTab === 'contact'}
         onClick={() => setActiveTab('contact')}
       >
-        Contact
+        தொடர்பு
       </TabButton>
 
       <hr />
@@ -337,7 +337,7 @@ export default function TabButton({ onClick, children, isActive }) {
 ```js src/Home.js
 export default function Home() {
   return (
-    <p>Welcome to my profile!</p>
+    <p>என் profile-க்கு வரவேற்கிறோம்!</p>
   );
 }
 ```
@@ -346,11 +346,11 @@ export default function Home() {
 export default function Contact() {
   return (
     <div>
-      <p>Send me a message!</p>
+      <p>எனக்கு ஒரு message அனுப்புங்கள்!</p>
 
       <textarea />
 
-      <p>You can find me online here:</p>
+      <p>என்னை online-இல் இங்கே காணலாம்:</p>
       <ul>
         <li>admin@mysite.com</li>
         <li>+123456789</li>
@@ -369,9 +369,9 @@ b { display: inline-block; margin-right: 10px; }
 
 </Sandpack>
 
-This is because we're fully unmounting `Contact` in `App`. When the Contact tab unmounts, the `<textarea>` element's internal DOM state is lost.
+ஏனெனில் `App`-இல் `Contact`-ஐ முழுமையாக unmount செய்கிறோம். Contact tab unmount ஆகும்போது, `<textarea>` element-ன் internal DOM state இழக்கப்படுகிறது.
 
-If we switch to using an Activity boundary to show and hide the active tab, we can preserve the state of each tab's DOM. Try entering text and switching tabs again, and you'll see the draft message is no longer reset:
+Active tab-ஐ show மற்றும் hide செய்ய Activity boundary பயன்படுத்த மாறினால், ஒவ்வொரு tab-ன் DOM state-ஐ preserve செய்யலாம். Text உள்ளிட்டு tabs-ஐ மீண்டும் மாற்றிப் பாருங்கள்; draft message இனி reset ஆகவில்லை என்பதை காண்பீர்கள்:
 
 <Sandpack>
 
@@ -390,13 +390,13 @@ export default function App() {
         isActive={activeTab === 'home'}
         onClick={() => setActiveTab('home')}
       >
-        Home
+        முகப்பு
       </TabButton>
       <TabButton
         isActive={activeTab === 'contact'}
         onClick={() => setActiveTab('contact')}
       >
-        Contact
+        தொடர்பு
       </TabButton>
 
       <hr />
@@ -429,7 +429,7 @@ export default function TabButton({ onClick, children, isActive }) {
 ```js src/Home.js
 export default function Home() {
   return (
-    <p>Welcome to my profile!</p>
+    <p>என் profile-க்கு வரவேற்கிறோம்!</p>
   );
 }
 ```
@@ -438,11 +438,11 @@ export default function Home() {
 export default function Contact() {
   return (
     <div>
-      <p>Send me a message!</p>
+      <p>எனக்கு ஒரு message அனுப்புங்கள்!</p>
 
       <textarea />
 
-      <p>You can find me online here:</p>
+      <p>என்னை online-இல் இங்கே காணலாம்:</p>
       <ul>
         <li>admin@mysite.com</li>
         <li>+123456789</li>
@@ -461,15 +461,15 @@ b { display: inline-block; margin-right: 10px; }
 
 </Sandpack>
 
-Again, the Activity boundary let us preserve the Contact tab's internal state without changing its implementation.
+இங்கேயும், Contact tab implementation-ஐ மாற்றாமல் அதன் internal state-ஐ preserve செய்ய Activity boundary உதவியது.
 
 ---
 
-### Pre-rendering content that's likely to become visible {/*pre-rendering-content-thats-likely-to-become-visible*/}
+### தெரிய வாய்ப்புள்ள content-ஐ pre-render செய்தல் {/*pre-rendering-content-thats-likely-to-become-visible*/}
 
-So far, we've seen how Activity can hide some content that the user has interacted with, without discarding that content's ephemeral state.
+இதுவரை, user interact செய்த content-ன் ephemeral state-ஐ discard செய்யாமல், அதை Activity எப்படி hide செய்ய முடியும் என்பதை பார்த்தோம்.
 
-But Activity boundaries can also be used to _prepare_ content that the user has yet to see for the first time:
+ஆனால் user இன்னும் முதல் முறையாக பார்க்காத content-ஐ _prepare_ செய்யவும் Activity boundaries பயன்படுத்தப்படலாம்:
 
 ```jsx [[1, 1, "\\"hidden\\""]]
 <Activity mode="hidden">
@@ -477,13 +477,13 @@ But Activity boundaries can also be used to _prepare_ content that the user has 
 </Activity>
 ```
 
-When an Activity boundary is <CodeStep step={1}>hidden</CodeStep> during its initial render, its children won't be visible on the page — but they will _still be rendered_, albeit at a lower priority than the visible content, and without mounting their Effects.
+Activity boundary அதன் initial render போது <CodeStep step={1}>hidden</CodeStep> ஆக இருந்தால், அதன் children page-இல் visible ஆக இருக்காது — ஆனால் அவை visible content-ஐ விட குறைந்த priority-யில், Effects mount செய்யாமல், _இன்னும் render செய்யப்படும்_.
 
-This _pre-rendering_ allows the children to load any code or data they need ahead of time, so that later, when the Activity boundary becomes visible, the children can appear faster with reduced loading times.
+இந்த _pre-rendering_, children-க்கு தேவையான code அல்லது data-வை முன்கூட்டியே load செய்ய அனுமதிக்கிறது. பின்னர் Activity boundary visible ஆகும் போது, children குறைந்த loading time உடன் வேகமாக தோன்ற முடியும்.
 
-Let's look at an example.
+ஒரு example-ஐ பார்க்கலாம்.
 
-In this demo, the Posts tab loads some data. If you press it, you'll see a Suspense fallback displayed while the data is being fetched:
+இந்த demo-வில், Posts tab சில data-வை load செய்கிறது. அதை அழுத்தினால், data fetch செய்யப்படும் போது Suspense fallback display ஆகும்:
 
 <Sandpack>
 
@@ -502,18 +502,18 @@ export default function App() {
         isActive={activeTab === 'home'}
         onClick={() => setActiveTab('home')}
       >
-        Home
+        முகப்பு
       </TabButton>
       <TabButton
         isActive={activeTab === 'posts'}
         onClick={() => setActiveTab('posts')}
       >
-        Posts
+        பதிவுகள்
       </TabButton>
 
       <hr />
 
-      <Suspense fallback={<h1>🌀 Loading...</h1>}>
+      <Suspense fallback={<h1>🌀 ஏற்றப்படுகிறது...</h1>}>
         {activeTab === 'home' && <Home />}
         {activeTab === 'posts' && <Posts />}
       </Suspense>
@@ -539,7 +539,7 @@ export default function TabButton({ onClick, children, isActive }) {
 ```js src/Home.js
 export default function Home() {
   return (
-    <p>Welcome to my profile!</p>
+    <p>என் profile-க்கு வரவேற்கிறோம்!</p>
   );
 }
 ```
@@ -581,7 +581,7 @@ async function getData(url) {
   if (url.startsWith('/posts')) {
     return await getPosts();
   } else {
-    throw Error('Not implemented');
+    throw Error('Implement செய்யப்படவில்லை');
   }
 }
 
@@ -594,7 +594,7 @@ async function getPosts() {
   for (let i = 0; i < 10; i++) {
     posts.push({
       id: i,
-      title: 'Post #' + (i + 1)
+      title: 'பதிவு #' + (i + 1)
     });
   }
   return posts;
@@ -611,11 +611,11 @@ video { width: 300px; margin-top: 10px; aspect-ratio: 16/9; }
 
 </Sandpack>
 
-This is because `App` doesn't mount `Posts` until its tab is active.
+ஏனெனில் அதன் tab active ஆகும் வரை `App` `Posts`-ஐ mount செய்யாது.
 
-If we update `App` to use an Activity boundary to show and hide the active tab, `Posts` will be pre-rendered when the app first loads, allowing it to fetch its data before it becomes visible.
+Active tab-ஐ show மற்றும் hide செய்ய Activity boundary பயன்படுத்தும் வகையில் `App`-ஐ update செய்தால், app முதலில் load ஆகும்போது `Posts` pre-render செய்யப்படும்; அது visible ஆகும் முன் data fetch செய்ய இது அனுமதிக்கும்.
 
-Try clicking the Posts tab now:
+இப்போது Posts tab-ஐ click செய்து பாருங்கள்:
 
 <Sandpack>
 
@@ -634,18 +634,18 @@ export default function App() {
         isActive={activeTab === 'home'}
         onClick={() => setActiveTab('home')}
       >
-        Home
+        முகப்பு
       </TabButton>
       <TabButton
         isActive={activeTab === 'posts'}
         onClick={() => setActiveTab('posts')}
       >
-        Posts
+        பதிவுகள்
       </TabButton>
 
       <hr />
 
-      <Suspense fallback={<h1>🌀 Loading...</h1>}>
+      <Suspense fallback={<h1>🌀 ஏற்றப்படுகிறது...</h1>}>
         <Activity mode={activeTab === 'home' ? 'visible' : 'hidden'}>
           <Home />
         </Activity>
@@ -675,7 +675,7 @@ export default function TabButton({ onClick, children, isActive }) {
 ```js src/Home.js
 export default function Home() {
   return (
-    <p>Welcome to my profile!</p>
+    <p>என் profile-க்கு வரவேற்கிறோம்!</p>
   );
 }
 ```
@@ -717,7 +717,7 @@ async function getData(url) {
   if (url.startsWith('/posts')) {
     return await getPosts();
   } else {
-    throw Error('Not implemented');
+    throw Error('Implement செய்யப்படவில்லை');
   }
 }
 
@@ -730,7 +730,7 @@ async function getPosts() {
   for (let i = 0; i < 10; i++) {
     posts.push({
       id: i,
-      title: 'Post #' + (i + 1)
+      title: 'பதிவு #' + (i + 1)
     });
   }
   return posts;
@@ -747,36 +747,36 @@ video { width: 300px; margin-top: 10px; aspect-ratio: 16/9; }
 
 </Sandpack>
 
-`Posts` was able to prepare itself for a faster render, thanks to the hidden Activity boundary.
+Hidden Activity boundary காரணமாக `Posts` வேகமான render-க்காக தன்னைத் தயார்படுத்த முடிந்தது.
 
 ---
 
-Pre-rendering components with hidden Activity boundaries is a powerful way to reduce loading times for parts of the UI that the user is likely to interact with next.
+User அடுத்ததாக interact செய்ய வாய்ப்புள்ள UI பகுதிகளுக்கான loading times-ஐ குறைக்க, hidden Activity boundaries மூலம் components-ஐ pre-render செய்வது சக்திவாய்ந்த வழி.
 
 <Note>
 
-**Only Suspense-enabled data sources will be fetched during pre-rendering.** They include:
+**Suspense-enabled data sources மட்டுமே pre-rendering போது fetched செய்யப்படும்.** அவை:
 
-- Data fetching with Suspense-enabled frameworks like [Relay](https://relay.dev/docs/guided-tour/rendering/loading-states/) and [Next.js](https://nextjs.org/docs/app/building-your-application/routing/loading-ui-and-streaming#streaming-with-suspense)
-- Lazy-loading component code with [`lazy`](/reference/react/lazy)
-- Reading the value of a cached Promise with [`use`](/reference/react/use)
+- [Relay](https://relay.dev/docs/guided-tour/rendering/loading-states/) மற்றும் [Next.js](https://nextjs.org/docs/app/building-your-application/routing/loading-ui-and-streaming#streaming-with-suspense) போன்ற Suspense-enabled frameworks மூலம் data fetching
+- [`lazy`](/reference/react/lazy) மூலம் component code lazy-load செய்தல்
+- [`use`](/reference/react/use) மூலம் cached Promise-ன் value-ஐ வாசித்தல்
 
-Activity **does not** detect data that is fetched inside an Effect.
+Effect-க்குள் fetched செய்யப்படும் data-வை Activity detect செய்யாது.
 
-The exact way you would load data in the `Posts` component above depends on your framework. If you use a Suspense-enabled framework, you'll find the details in its data fetching documentation.
+மேலுள்ள `Posts` component-இல் data load செய்யும் exact முறை உங்கள் framework-ஐப் பொறுத்தது. Suspense-enabled framework பயன்படுத்தினால், அதன் data fetching documentation-இல் details காண்பீர்கள்.
 
-Suspense-enabled data fetching without the use of an opinionated framework is not yet supported. The requirements for implementing a Suspense-enabled data source are unstable and undocumented. An official API for integrating data sources with Suspense will be released in a future version of React.
+Opinionated framework இல்லாமல் Suspense-enabled data fetching இன்னும் support செய்யப்படவில்லை. Suspense-enabled data source implement செய்வதற்கான requirements unstable மற்றும் undocumented. Data sources-ஐ Suspense உடன் integrate செய்வதற்கான official API React-ன் எதிர்கால version-இல் release செய்யப்படும்.
 
 </Note>
 
 ---
 
 
-### Speeding up interactions during page load {/*speeding-up-interactions-during-page-load*/}
+### Page load நேரத்தில் interactions-ஐ வேகப்படுத்துதல் {/*speeding-up-interactions-during-page-load*/}
 
-React includes an under-the-hood performance optimization called Selective Hydration. It works by hydrating your app's initial HTML _in chunks_, enabling some components to become interactive even if other components on the page haven't loaded their code or data yet.
+React-இல் Selective Hydration என்ற internal performance optimization உள்ளது. இது உங்கள் app-ன் initial HTML-ஐ _chunks_-ஆக hydrate செய்வதன் மூலம் வேலை செய்கிறது; page-இல் உள்ள பிற components தங்கள் code அல்லது data-வை இன்னும் load செய்யாதிருந்தாலும், சில components interactive ஆக முடியும்.
 
-Suspense boundaries participate in Selective Hydration, because they naturally divide your component tree into units that are independent from one another:
+Suspense boundaries Selective Hydration-இல் பங்கேற்கின்றன; ஏனெனில் அவை உங்கள் component tree-ஐ இயல்பாக ஒன்றிலிருந்து ஒன்று independent ஆன units-ஆகப் பிரிக்கின்றன:
 
 ```jsx
 function Page() {
@@ -784,7 +784,7 @@ function Page() {
     <>
       <MessageComposer />
 
-      <Suspense fallback="Loading chats...">
+      <Suspense fallback="Chats ஏற்றப்படுகிறது...">
         <Chats />
       </Suspense>
     </>
@@ -792,13 +792,13 @@ function Page() {
 }
 ```
 
-Here, `MessageComposer` can be fully hydrated during the initial render of the page, even before `Chats` is mounted and starts to fetch its data.
+இங்கே, `Chats` mount ஆகி data fetch செய்யத் தொடங்குவதற்கு முன்பே, page-ன் initial render போது `MessageComposer` முழுமையாக hydrated ஆக முடியும்.
 
-So by breaking up your component tree into discrete units, Suspense allows React to hydrate your app's server-rendered HTML in chunks, enabling parts of your app to become interactive as fast as possible.
+அதனால் உங்கள் component tree-ஐ தனித்தனி units-ஆகப் பிரிப்பதன் மூலம், app-ன் server-rendered HTML-ஐ chunks-ஆக hydrate செய்ய Suspense React-க்கு அனுமதிக்கிறது; இதனால் app-ன் பகுதிகள் முடிந்தவரை வேகமாக interactive ஆக முடியும்.
 
-But what about pages that don't use Suspense?
+ஆனால் Suspense பயன்படுத்தாத pages பற்றி என்ன?
 
-Take this tabs example:
+இந்த tabs example-ஐ எடுத்துக்கொள்ளுங்கள்:
 
 ```jsx
 function Page() {
@@ -807,10 +807,10 @@ function Page() {
   return (
     <>
       <TabButton onClick={() => setActiveTab('home')}>
-        Home
+        முகப்பு
       </TabButton>
       <TabButton onClick={() => setActiveTab('video')}>
-        Video
+        வீடியோ
       </TabButton>
 
       {activeTab === 'home' && (
@@ -824,9 +824,9 @@ function Page() {
 }
 ```
 
-Here, React must hydrate the entire page all at once. If `Home` or `Video` are slower to render, they could make the tab buttons feel unresponsive during hydration.
+இங்கே, React முழு page-ஐ ஒரே நேரத்தில் hydrate செய்ய வேண்டும். `Home` அல்லது `Video` render ஆக மெதுவாக இருந்தால், hydration போது tab buttons unresponsive போலத் தோன்றலாம்.
 
-Adding Suspense around the active tab would solve this:
+Active tab-ஐ சுற்றி Suspense சேர்த்தால் இது தீரும்:
 
 ```jsx {13,20}
 function Page() {
@@ -835,10 +835,10 @@ function Page() {
   return (
     <>
       <TabButton onClick={() => setActiveTab('home')}>
-        Home
+        முகப்பு
       </TabButton>
       <TabButton onClick={() => setActiveTab('video')}>
-        Video
+        வீடியோ
       </TabButton>
 
       <Suspense fallback={<Placeholder />}>
@@ -854,11 +854,11 @@ function Page() {
 }
 ```
 
-...but it would also change the UI, since the `Placeholder` fallback would be displayed on the initial render.
+...ஆனால் அது UI-யையும் மாற்றும்; ஏனெனில் initial render-இல் `Placeholder` fallback display ஆகும்.
 
-Instead, we can use Activity. Since Activity boundaries show and hide their children, they already naturally divide the component tree into independent units. And just like Suspense, this feature allows them to participate in Selective Hydration.
+அதற்கு பதிலாக Activity பயன்படுத்தலாம். Activity boundaries தங்கள் children-ஐ show மற்றும் hide செய்வதால், அவை component tree-ஐ இயல்பாக independent units-ஆகப் பிரிக்கின்றன. Suspense போலவே, இந்த feature அவற்றை Selective Hydration-இல் பங்கேற்க அனுமதிக்கிறது.
 
-Let's update our example to use Activity boundaries around the active tab:
+Active tab-ஐ சுற்றி Activity boundaries பயன்படுத்த example-ஐ update செய்வோம்:
 
 ```jsx {13-18}
 function Page() {
@@ -867,10 +867,10 @@ function Page() {
   return (
     <>
       <TabButton onClick={() => setActiveTab('home')}>
-        Home
+        முகப்பு
       </TabButton>
       <TabButton onClick={() => setActiveTab('video')}>
-        Video
+        வீடியோ
       </TabButton>
 
       <Activity mode={activeTab === "home" ? "visible" : "hidden"}>
@@ -884,13 +884,13 @@ function Page() {
 }
 ```
 
-Now our initial server-rendered HTML looks the same as it did in the original version, but thanks to Activity, React can hydrate the tab buttons first, before it even mounts `Home` or `Video`.
+இப்போது initial server-rendered HTML original version போலவே தெரிகிறது; ஆனால் Activity காரணமாக, `Home` அல்லது `Video` mount செய்வதற்கு முன்பே React tab buttons-ஐ முதலில் hydrate செய்ய முடியும்.
 
 ---
 
-Thus, in addition to hiding and showing content, Activity boundaries help improve your app's performance during hydration by letting React know which parts of your page can become interactive in isolation.
+அதனால் content-ஐ hide மற்றும் show செய்வதற்கு கூடுதலாக, page-ன் எந்த பகுதிகள் தனியாக interactive ஆக முடியும் என்பதை React-க்கு தெரிவிப்பதன் மூலம், hydration போது உங்கள் app performance-ஐ மேம்படுத்த Activity boundaries உதவுகின்றன.
 
-And even if your page doesn't ever hide part of its content, you can still add always-visible Activity boundaries to improve hydration performance:
+உங்கள் page அதன் content-ன் எந்த பகுதியையும் ஒருபோதும் hide செய்யாவிட்டாலும், hydration performance-ஐ மேம்படுத்த always-visible Activity boundaries சேர்க்கலாம்:
 
 ```jsx
 function Page() {
@@ -908,15 +908,15 @@ function Page() {
 
 ---
 
-## Troubleshooting {/*troubleshooting*/}
+## சிக்கல் தீர்க்குதல் {/*troubleshooting*/}
 
-### My hidden components have unwanted side effects {/*my-hidden-components-have-unwanted-side-effects*/}
+### என் hidden components-க்கு வேண்டாத side effects உள்ளன {/*my-hidden-components-have-unwanted-side-effects*/}
 
-An Activity boundary hides its content by setting `display: none` on its children and cleaning up any of their Effects. So, most well-behaved React components that properly clean up their side effects will already be robust to being hidden by Activity.
+Activity boundary அதன் children-இல் `display: none` set செய்து, அவற்றின் Effects ஏதேனும் இருந்தால் cleanup செய்வதன் மூலம் content-ஐ hide செய்கிறது. எனவே side effects-ஐ சரியாக cleanup செய்யும் பெரும்பாலான well-behaved React components, Activity மூலம் hide செய்யப்படுவதற்கு ஏற்கனவே robust ஆக இருக்கும்.
 
-But there _are_ some situations where a hidden component behaves differently than an unmounted one. Most notably, since a hidden component's DOM is not destroyed, any side effects from that DOM will persist, even after the component is hidden.
+ஆனால் hidden component ஒன்று unmounted component-இலிருந்து வேறுபடுமாறு நடக்கும் சில situations _உள்ளன_. குறிப்பாக, hidden component-ன் DOM destroy செய்யப்படாததால், அந்த DOM-இலிருந்து வரும் side effects component hidden ஆன பிறகும் persist ஆகும்.
 
-As an example, consider a `<video>` tag. Typically it doesn't require any cleanup, because even if you're playing a video, unmounting the tag stops the video and audio from playing in the browser. Try playing the video and then pressing Home in this demo:
+உதாரணமாக, `<video>` tag-ஐ எடுத்துக்கொள்ளுங்கள். பொதுவாக இதற்கு cleanup தேவையில்லை; ஏனெனில் video play செய்து கொண்டிருந்தாலும், tag-ஐ unmount செய்வது browser-இல் video மற்றும் audio play ஆகுவதை நிறுத்திவிடும். இந்த demo-வில் video play செய்து, பிறகு Home அழுத்திப் பாருங்கள்:
 
 <Sandpack>
 
@@ -935,13 +935,13 @@ export default function App() {
         isActive={activeTab === 'home'}
         onClick={() => setActiveTab('home')}
       >
-        Home
+        முகப்பு
       </TabButton>
       <TabButton
         isActive={activeTab === 'video'}
         onClick={() => setActiveTab('video')}
       >
-        Video
+        வீடியோ
       </TabButton>
 
       <hr />
@@ -970,7 +970,7 @@ export default function TabButton({ onClick, children, isActive }) {
 ```js src/Home.js
 export default function Home() {
   return (
-    <p>Welcome to my profile!</p>
+    <p>என் profile-க்கு வரவேற்கிறோம்!</p>
   );
 }
 ```
@@ -999,13 +999,13 @@ video { width: 300px; margin-top: 10px; aspect-ratio: 16/9; }
 
 </Sandpack>
 
-The video stops playing as expected.
+Video எதிர்பார்த்தபடி play ஆகுவதை நிறுத்துகிறது.
 
-Now, let's say we wanted to preserve the timecode where the user last watched, so that when they tab back to the video, it doesn't start over from the beginning again.
+இப்போது, user கடைசியாக பார்த்த timecode-ஐ preserve செய்ய விரும்புகிறோம் என்று வைத்துக்கொள்வோம்; அப்போது அவர்கள் மீண்டும் video tab-க்கு திரும்பும்போது அது ஆரம்பத்திலிருந்து மீண்டும் தொடங்காது.
 
-This is a great use case for Activity!
+இது Activity-க்கான சிறந்த use case!
 
-Let's update `App` to hide the inactive tab with a hidden Activity boundary instead of unmounting it, and see how the demo behaves this time:
+Inactive tab-ஐ unmount செய்வதற்குப் பதிலாக hidden Activity boundary மூலம் hide செய்ய `App`-ஐ update செய்து, இந்த முறை demo எப்படி behave செய்கிறது என்று பார்ப்போம்:
 
 <Sandpack>
 
@@ -1024,13 +1024,13 @@ export default function App() {
         isActive={activeTab === 'home'}
         onClick={() => setActiveTab('home')}
       >
-        Home
+        முகப்பு
       </TabButton>
       <TabButton
         isActive={activeTab === 'video'}
         onClick={() => setActiveTab('video')}
       >
-        Video
+        வீடியோ
       </TabButton>
 
       <hr />
@@ -1063,7 +1063,7 @@ export default function TabButton({ onClick, children, isActive }) {
 ```js src/Home.js
 export default function Home() {
   return (
-    <p>Welcome to my profile!</p>
+    <p>என் profile-க்கு வரவேற்கிறோம்!</p>
   );
 }
 ```
@@ -1092,9 +1092,9 @@ video { width: 300px; margin-top: 10px; aspect-ratio: 16/9; }
 
 </Sandpack>
 
-Whoops! The video and audio continue to play even after it's been hidden, because the tab's `<video>` element is still in the DOM.
+அப்பா! Hidden ஆன பிறகும் video மற்றும் audio தொடர்ந்து play ஆகின்றன; ஏனெனில் tab-ன் `<video>` element இன்னும் DOM-இல் உள்ளது.
 
-To fix this, we can add an Effect with a cleanup function that pauses the video:
+இதை fix செய்ய, video-ஐ pause செய்யும் cleanup function கொண்ட Effect ஒன்றை சேர்க்கலாம்:
 
 ```jsx {2,4-10,14}
 export default function VideoTab() {
@@ -1120,9 +1120,9 @@ export default function VideoTab() {
 }
 ```
 
-We call `useLayoutEffect` instead of `useEffect` because conceptually the clean-up code is tied to the component's UI being visually hidden. If we used a regular effect, the code could be delayed by (say) a re-suspending Suspense boundary or a View Transition.
+`useEffect`-க்கு பதிலாக `useLayoutEffect` call செய்கிறோம்; ஏனெனில் conceptually cleanup code component-ன் UI visual ஆக hidden ஆகுவதுடன் தொடர்புடையது. Regular effect பயன்படுத்தினால், code re-suspending Suspense boundary அல்லது View Transition போன்றவற்றால் delayed ஆகலாம்.
 
-Let's see the new behavior. Try playing the video, switching to the Home tab, then back to the Video tab:
+புதிய behavior-ஐ பார்ப்போம். Video play செய்து, Home tab-க்கு மாறி, பின்னர் மீண்டும் Video tab-க்கு திரும்பிப் பாருங்கள்:
 
 <Sandpack>
 
@@ -1141,13 +1141,13 @@ export default function App() {
         isActive={activeTab === 'home'}
         onClick={() => setActiveTab('home')}
       >
-        Home
+        முகப்பு
       </TabButton>
       <TabButton
         isActive={activeTab === 'video'}
         onClick={() => setActiveTab('video')}
       >
-        Video
+        வீடியோ
       </TabButton>
 
       <hr />
@@ -1180,7 +1180,7 @@ export default function TabButton({ onClick, children, isActive }) {
 ```js src/Home.js
 export default function Home() {
   return (
-    <p>Welcome to my profile!</p>
+    <p>என் profile-க்கு வரவேற்கிறோம்!</p>
   );
 }
 ```
@@ -1222,31 +1222,31 @@ video { width: 300px; margin-top: 10px; aspect-ratio: 16/9; }
 
 </Sandpack>
 
-It works great! Our cleanup function ensures that the video stops playing if it's ever hidden by an Activity boundary, and even better, because the `<video>` tag is never destroyed, the timecode is preserved, and the video itself doesn't need to be initialized or downloaded again when the user switches back to keep watching it.
+இது சிறப்பாக வேலை செய்கிறது! Activity boundary மூலம் video எப்போது hidden ஆனாலும் அது play ஆகுவதை cleanup function நிறுத்துகிறது. மேலும், `<video>` tag ஒருபோதும் destroy செய்யப்படாததால் timecode preserve செய்யப்படுகிறது; user மீண்டும் பார்க்க திரும்பும்போது video-வை மீண்டும் initialize அல்லது download செய்ய வேண்டியதில்லை.
 
-This is a great example of using Activity to preserve ephemeral DOM state for parts of the UI that become hidden, but the user is likely to interact with again soon.
+Hidden ஆகும், ஆனால் user விரைவில் மீண்டும் interact செய்ய வாய்ப்புள்ள UI பகுதிகளின் ephemeral DOM state-ஐ preserve செய்ய Activity பயன்படுத்தும் சிறந்த example இது.
 
 ---
 
-Our example illustrates that for certain tags like `<video>`, unmounting and hiding have different behavior. If a component renders DOM that has a side effect, and you want to prevent that side effect when an Activity boundary hides it, add an Effect with a return function to clean it up.
+`<video>` போன்ற சில tags-க்கு unmount செய்வதும் hide செய்வதும் வெவ்வேறு behavior கொண்டவை என்பதை இந்த example காட்டுகிறது. ஒரு component side effect கொண்ட DOM render செய்தால், Activity boundary அதை hide செய்யும்போது அந்த side effect-ஐத் தடுக்க விரும்பினால், அதை cleanup செய்ய return function கொண்ட Effect சேர்க்கவும்.
 
-The most common cases of this will be from the following tags:
+இதற்கான மிகப் பொதுவான cases பின்வரும் tags-இல் இருக்கும்:
 
   - `<video>`
   - `<audio>`
   - `<iframe>`
 
-Typically, though, most of your React components should already be robust to being hidden by an Activity boundary. And conceptually, you should think of "hidden" Activities as being unmounted.
+பொதுவாக, உங்கள் React components-இன் பெரும்பாலானவை Activity boundary மூலம் hide செய்யப்படுவதற்கு ஏற்கனவே robust ஆக இருக்க வேண்டும். Conceptually, "hidden" Activities unmounted போலவே என்று நினைக்க வேண்டும்.
 
-To eagerly discover other Effects that don't have proper cleanup, which is important not only for Activity boundaries but for many other behaviors in React, we recommend using [`<StrictMode>`](/reference/react/StrictMode).
+சரியான cleanup இல்லாத பிற Effects-ஐ விரைவாக கண்டுபிடிக்க [`<StrictMode>`](/reference/react/StrictMode) பயன்படுத்த பரிந்துரைக்கிறோம்; இது Activity boundaries-க்கு மட்டும் அல்ல, React-இல் பல பிற behaviors-க்கும் முக்கியமானது.
 
 ---
 
 
-### My hidden components have Effects that aren't running {/*my-hidden-components-have-effects-that-arent-running*/}
+### என் hidden components-இல் இயங்காத Effects உள்ளன {/*my-hidden-components-have-effects-that-arent-running*/}
 
-When an `<Activity>` is "hidden", all its children's Effects are cleaned up. Conceptually, the children are unmounted, but React saves their state for later. This is a feature of Activity because it means subscriptions won't be active for hidden parts of the UI, reducing the amount of work needed for hidden content.
+`<Activity>` "hidden" ஆக இருக்கும் போது, அதன் children-ன் எல்லா Effects-உம் cleaned up ஆகும். Conceptually, children unmounted ஆகின்றன; ஆனால் React அவற்றின் state-ஐ பின்னர் பயன்படுத்த save செய்கிறது. இது Activity-யின் feature; ஏனெனில் UI-ன் hidden பகுதிகளுக்காக subscriptions active ஆகாது, hidden content-க்கு தேவையான work குறையும்.
 
-If you're relying on an Effect mounting to clean up a component's side effects, refactor the Effect to do the work in the returned cleanup function instead.
+Component-ன் side effects cleanup செய்ய Effect mount ஆகும் என்பதை நீங்கள் நம்பியிருந்தால், அந்த work-ஐ return செய்யப்படும் cleanup function-இல் செய்யுமாறு Effect-ஐ refactor செய்யுங்கள்.
 
-To eagerly find problematic Effects, we recommend adding [`<StrictMode>`](/reference/react/StrictMode) which will eagerly perform Activity unmounts and mounts to catch any unexpected side-effects.
+Problematic Effects-ஐ விரைவாக கண்டுபிடிக்க [`<StrictMode>`](/reference/react/StrictMode) சேர்க்க பரிந்துரைக்கிறோம்; இது unexpected side-effects-ஐ பிடிக்க Activity unmounts மற்றும் mounts-ஐ விரைவாக perform செய்யும்.

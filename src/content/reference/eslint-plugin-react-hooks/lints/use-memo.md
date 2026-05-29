@@ -4,17 +4,17 @@ title: use-memo
 
 <Intro>
 
-Validates that the `useMemo` hook is used with a return value. See [`useMemo` docs](/reference/react/useMemo) for more information.
+`useMemo` hook return value-உடன் பயன்படுத்தப்படுகிறதா என்பதை validate செய்கிறது. மேலும் தகவல்களுக்கு [`useMemo` docs](/reference/react/useMemo)-ஐப் பார்க்கவும்.
 
 </Intro>
 
-## Rule Details {/*rule-details*/}
+## விதி விவரங்கள் {/*rule-details*/}
 
-`useMemo` is for computing and caching expensive values, not for side effects. Without a return value, `useMemo` returns `undefined`, which defeats its purpose and likely indicates you're using the wrong hook.
+`useMemo` expensive values-ஐ compute செய்து cache செய்யத்தான்; side effects-க்காக அல்ல. Return value இல்லாமல் `useMemo` `undefined` return செய்யும்; இது அதன் நோக்கத்தையே வீணாக்குகிறது, மேலும் நீங்கள் தவறான hook-ஐப் பயன்படுத்துகிறீர்கள் என்பதைக் குறிக்கலாம்.
 
-### Invalid {/*invalid*/}
+### செல்லாதது {/*invalid*/}
 
-Examples of incorrect code for this rule:
+இந்த விதிக்கான தவறான code உதாரணங்கள்:
 
 ```js {expectedErrors: {'react-compiler': [3]}}
 // ❌ No return value
@@ -28,9 +28,9 @@ function Component({ data }) {
 }
 ```
 
-### Valid {/*valid*/}
+### செல்லுபடியாகும் {/*valid*/}
 
-Examples of correct code for this rule:
+இந்த விதிக்கான சரியான code உதாரணங்கள்:
 
 ```js
 // ✅ Returns computed value
@@ -45,9 +45,9 @@ function Component({ data }) {
 
 ## Troubleshooting {/*troubleshooting*/}
 
-### I need to run side effects when dependencies change {/*side-effects*/}
+### Dependencies மாறும்போது side effects இயக்க வேண்டும் {/*side-effects*/}
 
-You might try to use `useMemo` for side effects:
+Side effects-க்காக `useMemo` பயன்படுத்த முயற்சிக்கலாம்:
 
 {/* TODO(@poteto) fix compiler validation to check for unassigned useMemos */}
 ```js {expectedErrors: {'react-compiler': [4]}}
@@ -65,7 +65,7 @@ function Component({user}) {
 }
 ```
 
-If the side effect needs to happen in response to user interaction, it's best to colocate the side effect with the event:
+Side effect user interaction-க்கு பதிலாக நடக்க வேண்டுமெனில், அந்த side effect-ஐ event-உடன் சேர்த்து வைப்பது சிறந்தது:
 
 ```js
 // ✅ Good: Side effects in event handlers
@@ -79,7 +79,7 @@ function Component({user}) {
 }
 ```
 
-If the side effect sychronizes React state with some external state (or vice versa), use `useEffect`:
+Side effect React state-ஐ ஏதேனும் external state-உடன் synchronize செய்தால் (அல்லது மாறாக), `useEffect` பயன்படுத்துங்கள்:
 
 ```js
 // ✅ Good: Synchronization in useEffect

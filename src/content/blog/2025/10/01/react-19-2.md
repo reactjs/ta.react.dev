@@ -2,32 +2,32 @@
 title: "React 19.2"
 author: The React Team
 date: 2025/10/01
-description: React 19.2 adds new features like Activity, React Performance Tracks, useEffectEvent, and more.
+description: React 19.2, Activity, React Performance Tracks, useEffectEvent மற்றும் பல புதிய features சேர்க்கிறது.
 ---
 
-October 1, 2025 by [The React Team](/community/team)
+October 1, 2025 அன்று [React Team](/community/team) எழுதியது
 
 ---
 
 <Intro>
 
-React 19.2 is now available on npm!
+React 19.2 இப்போது npm-இல் கிடைக்கிறது!
 
 </Intro>
 
-This is our third release in the last year, following React 19 in December and React 19.1 in June. In this post, we'll give an overview of the new features in React 19.2, and highlight some notable changes.
+இது கடந்த ஆண்டில் எங்கள் மூன்றாவது release; டிசம்பரில் React 19 மற்றும் ஜூனில் React 19.1-ஐ தொடர்ந்து வருகிறது. இந்த post-இல், React 19.2-இன் புதிய features பற்றிய overview கொடுத்து, சில notable changes-ஐ highlight செய்கிறோம்.
 
 <InlineToc />
 
 ---
 
-## New React Features {/*new-react-features*/}
+## புதிய React features {/*new-react-features*/}
 
 ### `<Activity />` {/*activity*/}
 
-`<Activity>` lets you break your app into "activities" that can be controlled and prioritized.
+`<Activity>` உங்கள் app-ஐ control மற்றும் prioritize செய்யக்கூடிய "activities" ஆகப் பிரிக்க அனுமதிக்கிறது.
 
-You can use Activity as an alternative to conditionally rendering parts of your app:
+உங்கள் app-ன் பகுதிகளை conditionally render செய்வதற்கான alternative ஆக Activity-ஐ பயன்படுத்தலாம்:
 
 ```js
 // Before
@@ -39,31 +39,31 @@ You can use Activity as an alternative to conditionally rendering parts of your 
 </Activity>
 ```
 
-In React 19.2, Activity supports two modes: `visible` and `hidden`.
+React 19.2-இல், Activity இரண்டு modes support செய்கிறது: `visible` மற்றும் `hidden`.
 
-- `hidden`: hides the children, unmounts effects, and defers all updates until React has nothing left to work on.
-- `visible`: shows the children, mounts effects, and allows updates to be processed normally.
+- `hidden`: children-ஐ hide செய்கிறது, effects-ஐ unmount செய்கிறது, மேலும் React-க்கு செய்ய வேறு வேலை எதுவும் இல்லாத வரை அனைத்து updates-ஐ defer செய்கிறது.
+- `visible`: children-ஐ show செய்கிறது, effects-ஐ mount செய்கிறது, மேலும் updates normally process செய்ய அனுமதிக்கிறது.
 
-This means you can pre-render and keep rendering hidden parts of the app without impacting the performance of anything visible on screen.
+இதன் அர்த்தம்: screen-இல் visible ஆக உள்ள எதனுடைய performance-யையும் பாதிக்காமல், app-ன் hidden பகுதிகளை pre-render செய்து render செய்தபடி வைத்திருக்கலாம்.
 
-You can use Activity to render hidden parts of the app that a user is likely to navigate to next, or to save the state of parts the user navigates away from. This helps make navigations quicker by loading data, css, and images in the background, and allows back navigations to maintain state such as input fields.
+User அடுத்ததாக navigate செய்ய வாய்ப்புள்ள app-ன் hidden பகுதிகளை render செய்ய, அல்லது user விட்டு சென்ற பகுதிகளின் state-ஐ save செய்ய Activity பயன்படுத்தலாம். Background-இல் data, css, மற்றும் images load செய்வதால் navigations வேகமாகிறது; மேலும் back navigations input fields போன்ற state-ஐ maintain செய்ய அனுமதிக்கிறது.
 
-In the future, we plan to add more modes to Activity for different use cases.
+எதிர்காலத்தில், வெவ்வேறு use cases-க்காக Activity-க்கு மேலும் modes சேர்க்க திட்டமிட்டுள்ளோம்.
 
-For examples on how to use Activity, check out the [Activity docs](/reference/react/Activity).
+Activity பயன்படுத்தும் examples-க்கு, [Activity docs](/reference/react/Activity)-ஐ பார்க்கவும்.
 
 ---
 
 ### `useEffectEvent` {/*use-effect-event*/}
 
-One common pattern with `useEffect` is to notify the app code about some kind of "events" from an external system. For example, when a chat room gets connected, you might want to display a notification:
+`useEffect` உடன் பொதுவான pattern ஒன்று, external system-இலிருந்து வரும் ஒரு வகை "events" பற்றி app code-க்கு notify செய்வது. உதாரணமாக, chat room connect ஆனபோது notification காட்ட விரும்பலாம்:
 
 ```js {5,11}
 function ChatRoom({ roomId, theme }) {
   useEffect(() => {
     const connection = createConnection(serverUrl, roomId);
     connection.on('connected', () => {
-      showNotification('Connected!', theme);
+      showNotification('இணைக்கப்பட்டது!', theme);
     });
     connection.connect();
     return () => {
@@ -73,16 +73,16 @@ function ChatRoom({ roomId, theme }) {
   // ...
 ```
 
-The problem with the code above is that a change to any values used inside such an "event" will cause the surrounding Effect to re-run. For example, changing the `theme` will cause the chat room to reconnect. This makes sense for values related to the Effect logic itself, like `roomId`, but it doesn't make sense for `theme`.
+மேலுள்ள code-இல் உள்ள problem: இப்படியான "event" உள்ளே பயன்படுத்தப்படும் எந்த values-லும் change ஏற்பட்டால், அதைச் சுற்றியுள்ள Effect மீண்டும் run ஆகும். உதாரணமாக, `theme` மாறினால் chat room reconnect ஆகும். `roomId` போன்ற Effect logic-க்கு தொடர்புடைய values-க்கு இது அர்த்தமுள்ளதாகும்; ஆனால் `theme`-க்கு அர்த்தமில்லை.
 
-To solve this, most users just disable the lint rule and exclude the dependency. But that can lead to bugs since the linter can no longer help you keep the dependencies up to date if you need to update the Effect later.
+இதைக் solve செய்ய, பெரும்பாலான users lint rule disable செய்து dependency-ஐ exclude செய்கிறார்கள். ஆனால் பின்னர் Effect update செய்ய வேண்டியிருந்தால் dependencies up to date ஆக இருக்க linter உதவ முடியாது; இது bugs-க்கு வழிவகுக்கலாம்.
 
-With `useEffectEvent`, you can split the "event" part of this logic out of the Effect that emits it:
+`useEffectEvent` உடன், இந்த logic-ன் "event" பகுதியை அதை emit செய்யும் Effect-இலிருந்து split செய்யலாம்:
 
 ```js {2,3,4,9}
 function ChatRoom({ roomId, theme }) {
   const onConnected = useEffectEvent(() => {
-    showNotification('Connected!', theme);
+    showNotification('இணைக்கப்பட்டது!', theme);
   });
 
   useEffect(() => {
@@ -92,21 +92,21 @@ function ChatRoom({ roomId, theme }) {
     });
     connection.connect();
     return () => connection.disconnect();
-  }, [roomId]); // ✅ All dependencies declared (Effect Events aren't dependencies)
+  }, [roomId]); // ✅ எல்லா dependencies-மும் declared (Effect Events dependencies அல்ல)
   // ...
 ```
 
-Similar to DOM events, Effect Events always “see” the latest props and state.
+DOM events போலவே, Effect Events எப்போதும் latest props மற்றும் state-ஐ "பார்க்கும்".
 
-**Effect Events should _not_ be declared in the dependency array**. You'll need to upgrade to `eslint-plugin-react-hooks@latest` so that the linter doesn't try to insert them as dependencies. Note that Effect Events can only be declared in the same component or Hook as "their" Effect. These restrictions are verified by the linter.
+**Effect Events dependency array-இல் declare செய்யப்படக்கூடாது**. Linter அவற்றை dependencies ஆக insert செய்ய முயற்சிக்காமல் இருக்க `eslint-plugin-react-hooks@latest`-க்கு upgrade செய்ய வேண்டும். Effect Events "அவற்றின்" Effect இருக்கும் அதே component அல்லது Hook-இல் மட்டுமே declare செய்ய முடியும் என்பதையும் கவனிக்கவும். இந்த restrictions linter மூலம் verify செய்யப்படுகின்றன.
 
 <Note>
 
-#### When to use `useEffectEvent` {/*when-to-use-useeffectevent*/}
+#### `useEffectEvent` எப்போது பயன்படுத்த வேண்டும்? {/*when-to-use-useeffectevent*/}
 
-You should use `useEffectEvent` for functions that are conceptually "events" that happen to be fired from an Effect instead of a user event (that's what makes it an "Effect Event"). You don't need to wrap everything in `useEffectEvent`, or to use it just to silence the lint error, as this can lead to bugs.
+User event-க்கு பதிலாக Effect-இலிருந்து fire ஆகும் conceptually "events" ஆன functions-க்கு `useEffectEvent` பயன்படுத்த வேண்டும் (இதுவே அதை "Effect Event" ஆக்குகிறது). எல்லாவற்றையும் `useEffectEvent`-இல் wrap செய்ய வேண்டியதில்லை; lint error silence செய்ய மட்டும் இதைப் பயன்படுத்தவும் வேண்டாம், ஏனெனில் இது bugs-க்கு வழிவகுக்கலாம்.
 
-For a deep dive on how to think about Event Effects, see: [Separating Events from Effects](/learn/separating-events-from-effects#extracting-non-reactive-logic-out-of-effects).
+Event Effects பற்றி எப்படி சிந்திப்பது என்ற deep dive-க்கு பார்க்கவும்: [Events-ஐ Effects-இலிருந்து பிரித்தல்](/learn/separating-events-from-effects#extracting-non-reactive-logic-out-of-effects).
 
 </Note>
 
@@ -116,11 +116,11 @@ For a deep dive on how to think about Event Effects, see: [Separating Events fro
 
 <RSC>
 
-`cacheSignal` is only for use with [React Server Components](/reference/rsc/server-components).
+`cacheSignal` [React Server Components](/reference/rsc/server-components) உடன் மட்டுமே பயன்படுத்தப்பட வேண்டும்.
 
 </RSC>
 
-`cacheSignal` allows you to know when the [`cache()`](/reference/react/cache) lifetime is over:
+[`cache()`](/reference/react/cache) lifetime முடிந்தது எப்போது என்பதை அறிய `cacheSignal` அனுமதிக்கிறது:
 
 ```
 import {cache, cacheSignal} from 'react';
@@ -131,19 +131,19 @@ async function Component() {
 }
 ```
 
-This allows you to clean up or abort work when the result will no longer be used in the cache, such as:
+Result இனி cache-இல் பயன்படுத்தப்படாதபோது work-ஐ clean up அல்லது abort செய்ய இது அனுமதிக்கிறது, உதாரணமாக:
 
-- React has successfully completed rendering
-- The render was aborted
-- The render has failed
+- React rendering-ஐ வெற்றிகரமாக முடித்துள்ளது
+- Render abort செய்யப்பட்டது
+- Render fail ஆனது
 
-For more info, see the [`cacheSignal` docs](/reference/react/cacheSignal).
+மேலும் தகவலுக்கு, [`cacheSignal` docs](/reference/react/cacheSignal)-ஐ பார்க்கவும்.
 
 ---
 
 ### Performance Tracks {/*performance-tracks*/}
 
-React 19.2 adds a new set of [custom tracks](https://developer.chrome.com/docs/devtools/performance/extension) to Chrome DevTools performance profiles to provide more information about the performance of your React app:
+உங்கள் React app-ன் performance பற்றி மேலும் தகவல் வழங்க React 19.2, Chrome DevTools performance profiles-க்கு புதிய [custom tracks](https://developer.chrome.com/docs/devtools/performance/extension) set ஒன்றை சேர்க்கிறது:
 
 <div style={{display: 'flex', justifyContent: 'center', marginBottom: '1rem'}}>
   <picture >
@@ -156,35 +156,35 @@ React 19.2 adds a new set of [custom tracks](https://developer.chrome.com/docs/d
   </picture>
 </div>
 
-The [React Performance Tracks docs](/reference/dev-tools/react-performance-tracks) explain everything included in the tracks, but here is a high-level overview.
+[React Performance Tracks docs](/reference/dev-tools/react-performance-tracks), tracks-இல் உள்ள அனைத்தையும் விளக்குகின்றன; ஆனால் இங்கே high-level overview.
 
 #### Scheduler ⚛ {/*scheduler-*/}
 
-The Scheduler track shows what React is working on for different priorities such as "blocking" for user interactions, or "transition" for updates inside startTransition. Inside each track, you will see the type of work being performed such as the event that scheduled an update, and when the render for that update happened.
+User interactions-க்கான "blocking" அல்லது startTransition உள்ள updates-க்கான "transition" போன்ற வெவ்வேறு priorities-க்கு React என்ன வேலை செய்கிறது என்பதை Scheduler track காட்டுகிறது. ஒவ்வொரு track உள்ளேயும், update schedule செய்த event போன்ற செய்யப்படும் work வகை, அந்த update-க்கான render எப்போது நடந்தது போன்றவை தெரியும்.
 
-We also show information such as when an update is blocked waiting for a different priority, or when React is waiting for paint before continuing. The Scheduler track helps you understand how React splits your code into different priorities, and the order it completed the work.
+ஒரு update வேறு priority-க்காக காத்திருப்பதால் எப்போது blocked ஆகிறது, அல்லது தொடர்வதற்கு முன் React paint-க்காக எப்போது காத்திருக்கிறது போன்ற தகவல்களையும் காட்டுகிறோம். React உங்கள் code-ஐ வெவ்வேறு priorities-ஆக எப்படி split செய்கிறது, மற்றும் work எந்த order-இல் முடிந்தது என்பதைப் புரிந்துகொள்ள Scheduler track உதவும்.
 
-See the [Scheduler track](/reference/dev-tools/react-performance-tracks#scheduler) docs to see everything included.
+அதில் உள்ள அனைத்தையும் பார்க்க [Scheduler track](/reference/dev-tools/react-performance-tracks#scheduler) docs-ஐ பார்க்கவும்.
 
 #### Components ⚛ {/*components-*/}
 
-The Components track shows the tree of components that React is working on either to render or run effects. Inside you'll see labels such as "Mount" for when children mount or effects are mounted, or "Blocked" for when rendering is blocked due to yielding to work outside React.
+React render செய்யவோ effects run செய்யவோ வேலை செய்கிற components tree-ஐ Components track காட்டுகிறது. Children mount ஆகும் போது அல்லது effects mounted ஆகும் போது "Mount" போன்ற labels, அல்லது React வெளியே உள்ள work-க்கு yield செய்வதால் rendering blocked ஆகும்போது "Blocked" போன்ற labels உள்ளே தெரியும்.
 
-The Components track helps you understand when components are rendered or run effects, and the time it takes to complete that work to help identify performance problems.
+Components எப்போது render ஆகின்றன அல்லது effects run செய்கின்றன, அந்த work முடிக்க எவ்வளவு நேரம் எடுக்கிறது என்பதைக் புரிந்துகொண்டு performance problems identify செய்ய Components track உதவும்.
 
-See the [Components track docs](/reference/dev-tools/react-performance-tracks#components) for see everything included.
+அதில் உள்ள அனைத்தையும் பார்க்க [Components track docs](/reference/dev-tools/react-performance-tracks#components)-ஐ பார்க்கவும்.
 
 ---
 
-## New React DOM Features {/*new-react-dom-features*/}
+## புதிய React DOM features {/*new-react-dom-features*/}
 
 ### Partial Pre-rendering {/*partial-pre-rendering*/}
 
-In 19.2 we're adding a new capability to pre-render part of the app ahead of time, and resume rendering it later.
+19.2-இல், app-ன் ஒரு பகுதியை முன்கூட்டியே pre-render செய்து, பின்னர் rendering resume செய்யும் புதிய capability சேர்க்கிறோம்.
 
-This feature is called "Partial Pre-rendering", and allows you to pre-render the static parts of your app and serve it from a CDN, and then resume rendering the shell to fill it in with dynamic content later.
+இந்த feature "Partial Pre-rendering" என்று அழைக்கப்படுகிறது; இது உங்கள் app-ன் static பகுதிகளை pre-render செய்து CDN-இலிருந்து serve செய்யவும், பின்னர் dynamic content கொண்டு shell-ஐ fill செய்ய rendering resume செய்யவும் அனுமதிக்கிறது.
 
-To pre-render an app to resume later, first call `prerender` with an `AbortController`:
+பின்னர் resume செய்ய app ஒன்றை pre-render செய்ய, முதலில் `AbortController` உடன் `prerender` call செய்யவும்:
 
 ```
 const {prelude, postponed} = await prerender(<App />, {
@@ -197,7 +197,7 @@ await savePostponedState(postponed);
 // Send prelude to client or CDN.
 ```
 
-Then, you can return the `prelude` shell to the client, and later call `resume` to "resume" to a SSR stream:
+பிறகு, `prelude` shell-ஐ client-க்கு return செய்து, பின்னர் SSR stream-க்கு "resume" செய்ய `resume` call செய்யலாம்:
 
 ```
 const postponed = await getPostponedState(request);
@@ -206,7 +206,7 @@ const resumeStream = await resume(<App />, postponed);
 // Send stream to client.
 ```
 
-Or you can call `resumeAndPrerender` to resume to get static HTML for SSG:
+அல்லது SSG-க்கான static HTML பெற resume செய்ய `resumeAndPrerender` call செய்யலாம்:
 
 ```
 const postponedState = await getPostponedState(request);
@@ -215,73 +215,73 @@ const { prelude } = await resumeAndPrerender(<App />, postponedState);
 // Send complete HTML prelude to CDN.
 ```
 
-For more info, see the docs for the new APIs:
+மேலும் தகவலுக்கு, புதிய APIs-க்கான docs-ஐ பார்க்கவும்:
 - `react-dom/server`
-  - [`resume`](/reference/react-dom/server/resume): for Web Streams.
-  - [`resumeToPipeableStream`](/reference/react-dom/server/resumeToPipeableStream) for Node Streams.
+  - [`resume`](/reference/react-dom/server/resume): Web Streams-க்காக.
+  - [`resumeToPipeableStream`](/reference/react-dom/server/resumeToPipeableStream) Node Streams-க்காக.
 - `react-dom/static`
-  - [`resumeAndPrerender`](/reference/react-dom/static/resumeAndPrerender) for Web Streams.
-  - [`resumeAndPrerenderToNodeStream`](/reference/react-dom/static/resumeAndPrerenderToNodeStream) for Node Streams.
+  - [`resumeAndPrerender`](/reference/react-dom/static/resumeAndPrerender) Web Streams-க்காக.
+  - [`resumeAndPrerenderToNodeStream`](/reference/react-dom/static/resumeAndPrerenderToNodeStream) Node Streams-க்காக.
 
-Additionally, the prerender apis now return a `postpone` state to pass to the `resume` apis.
+மேலும், prerender APIs இப்போது `resume` APIs-க்கு pass செய்ய `postpone` state return செய்கின்றன.
 
 ---
 
-## Notable Changes {/*notable-changes*/}
+## Notable changes {/*notable-changes*/}
 
-### Batching Suspense Boundaries for SSR {/*batching-suspense-boundaries-for-ssr*/}
+### SSR-க்காக Suspense boundaries batch செய்தல் {/*batching-suspense-boundaries-for-ssr*/}
 
-We fixed a behavioral bug where Suspense boundaries would reveal differently depending on if they were rendered on the client or when streaming from server-side rendering.
+Client-இல் render செய்யப்பட்டதா அல்லது server-side rendering-இலிருந்து stream செய்யப்பட்டதா என்பதைப் பொறுத்து Suspense boundaries வேறுபட்ட முறையில் reveal ஆகும் behavioral bug ஒன்றை fix செய்தோம்.
 
-Starting in 19.2, React will batch reveals of server-rendered Suspense boundaries for a short time, to allow more content to be revealed together and align with the client-rendered behavior.
+19.2 முதல், server-rendered Suspense boundaries-ன் reveals-ஐ React சிறிது நேரம் batch செய்யும்; இதனால் அதிக content ஒன்றாக reveal ஆகும், மேலும் client-rendered behavior உடன் align ஆகும்.
 
-<Diagram name="19_2_batching_before" height={162} width={1270} alt="Diagram with three sections, with an arrow transitioning each section in between. The first section contains a page rectangle showing a glimmer loading state with faded bars. The second panel shows the top half of the page revealed and highlighted in blue. The third panel shows the entire the page revealed and highlighted in blue.">
+<Diagram name="19_2_batching_before" height={162} width={1270} alt="மூன்று sections கொண்ட diagram; ஒவ்வொரு section இடையிலும் arrow transition. முதல் section-இல் faded bars உடன் glimmer loading state காட்டும் page rectangle உள்ளது. இரண்டாவது panel page-ன் top half reveal ஆகி blue-ஆக highlighted காட்டுகிறது. மூன்றாவது panel முழு page reveal ஆகி blue-ஆக highlighted காட்டுகிறது.">
 
-Previously, during streaming server-side rendering, suspense content would immediately replace fallbacks.
-
-</Diagram>
-
-<Diagram name="19_2_batching_after" height={162} width={1270} alt="Diagram with three sections, with an arrow transitioning each section in between. The first section contains a page rectangle showing a glimmer loading state with faded bars. The second panel shows the same page. The third panel shows the entire the page revealed and highlighted in blue.">
-
-In React 19.2, suspense boundaries are batched for a small amount of time, to allow revealing more content together.
+முன்பு, streaming server-side rendering போது, suspense content fallbacks-ஐ உடனடியாக replace செய்தது.
 
 </Diagram>
 
-This fix also prepares apps for supporting `<ViewTransition>` for Suspense during SSR. By revealing more content together, animations can run in larger batches of content, and avoid chaining animations of content that stream in close together.
+<Diagram name="19_2_batching_after" height={162} width={1270} alt="மூன்று sections கொண்ட diagram; ஒவ்வொரு section இடையிலும் arrow transition. முதல் section-இல் faded bars உடன் glimmer loading state காட்டும் page rectangle உள்ளது. இரண்டாவது panel அதே page-ஐ காட்டுகிறது. மூன்றாவது panel முழு page reveal ஆகி blue-ஆக highlighted காட்டுகிறது.">
+
+React 19.2-இல், suspense boundaries சிறிது நேரம் batch செய்யப்படுகின்றன; இதனால் அதிக content ஒன்றாக reveal ஆக அனுமதிக்கிறது.
+
+</Diagram>
+
+இந்த fix, SSR போது Suspense-க்காக `<ViewTransition>` support செய்ய apps-ஐ தயார்படுத்துகிறது. அதிக content ஒன்றாக reveal செய்வதால், animations பெரிய content batches-இல் run ஆகலாம்; அருகருகே stream ஆகும் content animations chain ஆகுவதை தவிர்க்கலாம்.
 
 <Note>
 
-React uses heuristics to ensure throttling does not impact core web vitals and search ranking.
+Throttling core web vitals மற்றும் search ranking-ஐ பாதிக்காததை உறுதிசெய்ய React heuristics பயன்படுத்துகிறது.
 
-For example, if the total page load time is approaching 2.5s (which is the time considered "good" for [LCP](https://web.dev/articles/lcp)), React will stop batching and reveal content immediately so that the throttling is not the reason to miss the metric.
+உதாரணமாக, total page load time 2.5s-க்கு அணுகினால் ([LCP](https://web.dev/articles/lcp)-க்கு "good" என கருதப்படும் நேரம்), React batching நிறுத்தி content-ஐ உடனடியாக reveal செய்யும்; இதனால் metric miss ஆகுவதற்கான காரணம் throttling ஆகாது.
 
 </Note>
 
 ---
 
-### SSR: Web Streams support for Node {/*ssr-web-streams-support-for-node*/}
+### SSR: Node-இல் Web Streams ஆதரவு {/*ssr-web-streams-support-for-node*/}
 
-React 19.2 adds support for Web Streams for streaming SSR in Node.js:
-- [`renderToReadableStream`](/reference/react-dom/server/renderToReadableStream) is now available for Node.js
-- [`prerender`](/reference/react-dom/static/prerender) is now available for Node.js
+React 19.2, Node.js-இல் streaming SSR-க்கு Web Streams support சேர்க்கிறது:
+- [`renderToReadableStream`](/reference/react-dom/server/renderToReadableStream) இப்போது Node.js-க்கு கிடைக்கிறது
+- [`prerender`](/reference/react-dom/static/prerender) இப்போது Node.js-க்கு கிடைக்கிறது
 
-As well as the new `resume` APIs:
-- [`resume`](/reference/react-dom/server/resume) is available for Node.js.
-- [`resumeAndPrerender`](/reference/react-dom/static/resumeAndPrerender) is available for Node.js.
+புதிய `resume` APIs-யும்:
+- [`resume`](/reference/react-dom/server/resume) Node.js-க்கு கிடைக்கிறது.
+- [`resumeAndPrerender`](/reference/react-dom/static/resumeAndPrerender) Node.js-க்கு கிடைக்கிறது.
 
 
 <Pitfall>
 
-#### Prefer Node Streams for server-side rendering in Node.js {/*prefer-node-streams-for-server-side-rendering-in-nodejs*/}
+#### Node.js-இல் server-side rendering-க்கு Node Streams-ஐ முன்னுரிமை அளிக்கவும் {/*prefer-node-streams-for-server-side-rendering-in-nodejs*/}
 
-In Node.js environments, we still highly recommend using the Node Streams APIs:
+Node.js environments-இல், Node Streams APIs பயன்படுத்துவதையே நாங்கள் இன்னும் மிகுந்த பரிந்துரைக்கிறோம்:
 
 - [`renderToPipeableStream`](/reference/react-dom/server/renderToPipeableStream)
 - [`resumeToPipeableStream`](/reference/react-dom/server/resumeToPipeableStream)
 - [`prerenderToNodeStream`](/reference/react-dom/static/prerenderToNodeStream)
 - [`resumeAndPrerenderToNodeStream`](/reference/react-dom/static/resumeAndPrerenderToNodeStream)
 
-This is because Node Streams are much faster than Web Streams in Node, and Web Streams do not support compression by default, leading to users accidentally missing the benefits of streaming.
+ஏனெனில் Node-இல் Node Streams, Web Streams-ஐ விட மிகவும் வேகமாக உள்ளன; மேலும் Web Streams default ஆக compression support செய்யாது. இதனால் users streaming-ன் benefits-ஐ தவறுதலாக இழக்கலாம்.
 
 </Pitfall>
 
@@ -289,51 +289,51 @@ This is because Node Streams are much faster than Web Streams in Node, and Web S
 
 ### `eslint-plugin-react-hooks` v6 {/*eslint-plugin-react-hooks*/}
 
-We also published `eslint-plugin-react-hooks@latest` with flat config by default in the `recommended` preset, and opt-in for new React Compiler powered rules.
+`recommended` preset-இல் default ஆக flat config உடன், புதிய React Compiler powered rules-க்கு opt-in உடன் `eslint-plugin-react-hooks@latest`-யையும் publish செய்துள்ளோம்.
 
-To continue using the legacy config, you can change to `recommended-legacy`:
+Legacy config-ஐ தொடர்ந்து பயன்படுத்த, `recommended-legacy`-க்கு மாற்றலாம்:
 
 ```diff
 - extends: ['plugin:react-hooks/recommended']
 + extends: ['plugin:react-hooks/recommended-legacy']
 ```
 
-For a full list of compiler enabled rules, [check out the linter docs](/reference/eslint-plugin-react-hooks#recommended).
+Compiler enabled rules-ன் முழு பட்டியலுக்கு, [linter docs](/reference/eslint-plugin-react-hooks#recommended)-ஐ பார்க்கவும்.
 
-Check out the `eslint-plugin-react-hooks` [changelog for a full list of changes](https://github.com/facebook/react/blob/main/packages/eslint-plugin-react-hooks/CHANGELOG.md#610).
+முழு changes பட்டியலுக்கு `eslint-plugin-react-hooks` [changelog](https://github.com/facebook/react/blob/main/packages/eslint-plugin-react-hooks/CHANGELOG.md#610)-ஐ பார்க்கவும்.
 
 ---
 
-### Update the default `useId` prefix {/*update-the-default-useid-prefix*/}
+### Default `useId` prefix-ஐ update செய்தல் {/*update-the-default-useid-prefix*/}
 
-In 19.2, we're updating the default `useId` prefix from `:r:` (19.0.0) or `«r»` (19.1.0) to `_r_`.
+19.2-இல், default `useId` prefix-ஐ `:r:` (19.0.0) அல்லது `«r»` (19.1.0)-இலிருந்து `_r_` ஆக update செய்கிறோம்.
 
-The original intent of using a special character that was not valid for CSS selectors was that it would be unlikely to collide with IDs written by users. However, to support View Transitions, we need to ensure that IDs generated by `useId` are valid for `view-transition-name` and XML 1.0 names.
+CSS selectors-க்கு valid அல்லாத special character பயன்படுத்திய original intent: users எழுதிய IDs உடன் collide ஆக வாய்ப்பு குறைவாக இருக்கும் என்பதே. ஆனால் View Transitions support செய்ய, `useId` generate செய்யும் IDs, `view-transition-name` மற்றும் XML 1.0 names-க்கு valid ஆக இருப்பதை உறுதிசெய்ய வேண்டும்.
 
 ---
 
 ## Changelog {/*changelog*/}
 
-Other notable changes
-- `react-dom`: Allow nonce to be used on hoistable styles [#32461](https://github.com/facebook/react/pull/32461)
-- `react-dom`: Warn for using a React owned node as a Container if it also has text content [#32774](https://github.com/facebook/react/pull/32774)
+பிற notable changes
+- `react-dom`: Hoistable styles-இல் nonce பயன்படுத்த அனுமதி [#32461](https://github.com/facebook/react/pull/32461)
+- `react-dom`: React owned node-ஐ Container ஆக பயன்படுத்தும் போது அதில் text content இருந்தால் warn செய்யுதல் [#32774](https://github.com/facebook/react/pull/32774)
 
 Notable bug fixes
-- `react`: Stringify context as "SomeContext" instead of "SomeContext.Provider" [#33507](https://github.com/facebook/react/pull/33507)
-- `react`: Fix infinite useDeferredValue loop in popstate event [#32821](https://github.com/facebook/react/pull/32821)
-- `react`: Fix a bug when an initial value was passed to useDeferredValue [#34376](https://github.com/facebook/react/pull/34376)
-- `react`: Fix a crash when submitting forms with Client Actions [#33055](https://github.com/facebook/react/pull/33055)
-- `react`: Hide/unhide the content of dehydrated suspense boundaries if they resuspend [#32900](https://github.com/facebook/react/pull/32900)
-- `react`: Avoid stack overflow on wide trees during Hot Reload [#34145](https://github.com/facebook/react/pull/34145)
-- `react`: Improve component stacks in various places [#33629](https://github.com/facebook/react/pull/33629), [#33724](https://github.com/facebook/react/pull/33724), [#32735](https://github.com/facebook/react/pull/32735), [#33723](https://github.com/facebook/react/pull/33723)
-- `react`: Fix a bug with React.use inside React.lazy-ed Component [#33941](https://github.com/facebook/react/pull/33941)
-- `react-dom`: Stop warning when ARIA 1.3 attributes are used [#34264](https://github.com/facebook/react/pull/34264)
-- `react-dom`: Fix a bug with deeply nested Suspense inside Suspense fallbacks [#33467](https://github.com/facebook/react/pull/33467)
-- `react-dom`: Avoid hanging when suspending after aborting while rendering [#34192](https://github.com/facebook/react/pull/34192)
+- `react`: Context-ஐ "SomeContext.Provider" பதிலாக "SomeContext" ஆக stringify செய்தல் [#33507](https://github.com/facebook/react/pull/33507)
+- `react`: Popstate event-இல் infinite useDeferredValue loop fix [#32821](https://github.com/facebook/react/pull/32821)
+- `react`: useDeferredValue-க்கு initial value pass செய்யும்போது இருந்த bug fix [#34376](https://github.com/facebook/react/pull/34376)
+- `react`: Client Actions உடன் forms submit செய்யும்போது crash fix [#33055](https://github.com/facebook/react/pull/33055)
+- `react`: Dehydrated suspense boundaries resuspend ஆனால் அவற்றின் content-ஐ hide/unhide செய்தல் [#32900](https://github.com/facebook/react/pull/32900)
+- `react`: Hot Reload போது wide trees-இல் stack overflow தவிர்த்தல் [#34145](https://github.com/facebook/react/pull/34145)
+- `react`: பல இடங்களில் component stacks மேம்படுத்தல் [#33629](https://github.com/facebook/react/pull/33629), [#33724](https://github.com/facebook/react/pull/33724), [#32735](https://github.com/facebook/react/pull/32735), [#33723](https://github.com/facebook/react/pull/33723)
+- `react`: React.lazy-ed Component உள்ளே React.use உடன் இருந்த bug fix [#33941](https://github.com/facebook/react/pull/33941)
+- `react-dom`: ARIA 1.3 attributes பயன்படுத்தும்போது warning நிறுத்துதல் [#34264](https://github.com/facebook/react/pull/34264)
+- `react-dom`: Suspense fallbacks உள்ளே deeply nested Suspense உடன் இருந்த bug fix [#33467](https://github.com/facebook/react/pull/33467)
+- `react-dom`: Rendering போது abort செய்த பிறகு suspending ஆகும்போது hanging தவிர்த்தல் [#34192](https://github.com/facebook/react/pull/34192)
 
-For a full list of changes, please see the [Changelog](https://github.com/facebook/react/blob/main/CHANGELOG.md).
+முழு changes பட்டியலுக்கு, [Changelog](https://github.com/facebook/react/blob/main/CHANGELOG.md)-ஐ பார்க்கவும்.
 
 
 ---
 
-_Thanks to [Ricky Hanlon](https://bsky.app/profile/ricky.fm) for [writing this post](https://www.youtube.com/shorts/T9X3YkgZRG0), [Dan Abramov](https://bsky.app/profile/danabra.mov), [Matt Carroll](https://twitter.com/mattcarrollcode), [Jack Pope](https://jackpope.me), and [Joe Savona](https://x.com/en_JS) for reviewing this post._
+_இந்த post-ஐ [எழுதிய](https://www.youtube.com/shorts/T9X3YkgZRG0) [Ricky Hanlon](https://bsky.app/profile/ricky.fm)-க்கும், இந்த post-ஐ review செய்த [Dan Abramov](https://bsky.app/profile/danabra.mov), [Matt Carroll](https://twitter.com/mattcarrollcode), [Jack Pope](https://jackpope.me), மற்றும் [Joe Savona](https://x.com/en_JS)-க்கும் நன்றி._

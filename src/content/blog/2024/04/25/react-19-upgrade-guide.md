@@ -2,54 +2,54 @@
 title: "React 19 Upgrade Guide"
 author: Ricky Hanlon
 date: 2024/04/25
-description: The improvements added to React 19 require some breaking changes, but we've worked to make the upgrade as smooth as possible and we don't expect the changes to impact most apps. In this post, we will guide you through the steps for upgrading apps and libraries to React 19.
+description: React 19-இல் சேர்க்கப்பட்ட improvements சில breaking changes-ஐ தேவைப்படுத்துகின்றன, ஆனால் upgrade முடிந்தவரை smooth ஆக இருக்க நாங்கள் வேலை செய்துள்ளோம்; இந்த changes பெரும்பாலான apps-ஐ பாதிக்காது என்று எதிர்பார்க்கிறோம். இந்த post-இல், apps மற்றும் libraries-ஐ React 19-க்கு upgrade செய்வதற்கான steps-ஐ உங்களுக்கு வழிகாட்டுகிறோம்.
 ---
 
-April 25, 2024 by [Ricky Hanlon](https://twitter.com/rickhanlonii)
+April 25, 2024 அன்று [Ricky Hanlon](https://twitter.com/rickhanlonii)
 
 ---
 
 
 <Intro>
 
-The improvements added to React 19 require some breaking changes, but we've worked to make the upgrade as smooth as possible, and we don't expect the changes to impact most apps.
+React 19-இல் சேர்க்கப்பட்ட improvements சில breaking changes-ஐ தேவைப்படுத்துகின்றன, ஆனால் upgrade முடிந்தவரை smooth ஆக இருக்க நாங்கள் வேலை செய்துள்ளோம்; இந்த changes பெரும்பாலான apps-ஐ பாதிக்காது என்று எதிர்பார்க்கிறோம்.
 
 </Intro>
 
 <Note>
 
-#### React 18.3 has also been published {/*react-18-3*/}
+#### React 18.3-வும் வெளியிடப்பட்டுள்ளது {/*react-18-3*/}
 
-To help make the upgrade to React 19 easier, we've published a `react@18.3` release that is identical to 18.2 but adds warnings for deprecated APIs and other changes that are needed for React 19.
+React 19-க்கு upgrade செய்வதை மேம்படுத்த, 18.2-க்கு identical ஆக இருந்தாலும் deprecated APIs மற்றும் React 19-க்கு தேவையான பிற changes குறித்து warnings சேர்க்கும் `react@18.3` release ஒன்றை வெளியிட்டுள்ளோம்.
 
-We recommend upgrading to React 18.3 first to help identify any issues before upgrading to React 19.
+React 19-க்கு upgrade செய்வதற்கு முன் ஏதேனும் issues உள்ளனவா கண்டறிய உதவ, முதலில் React 18.3-க்கு upgrade செய்ய பரிந்துரைக்கிறோம்.
 
-For a list of changes in 18.3 see the [Release Notes](https://github.com/facebook/react/blob/main/CHANGELOG.md#1830-april-25-2024).
+18.3-இல் உள்ள changes list-க்கு [Release Notes](https://github.com/facebook/react/blob/main/CHANGELOG.md#1830-april-25-2024)-ஐ பார்க்கவும்.
 
 </Note>
 
-In this post, we will guide you through the steps for upgrading to React 19:
+இந்த post-இல், React 19-க்கு upgrade செய்வதற்கான steps-ஐ வழிகாட்டுகிறோம்:
 
-- [Installing](#installing)
+- [நிறுவுதல்](#installing)
 - [Codemods](#codemods)
-- [Breaking changes](#breaking-changes)
-- [New deprecations](#new-deprecations)
-- [Notable changes](#notable-changes)
+- [Breaking changes (முறிக்கும் மாற்றங்கள்)](#breaking-changes)
+- [புதிய deprecations](#new-deprecations)
+- [கவனிக்கத்தக்க changes](#notable-changes)
 - [TypeScript changes](#typescript-changes)
 - [Changelog](#changelog)
 
-If you'd like to help us test React 19, follow the steps in this upgrade guide and [report any issues](https://github.com/facebook/react/issues/new?assignees=&labels=React+19&projects=&template=19.md&title=%5BReact+19%5D) you encounter. For a list of new features added to React 19, see the [React 19 release post](/blog/2024/12/05/react-19).
+React 19-ஐ test செய்ய உதவ விரும்பினால், இந்த upgrade guide-இல் உள்ள steps-ஐப் பின்பற்றி நீங்கள் சந்திக்கும் [issues-ஐ report](https://github.com/facebook/react/issues/new?assignees=&labels=React+19&projects=&template=19.md&title=%5BReact+19%5D) செய்யுங்கள். React 19-இல் சேர்க்கப்பட்ட புதிய features list-க்கு [React 19 release post](/blog/2024/12/05/react-19)-ஐ பார்க்கவும்.
 
 ---
-## Installing {/*installing*/}
+## நிறுவுதல் {/*installing*/}
 
 <Note>
 
-#### New JSX Transform is now required {/*new-jsx-transform-is-now-required*/}
+#### New JSX Transform இப்போது required {/*new-jsx-transform-is-now-required*/}
 
-We introduced a [new JSX transform](https://legacy.reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html) in 2020 to improve bundle size and use JSX without importing React. In React 19, we're adding additional improvements like using ref as a prop and JSX speed improvements that require the new transform.
+Bundle size-ஐ மேம்படுத்தவும் React import செய்யாமல் JSX பயன்படுத்தவும் 2020-இல் [new JSX transform](https://legacy.reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html)-ஐ அறிமுகப்படுத்தினோம். React 19-இல், ref-ஐ prop ஆக பயன்படுத்துதல் மற்றும் JSX speed improvements போன்ற கூடுதல் improvements சேர்க்கிறோம்; அவற்றுக்கு new transform தேவைப்படுகிறது.
 
-If the new transform is not enabled, you will see this warning:
+New transform enabled ஆகவில்லை என்றால், இந்த warning-ஐ காண்பீர்கள்:
 
 <ConsoleBlockMulti>
 
@@ -62,79 +62,79 @@ Your app (or one of its dependencies) is using an outdated JSX transform. Update
 </ConsoleBlockMulti>
 
 
-We expect most apps will not be affected since the transform is enabled in most environments already. For manual instructions on how to upgrade, please see the [announcement post](https://legacy.reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html).
+Transform ஏற்கனவே பெரும்பாலான environments-இல் enabled ஆக இருப்பதால், பெரும்பாலான apps பாதிக்கப்படாது என்று எதிர்பார்க்கிறோம். Manual upgrade instructions-க்கு [announcement post](https://legacy.reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html)-ஐ பார்க்கவும்.
 
 </Note>
 
 
-To install the latest version of React and React DOM:
+React மற்றும் React DOM-ன் latest version-ஐ install செய்ய:
 
 ```bash
 npm install --save-exact react@^19.0.0 react-dom@^19.0.0
 ```
 
-Or, if you're using Yarn:
+அல்லது Yarn பயன்படுத்தினால்:
 
 ```bash
 yarn add --exact react@^19.0.0 react-dom@^19.0.0
 ```
 
-If you're using TypeScript, you also need to update the types.
+TypeScript பயன்படுத்தினால், types-ஐயும் update செய்ய வேண்டும்.
 ```bash
 npm install --save-exact @types/react@^19.0.0 @types/react-dom@^19.0.0
 ```
 
-Or, if you're using Yarn:
+அல்லது Yarn பயன்படுத்தினால்:
 ```bash
 yarn add --exact @types/react@^19.0.0 @types/react-dom@^19.0.0
 ```
 
-We're also including a codemod for the most common replacements. See [TypeScript changes](#typescript-changes) below.
+மிகவும் பொதுவான replacements-க்காக codemod ஒன்றையும் சேர்த்துள்ளோம். கீழே [TypeScript changes](#typescript-changes)-ஐ பார்க்கவும்.
 
 ## Codemods {/*codemods*/}
 
-To help with the upgrade, we've worked with the team at [codemod.com](https://codemod.com) to publish codemods that will automatically update your code to many of the new APIs and patterns in React 19.
+Upgrade-க்கு உதவ, [codemod.com](https://codemod.com) team-உடன் இணைந்து, React 19-இல் உள்ள பல புதிய APIs மற்றும் patterns-க்கு உங்கள் code-ஐ தானாக update செய்யும் codemods-ஐ வெளியிட்டுள்ளோம்.
 
-All codemods are available in the [`react-codemod` repo](https://github.com/reactjs/react-codemod) and the Codemod team have joined in helping maintain the codemods. To run these codemods, we recommend using the `codemod` command instead of the `react-codemod` because it runs faster, handles more complex code migrations, and provides better support for TypeScript.
+அனைத்து codemods-மும் [`react-codemod` repo](https://github.com/reactjs/react-codemod)-இல் கிடைக்கின்றன; Codemod team codemods maintain செய்வதில் இணைந்துள்ளது. இந்த codemods-ஐ run செய்ய, `react-codemod`-க்கு பதிலாக `codemod` command-ஐப் பயன்படுத்த பரிந்துரைக்கிறோம், ஏனெனில் அது வேகமாக run ஆகும், complex code migrations-ஐ சிறப்பாக handle செய்யும், மேலும் TypeScript-க்கு நல்ல support வழங்கும்.
 
 
 <Note>
 
-#### Run all React 19 codemods {/*run-all-react-19-codemods*/}
+#### React 19 codemods அனைத்தையும் run செய்யுங்கள் {/*run-all-react-19-codemods*/}
 
-Run all codemods listed in this guide with the React 19 `codemod` recipe:
+இந்த guide-இல் list செய்யப்பட்ட அனைத்து codemods-ஐயும் React 19 `codemod` recipe மூலம் run செய்யுங்கள்:
 
 ```bash
 npx codemod@latest react/19/migration-recipe
 ```
 
-This will run the following codemods from `react-codemod`:
+இது `react-codemod`-இலிருந்து பின்வரும் codemods-ஐ run செய்யும்:
 - [`replace-reactdom-render`](https://github.com/reactjs/react-codemod?tab=readme-ov-file#replace-reactdom-render)
 - [`replace-string-ref`](https://github.com/reactjs/react-codemod?tab=readme-ov-file#replace-string-ref)
 - [`replace-act-import`](https://github.com/reactjs/react-codemod?tab=readme-ov-file#replace-act-import)
 - [`replace-use-form-state`](https://github.com/reactjs/react-codemod?tab=readme-ov-file#replace-use-form-state)
 - [`prop-types-typescript`](https://github.com/reactjs/react-codemod#react-proptypes-to-prop-types)
 
-This does not include the TypeScript changes. See [TypeScript changes](#typescript-changes) below.
+இதில் TypeScript changes அடங்காது. கீழே [TypeScript changes](#typescript-changes)-ஐ பார்க்கவும்.
 
 </Note>
 
-Changes that include a codemod include the command below.
+Codemod உடன் வரும் changes-க்கு கீழே command சேர்க்கப்பட்டுள்ளது.
 
-For a list of all available codemods, see the [`react-codemod` repo](https://github.com/reactjs/react-codemod).
+கிடைக்கும் அனைத்து codemods list-க்கு [`react-codemod` repo](https://github.com/reactjs/react-codemod)-ஐ பார்க்கவும்.
 
-## Breaking changes {/*breaking-changes*/}
+## Breaking changes (முறிக்கும் மாற்றங்கள்) {/*breaking-changes*/}
 
-### Errors in render are not re-thrown {/*errors-in-render-are-not-re-thrown*/}
+### Render-இல் உள்ள errors மீண்டும் throw செய்யப்படாது {/*errors-in-render-are-not-re-thrown*/}
 
-In previous versions of React, errors thrown during render were caught and rethrown. In DEV, we would also log to `console.error`, resulting in duplicate error logs.
+React-ன் முந்தைய versions-இல், render போது throw செய்யப்பட்ட errors catch செய்து rethrow செய்யப்பட்டன. DEV-இல், `console.error`-க்கும் log செய்ததால் duplicate error logs உருவானது.
 
-In React 19, we've [improved how errors are handled](/blog/2024/04/25/react-19#error-handling) to reduce duplication by not re-throwing:
+React 19-இல், re-throw செய்யாமல் duplication-ஐ குறைக்க [errors handle செய்யும் முறை மேம்படுத்தப்பட்டுள்ளது](/blog/2024/04/25/react-19#error-handling):
 
-- **Uncaught Errors**: Errors that are not caught by an Error Boundary are reported to `window.reportError`.
-- **Caught Errors**: Errors that are caught by an Error Boundary are reported to `console.error`.
+- **Uncaught Errors**: Error Boundary-யால் catch செய்யப்படாத errors `window.reportError`-க்கு report செய்யப்படும்.
+- **Caught Errors**: Error Boundary-யால் catch செய்யப்பட்ட errors `console.error`-க்கு report செய்யப்படும்.
 
-This change should not impact most apps, but if your production error reporting relies on errors being re-thrown, you may need to update your error handling. To support this, we've added new methods to `createRoot` and `hydrateRoot` for custom error handling:
+இந்த change பெரும்பாலான apps-ஐ பாதிக்காது. ஆனால் உங்கள் production error reporting errors re-thrown ஆகும் என்பதையே சார்ந்திருந்தால், உங்கள் error handling-ஐ update செய்ய வேண்டியிருக்கலாம். இதற்கு support வழங்க, custom error handling-க்காக `createRoot` மற்றும் `hydrateRoot`-க்கு புதிய methods சேர்த்துள்ளோம்:
 
 ```js [[1, 2, "onUncaughtError"], [2, 5, "onCaughtError"]]
 const root = createRoot(container, {
@@ -147,17 +147,17 @@ const root = createRoot(container, {
 });
 ```
 
-For more info, see the docs for [`createRoot`](https://react.dev/reference/react-dom/client/createRoot) and [`hydrateRoot`](https://react.dev/reference/react-dom/client/hydrateRoot).
+மேலும் தகவலுக்கு, [`createRoot`](https://react.dev/reference/react-dom/client/createRoot) மற்றும் [`hydrateRoot`](https://react.dev/reference/react-dom/client/hydrateRoot) docs-ஐ பார்க்கவும்.
 
 
-### Removed deprecated React APIs {/*removed-deprecated-react-apis*/}
+### Deprecated React APIs நீக்கப்பட்டவை {/*removed-deprecated-react-apis*/}
 
-#### Removed: `propTypes` and `defaultProps` for functions {/*removed-proptypes-and-defaultprops*/}
-`PropTypes` were deprecated in [April 2017 (v15.5.0)](https://legacy.reactjs.org/blog/2017/04/07/react-v15.5.0.html#new-deprecation-warnings).
+#### நீக்கப்பட்டது: functions-க்கான `propTypes` மற்றும் `defaultProps` {/*removed-proptypes-and-defaultprops*/}
+`PropTypes` [ஏப்ரல் 2017 (v15.5.0)](https://legacy.reactjs.org/blog/2017/04/07/react-v15.5.0.html#new-deprecation-warnings)-இல் deprecated செய்யப்பட்டது.
 
-In React 19, we're removing the `propType` checks from the React package, and using them will be silently ignored. If you're using `propTypes`, we recommend migrating to TypeScript or another type-checking solution.
+React 19-இல், React package-இலிருந்து `propType` checks-ஐ நீக்குகிறோம்; அவற்றைப் பயன்படுத்தினால் அமைதியாக ignore செய்யப்படும். நீங்கள் `propTypes` பயன்படுத்தினால், TypeScript அல்லது வேறு type-checking solution-க்கு migrate செய்ய பரிந்துரைக்கிறோம்.
 
-We're also removing `defaultProps` from function components in place of ES6 default parameters. Class components will continue to support `defaultProps` since there is no ES6 alternative.
+Function components-இலிருந்து `defaultProps`-ஐயும் ES6 default parameters-க்கு மாற்றாக நீக்குகிறோம். ES6 alternative இல்லாததால் class components தொடர்ந்து `defaultProps`-ஐ support செய்யும்.
 
 ```js
 // Before
@@ -170,7 +170,7 @@ Heading.propTypes = {
   text: PropTypes.string,
 };
 Heading.defaultProps = {
-  text: 'Hello, world!',
+  text: 'வணக்கம், உலகமே!',
 };
 ```
 ```ts
@@ -178,14 +178,14 @@ Heading.defaultProps = {
 interface Props {
   text?: string;
 }
-function Heading({text = 'Hello, world!'}: Props) {
+function Heading({text = 'வணக்கம், உலகமே!'}: Props) {
   return <h1>{text}</h1>;
 }
 ```
 
 <Note>
 
-Codemod `propTypes` to TypeScript with:
+`propTypes`-ஐ TypeScript-க்கு codemod செய்ய:
 
 ```bash
 npx codemod@latest react/prop-types-typescript
@@ -193,13 +193,13 @@ npx codemod@latest react/prop-types-typescript
 
 </Note>
 
-#### Removed: Legacy Context using `contextTypes` and `getChildContext` {/*removed-removing-legacy-context*/}
+#### நீக்கப்பட்டது: `contextTypes` மற்றும் `getChildContext` பயன்படுத்தும் Legacy Context {/*removed-removing-legacy-context*/}
 
-Legacy Context was deprecated in [October 2018 (v16.6.0)](https://legacy.reactjs.org/blog/2018/10/23/react-v-16-6.html).
+Legacy Context [அக்டோபர் 2018 (v16.6.0)](https://legacy.reactjs.org/blog/2018/10/23/react-v-16-6.html)-இல் deprecated செய்யப்பட்டது.
 
-Legacy Context was only available in class components using the APIs `contextTypes` and `getChildContext`, and was replaced with `contextType` due to subtle bugs that were easy to miss. In React 19, we're removing Legacy Context to make React slightly smaller and faster.
+Legacy Context class components-இல் `contextTypes` மற்றும் `getChildContext` APIs மூலம் மட்டுமே கிடைத்தது; தவறவிட நேரடியான subtle bugs காரணமாக அது `contextType`-ஆல் replace செய்யப்பட்டது. React 19-இல், React-ஐ கொஞ்சம் சிறியதாகவும் வேகமானதாகவும் ஆக்க Legacy Context-ஐ நீக்குகிறோம்.
 
-If you're still using Legacy Context in class components, you'll need to migrate to the new `contextType` API:
+Class components-இல் இன்னும் Legacy Context பயன்படுத்தினால், புதிய `contextType` API-க்கு migrate செய்ய வேண்டும்:
 
 ```js {5-11,19-21}
 // Before
@@ -253,12 +253,12 @@ class Child extends React.Component {
 }
 ```
 
-#### Removed: string refs {/*removed-string-refs*/}
-String refs were deprecated in [March, 2018 (v16.3.0)](https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html).
+#### நீக்கப்பட்டது: string refs {/*removed-string-refs*/}
+String refs [மார்ச் 2018 (v16.3.0)](https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html)-இல் deprecated செய்யப்பட்டது.
 
-Class components supported string refs before being replaced by ref callbacks due to [multiple downsides](https://github.com/facebook/react/issues/1373). In React 19, we're removing string refs to make React simpler and easier to understand.
+[பல குறைகள்](https://github.com/facebook/react/issues/1373) காரணமாக ref callbacks-ஆல் replace செய்யப்படுவதற்கு முன் class components string refs-ஐ support செய்தன. React 19-இல், React-ஐ நேரடியாகவும் புரிந்துகொள்ள திறமையாகவும் ஆக்க string refs-ஐ நீக்குகிறோம்.
 
-If you're still using string refs in class components, you'll need to migrate to ref callbacks:
+Class components-இல் இன்னும் string refs பயன்படுத்தினால், ref callbacks-க்கு migrate செய்ய வேண்டும்:
 
 ```js {4,8}
 // Before
@@ -288,7 +288,7 @@ class MyComponent extends React.Component {
 
 <Note>
 
-Codemod string refs with `ref` callbacks:
+String refs-ஐ `ref` callbacks ஆக codemod செய்ய:
 
 ```bash
 npx codemod@latest react/19/replace-string-ref
@@ -296,10 +296,10 @@ npx codemod@latest react/19/replace-string-ref
 
 </Note>
 
-#### Removed: Module pattern factories {/*removed-module-pattern-factories*/}
-Module pattern factories were deprecated in [August 2019 (v16.9.0)](https://legacy.reactjs.org/blog/2019/08/08/react-v16.9.0.html#deprecating-module-pattern-factories).
+#### நீக்கப்பட்டது: Module pattern factories {/*removed-module-pattern-factories*/}
+Module pattern factories [ஆகஸ்ட் 2019 (v16.9.0)](https://legacy.reactjs.org/blog/2019/08/08/react-v16.9.0.html#deprecating-module-pattern-factories)-இல் deprecated செய்யப்பட்டது.
 
-This pattern was rarely used and supporting it causes React to be slightly larger and slower than necessary. In React 19, we're removing support for module pattern factories, and you'll need to migrate to regular functions:
+இந்த pattern அரிதாகவே பயன்படுத்தப்பட்டது; இதை support செய்வதால் React தேவைக்கு மேலாக கொஞ்சம் பெரியதும் மெதுவானதும் ஆகிறது. React 19-இல், module pattern factories-க்கு support நீக்கப்படுகிறது; நீங்கள் regular functions-க்கு migrate செய்ய வேண்டும்:
 
 ```js
 // Before
@@ -315,10 +315,10 @@ function FactoryComponent() {
 }
 ```
 
-#### Removed: `React.createFactory` {/*removed-createfactory*/}
-`createFactory` was deprecated in [February 2020 (v16.13.0)](https://legacy.reactjs.org/blog/2020/02/26/react-v16.13.0.html#deprecating-createfactory).
+#### நீக்கப்பட்டது: `React.createFactory` {/*removed-createfactory*/}
+`createFactory` [பிப்ரவரி 2020 (v16.13.0)](https://legacy.reactjs.org/blog/2020/02/26/react-v16.13.0.html#deprecating-createfactory)-இல் deprecated செய்யப்பட்டது.
 
-Using `createFactory` was common before broad support for JSX, but it's rarely used today and can be replaced with JSX. In React 19, we're removing `createFactory` and you'll need to migrate to JSX:
+JSX-க்கு பரந்த support கிடைக்கும் முன் `createFactory` பயன்படுத்துவது பொதுவாக இருந்தது, ஆனால் இன்று அது அரிதாகப் பயன்படுத்தப்படுகிறது மற்றும் JSX-ஆல் replace செய்யலாம். React 19-இல், `createFactory`-ஐ நீக்குகிறோம்; நீங்கள் JSX-க்கு migrate செய்ய வேண்டும்:
 
 ```js
 // Before
@@ -332,9 +332,9 @@ const button = createFactory('button');
 const button = <button />;
 ```
 
-#### Removed: `react-test-renderer/shallow` {/*removed-react-test-renderer-shallow*/}
+#### நீக்கப்பட்டது: `react-test-renderer/shallow` {/*removed-react-test-renderer-shallow*/}
 
-In React 18, we updated `react-test-renderer/shallow` to re-export [react-shallow-renderer](https://github.com/enzymejs/react-shallow-renderer). In React 19, we're removing `react-test-render/shallow` to prefer installing the package directly:
+React 18-இல், `react-test-renderer/shallow`-ஐ [react-shallow-renderer](https://github.com/enzymejs/react-shallow-renderer)-ஐ re-export செய்ய update செய்தோம். React 19-இல், package-ஐ நேரடியாக install செய்வதை முன்னுரிமை அளிக்க `react-test-render/shallow`-ஐ நீக்குகிறோம்:
 
 ```bash
 npm install react-shallow-renderer --save-dev
@@ -346,17 +346,17 @@ npm install react-shallow-renderer --save-dev
 
 <Note>
 
-##### Please reconsider shallow rendering {/*please-reconsider-shallow-rendering*/}
+##### Shallow rendering-ஐ மறுபரிசீலனை செய்யுங்கள் {/*please-reconsider-shallow-rendering*/}
 
-Shallow rendering depends on React internals and can block you from future upgrades. We recommend migrating your tests to [@testing-library/react](https://testing-library.com/docs/react-testing-library/intro/) or [@testing-library/react-native](https://testing-library.com/docs/react-native-testing-library/intro).
+Shallow rendering React internals-ஐச் சார்ந்தது; அது future upgrades-இலிருந்து உங்களைத் தடுக்கலாம். உங்கள் tests-ஐ [@testing-library/react](https://testing-library.com/docs/react-testing-library/intro/) அல்லது [@testing-library/react-native](https://testing-library.com/docs/react-native-testing-library/intro)-க்கு migrate செய்ய பரிந்துரைக்கிறோம்.
 
 </Note>
 
-### Removed deprecated React DOM APIs {/*removed-deprecated-react-dom-apis*/}
+### Deprecated React DOM APIs நீக்கப்பட்டவை {/*removed-deprecated-react-dom-apis*/}
 
-#### Removed: `react-dom/test-utils` {/*removed-react-dom-test-utils*/}
+#### நீக்கப்பட்டது: `react-dom/test-utils` {/*removed-react-dom-test-utils*/}
 
-We've moved `act` from `react-dom/test-utils` to the `react` package:
+`act`-ஐ `react-dom/test-utils`-இலிருந்து `react` package-க்கு நகர்த்தியுள்ளோம்:
 
 <ConsoleBlockMulti>
 
@@ -368,20 +368,20 @@ We've moved `act` from `react-dom/test-utils` to the `react` package:
 
 </ConsoleBlockMulti>
 
-To fix this warning, you can import `act` from `react`:
+இந்த warning-ஐ fix செய்ய, `react`-இலிருந்து `act` import செய்யலாம்:
 
 ```diff
 - import {act} from 'react-dom/test-utils'
 + import {act} from 'react';
 ```
 
-All other `test-utils` functions have been removed. These utilities were uncommon, and made it too easy to depend on low level implementation details of your components and React. In React 19, these functions will error when called and their exports will be removed in a future version.
+மற்ற எல்லா `test-utils` functions-மும் நீக்கப்பட்டுள்ளன. இந்த utilities பொதுவானவை அல்ல; மேலும் உங்கள் components மற்றும் React-ன் low level implementation details-ஐ சாருவது இப்போது சாத்தியமாகிவிட்டது. React 19-இல், இந்த functions call செய்யப்பட்டால் error தரும்; அவற்றின் exports future version-இல் remove செய்யப்படும்.
 
-See the [warning page](https://react.dev/warnings/react-dom-test-utils) for alternatives.
+Alternatives-க்கு [warning page](https://react.dev/warnings/react-dom-test-utils)-ஐ பார்க்கவும்.
 
 <Note>
 
-Codemod `ReactDOMTestUtils.act` to `React.act`:
+`ReactDOMTestUtils.act`-ஐ `React.act` ஆக codemod செய்ய:
 
 ```bash
 npx codemod@latest react/19/replace-act-import
@@ -389,9 +389,9 @@ npx codemod@latest react/19/replace-act-import
 
 </Note>
 
-#### Removed: `ReactDOM.render` {/*removed-reactdom-render*/}
+#### நீக்கப்பட்டது: `ReactDOM.render` {/*removed-reactdom-render*/}
 
-`ReactDOM.render` was deprecated in [March 2022 (v18.0.0)](https://react.dev/blog/2022/03/08/react-18-upgrade-guide). In React 19, we're removing `ReactDOM.render` and you'll need to migrate to using [`ReactDOM.createRoot`](https://react.dev/reference/react-dom/client/createRoot):
+`ReactDOM.render` [மார்ச் 2022 (v18.0.0)](https://react.dev/blog/2022/03/08/react-18-upgrade-guide)-இல் deprecated செய்யப்பட்டது. React 19-இல், `ReactDOM.render`-ஐ நீக்குகிறோம்; [`ReactDOM.createRoot`](https://react.dev/reference/react-dom/client/createRoot) பயன்படுத்த migrate செய்ய வேண்டும்:
 
 ```js
 // Before
@@ -406,7 +406,7 @@ root.render(<App />);
 
 <Note>
 
-Codemod `ReactDOM.render` to `ReactDOMClient.createRoot`:
+`ReactDOM.render`-ஐ `ReactDOMClient.createRoot` ஆக codemod செய்ய:
 
 ```bash
 npx codemod@latest react/19/replace-reactdom-render
@@ -414,9 +414,9 @@ npx codemod@latest react/19/replace-reactdom-render
 
 </Note>
 
-#### Removed: `ReactDOM.hydrate` {/*removed-reactdom-hydrate*/}
+#### நீக்கப்பட்டது: `ReactDOM.hydrate` {/*removed-reactdom-hydrate*/}
 
-`ReactDOM.hydrate` was deprecated in [March 2022 (v18.0.0)](https://react.dev/blog/2022/03/08/react-18-upgrade-guide). In React 19, we're removing `ReactDOM.hydrate` you'll need to migrate to using [`ReactDOM.hydrateRoot`](https://react.dev/reference/react-dom/client/hydrateRoot),
+`ReactDOM.hydrate` [மார்ச் 2022 (v18.0.0)](https://react.dev/blog/2022/03/08/react-18-upgrade-guide)-இல் deprecated செய்யப்பட்டது. React 19-இல், `ReactDOM.hydrate`-ஐ நீக்குகிறோம்; [`ReactDOM.hydrateRoot`](https://react.dev/reference/react-dom/client/hydrateRoot) பயன்படுத்த migrate செய்ய வேண்டும்,
 
 ```js
 // Before
@@ -430,7 +430,7 @@ hydrateRoot(document.getElementById('root'), <App />);
 
 <Note>
 
-Codemod `ReactDOM.hydrate` to `ReactDOMClient.hydrateRoot`:
+`ReactDOM.hydrate`-ஐ `ReactDOMClient.hydrateRoot` ஆக codemod செய்ய:
 
 ```bash
 npx codemod@latest react/19/replace-reactdom-render
@@ -438,9 +438,9 @@ npx codemod@latest react/19/replace-reactdom-render
 
 </Note>
 
-#### Removed: `unmountComponentAtNode` {/*removed-unmountcomponentatnode*/}
+#### நீக்கப்பட்டது: `unmountComponentAtNode` {/*removed-unmountcomponentatnode*/}
 
-`ReactDOM.unmountComponentAtNode` was deprecated in [March 2022 (v18.0.0)](https://react.dev/blog/2022/03/08/react-18-upgrade-guide). In React 19, you'll need to migrate to using `root.unmount()`.
+`ReactDOM.unmountComponentAtNode` [மார்ச் 2022 (v18.0.0)](https://react.dev/blog/2022/03/08/react-18-upgrade-guide)-இல் deprecated செய்யப்பட்டது. React 19-இல், `root.unmount()` பயன்படுத்த migrate செய்ய வேண்டும்.
 
 
 ```js
@@ -451,11 +451,11 @@ unmountComponentAtNode(document.getElementById('root'));
 root.unmount();
 ```
 
-For more see `root.unmount()` for [`createRoot`](https://react.dev/reference/react-dom/client/createRoot#root-unmount) and [`hydrateRoot`](https://react.dev/reference/react-dom/client/hydrateRoot#root-unmount).
+மேலும் அறிய [`createRoot`](https://react.dev/reference/react-dom/client/createRoot#root-unmount) மற்றும் [`hydrateRoot`](https://react.dev/reference/react-dom/client/hydrateRoot#root-unmount)-க்கான `root.unmount()`-ஐ பார்க்கவும்.
 
 <Note>
 
-Codemod `unmountComponentAtNode` to `root.unmount`:
+`unmountComponentAtNode`-ஐ `root.unmount` ஆக codemod செய்ய:
 
 ```bash
 npx codemod@latest react/19/replace-reactdom-render
@@ -463,11 +463,11 @@ npx codemod@latest react/19/replace-reactdom-render
 
 </Note>
 
-#### Removed: `ReactDOM.findDOMNode` {/*removed-reactdom-finddomnode*/}
+#### நீக்கப்பட்டது: `ReactDOM.findDOMNode` {/*removed-reactdom-finddomnode*/}
 
-`ReactDOM.findDOMNode` was [deprecated in October 2018 (v16.6.0)](https://legacy.reactjs.org/blog/2018/10/23/react-v-16-6.html#deprecations-in-strictmode).
+`ReactDOM.findDOMNode` [அக்டோபர் 2018 (v16.6.0)](https://legacy.reactjs.org/blog/2018/10/23/react-v-16-6.html#deprecations-in-strictmode)-இல் deprecated செய்யப்பட்டது.
 
-We're removing `findDOMNode` because it was a legacy escape hatch that was slow to execute, fragile to refactoring, only returned the first child, and broke abstraction levels (see more [here](https://legacy.reactjs.org/docs/strict-mode.html#warning-about-deprecated-finddomnode-usage)). You can replace `ReactDOM.findDOMNode` with [DOM refs](/learn/manipulating-the-dom-with-refs):
+`findDOMNode` slow ஆக execute ஆன, refactoring-க்கு fragile ஆன, முதல் child-ஐ மட்டுமே return செய்த, abstraction levels-ஐ உடைத்த legacy escape hatch என்பதால் அதை நீக்குகிறோம் (மேலும் [இங்கே](https://legacy.reactjs.org/docs/strict-mode.html#warning-about-deprecated-finddomnode-usage) பார்க்கவும்). `ReactDOM.findDOMNode`-ஐ [DOM refs](/learn/manipulating-the-dom-with-refs)-ஆல் replace செய்யலாம்:
 
 ```js
 // Before
@@ -479,7 +479,7 @@ function AutoselectingInput() {
     input.select()
   }, []);
 
-  return <input defaultValue="Hello" />;
+  return <input defaultValue="வணக்கம்" />;
 }
 ```
 
@@ -491,17 +491,17 @@ function AutoselectingInput() {
     ref.current.select();
   }, []);
 
-  return <input ref={ref} defaultValue="Hello" />
+  return <input ref={ref} defaultValue="வணக்கம்" />
 }
 ```
 
-## New deprecations {/*new-deprecations*/}
+## புதிய deprecations {/*new-deprecations*/}
 
 ### Deprecated: `element.ref` {/*deprecated-element-ref*/}
 
-React 19 supports [`ref` as a prop](/blog/2024/04/25/react-19#ref-as-a-prop), so we're deprecating the `element.ref` in place of `element.props.ref`.
+React 19 [`ref`-ஐ prop ஆக](/blog/2024/04/25/react-19#ref-as-a-prop) support செய்கிறது, எனவே `element.ref`-க்கு பதிலாக `element.props.ref` பயன்படுத்தும்படி `element.ref`-ஐ deprecate செய்கிறோம்.
 
-Accessing `element.ref` will warn:
+`element.ref` access செய்தால் warning வரும்:
 
 <ConsoleBlockMulti>
 
@@ -515,45 +515,45 @@ Accessing element.ref is no longer supported. ref is now a regular prop. It will
 
 ### Deprecated: `react-test-renderer` {/*deprecated-react-test-renderer*/}
 
-We are deprecating `react-test-renderer` because it implements its own renderer environment that doesn't match the environment users use, promotes testing implementation details, and relies on introspection of React's internals.
+Users பயன்படுத்தும் environment-க்கு match ஆகாத சொந்த renderer environment-ஐ implement செய்வதால், implementation details-ஐ test செய்ய ஊக்குவிப்பதால், மேலும் React internals introspection-ஐ சார்வதால் `react-test-renderer`-ஐ deprecate செய்கிறோம்.
 
-The test renderer was created before there were more viable testing strategies available like [React Testing Library](https://testing-library.com), and we now recommend using a modern testing library instead.
+[React Testing Library](https://testing-library.com) போன்ற மேலும் viable testing strategies கிடைக்கும் முன் test renderer உருவாக்கப்பட்டது; இப்போது அதற்கு பதிலாக modern testing library பயன்படுத்த பரிந்துரைக்கிறோம்.
 
-In React 19, `react-test-renderer` logs a deprecation warning, and has switched to concurrent rendering. We recommend migrating your tests to [@testing-library/react](https://testing-library.com/docs/react-testing-library/intro/) or [@testing-library/react-native](https://testing-library.com/docs/react-native-testing-library/intro) for a modern and well supported testing experience.
+React 19-இல், `react-test-renderer` deprecation warning log செய்து, concurrent rendering-க்கு மாறியுள்ளது. Modern மற்றும் நன்றாக support செய்யப்படும் testing experience-க்காக உங்கள் tests-ஐ [@testing-library/react](https://testing-library.com/docs/react-testing-library/intro/) அல்லது [@testing-library/react-native](https://testing-library.com/docs/react-native-testing-library/intro)-க்கு migrate செய்ய பரிந்துரைக்கிறோம்.
 
-## Notable changes {/*notable-changes*/}
+## கவனிக்கத்தக்க changes {/*notable-changes*/}
 
 ### StrictMode changes {/*strict-mode-improvements*/}
 
-React 19 includes several fixes and improvements to Strict Mode.
+React 19 Strict Mode-க்கு பல fixes மற்றும் improvements-ஐ உள்ளடக்குகிறது.
 
-When double rendering in Strict Mode in development, `useMemo` and `useCallback` will reuse the memoized results from the first render during the second render. Components that are already Strict Mode compatible should not notice a difference in behavior.
+Development-இல் Strict Mode-இல் double rendering நடக்கும் போது, இரண்டாவது render போது `useMemo` மற்றும் `useCallback` முதல் render-இலிருந்து memoized results-ஐ reuse செய்யும். ஏற்கனவே Strict Mode compatible ஆன components behavior-இல் வேறுபாடு கவனிக்கக்கூடாது.
 
-As with all Strict Mode behaviors, these features are designed to proactively surface bugs in your components during development so you can fix them before they are shipped to production. For example, during development, Strict Mode will double-invoke ref callback functions on initial mount, to simulate what happens when a mounted component is replaced by a Suspense fallback.
+எல்லா Strict Mode behaviors போலவே, இந்த features development போது உங்கள் components-இல் bugs-ஐ proactively surface செய்ய வடிவமைக்கப்பட்டுள்ளன; production-க்கு ship செய்வதற்கு முன் அவற்றை fix செய்ய முடியும். உதாரணமாக, development போது, mounted component Suspense fallback-ஆல் replace செய்யப்படும்போது என்ன நடக்கும் என்பதை simulate செய்ய Strict Mode initial mount-இல் ref callback functions-ஐ double-invoke செய்யும்.
 
-### Improvements to Suspense {/*improvements-to-suspense*/}
+### Suspense improvements {/*improvements-to-suspense*/}
 
-In React 19, when a component suspends, React will immediately commit the fallback of the nearest Suspense boundary without waiting for the entire sibling tree to render. After the fallback commits, React schedules another render for the suspended siblings to "pre-warm" lazy requests in the rest of the tree:
+React 19-இல், ஒரு component suspend செய்தால், முழு sibling tree render ஆக காத்திருக்காமல், nearest Suspense boundary-ன் fallback-ஐ React உடனே commit செய்யும். Fallback commit ஆன பிறகு, tree-ன் மீதியிலுள்ள lazy requests-ஐ "pre-warm" செய்ய suspended siblings-க்கு மற்றொரு render-ஐ React schedule செய்கிறது:
 
-<Diagram name="prerender" height={162} width={1270} alt="Diagram showing a tree of three components, one parent labeled Accordion and two children labeled Panel. Both Panel components contain isActive with value false.">
+<Diagram name="prerender" height={162} width={1270} alt="Accordion என label செய்யப்பட்ட parent மற்றும் Panel என label செய்யப்பட்ட இரண்டு children கொண்ட மூன்று components tree-ஐ காட்டும் diagram. இரு Panel components-மும் false value கொண்ட isActive-ஐ கொண்டுள்ளன.">
 
-Previously, when a component suspended, the suspended siblings were rendered and then the fallback was committed.
-
-</Diagram>
-
-<Diagram name="prewarm" height={162} width={1270} alt="The same diagram as the previous, with the isActive of the first child Panel component highlighted indicating a click with the isActive value set to true. The second Panel component still contains value false." >
-
-In React 19, when a component suspends, the fallback is committed and then the suspended siblings are rendered.
+முன்பு, ஒரு component suspend செய்தால், suspended siblings render செய்யப்பட்டு பின்னர் fallback commit செய்யப்பட்டது.
 
 </Diagram>
 
-This change means Suspense fallbacks display faster, while still warming lazy requests in the suspended tree.
+<Diagram name="prewarm" height={162} width={1270} alt="முந்தைய diagram-இதே, ஆனால் முதல் child Panel component-ன் isActive click-ஐ குறிக்கும் வகையில் highlight செய்யப்பட்டுள்ளது; isActive value true ஆக set செய்யப்பட்டுள்ளது. இரண்டாவது Panel component இன்னும் false value கொண்டுள்ளது." >
 
-### UMD builds removed {/*umd-builds-removed*/}
+React 19-இல், ஒரு component suspend செய்தால், fallback commit செய்யப்பட்டு பின்னர் suspended siblings render செய்யப்படுகின்றன.
 
-UMD was widely used in the past as a convenient way to load React without a build step. Now, there are modern alternatives for loading modules as scripts in HTML documents. Starting with React 19, React will no longer produce UMD builds to reduce the complexity of its testing and release process.
+</Diagram>
 
-To load React 19 with a script tag, we recommend using an ESM-based CDN such as [esm.sh](https://esm.sh/).
+இந்த change, suspended tree-இல் lazy requests-ஐ இன்னும் warm செய்துகொண்டே Suspense fallbacks வேகமாக display ஆகும் என்பதைக் குறிக்கிறது.
+
+### UMD builds நீக்கப்பட்டவை {/*umd-builds-removed*/}
+
+Build step இல்லாமல் React-ஐ load செய்ய convenient வழியாக UMD முன்பு பரவலாக பயன்படுத்தப்பட்டது. இப்போது HTML documents-இல் modules-ஐ scripts ஆக load செய்ய modern alternatives உள்ளன. React 19 முதல், testing மற்றும் release process complexity-ஐ குறைக்க React இனி UMD builds produce செய்யாது.
+
+Script tag உடன் React 19-ஐ load செய்ய, [esm.sh](https://esm.sh/) போன்ற ESM-based CDN பயன்படுத்த பரிந்துரைக்கிறோம்.
 
 ```html
 <script type="module">
@@ -563,32 +563,32 @@ To load React 19 with a script tag, we recommend using an ESM-based CDN such as 
 </script>
 ```
 
-### Libraries depending on React internals may block upgrades {/*libraries-depending-on-react-internals-may-block-upgrades*/}
+### React internals-ஐ சார்ந்த libraries upgrades-ஐ block செய்யலாம் {/*libraries-depending-on-react-internals-may-block-upgrades*/}
 
-This release includes changes to React internals that may impact libraries that ignore our pleas to not use internals like `SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED`. These changes are necessary to land improvements in React 19, and will not break libraries that follow our guidelines.
+இந்த release React internals-இல் changes-ஐ கொண்டுள்ளது; `SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED` போன்ற internals பயன்படுத்த வேண்டாம் என்ற எங்கள் வேண்டுகோளை ignore செய்யும் libraries-ஐ இவை பாதிக்கலாம். React 19 improvements-ஐ land செய்ய இந்த changes தேவையானவை; எங்கள் guidelines-ஐப் பின்பற்றும் libraries-ஐ அவை break செய்யாது.
 
-Based on our [Versioning Policy](https://react.dev/community/versioning-policy#what-counts-as-a-breaking-change), these updates are not listed as breaking changes, and we are not including docs for how to upgrade them. The recommendation is to remove any code that depends on internals.
+எங்கள் [Versioning Policy](https://react.dev/community/versioning-policy#what-counts-as-a-breaking-change)-ன் அடிப்படையில், இந்த updates breaking changes ஆக list செய்யப்படவில்லை; அவற்றை எப்படி upgrade செய்வது என்பது பற்றிய docs-ஐ சேர்ப்பதில்லை. Internals-ஐ சார்ந்த எந்த code-யையும் remove செய்வதே பரிந்துரை.
 
-To reflect the impact of using internals, we have renamed the `SECRET_INTERNALS` suffix to:
+Internals பயன்படுத்துவதன் impact-ஐ பிரதிபலிக்க, `SECRET_INTERNALS` suffix-ஐ இதுபோல் rename செய்துள்ளோம்:
 
 `_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE`
 
-In the future we will more aggressively block accessing internals from React to discourage usage and ensure users are not blocked from upgrading.
+எதிர்காலத்தில், usage-ஐத் தடுக்கவும் users upgrade செய்ய முடியாமல் block ஆகாமல் இருப்பதையும் உறுதி செய்யவும், React internals access செய்வதை இன்னும் கடுமையாக block செய்வோம்.
 
 ## TypeScript changes {/*typescript-changes*/}
 
-### Removed deprecated TypeScript types {/*removed-deprecated-typescript-types*/}
+### Deprecated TypeScript types நீக்கப்பட்டவை {/*removed-deprecated-typescript-types*/}
 
-We've cleaned up the TypeScript types based on the removed APIs in React 19. Some of the removed have types been moved to more relevant packages, and others are no longer needed to describe React's behavior.
+React 19-இல் removed APIs அடிப்படையில் TypeScript types-ஐ சுத்தப்படுத்தியுள்ளோம். நீக்கப்பட்டவற்றில் சில types மிகவும் பொருத்தமான packages-க்கு நகர்த்தப்பட்டுள்ளன; மற்றவை React-ன் behavior-ஐ describe செய்ய இனி தேவையில்லை.
 
 <Note>
-We've published [`types-react-codemod`](https://github.com/eps1lon/types-react-codemod/) to migrate most type related breaking changes:
+Type தொடர்புடைய பெரும்பாலான breaking changes-ஐ migrate செய்ய [`types-react-codemod`](https://github.com/eps1lon/types-react-codemod/)-ஐ வெளியிட்டுள்ளோம்:
 
 ```bash
 npx types-react-codemod@latest preset-19 ./path-to-app
 ```
 
-If you have a lot of unsound access to `element.props`, you can run this additional codemod:
+`element.props`-க்கு unsound access அதிகமாக இருந்தால், இந்த கூடுதல் codemod-ஐ run செய்யலாம்:
 
 ```bash
 npx types-react-codemod@latest react-element-default-any-props ./path-to-your-react-ts-files
@@ -596,28 +596,27 @@ npx types-react-codemod@latest react-element-default-any-props ./path-to-your-re
 
 </Note>
 
-Check out [`types-react-codemod`](https://github.com/eps1lon/types-react-codemod/) for a list of supported replacements. If you feel a codemod is missing, it can be tracked in the [list of missing React 19 codemods](https://github.com/eps1lon/types-react-codemod/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3A%22React+19%22+label%3Aenhancement).
+Supported replacements list-க்கு [`types-react-codemod`](https://github.com/eps1lon/types-react-codemod/)-ஐ பாருங்கள். ஒரு codemod missing என்று நினைத்தால், அதை [missing React 19 codemods list](https://github.com/eps1lon/types-react-codemod/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3A%22React+19%22+label%3Aenhancement)-இல் track செய்யலாம்.
 
 
 ### `ref` cleanups required {/*ref-cleanup-required*/}
 
-_This change is included in the `react-19` codemod preset as [`no-implicit-ref-callback-return
-`](https://github.com/eps1lon/types-react-codemod/#no-implicit-ref-callback-return)._
+_இந்த change, [`no-implicit-ref-callback-return`](https://github.com/eps1lon/types-react-codemod/#no-implicit-ref-callback-return) எனும் `react-19` codemod preset-இல் சேர்க்கப்பட்டுள்ளது._
 
-Due to the introduction of ref cleanup functions, returning anything else from a ref callback will now be rejected by TypeScript. The fix is usually to stop using implicit returns:
+Ref cleanup functions அறிமுகப்படுத்தப்பட்டதால், ref callback-இலிருந்து வேறு எதையும் return செய்வது இப்போது TypeScript-ஆல் rejected செய்யப்படும். Fix பொதுவாக implicit returns பயன்படுத்துவதை நிறுத்துவது:
 
 ```diff [[1, 1, "("], [1, 1, ")"], [2, 2, "{", 15], [2, 2, "}", 1]]
 - <div ref={current => (instance = current)} />
 + <div ref={current => {instance = current}} />
 ```
 
-The original code returned the instance of the `HTMLDivElement` and TypeScript wouldn't know if this was supposed to be a cleanup function or not.
+Original code `HTMLDivElement`-ன் instance-ஐ return செய்தது; இது cleanup function ஆக இருக்க வேண்டுமா இல்லையா என்பதை TypeScript அறிய முடியாது.
 
-### `useRef` requires an argument {/*useref-requires-argument*/}
+### `useRef`-க்கு argument தேவை {/*useref-requires-argument*/}
 
-_This change is included in the `react-19` codemod preset as [`refobject-defaults`](https://github.com/eps1lon/types-react-codemod/#refobject-defaults)._
+_இந்த change, [`refobject-defaults`](https://github.com/eps1lon/types-react-codemod/#refobject-defaults) எனும் `react-19` codemod preset-இல் சேர்க்கப்பட்டுள்ளது._
 
-A long-time complaint of how TypeScript and React work has been `useRef`. We've changed the types so that `useRef` now requires an argument. This significantly simplifies its type signature. It'll now behave more like `createContext`.
+TypeScript மற்றும் React எப்படி வேலை செய்கின்றன என்பதில் `useRef` ஒரு நீண்டகால குறையாக இருந்தது. `useRef` இப்போது argument தேவைப்படுமாறு types-ஐ மாற்றியுள்ளோம். இது அதன் type signature-ஐ குறிப்பிடத்தக்க அளவு உதவுகிறது. இப்போது அது `createContext` போலவே நடக்கும்.
 
 ```ts
 // @ts-expect-error: Expected 1 argument but saw none
@@ -630,7 +629,7 @@ createContext();
 createContext(undefined);
 ```
 
-This now also means that all refs are mutable. You'll no longer hit the issue where you can't mutate a ref because you initialised it with `null`:
+இதன் பொருள் இப்போது அனைத்து refs-மும் mutable. `null` கொண்டு initialize செய்ததால் ref-ஐ mutate செய்ய முடியாத issue இனி வராது:
 
 ```ts
 const ref = useRef<number>(null);
@@ -639,7 +638,7 @@ const ref = useRef<number>(null);
 ref.current = 1;
 ```
 
-`MutableRef` is now deprecated in favor of a single `RefObject` type which `useRef` will always return:
+`MutableRef` இப்போது deprecated; அதற்கு பதிலாக `useRef` எப்போதும் return செய்யும் ஒரே `RefObject` type பயன்படுத்தப்படுகிறது:
 
 ```ts
 interface RefObject<T> {
@@ -649,36 +648,36 @@ interface RefObject<T> {
 declare function useRef<T>: RefObject<T>
 ```
 
-`useRef` still has a convenience overload for `useRef<T>(null)` that automatically returns `RefObject<T | null>`. To ease migration due to the required argument for `useRef`, a convenience overload for `useRef(undefined)` was added that automatically returns `RefObject<T | undefined>`.
+`useRef` இன்னும் `useRef<T>(null)`-க்கு convenience overload வைத்துள்ளது; அது தானாக `RefObject<T | null>` return செய்யும். `useRef`-க்கு required argument காரணமாக migration நேரடியாக இருக்க, `useRef(undefined)`-க்கான convenience overload சேர்க்கப்பட்டது; அது தானாக `RefObject<T | undefined>` return செய்யும்.
 
-Check out [[RFC] Make all refs mutable](https://github.com/DefinitelyTyped/DefinitelyTyped/pull/64772) for prior discussions about this change.
+இந்த change பற்றிய முந்தைய விவாதங்களுக்கு [[RFC] Make all refs mutable](https://github.com/DefinitelyTyped/DefinitelyTyped/pull/64772)-ஐ பார்க்கவும்.
 
-### Changes to the `ReactElement` TypeScript type {/*changes-to-the-reactelement-typescript-type*/}
+### `ReactElement` TypeScript type-இல் changes {/*changes-to-the-reactelement-typescript-type*/}
 
-_This change is included in the [`react-element-default-any-props`](https://github.com/eps1lon/types-react-codemod#react-element-default-any-props) codemod._
+_இந்த change [`react-element-default-any-props`](https://github.com/eps1lon/types-react-codemod#react-element-default-any-props) codemod-இல் சேர்க்கப்பட்டுள்ளது._
 
-The `props` of React elements now default to `unknown` instead of `any` if the element is typed as `ReactElement`. This does not affect you if you pass a type argument to `ReactElement`:
+Element `ReactElement` ஆக typed செய்யப்பட்டிருந்தால், React elements-ன் `props` இப்போது `any`-க்கு பதிலாக `unknown` ஆக default ஆகிறது. `ReactElement`-க்கு type argument pass செய்தால் இது உங்களைப் பாதிக்காது:
 
 ```ts
 type Example2 = ReactElement<{ id: string }>["props"];
 //   ^? { id: string }
 ```
 
-But if you relied on the default, you now have to handle `unknown`:
+ஆனால் default-ஐ சார்ந்திருந்தால், இப்போது `unknown`-ஐ handle செய்ய வேண்டும்:
 
 ```ts
 type Example = ReactElement["props"];
 //   ^? Before, was 'any', now 'unknown'
 ```
 
-You should only need it if you have a lot of legacy code relying on unsound access of element props. Element introspection only exists as an escape hatch, and you should make it explicit that your props access is unsound via an explicit `any`.
+Element props-க்கு unsound access-ஐ சார்ந்துள்ள legacy code அதிகமாக இருந்தாலே இது தேவையாக இருக்கும். Element introspection ஒரு escape hatch ஆக மட்டுமே உள்ளது; explicit `any` மூலம் உங்கள் props access unsound என்பதை explicit ஆக்க வேண்டும்.
 
-### The JSX namespace in TypeScript {/*the-jsx-namespace-in-typescript*/}
-This change is included in the `react-19` codemod preset as [`scoped-jsx`](https://github.com/eps1lon/types-react-codemod#scoped-jsx)
+### TypeScript-இல் JSX namespace {/*the-jsx-namespace-in-typescript*/}
+இந்த change, [`scoped-jsx`](https://github.com/eps1lon/types-react-codemod#scoped-jsx) எனும் `react-19` codemod preset-இல் சேர்க்கப்பட்டுள்ளது.
 
-A long-time request is to remove the global `JSX` namespace from our types in favor of `React.JSX`. This helps prevent pollution of global types which prevents conflicts between different UI libraries that leverage JSX.
+எங்கள் types-இலிருந்து global `JSX` namespace-ஐ நீக்கி `React.JSX`-ஐ பயன்படுத்த வேண்டும் என்பது நீண்டகால request. இது global types pollution-ஐத் தடுக்க உதவும்; JSX-ஐ leverage செய்யும் வெவ்வேறு UI libraries இடையிலான conflicts-ஐ அதனால் தடுக்கலாம்.
 
-You'll now need to wrap module augmentation of the JSX namespace in `declare module "....":
+இப்போது JSX namespace-ன் module augmentation-ஐ `declare module "...."`-க்குள் wrap செய்ய வேண்டும்:
 
 ```diff
 // global.d.ts
@@ -693,34 +692,34 @@ You'll now need to wrap module augmentation of the JSX namespace in `declare mod
 + }
 ```
 
-The exact module specifier depends on the JSX runtime you specified in the `compilerOptions` of your `tsconfig.json`:
+உங்கள் `tsconfig.json`-ன் `compilerOptions`-இல் குறிப்பிட்ட JSX runtime-ஐப் பொறுத்து exact module specifier மாறும்:
 
-- For `"jsx": "react-jsx"` it would be `react/jsx-runtime`.
-- For `"jsx": "react-jsxdev"` it would be `react/jsx-dev-runtime`.
-- For `"jsx": "react"` and `"jsx": "preserve"` it would be `react`.
+- `"jsx": "react-jsx"` என்றால் அது `react/jsx-runtime`.
+- `"jsx": "react-jsxdev"` என்றால் அது `react/jsx-dev-runtime`.
+- `"jsx": "react"` மற்றும் `"jsx": "preserve"` என்றால் அது `react`.
 
-### Better `useReducer` typings {/*better-usereducer-typings*/}
+### மேம்பட்ட `useReducer` typings {/*better-usereducer-typings*/}
 
-`useReducer` now has improved type inference thanks to [@mfp22](https://github.com/mfp22).
+[@mfp22](https://github.com/mfp22)-க்கு நன்றி, `useReducer` இப்போது மேம்பட்ட type inference கொண்டுள்ளது.
 
-However, this required a breaking change where `useReducer` doesn't accept the full reducer type as a type parameter but instead either needs none (and rely on contextual typing) or needs both the state and action type.
+ஆனால் இதற்கு breaking change தேவைப்பட்டது: `useReducer` முழு reducer type-ஐ type parameter ஆக accept செய்யாது; அதற்கு பதிலாக எதுவும் தேவையில்லை (contextual typing-ஐ சாரலாம்) அல்லது state மற்றும் action type இரண்டும் தேவைப்படும்.
 
-The new best practice is _not_ to pass type arguments to `useReducer`.
+புதிய best practice, `useReducer`-க்கு type arguments pass செய்யாததே.
 ```diff
 - useReducer<React.Reducer<State, Action>>(reducer)
 + useReducer(reducer)
 ```
-This may not work in edge cases where you can explicitly type the state and action, by passing in the `Action` in a tuple:
+State மற்றும் action-ஐ explicit ஆக type செய்யக்கூடிய edge cases-இல் இது வேலை செய்யாமல் இருக்கலாம்; அப்போது `Action`-ஐ tuple-இல் pass செய்யலாம்:
 ```diff
 - useReducer<React.Reducer<State, Action>>(reducer)
 + useReducer<State, [Action]>(reducer)
 ```
-If you define the reducer inline, we encourage to annotate the function parameters instead:
+Reducer-ஐ inline ஆக define செய்தால், function parameters-ஐ annotate செய்ய ஊக்குவிக்கிறோம்:
 ```diff
 - useReducer<React.Reducer<State, Action>>((state, action) => state)
 + useReducer((state: State, action: Action) => state)
 ```
-This is also what you'd also have to do if you move the reducer outside of the `useReducer` call:
+Reducer-ஐ `useReducer` call-க்கு வெளியே நகர்த்தினாலும் நீங்கள் செய்ய வேண்டியது இதுவே:
 
 ```ts
 const reducer = (state: State, action: Action) => state;
@@ -728,27 +727,27 @@ const reducer = (state: State, action: Action) => state;
 
 ## Changelog {/*changelog*/}
 
-### Other breaking changes {/*other-breaking-changes*/}
+### பிற breaking changes {/*other-breaking-changes*/}
 
-- **react-dom**: Error for javascript URLs in `src` and `href` [#26507](https://github.com/facebook/react/pull/26507)
-- **react-dom**: Remove `errorInfo.digest` from `onRecoverableError` [#28222](https://github.com/facebook/react/pull/28222)
-- **react-dom**: Remove `unstable_flushControlled` [#26397](https://github.com/facebook/react/pull/26397)
-- **react-dom**: Remove `unstable_createEventHandle` [#28271](https://github.com/facebook/react/pull/28271)
-- **react-dom**: Remove `unstable_renderSubtreeIntoContainer` [#28271](https://github.com/facebook/react/pull/28271)
-- **react-dom**: Remove `unstable_runWithPriority` [#28271](https://github.com/facebook/react/pull/28271)
-- **react-is**: Remove deprecated methods from `react-is` [28224](https://github.com/facebook/react/pull/28224)
+- **react-dom**: `src` மற்றும் `href`-இல் javascript URLs-க்கு error [#26507](https://github.com/facebook/react/pull/26507)
+- **react-dom**: `onRecoverableError`-இலிருந்து `errorInfo.digest` remove செய்யப்பட்டது [#28222](https://github.com/facebook/react/pull/28222)
+- **react-dom**: `unstable_flushControlled` remove செய்யப்பட்டது [#26397](https://github.com/facebook/react/pull/26397)
+- **react-dom**: `unstable_createEventHandle` remove செய்யப்பட்டது [#28271](https://github.com/facebook/react/pull/28271)
+- **react-dom**: `unstable_renderSubtreeIntoContainer` remove செய்யப்பட்டது [#28271](https://github.com/facebook/react/pull/28271)
+- **react-dom**: `unstable_runWithPriority` remove செய்யப்பட்டது [#28271](https://github.com/facebook/react/pull/28271)
+- **react-is**: `react-is`-இலிருந்து deprecated methods remove செய்யப்பட்டது [28224](https://github.com/facebook/react/pull/28224)
 
-### Other notable changes {/*other-notable-changes*/}
+### பிற notable changes {/*other-notable-changes*/}
 
-- **react**: Batch sync, default and continuous lanes [#25700](https://github.com/facebook/react/pull/25700)
-- **react**: Don't prerender siblings of suspended component [#26380](https://github.com/facebook/react/pull/26380)
-- **react**: Detect infinite update loops caused by render phase updates [#26625](https://github.com/facebook/react/pull/26625)
-- **react-dom**: Transitions in popstate are now synchronous [#26025](https://github.com/facebook/react/pull/26025)
-- **react-dom**: Remove layout effect warning during SSR [#26395](https://github.com/facebook/react/pull/26395)
-- **react-dom**: Warn and don’t set empty string for src/href (except anchor tags) [#28124](https://github.com/facebook/react/pull/28124)
+- **react**: Batch sync, default மற்றும் continuous lanes [#25700](https://github.com/facebook/react/pull/25700)
+- **react**: Suspended component-ன் siblings-ஐ prerender செய்ய வேண்டாம் [#26380](https://github.com/facebook/react/pull/26380)
+- **react**: Render phase updates காரணமான infinite update loops detect செய்யப்பட்டது [#26625](https://github.com/facebook/react/pull/26625)
+- **react-dom**: Popstate-இல் transitions இப்போது synchronous [#26025](https://github.com/facebook/react/pull/26025)
+- **react-dom**: SSR போது layout effect warning remove செய்யப்பட்டது [#26395](https://github.com/facebook/react/pull/26395)
+- **react-dom**: Warn செய்து src/href-க்கு empty string set செய்யாது (anchor tags தவிர) [#28124](https://github.com/facebook/react/pull/28124)
 
-For a full list of changes, please see the [Changelog](https://github.com/facebook/react/blob/main/CHANGELOG.md#1900-december-5-2024).
+Changes-ன் முழு list-க்கு [Changelog](https://github.com/facebook/react/blob/main/CHANGELOG.md#1900-december-5-2024)-ஐ பார்க்கவும்.
 
 ---
 
-Thanks to [Andrew Clark](https://twitter.com/acdlite), [Eli White](https://twitter.com/Eli_White), [Jack Pope](https://github.com/jackpope), [Jan Kassens](https://github.com/kassens), [Josh Story](https://twitter.com/joshcstory), [Matt Carroll](https://twitter.com/mattcarrollcode), [Noah Lemen](https://twitter.com/noahlemen), [Sophie Alpert](https://twitter.com/sophiebits), and [Sebastian Silbermann](https://twitter.com/sebsilbermann) for reviewing and editing this post.
+இந்த post-ஐ review மற்றும் edit செய்த [Andrew Clark](https://twitter.com/acdlite), [Eli White](https://twitter.com/Eli_White), [Jack Pope](https://github.com/jackpope), [Jan Kassens](https://github.com/kassens), [Josh Story](https://twitter.com/joshcstory), [Matt Carroll](https://twitter.com/mattcarrollcode), [Noah Lemen](https://twitter.com/noahlemen), [Sophie Alpert](https://twitter.com/sophiebits), மற்றும் [Sebastian Silbermann](https://twitter.com/sebsilbermann) ஆகியோருக்கு நன்றி.

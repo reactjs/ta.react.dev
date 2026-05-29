@@ -4,7 +4,7 @@ title: "<title>"
 
 <Intro>
 
-The [built-in browser `<title>` component](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/title) lets you specify the title of the document.
+[உலாவியில் உள்ளமைந்த `<title>` component](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/title), document-இன் title-ஐ குறிப்பிட உதவுகிறது.
 
 ```js
 <title>My Blog</title>
@@ -20,31 +20,31 @@ The [built-in browser `<title>` component](https://developer.mozilla.org/en-US/d
 
 ### `<title>` {/*title*/}
 
-To specify the title of the document, render the [built-in browser `<title>` component](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/title). You can render `<title>` from any component and React will always place the corresponding DOM element in the document head.
+Document-இன் title-ஐ குறிப்பிட, [உலாவியில் உள்ளமைந்த `<title>` component](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/title)-ஐ render செய்யுங்கள். எந்த component-இலிருந்தும் `<title>`-ஐ render செய்யலாம்; React எப்போதும் அதனுடன் தொடர்புடைய DOM element-ஐ document head-இல் வைக்கும்.
 
 ```js
 <title>My Blog</title>
 ```
 
-[See more examples below.](#usage)
+[மேலும் உதாரணங்களை கீழே பார்க்கவும்.](#usage)
 
 #### Props {/*props*/}
 
-`<title>` supports all [common element props.](/reference/react-dom/components/common#common-props)
+`<title>` அனைத்து [common element props](/reference/react-dom/components/common#common-props)-ஐ ஆதரிக்கிறது.
 
-* `children`: `<title>` accepts only text as a child. This text will become the title of the document. You can also pass your own components as long as they only render text.
+* `children`: `<title>` child ஆக text மட்டுமே ஏற்கும். இந்த text document-இன் title ஆகும். Text மட்டும் render செய்யும் வரை, உங்கள் சொந்த components-ஐயும் pass செய்யலாம்.
 
-#### Special rendering behavior {/*special-rendering-behavior*/}
+#### சிறப்பு rendering நடத்தை {/*special-rendering-behavior*/}
 
-React will always place the DOM element corresponding to the `<title>` component within the document’s `<head>`, regardless of where in the React tree it is rendered. The `<head>` is the only valid place for `<title>` to exist within the DOM, yet it’s convenient and keeps things composable if a component representing a specific page can render its `<title>` itself.
+React tree-இல் எங்கு render செய்யப்பட்டாலும், `<title>` component-க்கு தொடர்புடைய DOM element-ஐ React எப்போதும் document-இன் `<head>`-க்குள் வைக்கும். DOM-இல் `<title>` இருக்கக்கூடிய செல்லுபடியாகும் ஒரே இடம் `<head>` தான். இருந்தாலும், ஒரு குறிப்பிட்ட page-ஐ பிரதிநிதித்துவப்படுத்தும் component தன்னுடைய `<title>`-ஐ தானே render செய்ய முடிவது வசதியானதும் composable ஆக வைத்திருப்பதுமானது.
 
-There are two exception to this:
-* If `<title>` is within an `<svg>` component, then there is no special behavior, because in this context it doesn’t represent the document’s title but rather is an [accessibility annotation for that SVG graphic](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/title).
-* If the `<title>` has an [`itemProp`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemprop) prop, there is no special behavior, because in this case it doesn’t represent the document’s title but rather metadata about a specific part of the page.
+இதற்கு இரண்டு விதிவிலக்குகள் உள்ளன:
+* `<title>` ஒரு `<svg>` component-க்குள் இருந்தால், சிறப்பு நடத்தை இல்லை. ஏனெனில் இந்த context-இல் அது document-இன் title-ஐ குறிக்கவில்லை; மாறாக அந்த SVG graphic-க்கான [accessibility annotation](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/title) ஆகும்.
+* `<title>`-க்கு [`itemProp`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemprop) prop இருந்தால், சிறப்பு நடத்தை இல்லை. ஏனெனில் இந்த நிலையில் அது document-இன் title-ஐ குறிக்கவில்லை; மாறாக page-இன் குறிப்பிட்ட பகுதி பற்றிய metadata ஆகும்.
 
 <Pitfall>
 
-Only render a single `<title>` at a time. If more than one component renders a `<title>` tag at the same time, React will place all of those titles in the document head. When this happens, the behavior of browsers and search engines is undefined.
+ஒரு நேரத்தில் ஒரு `<title>` மட்டும் render செய்யுங்கள். ஒரே நேரத்தில் ஒன்றுக்கு மேற்பட்ட components `<title>` tag-ஐ render செய்தால், அந்த titles அனைத்தையும் React document head-இல் வைக்கும். இப்படி நடந்தால், browsers மற்றும் search engines-இன் நடத்தை வரையறுக்கப்படவில்லை.
 
 </Pitfall>
 
@@ -52,9 +52,9 @@ Only render a single `<title>` at a time. If more than one component renders a `
 
 ## Usage {/*usage*/}
 
-### Set the document title {/*set-the-document-title*/}
+### Document title அமைத்தல் {/*set-the-document-title*/}
 
-Render the `<title>` component from any component with text as its children. React will put a `<title>` DOM node in the document `<head>`.
+Text-ஐ children ஆகக் கொண்டு எந்த component-இலிருந்தும் `<title>` component-ஐ render செய்யுங்கள். React document `<head>`-இல் `<title>` DOM node ஒன்றை வைக்கும்.
 
 <SandpackWithHTMLOutput>
 
@@ -74,17 +74,16 @@ export default function ContactUsPage() {
 
 </SandpackWithHTMLOutput>
 
-### Use variables in the title {/*use-variables-in-the-title*/}
+### Title-இல் variables பயன்படுத்துதல் {/*use-variables-in-the-title*/}
 
-The children of the `<title>` component must be a single string of text. (Or a single number or a single object with a `toString` method.) It might not be obvious, but using JSX curly braces like this:
+`<title>` component-இன் children ஒரு single string text ஆக இருக்க வேண்டும். (அல்லது single number, அல்லது `toString` method கொண்ட single object ஆக இருக்கலாம்.) இது வெளிப்படையாகத் தெரியாமல் இருக்கலாம், ஆனால் இப்படி JSX curly braces பயன்படுத்துவது:
 
 ```js
-<title>Results page {pageNumber}</title> // 🔴 Problem: This is not a single string
+<title>Results page {pageNumber}</title> // 🔴 பிரச்சினை: இது single string அல்ல
 ```
 
-... actually causes the `<title>` component to get a two-element array as its children (the string `"Results page"` and the value of `pageNumber`). This will cause an error. Instead, use string interpolation to pass `<title>` a single string:
+... உண்மையில் `<title>` component-க்கு இரண்டு element கொண்ட array-ஐ children ஆகத் தருகிறது (`"Results page"` string மற்றும் `pageNumber`-இன் value). இது error ஏற்படுத்தும். அதற்கு பதிலாக, `<title>`-க்கு single string pass செய்ய string interpolation-ஐப் பயன்படுத்துங்கள்:
 
 ```js
 <title>{`Results page ${pageNumber}`}</title>
 ```
-

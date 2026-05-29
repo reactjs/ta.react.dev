@@ -4,15 +4,15 @@ title: Server Functions
 
 <RSC>
 
-Server Functions are for use in [React Server Components](/reference/rsc/server-components).
+Server Functions [React Server Components](/reference/rsc/server-components)-இல் பயன்படுத்தப்படுகின்றன.
 
-**Note:** Until September 2024, we referred to all Server Functions as "Server Actions". If a Server Function is passed to an action prop or called from inside an action then it is a Server Action, but not all Server Functions are Server Actions. The naming in this documentation has been updated to reflect that Server Functions can be used for multiple purposes.
+**குறிப்பு:** September 2024 வரை, அனைத்து Server Functions-ஐயும் "Server Actions" என்று குறிப்பிட்டோம். ஒரு Server Function action prop-க்கு pass செய்யப்பட்டாலோ அல்லது action-க்குள் இருந்து call செய்யப்பட்டாலோ அது Server Action; ஆனால் அனைத்து Server Functions-உம் Server Actions அல்ல. Server Functions பல நோக்கங்களுக்கு பயன்படுத்தப்படலாம் என்பதை பிரதிபலிக்க இந்த documentation-இல் naming update செய்யப்பட்டுள்ளது.
 
 </RSC>
 
 <Intro>
 
-Server Functions allow Client Components to call async functions executed on the server.
+Server-இல் execute செய்யப்படும் async functions-ஐ Client Components call செய்ய Server Functions அனுமதிக்கின்றன.
 
 </Intro>
 
@@ -20,23 +20,23 @@ Server Functions allow Client Components to call async functions executed on the
 
 <Note>
 
-#### How do I build support for Server Functions? {/*how-do-i-build-support-for-server-functions*/}
+#### Server Functions-க்கு support எப்படி build செய்வது? {/*how-do-i-build-support-for-server-functions*/}
 
-While Server Functions in React 19 are stable and will not break between minor versions, the underlying APIs used to implement Server Functions in a React Server Components bundler or framework do not follow semver and may break between minors in React 19.x.
+React 19-இல் Server Functions stable; minor versions இடையே break ஆகாது. ஆனால் React Server Components bundler அல்லது framework-இல் Server Functions implement செய்ய பயன்படுத்தப்படும் underlying APIs semver-ஐ பின்பற்றாது; React 19.x minors இடையே break ஆகலாம்.
 
-To support Server Functions as a bundler or framework, we recommend pinning to a specific React version, or using the Canary release. We will continue working with bundlers and frameworks to stabilize the APIs used to implement Server Functions in the future.
+Bundler அல்லது framework ஆக Server Functions support செய்ய, குறிப்பிட்ட React version-க்கு pin செய்வதையோ அல்லது Canary release பயன்படுத்துவதையோ பரிந்துரைக்கிறோம். எதிர்காலத்தில் Server Functions implement செய்யப்படும் APIs-ஐ stabilize செய்ய bundlers மற்றும் frameworks உடன் தொடர்ந்து வேலை செய்வோம்.
 
 </Note>
 
-When a Server Function is defined with the [`"use server"`](/reference/rsc/use-server) directive, your framework will automatically create a reference to the Server Function, and pass that reference to the Client Component. When that function is called on the client, React will send a request to the server to execute the function, and return the result.
+[`"use server"`](/reference/rsc/use-server) directive உடன் Server Function define செய்யப்பட்டால், உங்கள் framework தானாக Server Function-க்கு reference உருவாக்கி, அந்த reference-ஐ Client Component-க்கு pass செய்யும். அந்த function client-இல் call செய்யப்படும்போது, function execute செய்ய React server-க்கு request அனுப்பி result-ஐ return செய்யும்.
 
-Server Functions can be created in Server Components and passed as props to Client Components, or they can be imported and used in Client Components.
+Server Functions Server Components-இல் உருவாக்கப்பட்டு props ஆக Client Components-க்கு pass செய்யப்படலாம்; அல்லது Client Components-இல் import செய்து பயன்படுத்தப்படலாம்.
 
-## Usage {/*usage*/}
+## பயன்பாடு {/*usage*/}
 
-### Creating a Server Function from a Server Component {/*creating-a-server-function-from-a-server-component*/}
+### Server Component-இலிருந்து Server Function உருவாக்குதல் {/*creating-a-server-function-from-a-server-component*/}
 
-Server Components can define Server Functions with the `"use server"` directive:
+Server Components `"use server"` directive மூலம் Server Functions define செய்யலாம்:
 
 ```js [[2, 7, "'use server'"], [1, 5, "createNoteAction"], [1, 12, "createNoteAction"]]
 // Server Component
@@ -54,7 +54,7 @@ function EmptyNote () {
 }
 ```
 
-When React renders the `EmptyNote` Server Component, it will create a reference to the `createNoteAction` function, and pass that reference to the `Button` Client Component. When the button is clicked, React will send a request to the server to execute the `createNoteAction` function with the reference provided:
+React `EmptyNote` Server Component-ஐ render செய்யும்போது, `createNoteAction` function-க்கு reference உருவாக்கி, அந்த reference-ஐ `Button` Client Component-க்கு pass செய்யும். Button click செய்யப்படும்போது, வழங்கப்பட்ட reference உடன் `createNoteAction` function execute செய்ய React server-க்கு request அனுப்பும்:
 
 ```js {5}
 "use client";
@@ -66,12 +66,12 @@ export default function Button({onClick}) {
 }
 ```
 
-For more, see the docs for [`"use server"`](/reference/rsc/use-server).
+மேலும் அறிய [`"use server"`](/reference/rsc/use-server) docs-ஐப் பார்க்கவும்.
 
 
-### Importing Server Functions from Client Components {/*importing-server-functions-from-client-components*/}
+### Client Components-இலிருந்து Server Functions import செய்தல் {/*importing-server-functions-from-client-components*/}
 
-Client Components can import Server Functions from files that use the `"use server"` directive:
+`"use server"` directive பயன்படுத்தும் files-இலிருந்து Client Components Server Functions import செய்யலாம்:
 
 ```js [[1, 3, "createNote"]]
 "use server";
@@ -82,7 +82,7 @@ export async function createNote() {
 
 ```
 
-When the bundler builds the `EmptyNote` Client Component, it will create a reference to the `createNote` function in the bundle. When the `button` is clicked, React will send a request to the server to execute the `createNote` function using the reference provided:
+Bundler `EmptyNote` Client Component-ஐ build செய்யும்போது, bundle-இல் `createNote` function-க்கு reference உருவாக்கும். `button` click செய்யப்படும்போது, வழங்கப்பட்ட reference-ஐப் பயன்படுத்தி `createNote` function execute செய்ய React server-க்கு request அனுப்பும்:
 
 ```js [[1, 2, "createNote"], [1, 5, "createNote"], [1, 7, "createNote"]]
 "use client";
@@ -95,11 +95,11 @@ function EmptyNote() {
 }
 ```
 
-For more, see the docs for [`"use server"`](/reference/rsc/use-server).
+மேலும் அறிய [`"use server"`](/reference/rsc/use-server) docs-ஐப் பார்க்கவும்.
 
-### Server Functions with Actions {/*server-functions-with-actions*/}
+### Actions உடன் Server Functions {/*server-functions-with-actions*/}
 
-Server Functions can be called from Actions on the client:
+Server Functions client-இல் உள்ள Actions-இலிருந்து call செய்யப்படலாம்:
 
 ```js [[1, 3, "updateName"]]
 "use server";
@@ -143,15 +143,15 @@ function UpdateName() {
 }
 ```
 
-This allows you to access the `isPending` state of the Server Function by wrapping it in an Action on the client.
+Client-இல் அதை Action-இல் wrap செய்வதன் மூலம் Server Function-ன் `isPending` state-ஐ access செய்ய இது அனுமதிக்கிறது.
 
-For more, see the docs for [Calling a Server Function outside of `<form>`](/reference/rsc/use-server#calling-a-server-function-outside-of-form)
+மேலும் அறிய [`<form>`-க்கு வெளியே Server Function call செய்தல்](/reference/rsc/use-server#calling-a-server-function-outside-of-form) docs-ஐப் பார்க்கவும்.
 
-### Server Functions with Form Actions {/*using-server-functions-with-form-actions*/}
+### Form Actions உடன் Server Functions {/*using-server-functions-with-form-actions*/}
 
-Server Functions work with the new Form features in React 19.
+Server Functions React 19-ன் புதிய Form features உடன் வேலை செய்கின்றன.
 
-You can pass a Server Function to a Form to automatically submit the form to the server:
+Form-ஐ server-க்கு தானாக submit செய்ய, Server Function-ஐ Form-க்கு pass செய்யலாம்:
 
 
 ```js [[1, 3, "updateName"], [1, 7, "updateName"]]
@@ -168,13 +168,13 @@ function UpdateName() {
 }
 ```
 
-When the Form submission succeeds, React will automatically reset the form. You can add `useActionState` to access the pending state, last response, or to support progressive enhancement.
+Form submission வெற்றி பெற்றால், React form-ஐ தானாக reset செய்யும். Pending state, last response access செய்ய, அல்லது progressive enhancement support செய்ய `useActionState` சேர்க்கலாம்.
 
-For more, see the docs for [Server Functions in Forms](/reference/rsc/use-server#server-functions-in-forms).
+மேலும் அறிய [Forms-இல் Server Functions](/reference/rsc/use-server#server-functions-in-forms) docs-ஐப் பார்க்கவும்.
 
-### Server Functions with `useActionState` {/*server-functions-with-use-action-state*/}
+### `useActionState` உடன் Server Functions {/*server-functions-with-use-action-state*/}
 
-You can call Server Functions with `useActionState` for the common case where you just need access to the action pending state and last returned response:
+Action pending state மற்றும் கடைசியாக return செய்யப்பட்ட response மட்டும் access செய்ய வேண்டிய பொதுவான சூழலில், `useActionState` உடன் Server Functions-ஐ call செய்யலாம்:
 
 ```js [[1, 3, "updateName"], [1, 6, "updateName"], [2, 6, "submitAction"], [2, 9, "submitAction"]]
 "use client";
@@ -193,13 +193,13 @@ function UpdateName() {
 }
 ```
 
-When using `useActionState` with Server Functions, React will also automatically replay form submissions entered before hydration finishes. This means users can interact with your app even before the app has hydrated.
+Server Functions உடன் `useActionState` பயன்படுத்தும்போது, hydration முடிவதற்கு முன் செய்யப்பட்ட form submissions-ஐயும் React தானாக replay செய்யும். இதன் பொருள் app hydrate ஆகும் முன்பே users உங்கள் app உடன் interact செய்ய முடியும்.
 
-For more, see the docs for [`useActionState`](/reference/react/useActionState).
+மேலும் அறிய [`useActionState`](/reference/react/useActionState) docs-ஐப் பார்க்கவும்.
 
-### Progressive enhancement with `useActionState` {/*progressive-enhancement-with-useactionstate*/}
+### `useActionState` உடன் progressive enhancement {/*progressive-enhancement-with-useactionstate*/}
 
-Server Functions also support progressive enhancement with the third argument of `useActionState`.
+Server Functions `useActionState`-ன் மூன்றாவது argument மூலம் progressive enhancement-ஐயும் support செய்கின்றன.
 
 ```js [[1, 3, "updateName"], [1, 6, "updateName"], [2, 6, "/name/update"], [3, 6, "submitAction"], [3, 9, "submitAction"]]
 "use client";
@@ -217,6 +217,6 @@ function UpdateName() {
 }
 ```
 
-When the <CodeStep step={2}>permalink</CodeStep> is provided to `useActionState`, React will redirect to the provided URL if the form is submitted before the JavaScript bundle loads.
+<CodeStep step={2}>permalink</CodeStep> `useActionState`-க்கு வழங்கப்பட்டால், JavaScript bundle load ஆகும் முன் form submit செய்யப்பட்டால் React வழங்கப்பட்ட URL-க்கு redirect செய்யும்.
 
-For more, see the docs for [`useActionState`](/reference/react/useActionState).
+மேலும் அறிய [`useActionState`](/reference/react/useActionState) docs-ஐப் பார்க்கவும்.

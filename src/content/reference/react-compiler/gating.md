@@ -4,7 +4,7 @@ title: gating
 
 <Intro>
 
-The `gating` option enables conditional compilation, allowing you to control when optimized code is used at runtime.
+`gating` option conditional compilation-ஐ enable செய்கிறது; runtime-இல் optimized code எப்போது பயன்படுத்தப்பட வேண்டும் என்பதை நீங்கள் கட்டுப்படுத்தலாம்.
 
 </Intro>
 
@@ -21,13 +21,13 @@ The `gating` option enables conditional compilation, allowing you to control whe
 
 ---
 
-## Reference {/*reference*/}
+## குறிப்பு {/*reference*/}
 
 ### `gating` {/*gating*/}
 
-Configures runtime feature flag gating for compiled functions.
+Compiled functions-க்கு runtime feature flag gating-ஐ configure செய்கிறது.
 
-#### Type {/*type*/}
+#### வகை {/*type*/}
 
 ```
 {
@@ -40,24 +40,24 @@ Configures runtime feature flag gating for compiled functions.
 
 `null`
 
-#### Properties {/*properties*/}
+#### பண்புகள் {/*properties*/}
 
-- **`source`**: Module path to import the feature flag from
-- **`importSpecifierName`**: Name of the exported function to import
+- **`source`**: Feature flag-ஐ import செய்ய வேண்டிய module path
+- **`importSpecifierName`**: Import செய்ய வேண்டிய exported function-ன் பெயர்
 
-#### Caveats {/*caveats*/}
+#### எச்சரிக்கைகள் {/*caveats*/}
 
-- The gating function must return a boolean
-- Both compiled and original versions increase bundle size
-- The import is added to every file with compiled functions
+- Gating function ஒரு boolean-ஐ return செய்ய வேண்டும்
+- Compiled மற்றும் original என இரு versions-மும் bundle size-ஐ அதிகரிக்கும்
+- Compiled functions உள்ள ஒவ்வொரு file-க்கும் இந்த import சேர்க்கப்படும்
 
 ---
 
-## Usage {/*usage*/}
+## பயன்பாடு {/*usage*/}
 
-### Basic feature flag setup {/*basic-setup*/}
+### அடிப்படை feature flag அமைப்பு {/*basic-setup*/}
 
-1. Create a feature flag module:
+1. ஒரு feature flag module உருவாக்குங்கள்:
 
 ```js
 // src/utils/feature-flags.js
@@ -67,7 +67,7 @@ export function shouldUseCompiler() {
 }
 ```
 
-2. Configure the compiler:
+2. Compiler-ஐ configure செய்யுங்கள்:
 
 ```js
 {
@@ -78,7 +78,7 @@ export function shouldUseCompiler() {
 }
 ```
 
-3. The compiler generates gated code:
+3. Compiler gated code-ஐ உருவாக்கும்:
 
 ```js
 // Input
@@ -94,15 +94,15 @@ const Button = shouldUseCompiler()
   : function Button_original(props) { /* original version */ };
 ```
 
-Note that the gating function is evaluated once at module time, so once the JS bundle has been parsed and evaluated the choice of component stays static for the rest of the browser session.
+Gating function module time-இல் ஒரே முறை evaluate செய்யப்படும் என்பதை கவனியுங்கள். ஆகவே JS bundle parse மற்றும் evaluate ஆன பிறகு, எந்த component பயன்படுத்தப்பட வேண்டும் என்ற தேர்வு browser session முழுவதும் static-ஆக இருக்கும்.
 
 ---
 
-## Troubleshooting {/*troubleshooting*/}
+## சிக்கல் தீர்வு {/*troubleshooting*/}
 
-### Feature flag not working {/*flag-not-working*/}
+### Feature flag வேலை செய்யவில்லை {/*flag-not-working*/}
 
-Verify your flag module exports the correct function:
+உங்கள் flag module சரியான function-ஐ export செய்கிறதா என்பதைச் சரிபார்க்கவும்:
 
 ```js
 // ❌ Wrong: Default export
@@ -118,7 +118,7 @@ export function shouldUseCompiler() {
 
 ### Import errors {/*import-errors*/}
 
-Ensure the source path is correct:
+`source` path சரியாக இருக்கிறதா என்பதை உறுதிசெய்யுங்கள்:
 
 ```js
 // ❌ Wrong: Relative to babel.config.js

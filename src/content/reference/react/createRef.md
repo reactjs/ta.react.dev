@@ -4,13 +4,13 @@ title: createRef
 
 <Pitfall>
 
-`createRef` is mostly used for [class components.](/reference/react/Component) Function components typically rely on [`useRef`](/reference/react/useRef) instead.
+`createRef` பெரும்பாலும் [class components](/reference/react/Component)-க்குப் பயன்படுத்தப்படுகிறது. Function components பொதுவாக அதன் பதிலாக [`useRef`](/reference/react/useRef)-ஐ நம்புகின்றன.
 
 </Pitfall>
 
 <Intro>
 
-`createRef` creates a [ref](/learn/referencing-values-with-refs) object which can contain arbitrary value.
+`createRef` எந்த value-யையும் கொண்டிருக்கக்கூடிய [ref](/learn/referencing-values-with-refs) object-ஐ உருவாக்குகிறது.
 
 ```js
 class MyInput extends Component {
@@ -25,11 +25,11 @@ class MyInput extends Component {
 
 ---
 
-## Reference {/*reference*/}
+## குறிப்பு {/*reference*/}
 
 ### `createRef()` {/*createref*/}
 
-Call `createRef` to declare a [ref](/learn/referencing-values-with-refs) inside a [class component.](/reference/react/Component)
+[Class component](/reference/react/Component)-க்குள் [ref](/learn/referencing-values-with-refs) declare செய்ய `createRef`-ஐ call செய்யுங்கள்.
 
 ```js
 import { createRef, Component } from 'react';
@@ -40,31 +40,31 @@ class MyComponent extends Component {
   // ...
 ```
 
-[See more examples below.](#usage)
+[மேலும் உதாரணங்களை கீழே பார்க்கவும்.](#usage)
 
 #### Parameters {/*parameters*/}
 
-`createRef` takes no parameters.
+`createRef` parameters எதையும் ஏற்காது.
 
 #### Returns {/*returns*/}
 
-`createRef` returns an object with a single property:
+`createRef` ஒரு property கொண்ட object-ஐ return செய்கிறது:
 
-* `current`: Initially, it's set to the `null`. You can later set it to something else. If you pass the ref object to React as a `ref` attribute to a JSX node, React will set its `current` property.
+* `current`: ஆரம்பத்தில் இது `null` ஆக set செய்யப்படும். பின்னர் அதை வேறு ஒன்றாக set செய்யலாம். Ref object-ஐ React-க்கு JSX node-ன் `ref` attribute ஆக pass செய்தால், React அதன் `current` property-ஐ set செய்யும்.
 
 #### Caveats {/*caveats*/}
 
-* `createRef` always returns a *different* object. It's equivalent to writing `{ current: null }` yourself.
-* In a function component, you probably want [`useRef`](/reference/react/useRef) instead which always returns the same object.
-* `const ref = useRef()` is equivalent to `const [ref, _] = useState(() => createRef(null))`.
+* `createRef` எப்போதும் *வேறுபட்ட* object-ஐ return செய்கிறது. நீங்கள் நேரடியாக `{ current: null }` எழுதுவது போன்றதே இது.
+* Function component-இல், எப்போதும் அதே object-ஐ return செய்யும் [`useRef`](/reference/react/useRef)-ஐயே நீங்கள் பெரும்பாலும் விரும்புவீர்கள்.
+* `const ref = useRef()` என்பது `const [ref, _] = useState(() => createRef(null))` என்பதற்கு equivalent.
 
 ---
 
-## Usage {/*usage*/}
+## பயன்பாடு {/*usage*/}
 
-### Declaring a ref in a class component {/*declaring-a-ref-in-a-class-component*/}
+### Class component-இல் ref declare செய்தல் {/*declaring-a-ref-in-a-class-component*/}
 
-To declare a ref inside a [class component,](/reference/react/Component) call `createRef` and assign its result to a class field:
+[Class component](/reference/react/Component)-க்குள் ref declare செய்ய, `createRef`-ஐ call செய்து அதன் result-ஐ class field-க்கு assign செய்யுங்கள்:
 
 ```js {4}
 import { Component, createRef } from 'react';
@@ -76,7 +76,7 @@ class Form extends Component {
 }
 ```
 
-If you now pass `ref={this.inputRef}` to an `<input>` in your JSX, React will populate `this.inputRef.current` with the input DOM node. For example, here is how you make a button that focuses the input:
+இப்போது உங்கள் JSX-இல் உள்ள `<input>`-க்கு `ref={this.inputRef}` pass செய்தால், React `this.inputRef.current`-ஐ input DOM node-ஆல் populate செய்யும். உதாரணமாக, input-ஐ focus செய்யும் button-ஐ இவ்வாறு உருவாக்கலாம்:
 
 <Sandpack>
 
@@ -107,17 +107,17 @@ export default class Form extends Component {
 
 <Pitfall>
 
-`createRef` is mostly used for [class components.](/reference/react/Component) Function components typically rely on [`useRef`](/reference/react/useRef) instead.
+`createRef` பெரும்பாலும் [class components](/reference/react/Component)-க்குப் பயன்படுத்தப்படுகிறது. Function components பொதுவாக அதன் பதிலாக [`useRef`](/reference/react/useRef)-ஐ நம்புகின்றன.
 
 </Pitfall>
 
 ---
 
-## Alternatives {/*alternatives*/}
+## மாற்று வழிகள் {/*alternatives*/}
 
-### Migrating from a class with `createRef` to a function with `useRef` {/*migrating-from-a-class-with-createref-to-a-function-with-useref*/}
+### `createRef` பயன்படுத்தும் class-இலிருந்து `useRef` பயன்படுத்தும் function-க்கு migrate செய்தல் {/*migrating-from-a-class-with-createref-to-a-function-with-useref*/}
 
-We recommend using function components instead of [class components](/reference/react/Component) in new code. If you have some existing class components using `createRef`, here is how you can convert them. This is the original code:
+புதிய code-இல் [class components](/reference/react/Component)-க்கு பதிலாக function components பயன்படுத்த பரிந்துரைக்கிறோம். `createRef` பயன்படுத்தும் existing class components உங்களிடம் இருந்தால், அவற்றை இவ்வாறு convert செய்யலாம். இது original code:
 
 <Sandpack>
 
@@ -146,7 +146,7 @@ export default class Form extends Component {
 
 </Sandpack>
 
-When you [convert this component from a class to a function,](/reference/react/Component#alternatives) replace calls to `createRef` with calls to [`useRef`:](/reference/react/useRef)
+இந்த component-ஐ [class-இலிருந்து function-க்கு convert செய்யும்போது](/reference/react/Component#alternatives), `createRef` calls-ஐ [`useRef`](/reference/react/useRef) calls-ஆக மாற்றுங்கள்:
 
 <Sandpack>
 

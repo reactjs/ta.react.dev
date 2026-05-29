@@ -1,78 +1,78 @@
 ---
-title: Creating a React App
+title: React App உருவாக்குதல்
 ---
 
 <Intro>
 
-If you want to build a new app or website with React, we recommend starting with a framework.
+React கொண்டு புதிய app அல்லது website உருவாக்க விரும்பினால், framework-இலிருந்து தொடங்க பரிந்துரைக்கிறோம்.
 
 </Intro>
 
-If your app has constraints not well-served by existing frameworks, you prefer to build your own framework, or you just want to learn the basics of a React app, you can [build a React app from scratch](/learn/build-a-react-app-from-scratch).
+உங்கள் app-க்கு existing frameworks சரியாகப் பூர்த்தி செய்யாத கட்டுப்பாடுகள் இருந்தால், உங்கள் சொந்த framework உருவாக்க விரும்பினால், அல்லது React app-ன் அடிப்படைகளை மட்டும் கற்றுக்கொள்ள விரும்பினால், நீங்கள் [புதிதாக ஒரு React app உருவாக்கலாம்](/learn/build-a-react-app-from-scratch).
 
 ## Full-stack frameworks {/*full-stack-frameworks*/}
 
-These recommended frameworks support all the features you need to deploy and scale your app in production. They have integrated the latest React features and take advantage of React’s architecture.
+Production-இல் உங்கள் app-ஐ deploy செய்து scale செய்ய தேவையான எல்லா features-க்கும் இந்த பரிந்துரைக்கப்பட்ட frameworks support தருகின்றன. இவை சமீபத்திய React features-ஐ integrate செய்து React-ன் architecture-ஐ பயன்படுத்துகின்றன.
 
 <Note>
 
-#### Full-stack frameworks do not require a server. {/*react-frameworks-do-not-require-a-server*/}
+#### Full-stack frameworks-க்கு server அவசியமில்லை. {/*react-frameworks-do-not-require-a-server*/}
 
-All the frameworks on this page support client-side rendering ([CSR](https://developer.mozilla.org/en-US/docs/Glossary/CSR)), single-page apps ([SPA](https://developer.mozilla.org/en-US/docs/Glossary/SPA)), and static-site generation ([SSG](https://developer.mozilla.org/en-US/docs/Glossary/SSG)). These apps can be deployed to a [CDN](https://developer.mozilla.org/en-US/docs/Glossary/CDN) or static hosting service without a server. Additionally, these frameworks allow you to add server-side rendering on a per-route basis, when it makes sense for your use case.
+இந்தப் பக்கத்தில் உள்ள எல்லா frameworks-மும் client-side rendering ([CSR](https://developer.mozilla.org/en-US/docs/Glossary/CSR)), single-page apps ([SPA](https://developer.mozilla.org/en-US/docs/Glossary/SPA)), மற்றும் static-site generation ([SSG](https://developer.mozilla.org/en-US/docs/Glossary/SSG))-க்கு support தருகின்றன. இத்தகைய apps-ஐ server இல்லாமல் [CDN](https://developer.mozilla.org/en-US/docs/Glossary/CDN) அல்லது static hosting service-க்கு deploy செய்யலாம். மேலும், உங்கள் use case-க்கு பொருத்தமாக இருக்கும் போது, இந்த frameworks ஒவ்வொரு route அடிப்படையிலும் server-side rendering சேர்க்க அனுமதிக்கின்றன.
 
-This allows you to start with a client-only app, and if your needs change later, you can opt-in to using server features on individual routes without rewriting your app. See your framework's documentation for configuring the rendering strategy.
+இதனால் நீங்கள் client-only app-ஆக தொடங்கலாம்; பிறகு உங்கள் தேவைகள் மாறினால், app-ஐ rewrite செய்யாமல் தனித்தனி routes-இல் server features பயன்படுத்த opt-in செய்யலாம். Rendering strategy-ஐ configure செய்ய உங்கள் framework-ன் documentation-ஐ பார்க்கவும்.
 
 </Note>
 
 ### Next.js (App Router) {/*nextjs-app-router*/}
 
-**[Next.js's App Router](https://nextjs.org/docs) is a React framework that takes full advantage of React's architecture to enable full-stack React apps.**
+**[Next.js-ன் App Router](https://nextjs.org/docs) என்பது full-stack React apps-ஐ உருவாக்க React architecture-ஐ முழுமையாகப் பயன்படுத்தும் React framework ஆகும்.**
 
 <TerminalBlock>
 npx create-next-app@latest
 </TerminalBlock>
 
-Next.js is maintained by [Vercel](https://vercel.com/). You can [deploy a Next.js app](https://nextjs.org/docs/app/building-your-application/deploying) to any hosting provider that supports Node.js or Docker containers, or to your own server. Next.js also supports [static export](https://nextjs.org/docs/app/building-your-application/deploying/static-exports) which doesn't require a server.
+Next.js-ஐ [Vercel](https://vercel.com/) maintain செய்கிறது. Node.js அல்லது Docker containers-க்கு support தரும் எந்த hosting provider-க்கும், அல்லது உங்கள் சொந்த server-க்கும், நீங்கள் [Next.js app-ஐ deploy செய்யலாம்](https://nextjs.org/docs/app/building-your-application/deploying). Server தேவையில்லாத [static export](https://nextjs.org/docs/app/building-your-application/deploying/static-exports)-க்கும் Next.js support தருகிறது.
 
 ### React Router (v7) {/*react-router-v7*/}
 
-**[React Router](https://reactrouter.com/start/framework/installation) is the most popular routing library for React and can be paired with Vite to create a full-stack React framework**. It emphasizes standard Web APIs and has several [ready to deploy templates](https://github.com/remix-run/react-router-templates) for various JavaScript runtimes and platforms.
+**[React Router](https://reactrouter.com/start/framework/installation) என்பது React-க்கான மிகவும் பிரபலமான routing library; இதை Vite உடன் இணைத்து full-stack React framework உருவாக்கலாம்**. இது standard Web APIs-ஐ முன்னிலைப்படுத்துகிறது; பல்வேறு JavaScript runtimes மற்றும் platforms-க்கான பல [ready-to-deploy templates](https://github.com/remix-run/react-router-templates)-ஐ கொண்டுள்ளது.
 
-To create a new React Router framework project, run:
+புதிய React Router framework project உருவாக்க, இதை run செய்யுங்கள்:
 
 <TerminalBlock>
 npx create-react-router@latest
 </TerminalBlock>
 
-React Router is maintained by [Shopify](https://www.shopify.com).
+React Router-ஐ [Shopify](https://www.shopify.com) maintain செய்கிறது.
 
 ### Expo (for native apps) {/*expo*/}
 
-**[Expo](https://expo.dev/) is a React framework that lets you create universal Android, iOS, and web apps with truly native UIs.** It provides an SDK for [React Native](https://reactnative.dev/) that makes the native parts easier to use. To create a new Expo project, run:
+**[Expo](https://expo.dev/) என்பது உண்மையான native UIs உடன் universal Android, iOS, மற்றும் web apps உருவாக்க உதவும் React framework ஆகும்.** Native பகுதிகளை பயன்படுத்த உதவும் [React Native](https://reactnative.dev/)-க்கான SDK-ஐ இது வழங்குகிறது. புதிய Expo project உருவாக்க, இதை run செய்யுங்கள்:
 
 <TerminalBlock>
 npx create-expo-app@latest
 </TerminalBlock>
 
-If you're new to Expo, check out the [Expo tutorial](https://docs.expo.dev/tutorial/introduction/).
+Expo-க்கு நீங்கள் புதியவராக இருந்தால், [Expo tutorial](https://docs.expo.dev/tutorial/introduction/)-ஐ பார்க்கவும்.
 
-Expo is maintained by [Expo (the company)](https://expo.dev/about). Building apps with Expo is free, and you can submit them to the Google and Apple app stores without restrictions. Expo additionally provides opt-in paid cloud services.
+Expo-ஐ [Expo (the company)](https://expo.dev/about) maintain செய்கிறது. Expo கொண்டு apps உருவாக்குவது இலவசம்; அவற்றை Google மற்றும் Apple app stores-க்கு கட்டுப்பாடுகளில்லாமல் submit செய்யலாம். கூடுதலாக, opt-in paid cloud services-யையும் Expo வழங்குகிறது.
 
 
-## Other frameworks {/*other-frameworks*/}
+## மற்ற frameworks {/*other-frameworks*/}
 
-There are other up-and-coming frameworks that are working towards our full stack React vision:
+எங்கள் full stack React vision நோக்கி செயல்படும் இன்னும் சில வளர்ந்து வரும் frameworks உள்ளன:
 
-- [TanStack Start (Beta)](https://tanstack.com/start/): TanStack Start is a full-stack React framework powered by TanStack Router. It provides a full-document SSR, streaming, server functions, bundling, and more using tools like Nitro and Vite.
-- [RedwoodSDK](https://rwsdk.com/): Redwood is a full stack React framework with lots of pre-installed packages and configuration that makes it easy to build full-stack web applications.
+- [TanStack Start (Beta)](https://tanstack.com/start/): TanStack Start என்பது TanStack Router மூலம் இயங்கும் full-stack React framework. Nitro மற்றும் Vite போன்ற tools பயன்படுத்தி, இது full-document SSR, streaming, server functions, bundling, மேலும் பலவற்றை வழங்குகிறது.
+- [RedwoodSDK](https://rwsdk.com/): Redwood என்பது full stack web applications உருவாக்க உதவும் பல pre-installed packages மற்றும் configuration கொண்ட full stack React framework.
 
 <DeepDive>
 
-#### Which features make up the React team’s full-stack architecture vision? {/*which-features-make-up-the-react-teams-full-stack-architecture-vision*/}
+#### React team-ன் full-stack architecture vision-ஐ உருவாக்கும் features எவை? {/*which-features-make-up-the-react-teams-full-stack-architecture-vision*/}
 
-Next.js's App Router bundler fully implements the official [React Server Components specification](https://github.com/reactjs/rfcs/blob/main/text/0188-server-components.md). This lets you mix build-time, server-only, and interactive components in a single React tree.
+Next.js-ன் App Router bundler, அதிகாரப்பூர்வ [React Server Components specification](https://github.com/reactjs/rfcs/blob/main/text/0188-server-components.md)-ஐ முழுமையாக implement செய்கிறது. இதனால் build-time, server-only, மற்றும் interactive components-ஐ ஒரே React tree-இல் mix செய்யலாம்.
 
-For example, you can write a server-only React component as an `async` function that reads from a database or from a file. Then you can pass data down from it to your interactive components:
+உதாரணமாக, database அல்லது file-இலிருந்து read செய்யும் `async` function ஆக server-only React component எழுதலாம். பிறகு அதிலிருந்து data-வை உங்கள் interactive components-க்கு pass செய்யலாம்:
 
 ```js
 // This component runs *only* on the server (or during the build).
@@ -88,7 +88,7 @@ async function Talks({ confId }) {
 }
 ```
 
-Next.js's App Router also integrates [data fetching with Suspense](/blog/2022/03/29/react-v18#suspense-in-data-frameworks). This lets you specify a loading state (like a skeleton placeholder) for different parts of your user interface directly in your React tree:
+Next.js-ன் App Router, [Suspense உடன் data fetching](/blog/2022/03/29/react-v18#suspense-in-data-frameworks)-யையும் integrate செய்கிறது. இதனால் உங்கள் user interface-ன் வேறு பகுதிகளுக்கான loading state-ஐ (skeleton placeholder போன்றது) நேரடியாக உங்கள் React tree-இல் குறிப்பிடலாம்:
 
 ```js
 <Suspense fallback={<TalksLoading />}>
@@ -96,18 +96,18 @@ Next.js's App Router also integrates [data fetching with Suspense](/blog/2022/03
 </Suspense>
 ```
 
-Server Components and Suspense are React features rather than Next.js features. However, adopting them at the framework level requires buy-in and non-trivial implementation work. At the moment, the Next.js App Router is the most complete implementation. The React team is working with bundler developers to make these features easier to implement in the next generation of frameworks.
+Server Components மற்றும் Suspense ஆகியவை Next.js features அல்ல; React features. ஆனால் அவற்றை framework level-இல் ஏற்க buy-in மற்றும் சிக்கலான implementation work தேவைப்படும். இப்போது Next.js App Router தான் மிகவும் முழுமையான implementation. அடுத்த தலைமுறை frameworks-இல் இந்த features-ஐ implement செய்வதை மேம்படுத்த React team bundler developers உடன் பணியாற்றுகிறது.
 
 </DeepDive>
 
-## Start From Scratch {/*start-from-scratch*/}
+## புதிதாகத் தொடங்குதல் {/*start-from-scratch*/}
 
-If your app has constraints not well-served by existing frameworks, you prefer to build your own framework, or you just want to learn the basics of a React app, there are other options available for starting a React project from scratch.
+உங்கள் app-க்கு existing frameworks சரியாகப் பூர்த்தி செய்யாத கட்டுப்பாடுகள் இருந்தால், உங்கள் சொந்த framework உருவாக்க விரும்பினால், அல்லது React app-ன் அடிப்படைகளை மட்டும் கற்றுக்கொள்ள விரும்பினால், React project-ஐ புதிதாகத் தொடங்க மற்ற options உள்ளன.
 
-Starting from scratch gives you more flexibility, but does require that you make choices on which tools to use for routing, data fetching, and other common usage patterns.  It's a lot like building your own framework, instead of using a framework that already exists. The [frameworks we recommend](#full-stack-frameworks) have built-in solutions for these problems.
+புதிதாகத் தொடங்குவது உங்களுக்கு அதிக flexibility தரும்; ஆனால் routing, data fetching, மற்றும் பிற பொதுவான usage patterns-க்கு எந்த tools பயன்படுத்த வேண்டும் என்பதை நீங்கள் தேர்வு செய்ய வேண்டி வரும். Existing framework-ஐ பயன்படுத்துவதற்கு பதிலாக, உங்கள் சொந்த framework உருவாக்குவது போல இது இருக்கும். [நாங்கள் பரிந்துரைக்கும் frameworks](#full-stack-frameworks)-இல் இந்த பிரச்சினைகளுக்கான built-in solutions உள்ளன.
 
-If you want to build your own solutions, see our guide to [build a React app from Scratch](/learn/build-a-react-app-from-scratch) for instructions on how to set up a new React project starting with a build tool like [Vite](https://vite.dev/), [Parcel](https://parceljs.org/), or [RSbuild](https://rsbuild.dev/).
+உங்கள் சொந்த solutions உருவாக்க விரும்பினால், [Vite](https://vite.dev/), [Parcel](https://parceljs.org/), அல்லது [RSbuild](https://rsbuild.dev/) போன்ற build tool-இலிருந்து புதிய React project அமைப்பதற்கான வழிமுறைகளுக்கு [புதிதாக React app உருவாக்குதல்](/learn/build-a-react-app-from-scratch) guide-ஐ பார்க்கவும்.
 
 -----
 
-_If you’re a framework author interested in being included on this page, [please let us know](https://github.com/reactjs/react.dev/issues/new?assignees=&labels=type%3A+framework&projects=&template=3-framework.yml&title=%5BFramework%5D%3A+)._
+_இந்தப் பக்கத்தில் சேர்க்கப்பட விரும்பும் framework author நீங்கள் என்றால், [தயவுசெய்து எங்களுக்குத் தெரிவிக்கவும்](https://github.com/reactjs/react.dev/issues/new?assignees=&labels=type%3A+framework&projects=&template=3-framework.yml&title=%5BFramework%5D%3A+)._

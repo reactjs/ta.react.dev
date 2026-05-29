@@ -4,7 +4,7 @@ title: "<progress>"
 
 <Intro>
 
-The [built-in browser `<progress>` component](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress) lets you render a progress indicator.
+[உலாவியில் உள்ளமைந்த `<progress>` component](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress), progress indicator ஒன்றை render செய்ய உதவுகிறது.
 
 ```js
 <progress value={0.5} />
@@ -20,32 +20,32 @@ The [built-in browser `<progress>` component](https://developer.mozilla.org/en-U
 
 ### `<progress>` {/*progress*/}
 
-To display a progress indicator, render the [built-in browser `<progress>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress) component.
+Progress indicator ஒன்றைக் காட்ட, [உலாவியில் உள்ளமைந்த `<progress>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress) component-ஐ render செய்யுங்கள்.
 
 ```js
 <progress value={0.5} />
 ```
 
-[See more examples below.](#usage)
+[மேலும் உதாரணங்களை கீழே பார்க்கவும்.](#usage)
 
 #### Props {/*props*/}
 
-`<progress>` supports all [common element props.](/reference/react-dom/components/common#common-props)
+`<progress>` அனைத்து [common element props](/reference/react-dom/components/common#common-props)-ஐ ஆதரிக்கிறது.
 
-Additionally, `<progress>` supports these props:
+மேலும், `<progress>` இந்த props-ஐ ஆதரிக்கிறது:
 
-* [`max`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress#max): A number. Specifies the maximum `value`. Defaults to `1`.
-* [`value`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress#value): A number between `0` and `max`, or `null` for indeterminate progress. Specifies how much was done.
+* [`max`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress#max): ஒரு number. அதிகபட்ச `value`-ஐ குறிப்பிடுகிறது. Default ஆக `1`.
+* [`value`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress#value): `0` மற்றும் `max` இடையிலான number, அல்லது முடிவறியாத progress-க்கு `null`. எவ்வளவு முடிந்துள்ளது என்பதை குறிப்பிடுகிறது.
 
 ---
 
 ## Usage {/*usage*/}
 
-### Controlling a progress indicator {/*controlling-a-progress-indicator*/}
+### Progress indicator-ஐ கட்டுப்படுத்துதல் {/*controlling-a-progress-indicator*/}
 
-To display a progress indicator, render a `<progress>` component. You can pass a number `value` between `0` and the `max` value you specify. If you don't pass a `max` value, it will assumed to be `1` by default.
+Progress indicator ஒன்றைக் காட்ட, `<progress>` component-ஐ render செய்யுங்கள். நீங்கள் குறிப்பிடும் `max` value மற்றும் `0` இடையிலான number `value`-ஐ pass செய்யலாம். `max` value-ஐ pass செய்யவில்லை என்றால், default ஆக அது `1` என்று கருதப்படும்.
 
-If the operation is not ongoing, pass `value={null}` to put the progress indicator into an indeterminate state.
+செயல்பாடு இன்னும் நடைபெற்று கொண்டிருந்தாலும் அதன் அளவு தெரியாவிட்டால், progress indicator-ஐ indeterminate state-இல் வைக்க `value={null}` pass செய்யுங்கள்.
 
 <Sandpack>
 

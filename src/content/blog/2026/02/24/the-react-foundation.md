@@ -1,11 +1,11 @@
 ---
-title: "The React Foundation: A New Home for React Hosted by the Linux Foundation"
+title: "React Foundation: Linux Foundation வழங்கும் React-க்கான புதிய இல்லம்"
 author: Matt Carroll
 date: 2026/02/24
-description: The React Foundation has officially launched, hosted by the Linux Foundation.
+description: Linux Foundation வழங்கும் React Foundation அதிகாரப்பூர்வமாக தொடங்கியுள்ளது.
 ---
 
-February 24, 2026 by [Matt Carroll](https://x.com/mattcarrollcode)
+February 24, 2026 அன்று [Matt Carroll](https://x.com/mattcarrollcode) எழுதியது
 
 ---
 
@@ -22,19 +22,19 @@ February 24, 2026 by [Matt Carroll](https://x.com/mattcarrollcode)
 
 <Intro>
 
-The React Foundation has officially launched, hosted by the Linux Foundation.
+Linux Foundation வழங்கும் React Foundation அதிகாரப்பூர்வமாக தொடங்கியுள்ளது.
 
 </Intro>
 
 ---
 
-[In October](/blog/2025/10/07/introducing-the-react-foundation), we announced our intent to form the React Foundation. Today, we're excited to share that the React Foundation has officially launched.
+[அக்டோபரில்](/blog/2025/10/07/introducing-the-react-foundation), React Foundation-ஐ உருவாக்கும் எங்கள் நோக்கத்தை அறிவித்தோம். இன்று, React Foundation அதிகாரப்பூர்வமாக தொடங்கியுள்ளது என்பதை மகிழ்ச்சியுடன் பகிர்கிறோம்.
 
-React, React Native, and supporting projects like JSX are no longer owned by Meta — they are now owned by the React Foundation, an independent foundation hosted by the Linux Foundation. You can read more in the [Linux Foundation's press release](https://www.linuxfoundation.org/press/linux-foundation-announces-the-formation-of-the-react-foundation).
+React, React Native, மற்றும் JSX போன்ற ஆதரவு projects இனி Meta-வின் சொத்தாக இல்லை. அவை இப்போது Linux Foundation வழங்கும் சுயாதீன foundation ஆன React Foundation-க்கு சொந்தமானவை. மேலும் விவரங்களை [Linux Foundation-இன் press release](https://www.linuxfoundation.org/press/linux-foundation-announces-the-formation-of-the-react-foundation)-இல் படிக்கலாம்.
 
-### Founding Members {/*founding-members*/}
+### நிறுவனர் உறுப்பினர்கள் {/*founding-members*/}
 
-The React Foundation has eight Platinum founding members: **Amazon**, **Callstack**, **Expo**, **Huawei**, **Meta**, **Microsoft**, **Software Mansion**, and **Vercel**. **Huawei** has joined since [our announcement in October](/blog/2025/10/07/introducing-the-react-foundation). The React Foundation will be governed by a board of directors composed of representatives from each member, with [Seth Webster](https://sethwebster.com/) serving as executive director.
+React Foundation-க்கு எட்டு Platinum founding members உள்ளனர்: **Amazon**, **Callstack**, **Expo**, **Huawei**, **Meta**, **Microsoft**, **Software Mansion**, மற்றும் **Vercel**. [அக்டோபரில் எங்கள் அறிவிப்புக்குப்](/blog/2025/10/07/introducing-the-react-foundation) பிறகு **Huawei** இணைந்துள்ளது. ஒவ்வொரு உறுப்பினரின் பிரதிநிதிகளைக் கொண்ட board of directors React Foundation-ஐ நிர்வகிக்கும்; [Seth Webster](https://sethwebster.com/) executive director ஆகப் பணியாற்றுவார்.
 
 <div style={{display: 'flex', justifyContent: 'center', margin: '2rem'}}>
   <picture >
@@ -47,21 +47,21 @@ The React Foundation has eight Platinum founding members: **Amazon**, **Callstac
   </picture>
 </div>
 
-### New Provisional Leadership Council {/*new-provisional-leadership-council*/}
+### புதிய இடைக்கால leadership council {/*new-provisional-leadership-council*/}
 
-React's technical governance will always be independent from the React Foundation board — React's technical direction will continue to be set by the people who contribute to and maintain React. We have formed a provisional leadership council to determine this structure. We will share an update in the coming months.
+React-இன் technical governance எப்போதும் React Foundation board-இலிருந்து சுயாதீனமாக இருக்கும். React-க்கு பங்களித்து அதை maintain செய்பவர்களே React-இன் technical direction-ஐ தொடர்ந்து தீர்மானிப்பார்கள். இந்த அமைப்பை தீர்மானிக்க இடைக்கால leadership council ஒன்றை அமைத்துள்ளோம். வரும் மாதங்களில் update ஒன்றைப் பகிர்வோம்.
 
-### Next Steps {/*next-steps*/}
+### அடுத்த படிகள் {/*next-steps*/}
 
-There is still work to do to complete the transition. In the coming months we will be:
+இந்த மாற்றத்தை முடிக்க இன்னும் செய்யவேண்டிய பணிகள் உள்ளன. வரும் மாதங்களில் நாங்கள்:
 
-* Finalizing the technical governance structure for React
-* Transferring repositories, websites, and other infrastructure to the React Foundation
-* Exploring programs to support the React ecosystem
-* Kicking off planning for the next React Conf
+* React-க்கான technical governance அமைப்பை final செய்யுதல்
+* Repositories, websites, மற்றும் பிற infrastructure-ஐ React Foundation-க்கு மாற்றுதல்
+* React ecosystem-ஐ ஆதரிக்கும் programs-ஐ ஆராய்தல்
+* அடுத்த React Conf-க்கான திட்டமிடலைத் தொடங்குதல்
 
-We will share updates as this work progresses.
+இந்தப் பணி முன்னேறும் போது updates-ஐப் பகிர்வோம்.
 
-### Thank You {/*thank-you*/}
+### நன்றி {/*thank-you*/}
 
-None of this would be possible without the thousands of contributors who have shaped React over the past decade. Thank you to our founding members, to every contributor who has opened a pull request, filed an issue, or helped someone learn React, and to the millions of developers who build with React every day. The React Foundation exists because of this community, and we're looking forward to building its future together.
+கடந்த பத்தாண்டுகளில் React-ஐ வடிவமைத்த ஆயிரக்கணக்கான contributors இல்லாமல் இவை எதுவும் சாத்தியமாகியிருக்காது. எங்கள் founding members-க்கும், pull request திறந்த, issue file செய்த, அல்லது யாருக்காவது React கற்றுக்கொள்ள உதவிய ஒவ்வொரு contributor-க்கும், தினமும் React கொண்டு உருவாக்கும் கோடிக்கணக்கான developers-க்கும் நன்றி. இந்த சமூகத்தால்தான் React Foundation உள்ளது; அதன் எதிர்காலத்தை ஒன்றாக உருவாக்க ஆவலாக உள்ளோம்.

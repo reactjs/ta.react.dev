@@ -1,35 +1,35 @@
 ---
-title: Escape Hatches
+title: Escape Hatches (React-க்கு வெளியே செல்லும் வழிகள்)
 ---
 
 <Intro>
 
-Some of your components may need to control and synchronize with systems outside of React. For example, you might need to focus an input using the browser API, play and pause a video player implemented without React, or connect and listen to messages from a remote server. In this chapter, you'll learn the escape hatches that let you "step outside" React and connect to external systems. Most of your application logic and data flow should not rely on these features.
+உங்கள் சில components React-க்கு வெளியே உள்ள systems-ஐ control செய்து அவற்றுடன் synchronize செய்ய வேண்டியிருக்கும். உதாரணமாக, browser API பயன்படுத்தி input-ஐ focus செய்ய வேண்டியிருக்கலாம், React இல்லாமல் implemented செய்யப்பட்ட video player-ஐ play மற்றும் pause செய்ய வேண்டியிருக்கலாம், அல்லது remote server-இலிருந்து messages-ஐ connect செய்து listen செய்ய வேண்டியிருக்கலாம். இந்த chapter-இல், React-க்கு "வெளியே செல்ல" மற்றும் external systems-க்கு connect செய்ய உதவும் escape hatches-ஐ கற்றுக்கொள்வீர்கள். உங்கள் application logic மற்றும் data flow-ன் பெரும்பகுதி இந்த features-ஐ சார்ந்து இருக்கக்கூடாது.
 
 </Intro>
 
 <YouWillLearn isChapter={true}>
 
-* [How to "remember" information without re-rendering](/learn/referencing-values-with-refs)
-* [How to access DOM elements managed by React](/learn/manipulating-the-dom-with-refs)
-* [How to synchronize components with external systems](/learn/synchronizing-with-effects)
-* [How to remove unnecessary Effects from your components](/learn/you-might-not-need-an-effect)
-* [How an Effect's lifecycle is different from a component's](/learn/lifecycle-of-reactive-effects)
-* [How to prevent some values from re-triggering Effects](/learn/separating-events-from-effects)
-* [How to make your Effect re-run less often](/learn/removing-effect-dependencies)
-* [How to share logic between components](/learn/reusing-logic-with-custom-hooks)
+* [Re-render செய்யாமல் தகவலை "நினைவில்" வைத்திருப்பது எப்படி](/learn/referencing-values-with-refs)
+* [React manage செய்யும் DOM elements-ஐ access செய்வது எப்படி](/learn/manipulating-the-dom-with-refs)
+* [Components-ஐ external systems-உடன் synchronize செய்வது எப்படி](/learn/synchronizing-with-effects)
+* [உங்கள் components-இலிருந்து தேவையற்ற Effects-ஐ remove செய்வது எப்படி](/learn/you-might-not-need-an-effect)
+* [Effect-ன் lifecycle component-ன் lifecycle-இலிருந்து எப்படி வேறுபடுகிறது](/learn/lifecycle-of-reactive-effects)
+* [சில values Effects-ஐ மீண்டும் trigger செய்வதைத் தடுப்பது எப்படி](/learn/separating-events-from-effects)
+* [உங்கள் Effect குறைவாக re-run ஆக செய்வது எப்படி](/learn/removing-effect-dependencies)
+* [Components இடையே logic பகிர்வது எப்படி](/learn/reusing-logic-with-custom-hooks)
 
 </YouWillLearn>
 
-## Referencing values with refs {/*referencing-values-with-refs*/}
+## Refs மூலம் values-ஐ reference செய்தல் {/*referencing-values-with-refs*/}
 
-When you want a component to "remember" some information, but you don't want that information to [trigger new renders](/learn/render-and-commit), you can use a *ref*:
+ஒரு component சில தகவலை "நினைவில்" வைத்திருக்க வேண்டும், ஆனால் அந்த தகவல் [புதிய renders-ஐ trigger](/learn/render-and-commit) செய்ய வேண்டாம் என்றால், *ref* ஒன்றைப் பயன்படுத்தலாம்:
 
 ```js
 const ref = useRef(0);
 ```
 
-Like state, refs are retained by React between re-renders. However, setting state re-renders a component. Changing a ref does not! You can access the current value of that ref through the `ref.current` property.
+State போலவே, refs re-renders இடையே React-ஆல் retained ஆகின்றன. ஆனால் state set செய்தால் component re-render ஆகும். Ref மாற்றினால் re-render ஆகாது! அந்த ref-ன் current value-ஐ `ref.current` property மூலம் access செய்யலாம்.
 
 <Sandpack>
 
@@ -41,12 +41,12 @@ export default function Counter() {
 
   function handleClick() {
     ref.current = ref.current + 1;
-    alert('You clicked ' + ref.current + ' times!');
+    alert('நீங்கள் ' + ref.current + ' முறை click செய்தீர்கள்!');
   }
 
   return (
     <button onClick={handleClick}>
-      Click me!
+      என்னை click செய்!
     </button>
   );
 }
@@ -54,17 +54,17 @@ export default function Counter() {
 
 </Sandpack>
 
-A ref is like a secret pocket of your component that React doesn't track. For example, you can use refs to store [timeout IDs](https://developer.mozilla.org/en-US/docs/Web/API/setTimeout#return_value), [DOM elements](https://developer.mozilla.org/en-US/docs/Web/API/Element), and other objects that don't impact the component's rendering output.
+Ref என்பது React track செய்யாத உங்கள் component-ன் ரகசிய பையில் இருப்பது போன்றது. உதாரணமாக, component-ன் rendering output-ஐ பாதிக்காத [timeout IDs](https://developer.mozilla.org/en-US/docs/Web/API/setTimeout#return_value), [DOM elements](https://developer.mozilla.org/en-US/docs/Web/API/Element), மற்றும் பிற objects-ஐ store செய்ய refs பயன்படுத்தலாம்.
 
 <LearnMore path="/learn/referencing-values-with-refs">
 
-Read **[Referencing Values with Refs](/learn/referencing-values-with-refs)** to learn how to use refs to remember information.
+தகவலை நினைவில் வைத்திருக்க refs-ஐ எப்படி பயன்படுத்துவது என்பதை அறிய **[Referencing Values with Refs](/learn/referencing-values-with-refs)**-ஐ படியுங்கள்.
 
 </LearnMore>
 
-## Manipulating the DOM with refs {/*manipulating-the-dom-with-refs*/}
+## Refs மூலம் DOM-ஐ manipulate செய்தல் {/*manipulating-the-dom-with-refs*/}
 
-React automatically updates the DOM to match your render output, so your components won't often need to manipulate it. However, sometimes you might need access to the DOM elements managed by React—for example, to focus a node, scroll to it, or measure its size and position. There is no built-in way to do those things in React, so you will need a ref to the DOM node. For example, clicking the button will focus the input using a ref:
+உங்கள் render output-க்கு match ஆக DOM-ஐ React தானாக update செய்கிறது, எனவே உங்கள் components அதை அடிக்கடி manipulate செய்யத் தேவையில்லை. ஆனால் சில நேரங்களில் React manage செய்யும் DOM elements-க்கு access தேவைப்படலாம்--உதாரணமாக node ஒன்றை focus செய்ய, அதற்கு scroll செய்ய, அல்லது அதன் size மற்றும் position-ஐ measure செய்ய. React-இல் இவற்றுக்கான built-in வழி இல்லை, எனவே DOM node-க்கு ref தேவைப்படும். உதாரணமாக, button-ஐ click செய்தால் ref பயன்படுத்தி input focus செய்யப்படும்:
 
 <Sandpack>
 
@@ -82,7 +82,7 @@ export default function Form() {
     <>
       <input ref={inputRef} />
       <button onClick={handleClick}>
-        Focus the input
+        Input-ஐ focus செய்
       </button>
     </>
   );
@@ -93,15 +93,15 @@ export default function Form() {
 
 <LearnMore path="/learn/manipulating-the-dom-with-refs">
 
-Read **[Manipulating the DOM with Refs](/learn/manipulating-the-dom-with-refs)** to learn how to access DOM elements managed by React.
+React manage செய்யும் DOM elements-ஐ access செய்வது எப்படி என்பதை அறிய **[Manipulating the DOM with Refs](/learn/manipulating-the-dom-with-refs)**-ஐ படியுங்கள்.
 
 </LearnMore>
 
-## Synchronizing with Effects {/*synchronizing-with-effects*/}
+## Effects மூலம் synchronize செய்தல் {/*synchronizing-with-effects*/}
 
-Some components need to synchronize with external systems. For example, you might want to control a non-React component based on the React state, set up a server connection, or send an analytics log when a component appears on the screen. Unlike event handlers, which let you handle particular events, *Effects* let you run some code after rendering. Use them to synchronize your component with a system outside of React.
+சில components external systems-உடன் synchronize செய்ய வேண்டும். உதாரணமாக, React state அடிப்படையில் non-React component ஒன்றை control செய்ய விரும்பலாம், server connection அமைக்கலாம், அல்லது component screen-இல் தோன்றும்போது analytics log அனுப்பலாம். குறிப்பிட்ட events-ஐ handle செய்ய event handlers உதவுவது போல அல்லாமல், *Effects* rendering-க்கு பிறகு சில code run செய்ய அனுமதிக்கின்றன. React-க்கு வெளியே உள்ள system-உடன் உங்கள் component-ஐ synchronize செய்ய அவற்றைப் பயன்படுத்துங்கள்.
 
-Press Play/Pause a few times and see how the video player stays synchronized to the `isPlaying` prop value:
+இயக்கு/இடைநிறுத்து button-ஐ சில முறை அழுத்தி, video player `isPlaying` prop value-உடன் எப்படி synchronized ஆக இருக்கிறது என்பதைப் பாருங்கள்:
 
 <Sandpack>
 
@@ -127,7 +127,7 @@ export default function App() {
   return (
     <>
       <button onClick={() => setIsPlaying(!isPlaying)}>
-        {isPlaying ? 'Pause' : 'Play'}
+        {isPlaying ? 'இடைநிறுத்து' : 'இயக்கு'}
       </button>
       <VideoPlayer
         isPlaying={isPlaying}
@@ -145,7 +145,7 @@ video { width: 250px; }
 
 </Sandpack>
 
-Many Effects also "clean up" after themselves. For example, an Effect that sets up a connection to a chat server should return a *cleanup function* that tells React how to disconnect your component from that server:
+பல Effects தங்களுக்குப் பிறகு "clean up" செய்கின்றன. உதாரணமாக, chat server-க்கு connection அமைக்கும் Effect, அந்த server-இலிருந்து உங்கள் component-ஐ disconnect செய்வது எப்படி என்று React-க்கு சொல்வதற்கான *cleanup function* ஒன்றை return செய்ய வேண்டும்:
 
 <Sandpack>
 
@@ -159,7 +159,7 @@ export default function ChatRoom() {
     connection.connect();
     return () => connection.disconnect();
   }, []);
-  return <h1>Welcome to the chat!</h1>;
+  return <h1>Chat-க்கு வரவேற்கிறோம்!</h1>;
 }
 ```
 
@@ -168,10 +168,10 @@ export function createConnection() {
   // A real implementation would actually connect to the server
   return {
     connect() {
-      console.log('✅ Connecting...');
+      console.log('✅ Connect செய்யப்படுகிறது...');
     },
     disconnect() {
-      console.log('❌ Disconnected.');
+      console.log('❌ Disconnect செய்யப்பட்டது.');
     }
   };
 }
@@ -183,23 +183,23 @@ input { display: block; margin-bottom: 20px; }
 
 </Sandpack>
 
-In development, React will immediately run and clean up your Effect one extra time. This is why you see `"✅ Connecting..."` printed twice. This ensures that you don't forget to implement the cleanup function.
+Development-இல், React உங்கள் Effect-ஐ கூடுதலாக ஒருமுறை உடனே run செய்து clean up செய்யும். அதனால்தான் `"✅ Connect செய்யப்படுகிறது..."` இருமுறை print ஆகிறது. Cleanup function implement செய்ய மறக்கவில்லை என்பதை இது உறுதி செய்கிறது.
 
 <LearnMore path="/learn/synchronizing-with-effects">
 
-Read **[Synchronizing with Effects](/learn/synchronizing-with-effects)** to learn how to synchronize components with external systems.
+Components-ஐ external systems-உடன் synchronize செய்வது எப்படி என்பதை அறிய **[Synchronizing with Effects](/learn/synchronizing-with-effects)**-ஐ படியுங்கள்.
 
 </LearnMore>
 
-## You Might Not Need An Effect {/*you-might-not-need-an-effect*/}
+## உங்களுக்கு Effect தேவைப்படாமல் இருக்கலாம் {/*you-might-not-need-an-effect*/}
 
-Effects are an escape hatch from the React paradigm. They let you "step outside" of React and synchronize your components with some external system. If there is no external system involved (for example, if you want to update a component's state when some props or state change), you shouldn't need an Effect. Removing unnecessary Effects will make your code easier to follow, faster to run, and less error-prone.
+Effects என்பது React paradigm-இலிருந்து ஒரு escape hatch. அவை React-க்கு "வெளியே செல்ல" மற்றும் உங்கள் components-ஐ ஏதாவது external system-உடன் synchronize செய்ய அனுமதிக்கின்றன. External system எதுவும் இல்லையெனில் (உதாரணமாக, சில props அல்லது state மாறும்போது component state update செய்ய விரும்பினால்), Effect தேவையில்லை. தேவையற்ற Effects-ஐ remove செய்வது உங்கள் code-ஐ follow செய்ய திறமையாகவும், வேகமாக run ஆகவும், குறைவான error-prone ஆகவும் மாற்றும்.
 
-There are two common cases in which you don't need Effects:
-- **You don't need Effects to transform data for rendering.**
-- **You don't need Effects to handle user events.**
+Effects தேவையில்லாத இரண்டு பொதுவான cases:
+- **Rendering-க்காக data transform செய்ய Effects தேவையில்லை.**
+- **User events handle செய்ய Effects தேவையில்லை.**
 
-For example, you don't need an Effect to adjust some state based on other state:
+உதாரணமாக, மற்ற state அடிப்படையில் சில state adjust செய்ய Effect தேவையில்லை:
 
 ```js {expectedErrors: {'react-compiler': [8]}} {5-9}
 function Form() {
@@ -215,7 +215,7 @@ function Form() {
 }
 ```
 
-Instead, calculate as much as you can while rendering:
+அதற்கு பதிலாக, rendering போது முடிந்த அளவு calculate செய்யுங்கள்:
 
 ```js {4-5}
 function Form() {
@@ -227,19 +227,19 @@ function Form() {
 }
 ```
 
-However, you *do* need Effects to synchronize with external systems.
+ஆனால், external systems-உடன் synchronize செய்ய Effects *தேவைப்படும்*.
 
 <LearnMore path="/learn/you-might-not-need-an-effect">
 
-Read **[You Might Not Need an Effect](/learn/you-might-not-need-an-effect)** to learn how to remove unnecessary Effects.
+தேவையற்ற Effects-ஐ remove செய்வது எப்படி என்பதை அறிய **[You Might Not Need an Effect](/learn/you-might-not-need-an-effect)**-ஐ படியுங்கள்.
 
 </LearnMore>
 
-## Lifecycle of reactive effects {/*lifecycle-of-reactive-effects*/}
+## Reactive effects-ன் lifecycle {/*lifecycle-of-reactive-effects*/}
 
-Effects have a different lifecycle from components. Components may mount, update, or unmount. An Effect can only do two things: to start synchronizing something, and later to stop synchronizing it. This cycle can happen multiple times if your Effect depends on props and state that change over time.
+Effects-க்கு components-இலிருந்து வேறுபட்ட lifecycle உள்ளது. Components mount, update, அல்லது unmount ஆகலாம். Effect இரண்டு விஷயங்கள் மட்டுமே செய்ய முடியும்: ஏதாவது ஒன்றை synchronize செய்ய தொடங்குவது, பின்னர் அதை synchronize செய்வதை நிறுத்துவது. உங்கள் Effect காலத்துடன் மாறும் props மற்றும் state-ஐ சார்ந்திருந்தால், இந்த cycle பலமுறை நடக்கலாம்.
 
-This Effect depends on the value of the `roomId` prop. Props are *reactive values,* which means they can change on a re-render. Notice that the Effect *re-synchronizes* (and re-connects to the server) if `roomId` changes:
+இந்த Effect `roomId` prop-ன் value-ஐ சார்ந்துள்ளது. Props *reactive values*; அதாவது அவை re-render போது மாறக்கூடும். `roomId` மாறினால் Effect எப்படி *re-synchronizes* செய்கிறது (server-க்கு மீண்டும் connect செய்கிறது) என்பதை கவனியுங்கள்:
 
 <Sandpack>
 
@@ -256,7 +256,7 @@ function ChatRoom({ roomId }) {
     return () => connection.disconnect();
   }, [roomId]);
 
-  return <h1>Welcome to the {roomId} room!</h1>;
+  return <h1>{roomId} room-க்கு வரவேற்கிறோம்!</h1>;
 }
 
 export default function App() {
@@ -264,7 +264,7 @@ export default function App() {
   return (
     <>
       <label>
-        Choose the chat room:{' '}
+        Chat room-ஐ தேர்வு செய்க:{' '}
         <select
           value={roomId}
           onChange={e => setRoomId(e.target.value)}
@@ -286,10 +286,10 @@ export function createConnection(serverUrl, roomId) {
   // A real implementation would actually connect to the server
   return {
     connect() {
-      console.log('✅ Connecting to "' + roomId + '" room at ' + serverUrl + '...');
+      console.log('✅ "' + roomId + '" room-க்கு ' + serverUrl + '-இல் connect செய்யப்படுகிறது...');
     },
     disconnect() {
-      console.log('❌ Disconnected from "' + roomId + '" room at ' + serverUrl);
+      console.log('❌ "' + roomId + '" room-இலிருந்து ' + serverUrl + '-இல் disconnect செய்யப்பட்டது');
     }
   };
 }
@@ -302,19 +302,19 @@ button { margin-left: 10px; }
 
 </Sandpack>
 
-React provides a linter rule to check that you've specified your Effect's dependencies correctly. If you forget to specify `roomId` in the list of dependencies in the above example, the linter will find that bug automatically.
+உங்கள் Effect-ன் dependencies-ஐ சரியாக specify செய்துள்ளீர்களா என்பதை check செய்ய React linter rule ஒன்றை வழங்குகிறது. மேலுள்ள example-இல் dependencies list-இல் `roomId` specify செய்ய மறந்தால், linter அந்த bug-ஐ தானாக கண்டறியும்.
 
 <LearnMore path="/learn/lifecycle-of-reactive-effects">
 
-Read **[Lifecycle of Reactive Events](/learn/lifecycle-of-reactive-effects)** to learn how an Effect's lifecycle is different from a component's.
+Effect-ன் lifecycle component-ன் lifecycle-இலிருந்து எப்படி வேறுபடுகிறது என்பதை அறிய **[Lifecycle of Reactive Events](/learn/lifecycle-of-reactive-effects)**-ஐ படியுங்கள்.
 
 </LearnMore>
 
-## Separating events from Effects {/*separating-events-from-effects*/}
+## Events-ஐ Effects-இலிருந்து பிரித்தல் {/*separating-events-from-effects*/}
 
-Event handlers only re-run when you perform the same interaction again. Unlike event handlers, Effects re-synchronize if any of the values they read, like props or state, are different than during last render. Sometimes, you want a mix of both behaviors: an Effect that re-runs in response to some values but not others.
+Event handlers அதே interaction-ஐ மீண்டும் செய்தால் மட்டுமே re-run ஆகும். Event handlers-க்கு மாறாக, Effects அவை read செய்யும் props அல்லது state போன்ற values கடைசி render-இலிருந்து வேறுபட்டால் re-synchronize ஆகும். சில நேரங்களில், இருவகை behaviors-ன் mix ஒன்றை விரும்பலாம்: சில values-க்கு பதிலாக re-run ஆகும் Effect, மற்ற values-க்கு அல்ல.
 
-All code inside Effects is *reactive.* It will run again if some reactive value it reads has changed due to a re-render. For example, this Effect will re-connect to the chat if either `roomId` or `theme` have changed:
+Effects-க்குள் உள்ள அனைத்து code-மும் *reactive*. அது read செய்யும் reactive value re-render காரணமாக மாறினால் மீண்டும் run ஆகும். உதாரணமாக, `roomId` அல்லது `theme` மாறினால் இந்த Effect chat-க்கு மீண்டும் connect செய்யும்:
 
 <Sandpack>
 
@@ -346,13 +346,13 @@ function ChatRoom({ roomId, theme }) {
   useEffect(() => {
     const connection = createConnection(serverUrl, roomId);
     connection.on('connected', () => {
-      showNotification('Connected!', theme);
+      showNotification('இணைக்கப்பட்டது!', theme);
     });
     connection.connect();
     return () => connection.disconnect();
   }, [roomId, theme]);
 
-  return <h1>Welcome to the {roomId} room!</h1>
+  return <h1>{roomId} room-க்கு வரவேற்கிறோம்!</h1>
 }
 
 export default function App() {
@@ -361,7 +361,7 @@ export default function App() {
   return (
     <>
       <label>
-        Choose the chat room:{' '}
+        Chat room-ஐ தேர்வு செய்க:{' '}
         <select
           value={roomId}
           onChange={e => setRoomId(e.target.value)}
@@ -377,7 +377,7 @@ export default function App() {
           checked={isDark}
           onChange={e => setIsDark(e.target.checked)}
         />
-        Use dark theme
+        Dark theme பயன்படுத்து
       </label>
       <hr />
       <ChatRoom
@@ -404,10 +404,10 @@ export function createConnection(serverUrl, roomId) {
     },
     on(event, callback) {
       if (connectedCallback) {
-        throw Error('Cannot add the handler twice.');
+        throw Error('Handler-ஐ இருமுறை சேர்க்க முடியாது.');
       }
       if (event !== 'connected') {
-        throw Error('Only "connected" event is supported.');
+        throw Error('"connected" event மட்டுமே supported.');
       }
       connectedCallback = callback;
     },
@@ -442,7 +442,7 @@ label { display: block; margin-top: 10px; }
 
 </Sandpack>
 
-This is not ideal. You want to re-connect to the chat only if the `roomId` has changed. Switching the `theme` shouldn't re-connect to the chat! Move the code reading `theme` out of your Effect into an *Effect Event*:
+இது ideal அல்ல. `roomId` மாறினால் மட்டுமே chat மீண்டும் connect ஆக வேண்டும். `theme` switch செய்ததால் chat மீண்டும் connect ஆகக் கூடாது! `theme` read செய்யும் code-ஐ உங்கள் Effect-இலிருந்து *Effect Event* ஒன்றுக்குள் நகர்த்துங்கள்:
 
 <Sandpack>
 
@@ -473,7 +473,7 @@ const serverUrl = 'https://localhost:1234';
 
 function ChatRoom({ roomId, theme }) {
   const onConnected = useEffectEvent(() => {
-    showNotification('Connected!', theme);
+    showNotification('இணைக்கப்பட்டது!', theme);
   });
 
   useEffect(() => {
@@ -485,7 +485,7 @@ function ChatRoom({ roomId, theme }) {
     return () => connection.disconnect();
   }, [roomId]);
 
-  return <h1>Welcome to the {roomId} room!</h1>
+  return <h1>{roomId} room-க்கு வரவேற்கிறோம்!</h1>
 }
 
 export default function App() {
@@ -494,7 +494,7 @@ export default function App() {
   return (
     <>
       <label>
-        Choose the chat room:{' '}
+        Chat room-ஐ தேர்வு செய்க:{' '}
         <select
           value={roomId}
           onChange={e => setRoomId(e.target.value)}
@@ -510,7 +510,7 @@ export default function App() {
           checked={isDark}
           onChange={e => setIsDark(e.target.checked)}
         />
-        Use dark theme
+        Dark theme பயன்படுத்து
       </label>
       <hr />
       <ChatRoom
@@ -537,10 +537,10 @@ export function createConnection(serverUrl, roomId) {
     },
     on(event, callback) {
       if (connectedCallback) {
-        throw Error('Cannot add the handler twice.');
+        throw Error('Handler-ஐ இருமுறை சேர்க்க முடியாது.');
       }
       if (event !== 'connected') {
-        throw Error('Only "connected" event is supported.');
+        throw Error('"connected" event மட்டுமே supported.');
       }
       connectedCallback = callback;
     },
@@ -575,19 +575,19 @@ label { display: block; margin-top: 10px; }
 
 </Sandpack>
 
-Code inside Effect Events isn't reactive, so changing the `theme` no longer makes your Effect re-connect.
+Effect Events-க்குள் உள்ள code reactive அல்ல, எனவே `theme` மாறுவது இனி உங்கள் Effect-ஐ மீண்டும் connect செய்யாது.
 
 <LearnMore path="/learn/separating-events-from-effects">
 
-Read **[Separating Events from Effects](/learn/separating-events-from-effects)** to learn how to prevent some values from re-triggering Effects.
+சில values Effects-ஐ மீண்டும் trigger செய்வதைத் தடுப்பது எப்படி என்பதை அறிய **[Separating Events from Effects](/learn/separating-events-from-effects)**-ஐ படியுங்கள்.
 
 </LearnMore>
 
-## Removing Effect dependencies {/*removing-effect-dependencies*/}
+## Effect dependencies remove செய்தல் {/*removing-effect-dependencies*/}
 
-When you write an Effect, the linter will verify that you've included every reactive value (like props and state) that the Effect reads in the list of your Effect's dependencies. This ensures that your Effect remains synchronized with the latest props and state of your component. Unnecessary dependencies may cause your Effect to run too often, or even create an infinite loop. The way you remove them depends on the case.
+நீங்கள் Effect எழுதும்போது, அந்த Effect read செய்யும் ஒவ்வொரு reactive value-யும் (props மற்றும் state போன்றவை) உங்கள் Effect-ன் dependencies list-இல் சேர்க்கப்பட்டுள்ளதா என்பதை linter verify செய்யும். இது உங்கள் Effect உங்கள் component-ன் latest props மற்றும் state-உடன் synchronized ஆக இருப்பதை உறுதி செய்கிறது. தேவையற்ற dependencies உங்கள் Effect மிக அடிக்கடி run ஆகவோ, அல்லது infinite loop உருவாக்கவோ செய்யலாம். அவற்றை எப்படி remove செய்வது என்பது case-ஐப் பொறுத்தது.
 
-For example, this Effect depends on the `options` object which gets re-created every time you edit the input:
+உதாரணமாக, இந்த Effect input edit செய்யும் ஒவ்வொரு முறையும் மீண்டும் உருவாக்கப்படும் `options` object-ஐ சார்ந்துள்ளது:
 
 <Sandpack>
 
@@ -613,7 +613,7 @@ function ChatRoom({ roomId }) {
 
   return (
     <>
-      <h1>Welcome to the {roomId} room!</h1>
+      <h1>{roomId} room-க்கு வரவேற்கிறோம்!</h1>
       <input value={message} onChange={e => setMessage(e.target.value)} />
     </>
   );
@@ -624,7 +624,7 @@ export default function App() {
   return (
     <>
       <label>
-        Choose the chat room:{' '}
+        Chat room-ஐ தேர்வு செய்க:{' '}
         <select
           value={roomId}
           onChange={e => setRoomId(e.target.value)}
@@ -646,10 +646,10 @@ export function createConnection({ serverUrl, roomId }) {
   // A real implementation would actually connect to the server
   return {
     connect() {
-      console.log('✅ Connecting to "' + roomId + '" room at ' + serverUrl + '...');
+      console.log('✅ "' + roomId + '" room-க்கு ' + serverUrl + '-இல் connect செய்யப்படுகிறது...');
     },
     disconnect() {
-      console.log('❌ Disconnected from "' + roomId + '" room at ' + serverUrl);
+      console.log('❌ "' + roomId + '" room-இலிருந்து ' + serverUrl + '-இல் disconnect செய்யப்பட்டது');
     }
   };
 }
@@ -662,7 +662,7 @@ button { margin-left: 10px; }
 
 </Sandpack>
 
-You don't want the chat to re-connect every time you start typing a message in that chat. To fix this problem, move creation of the `options` object inside the Effect so that the Effect only depends on the `roomId` string:
+அந்த chat-இல் message type செய்யத் தொடங்கும் ஒவ்வொரு முறையும் chat மீண்டும் connect ஆக வேண்டாம். இந்த problem-ஐ fix செய்ய, `options` object உருவாக்கத்தை Effect-க்குள் நகர்த்துங்கள்; அப்போது Effect `roomId` string-ஐ மட்டும் சாரும்:
 
 <Sandpack>
 
@@ -687,7 +687,7 @@ function ChatRoom({ roomId }) {
 
   return (
     <>
-      <h1>Welcome to the {roomId} room!</h1>
+      <h1>{roomId} room-க்கு வரவேற்கிறோம்!</h1>
       <input value={message} onChange={e => setMessage(e.target.value)} />
     </>
   );
@@ -698,7 +698,7 @@ export default function App() {
   return (
     <>
       <label>
-        Choose the chat room:{' '}
+        Chat room-ஐ தேர்வு செய்க:{' '}
         <select
           value={roomId}
           onChange={e => setRoomId(e.target.value)}
@@ -720,10 +720,10 @@ export function createConnection({ serverUrl, roomId }) {
   // A real implementation would actually connect to the server
   return {
     connect() {
-      console.log('✅ Connecting to "' + roomId + '" room at ' + serverUrl + '...');
+      console.log('✅ "' + roomId + '" room-க்கு ' + serverUrl + '-இல் connect செய்யப்படுகிறது...');
     },
     disconnect() {
-      console.log('❌ Disconnected from "' + roomId + '" room at ' + serverUrl);
+      console.log('❌ "' + roomId + '" room-இலிருந்து ' + serverUrl + '-இல் disconnect செய்யப்பட்டது');
     }
   };
 }
@@ -736,19 +736,19 @@ button { margin-left: 10px; }
 
 </Sandpack>
 
-Notice that you didn't start by editing the dependency list to remove the `options` dependency. That would be wrong. Instead, you changed the surrounding code so that the dependency became *unnecessary.* Think of the dependency list as a list of all the reactive values used by your Effect's code. You don't intentionally choose what to put on that list. The list describes your code. To change the dependency list, change the code.
+`options` dependency-ஐ remove செய்ய dependency list-ஐ edit செய்வதிலிருந்து நீங்கள் தொடங்கவில்லை என்பதை கவனியுங்கள். அது தவறாக இருக்கும். அதற்கு பதிலாக, surrounding code-ஐ மாற்றி dependency *தேவையற்றதாக* ஆக்கியீர்கள். Dependency list-ஐ உங்கள் Effect code பயன்படுத்தும் அனைத்து reactive values-ன் list ஆக நினைத்துக்கொள்ளுங்கள். அந்த list-இல் என்ன வைக்க வேண்டும் என்று நீங்கள் intentional ஆக தேர்வு செய்வதில்லை. List உங்கள் code-ஐ describe செய்கிறது. Dependency list-ஐ மாற்ற, code-ஐ மாற்றுங்கள்.
 
 <LearnMore path="/learn/removing-effect-dependencies">
 
-Read **[Removing Effect Dependencies](/learn/removing-effect-dependencies)** to learn how to make your Effect re-run less often.
+உங்கள் Effect குறைவாக re-run ஆக செய்வது எப்படி என்பதை அறிய **[Removing Effect Dependencies](/learn/removing-effect-dependencies)**-ஐ படியுங்கள்.
 
 </LearnMore>
 
-## Reusing logic with custom Hooks {/*reusing-logic-with-custom-hooks*/}
+## Custom Hooks மூலம் logic reuse செய்தல் {/*reusing-logic-with-custom-hooks*/}
 
-React comes with built-in Hooks like `useState`, `useContext`, and `useEffect`. Sometimes, you’ll wish that there was a Hook for some more specific purpose: for example, to fetch data, to keep track of whether the user is online, or to connect to a chat room. To do this, you can create your own Hooks for your application's needs.
+React `useState`, `useContext`, மற்றும் `useEffect` போன்ற built-in Hooks உடன் வருகிறது. சில நேரங்களில், data fetch செய்ய, user online-இல் உள்ளாரா என்பதை track செய்ய, அல்லது chat room-க்கு connect செய்ய போன்ற குறிப்பிட்ட நோக்கத்திற்கான Hook ஒன்று இருந்தால் நன்றாக இருக்கும் என்று நினைப்பீர்கள். இதற்காக, உங்கள் application's needs-க்காக உங்கள் சொந்த Hooks உருவாக்கலாம்.
 
-In this example, the `usePointerPosition` custom Hook tracks the cursor position, while `useDelayedValue` custom Hook returns a value that's "lagging behind" the value you passed by a certain number of milliseconds. Move the cursor over the sandbox preview area to see a moving trail of dots following the cursor:
+இந்த example-இல், `usePointerPosition` custom Hook cursor position-ஐ track செய்கிறது; `useDelayedValue` custom Hook நீங்கள் pass செய்த value-ஐவிட குறிப்பிட்ட milliseconds அளவிற்கு "lagging behind" இருக்கும் value-ஐ return செய்கிறது. Cursor-ஐ sandbox preview area மீது நகர்த்தி, cursor-ஐ பின்தொடரும் moving trail of dots-ஐப் பாருங்கள்:
 
 <Sandpack>
 
@@ -829,14 +829,14 @@ body { min-height: 300px; }
 
 </Sandpack>
 
-You can create custom Hooks, compose them together, pass data between them, and reuse them between components. As your app grows, you will write fewer Effects by hand because you'll be able to reuse custom Hooks you already wrote. There are also many excellent custom Hooks maintained by the React community.
+நீங்கள் custom Hooks உருவாக்கலாம், அவற்றை ஒன்றாக compose செய்யலாம், அவற்றுக்கு இடையில் data pass செய்யலாம், மேலும் components இடையே அவற்றை reuse செய்யலாம். உங்கள் app வளரும்போது, நீங்கள் ஏற்கனவே எழுதிய custom Hooks-ஐ reuse செய்ய முடிவதால், கைமுறையாக குறைவான Effects எழுதுவீர்கள். React community maintain செய்யும் பல சிறந்த custom Hooks-உம் உள்ளன.
 
 <LearnMore path="/learn/reusing-logic-with-custom-hooks">
 
-Read **[Reusing Logic with Custom Hooks](/learn/reusing-logic-with-custom-hooks)** to learn how to share logic between components.
+Components இடையே logic பகிர்வது எப்படி என்பதை அறிய **[Reusing Logic with Custom Hooks](/learn/reusing-logic-with-custom-hooks)**-ஐ படியுங்கள்.
 
 </LearnMore>
 
-## What's next? {/*whats-next*/}
+## அடுத்து என்ன? {/*whats-next*/}
 
-Head over to [Referencing Values with Refs](/learn/referencing-values-with-refs) to start reading this chapter page by page!
+இந்த chapter-ஐ page by page படிக்கத் தொடங்க [Referencing Values with Refs](/learn/referencing-values-with-refs)-க்கு செல்லுங்கள்!

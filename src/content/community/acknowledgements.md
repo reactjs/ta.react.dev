@@ -1,16 +1,16 @@
 ---
-title: Acknowledgements
+title: நன்றிகள்
 ---
 
 <Intro>
 
-React was originally created by [Jordan Walke.](https://github.com/jordwalke) Today, React has a [dedicated full-time team working on it](/community/team), as well as over a thousand [open source contributors.](https://github.com/facebook/react/graphs/contributors)
+React-ஐ முதலில் [Jordan Walke](https://github.com/jordwalke) உருவாக்கினார். இன்று React-க்காக [முழுநேரமாகப் பணியாற்றும் அர்ப்பணிக்கப்பட்ட team](/community/team) உள்ளது; அதோடு ஆயிரத்துக்கும் மேற்பட்ட [open source contributors](https://github.com/facebook/react/graphs/contributors) உள்ளனர்.
 
 </Intro>
 
-## Past contributors {/*past-contributors*/}
+## முந்தைய பங்களிப்பாளர்கள் {/*past-contributors*/}
 
-We'd like to recognize a few people who have made significant contributions to React and its documentation in the past and have helped maintain them over the years:
+முன்னர் React மற்றும் அதன் documentation-க்கு குறிப்பிடத்தக்க பங்களிப்புகள் செய்து, பல ஆண்டுகளாக அவற்றை maintain செய்ய உதவிய சிலரை நினைவுகூர விரும்புகிறோம்:
 
 * [Almero Steyn](https://github.com/AlmeroSteyn)
 * [Andreas Svensson](https://github.com/syranide)
@@ -60,15 +60,15 @@ We'd like to recognize a few people who have made significant contributions to R
 * [Tim Yung](https://github.com/yungsters)
 * [Xuan Huang](https://github.com/huxpro)
 
-This list is not exhaustive.
+இந்தப் பட்டியல் முழுமையானது அல்ல.
 
-We'd like to give special thanks to [Tom Occhino](https://github.com/tomocchino) and [Adam Wolff](https://github.com/wolffiex) for their guidance and support over the years. We are also thankful to all the volunteers who [translated React into other languages.](https://translations.react.dev/)
+பல ஆண்டுகளாக வழங்கிய வழிகாட்டுதலும் ஆதரவுக்கும் [Tom Occhino](https://github.com/tomocchino) மற்றும் [Adam Wolff](https://github.com/wolffiex) ஆகியோருக்கு சிறப்பு நன்றி தெரிவிக்க விரும்புகிறோம். [React-ஐ பிற மொழிகளில் மொழிபெயர்த்த](https://translations.react.dev/) அனைத்து volunteers-க்கும் நன்றி.
 
-## Additional Thanks {/*additional-thanks*/}
+## கூடுதல் நன்றிகள் {/*additional-thanks*/}
 
-Additionally, we're grateful to:
+மேலும், நாங்கள் நன்றியுள்ளவர்கள்:
 
-* [Jeff Barczewski](https://github.com/jeffbski) for allowing us to use the `react` package name on npm
-* [Christopher Aue](https://christopheraue.net/) for letting us use the reactjs.com domain name and the [@reactjs](https://twitter.com/reactjs) username on Twitter
-* [ProjectMoon](https://github.com/ProjectMoon) for letting us use the [flux](https://www.npmjs.com/package/flux) package name on npm
-* Shane Anderson for allowing us to use the [react](https://github.com/react) org on GitHub
+* npm-இல் `react` package பெயரைப் பயன்படுத்த அனுமதித்த [Jeff Barczewski](https://github.com/jeffbski)
+* reactjs.com domain பெயரையும் Twitter-இல் [@reactjs](https://twitter.com/reactjs) username-ஐயும் பயன்படுத்த அனுமதித்த [Christopher Aue](https://christopheraue.net/)
+* npm-இல் [flux](https://www.npmjs.com/package/flux) package பெயரைப் பயன்படுத்த அனுமதித்த [ProjectMoon](https://github.com/ProjectMoon)
+* GitHub-இல் [react](https://github.com/react) org-ஐப் பயன்படுத்த அனுமதித்த Shane Anderson

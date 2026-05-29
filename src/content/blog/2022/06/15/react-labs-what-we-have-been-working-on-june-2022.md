@@ -1,8 +1,8 @@
 ---
-title: "React Labs: What We've Been Working On – June 2022"
+title: "React Labs: நாங்கள் செய்து கொண்டிருப்பவை – June 2022"
 author:  Andrew Clark, Dan Abramov, Jan Kassens, Joseph Savona, Josh Story, Lauren Tan, Luna Ruan, Mengdi Chen, Rick Hanlon, Robert Zhang, Sathya Gunasekaran, Sebastian Markbage, and Xuan Huang
 date: 2022/06/15
-description: React 18 was years in the making, and with it brought valuable lessons for the React team. Its release was the result of many years of research and exploring many paths. Some of those paths were successful; many more were dead-ends that led to new insights. One lesson we’ve learned is that it’s frustrating for the community to wait for new features without having insight into these paths that we’re exploring.
+description: "React 18 உருவாக பல ஆண்டுகள் எடுத்தது; அதனுடன் React team-க்கு மதிப்புமிக்க பாடங்களும் வந்தன. அதன் release பல ஆண்டுகளாக நடந்த ஆராய்ச்சி மற்றும் பல பாதைகளை ஆராய்ந்ததன் விளைவு. அவற்றில் சில பாதைகள் வெற்றி பெற்றன; பல பாதைகள் முட்டுக்கட்டையாக முடிந்து புதிய புரிதல்களைத் தந்தன. நாங்கள் கற்ற ஒரு பாடம்: நாங்கள் ஆராயும் பாதைகள் பற்றிய பார்வை இல்லாமல், புதிய features-க்காக community காத்திருப்பது ஏமாற்றமாக இருக்கும்."
 ---
 
 June 15, 2022 by [Andrew Clark](https://twitter.com/acdlite), [Dan Abramov](https://bsky.app/profile/danabra.mov), [Jan Kassens](https://twitter.com/kassens), [Joseph Savona](https://twitter.com/en_JS), [Josh Story](https://twitter.com/joshcstory), [Lauren Tan](https://twitter.com/potetotes), [Luna Ruan](https://twitter.com/lunaruan), [Mengdi Chen](https://twitter.com/mengdi_en), [Rick Hanlon](https://twitter.com/rickhanlonii), [Robert Zhang](https://twitter.com/jiaxuanzhang01), [Sathya Gunasekaran](https://twitter.com/_gsathya), [Sebastian Markbåge](https://twitter.com/sebmarkbage), and [Xuan Huang](https://twitter.com/Huxpro)
@@ -11,72 +11,72 @@ June 15, 2022 by [Andrew Clark](https://twitter.com/acdlite), [Dan Abramov](http
 
 <Intro>
 
-[React 18](/blog/2022/03/29/react-v18) was years in the making, and with it brought valuable lessons for the React team. Its release was the result of many years of research and exploring many paths. Some of those paths were successful; many more were dead-ends that led to new insights. One lesson we’ve learned is that it’s frustrating for the community to wait for new features without having insight into these paths that we’re exploring.
+[React 18](/blog/2022/03/29/react-v18) உருவாக பல ஆண்டுகள் எடுத்தது; அதனுடன் React team-க்கு மதிப்புமிக்க பாடங்களும் வந்தன. அதன் release பல ஆண்டுகளாக நடந்த ஆராய்ச்சி மற்றும் பல பாதைகளை ஆராய்ந்ததன் விளைவு. அவற்றில் சில பாதைகள் வெற்றி பெற்றன; பல பாதைகள் முட்டுக்கட்டையாக முடிந்து புதிய புரிதல்களைத் தந்தன. நாங்கள் கற்ற ஒரு பாடம்: நாங்கள் ஆராயும் பாதைகள் பற்றிய பார்வை இல்லாமல், புதிய features-க்காக community காத்திருப்பது ஏமாற்றமாக இருக்கும்.
 
 </Intro>
 
 ---
 
-We typically have a number of projects being worked on at any time, ranging from the more experimental to the clearly defined. Looking ahead, we’d like to start regularly sharing more about what we’ve been working on with the community across these projects.
+எப்போதும் பல projects-ல் நாங்கள் பணியாற்றிக் கொண்டிருப்போம்; மிகவும் experimental ஆனவற்றிலிருந்து தெளிவாக வரையறுக்கப்பட்டவற்றுவரை அவை பரவியிருக்கும். இனிமேல், இந்த projects முழுவதிலும் நாங்கள் செய்து கொண்டிருப்பதை community-யுடன் தொடர்ந்து பகிரத் தொடங்க விரும்புகிறோம்.
 
-To set expectations, this is not a roadmap with clear timelines. Many of these projects are under active research and are difficult to put concrete ship dates on. They may possibly never even ship in their current iteration depending on what we learn. Instead, we want to share with you the problem spaces we’re actively thinking about, and what we’ve learned so far.
+எதிர்பார்ப்புகளை தெளிவுபடுத்த: இது தெளிவான timelines கொண்ட roadmap அல்ல. இந்த projects பலவும் active research-இல் உள்ளன; அவற்றிற்கு உறுதியான ship dates குறிப்பிடுவது கடினம். நாங்கள் கற்றுக்கொள்வதைப் பொறுத்து, அவை இப்போதைய வடிவிலேயே ஒருபோதும் ship ஆகாமல் இருக்கவும் கூடும். அதற்கு பதிலாக, நாங்கள் தீவிரமாக சிந்தித்து வரும் problem spaces-களையும் இதுவரை கற்றவற்றையும் உங்களுடன் பகிர விரும்புகிறோம்.
 
 ## Server Components {/*server-components*/}
 
-We announced an [experimental demo of React Server Components](https://legacy.reactjs.org/blog/2020/12/21/data-fetching-with-react-server-components.html) (RSC) in December 2020. Since then we’ve been finishing up its dependencies in React 18, and working on changes inspired by experimental feedback.
+2020 டிசம்பரில் [React Server Components-ன் experimental demo](https://legacy.reactjs.org/blog/2020/12/21/data-fetching-with-react-server-components.html) (RSC)-வை அறிவித்தோம். அதன் பிறகு, React 18-இல் அதன் dependencies-ஐ முடித்துக் கொண்டும், experimental feedback-ஆல் தூண்டப்பட்ட மாற்றங்களில் பணியாற்றியும் வருகிறோம்.
 
-In particular, we’re abandoning the idea of having forked I/O libraries (eg react-fetch), and instead adopting an async/await model for better compatibility. This doesn’t technically block RSC’s release because you can also use routers for data fetching. Another change is that we’re also moving away from the file extension approach in favor of [annotating boundaries](https://github.com/reactjs/rfcs/pull/189#issuecomment-1116482278).
+குறிப்பாக, fork செய்யப்பட்ட I/O libraries (எ.கா. react-fetch) வைத்திருக்கும் யோசனையை விட்டு, சிறந்த compatibility-க்காக async/await model-ஐ ஏற்கிறோம். Data fetching-க்கு routers-ஐயும் பயன்படுத்தலாம் என்பதால், இது technically RSC release-ஐ block செய்யாது. மற்றொரு மாற்றம்: file extension approach-இலிருந்து விலகி, [boundaries-ஐ annotate செய்வது](https://github.com/reactjs/rfcs/pull/189#issuecomment-1116482278) நோக்கி நகர்கிறோம்.
 
-We’re working together with Vercel and Shopify to unify bundler support for shared semantics in both webpack and Vite. Before launch, we want to make sure that the semantics of RSCs are the same across the whole React ecosystem. This is the major blocker for reaching stable.
+Webpack மற்றும் Vite இரண்டிலும் shared semantics-க்கான bundler support-ஐ ஒன்றுபடுத்த Vercel மற்றும் Shopify உடன் இணைந்து பணியாற்றுகிறோம். Launch-க்கு முன், RSCs-ன் semantics முழு React ecosystem முழுவதும் ஒரே மாதிரியாக இருப்பதை உறுதி செய்ய விரும்புகிறோம். Stable நிலையை அடைவதற்கான முக்கிய blocker இதுதான்.
 
 ## Asset Loading {/*asset-loading*/}
 
-Currently, assets like scripts, external styles, fonts, and images are typically preloaded and loaded using external systems. This can make it tricky to coordinate across new environments like streaming, Server Components, and more.
-We’re looking at adding APIs to preload and load deduplicated external assets through React APIs that work in all React environments.
+தற்போது scripts, external styles, fonts, மற்றும் images போன்ற assets பொதுவாக external systems மூலம் preload மற்றும் load செய்யப்படுகின்றன. Streaming, Server Components போன்ற புதிய environments-இல் இதை coordinate செய்வது சிக்கலாக இருக்கலாம்.
+எல்லா React environments-லும் செயல்படும் React APIs மூலம் deduplicated external assets-ஐ preload மற்றும் load செய்ய APIs சேர்ப்பதை நாங்கள் ஆராய்கிறோம்.
 
-We’re also looking at having these support Suspense so you can have images, CSS, and fonts that block display until they’re loaded but don’t block streaming and concurrent rendering. This can help avoid [“popcorning“](https://twitter.com/sebmarkbage/status/1516852731251724293) as the visuals pop and layout shifts.
+இவை Suspense-க்கு support தருமாறு செய்வதையும் ஆராய்கிறோம்; இதனால் images, CSS, மற்றும் fonts load ஆகும் வரை display-ஐ block செய்யலாம், ஆனால் streaming மற்றும் concurrent rendering-ஐ block செய்யாது. Visuals திடீரென்று தோன்றி layout shifts ஏற்படும்போது வரும் [“popcorning“](https://twitter.com/sebmarkbage/status/1516852731251724293)-ஐ தவிர்க்க இது உதவும்.
 
-## Static Server Rendering Optimizations {/*static-server-rendering-optimizations*/}
+## Static server rendering மேம்பாடுகள் {/*static-server-rendering-optimizations*/}
 
-Static Site Generation (SSG) and Incremental Static Regeneration (ISR) are great ways to get performance for cacheable pages, but we think we can add features to improve performance of dynamic Server Side Rendering (SSR) – especially when most but not all of the content is cacheable. We're exploring ways to optimize server rendering utilizing compilation and static passes.
+Static Site Generation (SSG) மற்றும் Incremental Static Regeneration (ISR) ஆகியவை cache செய்யக்கூடிய pages-க்கு நல்ல performance பெற சிறந்த வழிகள். ஆனால் dynamic Server Side Rendering (SSR)-ன் performance-ஐ மேம்படுத்த features சேர்க்கலாம் என்று நினைக்கிறோம்; குறிப்பாக content-இன் பெரும்பகுதி cache செய்யக்கூடியதாக இருந்தாலும் அனைத்தும் அப்படியில்லாதபோது. Compilation மற்றும் static passes பயன்படுத்தி server rendering-ஐ optimize செய்யும் வழிகளை ஆராய்கிறோம்.
 
 ## React Optimizing Compiler {/*react-compiler*/}
 
-We gave an [early preview](https://www.youtube.com/watch?v=lGEMwh32soc) of React Forget at React Conf 2021. It’s a compiler that automatically generates the equivalent of `useMemo` and `useCallback` calls to minimize the cost of re-rendering, while retaining React’s programming model.
+React Conf 2021-இல் React Forget-ன் [early preview](https://www.youtube.com/watch?v=lGEMwh32soc)-ஐ வழங்கினோம். React-ன் programming model-ஐ வைத்துக்கொண்டே, re-rendering செலவை குறைக்க `useMemo` மற்றும் `useCallback` calls-க்கு இணையானதை தானாக உருவாக்கும் compiler அது.
 
-Recently, we finished a rewrite of the compiler to make it more reliable and capable. This new architecture allows us to analyze and memoize more complex patterns such as the use of [local mutations](/learn/keeping-components-pure#local-mutation-your-components-little-secret), and opens up many new compile-time optimization opportunities beyond just being on par with memoization Hooks.
+சமீபத்தில், compiler-ஐ அதிக reliable மற்றும் capable ஆக மாற்ற அதன் rewrite-ஐ முடித்தோம். இந்த புதிய architecture, [local mutations](/learn/keeping-components-pure#local-mutation-your-components-little-secret) பயன்படுத்துதல் போன்ற சிக்கலான patterns-ஐ analyze செய்து memoize செய்ய அனுமதிக்கிறது; மேலும் memoization Hooks-க்கு இணையாக இருப்பதைக் கடந்த பல புதிய compile-time optimization வாய்ப்புகளைத் திறக்கிறது.
 
-We’re also working on a playground for exploring many aspects of the compiler. While the goal of the playground is to make development of the compiler easier, we think that it will make it easier to try it out and build intuition for what the compiler does. It reveals various insights into how it works under the hood, and live renders the compiler’s outputs as you type. This will be shipped together with the compiler when it’s released.
+Compiler-ன் பல அம்சங்களை explore செய்ய ஒரு playground-லிலும் பணியாற்றுகிறோம். Playground-ன் நோக்கம் compiler development-ஐ மேம்படுத்துவதாக இருந்தாலும், compiler என்ன செய்கிறது என்பதை முயற்சித்து உள்ளுணர்வு பெற இதுவும் உதவும் என்று நினைக்கிறோம். அது உள்ளே எப்படி செயல்படுகிறது என்பதற்கான பல insights-ஐ காட்டுகிறது; நீங்கள் type செய்யும் போதே compiler outputs-ஐ live render செய்கிறது. Compiler release ஆகும் போது இதுவும் அதனுடன் ship செய்யப்படும்.
 
 ## Offscreen {/*offscreen*/}
 
-Today, if you want to hide and show a component, you have two options. One is to add or remove it from the tree completely. The problem with this approach is that the state of your UI is lost each time you unmount, including state stored in the DOM, like scroll position.
+இன்று, ஒரு component-ஐ hide மற்றும் show செய்ய விரும்பினால், உங்களுக்கு இரண்டு options உள்ளன. ஒன்று, அதை tree-இலிருந்து முழுவதுமாக add அல்லது remove செய்வது. இந்த அணுகுமுறையின் பிரச்சினை: ஒவ்வொரு unmount-லும் உங்கள் UI state இழக்கப்படும்; scroll position போன்ற DOM-இல் சேமிக்கப்பட்ட state உட்பட.
 
-The other option is to keep the component mounted and toggle the appearance visually using CSS. This preserves the state of your UI, but it comes at a performance cost, because React must keep rendering the hidden component and all of its children whenever it receives new updates.
+மற்றொரு option, component-ஐ mounted-ஆக வைத்துக் கொண்டு CSS மூலம் அதன் தோற்றத்தை visually toggle செய்வது. இது உங்கள் UI state-ஐ preserve செய்யும்; ஆனால் performance cost உண்டு, ஏனெனில் புதிய updates வந்தாலெல்லாம் hidden component-ையும் அதன் children அனைத்தையும் React தொடர்ந்து render செய்ய வேண்டும்.
 
-Offscreen introduces a third option: hide the UI visually, but deprioritize its content. The idea is similar in spirit to the `content-visibility` CSS property: when content is hidden, it doesn't need to stay in sync with the rest of the UI. React can defer the rendering work until the rest of the app is idle, or until the content becomes visible again.
+Offscreen மூன்றாவது option-ஐ அறிமுகப்படுத்துகிறது: UI-ஐ visually hide செய்யுங்கள், ஆனால் அதன் content-க்கு குறைந்த priority கொடுங்கள். இந்த யோசனை `content-visibility` CSS property-யின் ஆன்மாவுக்கு ஒத்தது: content hidden-ஆக இருக்கும் போது, அது UI-ன் மீதமுள்ள பகுதிகளுடன் sync-இல் இருக்க தேவையில்லை. App-ன் மீதமுள்ள பகுதி idle ஆகும் வரை, அல்லது content மீண்டும் visible ஆகும் வரை, React rendering work-ஐ defer செய்ய முடியும்.
 
-Offscreen is a low level capability that unlocks high level features. Similar to React's other concurrent features like `startTransition`, in most cases you won't interact with the Offscreen API directly, but instead via an opinionated framework to implement patterns like:
+Offscreen என்பது high level features-ஐ திறக்கும் low level capability. `startTransition` போன்ற React-ன் மற்ற concurrent features போல, பெரும்பாலான நேரங்களில் நீங்கள் Offscreen API-யுடன் நேரடியாக interact செய்ய மாட்டீர்கள்; அதற்கு பதிலாக, opinionated framework வழியாக இதுபோன்ற patterns-ஐ implement செய்வீர்கள்:
 
-* **Instant transitions.** Some routing frameworks already prefetch data to speed up subsequent navigations, like when hovering over a link. With Offscreen, they'll also be able to prerender the next screen in the background.
-* **Reusable state.** Similarly, when navigating between routes or tabs, you can use Offscreen to preserve the state of the previous screen so you can switch back and pick up where you left off.
-* **Virtualized list rendering.** When displaying large lists of items, virtualized list frameworks will prerender more rows than are currently visible. You can use Offscreen to prerender the hidden rows at a lower priority than the visible items in the list.
-* **Backgrounded content.** We're also exploring a related feature for deprioritizing content in the background without hiding it, like when displaying a modal overlay.
+* **Instant transitions.** Link மீது hover செய்வது போன்ற subsequent navigations-ஐ வேகப்படுத்த, சில routing frameworks ஏற்கனவே data-வை prefetch செய்கின்றன. Offscreen மூலம், அவை அடுத்த screen-ஐ background-இல் prerender செய்யவும் முடியும்.
+* **Reusable state.** அதேபோல், routes அல்லது tabs இடையே navigate செய்யும்போது, முந்தைய screen-ன் state-ஐ preserve செய்ய Offscreen பயன்படுத்தலாம்; பின்னர் திரும்பிச் சென்று விட்ட இடத்திலிருந்து தொடரலாம்.
+* **Virtualized list rendering.** பெரிய item lists காட்டும்போது, virtualized list frameworks தற்போது visible உள்ளதை விட அதிக rows-ஐ prerender செய்யும். List-இல் visible items-ஐ விட குறைந்த priority-யில் hidden rows-ஐ prerender செய்ய Offscreen பயன்படுத்தலாம்.
+* **Backgrounded content.** Modal overlay காட்டும் போது போல, content-ஐ hide செய்யாமல் background-இல் deprioritize செய்ய தொடர்புடைய feature ஒன்றையும் நாங்கள் ஆராய்கிறோம்.
 
 ## Transition Tracing {/*transition-tracing*/}
 
-Currently, React has two profiling tools. The [original Profiler](https://legacy.reactjs.org/blog/2018/09/10/introducing-the-react-profiler.html) shows an overview of all the commits in a profiling session. For each commit, it also shows all components that rendered and the amount of time it took for them to render. We also have a beta version of a [Timeline Profiler](https://github.com/reactwg/react-18/discussions/76) introduced in React 18 that shows when components schedule updates and when React works on these updates. Both of these profilers help developers identify performance problems in their code.
+தற்போது React-க்கு இரண்டு profiling tools உள்ளன. [அசல் Profiler](https://legacy.reactjs.org/blog/2018/09/10/introducing-the-react-profiler.html), profiling session-இல் உள்ள எல்லா commits-ன் overview-ஐ காட்டுகிறது. ஒவ்வொரு commit-க்கும் render ஆன components மற்றும் அவற்றை render செய்ய எடுத்த நேரத்தையும் காட்டுகிறது. React 18-இல் அறிமுகமான [Timeline Profiler](https://github.com/reactwg/react-18/discussions/76)-ன் beta version-யும் எங்களிடம் உள்ளது; components எப்போது updates schedule செய்கின்றன மற்றும் React அந்த updates-இல் எப்போது வேலை செய்கிறது என்பதைக் காட்டுகிறது. இந்த இரண்டு profilers-மும் developers தங்கள் code-இல் performance பிரச்சினைகளை கண்டறிய உதவுகின்றன.
 
-We’ve realized that developers don’t find knowing about individual slow commits or components out of context that useful. It’s more useful to know about what actually causes the slow commits. And that developers want to be able to track specific interactions (eg a button click, an initial load, or a page navigation) to watch for performance regressions and to understand why an interaction was slow and how to fix it.
+Context இல்லாமல் தனித்தனி slow commits அல்லது components பற்றித் தெரிந்துகொள்வது developers-க்கு பெரிதாக பயனில்லை என்பதை உணர்ந்தோம். Slow commits-க்கு உண்மையில் என்ன காரணம் என்பதை அறிதல்தான் அதிக பயனுள்ளதாகும். மேலும் developers, performance regressions-ஐ கவனிக்கவும், ஒரு interaction ஏன் slow ஆனது மற்றும் அதை எப்படி சரிசெய்வது என்பதைப் புரிந்துகொள்ளவும், குறிப்பிட்ட interactions-ஐ (எ.கா. button click, initial load, அல்லது page navigation) track செய்ய விரும்புகிறார்கள்.
 
-We previously tried to solve this issue by creating an [Interaction Tracing API](https://gist.github.com/bvaughn/8de925562903afd2e7a12554adcdda16), but it had some fundamental design flaws that reduced the accuracy of tracking why an interaction was slow and sometimes resulted in interactions never ending. We ended up [removing this API](https://github.com/facebook/react/pull/20037) because of these issues.
+முன்பு [Interaction Tracing API](https://gist.github.com/bvaughn/8de925562903afd2e7a12554adcdda16) உருவாக்கி இந்த பிரச்சினையை தீர்க்க முயன்றோம்; ஆனால் ஒரு interaction ஏன் slow ஆனது என்பதை track செய்வதின் துல்லியத்தை குறைக்கும் சில அடிப்படை design flaws அதில் இருந்தன, சில நேரங்களில் interactions முடிவில்லாமல் நீடிக்கும் நிலையும் ஏற்பட்டது. இந்த பிரச்சினைகளால் இறுதியில் [இந்த API-யை அகற்றினோம்](https://github.com/facebook/react/pull/20037).
 
-We are working on a new version for the Interaction Tracing API (tentatively called Transition Tracing because it is initiated via `startTransition`) that solves these problems.
+இந்த பிரச்சினைகளை தீர்க்கும் Interaction Tracing API-ன் புதிய version-இல் பணியாற்றுகிறோம் (இது `startTransition` மூலம் தொடங்கப்படுவதால் தற்காலிகமாக Transition Tracing என்று அழைக்கப்படுகிறது).
 
 ## New React Docs {/*new-react-docs*/}
 
-Last year, we announced the beta version of the new React documentation website ([later shipped as react.dev](/blog/2023/03/16/introducing-react-dev)) of the new React documentation website. The new learning materials teach Hooks first and has new diagrams, illustrations, as well as many interactive examples and challenges. We took a break from that work to focus on the React 18 release, but now that React 18 is out, we’re actively working to finish and ship the new documentation.
+கடந்த ஆண்டு, புதிய React documentation website-ன் beta version-ஐ ([பின்னர் react.dev ஆக ship ஆனது](/blog/2023/03/16/introducing-react-dev)) அறிவித்தோம். புதிய learning materials Hooks-ஐ முதலில் கற்பிக்கின்றன; புதிய diagrams, illustrations, மேலும் பல interactive examples மற்றும் challenges கொண்டுள்ளன. React 18 release-இல் கவனம் செலுத்த அந்த பணியிலிருந்து ஓரளவு இடைவெளி எடுத்தோம்; இப்போது React 18 வெளிவந்ததால், புதிய documentation-ஐ முடித்து ship செய்ய தீவிரமாக பணியாற்றுகிறோம்.
 
-We are currently writing a detailed section about effects, as we’ve heard that is one of the more challenging topics for both new and experienced React users. [Synchronizing with Effects](/learn/synchronizing-with-effects) is the first published page in the series, and there are more to come in the following weeks. When we first started writing a detailed section about effects, we’ve realized that many common effect patterns can be simplified by adding a new primitive to React. We’ve shared some initial thoughts on that in the [useEvent RFC](https://github.com/reactjs/rfcs/pull/220). It is currently in early research, and we are still iterating on the idea. We appreciate the community’s comments on the RFC so far, as well as the [feedback](https://github.com/reactjs/react.dev/issues/3308) and contributions to the ongoing documentation rewrite. We’d specifically like to thank [Harish Kumar](https://github.com/harish-sethuraman) for submitting and reviewing many improvements to the new website implementation.
+தற்போது effects பற்றிய விரிவான பகுதியை எழுதுகிறோம்; புதியவர்களுக்கும் அனுபவமுள்ள React users-க்கும் இது சவாலான topics-இல் ஒன்றாக இருப்பதாக கேள்விப்பட்டுள்ளோம். [Synchronizing with Effects](/learn/synchronizing-with-effects) இந்த தொடரில் வெளியான முதல் பக்கம்; அடுத்த வாரங்களில் மேலும் பக்கங்கள் வரும். Effects பற்றி விரிவான பகுதி எழுதத் தொடங்கியபோது, பல பொதுவான effect patterns-ஐ React-க்கு புதிய primitive சேர்ப்பதன் மூலம் தெளிவுப்படுத்தலாம் என்பதை உணர்ந்தோம். அதைப் பற்றிய சில ஆரம்ப எண்ணங்களை [useEvent RFC](https://github.com/reactjs/rfcs/pull/220)-இல் பகிர்ந்துள்ளோம். இது தற்போது early research-இல் உள்ளது; இன்னும் இந்த யோசனையில் iterate செய்து வருகிறோம். இதுவரை RFC மீது community வழங்கிய comments-க்கும், நடந்து கொண்டிருக்கும் documentation rewrite-க்கு கிடைத்த [feedback](https://github.com/reactjs/react.dev/issues/3308) மற்றும் contributions-க்கும் நன்றி. புதிய website implementation-க்கு பல improvements submit செய்து review செய்த [Harish Kumar](https://github.com/harish-sethuraman)-க்கு குறிப்பாக நன்றி தெரிவிக்க விரும்புகிறோம்.
 
-*Thanks to [Sophie Alpert](https://twitter.com/sophiebits) for reviewing this blog post!*
+*இந்த blog post-ஐ review செய்த [Sophie Alpert](https://twitter.com/sophiebits)-க்கு நன்றி!*

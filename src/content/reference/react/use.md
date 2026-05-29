@@ -4,7 +4,7 @@ title: use
 
 <Intro>
 
-`use` is a React API that lets you read the value of a resource like a [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) or [context](/learn/passing-data-deeply-with-context).
+`use` என்பது [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) அல்லது [context](/learn/passing-data-deeply-with-context) போன்ற resource-ன் value-ஐ read செய்ய உதவும் React API ஆகும்.
 
 ```js
 const value = use(resource);
@@ -16,11 +16,11 @@ const value = use(resource);
 
 ---
 
-## Reference {/*reference*/}
+## குறிப்பு {/*reference*/}
 
 ### `use(resource)` {/*use*/}
 
-Call `use` in your component to read the value of a resource like a [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) or [context](/learn/passing-data-deeply-with-context).
+உங்கள் component-இல் `use`-ஐ call செய்து, [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) அல்லது [context](/learn/passing-data-deeply-with-context) போன்ற resource-ன் value-ஐ read செய்யுங்கள்.
 
 ```jsx
 import { use } from 'react';
@@ -31,33 +31,33 @@ function MessageComponent({ messagePromise }) {
   // ...
 ```
 
-Unlike React Hooks, `use` can be called within loops and conditional statements like `if`. Like React Hooks, the function that calls `use` must be a Component or Hook.
+React Hooks-களுக்கு மாறாக, `use`-ஐ loops-க்குள் மற்றும் `if` போன்ற conditional statements-க்குள் call செய்யலாம். React Hooks போலவே, `use`-ஐ call செய்யும் function ஒரு Component அல்லது Hook ஆக இருக்க வேண்டும்.
 
-When called with a Promise, the `use` API integrates with [`Suspense`](/reference/react/Suspense) and [Error Boundaries](/reference/react/Component#catching-rendering-errors-with-an-error-boundary). The component calling `use` *suspends* while the Promise passed to `use` is pending. If the component that calls `use` is wrapped in a Suspense boundary, the fallback will be displayed.  Once the Promise is resolved, the Suspense fallback is replaced by the rendered components using the data returned by the `use` API. If the Promise passed to `use` is rejected, the fallback of the nearest Error Boundary will be displayed.
+Promise உடன் call செய்யப்படும் போது, `use` API [`Suspense`](/reference/react/Suspense) மற்றும் [Error Boundaries](/reference/react/Component#catching-rendering-errors-with-an-error-boundary) உடன் integrate ஆகிறது. `use`-க்கு pass செய்யப்பட்ட Promise pending-ஆக இருக்கும் வரை, `use`-ஐ call செய்யும் component *suspend* ஆகும். `use`-ஐ call செய்யும் component Suspense boundary-க்குள் wrap செய்யப்பட்டிருந்தால், fallback காண்பிக்கப்படும். Promise resolve ஆனதும், Suspense fallback-க்கு பதிலாக `use` API return செய்த data-வைப் பயன்படுத்தி rendered components காண்பிக்கப்படும். `use`-க்கு pass செய்யப்பட்ட Promise reject ஆனால், அருகிலுள்ள Error Boundary-ன் fallback காண்பிக்கப்படும்.
 
-[See more examples below.](#usage)
+[மேலும் உதாரணங்களை கீழே பார்க்கவும்.](#usage)
 
-#### Parameters {/*parameters*/}
+#### அளவுருக்கள் {/*parameters*/}
 
-* `resource`: this is the source of the data you want to read a value from. A resource can be a [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) or a [context](/learn/passing-data-deeply-with-context).
+* `resource`: நீங்கள் value-ஐ read செய்ய விரும்பும் data source இதுவாகும். Resource ஒரு [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) அல்லது [context](/learn/passing-data-deeply-with-context) ஆக இருக்கலாம்.
 
-#### Returns {/*returns*/}
+#### திரும்பும் மதிப்பு {/*returns*/}
 
-The `use` API returns the value that was read from the resource like the resolved value of a [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) or [context](/learn/passing-data-deeply-with-context).
+`use` API, [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)-ன் resolved value அல்லது [context](/learn/passing-data-deeply-with-context) போன்ற resource-இலிருந்து read செய்யப்பட்ட value-ஐ return செய்கிறது.
 
-#### Caveats {/*caveats*/}
+#### கவனிக்க வேண்டியவை {/*caveats*/}
 
-* The `use` API must be called inside a Component or a Hook.
-* When fetching data in a [Server Component](/reference/rsc/server-components), prefer `async` and `await` over `use`. `async` and `await` pick up rendering from the point where `await` was invoked, whereas `use` re-renders the component after the data is resolved.
-* Prefer creating Promises in [Server Components](/reference/rsc/server-components) and passing them to [Client Components](/reference/rsc/use-client) over creating Promises in Client Components. Promises created in Client Components are recreated on every render. Promises passed from a Server Component to a Client Component are stable across re-renders. [See this example](#streaming-data-from-server-to-client).
+* `use` API ஒரு Component அல்லது Hook-க்குள் call செய்யப்பட வேண்டும்.
+* [Server Component](/reference/rsc/server-components)-இல் data fetch செய்யும்போது, `use`-ஐ விட `async` மற்றும் `await`-ஐ விரும்புங்கள். `async` மற்றும் `await`, `await` invoke செய்யப்பட்ட இடத்திலிருந்து rendering-ஐ தொடர்கின்றன; ஆனால் `use`, data resolve ஆன பிறகு component-ஐ மீண்டும் render செய்கிறது.
+* Client Components-இல் Promises உருவாக்குவதற்கு பதிலாக, [Server Components](/reference/rsc/server-components)-இல் Promises உருவாக்கி அவற்றை [Client Components](/reference/rsc/use-client)-க்கு pass செய்வதை விரும்புங்கள். Client Components-இல் உருவாக்கப்படும் Promises ஒவ்வொரு render-லும் மீண்டும் உருவாக்கப்படும். Server Component-இலிருந்து Client Component-க்கு pass செய்யப்படும் Promises re-renders முழுவதும் stable ஆக இருக்கும். [இந்த உதாரணத்தைப் பார்க்கவும்](#streaming-data-from-server-to-client).
 
 ---
 
-## Usage {/*usage*/}
+## பயன்பாடு {/*usage*/}
 
-### Reading context with `use` {/*reading-context-with-use*/}
+### `use` மூலம் context read செய்தல் {/*reading-context-with-use*/}
 
-When a [context](/learn/passing-data-deeply-with-context) is passed to `use`, it works similarly to [`useContext`](/reference/react/useContext). While `useContext` must be called at the top level of your component, `use` can be called inside conditionals like `if` and loops like `for`. `use` is preferred over `useContext` because it is more flexible.
+[context](/learn/passing-data-deeply-with-context) `use`-க்கு pass செய்யப்படும் போது, அது [`useContext`](/reference/react/useContext) போலவே செயல்படும். `useContext` உங்கள் component-ன் top level-இல் call செய்யப்பட வேண்டியிருந்தாலும், `use`-ஐ `if` போன்ற conditionals-க்குள் மற்றும் `for` போன்ற loops-க்குள் call செய்யலாம். இது அதிக flexible என்பதால் `useContext`-ஐ விட `use` விரும்பப்படுகிறது.
 
 ```js [[2, 4, "theme"], [1, 4, "ThemeContext"]]
 import { use } from 'react';
@@ -67,9 +67,9 @@ function Button() {
   // ...
 ```
 
-`use` returns the <CodeStep step={2}>context value</CodeStep> for the <CodeStep step={1}>context</CodeStep> you passed. To determine the context value, React searches the component tree and finds **the closest context provider above** for that particular context.
+நீங்கள் pass செய்த <CodeStep step={1}>context</CodeStep>-க்கான <CodeStep step={2}>context value</CodeStep>-ஐ `use` return செய்கிறது. Context value-ஐ தீர்மானிக்க, React component tree-ஐ search செய்து, அந்த குறிப்பிட்ட context-க்கான **மேலே உள்ள மிக அருகிலுள்ள context provider**-ஐ கண்டுபிடிக்கிறது.
 
-To pass context to a `Button`, wrap it or one of its parent components into the corresponding context provider.
+ஒரு `Button`-க்கு context pass செய்ய, அதை அல்லது அதன் parent components-இல் ஒன்றை பொருத்தமான context provider-க்குள் wrap செய்யுங்கள்.
 
 ```js [[1, 3, "ThemeContext"], [2, 3, "\\"dark\\""], [1, 5, "ThemeContext"]]
 function MyPage() {
@@ -85,9 +85,9 @@ function Form() {
 }
 ```
 
-It doesn't matter how many layers of components there are between the provider and the `Button`. When a `Button` *anywhere* inside of `Form` calls `use(ThemeContext)`, it will receive `"dark"` as the value.
+Provider மற்றும் `Button` இடையில் எத்தனை component layers இருந்தாலும் அது முக்கியமில்லை. `Form`-க்குள் *எங்கிருந்தாலும்* ஒரு `Button` `use(ThemeContext)` call செய்தால், அது value ஆக `"dark"`-ஐ பெறும்.
 
-Unlike [`useContext`](/reference/react/useContext), <CodeStep step={2}>`use`</CodeStep> can be called in conditionals and loops like <CodeStep step={1}>`if`</CodeStep>.
+[`useContext`](/reference/react/useContext)-க்கு மாறாக, <CodeStep step={2}>`use`</CodeStep>-ஐ <CodeStep step={1}>`if`</CodeStep> போன்ற conditionals மற்றும் loops-இல் call செய்யலாம்.
 
 ```js [[1, 2, "if"], [2, 3, "use"]]
 function HorizontalRule({ show }) {
@@ -99,11 +99,11 @@ function HorizontalRule({ show }) {
 }
 ```
 
-<CodeStep step={2}>`use`</CodeStep> is called from inside a <CodeStep step={1}>`if`</CodeStep> statement, allowing you to conditionally read values from a Context.
+<CodeStep step={2}>`use`</CodeStep> ஒரு <CodeStep step={1}>`if`</CodeStep> statement-க்குள் இருந்து call செய்யப்படுகிறது; இதனால் Context-இலிருந்து values-ஐ conditionally read செய்ய முடியும்.
 
 <Pitfall>
 
-Like `useContext`, `use(context)` always looks for the closest context provider *above* the component that calls it. It searches upwards and **does not** consider context providers in the component from which you're calling `use(context)`.
+`useContext` போலவே, `use(context)` அதை call செய்யும் component-க்கு *மேலே* உள்ள மிக அருகிலுள்ள context provider-ஐ எப்போதும் தேடும். அது மேல்நோக்கி search செய்கிறது; நீங்கள் `use(context)` call செய்யும் component-இலுள்ள context providers-ஐ **கருத்தில் கொள்ளாது**.
 
 </Pitfall>
 
@@ -194,9 +194,9 @@ function Button({ show, children }) {
 
 </Sandpack>
 
-### Streaming data from the server to the client {/*streaming-data-from-server-to-client*/}
+### Server-இலிருந்து client-க்கு data stream செய்தல் {/*streaming-data-from-server-to-client*/}
 
-Data can be streamed from the server to the client by passing a Promise as a prop from a <CodeStep step={1}>Server Component</CodeStep> to a <CodeStep step={2}>Client Component</CodeStep>.
+<CodeStep step={1}>Server Component</CodeStep>-இலிருந்து <CodeStep step={2}>Client Component</CodeStep>-க்கு Promise-ஐ prop ஆக pass செய்வதன் மூலம், server-இலிருந்து client-க்கு data stream செய்யலாம்.
 
 ```js [[1, 4, "App"], [2, 2, "Message"], [3, 7, "Suspense"], [4, 8, "messagePromise", 30], [4, 5, "messagePromise"]]
 import { fetchMessage } from './lib.js';
@@ -212,7 +212,7 @@ export default function App() {
 }
 ```
 
-The <CodeStep step={2}>Client Component</CodeStep> then takes <CodeStep step={4}>the Promise it received as a prop</CodeStep> and passes it to the <CodeStep step={5}>`use`</CodeStep> API. This allows the <CodeStep step={2}>Client Component</CodeStep> to read the value from <CodeStep step={4}>the Promise</CodeStep> that was initially created by the Server Component.
+பிறகு <CodeStep step={2}>Client Component</CodeStep>, <CodeStep step={4}>prop ஆக பெற்ற Promise</CodeStep>-ஐ எடுத்து <CodeStep step={5}>`use`</CodeStep> API-க்கு pass செய்கிறது. இதனால் Server Component ஆரம்பத்தில் உருவாக்கிய <CodeStep step={4}>Promise</CodeStep>-இலிருந்து value-ஐ <CodeStep step={2}>Client Component</CodeStep> read செய்ய முடியும்.
 
 ```js [[2, 6, "Message"], [4, 6, "messagePromise"], [4, 7, "messagePromise"], [5, 7, "use"]]
 // message.js
@@ -225,7 +225,7 @@ export function Message({ messagePromise }) {
   return <p>Here is the message: {messageContent}</p>;
 }
 ```
-Because <CodeStep step={2}>`Message`</CodeStep> is wrapped in <CodeStep step={3}>[`Suspense`](/reference/react/Suspense)</CodeStep>, the fallback will be displayed until the Promise is resolved. When the Promise is resolved, the value will be read by the <CodeStep step={5}>`use`</CodeStep> API and the <CodeStep step={2}>`Message`</CodeStep> component will replace the Suspense fallback.
+<CodeStep step={2}>`Message`</CodeStep> <CodeStep step={3}>[`Suspense`](/reference/react/Suspense)</CodeStep>-இல் wrap செய்யப்பட்டிருப்பதால், Promise resolve ஆகும் வரை fallback காண்பிக்கப்படும். Promise resolve ஆனதும், value <CodeStep step={5}>`use`</CodeStep> API மூலம் read செய்யப்படும்; பிறகு <CodeStep step={2}>`Message`</CodeStep> component Suspense fallback-ஐ replace செய்யும்.
 
 <Sandpack>
 
@@ -294,16 +294,16 @@ root.render(
 
 <Note>
 
-When passing a Promise from a Server Component to a Client Component, its resolved value must be serializable to pass between server and client. Data types like functions aren't serializable and cannot be the resolved value of such a Promise.
+Server Component-இலிருந்து Client Component-க்கு Promise pass செய்யும் போது, அதன் resolved value server மற்றும் client இடையே pass செய்ய serializable ஆக இருக்க வேண்டும். Functions போன்ற data types serializable அல்ல; எனவே அவை இப்படிப்பட்ட Promise-ன் resolved value ஆக இருக்க முடியாது.
 
 </Note>
 
 
 <DeepDive>
 
-#### Should I resolve a Promise in a Server or Client Component? {/*resolve-promise-in-server-or-client-component*/}
+#### Promise-ஐ Server Component-இலா Client Component-இலா resolve செய்ய வேண்டும்? {/*resolve-promise-in-server-or-client-component*/}
 
-A Promise can be passed from a Server Component to a Client Component and resolved in the Client Component with the `use` API. You can also resolve the Promise in a Server Component with `await` and pass the required data to the Client Component as a prop.
+Promise-ஐ Server Component-இலிருந்து Client Component-க்கு pass செய்து, Client Component-இல் `use` API மூலம் resolve செய்யலாம். அதே Promise-ஐ Server Component-இல் `await` மூலம் resolve செய்து, தேவையான data-வை Client Component-க்கு prop ஆக pass செய்யவும் முடியும்.
 
 ```js
 export default async function App() {
@@ -312,24 +312,24 @@ export default async function App() {
 }
 ```
 
-But using `await` in a [Server Component](/reference/rsc/server-components) will block its rendering until the `await` statement is finished. Passing a Promise from a Server Component to a Client Component prevents the Promise from blocking the rendering of the Server Component.
+ஆனால் [Server Component](/reference/rsc/server-components)-இல் `await` பயன்படுத்துவது, `await` statement முடியும் வரை அதன் rendering-ஐ block செய்யும். Server Component-இலிருந்து Client Component-க்கு Promise pass செய்வது, அந்த Promise Server Component-ன் rendering-ஐ block செய்வதைத் தடுக்கிறது.
 
 </DeepDive>
 
-### Dealing with rejected Promises {/*dealing-with-rejected-promises*/}
+### Rejected Promises-ஐ கையாளுதல் {/*dealing-with-rejected-promises*/}
 
-In some cases a Promise passed to `use` could be rejected. You can handle rejected Promises by either:
+சில நேரங்களில் `use`-க்கு pass செய்யப்பட்ட Promise reject ஆகலாம். Rejected Promises-ஐ நீங்கள் இரண்டு வழிகளில் கையாளலாம்:
 
-1. [Displaying an error to users with an Error Boundary.](#displaying-an-error-to-users-with-error-boundary)
-2. [Providing an alternative value with `Promise.catch`](#providing-an-alternative-value-with-promise-catch)
+1. [Error Boundary மூலம் பயனர்களுக்கு error காண்பித்தல்.](#displaying-an-error-to-users-with-error-boundary)
+2. [`Promise.catch` மூலம் மாற்று value வழங்குதல்](#providing-an-alternative-value-with-promise-catch)
 
 <Pitfall>
-`use` cannot be called in a try-catch block. Instead of a try-catch block [wrap your component in an Error Boundary](#displaying-an-error-to-users-with-error-boundary), or [provide an alternative value to use with the Promise's `.catch` method](#providing-an-alternative-value-with-promise-catch).
+`use`-ஐ try-catch block-இல் call செய்ய முடியாது. Try-catch block-க்கு பதிலாக [உங்கள் component-ஐ Error Boundary-இல் wrap செய்யுங்கள்](#displaying-an-error-to-users-with-error-boundary), அல்லது [Promise-ன் `.catch` method மூலம் பயன்படுத்த மாற்று value வழங்குங்கள்](#providing-an-alternative-value-with-promise-catch).
 </Pitfall>
 
-#### Displaying an error to users with an Error Boundary {/*displaying-an-error-to-users-with-error-boundary*/}
+#### Error Boundary மூலம் பயனர்களுக்கு error காண்பித்தல் {/*displaying-an-error-to-users-with-error-boundary*/}
 
-If you'd like to display an error to your users when a Promise is rejected, you can use an [Error Boundary](/reference/react/Component#catching-rendering-errors-with-an-error-boundary). To use an Error Boundary, wrap the component where you are calling the `use` API in an Error Boundary. If the Promise passed to `use` is rejected the fallback for the Error Boundary will be displayed.
+Promise reject ஆகும் போது உங்கள் பயனர்களுக்கு error காண்பிக்க விரும்பினால், [Error Boundary](/reference/react/Component#catching-rendering-errors-with-an-error-boundary) பயன்படுத்தலாம். Error Boundary பயன்படுத்த, `use` API-ஐ call செய்யும் component-ஐ Error Boundary-இல் wrap செய்யுங்கள். `use`-க்கு pass செய்யப்பட்ட Promise reject ஆனால், Error Boundary-க்கான fallback காண்பிக்கப்படும்.
 
 <Sandpack>
 
@@ -410,9 +410,9 @@ root.render(
 ```
 </Sandpack>
 
-#### Providing an alternative value with `Promise.catch` {/*providing-an-alternative-value-with-promise-catch*/}
+#### `Promise.catch` மூலம் மாற்று value வழங்குதல் {/*providing-an-alternative-value-with-promise-catch*/}
 
-If you'd like to provide an alternative value when the Promise passed to `use` is rejected you can use the Promise's <CodeStep step={1}>[`catch`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/catch)</CodeStep> method.
+`use`-க்கு pass செய்யப்பட்ட Promise reject ஆகும் போது மாற்று value வழங்க விரும்பினால், Promise-ன் <CodeStep step={1}>[`catch`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/catch)</CodeStep> method-ஐ பயன்படுத்தலாம்.
 
 ```js [[1, 6, "catch"],[2, 7, "return"]]
 import { Message } from './message.js';
@@ -432,17 +432,17 @@ export default function App() {
 }
 ```
 
-To use the Promise's <CodeStep step={1}>`catch`</CodeStep> method, call <CodeStep step={1}>`catch`</CodeStep> on the Promise object. <CodeStep step={1}>`catch`</CodeStep> takes a single argument: a function that takes an error message as an argument. Whatever is <CodeStep step={2}>returned</CodeStep> by the function passed to <CodeStep step={1}>`catch`</CodeStep> will be used as the resolved value of the Promise.
+Promise-ன் <CodeStep step={1}>`catch`</CodeStep> method-ஐ பயன்படுத்த, Promise object-இல் <CodeStep step={1}>`catch`</CodeStep>-ஐ call செய்யுங்கள். <CodeStep step={1}>`catch`</CodeStep> ஒரு argument மட்டும் எடுக்கும்: error message-ஐ argument ஆகப் பெறும் function. <CodeStep step={1}>`catch`</CodeStep>-க்கு pass செய்யப்பட்ட function எதை <CodeStep step={2}>return</CodeStep> செய்கிறதோ, அது Promise-ன் resolved value ஆகப் பயன்படுத்தப்படும்.
 
 ---
 
-## Troubleshooting {/*troubleshooting*/}
+## பிரச்சினைத் தீர்வு {/*troubleshooting*/}
 
 ### "Suspense Exception: This is not a real error!" {/*suspense-exception-error*/}
 
-You are either calling `use` outside of a React Component or Hook function, or calling `use` in a try–catch block. If you are calling `use` inside a try–catch block, wrap your component in an Error Boundary, or call the Promise's `catch` to catch the error and resolve the Promise with another value. [See these examples](#dealing-with-rejected-promises).
+நீங்கள் `use`-ஐ React Component அல்லது Hook function-க்கு வெளியே call செய்கிறீர்கள், அல்லது try-catch block-இல் call செய்கிறீர்கள். Try-catch block-க்குள் `use` call செய்கிறீர்கள் என்றால், உங்கள் component-ஐ Error Boundary-இல் wrap செய்யுங்கள்; அல்லது Promise-ன் `catch`-ஐ call செய்து error-ஐ catch செய்து, Promise-ஐ வேறு value உடன் resolve செய்யுங்கள். [இந்த உதாரணங்களைப் பார்க்கவும்](#dealing-with-rejected-promises).
 
-If you are calling `use` outside a React Component or Hook function, move the `use` call to a React Component or Hook function.
+`use`-ஐ React Component அல்லது Hook function-க்கு வெளியே call செய்கிறீர்கள் என்றால், `use` call-ஐ React Component அல்லது Hook function-க்கு நகர்த்துங்கள்.
 
 ```jsx
 function MessageComponent({messagePromise}) {
@@ -452,7 +452,7 @@ function MessageComponent({messagePromise}) {
     // ...
 ```
 
-Instead, call `use` outside any component closures, where the function that calls `use` is a Component or Hook.
+அதற்கு பதிலாக, component closures எதற்கும் வெளியே `use`-ஐ call செய்யுங்கள்; அங்கு `use`-ஐ call செய்யும் function ஒரு Component அல்லது Hook ஆக இருக்கும்.
 
 ```jsx
 function MessageComponent({messagePromise}) {

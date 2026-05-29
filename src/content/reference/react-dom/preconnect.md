@@ -4,7 +4,7 @@ title: preconnect
 
 <Intro>
 
-`preconnect` lets you eagerly connect to a server that you expect to load resources from.
+`preconnect`, resources load செய்யப்படும் என்று நீங்கள் எதிர்பார்க்கும் server-க்கு முன்கூட்டியே connect செய்ய உதவுகிறது.
 
 ```js
 preconnect("https://example.com");
@@ -20,7 +20,7 @@ preconnect("https://example.com");
 
 ### `preconnect(href)` {/*preconnect*/}
 
-To preconnect to a host, call the `preconnect` function from `react-dom`.
+ஒரு host-க்கு preconnect செய்ய, `react-dom`-இலிருந்து `preconnect` function-ஐ அழைக்கவும்.
 
 ```js
 import { preconnect } from 'react-dom';
@@ -32,34 +32,34 @@ function AppRoot() {
 
 ```
 
-[See more examples below.](#usage)
+[மேலும் உதாரணங்களை கீழே பார்க்கவும்.](#usage)
 
-The `preconnect` function provides the browser with a hint that it should open a connection to the given server. If the browser chooses to do so, this can speed up the loading of resources from that server.
+கொடுக்கப்பட்ட server-க்கு connection ஒன்றைத் திறக்க வேண்டும் என்ற hint-ஐ `preconnect` function browser-க்கு வழங்குகிறது. Browser அதைச் செய்யத் தேர்ந்தெடுத்தால், அந்த server-இலிருந்து resources load ஆகும் வேகம் அதிகரிக்கலாம்.
 
 #### Parameters {/*parameters*/}
 
-* `href`: a string. The URL of the server you want to connect to.
+* `href`: ஒரு string. நீங்கள் connect செய்ய விரும்பும் server-இன் URL.
 
 
 #### Returns {/*returns*/}
 
-`preconnect` returns nothing.
+`preconnect` எதையும் return செய்யாது.
 
 #### Caveats {/*caveats*/}
 
-* Multiple calls to `preconnect` with the same server have the same effect as a single call.
-* In the browser, you can call `preconnect` in any situation: while rendering a component, in an Effect, in an event handler, and so on.
-* In server-side rendering or when rendering Server Components, `preconnect` only has an effect if you call it while rendering a component or in an async context originating from rendering a component. Any other calls will be ignored.
-* If you know the specific resources you'll need, you can call [other functions](/reference/react-dom/#resource-preloading-apis) instead that will start loading the resources right away.
-* There is no benefit to preconnecting to the same server the webpage itself is hosted from because it's already been connected to by the time the hint would be given.
+* அதே server-க்கு `preconnect`-ஐ பலமுறை அழைப்பது, ஒருமுறை அழைப்பதற்குச் சமமான விளைவையே தரும்.
+* Browser-இல் எந்த சூழலிலும் `preconnect`-ஐ அழைக்கலாம்: component render ஆகும்போது, Effect-இல், event handler-இல், மற்றும் இதுபோன்ற இடங்களில்.
+* Server-side rendering-இல் அல்லது Server Components render செய்யும்போது, component render ஆகும் நேரத்தில் அல்லது component render-இலிருந்து தொடங்கிய async context-இல் அழைத்தால் மட்டுமே `preconnect` விளைவளிக்கும். மற்ற எல்லா calls-உம் புறக்கணிக்கப்படும்.
+* உங்களுக்கு தேவைப்படும் குறிப்பிட்ட resources தெரிந்திருந்தால், resources-ஐ உடனே load செய்யத் தொடங்கும் [பிற functions](/reference/react-dom/#resource-preloading-apis)-ஐ அதற்கு பதிலாக அழைக்கலாம்.
+* Webpage தானே hosted ஆகும் அதே server-க்கு preconnect செய்வதில் பலன் இல்லை; hint வழங்கப்படும் நேரத்துக்குள் அதற்கு ஏற்கனவே connect செய்யப்பட்டிருக்கும்.
 
 ---
 
 ## Usage {/*usage*/}
 
-### Preconnecting when rendering {/*preconnecting-when-rendering*/}
+### Render செய்யும்போது preconnect செய்தல் {/*preconnecting-when-rendering*/}
 
-Call `preconnect` when rendering a component if you know that its children will load external resources from that host.
+அதன் children அந்த host-இலிருந்து external resources load செய்யும் என்பது தெரிந்திருந்தால், component render செய்யும்போது `preconnect`-ஐ அழைக்கவும்.
 
 ```js
 import { preconnect } from 'react-dom';
@@ -70,9 +70,9 @@ function AppRoot() {
 }
 ```
 
-### Preconnecting in an event handler {/*preconnecting-in-an-event-handler*/}
+### Event handler-இல் preconnect செய்தல் {/*preconnecting-in-an-event-handler*/}
 
-Call `preconnect` in an event handler before transitioning to a page or state where external resources will be needed. This gets the process started earlier than if you call it during the rendering of the new page or state.
+External resources தேவைப்படும் page அல்லது state-க்கு மாறுவதற்கு முன், event handler-இல் `preconnect`-ஐ அழைக்கவும். புதிய page அல்லது state render ஆகும் போது அழைப்பதை விட, இது செயல்முறையை முன்கூட்டியே தொடங்குகிறது.
 
 ```js
 import { preconnect } from 'react-dom';

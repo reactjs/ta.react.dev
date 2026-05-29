@@ -1,10 +1,10 @@
 ---
-title: "Common components (e.g. <div>)"
+title: "பொதுவான components (எ.கா. <div>)"
 ---
 
 <Intro>
 
-All built-in browser components, such as [`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div), support some common props and events.
+[`<div>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div) போன்ற எல்லா built-in browser components-உம் சில பொதுவான props மற்றும் events-ஐ support செய்கின்றன.
 
 </Intro>
 
@@ -14,279 +14,279 @@ All built-in browser components, such as [`<div>`](https://developer.mozilla.org
 
 ## Reference {/*reference*/}
 
-### Common components (e.g. `<div>`) {/*common*/}
+### பொதுவான components (எ.கா. `<div>`) {/*common*/}
 
 ```js
-<div className="wrapper">Some content</div>
+<div className="wrapper">சில உள்ளடக்கம்</div>
 ```
 
-[See more examples below.](#usage)
+[மேலும் examples-ஐ கீழே பார்க்கவும்.](#usage)
 
 #### Props {/*common-props*/}
 
-These special React props are supported for all built-in components:
+இந்த சிறப்பு React props எல்லா built-in components-க்கும் support செய்யப்படுகின்றன:
 
-* `children`: A React node (an element, a string, a number, [a portal,](/reference/react-dom/createPortal) an empty node like `null`, `undefined` and booleans, or an array of other React nodes). Specifies the content inside the component. When you use JSX, you will usually specify the `children` prop implicitly by nesting tags like `<div><span /></div>`.
+* `children`: ஒரு React node (element, string, number, [portal,](/reference/react-dom/createPortal) `null`, `undefined` மற்றும் booleans போன்ற empty node, அல்லது பிற React nodes-ன் array). Component-க்குள் உள்ள content-ஐ குறிப்பிடுகிறது. JSX பயன்படுத்தும்போது, பொதுவாக `<div><span /></div>` போன்ற nested tags மூலம் `children` prop-ஐ மறைமுகமாக குறிப்பிடுவீர்கள்.
 
-* `dangerouslySetInnerHTML`: An object of the form `{ __html: '<p>some html</p>' }` with a raw HTML string inside. Overrides the [`innerHTML`](https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML) property of the DOM node and displays the passed HTML inside. This should be used with extreme caution! If the HTML inside isn't trusted (for example, if it's based on user data), you risk introducing an [XSS](https://en.wikipedia.org/wiki/Cross-site_scripting) vulnerability. [Read more about using `dangerouslySetInnerHTML`.](#dangerously-setting-the-inner-html)
+* `dangerouslySetInnerHTML`: உள்ளே raw HTML string கொண்ட `{ __html: '<p>some html</p>' }` வடிவ object. DOM node-ன் [`innerHTML`](https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML) property-ஐ override செய்து, pass செய்யப்பட்ட HTML-ஐ உள்ளே காட்டுகிறது. இதை மிகுந்த கவனத்துடன் மட்டுமே பயன்படுத்த வேண்டும்! உள்ளிருக்கும் HTML நம்பத்தகுந்ததல்ல என்றால் (உதாரணமாக, அது user data அடிப்படையாக இருந்தால்), [XSS](https://en.wikipedia.org/wiki/Cross-site_scripting) vulnerability சேர்க்கும் அபாயம் உண்டு. [`dangerouslySetInnerHTML` பயன்படுத்துவது பற்றி மேலும் வாசிக்கவும்.](#dangerously-setting-the-inner-html)
 
-* `ref`: A ref object from [`useRef`](/reference/react/useRef) or [`createRef`](/reference/react/createRef), or a [`ref` callback function,](#ref-callback) or a string for [legacy refs.](https://reactjs.org/docs/refs-and-the-dom.html#legacy-api-string-refs) Your ref will be filled with the DOM element for this node. [Read more about manipulating the DOM with refs.](#manipulating-a-dom-node-with-a-ref)
+* `ref`: [`useRef`](/reference/react/useRef) அல்லது [`createRef`](/reference/react/createRef)-இலிருந்து கிடைக்கும் ref object, [`ref` callback function,](#ref-callback) அல்லது [legacy refs](https://reactjs.org/docs/refs-and-the-dom.html#legacy-api-string-refs)-க்கான string. இந்த node-க்கான DOM element உங்கள் ref-இல் நிரப்பப்படும். [Refs மூலம் DOM-ஐ கையாளுவது பற்றி மேலும் வாசிக்கவும்.](#manipulating-a-dom-node-with-a-ref)
 
-* `suppressContentEditableWarning`: A boolean. If `true`, suppresses the warning that React shows for elements that both have `children` and `contentEditable={true}` (which normally do not work together). Use this if you're building a text input library that manages the `contentEditable` content manually.
+* `suppressContentEditableWarning`: ஒரு boolean. `true` என்றால், `children` மற்றும் `contentEditable={true}` இரண்டும் கொண்ட elements-க்கு React காட்டும் warning-ஐ suppress செய்கிறது (இவை பொதுவாக ஒன்றாகச் சரியாக வேலை செய்யாது). `contentEditable` content-ஐ கையால் நிர்வகிக்கும் text input library உருவாக்கினால் இதைப் பயன்படுத்துங்கள்.
 
-* `suppressHydrationWarning`: A boolean. If you use [server rendering,](/reference/react-dom/server) normally there is a warning when the server and the client render different content. In some rare cases (like timestamps), it is very hard or impossible to guarantee an exact match. If you set `suppressHydrationWarning` to `true`, React will not warn you about mismatches in the attributes and the content of that element. It only works one level deep, and is intended to be used as an escape hatch. Don't overuse it. [Read about suppressing hydration errors.](/reference/react-dom/client/hydrateRoot#suppressing-unavoidable-hydration-mismatch-errors)
+* `suppressHydrationWarning`: ஒரு boolean. நீங்கள் [server rendering](/reference/react-dom/server) பயன்படுத்தினால், server மற்றும் client வேறு content render செய்யும்போது பொதுவாக warning வரும். சில அரிய சந்தர்ப்பங்களில் (timestamps போன்றவை), exact match-ஐ உறுதி செய்வது மிகவும் கடினமாகவோ சாத்தியமற்றதாகவோ இருக்கும். `suppressHydrationWarning`-ஐ `true` ஆக set செய்தால், அந்த element-ன் attributes மற்றும் content-இல் உள்ள mismatches குறித்து React warning காட்டாது. இது ஒரு level ஆழம் மட்டுமே வேலை செய்யும்; escape hatch ஆகப் பயன்படுத்துவதற்கானது. இதை மிகையாகப் பயன்படுத்த வேண்டாம். [Hydration errors-ஐ suppress செய்வது பற்றி வாசிக்கவும்.](/reference/react-dom/client/hydrateRoot#suppressing-unavoidable-hydration-mismatch-errors)
 
-* `style`: An object with CSS styles, for example `{ fontWeight: 'bold', margin: 20 }`. Similarly to the DOM [`style`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/style) property, the CSS property names need to be written as `camelCase`, for example `fontWeight` instead of `font-weight`. You can pass strings or numbers as values. If you pass a number, like `width: 100`, React will automatically append `px` ("pixels") to the value unless it's a [unitless property.](https://github.com/facebook/react/blob/81d4ee9ca5c405dce62f64e61506b8e155f38d8d/packages/react-dom-bindings/src/shared/CSSProperty.js#L8-L57) We recommend using `style` only for dynamic styles where you don't know the style values ahead of time. In other cases, applying plain CSS classes with `className` is more efficient. [Read more about `className` and `style`.](#applying-css-styles)
+* `style`: CSS styles கொண்ட object, உதாரணமாக `{ fontWeight: 'bold', margin: 20 }`. DOM [`style`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/style) property போலவே, CSS property பெயர்கள் `font-weight` என்பதற்குப் பதிலாக `fontWeight` போன்ற `camelCase` வடிவில் எழுதப்பட வேண்டும். Values ஆக strings அல்லது numbers pass செய்யலாம். `width: 100` போன்ற number pass செய்தால், அது [unitless property](https://github.com/facebook/react/blob/81d4ee9ca5c405dce62f64e61506b8e155f38d8d/packages/react-dom-bindings/src/shared/CSSProperty.js#L8-L57) அல்லாத வரை React value-க்கு தானாக `px` ("pixels") சேர்க்கும். Style values முன்கூட்டியே தெரியாத dynamic styles-க்கு மட்டும் `style` பயன்படுத்த பரிந்துரைக்கிறோம். மற்ற சந்தர்ப்பங்களில், `className` மூலம் plain CSS classes பயன்படுத்துவது அதிக திறனானது. [`className` மற்றும் `style` பற்றி மேலும் வாசிக்கவும்.](#applying-css-styles)
 
-These standard DOM props are also supported for all built-in components:
+இந்த standard DOM props-உம் எல்லா built-in components-க்கும் support செய்யப்படுகின்றன:
 
-* [`accessKey`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/accesskey): A string. Specifies a keyboard shortcut for the element. [Not generally recommended.](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/accesskey#accessibility_concerns)
-* [`aria-*`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes): ARIA attributes let you specify the accessibility tree information for this element. See [ARIA attributes](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes) for a complete reference. In React, all ARIA attribute names are exactly the same as in HTML.
-* [`autoCapitalize`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/autocapitalize): A string. Specifies whether and how the user input should be capitalized.
-* [`className`](https://developer.mozilla.org/en-US/docs/Web/API/Element/className): A string. Specifies the element's CSS class name. [Read more about applying CSS styles.](#applying-css-styles)
-* [`contentEditable`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/contenteditable): A boolean. If `true`, the browser lets the user edit the rendered element directly. This is used to implement rich text input libraries like [Lexical.](https://lexical.dev/) React warns if you try to pass React children to an element with `contentEditable={true}` because React will not be able to update its content after user edits.
-* [`data-*`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/data-*): Data attributes let you attach some string data to the element, for example `data-fruit="banana"`. In React, they are not commonly used because you would usually read data from props or state instead.
-* [`dir`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir): Either `'ltr'` or `'rtl'`. Specifies the text direction of the element.
-* [`draggable`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/draggable): A boolean. Specifies whether the element is draggable. Part of [HTML Drag and Drop API.](https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API)
-* [`enterKeyHint`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/enterKeyHint): A string. Specifies which action to present for the enter key on virtual keyboards.
-* [`htmlFor`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLLabelElement/htmlFor): A string. For [`<label>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/label) and [`<output>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/output), lets you [associate the label with some control.](/reference/react-dom/components/input#providing-a-label-for-an-input) Same as [`for` HTML attribute.](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/for) React uses the standard DOM property names (`htmlFor`) instead of HTML attribute names.
-* [`hidden`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/hidden): A boolean or a string. Specifies whether the element should be hidden.
-* [`id`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id): A string. Specifies a unique identifier for this element, which can be used to find it later or connect it with other elements. Generate it with [`useId`](/reference/react/useId) to avoid clashes between multiple instances of the same component.
-* [`is`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/is): A string. If specified, the component will behave like a [custom element.](/reference/react-dom/components#custom-html-elements)
-* [`inputMode`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inputmode): A string. Specifies what kind of keyboard to display (for example, text, number or telephone).
-* [`itemProp`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemprop): A string. Specifies which property the element represents for structured data crawlers.
-* [`lang`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang): A string. Specifies the language of the element.
-* [`onAnimationEnd`](https://developer.mozilla.org/en-US/docs/Web/API/Element/animationend_event): An [`AnimationEvent` handler](#animationevent-handler) function. Fires when a CSS animation completes.
-* `onAnimationEndCapture`: A version of `onAnimationEnd` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onAnimationIteration`](https://developer.mozilla.org/en-US/docs/Web/API/Element/animationiteration_event): An [`AnimationEvent` handler](#animationevent-handler) function. Fires when an iteration of a CSS animation ends, and another one begins.
-* `onAnimationIterationCapture`: A version of `onAnimationIteration` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onAnimationStart`](https://developer.mozilla.org/en-US/docs/Web/API/Element/animationstart_event): An [`AnimationEvent` handler](#animationevent-handler) function. Fires when a CSS animation starts.
-* `onAnimationStartCapture`: `onAnimationStart`, but fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onAuxClick`](https://developer.mozilla.org/en-US/docs/Web/API/Element/auxclick_event): A [`MouseEvent` handler](#mouseevent-handler) function. Fires when a non-primary pointer button was clicked.
-* `onAuxClickCapture`: A version of `onAuxClick` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* `onBeforeInput`: An [`InputEvent` handler](#inputevent-handler) function. Fires before the value of an editable element is modified. React does *not* yet use the native [`beforeinput`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/beforeinput_event) event, and instead attempts to polyfill it using other events.
-* `onBeforeInputCapture`: A version of `onBeforeInput` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* `onBlur`: A [`FocusEvent` handler](#focusevent-handler) function. Fires when an element lost focus. Unlike the built-in browser [`blur`](https://developer.mozilla.org/en-US/docs/Web/API/Element/blur_event) event, in React the `onBlur` event bubbles.
-* `onBlurCapture`: A version of `onBlur` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onClick`](https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event): A [`MouseEvent` handler](#mouseevent-handler) function. Fires when the primary button was clicked on the pointing device.
-* `onClickCapture`: A version of `onClick` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onCompositionStart`](https://developer.mozilla.org/en-US/docs/Web/API/Element/compositionstart_event): A [`CompositionEvent` handler](#compositionevent-handler) function. Fires when an [input method editor](https://developer.mozilla.org/en-US/docs/Glossary/Input_method_editor) starts a new composition session.
-* `onCompositionStartCapture`: A version of `onCompositionStart` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onCompositionEnd`](https://developer.mozilla.org/en-US/docs/Web/API/Element/compositionend_event): A [`CompositionEvent` handler](#compositionevent-handler) function. Fires when an [input method editor](https://developer.mozilla.org/en-US/docs/Glossary/Input_method_editor) completes or cancels a composition session.
-* `onCompositionEndCapture`: A version of `onCompositionEnd` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onCompositionUpdate`](https://developer.mozilla.org/en-US/docs/Web/API/Element/compositionupdate_event): A [`CompositionEvent` handler](#compositionevent-handler) function. Fires when an [input method editor](https://developer.mozilla.org/en-US/docs/Glossary/Input_method_editor) receives a new character.
-* `onCompositionUpdateCapture`: A version of `onCompositionUpdate` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onContextMenu`](https://developer.mozilla.org/en-US/docs/Web/API/Element/contextmenu_event): A [`MouseEvent` handler](#mouseevent-handler) function. Fires when the user tries to open a context menu.
-* `onContextMenuCapture`: A version of `onContextMenu` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onCopy`](https://developer.mozilla.org/en-US/docs/Web/API/Element/copy_event): A [`ClipboardEvent` handler](#clipboardevent-handler) function. Fires when the user tries to copy something into the clipboard.
-* `onCopyCapture`: A version of `onCopy` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onCut`](https://developer.mozilla.org/en-US/docs/Web/API/Element/cut_event): A [`ClipboardEvent` handler](#clipboardevent-handler) function. Fires when the user tries to cut something into the clipboard.
-* `onCutCapture`: A version of `onCut` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* `onDoubleClick`: A [`MouseEvent` handler](#mouseevent-handler) function. Fires when the user clicks twice. Corresponds to the browser [`dblclick` event.](https://developer.mozilla.org/en-US/docs/Web/API/Element/dblclick_event)
-* `onDoubleClickCapture`: A version of `onDoubleClick` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onDrag`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/drag_event): A [`DragEvent` handler](#dragevent-handler) function. Fires while the user is dragging something.
-* `onDragCapture`: A version of `onDrag` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onDragEnd`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/dragend_event): A [`DragEvent` handler](#dragevent-handler) function. Fires when the user stops dragging something.
-* `onDragEndCapture`: A version of `onDragEnd` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onDragEnter`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/dragenter_event): A [`DragEvent` handler](#dragevent-handler) function. Fires when the dragged content enters a valid drop target.
-* `onDragEnterCapture`: A version of `onDragEnter` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onDragOver`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/dragover_event): A [`DragEvent` handler](#dragevent-handler) function. Fires on a valid drop target while the dragged content is dragged over it. You must call `e.preventDefault()` here to allow dropping.
-* `onDragOverCapture`: A version of `onDragOver` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onDragStart`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/dragstart_event): A [`DragEvent` handler](#dragevent-handler) function. Fires when the user starts dragging an element.
-* `onDragStartCapture`: A version of `onDragStart` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onDrop`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/drop_event): A [`DragEvent` handler](#dragevent-handler) function. Fires when something is dropped on a valid drop target.
-* `onDropCapture`: A version of `onDrop` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* `onFocus`: A [`FocusEvent` handler](#focusevent-handler) function. Fires when an element receives focus. Unlike the built-in browser [`focus`](https://developer.mozilla.org/en-US/docs/Web/API/Element/focus_event) event, in React the `onFocus` event bubbles.
-* `onFocusCapture`: A version of `onFocus` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onGotPointerCapture`](https://developer.mozilla.org/en-US/docs/Web/API/Element/gotpointercapture_event): A [`PointerEvent` handler](#pointerevent-handler) function. Fires when an element programmatically captures a pointer.
-* `onGotPointerCaptureCapture`: A version of `onGotPointerCapture` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onKeyDown`](https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event): A [`KeyboardEvent` handler](#keyboardevent-handler) function. Fires when a key is pressed.
-* `onKeyDownCapture`: A version of `onKeyDown` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onKeyPress`](https://developer.mozilla.org/en-US/docs/Web/API/Element/keypress_event): A [`KeyboardEvent` handler](#keyboardevent-handler) function. Deprecated. Use `onKeyDown` or `onBeforeInput` instead.
-* `onKeyPressCapture`: A version of `onKeyPress` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onKeyUp`](https://developer.mozilla.org/en-US/docs/Web/API/Element/keyup_event): A [`KeyboardEvent` handler](#keyboardevent-handler) function. Fires when a key is released.
-* `onKeyUpCapture`: A version of `onKeyUp` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onLostPointerCapture`](https://developer.mozilla.org/en-US/docs/Web/API/Element/lostpointercapture_event): A [`PointerEvent` handler](#pointerevent-handler) function. Fires when an element stops capturing a pointer.
-* `onLostPointerCaptureCapture`: A version of `onLostPointerCapture` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onMouseDown`](https://developer.mozilla.org/en-US/docs/Web/API/Element/mousedown_event): A [`MouseEvent` handler](#mouseevent-handler) function. Fires when the pointer is pressed down.
-* `onMouseDownCapture`: A version of `onMouseDown` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onMouseEnter`](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseenter_event): A [`MouseEvent` handler](#mouseevent-handler) function. Fires when the pointer moves inside an element. Does not have a capture phase. Instead, `onMouseLeave` and `onMouseEnter` propagate from the element being left to the one being entered.
-* [`onMouseLeave`](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseleave_event): A [`MouseEvent` handler](#mouseevent-handler) function. Fires when the pointer moves outside an element. Does not have a capture phase. Instead, `onMouseLeave` and `onMouseEnter` propagate from the element being left to the one being entered.
-* [`onMouseMove`](https://developer.mozilla.org/en-US/docs/Web/API/Element/mousemove_event): A [`MouseEvent` handler](#mouseevent-handler) function. Fires when the pointer changes coordinates.
-* `onMouseMoveCapture`: A version of `onMouseMove` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onMouseOut`](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseout_event): A [`MouseEvent` handler](#mouseevent-handler) function. Fires when the pointer moves outside an element, or if it moves into a child element.
-* `onMouseOutCapture`: A version of `onMouseOut` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onMouseUp`](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseup_event): A [`MouseEvent` handler](#mouseevent-handler) function. Fires when the pointer is released.
-* `onMouseUpCapture`: A version of `onMouseUp` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onPointerCancel`](https://developer.mozilla.org/en-US/docs/Web/API/Element/pointercancel_event): A [`PointerEvent` handler](#pointerevent-handler) function. Fires when the browser cancels a pointer interaction.
-* `onPointerCancelCapture`: A version of `onPointerCancel` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onPointerDown`](https://developer.mozilla.org/en-US/docs/Web/API/Element/pointerdown_event): A [`PointerEvent` handler](#pointerevent-handler) function. Fires when a pointer becomes active.
-* `onPointerDownCapture`: A version of `onPointerDown` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onPointerEnter`](https://developer.mozilla.org/en-US/docs/Web/API/Element/pointerenter_event): A [`PointerEvent` handler](#pointerevent-handler) function. Fires when a pointer moves inside an element. Does not have a capture phase. Instead, `onPointerLeave` and `onPointerEnter` propagate from the element being left to the one being entered.
-* [`onPointerLeave`](https://developer.mozilla.org/en-US/docs/Web/API/Element/pointerleave_event): A [`PointerEvent` handler](#pointerevent-handler) function. Fires when a pointer moves outside an element. Does not have a capture phase. Instead, `onPointerLeave` and `onPointerEnter` propagate from the element being left to the one being entered.
-* [`onPointerMove`](https://developer.mozilla.org/en-US/docs/Web/API/Element/pointermove_event): A [`PointerEvent` handler](#pointerevent-handler) function. Fires when a pointer changes coordinates.
-* `onPointerMoveCapture`: A version of `onPointerMove` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onPointerOut`](https://developer.mozilla.org/en-US/docs/Web/API/Element/pointerout_event): A [`PointerEvent` handler](#pointerevent-handler) function. Fires when a pointer moves outside an element, if the pointer interaction is cancelled, and [a few other reasons.](https://developer.mozilla.org/en-US/docs/Web/API/Element/pointerout_event)
-* `onPointerOutCapture`: A version of `onPointerOut` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onPointerUp`](https://developer.mozilla.org/en-US/docs/Web/API/Element/pointerup_event): A [`PointerEvent` handler](#pointerevent-handler) function. Fires when a pointer is no longer active.
-* `onPointerUpCapture`: A version of `onPointerUp` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onPaste`](https://developer.mozilla.org/en-US/docs/Web/API/Element/paste_event): A [`ClipboardEvent` handler](#clipboardevent-handler) function. Fires when the user tries to paste something from the clipboard.
-* `onPasteCapture`: A version of `onPaste` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onScroll`](https://developer.mozilla.org/en-US/docs/Web/API/Element/scroll_event): An [`Event` handler](#event-handler) function. Fires when an element has been scrolled. This event does not bubble.
-* `onScrollCapture`: A version of `onScroll` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onSelect`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/select_event): An [`Event` handler](#event-handler) function. Fires after the selection inside an editable element like an input changes. React extends the `onSelect` event to work for `contentEditable={true}` elements as well. In addition, React extends it to fire for empty selection and on edits (which may affect the selection).
-* `onSelectCapture`: A version of `onSelect` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onTouchCancel`](https://developer.mozilla.org/en-US/docs/Web/API/Element/touchcancel_event): A [`TouchEvent` handler](#touchevent-handler) function. Fires when the browser cancels a touch interaction.
-* `onTouchCancelCapture`: A version of `onTouchCancel` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onTouchEnd`](https://developer.mozilla.org/en-US/docs/Web/API/Element/touchend_event): A [`TouchEvent` handler](#touchevent-handler) function. Fires when one or more touch points are removed.
-* `onTouchEndCapture`: A version of `onTouchEnd` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onTouchMove`](https://developer.mozilla.org/en-US/docs/Web/API/Element/touchmove_event): A [`TouchEvent` handler](#touchevent-handler) function. Fires one or more touch points are moved.
-* `onTouchMoveCapture`: A version of `onTouchMove` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onTouchStart`](https://developer.mozilla.org/en-US/docs/Web/API/Element/touchstart_event): A [`TouchEvent` handler](#touchevent-handler) function. Fires when one or more touch points are placed.
-* `onTouchStartCapture`: A version of `onTouchStart` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onTransitionEnd`](https://developer.mozilla.org/en-US/docs/Web/API/Element/transitionend_event): A [`TransitionEvent` handler](#transitionevent-handler) function. Fires when a CSS transition completes.
-* `onTransitionEndCapture`: A version of `onTransitionEnd` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onWheel`](https://developer.mozilla.org/en-US/docs/Web/API/Element/wheel_event): A [`WheelEvent` handler](#wheelevent-handler) function. Fires when the user rotates a wheel button.
-* `onWheelCapture`: A version of `onWheel` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`role`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles): A string. Specifies the element role explicitly for assistive technologies.
-* [`slot`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles): A string. Specifies the slot name when using shadow DOM. In React, an equivalent pattern is typically achieved by passing JSX as props, for example `<Layout left={<Sidebar />} right={<Content />} />`.
-* [`spellCheck`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/spellcheck): A boolean or null. If explicitly set to `true` or `false`, enables or disables spellchecking.
-* [`tabIndex`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/tabindex): A number. Overrides the default Tab button behavior. [Avoid using values other than `-1` and `0`.](https://www.tpgi.com/using-the-tabindex-attribute/)
-* [`title`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/title): A string. Specifies the tooltip text for the element.
-* [`translate`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/translate): Either `'yes'` or `'no'`. Passing `'no'` excludes the element content from being translated.
+* [`accessKey`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/accesskey): ஒரு string. Element-க்கான keyboard shortcut-ஐ குறிப்பிடுகிறது. [பொதுவாக பரிந்துரைக்கப்படாது.](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/accesskey#accessibility_concerns)
+* [`aria-*`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes): ARIA attributes இந்த element-க்கான accessibility tree தகவலை குறிப்பிட அனுமதிக்கின்றன. முழு reference-க்கு [ARIA attributes](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes) பார்க்கவும். React-இல், எல்லா ARIA attribute பெயர்களும் HTML-இல் இருப்பதுபோலவே இருக்கும்.
+* [`autoCapitalize`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/autocapitalize): ஒரு string. User input capitalized ஆக வேண்டுமா, எப்படி ஆக வேண்டும் என்பதை குறிப்பிடுகிறது.
+* [`className`](https://developer.mozilla.org/en-US/docs/Web/API/Element/className): ஒரு string. Element-ன் CSS class name-ஐ குறிப்பிடுகிறது. [CSS styles பயன்படுத்துவது பற்றி மேலும் வாசிக்கவும்.](#applying-css-styles)
+* [`contentEditable`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/contenteditable): ஒரு boolean. `true` என்றால், rendered element-ஐ user நேரடியாக edit செய்ய browser அனுமதிக்கும். [Lexical](https://lexical.dev/) போன்ற rich text input libraries உருவாக்க இதைப் பயன்படுத்துகிறார்கள். `contentEditable={true}` கொண்ட element-க்கு React children pass செய்ய முயன்றால் React warning காட்டும்; user edits-க்குப் பிறகு அதன் content-ஐ React update செய்ய முடியாது.
+* [`data-*`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/data-*): Data attributes மூலம் element-க்கு சில string data attach செய்யலாம், உதாரணமாக `data-fruit="banana"`. React-இல் இவை பொதுவாக பயன்படுத்தப்படாது, ஏனெனில் data-வை props அல்லது state-இலிருந்து வாசிப்பதே வழக்கம்.
+* [`dir`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir): `'ltr'` அல்லது `'rtl'`. Element-ன் text direction-ஐ குறிப்பிடுகிறது.
+* [`draggable`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/draggable): ஒரு boolean. Element draggable ஆக இருக்க வேண்டுமா என்பதை குறிப்பிடுகிறது. [HTML Drag and Drop API](https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API)-ன் ஒரு பகுதி.
+* [`enterKeyHint`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/enterKeyHint): ஒரு string. Virtual keyboards-இல் enter key-க்கு எந்த action காட்ட வேண்டும் என்பதை குறிப்பிடுகிறது.
+* [`htmlFor`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLLabelElement/htmlFor): ஒரு string. [`<label>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/label) மற்றும் [`<output>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/output)-க்கு, [label-ஐ ஒரு control-உடன் இணைக்க](/reference/react-dom/components/input#providing-a-label-for-an-input) அனுமதிக்கிறது. இது [`for` HTML attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/for)-க்கு சமம். React HTML attribute பெயர்களுக்குப் பதிலாக standard DOM property names (`htmlFor`) பயன்படுத்துகிறது.
+* [`hidden`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/hidden): ஒரு boolean அல்லது string. Element hidden ஆக இருக்க வேண்டுமா என்பதை குறிப்பிடுகிறது.
+* [`id`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id): ஒரு string. இந்த element-க்கான unique identifier-ஐ குறிப்பிடுகிறது; பின்னர் அதை கண்டுபிடிக்க அல்லது பிற elements-உடன் இணைக்க இதைப் பயன்படுத்தலாம். ஒரே component-ன் பல instances இடையே conflicts தவிர்க்க [`useId`](/reference/react/useId) மூலம் உருவாக்குங்கள்.
+* [`is`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/is): ஒரு string. குறிப்பிடப்பட்டால், component ஒரு [custom element](/reference/react-dom/components#custom-html-elements) போல நடக்கும்.
+* [`inputMode`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inputmode): ஒரு string. எந்த வகை keyboard காட்ட வேண்டும் என்பதை குறிப்பிடுகிறது (உதாரணமாக text, number, அல்லது telephone).
+* [`itemProp`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemprop): ஒரு string. Structured data crawlers-க்கு element எந்த property-யை represent செய்கிறது என்பதை குறிப்பிடுகிறது.
+* [`lang`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang): ஒரு string. Element-ன் மொழியை குறிப்பிடுகிறது.
+* [`onAnimationEnd`](https://developer.mozilla.org/en-US/docs/Web/API/Element/animationend_event): ஒரு [`AnimationEvent` handler](#animationevent-handler) function. CSS animation முடிந்தபோது fire ஆகும்.
+* `onAnimationEndCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onAnimationEnd`-ன் version.
+* [`onAnimationIteration`](https://developer.mozilla.org/en-US/docs/Web/API/Element/animationiteration_event): ஒரு [`AnimationEvent` handler](#animationevent-handler) function. CSS animation-ன் ஒரு iteration முடிந்து மற்றொன்று தொடங்கும்போது fire ஆகும்.
+* `onAnimationIterationCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onAnimationIteration`-ன் version.
+* [`onAnimationStart`](https://developer.mozilla.org/en-US/docs/Web/API/Element/animationstart_event): ஒரு [`AnimationEvent` handler](#animationevent-handler) function. CSS animation தொடங்கும்போது fire ஆகும்.
+* `onAnimationStartCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onAnimationStart`.
+* [`onAuxClick`](https://developer.mozilla.org/en-US/docs/Web/API/Element/auxclick_event): ஒரு [`MouseEvent` handler](#mouseevent-handler) function. Primary அல்லாத pointer button click செய்யப்படும் போது fire ஆகும்.
+* `onAuxClickCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onAuxClick`-ன் version.
+* `onBeforeInput`: ஒரு [`InputEvent` handler](#inputevent-handler) function. Editable element-ன் value மாற்றப்படுவதற்கு முன் fire ஆகும். React இன்னும் native [`beforeinput`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/beforeinput_event) event-ஐ பயன்படுத்தவில்லை; அதற்கு பதிலாக பிற events மூலம் polyfill செய்ய முயல்கிறது.
+* `onBeforeInputCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onBeforeInput`-ன் version.
+* `onBlur`: ஒரு [`FocusEvent` handler](#focusevent-handler) function. Element focus இழக்கும்போது fire ஆகும். Built-in browser [`blur`](https://developer.mozilla.org/en-US/docs/Web/API/Element/blur_event) event போல அல்லாமல், React-இல் `onBlur` event bubbles ஆகும்.
+* `onBlurCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onBlur`-ன் version.
+* [`onClick`](https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event): ஒரு [`MouseEvent` handler](#mouseevent-handler) function. Pointing device-இல் primary button click செய்யப்படும் போது fire ஆகும்.
+* `onClickCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onClick`-ன் version.
+* [`onCompositionStart`](https://developer.mozilla.org/en-US/docs/Web/API/Element/compositionstart_event): ஒரு [`CompositionEvent` handler](#compositionevent-handler) function. [Input method editor](https://developer.mozilla.org/en-US/docs/Glossary/Input_method_editor) புதிய composition session தொடங்கும்போது fire ஆகும்.
+* `onCompositionStartCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onCompositionStart`-ன் version.
+* [`onCompositionEnd`](https://developer.mozilla.org/en-US/docs/Web/API/Element/compositionend_event): ஒரு [`CompositionEvent` handler](#compositionevent-handler) function. [Input method editor](https://developer.mozilla.org/en-US/docs/Glossary/Input_method_editor) composition session-ஐ complete அல்லது cancel செய்யும்போது fire ஆகும்.
+* `onCompositionEndCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onCompositionEnd`-ன் version.
+* [`onCompositionUpdate`](https://developer.mozilla.org/en-US/docs/Web/API/Element/compositionupdate_event): ஒரு [`CompositionEvent` handler](#compositionevent-handler) function. [Input method editor](https://developer.mozilla.org/en-US/docs/Glossary/Input_method_editor) புதிய character பெறும்போது fire ஆகும்.
+* `onCompositionUpdateCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onCompositionUpdate`-ன் version.
+* [`onContextMenu`](https://developer.mozilla.org/en-US/docs/Web/API/Element/contextmenu_event): ஒரு [`MouseEvent` handler](#mouseevent-handler) function. User context menu திறக்க முயன்றால் fire ஆகும்.
+* `onContextMenuCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onContextMenu`-ன் version.
+* [`onCopy`](https://developer.mozilla.org/en-US/docs/Web/API/Element/copy_event): ஒரு [`ClipboardEvent` handler](#clipboardevent-handler) function. User clipboard-க்கு ஏதாவது copy செய்ய முயன்றால் fire ஆகும்.
+* `onCopyCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onCopy`-ன் version.
+* [`onCut`](https://developer.mozilla.org/en-US/docs/Web/API/Element/cut_event): ஒரு [`ClipboardEvent` handler](#clipboardevent-handler) function. User clipboard-க்கு ஏதாவது cut செய்ய முயன்றால் fire ஆகும்.
+* `onCutCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onCut`-ன் version.
+* `onDoubleClick`: ஒரு [`MouseEvent` handler](#mouseevent-handler) function. User இருமுறை click செய்யும்போது fire ஆகும். Browser [`dblclick` event](https://developer.mozilla.org/en-US/docs/Web/API/Element/dblclick_event)-க்கு இணையானது.
+* `onDoubleClickCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onDoubleClick`-ன் version.
+* [`onDrag`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/drag_event): ஒரு [`DragEvent` handler](#dragevent-handler) function. User ஏதாவது drag செய்யும் போது fire ஆகும்.
+* `onDragCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onDrag`-ன் version.
+* [`onDragEnd`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/dragend_event): ஒரு [`DragEvent` handler](#dragevent-handler) function. User drag செய்வதை நிறுத்தும்போது fire ஆகும்.
+* `onDragEndCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onDragEnd`-ன் version.
+* [`onDragEnter`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/dragenter_event): ஒரு [`DragEvent` handler](#dragevent-handler) function. Drag செய்யப்படும் content valid drop target-க்குள் நுழையும் போது fire ஆகும்.
+* `onDragEnterCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onDragEnter`-ன் version.
+* [`onDragOver`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/dragover_event): ஒரு [`DragEvent` handler](#dragevent-handler) function. Drag செய்யப்படும் content valid drop target மேல் இருக்கும் போது fire ஆகும். Drop செய்ய அனுமதிக்க இங்கே `e.preventDefault()` call செய்ய வேண்டும்.
+* `onDragOverCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onDragOver`-ன் version.
+* [`onDragStart`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/dragstart_event): ஒரு [`DragEvent` handler](#dragevent-handler) function. User ஒரு element-ஐ drag செய்யத் தொடங்கும்போது fire ஆகும்.
+* `onDragStartCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onDragStart`-ன் version.
+* [`onDrop`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/drop_event): ஒரு [`DragEvent` handler](#dragevent-handler) function. ஏதாவது valid drop target மீது drop செய்யப்பட்டால் fire ஆகும்.
+* `onDropCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onDrop`-ன் version.
+* `onFocus`: ஒரு [`FocusEvent` handler](#focusevent-handler) function. Element focus பெறும்போது fire ஆகும். Built-in browser [`focus`](https://developer.mozilla.org/en-US/docs/Web/API/Element/focus_event) event போல அல்லாமல், React-இல் `onFocus` event bubbles ஆகும்.
+* `onFocusCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onFocus`-ன் version.
+* [`onGotPointerCapture`](https://developer.mozilla.org/en-US/docs/Web/API/Element/gotpointercapture_event): ஒரு [`PointerEvent` handler](#pointerevent-handler) function. Element code மூலம் pointer-ஐ capture செய்யும்போது fire ஆகும்.
+* `onGotPointerCaptureCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onGotPointerCapture`-ன் version.
+* [`onKeyDown`](https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event): ஒரு [`KeyboardEvent` handler](#keyboardevent-handler) function. Key press செய்யப்படும் போது fire ஆகும்.
+* `onKeyDownCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onKeyDown`-ன் version.
+* [`onKeyPress`](https://developer.mozilla.org/en-US/docs/Web/API/Element/keypress_event): ஒரு [`KeyboardEvent` handler](#keyboardevent-handler) function. Deprecated. அதற்குப் பதிலாக `onKeyDown` அல்லது `onBeforeInput` பயன்படுத்துங்கள்.
+* `onKeyPressCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onKeyPress`-ன் version.
+* [`onKeyUp`](https://developer.mozilla.org/en-US/docs/Web/API/Element/keyup_event): ஒரு [`KeyboardEvent` handler](#keyboardevent-handler) function. Key release செய்யப்படும் போது fire ஆகும்.
+* `onKeyUpCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onKeyUp`-ன் version.
+* [`onLostPointerCapture`](https://developer.mozilla.org/en-US/docs/Web/API/Element/lostpointercapture_event): ஒரு [`PointerEvent` handler](#pointerevent-handler) function. Element pointer capture செய்வதை நிறுத்தும்போது fire ஆகும்.
+* `onLostPointerCaptureCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onLostPointerCapture`-ன் version.
+* [`onMouseDown`](https://developer.mozilla.org/en-US/docs/Web/API/Element/mousedown_event): ஒரு [`MouseEvent` handler](#mouseevent-handler) function. Pointer அழுத்தப்படும் போது fire ஆகும்.
+* `onMouseDownCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onMouseDown`-ன் version.
+* [`onMouseEnter`](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseenter_event): ஒரு [`MouseEvent` handler](#mouseevent-handler) function. Pointer ஒரு element-க்குள் நகரும்போது fire ஆகும். இதற்கு capture phase இல்லை. அதற்கு பதிலாக, `onMouseLeave` மற்றும் `onMouseEnter` விட்டு வெளியேறும் element-இலிருந்து நுழையும் element-க்கு propagate ஆகும்.
+* [`onMouseLeave`](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseleave_event): ஒரு [`MouseEvent` handler](#mouseevent-handler) function. Pointer ஒரு element-க்கு வெளியே நகரும்போது fire ஆகும். இதற்கு capture phase இல்லை. அதற்கு பதிலாக, `onMouseLeave` மற்றும் `onMouseEnter` விட்டு வெளியேறும் element-இலிருந்து நுழையும் element-க்கு propagate ஆகும்.
+* [`onMouseMove`](https://developer.mozilla.org/en-US/docs/Web/API/Element/mousemove_event): ஒரு [`MouseEvent` handler](#mouseevent-handler) function. Pointer coordinates மாறும்போது fire ஆகும்.
+* `onMouseMoveCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onMouseMove`-ன் version.
+* [`onMouseOut`](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseout_event): ஒரு [`MouseEvent` handler](#mouseevent-handler) function. Pointer ஒரு element-க்கு வெளியே நகரும்போது, அல்லது child element-க்குள் நகரும்போது fire ஆகும்.
+* `onMouseOutCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onMouseOut`-ன் version.
+* [`onMouseUp`](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseup_event): ஒரு [`MouseEvent` handler](#mouseevent-handler) function. Pointer release செய்யப்படும் போது fire ஆகும்.
+* `onMouseUpCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onMouseUp`-ன் version.
+* [`onPointerCancel`](https://developer.mozilla.org/en-US/docs/Web/API/Element/pointercancel_event): ஒரு [`PointerEvent` handler](#pointerevent-handler) function. Browser ஒரு pointer interaction-ஐ cancel செய்தால் fire ஆகும்.
+* `onPointerCancelCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onPointerCancel`-ன் version.
+* [`onPointerDown`](https://developer.mozilla.org/en-US/docs/Web/API/Element/pointerdown_event): ஒரு [`PointerEvent` handler](#pointerevent-handler) function. Pointer active ஆகும்போது fire ஆகும்.
+* `onPointerDownCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onPointerDown`-ன் version.
+* [`onPointerEnter`](https://developer.mozilla.org/en-US/docs/Web/API/Element/pointerenter_event): ஒரு [`PointerEvent` handler](#pointerevent-handler) function. Pointer ஒரு element-க்குள் நகரும்போது fire ஆகும். இதற்கு capture phase இல்லை. அதற்கு பதிலாக, `onPointerLeave` மற்றும் `onPointerEnter` விட்டு வெளியேறும் element-இலிருந்து நுழையும் element-க்கு propagate ஆகும்.
+* [`onPointerLeave`](https://developer.mozilla.org/en-US/docs/Web/API/Element/pointerleave_event): ஒரு [`PointerEvent` handler](#pointerevent-handler) function. Pointer ஒரு element-க்கு வெளியே நகரும்போது fire ஆகும். இதற்கு capture phase இல்லை. அதற்கு பதிலாக, `onPointerLeave` மற்றும் `onPointerEnter` விட்டு வெளியேறும் element-இலிருந்து நுழையும் element-க்கு propagate ஆகும்.
+* [`onPointerMove`](https://developer.mozilla.org/en-US/docs/Web/API/Element/pointermove_event): ஒரு [`PointerEvent` handler](#pointerevent-handler) function. Pointer coordinates மாறும்போது fire ஆகும்.
+* `onPointerMoveCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onPointerMove`-ன் version.
+* [`onPointerOut`](https://developer.mozilla.org/en-US/docs/Web/API/Element/pointerout_event): ஒரு [`PointerEvent` handler](#pointerevent-handler) function. Pointer ஒரு element-க்கு வெளியே நகரும்போது, pointer interaction cancel செய்யப்பட்டால், மற்றும் [சில பிற காரணங்களால்](https://developer.mozilla.org/en-US/docs/Web/API/Element/pointerout_event) fire ஆகும்.
+* `onPointerOutCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onPointerOut`-ன் version.
+* [`onPointerUp`](https://developer.mozilla.org/en-US/docs/Web/API/Element/pointerup_event): ஒரு [`PointerEvent` handler](#pointerevent-handler) function. Pointer இனி active இல்லாதபோது fire ஆகும்.
+* `onPointerUpCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onPointerUp`-ன் version.
+* [`onPaste`](https://developer.mozilla.org/en-US/docs/Web/API/Element/paste_event): ஒரு [`ClipboardEvent` handler](#clipboardevent-handler) function. User clipboard-இலிருந்து ஏதாவது paste செய்ய முயன்றால் fire ஆகும்.
+* `onPasteCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onPaste`-ன் version.
+* [`onScroll`](https://developer.mozilla.org/en-US/docs/Web/API/Element/scroll_event): ஒரு [`Event` handler](#event-handler) function. Element scroll செய்யப்பட்டபோது fire ஆகும். இந்த event bubble ஆகாது.
+* `onScrollCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onScroll`-ன் version.
+* [`onSelect`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/select_event): ஒரு [`Event` handler](#event-handler) function. Input போன்ற editable element-க்குள் selection மாறிய பிறகு fire ஆகும். `contentEditable={true}` elements-க்கும் வேலை செய்ய React `onSelect` event-ஐ விரிவாக்குகிறது. கூடுதலாக, empty selection-க்கும் edits-க்கும் (அவை selection-ஐ பாதிக்கலாம்) fire ஆகும்படி React இதை விரிவாக்குகிறது.
+* `onSelectCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onSelect`-ன் version.
+* [`onTouchCancel`](https://developer.mozilla.org/en-US/docs/Web/API/Element/touchcancel_event): ஒரு [`TouchEvent` handler](#touchevent-handler) function. Browser ஒரு touch interaction-ஐ cancel செய்தால் fire ஆகும்.
+* `onTouchCancelCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onTouchCancel`-ன் version.
+* [`onTouchEnd`](https://developer.mozilla.org/en-US/docs/Web/API/Element/touchend_event): ஒரு [`TouchEvent` handler](#touchevent-handler) function. ஒன்று அல்லது அதற்கு மேற்பட்ட touch points அகற்றப்பட்டால் fire ஆகும்.
+* `onTouchEndCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onTouchEnd`-ன் version.
+* [`onTouchMove`](https://developer.mozilla.org/en-US/docs/Web/API/Element/touchmove_event): ஒரு [`TouchEvent` handler](#touchevent-handler) function. ஒன்று அல்லது அதற்கு மேற்பட்ட touch points நகர்த்தப்பட்டால் fire ஆகும்.
+* `onTouchMoveCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onTouchMove`-ன் version.
+* [`onTouchStart`](https://developer.mozilla.org/en-US/docs/Web/API/Element/touchstart_event): ஒரு [`TouchEvent` handler](#touchevent-handler) function. ஒன்று அல்லது அதற்கு மேற்பட்ட touch points வைக்கப்படும்போது fire ஆகும்.
+* `onTouchStartCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onTouchStart`-ன் version.
+* [`onTransitionEnd`](https://developer.mozilla.org/en-US/docs/Web/API/Element/transitionend_event): ஒரு [`TransitionEvent` handler](#transitionevent-handler) function. CSS transition முடிந்தபோது fire ஆகும்.
+* `onTransitionEndCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onTransitionEnd`-ன் version.
+* [`onWheel`](https://developer.mozilla.org/en-US/docs/Web/API/Element/wheel_event): ஒரு [`WheelEvent` handler](#wheelevent-handler) function. User wheel button-ஐ rotate செய்யும்போது fire ஆகும்.
+* `onWheelCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onWheel`-ன் version.
+* [`role`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles): ஒரு string. Assistive technologies-க்காக element role-ஐ வெளிப்படையாக குறிப்பிடுகிறது.
+* [`slot`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles): ஒரு string. Shadow DOM பயன்படுத்தும்போது slot name-ஐ குறிப்பிடுகிறது. React-இல் இதற்கு இணையான pattern பொதுவாக JSX-ஐ props ஆக pass செய்வதன் மூலம் பெறப்படுகிறது, உதாரணமாக `<Layout left={<Sidebar />} right={<Content />} />`.
+* [`spellCheck`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/spellcheck): ஒரு boolean அல்லது null. Explicit ஆக `true` அல்லது `false` set செய்தால், spellchecking enable அல்லது disable ஆகும்.
+* [`tabIndex`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/tabindex): ஒரு number. Default Tab button behavior-ஐ override செய்கிறது. [`-1` மற்றும் `0` அல்லாத values பயன்படுத்துவதை தவிர்க்கவும்.](https://www.tpgi.com/using-the-tabindex-attribute/)
+* [`title`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/title): ஒரு string. Element-க்கான tooltip text-ஐ குறிப்பிடுகிறது.
+* [`translate`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/translate): `'yes'` அல்லது `'no'`. `'no'` pass செய்தால் element content translate செய்யப்படுவதிலிருந்து விலக்கப்படும்.
 
-You can also pass custom attributes as props, for example `mycustomprop="someValue"`. This can be useful when integrating with third-party libraries. The custom attribute name must be lowercase and must not start with `on`. The value will be converted to a string. If you pass `null` or `undefined`, the custom attribute will be removed.
+Custom attributes-ஐயும் props ஆக pass செய்யலாம், உதாரணமாக `mycustomprop="someValue"`. Third-party libraries-உடன் integrate செய்யும்போது இது பயனுள்ளதாக இருக்கலாம். Custom attribute பெயர் lowercase ஆக இருக்க வேண்டும்; `on` என்று தொடங்கக்கூடாது. Value string ஆக மாற்றப்படும். `null` அல்லது `undefined` pass செய்தால், custom attribute நீக்கப்படும்.
 
-These events fire only for the [`<form>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form) elements:
+இந்த events [`<form>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form) elements-க்கு மட்டும் fire ஆகும்:
 
-* [`onReset`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement/reset_event): An [`Event` handler](#event-handler) function. Fires when a form gets reset.
-* `onResetCapture`: A version of `onReset` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onSubmit`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement/submit_event): An [`Event` handler](#event-handler) function. Fires when a form gets submitted.
-* `onSubmitCapture`: A version of `onSubmit` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
+* [`onReset`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement/reset_event): ஒரு [`Event` handler](#event-handler) function. Form reset செய்யப்படும் போது fire ஆகும்.
+* `onResetCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onReset`-ன் version.
+* [`onSubmit`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement/submit_event): ஒரு [`Event` handler](#event-handler) function. Form submit செய்யப்படும் போது fire ஆகும்.
+* `onSubmitCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onSubmit`-ன் version.
 
-These events fire only for the [`<dialog>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog) elements. Unlike browser events, they bubble in React:
+இந்த events [`<dialog>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog) elements-க்கு மட்டும் fire ஆகும். Browser events போல அல்லாமல், React-இல் இவை bubble ஆகும்:
 
-* [`onCancel`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement/cancel_event): An [`Event` handler](#event-handler) function. Fires when the user tries to dismiss the dialog.
-* `onCancelCapture`: A version of `onCancel` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onClose`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement/close_event): An [`Event` handler](#event-handler) function. Fires when a dialog has been closed.
-* `onCloseCapture`: A version of `onClose` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
+* [`onCancel`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement/cancel_event): ஒரு [`Event` handler](#event-handler) function. User dialog-ஐ dismiss செய்ய முயன்றால் fire ஆகும்.
+* `onCancelCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onCancel`-ன் version.
+* [`onClose`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement/close_event): ஒரு [`Event` handler](#event-handler) function. Dialog close செய்யப்பட்டபோது fire ஆகும்.
+* `onCloseCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onClose`-ன் version.
 
-These events fire only for the [`<details>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details) elements. Unlike browser events, they bubble in React:
+இந்த events [`<details>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details) elements-க்கு மட்டும் fire ஆகும். Browser events போல அல்லாமல், React-இல் இவை bubble ஆகும்:
 
-* [`onToggle`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLDetailsElement/toggle_event): An [`Event` handler](#event-handler) function. Fires when the user toggles the details.
-* `onToggleCapture`: A version of `onToggle` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
+* [`onToggle`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLDetailsElement/toggle_event): ஒரு [`Event` handler](#event-handler) function. User details-ஐ toggle செய்யும்போது fire ஆகும்.
+* `onToggleCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onToggle`-ன் version.
 
-These events fire for [`<img>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img), [`<iframe>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe), [`<object>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/object), [`<embed>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/embed), [`<link>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link), and [SVG `<image>`](https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/SVG_Image_Tag) elements. Unlike browser events, they bubble in React:
+இந்த events [`<img>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img), [`<iframe>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe), [`<object>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/object), [`<embed>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/embed), [`<link>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link), மற்றும் [SVG `<image>`](https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/SVG_Image_Tag) elements-க்கு fire ஆகும். Browser events போல அல்லாமல், React-இல் இவை bubble ஆகும்:
 
-* `onLoad`: An [`Event` handler](#event-handler) function. Fires when the resource has loaded.
-* `onLoadCapture`: A version of `onLoad` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onError`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/error_event): An [`Event` handler](#event-handler) function. Fires when the resource could not be loaded.
-* `onErrorCapture`: A version of `onError` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
+* `onLoad`: ஒரு [`Event` handler](#event-handler) function. Resource load ஆனபோது fire ஆகும்.
+* `onLoadCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onLoad`-ன் version.
+* [`onError`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/error_event): ஒரு [`Event` handler](#event-handler) function. Resource load ஆக முடியாதபோது fire ஆகும்.
+* `onErrorCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onError`-ன் version.
 
-These events fire for resources like [`<audio>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/audio) and [`<video>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video). Unlike browser events, they bubble in React:
+இந்த events [`<audio>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/audio) மற்றும் [`<video>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video) போன்ற resources-க்கு fire ஆகும். Browser events போல அல்லாமல், React-இல் இவை bubble ஆகும்:
 
-* [`onAbort`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/abort_event): An [`Event` handler](#event-handler) function. Fires when the resource has not fully loaded, but not due to an error.
-* `onAbortCapture`: A version of `onAbort` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onCanPlay`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/canplay_event): An [`Event` handler](#event-handler) function. Fires when there's enough data to start playing, but not enough to play to the end without buffering.
-* `onCanPlayCapture`: A version of `onCanPlay` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onCanPlayThrough`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/canplaythrough_event): An [`Event` handler](#event-handler) function. Fires when there's enough data that it's likely possible to start playing without buffering until the end.
-* `onCanPlayThroughCapture`: A version of `onCanPlayThrough` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onDurationChange`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/durationchange_event): An [`Event` handler](#event-handler) function. Fires when the media duration has updated.
-* `onDurationChangeCapture`: A version of `onDurationChange` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onEmptied`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/emptied_event): An [`Event` handler](#event-handler) function. Fires when the media has become empty.
-* `onEmptiedCapture`: A version of `onEmptied` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onEncrypted`](https://w3c.github.io/encrypted-media/#dom-evt-encrypted): An [`Event` handler](#event-handler) function. Fires when the browser encounters encrypted media.
-* `onEncryptedCapture`: A version of `onEncrypted` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onEnded`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/ended_event): An [`Event` handler](#event-handler) function. Fires when the playback stops because there's nothing left to play.
-* `onEndedCapture`: A version of `onEnded` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onError`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/error_event): An [`Event` handler](#event-handler) function. Fires when the resource could not be loaded.
-* `onErrorCapture`: A version of `onError` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onLoadedData`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/loadeddata_event): An [`Event` handler](#event-handler) function. Fires when the current playback frame has loaded.
-* `onLoadedDataCapture`: A version of `onLoadedData` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onLoadedMetadata`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/loadedmetadata_event): An [`Event` handler](#event-handler) function. Fires when metadata has loaded.
-* `onLoadedMetadataCapture`: A version of `onLoadedMetadata` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onLoadStart`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/loadstart_event): An [`Event` handler](#event-handler) function. Fires when the browser started loading the resource.
-* `onLoadStartCapture`: A version of `onLoadStart` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onPause`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/pause_event): An [`Event` handler](#event-handler) function. Fires when the media was paused.
-* `onPauseCapture`: A version of `onPause` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onPlay`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/play_event): An [`Event` handler](#event-handler) function. Fires when the media is no longer paused.
-* `onPlayCapture`: A version of `onPlay` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onPlaying`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/playing_event): An [`Event` handler](#event-handler) function. Fires when the media starts or restarts playing.
-* `onPlayingCapture`: A version of `onPlaying` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onProgress`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/progress_event): An [`Event` handler](#event-handler) function. Fires periodically while the resource is loading.
-* `onProgressCapture`: A version of `onProgress` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onRateChange`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/ratechange_event): An [`Event` handler](#event-handler) function. Fires when playback rate changes.
-* `onRateChangeCapture`: A version of `onRateChange` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* `onResize`: An [`Event` handler](#event-handler) function. Fires when video changes size.
-* `onResizeCapture`: A version of `onResize` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onSeeked`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/seeked_event): An [`Event` handler](#event-handler) function. Fires when a seek operation completes.
-* `onSeekedCapture`: A version of `onSeeked` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onSeeking`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/seeking_event): An [`Event` handler](#event-handler) function. Fires when a seek operation starts.
-* `onSeekingCapture`: A version of `onSeeking` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onStalled`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/stalled_event): An [`Event` handler](#event-handler) function. Fires when the browser is waiting for data but it keeps not loading.
-* `onStalledCapture`: A version of `onStalled` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onSuspend`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/suspend_event): An [`Event` handler](#event-handler) function. Fires when loading the resource was suspended.
-* `onSuspendCapture`: A version of `onSuspend` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onTimeUpdate`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/timeupdate_event): An [`Event` handler](#event-handler) function. Fires when the current playback time updates.
-* `onTimeUpdateCapture`: A version of `onTimeUpdate` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onVolumeChange`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/volumechange_event): An [`Event` handler](#event-handler) function. Fires when the volume has changed.
-* `onVolumeChangeCapture`: A version of `onVolumeChange` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onWaiting`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/waiting_event): An [`Event` handler](#event-handler) function. Fires when the playback stopped due to temporary lack of data.
-* `onWaitingCapture`: A version of `onWaiting` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
+* [`onAbort`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/abort_event): ஒரு [`Event` handler](#event-handler) function. Resource முழுமையாக load ஆகாதபோது, ஆனால் error காரணமாக அல்லாதபோது fire ஆகும்.
+* `onAbortCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onAbort`-ன் version.
+* [`onCanPlay`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/canplay_event): ஒரு [`Event` handler](#event-handler) function. Play தொடங்க போதுமான data இருக்கும்போது, ஆனால் buffering இல்லாமல் முடிவு வரை play செய்ய போதுமானதாக இல்லாதபோது fire ஆகும்.
+* `onCanPlayCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onCanPlay`-ன் version.
+* [`onCanPlayThrough`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/canplaythrough_event): ஒரு [`Event` handler](#event-handler) function. முடிவு வரை buffering இல்லாமல் play செய்ய போதுமான data இருக்கக்கூடும் என்ற நிலையில் fire ஆகும்.
+* `onCanPlayThroughCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onCanPlayThrough`-ன் version.
+* [`onDurationChange`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/durationchange_event): ஒரு [`Event` handler](#event-handler) function. Media duration update ஆனபோது fire ஆகும்.
+* `onDurationChangeCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onDurationChange`-ன் version.
+* [`onEmptied`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/emptied_event): ஒரு [`Event` handler](#event-handler) function. Media empty ஆனபோது fire ஆகும்.
+* `onEmptiedCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onEmptied`-ன் version.
+* [`onEncrypted`](https://w3c.github.io/encrypted-media/#dom-evt-encrypted): ஒரு [`Event` handler](#event-handler) function. Browser encrypted media-வை சந்திக்கும் போது fire ஆகும்.
+* `onEncryptedCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onEncrypted`-ன் version.
+* [`onEnded`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/ended_event): ஒரு [`Event` handler](#event-handler) function. Play செய்ய எதுவும் மீதமில்லாததால் playback நிற்கும்போது fire ஆகும்.
+* `onEndedCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onEnded`-ன் version.
+* [`onError`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/error_event): ஒரு [`Event` handler](#event-handler) function. Resource load ஆக முடியாதபோது fire ஆகும்.
+* `onErrorCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onError`-ன் version.
+* [`onLoadedData`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/loadeddata_event): ஒரு [`Event` handler](#event-handler) function. தற்போதைய playback frame load ஆனபோது fire ஆகும்.
+* `onLoadedDataCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onLoadedData`-ன் version.
+* [`onLoadedMetadata`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/loadedmetadata_event): ஒரு [`Event` handler](#event-handler) function. Metadata load ஆனபோது fire ஆகும்.
+* `onLoadedMetadataCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onLoadedMetadata`-ன் version.
+* [`onLoadStart`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/loadstart_event): ஒரு [`Event` handler](#event-handler) function. Browser resource-ஐ load செய்யத் தொடங்கும்போது fire ஆகும்.
+* `onLoadStartCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onLoadStart`-ன் version.
+* [`onPause`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/pause_event): ஒரு [`Event` handler](#event-handler) function. Media pause செய்யப்பட்டபோது fire ஆகும்.
+* `onPauseCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onPause`-ன் version.
+* [`onPlay`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/play_event): ஒரு [`Event` handler](#event-handler) function. Media இனி paused இல்லாதபோது fire ஆகும்.
+* `onPlayCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onPlay`-ன் version.
+* [`onPlaying`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/playing_event): ஒரு [`Event` handler](#event-handler) function. Media play செய்யத் தொடங்கும்போது அல்லது மீண்டும் தொடங்கும்போது fire ஆகும்.
+* `onPlayingCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onPlaying`-ன் version.
+* [`onProgress`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/progress_event): ஒரு [`Event` handler](#event-handler) function. Resource load ஆகிக்கொண்டிருக்கும் போது அவ்வப்போது fire ஆகும்.
+* `onProgressCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onProgress`-ன் version.
+* [`onRateChange`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/ratechange_event): ஒரு [`Event` handler](#event-handler) function. Playback rate மாறும்போது fire ஆகும்.
+* `onRateChangeCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onRateChange`-ன் version.
+* `onResize`: ஒரு [`Event` handler](#event-handler) function. Video size மாறும்போது fire ஆகும்.
+* `onResizeCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onResize`-ன் version.
+* [`onSeeked`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/seeked_event): ஒரு [`Event` handler](#event-handler) function. Seek operation முடிந்தபோது fire ஆகும்.
+* `onSeekedCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onSeeked`-ன் version.
+* [`onSeeking`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/seeking_event): ஒரு [`Event` handler](#event-handler) function. Seek operation தொடங்கும்போது fire ஆகும்.
+* `onSeekingCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onSeeking`-ன் version.
+* [`onStalled`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/stalled_event): ஒரு [`Event` handler](#event-handler) function. Browser data-க்காக காத்திருக்கும்போது ஆனால் அது தொடர்ந்து load ஆகாதபோது fire ஆகும்.
+* `onStalledCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onStalled`-ன் version.
+* [`onSuspend`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/suspend_event): ஒரு [`Event` handler](#event-handler) function. Resource loading suspend செய்யப்பட்டபோது fire ஆகும்.
+* `onSuspendCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onSuspend`-ன் version.
+* [`onTimeUpdate`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/timeupdate_event): ஒரு [`Event` handler](#event-handler) function. தற்போதைய playback time update ஆனபோது fire ஆகும்.
+* `onTimeUpdateCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onTimeUpdate`-ன் version.
+* [`onVolumeChange`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/volumechange_event): ஒரு [`Event` handler](#event-handler) function. Volume மாறியபோது fire ஆகும்.
+* `onVolumeChangeCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onVolumeChange`-ன் version.
+* [`onWaiting`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/waiting_event): ஒரு [`Event` handler](#event-handler) function. Temporary data இல்லாமையால் playback நிற்கும்போது fire ஆகும்.
+* `onWaitingCapture`: [capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onWaiting`-ன் version.
 
 #### Caveats {/*common-caveats*/}
 
-- You cannot pass both `children` and `dangerouslySetInnerHTML` at the same time.
-- Some events (like `onAbort` and `onLoad`) don't bubble in the browser, but bubble in React.
+- `children` மற்றும் `dangerouslySetInnerHTML` இரண்டையும் ஒரே நேரத்தில் pass செய்ய முடியாது.
+- சில events (`onAbort` மற்றும் `onLoad` போன்றவை) browser-இல் bubble ஆகாது, ஆனால் React-இல் bubble ஆகும்.
 
 ---
 
 ### `ref` callback function {/*ref-callback*/}
 
-Instead of a ref object (like the one returned by [`useRef`](/reference/react/useRef#manipulating-the-dom-with-a-ref)), you may pass a function to the `ref` attribute.
+Ref object-க்கு பதிலாக ([`useRef`](/reference/react/useRef#manipulating-the-dom-with-a-ref) return செய்யும் object போன்றது), `ref` attribute-க்கு function pass செய்யலாம்.
 
 ```js
 <div ref={(node) => {
-  console.log('Attached', node);
+  console.log('இணைக்கப்பட்டது', node);
 
   return () => {
-    console.log('Clean up', node)
+    console.log('சுத்தம் செய்யவும்', node)
   }
 }}>
 ```
 
-[See an example of using the `ref` callback.](/learn/manipulating-the-dom-with-refs#how-to-manage-a-list-of-refs-using-a-ref-callback)
+[`ref` callback பயன்படுத்தும் உதாரணத்தை பார்க்கவும்.](/learn/manipulating-the-dom-with-refs#how-to-manage-a-list-of-refs-using-a-ref-callback)
 
-When the `<div>` DOM node is added to the screen, React will call your `ref` callback with the DOM `node` as the argument. When that `<div>` DOM node is removed, React will call your the cleanup function returned from the callback.
+`<div>` DOM node screen-க்கு சேர்க்கப்படும் போது, DOM `node`-ஐ argument ஆக வைத்து React உங்கள் `ref` callback-ஐ call செய்யும். அந்த `<div>` DOM node நீக்கப்படும் போது, callback return செய்த cleanup function-ஐ React call செய்யும்.
 
-React will also call your `ref` callback whenever you pass a *different* `ref` callback. In the above example, `(node) => { ... }` is a different function on every render. When your component re-renders, the *previous* function will be called with `null` as the argument, and the *next* function will be called with the DOM node.
+நீங்கள் *வேறு* `ref` callback pass செய்யும் ஒவ்வொரு முறையும் React உங்கள் `ref` callback-ஐ call செய்யும். மேலுள்ள உதாரணத்தில், `(node) => { ... }` ஒவ்வொரு render-இலும் வேறு function ஆகும். உங்கள் component re-render ஆகும்போது, *முந்தைய* function `null` argument-உடன் call செய்யப்படும்; *அடுத்த* function DOM node-உடன் call செய்யப்படும்.
 
 #### Parameters {/*ref-callback-parameters*/}
 
-* `node`: A DOM node. React will pass you the DOM node when the ref gets attached. Unless you pass the same function reference for the `ref` callback on every render, the callback will get temporarily cleanup and re-create during every re-render of the component.
+* `node`: ஒரு DOM node. Ref attach ஆகும்போது React DOM node-ஐ உங்களுக்கு pass செய்யும். ஒவ்வொரு render-இலும் `ref` callback-க்காக அதே function reference-ஐ pass செய்யாவிட்டால், component re-render ஆகும் ஒவ்வொரு முறையும் callback தற்காலிகமாக cleanup செய்யப்பட்டு மீண்டும் உருவாக்கப்படும்.
 
 <Note>
 
-#### React 19 added cleanup functions for `ref` callbacks. {/*react-19-added-cleanup-functions-for-ref-callbacks*/}
+#### React 19, `ref` callbacks-க்கு cleanup செயல்பாடுகளை சேர்த்தது. {/*react-19-added-cleanup-functions-for-ref-callbacks*/}
 
-To support backwards compatibility, if a cleanup function is not returned from the `ref` callback, `node` will be called with `null` when the `ref` is detached. This behavior will be removed in a future version.
+Backwards compatibility-ஐ support செய்ய, `ref` callback-இலிருந்து cleanup function return செய்யப்படவில்லை என்றால், `ref` detach ஆகும் போது `node` `null` உடன் call செய்யப்படும். இந்த behavior எதிர்கால version-இல் நீக்கப்படும்.
 
 </Note>
 
 #### Returns {/*returns*/}
 
-* **optional** `cleanup function`: When the `ref` is detached, React will call the cleanup function. If a function is not returned by the `ref` callback, React will call the callback again with `null` as the argument when the `ref` gets detached. This behavior will be removed in a future version.
+* **optional** `cleanup function`: `ref` detach ஆகும்போது React cleanup function-ஐ call செய்யும். `ref` callback ஒரு function return செய்யாவிட்டால், `ref` detach ஆகும் போது React callback-ஐ மீண்டும் `null` argument-உடன் call செய்யும். இந்த behavior எதிர்கால version-இல் நீக்கப்படும்.
 
 #### Caveats {/*caveats*/}
 
-* When Strict Mode is on, React will **run one extra development-only setup+cleanup cycle** before the first real setup. This is a stress-test that ensures that your cleanup logic "mirrors" your setup logic and that it stops or undoes whatever the setup is doing. If this causes a problem, implement the cleanup function.
-* When you pass a *different* `ref` callback, React will call the *previous* callback's cleanup function if provided. If no cleanup function is defined, the `ref` callback will be called with `null` as the argument. The *next* function will be called with the DOM node.
+* Strict Mode on ஆக இருந்தால், முதல் real setup-க்கு முன் React **development-க்கு மட்டும் கூடுதல் setup+cleanup cycle ஒன்றை** run செய்யும். உங்கள் cleanup logic setup logic-ஐ "mirror" செய்கிறதா, setup செய்கிறதை நிறுத்துகிறதா அல்லது undo செய்கிறதா என்பதை உறுதி செய்யும் stress-test இது. இது பிரச்சினை தருமானால், cleanup function-ஐ implement செய்யுங்கள்.
+* நீங்கள் *வேறு* `ref` callback pass செய்தால், React *முந்தைய* callback-ன் cleanup function-ஐ call செய்யும். Cleanup function define செய்யப்படவில்லை என்றால், `ref` callback `null` argument-உடன் call செய்யப்படும். *அடுத்த* function DOM node-உடன் call செய்யப்படும்.
 
 ---
 
 ### React event object {/*react-event-object*/}
 
-Your event handlers will receive a *React event object.* It is also sometimes known as a "synthetic event".
+உங்கள் event handlers ஒரு *React event object*-ஐப் பெறும். இது சில நேரங்களில் "synthetic event" என்றும் அழைக்கப்படுகிறது.
 
 ```js
 <button onClick={e => {
@@ -294,50 +294,50 @@ Your event handlers will receive a *React event object.* It is also sometimes kn
 }} />
 ```
 
-It conforms to the same standard as the underlying DOM events, but fixes some browser inconsistencies.
+இது underlying DOM events போலவே அதே standard-ஐ பின்பற்றுகிறது, ஆனால் சில browser inconsistencies-ஐ சரிசெய்கிறது.
 
-Some React events do not map directly to the browser's native events. For example in `onMouseLeave`, `e.nativeEvent` will point to a `mouseout` event. The specific mapping is not part of the public API and may change in the future. If you need the underlying browser event for some reason, read it from `e.nativeEvent`.
+சில React events browser-ன் native events-க்கு நேரடியாக map ஆகாது. உதாரணமாக `onMouseLeave`-இல், `e.nativeEvent` ஒரு `mouseout` event-ஐ point செய்யும். இந்த specific mapping public API-ன் பகுதி அல்ல; எதிர்காலத்தில் மாறலாம். ஏதாவது காரணத்திற்காக underlying browser event தேவைப்பட்டால், அதை `e.nativeEvent`-இலிருந்து வாசிக்கவும்.
 
 #### Properties {/*react-event-object-properties*/}
 
-React event objects implement some of the standard [`Event`](https://developer.mozilla.org/en-US/docs/Web/API/Event) properties:
+React event objects சில standard [`Event`](https://developer.mozilla.org/en-US/docs/Web/API/Event) properties-ஐ implement செய்கின்றன:
 
-* [`bubbles`](https://developer.mozilla.org/en-US/docs/Web/API/Event/bubbles): A boolean. Returns whether the event bubbles through the DOM.
-* [`cancelable`](https://developer.mozilla.org/en-US/docs/Web/API/Event/cancelable): A boolean. Returns whether the event can be canceled.
-* [`currentTarget`](https://developer.mozilla.org/en-US/docs/Web/API/Event/currentTarget): A DOM node. Returns the node to which the current handler is attached in the React tree.
-* [`defaultPrevented`](https://developer.mozilla.org/en-US/docs/Web/API/Event/defaultPrevented): A boolean. Returns whether `preventDefault` was called.
-* [`eventPhase`](https://developer.mozilla.org/en-US/docs/Web/API/Event/eventPhase): A number. Returns which phase the event is currently in.
-* [`isTrusted`](https://developer.mozilla.org/en-US/docs/Web/API/Event/isTrusted): A boolean. Returns whether the event was initiated by user.
-* [`target`](https://developer.mozilla.org/en-US/docs/Web/API/Event/target): A DOM node. Returns the node on which the event has occurred (which could be a distant child).
-* [`timeStamp`](https://developer.mozilla.org/en-US/docs/Web/API/Event/timeStamp): A number. Returns the time when the event occurred.
+* [`bubbles`](https://developer.mozilla.org/en-US/docs/Web/API/Event/bubbles): ஒரு boolean. Event DOM வழியாக bubble ஆகுமா என்பதை return செய்கிறது.
+* [`cancelable`](https://developer.mozilla.org/en-US/docs/Web/API/Event/cancelable): ஒரு boolean. Event cancel செய்ய முடியுமா என்பதை return செய்கிறது.
+* [`currentTarget`](https://developer.mozilla.org/en-US/docs/Web/API/Event/currentTarget): ஒரு DOM node. React tree-இல் current handler attach செய்யப்பட்ட node-ஐ return செய்கிறது.
+* [`defaultPrevented`](https://developer.mozilla.org/en-US/docs/Web/API/Event/defaultPrevented): ஒரு boolean. `preventDefault` call செய்யப்பட்டதா என்பதை return செய்கிறது.
+* [`eventPhase`](https://developer.mozilla.org/en-US/docs/Web/API/Event/eventPhase): ஒரு number. Event தற்போது எந்த phase-இல் உள்ளது என்பதை return செய்கிறது.
+* [`isTrusted`](https://developer.mozilla.org/en-US/docs/Web/API/Event/isTrusted): ஒரு boolean. Event user மூலம் தொடங்கப்பட்டதா என்பதை return செய்கிறது.
+* [`target`](https://developer.mozilla.org/en-US/docs/Web/API/Event/target): ஒரு DOM node. Event நிகழ்ந்த node-ஐ return செய்கிறது (அது தூரத்தில் உள்ள child ஆக இருக்கலாம்).
+* [`timeStamp`](https://developer.mozilla.org/en-US/docs/Web/API/Event/timeStamp): ஒரு number. Event நிகழ்ந்த நேரத்தை return செய்கிறது.
 
-Additionally, React event objects provide these properties:
+கூடுதலாக, React event objects இந்த properties-ஐ வழங்குகின்றன:
 
-* `nativeEvent`: A DOM [`Event`](https://developer.mozilla.org/en-US/docs/Web/API/Event). The original browser event object.
+* `nativeEvent`: ஒரு DOM [`Event`](https://developer.mozilla.org/en-US/docs/Web/API/Event). Original browser event object.
 
 #### Methods {/*react-event-object-methods*/}
 
-React event objects implement some of the standard [`Event`](https://developer.mozilla.org/en-US/docs/Web/API/Event) methods:
+React event objects சில standard [`Event`](https://developer.mozilla.org/en-US/docs/Web/API/Event) methods-ஐ implement செய்கின்றன:
 
-* [`preventDefault()`](https://developer.mozilla.org/en-US/docs/Web/API/Event/preventDefault): Prevents the default browser action for the event.
-* [`stopPropagation()`](https://developer.mozilla.org/en-US/docs/Web/API/Event/stopPropagation): Stops the event propagation through the React tree.
+* [`preventDefault()`](https://developer.mozilla.org/en-US/docs/Web/API/Event/preventDefault): Event-க்கான default browser action-ஐத் தடுக்கிறது.
+* [`stopPropagation()`](https://developer.mozilla.org/en-US/docs/Web/API/Event/stopPropagation): React tree வழியாக event propagation-ஐ நிறுத்துகிறது.
 
-Additionally, React event objects provide these methods:
+கூடுதலாக, React event objects இந்த methods-ஐ வழங்குகின்றன:
 
-* `isDefaultPrevented()`: Returns a boolean value indicating whether `preventDefault` was called.
-* `isPropagationStopped()`: Returns a boolean value indicating whether `stopPropagation` was called.
-* `persist()`: Not used with React DOM. With React Native, call this to read event's properties after the event.
-* `isPersistent()`: Not used with React DOM. With React Native, returns whether `persist` has been called.
+* `isDefaultPrevented()`: `preventDefault` call செய்யப்பட்டதா என்பதை காட்டும் boolean value-ஐ return செய்கிறது.
+* `isPropagationStopped()`: `stopPropagation` call செய்யப்பட்டதா என்பதை காட்டும் boolean value-ஐ return செய்கிறது.
+* `persist()`: React DOM உடன் பயன்படுத்தப்படாது. React Native-இல், event பிறகு event-ன் properties-ஐ வாசிக்க இதை call செய்யுங்கள்.
+* `isPersistent()`: React DOM உடன் பயன்படுத்தப்படாது. React Native-இல், `persist` call செய்யப்பட்டதா என்பதை return செய்கிறது.
 
 #### Caveats {/*react-event-object-caveats*/}
 
-* The values of `currentTarget`, `eventPhase`, `target`, and `type` reflect the values your React code expects. Under the hood, React attaches event handlers at the root, but this is not reflected in React event objects. For example, `e.currentTarget` may not be the same as the underlying `e.nativeEvent.currentTarget`. For polyfilled events, `e.type` (React event type) may differ from `e.nativeEvent.type` (underlying type).
+* `currentTarget`, `eventPhase`, `target`, மற்றும் `type` values உங்கள் React code எதிர்பார்க்கும் values-ஐ reflect செய்கின்றன. Internally, React event handlers-ஐ root-இல் attach செய்கிறது, ஆனால் இது React event objects-இல் reflect ஆகாது. உதாரணமாக, `e.currentTarget` underlying `e.nativeEvent.currentTarget`-ஐப் போல இருக்க வேண்டியதில்லை. Polyfilled events-க்கு, `e.type` (React event type) `e.nativeEvent.type` (underlying type)-இலிருந்து மாறுபடலாம்.
 
 ---
 
 ### `AnimationEvent` handler function {/*animationevent-handler*/}
 
-An event handler type for the [CSS animation](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Animations/Using_CSS_animations) events.
+[CSS animation](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Animations/Using_CSS_animations) events-க்கான event handler type.
 
 ```js
 <div
@@ -349,7 +349,7 @@ An event handler type for the [CSS animation](https://developer.mozilla.org/en-U
 
 #### Parameters {/*animationevent-handler-parameters*/}
 
-* `e`: A [React event object](#react-event-object) with these extra [`AnimationEvent`](https://developer.mozilla.org/en-US/docs/Web/API/AnimationEvent) properties:
+* `e`: இந்த கூடுதல் [`AnimationEvent`](https://developer.mozilla.org/en-US/docs/Web/API/AnimationEvent) properties கொண்ட [React event object](#react-event-object):
   * [`animationName`](https://developer.mozilla.org/en-US/docs/Web/API/AnimationEvent/animationName)
   * [`elapsedTime`](https://developer.mozilla.org/en-US/docs/Web/API/AnimationEvent/elapsedTime)
   * [`pseudoElement`](https://developer.mozilla.org/en-US/docs/Web/API/AnimationEvent/pseudoElement)
@@ -358,7 +358,7 @@ An event handler type for the [CSS animation](https://developer.mozilla.org/en-U
 
 ### `ClipboardEvent` handler function {/*clipboadevent-handler*/}
 
-An event handler type for the [Clipboard API](https://developer.mozilla.org/en-US/docs/Web/API/Clipboard_API) events.
+[Clipboard API](https://developer.mozilla.org/en-US/docs/Web/API/Clipboard_API) events-க்கான event handler type.
 
 ```js
 <input
@@ -370,7 +370,7 @@ An event handler type for the [Clipboard API](https://developer.mozilla.org/en-U
 
 #### Parameters {/*clipboadevent-handler-parameters*/}
 
-* `e`: A [React event object](#react-event-object) with these extra [`ClipboardEvent`](https://developer.mozilla.org/en-US/docs/Web/API/ClipboardEvent) properties:
+* `e`: இந்த கூடுதல் [`ClipboardEvent`](https://developer.mozilla.org/en-US/docs/Web/API/ClipboardEvent) properties கொண்ட [React event object](#react-event-object):
 
   * [`clipboardData`](https://developer.mozilla.org/en-US/docs/Web/API/ClipboardEvent/clipboardData)
 
@@ -378,7 +378,7 @@ An event handler type for the [Clipboard API](https://developer.mozilla.org/en-U
 
 ### `CompositionEvent` handler function {/*compositionevent-handler*/}
 
-An event handler type for the [input method editor (IME)](https://developer.mozilla.org/en-US/docs/Glossary/Input_method_editor) events.
+[Input method editor (IME)](https://developer.mozilla.org/en-US/docs/Glossary/Input_method_editor) events-க்கான event handler type.
 
 ```js
 <input
@@ -390,14 +390,14 @@ An event handler type for the [input method editor (IME)](https://developer.mozi
 
 #### Parameters {/*compositionevent-handler-parameters*/}
 
-* `e`: A [React event object](#react-event-object) with these extra [`CompositionEvent`](https://developer.mozilla.org/en-US/docs/Web/API/CompositionEvent) properties:
+* `e`: இந்த கூடுதல் [`CompositionEvent`](https://developer.mozilla.org/en-US/docs/Web/API/CompositionEvent) properties கொண்ட [React event object](#react-event-object):
   * [`data`](https://developer.mozilla.org/en-US/docs/Web/API/CompositionEvent/data)
 
 ---
 
 ### `DragEvent` handler function {/*dragevent-handler*/}
 
-An event handler type for the [HTML Drag and Drop API](https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API) events.
+[HTML Drag and Drop API](https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API) events-க்கான event handler type.
 
 ```js
 <>
@@ -406,7 +406,7 @@ An event handler type for the [HTML Drag and Drop API](https://developer.mozilla
     onDragStart={e => console.log('onDragStart')}
     onDragEnd={e => console.log('onDragEnd')}
   >
-    Drag source
+    இழுக்கும் மூலம்
   </div>
 
   <div
@@ -415,17 +415,17 @@ An event handler type for the [HTML Drag and Drop API](https://developer.mozilla
     onDragOver={e => { e.preventDefault(); console.log('onDragOver'); }}
     onDrop={e => console.log('onDrop')}
   >
-    Drop target
+    Drop இலக்கு
   </div>
 </>
 ```
 
 #### Parameters {/*dragevent-handler-parameters*/}
 
-* `e`: A [React event object](#react-event-object) with these extra [`DragEvent`](https://developer.mozilla.org/en-US/docs/Web/API/DragEvent) properties:
+* `e`: இந்த கூடுதல் [`DragEvent`](https://developer.mozilla.org/en-US/docs/Web/API/DragEvent) properties கொண்ட [React event object](#react-event-object):
   * [`dataTransfer`](https://developer.mozilla.org/en-US/docs/Web/API/DragEvent/dataTransfer)
 
-  It also includes the inherited [`MouseEvent`](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent) properties:
+  இதில் inherited [`MouseEvent`](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent) properties-உம் அடங்கும்:
 
   * [`altKey`](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/altKey)
   * [`button`](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/button)
@@ -444,7 +444,7 @@ An event handler type for the [HTML Drag and Drop API](https://developer.mozilla
   * [`screenY`](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/screenY)
   * [`shiftKey`](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/shiftKey)
 
-  It also includes the inherited [`UIEvent`](https://developer.mozilla.org/en-US/docs/Web/API/UIEvent) properties:
+  இதில் inherited [`UIEvent`](https://developer.mozilla.org/en-US/docs/Web/API/UIEvent) properties-உம் அடங்கும்:
 
   * [`detail`](https://developer.mozilla.org/en-US/docs/Web/API/UIEvent/detail)
   * [`view`](https://developer.mozilla.org/en-US/docs/Web/API/UIEvent/view)
@@ -453,7 +453,7 @@ An event handler type for the [HTML Drag and Drop API](https://developer.mozilla
 
 ### `FocusEvent` handler function {/*focusevent-handler*/}
 
-An event handler type for the focus events.
+Focus events-க்கான event handler type.
 
 ```js
 <input
@@ -462,14 +462,14 @@ An event handler type for the focus events.
 />
 ```
 
-[See an example.](#handling-focus-events)
+[ஒரு example-ஐ பார்க்கவும்.](#handling-focus-events)
 
 #### Parameters {/*focusevent-handler-parameters*/}
 
-* `e`: A [React event object](#react-event-object) with these extra [`FocusEvent`](https://developer.mozilla.org/en-US/docs/Web/API/FocusEvent) properties:
+* `e`: இந்த கூடுதல் [`FocusEvent`](https://developer.mozilla.org/en-US/docs/Web/API/FocusEvent) properties கொண்ட [React event object](#react-event-object):
   * [`relatedTarget`](https://developer.mozilla.org/en-US/docs/Web/API/FocusEvent/relatedTarget)
 
-  It also includes the inherited [`UIEvent`](https://developer.mozilla.org/en-US/docs/Web/API/UIEvent) properties:
+  இதில் inherited [`UIEvent`](https://developer.mozilla.org/en-US/docs/Web/API/UIEvent) properties-உம் அடங்கும்:
 
   * [`detail`](https://developer.mozilla.org/en-US/docs/Web/API/UIEvent/detail)
   * [`view`](https://developer.mozilla.org/en-US/docs/Web/API/UIEvent/view)
@@ -478,17 +478,17 @@ An event handler type for the focus events.
 
 ### `Event` handler function {/*event-handler*/}
 
-An event handler type for generic events.
+Generic events-க்கான event handler type.
 
 #### Parameters {/*event-handler-parameters*/}
 
-* `e`: A [React event object](#react-event-object) with no additional properties.
+* `e`: கூடுதல் properties இல்லாத [React event object](#react-event-object).
 
 ---
 
 ### `InputEvent` handler function {/*inputevent-handler*/}
 
-An event handler type for the `onBeforeInput` event.
+`onBeforeInput` event-க்கான event handler type.
 
 ```js
 <input onBeforeInput={e => console.log('onBeforeInput')} />
@@ -496,14 +496,14 @@ An event handler type for the `onBeforeInput` event.
 
 #### Parameters {/*inputevent-handler-parameters*/}
 
-* `e`: A [React event object](#react-event-object) with these extra [`InputEvent`](https://developer.mozilla.org/en-US/docs/Web/API/InputEvent) properties:
+* `e`: இந்த கூடுதல் [`InputEvent`](https://developer.mozilla.org/en-US/docs/Web/API/InputEvent) properties கொண்ட [React event object](#react-event-object):
   * [`data`](https://developer.mozilla.org/en-US/docs/Web/API/InputEvent/data)
 
 ---
 
 ### `KeyboardEvent` handler function {/*keyboardevent-handler*/}
 
-An event handler type for keyboard events.
+Keyboard events-க்கான event handler type.
 
 ```js
 <input
@@ -512,11 +512,11 @@ An event handler type for keyboard events.
 />
 ```
 
-[See an example.](#handling-keyboard-events)
+[ஒரு example-ஐ பார்க்கவும்.](#handling-keyboard-events)
 
 #### Parameters {/*keyboardevent-handler-parameters*/}
 
-* `e`: A [React event object](#react-event-object) with these extra [`KeyboardEvent`](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent) properties:
+* `e`: இந்த கூடுதல் [`KeyboardEvent`](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent) properties கொண்ட [React event object](#react-event-object):
   * [`altKey`](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/altKey)
   * [`charCode`](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/charCode)
   * [`code`](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code)
@@ -531,7 +531,7 @@ An event handler type for keyboard events.
   * [`shiftKey`](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/shiftKey)
   * [`which`](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/which)
 
-  It also includes the inherited [`UIEvent`](https://developer.mozilla.org/en-US/docs/Web/API/UIEvent) properties:
+  இதில் inherited [`UIEvent`](https://developer.mozilla.org/en-US/docs/Web/API/UIEvent) properties-உம் அடங்கும்:
 
   * [`detail`](https://developer.mozilla.org/en-US/docs/Web/API/UIEvent/detail)
   * [`view`](https://developer.mozilla.org/en-US/docs/Web/API/UIEvent/view)
@@ -540,7 +540,7 @@ An event handler type for keyboard events.
 
 ### `MouseEvent` handler function {/*mouseevent-handler*/}
 
-An event handler type for mouse events.
+Mouse events-க்கான event handler type.
 
 ```js
 <div
@@ -553,11 +553,11 @@ An event handler type for mouse events.
 />
 ```
 
-[See an example.](#handling-mouse-events)
+[ஒரு example-ஐ பார்க்கவும்.](#handling-mouse-events)
 
 #### Parameters {/*mouseevent-handler-parameters*/}
 
-* `e`: A [React event object](#react-event-object) with these extra [`MouseEvent`](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent) properties:
+* `e`: இந்த கூடுதல் [`MouseEvent`](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent) properties கொண்ட [React event object](#react-event-object):
   * [`altKey`](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/altKey)
   * [`button`](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/button)
   * [`buttons`](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/buttons)
@@ -575,7 +575,7 @@ An event handler type for mouse events.
   * [`screenY`](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/screenY)
   * [`shiftKey`](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/shiftKey)
 
-  It also includes the inherited [`UIEvent`](https://developer.mozilla.org/en-US/docs/Web/API/UIEvent) properties:
+  இதில் inherited [`UIEvent`](https://developer.mozilla.org/en-US/docs/Web/API/UIEvent) properties-உம் அடங்கும்:
 
   * [`detail`](https://developer.mozilla.org/en-US/docs/Web/API/UIEvent/detail)
   * [`view`](https://developer.mozilla.org/en-US/docs/Web/API/UIEvent/view)
@@ -584,7 +584,7 @@ An event handler type for mouse events.
 
 ### `PointerEvent` handler function {/*pointerevent-handler*/}
 
-An event handler type for [pointer events.](https://developer.mozilla.org/en-US/docs/Web/API/Pointer_events)
+[Pointer events](https://developer.mozilla.org/en-US/docs/Web/API/Pointer_events)-க்கான event handler type.
 
 ```js
 <div
@@ -596,11 +596,11 @@ An event handler type for [pointer events.](https://developer.mozilla.org/en-US/
 />
 ```
 
-[See an example.](#handling-pointer-events)
+[ஒரு example-ஐ பார்க்கவும்.](#handling-pointer-events)
 
 #### Parameters {/*pointerevent-handler-parameters*/}
 
-* `e`: A [React event object](#react-event-object) with these extra [`PointerEvent`](https://developer.mozilla.org/en-US/docs/Web/API/PointerEvent) properties:
+* `e`: இந்த கூடுதல் [`PointerEvent`](https://developer.mozilla.org/en-US/docs/Web/API/PointerEvent) properties கொண்ட [React event object](#react-event-object):
   * [`height`](https://developer.mozilla.org/en-US/docs/Web/API/PointerEvent/height)
   * [`isPrimary`](https://developer.mozilla.org/en-US/docs/Web/API/PointerEvent/isPrimary)
   * [`pointerId`](https://developer.mozilla.org/en-US/docs/Web/API/PointerEvent/pointerId)
@@ -612,7 +612,7 @@ An event handler type for [pointer events.](https://developer.mozilla.org/en-US/
   * [`twist`](https://developer.mozilla.org/en-US/docs/Web/API/PointerEvent/twist)
   * [`width`](https://developer.mozilla.org/en-US/docs/Web/API/PointerEvent/width)
 
-  It also includes the inherited [`MouseEvent`](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent) properties:
+  இதில் inherited [`MouseEvent`](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent) properties-உம் அடங்கும்:
 
   * [`altKey`](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/altKey)
   * [`button`](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/button)
@@ -631,7 +631,7 @@ An event handler type for [pointer events.](https://developer.mozilla.org/en-US/
   * [`screenY`](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/screenY)
   * [`shiftKey`](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/shiftKey)
 
-  It also includes the inherited [`UIEvent`](https://developer.mozilla.org/en-US/docs/Web/API/UIEvent) properties:
+  இதில் inherited [`UIEvent`](https://developer.mozilla.org/en-US/docs/Web/API/UIEvent) properties-உம் அடங்கும்:
 
   * [`detail`](https://developer.mozilla.org/en-US/docs/Web/API/UIEvent/detail)
   * [`view`](https://developer.mozilla.org/en-US/docs/Web/API/UIEvent/view)
@@ -640,7 +640,7 @@ An event handler type for [pointer events.](https://developer.mozilla.org/en-US/
 
 ### `TouchEvent` handler function {/*touchevent-handler*/}
 
-An event handler type for [touch events.](https://developer.mozilla.org/en-US/docs/Web/API/Touch_events)
+[Touch events](https://developer.mozilla.org/en-US/docs/Web/API/Touch_events)-க்கான event handler type.
 
 ```js
 <div
@@ -653,7 +653,7 @@ An event handler type for [touch events.](https://developer.mozilla.org/en-US/do
 
 #### Parameters {/*touchevent-handler-parameters*/}
 
-* `e`: A [React event object](#react-event-object) with these extra [`TouchEvent`](https://developer.mozilla.org/en-US/docs/Web/API/TouchEvent) properties:
+* `e`: இந்த கூடுதல் [`TouchEvent`](https://developer.mozilla.org/en-US/docs/Web/API/TouchEvent) properties கொண்ட [React event object](#react-event-object):
   * [`altKey`](https://developer.mozilla.org/en-US/docs/Web/API/TouchEvent/altKey)
   * [`ctrlKey`](https://developer.mozilla.org/en-US/docs/Web/API/TouchEvent/ctrlKey)
   * [`changedTouches`](https://developer.mozilla.org/en-US/docs/Web/API/TouchEvent/changedTouches)
@@ -663,7 +663,7 @@ An event handler type for [touch events.](https://developer.mozilla.org/en-US/do
   * [`touches`](https://developer.mozilla.org/en-US/docs/Web/API/TouchEvent/touches)
   * [`targetTouches`](https://developer.mozilla.org/en-US/docs/Web/API/TouchEvent/targetTouches)
 
-  It also includes the inherited [`UIEvent`](https://developer.mozilla.org/en-US/docs/Web/API/UIEvent) properties:
+  இதில் inherited [`UIEvent`](https://developer.mozilla.org/en-US/docs/Web/API/UIEvent) properties-உம் அடங்கும்:
 
   * [`detail`](https://developer.mozilla.org/en-US/docs/Web/API/UIEvent/detail)
   * [`view`](https://developer.mozilla.org/en-US/docs/Web/API/UIEvent/view)
@@ -672,7 +672,7 @@ An event handler type for [touch events.](https://developer.mozilla.org/en-US/do
 
 ### `TransitionEvent` handler function {/*transitionevent-handler*/}
 
-An event handler type for the CSS transition events.
+CSS transition events-க்கான event handler type.
 
 ```js
 <div
@@ -682,7 +682,7 @@ An event handler type for the CSS transition events.
 
 #### Parameters {/*transitionevent-handler-parameters*/}
 
-* `e`: A [React event object](#react-event-object) with these extra [`TransitionEvent`](https://developer.mozilla.org/en-US/docs/Web/API/TransitionEvent) properties:
+* `e`: இந்த கூடுதல் [`TransitionEvent`](https://developer.mozilla.org/en-US/docs/Web/API/TransitionEvent) properties கொண்ட [React event object](#react-event-object):
   * [`elapsedTime`](https://developer.mozilla.org/en-US/docs/Web/API/TransitionEvent/elapsedTime)
   * [`propertyName`](https://developer.mozilla.org/en-US/docs/Web/API/TransitionEvent/propertyName)
   * [`pseudoElement`](https://developer.mozilla.org/en-US/docs/Web/API/TransitionEvent/pseudoElement)
@@ -691,7 +691,7 @@ An event handler type for the CSS transition events.
 
 ### `UIEvent` handler function {/*uievent-handler*/}
 
-An event handler type for generic UI events.
+Generic UI events-க்கான event handler type.
 
 ```js
 <div
@@ -701,7 +701,7 @@ An event handler type for generic UI events.
 
 #### Parameters {/*uievent-handler-parameters*/}
 
-* `e`: A [React event object](#react-event-object) with these extra [`UIEvent`](https://developer.mozilla.org/en-US/docs/Web/API/UIEvent) properties:
+* `e`: இந்த கூடுதல் [`UIEvent`](https://developer.mozilla.org/en-US/docs/Web/API/UIEvent) properties கொண்ட [React event object](#react-event-object):
   * [`detail`](https://developer.mozilla.org/en-US/docs/Web/API/UIEvent/detail)
   * [`view`](https://developer.mozilla.org/en-US/docs/Web/API/UIEvent/view)
 
@@ -709,7 +709,7 @@ An event handler type for generic UI events.
 
 ### `WheelEvent` handler function {/*wheelevent-handler*/}
 
-An event handler type for the `onWheel` event.
+`onWheel` event-க்கான event handler type.
 
 ```js
 <div
@@ -719,14 +719,14 @@ An event handler type for the `onWheel` event.
 
 #### Parameters {/*wheelevent-handler-parameters*/}
 
-* `e`: A [React event object](#react-event-object) with these extra [`WheelEvent`](https://developer.mozilla.org/en-US/docs/Web/API/WheelEvent) properties:
+* `e`: இந்த கூடுதல் [`WheelEvent`](https://developer.mozilla.org/en-US/docs/Web/API/WheelEvent) properties கொண்ட [React event object](#react-event-object):
   * [`deltaMode`](https://developer.mozilla.org/en-US/docs/Web/API/WheelEvent/deltaMode)
   * [`deltaX`](https://developer.mozilla.org/en-US/docs/Web/API/WheelEvent/deltaX)
   * [`deltaY`](https://developer.mozilla.org/en-US/docs/Web/API/WheelEvent/deltaY)
   * [`deltaZ`](https://developer.mozilla.org/en-US/docs/Web/API/WheelEvent/deltaZ)
 
 
-  It also includes the inherited [`MouseEvent`](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent) properties:
+  இதில் inherited [`MouseEvent`](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent) properties-உம் அடங்கும்:
 
   * [`altKey`](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/altKey)
   * [`button`](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/button)
@@ -745,7 +745,7 @@ An event handler type for the `onWheel` event.
   * [`screenY`](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/screenY)
   * [`shiftKey`](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/shiftKey)
 
-  It also includes the inherited [`UIEvent`](https://developer.mozilla.org/en-US/docs/Web/API/UIEvent) properties:
+  இதில் inherited [`UIEvent`](https://developer.mozilla.org/en-US/docs/Web/API/UIEvent) properties-உம் அடங்கும்:
 
   * [`detail`](https://developer.mozilla.org/en-US/docs/Web/API/UIEvent/detail)
   * [`view`](https://developer.mozilla.org/en-US/docs/Web/API/UIEvent/view)
@@ -754,15 +754,15 @@ An event handler type for the `onWheel` event.
 
 ## Usage {/*usage*/}
 
-### Applying CSS styles {/*applying-css-styles*/}
+### CSS styles பயன்படுத்துதல் {/*applying-css-styles*/}
 
-In React, you specify a CSS class with [`className`.](https://developer.mozilla.org/en-US/docs/Web/API/Element/className) It works like the `class` attribute in HTML:
+React-இல், CSS class-ஐ [`className`](https://developer.mozilla.org/en-US/docs/Web/API/Element/className) மூலம் குறிப்பிடுகிறீர்கள். இது HTML-இல் உள்ள `class` attribute போலவே வேலை செய்கிறது:
 
 ```js
 <img className="avatar" />
 ```
 
-Then you write the CSS rules for it in a separate CSS file:
+பிறகு அதற்கான CSS rules-ஐ தனி CSS file-இல் எழுதுகிறீர்கள்:
 
 ```css
 /* In your CSS */
@@ -771,9 +771,9 @@ Then you write the CSS rules for it in a separate CSS file:
 }
 ```
 
-React does not prescribe how you add CSS files. In the simplest case, you'll add a [`<link>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link) tag to your HTML. If you use a build tool or a framework, consult its documentation to learn how to add a CSS file to your project.
+CSS files-ஐ எப்படி சேர்க்க வேண்டும் என்று React கட்டாயப்படுத்தாது. நேரடியான நிலையில், உங்கள் HTML-க்கு [`<link>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link) tag ஒன்றை சேர்ப்பீர்கள். Build tool அல்லது framework பயன்படுத்தினால், உங்கள் project-க்கு CSS file சேர்ப்பது எப்படி என்பதை அதன் documentation-ல் பார்க்கவும்.
 
-Sometimes, the style values depend on data. Use the `style` attribute to pass some styles dynamically:
+சில நேரங்களில் style values data-வைப் பொறுத்திருக்கும். சில styles-ஐ dynamic ஆக pass செய்ய `style` attribute பயன்படுத்துங்கள்:
 
 ```js {3-6}
 <img
@@ -786,7 +786,7 @@ Sometimes, the style values depend on data. Use the `style` attribute to pass so
 ```
 
 
-In the above example, `style={{}}` is not a special syntax, but a regular `{}` object inside the `style={ }` [JSX curly braces.](/learn/javascript-in-jsx-with-curly-braces) We recommend only using the `style` attribute when your styles depend on JavaScript variables.
+மேலுள்ள உதாரணத்தில், `style={{}}` என்பது special syntax அல்ல; `style={ }` [JSX curly braces](/learn/javascript-in-jsx-with-curly-braces)-க்குள் உள்ள வழக்கமான `{}` object மட்டுமே. உங்கள் styles JavaScript variables-ஐ சார்ந்திருக்கும்போது மட்டும் `style` attribute பயன்படுத்த பரிந்துரைக்கிறோம்.
 
 <Sandpack>
 
@@ -809,7 +809,7 @@ export default function Avatar({ user }) {
   return (
     <img
       src={user.imageUrl}
-      alt={'Photo of ' + user.name}
+      alt={user.name + ' அவர்களின் படம்'}
       className="avatar"
       style={{
         width: user.imageSize,
@@ -830,13 +830,13 @@ export default function Avatar({ user }) {
 
 <DeepDive>
 
-#### How to apply multiple CSS classes conditionally? {/*how-to-apply-multiple-css-classes-conditionally*/}
+#### பல CSS classes-ஐ நிபந்தனையுடன் apply செய்வது எப்படி? {/*how-to-apply-multiple-css-classes-conditionally*/}
 
-To apply CSS classes conditionally, you need to produce the `className` string yourself using JavaScript.
+CSS classes-ஐ conditionally apply செய்ய, JavaScript பயன்படுத்தி `className` string-ஐ நீங்களே உருவாக்க வேண்டும்.
 
-For example, `className={'row ' + (isSelected ? 'selected': '')}` will produce either `className="row"` or `className="row selected"` depending on whether `isSelected` is `true`.
+உதாரணமாக, `className={'row ' + (isSelected ? 'selected': '')}` என்பது `isSelected` `true` ஆக உள்ளதா என்பதன் அடிப்படையில் `className="row"` அல்லது `className="row selected"` உருவாக்கும்.
 
-To make this more readable, you can use a tiny helper library like [`classnames`:](https://github.com/JedWatson/classnames)
+இதை அதிகம் readable ஆக்க, [`classnames`](https://github.com/JedWatson/classnames) போன்ற சிறிய helper library-ஐ பயன்படுத்தலாம்:
 
 ```js
 import cn from 'classnames';
@@ -850,7 +850,7 @@ function Row({ isSelected }) {
 }
 ```
 
-It is especially convenient if you have multiple conditional classes:
+பல conditional classes இருந்தால் இது குறிப்பாக வசதியானது:
 
 ```js
 import cn from 'classnames';
@@ -872,11 +872,11 @@ function Row({ isSelected, size }) {
 
 ---
 
-### Manipulating a DOM node with a ref {/*manipulating-a-dom-node-with-a-ref*/}
+### Ref மூலம் DOM node-ஐ கையாளுதல் {/*manipulating-a-dom-node-with-a-ref*/}
 
-Sometimes, you'll need to get the browser DOM node associated with a tag in JSX. For example, if you want to focus an `<input>` when a button is clicked, you need to call [`focus()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/focus) on the browser `<input>` DOM node.
+சில நேரங்களில், JSX-இல் உள்ள tag-க்கு தொடர்புடைய browser DOM node-ஐ பெற வேண்டியிருக்கும். உதாரணமாக, button click செய்யும்போது `<input>` focus ஆக வேண்டும் என்றால், browser `<input>` DOM node-இல் [`focus()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/focus) call செய்ய வேண்டும்.
 
-To obtain the browser DOM node for a tag, [declare a ref](/reference/react/useRef) and pass it as the `ref` attribute to that tag:
+ஒரு tag-க்கான browser DOM node-ஐ பெற, [ref ஒன்றை declare செய்து](/reference/react/useRef) அதை அந்த tag-க்கு `ref` attribute ஆக pass செய்யுங்கள்:
 
 ```js {7}
 import { useRef } from 'react';
@@ -889,7 +889,7 @@ export default function Form() {
     // ...
 ```
 
-React will put the DOM node into `inputRef.current` after it's been rendered to the screen.
+Screen-க்கு render ஆன பிறகு React DOM node-ஐ `inputRef.current`-க்குள் வைக்கும்.
 
 <Sandpack>
 
@@ -907,7 +907,7 @@ export default function Form() {
     <>
       <input ref={inputRef} />
       <button onClick={handleClick}>
-        Focus the input
+        Input-ஐ focus செய்
       </button>
     </>
   );
@@ -916,24 +916,24 @@ export default function Form() {
 
 </Sandpack>
 
-Read more about [manipulating DOM with refs](/learn/manipulating-the-dom-with-refs) and [check out more examples.](/reference/react/useRef#usage)
+Refs மூலம் [DOM-ஐ கையாளுவது பற்றி மேலும் வாசிக்கவும்](/learn/manipulating-the-dom-with-refs), மேலும் [இன்னும் பல examples-ஐ பார்க்கவும்.](/reference/react/useRef#usage)
 
-For more advanced use cases, the `ref` attribute also accepts a [callback function.](#ref-callback)
+மேம்பட்ட use cases-க்கு, `ref` attribute [callback function](#ref-callback)-ஐயும் ஏற்கும்.
 
 ---
 
-### Dangerously setting the inner HTML {/*dangerously-setting-the-inner-html*/}
+### Inner HTML-ஐ ஆபத்தான முறையில் set செய்தல் {/*dangerously-setting-the-inner-html*/}
 
-You can pass a raw HTML string to an element like so:
+Raw HTML string-ஐ ஒரு element-க்கு இவ்வாறு pass செய்யலாம்:
 
 ```js
-const markup = { __html: '<p>some raw html</p>' };
+const markup = { __html: '<p>சில raw html</p>' };
 return <div dangerouslySetInnerHTML={markup} />;
 ```
 
-**This is dangerous. As with the underlying DOM [`innerHTML`](https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML) property, you must exercise extreme caution! Unless the markup is coming from a completely trusted source, it is trivial to introduce an [XSS](https://en.wikipedia.org/wiki/Cross-site_scripting) vulnerability this way.**
+**இது ஆபத்தானது. Underlying DOM [`innerHTML`](https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML) property போலவே, நீங்கள் மிகுந்த கவனத்துடன் நடக்க வேண்டும்! Markup முற்றிலும் நம்பத்தகுந்த source-இலிருந்து வராத வரை, இவ்வாறு [XSS](https://en.wikipedia.org/wiki/Cross-site_scripting) vulnerability உருவாக்குவது சாத்தியம்.**
 
-For example, if you use a Markdown library that converts Markdown to HTML, you trust that its parser doesn't contain bugs, and the user only sees their own input, you can display the resulting HTML like this:
+உதாரணமாக, Markdown-ஐ HTML ஆக மாற்றும் Markdown library பயன்படுத்தினால், அதன் parser-இல் bugs இல்லை என்று நீங்கள் நம்பினால், மற்றும் user தன்னுடைய input-ஐ மட்டுமே பார்க்கிறான் என்றால், கிடைக்கும் HTML-ஐ இவ்வாறு காட்டலாம்:
 
 <Sandpack>
 
@@ -942,11 +942,11 @@ import { useState } from 'react';
 import MarkdownPreview from './MarkdownPreview.js';
 
 export default function MarkdownEditor() {
-  const [postContent, setPostContent] = useState('_Hello,_ **Markdown**!');
+  const [postContent, setPostContent] = useState('_வணக்கம்,_ **Markdown**!');
   return (
     <>
       <label>
-        Enter some markdown:
+        Markdown உள்ளிடுங்கள்:
         <textarea
           value={postContent}
           onChange={e => setPostContent(e.target.value)}
@@ -1001,14 +1001,14 @@ textarea { display: block; margin-top: 5px; margin-bottom: 10px; }
 
 </Sandpack>
 
-The `{__html}` object should be created as close to where the HTML is generated as possible, like the above example does in the `renderMarkdownToHTML` function. This ensures that all raw HTML being used in your code is explicitly marked as such, and that only variables that you expect to contain HTML are passed to `dangerouslySetInnerHTML`. It is not recommended to create the object inline like `<div dangerouslySetInnerHTML={{__html: markup}} />`.
+`renderMarkdownToHTML` function-இல் மேலுள்ள example செய்வது போல, `{__html}` object HTML உருவாகும் இடத்திற்கு மிக அருகில் create செய்யப்பட வேண்டும். இதனால் உங்கள் code-இல் பயன்படுத்தப்படும் raw HTML அனைத்தும் தெளிவாக அப்படியே mark செய்யப்படும்; மேலும் HTML கொண்டிருக்கும் என்று நீங்கள் எதிர்பார்க்கும் variables மட்டுமே `dangerouslySetInnerHTML`-க்கு pass செய்யப்படும். `<div dangerouslySetInnerHTML={{__html: markup}} />` போல object-ஐ inline ஆக create செய்வது பரிந்துரைக்கப்படாது.
 
-To see why rendering arbitrary HTML is dangerous, replace the code above with this:
+Arbitrary HTML render செய்வது ஏன் ஆபத்தானது என்பதை பார்க்க, மேலுள்ள code-ஐ இதனால் மாற்றுங்கள்:
 
 ```js {1-4,7,8}
 const post = {
   // Imagine this content is stored in the database.
-  content: `<img src="" onerror='alert("you were hacked")'>`
+  content: `<img src="" onerror='alert("நீங்கள் தாக்கப்பட்டுள்ளீர்கள்")'>`
 };
 
 export default function MarkdownPreview() {
@@ -1018,13 +1018,13 @@ export default function MarkdownPreview() {
 }
 ```
 
-The code embedded in the HTML will run. A hacker could use this security hole to steal user information or to perform actions on their behalf. **Only use `dangerouslySetInnerHTML` with trusted and sanitized data.**
+HTML-இல் embed செய்யப்பட்ட code run ஆகும். ஒரு attacker இந்த security hole-ஐ பயன்படுத்தி user தகவலை திருடலாம் அல்லது அவர்களுக்குப் பதிலாக actions செய்யலாம். **நம்பத்தகுந்த மற்றும் sanitized data உடன் மட்டுமே `dangerouslySetInnerHTML` பயன்படுத்துங்கள்.**
 
 ---
 
-### Handling mouse events {/*handling-mouse-events*/}
+### Mouse events கையாளுதல் {/*handling-mouse-events*/}
 
-This example shows some common [mouse events](#mouseevent-handler) and when they fire.
+இந்த example சில பொதுவான [mouse events](#mouseevent-handler) மற்றும் அவை எப்போது fire ஆகின்றன என்பதை காட்டுகிறது.
 
 <Sandpack>
 
@@ -1043,7 +1043,7 @@ export default function MouseExample() {
         onMouseOver={e => console.log('onMouseOver (first button)')}
         onMouseUp={e => console.log('onMouseUp (first button)')}
       >
-        First button
+        முதல் button
       </button>
       <button
         onClick={e => console.log('onClick (second button)')}
@@ -1053,7 +1053,7 @@ export default function MouseExample() {
         onMouseOver={e => console.log('onMouseOver (second button)')}
         onMouseUp={e => console.log('onMouseUp (second button)')}
       >
-        Second button
+        இரண்டாவது button
       </button>
     </div>
   );
@@ -1069,9 +1069,9 @@ input { margin-left: 10px; }
 
 ---
 
-### Handling pointer events {/*handling-pointer-events*/}
+### Pointer events கையாளுதல் {/*handling-pointer-events*/}
 
-This example shows some common [pointer events](#pointerevent-handler) and when they fire.
+இந்த example சில பொதுவான [pointer events](#pointerevent-handler) மற்றும் அவை எப்போது fire ஆகின்றன என்பதை காட்டுகிறது.
 
 <Sandpack>
 
@@ -1091,7 +1091,7 @@ export default function PointerExample() {
         onPointerUp={e => console.log('onPointerUp (first child)')}
         style={{ padding: 20, backgroundColor: 'lightyellow' }}
       >
-        First child
+        முதல் child
       </div>
       <div
         onPointerDown={e => console.log('onPointerDown (second child)')}
@@ -1101,7 +1101,7 @@ export default function PointerExample() {
         onPointerUp={e => console.log('onPointerUp (second child)')}
         style={{ padding: 20, backgroundColor: 'lightblue' }}
       >
-        Second child
+        இரண்டாவது child
       </div>
     </div>
   );
@@ -1117,9 +1117,9 @@ input { margin-left: 10px; }
 
 ---
 
-### Handling focus events {/*handling-focus-events*/}
+### Focus events கையாளுதல் {/*handling-focus-events*/}
 
-In React, [focus events](#focusevent-handler) bubble. You can use the `currentTarget` and `relatedTarget` to differentiate if the focusing or blurring events originated from outside of the parent element. The example shows how to detect focusing a child, focusing the parent element, and how to detect focus entering or leaving the whole subtree.
+React-இல், [focus events](#focusevent-handler) bubble ஆகும். Focusing அல்லது blurring events parent element-க்கு வெளியிலிருந்து தொடங்கியதா என்பதை வேறுபடுத்த `currentTarget` மற்றும் `relatedTarget` பயன்படுத்தலாம். Child focus ஆகுதல், parent element focus ஆகுதல், மற்றும் முழு subtree-க்குள் focus நுழைவதையோ வெளியேறுவதையோ detect செய்வது எப்படி என்பதை இந்த example காட்டுகிறது.
 
 <Sandpack>
 
@@ -1152,11 +1152,11 @@ export default function FocusExample() {
       }}
     >
       <label>
-        First name:
+        முதல் பெயர்:
         <input name="firstName" />
       </label>
       <label>
-        Last name:
+        கடைசி பெயர்:
         <input name="lastName" />
       </label>
     </div>
@@ -1173,9 +1173,9 @@ input { margin-left: 10px; }
 
 ---
 
-### Handling keyboard events {/*handling-keyboard-events*/}
+### Keyboard events கையாளுதல் {/*handling-keyboard-events*/}
 
-This example shows some common [keyboard events](#keyboardevent-handler) and when they fire.
+இந்த example சில பொதுவான [keyboard events](#keyboardevent-handler) மற்றும் அவை எப்போது fire ஆகின்றன என்பதை காட்டுகிறது.
 
 <Sandpack>
 
@@ -1183,7 +1183,7 @@ This example shows some common [keyboard events](#keyboardevent-handler) and whe
 export default function KeyboardExample() {
   return (
     <label>
-      First name:
+      முதல் பெயர்:
       <input
         name="firstName"
         onKeyDown={e => console.log('onKeyDown:', e.key, e.code)}

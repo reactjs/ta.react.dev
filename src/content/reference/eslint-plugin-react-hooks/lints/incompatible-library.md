@@ -4,19 +4,19 @@ title: incompatible-library
 
 <Intro>
 
-Validates against usage of libraries which are incompatible with memoization (manual or automatic).
+Memoization-உடன் (manual அல்லது automatic) compatible அல்லாத libraries பயன்படுத்தப்படுவதை எதிர்த்து validate செய்கிறது.
 
 </Intro>
 
 <Note>
 
-These libraries were designed before React's memoization rules were fully documented. They made the correct choices at the time to optimize for ergonomic ways to keep components just the right amount of reactive as app state changes. While these legacy patterns worked, we have since discovered that it's incompatible with React's programming model. We will continue working with library authors to migrate these libraries to use patterns that follow the Rules of React.
+React-இன் memoization rules முழுமையாக document செய்யப்படுவதற்கு முன் இந்த libraries வடிவமைக்கப்பட்டவை. App state மாறும்போது components தேவையான அளவுக்கு மட்டும் reactive ஆக இருக்க ergonomic வழிகளை optimize செய்ய, அப்போது சரியான தேர்வுகளை அவை செய்தன. இந்த legacy patterns வேலை செய்தாலும், அவை React-இன் programming model-உடன் compatible அல்ல என்று பின்னர் கண்டறிந்தோம். React விதிகளைப் பின்பற்றும் patterns-க்கு இந்த libraries-ஐ migrate செய்ய library authors-உடன் தொடர்ந்து பணியாற்றுவோம்.
 
 </Note>
 
-## Rule Details {/*rule-details*/}
+## விதி விவரங்கள் {/*rule-details*/}
 
-Some libraries use patterns that aren't supported by React. When the linter detects usages of these APIs from a [known list](https://github.com/facebook/react/blob/main/compiler/packages/babel-plugin-react-compiler/src/HIR/DefaultModuleTypeProvider.ts), it flags them under this rule. This means that React Compiler can automatically skip over components that use these incompatible APIs, in order to avoid breaking your app.
+சில libraries React ஆதரிக்காத patterns-ஐப் பயன்படுத்துகின்றன. [அறியப்பட்ட பட்டியலில்](https://github.com/facebook/react/blob/main/compiler/packages/babel-plugin-react-compiler/src/HIR/DefaultModuleTypeProvider.ts) உள்ள இந்த API-களின் பயன்பாடுகளை linter கண்டறிந்தால், இந்த விதியின் கீழ் அவற்றை flag செய்கிறது. இதன் பொருள், உங்கள் app உடையாமல் இருக்க React Compiler இந்த incompatible APIs பயன்படுத்தும் components-ஐ தானாக skip செய்ய முடியும்.
 
 ```js
 // Example of how memoization breaks with these libraries
@@ -26,21 +26,21 @@ function Form() {
   // ❌ This value will never update, even when 'name' field changes
   const name = useMemo(() => watch('name'), [watch]);
 
-  return <div>Name: {name}</div>; // UI appears "frozen"
+  return <div>Name: {name}</div>; // UI "frozen" போலத் தோன்றும்
 }
 ```
 
-React Compiler automatically memoizes values following the Rules of React. If something breaks with manual `useMemo`, it will also break the compiler's automatic optimization. This rule helps identify these problematic patterns.
+React Compiler, React விதிகளைப் பின்பற்றி values-ஐ தானாக memoize செய்கிறது. Manual `useMemo`-உடன் ஏதாவது உடைந்தால், compiler-இன் automatic optimization-உம் உடையும். இந்த problematic patterns-ஐ அடையாளம் காண இந்த விதி உதவுகிறது.
 
 <DeepDive>
 
-#### Designing APIs that follow the Rules of React {/*designing-apis-that-follow-the-rules-of-react*/}
+#### React விதிகளைப் பின்பற்றும் API-களை வடிவமைத்தல் {/*designing-apis-that-follow-the-rules-of-react*/}
 
-One question to think about when designing a library API or hook is whether calling the API can be safely memoized with `useMemo`. If it can't, then both manual and React Compiler memoizations will break your user's code.
+Library API அல்லது hook வடிவமைக்கும் போது யோசிக்க வேண்டிய கேள்வி: அந்த API call-ஐ `useMemo` மூலம் பாதுகாப்பாக memoize செய்ய முடியுமா? முடியாவிட்டால், manual memoization-வும் React Compiler memoization-வும் உங்கள் user-இன் code-ஐ உடைக்கும்.
 
-For example, one such incompatible pattern is "interior mutability". Interior mutability is when an object or function keeps its own hidden state that changes over time, even though the reference to it stays the same. Think of it like a box that looks the same on the outside but secretly rearranges its contents. React can't tell anything changed because it only checks if you gave it a different box, not what's inside. This breaks memoization, since React relies on the outer object (or function) changing if part of its value has changed.
+உதாரணமாக, அத்தகைய incompatible pattern ஒன்று "interior mutability". ஒரு object அல்லது function-க்கு reference அதேபோல இருந்தாலும், காலப்போக்கில் மாறும் மறை state அதன் உள்ளே இருந்தால் அதுவே interior mutability. வெளிப்புறத்தில் அதேபோலத் தெரியும் பெட்டி ஒன்று, உள்ளடக்கத்தை மறைமுகமாக மறுசீரமைப்பதைப் போல நினைத்துக்கொள்ளுங்கள். நீங்கள் வேறு பெட்டியை கொடுத்தீர்களா என்பதையே React பார்க்கிறது; உள்ளே என்ன உள்ளது என்பதை அல்ல. எனவே ஏதாவது மாறியது என்பதை அது சொல்ல முடியாது. Value-இன் ஒரு பகுதி மாறினால் வெளிப்புற object (அல்லது function) மாறும் என்பதையே React சார்ந்திருப்பதால், இது memoization-ஐ உடைக்கும்.
 
-As a rule of thumb, when designing React APIs, think about whether `useMemo` would break it:
+ஒரு thumb rule ஆக, React API-களை வடிவமைக்கும் போது `useMemo` அதை உடைக்குமா என்று யோசியுங்கள்:
 
 ```js
 function Component() {
@@ -50,7 +50,7 @@ function Component() {
 }
 ```
 
-Instead, design APIs that return immutable state and use explicit update functions:
+அதற்கு பதிலாக, immutable state return செய்து explicit update functions பயன்படுத்தும் API-களை வடிவமைக்கவும்:
 
 ```js
 // ✅ Good: Return immutable state that changes reference when updated
@@ -73,9 +73,9 @@ function Component() {
 
 </DeepDive>
 
-### Invalid {/*invalid*/}
+### செல்லாதது {/*invalid*/}
 
-Examples of incorrect code for this rule:
+இந்த விதிக்கான தவறான code உதாரணங்கள்:
 
 ```js
 // ❌ react-hook-form `watch`
@@ -101,7 +101,7 @@ function Component({data}) {
 
 #### MobX {/*mobx*/}
 
-MobX patterns like `observer` also break memoization assumptions, but the linter does not yet detect them. If you rely on MobX and find that your app doesn't work with React Compiler, you may need to use the `"use no memo" directive`.
+`observer` போன்ற MobX patterns-உம் memoization assumptions-ஐ உடைக்கும், ஆனால் linter இன்னும் அவற்றை கண்டறியவில்லை. நீங்கள் MobX-ஐ சார்ந்து இருக்கிறீர்கள் மற்றும் உங்கள் app React Compiler-உடன் வேலை செய்யவில்லை என்றால், `"use no memo"` directive-ஐப் பயன்படுத்த வேண்டியிருக்கலாம்.
 
 ```js
 // ❌ MobX `observer`
@@ -113,9 +113,9 @@ const Component = observer(() => {
 
 </Pitfall>
 
-### Valid {/*valid*/}
+### செல்லுபடியாகும் {/*valid*/}
 
-Examples of correct code for this rule:
+இந்த விதிக்கான சரியான code உதாரணங்கள்:
 
 ```js
 // ✅ For react-hook-form, use `useWatch`:
@@ -135,4 +135,4 @@ function Component() {
 }
 ```
 
-Some other libraries do not yet have alternative APIs that are compatible with React's memoization model. If the linter doesn't automatically skip over your components or hooks that call these APIs, please [file an issue](https://github.com/facebook/react/issues) so we can add it to the linter.
+சில பிற libraries-க்கு React-இன் memoization model-உடன் compatible ஆன alternative APIs இன்னும் இல்லை. இந்த API-களை அழைக்கும் உங்கள் components அல்லது hooks-ஐ linter தானாக skip செய்யவில்லை என்றால், அதை linter-இல் சேர்க்க எங்களுக்கு [issue file செய்யுங்கள்](https://github.com/facebook/react/issues).

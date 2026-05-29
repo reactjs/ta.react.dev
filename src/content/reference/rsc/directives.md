@@ -4,13 +4,13 @@ title: Directives
 
 <RSC>
 
-Directives are for use in [React Server Components](/reference/rsc/server-components).
+Directives, [React Server Components](/reference/rsc/server-components)-இல் பயன்படுத்தப்படுகின்றன.
 
 </RSC>
 
 <Intro>
 
-Directives provide instructions to [bundlers compatible with React Server Components](/learn/creating-a-react-app#full-stack-frameworks).
+Directives, [React Server Components-உடன் இணக்கமான bundlers](/learn/creating-a-react-app#full-stack-frameworks)-க்கு வழிமுறைகளை வழங்குகின்றன.
 
 </Intro>
 
@@ -18,5 +18,5 @@ Directives provide instructions to [bundlers compatible with React Server Compon
 
 ## Source code directives {/*source-code-directives*/}
 
-* [`'use client'`](/reference/rsc/use-client) lets you mark what code runs on the client.
-* [`'use server'`](/reference/rsc/use-server) marks server-side functions that can be called from client-side code.
+* [`'use client'`](/reference/rsc/use-client) எந்த code கிளையண்டில் இயங்க வேண்டும் என்பதை குறிக்க உதவுகிறது.
+* [`'use server'`](/reference/rsc/use-server) கிளையண்ட்-side code-இலிருந்து அழைக்கக்கூடிய server-side functions-ஐ குறிக்கிறது.

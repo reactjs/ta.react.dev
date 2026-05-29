@@ -4,7 +4,7 @@ title: useReducer
 
 <Intro>
 
-`useReducer` is a React Hook that lets you add a [reducer](/learn/extracting-state-logic-into-a-reducer) to your component.
+`useReducer` என்பது உங்கள் component-க்கு [reducer](/learn/extracting-state-logic-into-a-reducer) ஒன்றை சேர்க்க உதவும் React Hook ஆகும்.
 
 ```js
 const [state, dispatch] = useReducer(reducer, initialArg, init?)
@@ -16,11 +16,11 @@ const [state, dispatch] = useReducer(reducer, initialArg, init?)
 
 ---
 
-## Reference {/*reference*/}
+## குறிப்பு {/*reference*/}
 
 ### `useReducer(reducer, initialArg, init?)` {/*usereducer*/}
 
-Call `useReducer` at the top level of your component to manage its state with a [reducer.](/learn/extracting-state-logic-into-a-reducer)
+[Reducer](/learn/extracting-state-logic-into-a-reducer) மூலம் state manage செய்ய, உங்கள் component-ன் top level-இல் `useReducer`-ஐ call செய்யுங்கள்.
 
 ```js
 import { useReducer } from 'react';
@@ -34,32 +34,32 @@ function MyComponent() {
   // ...
 ```
 
-[See more examples below.](#usage)
+[கீழே மேலும் examples பார்க்கவும்.](#usage)
 
-#### Parameters {/*parameters*/}
+#### அளவுருக்கள் {/*parameters*/}
 
-* `reducer`: The reducer function that specifies how the state gets updated. It must be pure, should take the state and action as arguments, and should return the next state. State and action can be of any types.
-* `initialArg`: The value from which the initial state is calculated. It can be a value of any type. How the initial state is calculated from it depends on the next `init` argument.
-* **optional** `init`: The initializer function that should return the initial state. If it's not specified, the initial state is set to `initialArg`. Otherwise, the initial state is set to the result of calling `init(initialArg)`.
+* `reducer`: State எப்படி update ஆக வேண்டும் என்பதை specify செய்யும் reducer function. இது pure ஆக இருக்க வேண்டும், state மற்றும் action-ஐ arguments ஆக எடுக்க வேண்டும், மேலும் next state-ஐ return செய்ய வேண்டும். State மற்றும் action எந்த types ஆகவும் இருக்கலாம்.
+* `initialArg`: Initial state calculate செய்யப்படும் value. இது எந்த type value ஆகவும் இருக்கலாம். அதிலிருந்து initial state எப்படி calculate செய்யப்படுகிறது என்பது அடுத்த `init` argument-ஐப் பொறுத்தது.
+* **optional** `init`: Initial state-ஐ return செய்ய வேண்டிய initializer function. இது specify செய்யப்படவில்லை என்றால், initial state `initialArg` ஆக set செய்யப்படும். இல்லையெனில், `init(initialArg)` call செய்த result initial state ஆக set செய்யப்படும்.
 
-#### Returns {/*returns*/}
+#### திருப்பி அளிப்பது {/*returns*/}
 
-`useReducer` returns an array with exactly two values:
+`useReducer` சரியாக இரண்டு values கொண்ட array ஒன்றை return செய்கிறது:
 
-1. The current state. During the first render, it's set to `init(initialArg)` or `initialArg` (if there's no `init`).
-2. The [`dispatch` function](#dispatch) that lets you update the state to a different value and trigger a re-render.
+1. தற்போதைய state. First render போது, இது `init(initialArg)` அல்லது `initialArg` (இங்கு `init` இல்லையெனில்) ஆக set செய்யப்படும்.
+2. State-ஐ வேறு value-க்கு update செய்து re-render trigger செய்ய அனுமதிக்கும் [`dispatch` function](#dispatch).
 
-#### Caveats {/*caveats*/}
+#### கவனிக்க வேண்டியவை {/*caveats*/}
 
-* `useReducer` is a Hook, so you can only call it **at the top level of your component** or your own Hooks. You can't call it inside loops or conditions. If you need that, extract a new component and move the state into it.
-* The `dispatch` function has a stable identity, so you will often see it omitted from Effect dependencies, but including it will not cause the Effect to fire. If the linter lets you omit a dependency without errors, it is safe to do. [Learn more about removing Effect dependencies.](/learn/removing-effect-dependencies#move-dynamic-objects-and-functions-inside-your-effect)
-* In Strict Mode, React will **call your reducer and initializer twice** in order to [help you find accidental impurities.](#my-reducer-or-initializer-function-runs-twice) This is development-only behavior and does not affect production. If your reducer and initializer are pure (as they should be), this should not affect your logic. The result from one of the calls is ignored.
+* `useReducer` ஒரு Hook; எனவே அதை **உங்கள் component-ன் top level-இல்** அல்லது உங்கள் சொந்த Hooks-இல் மட்டுமே call செய்யலாம். Loops அல்லது conditions-க்குள் அதை call செய்ய முடியாது. அது தேவைப்பட்டால், புதிய component ஒன்றை extract செய்து state-ஐ அதற்குள் move செய்யுங்கள்.
+* `dispatch` function-க்கு stable identity உள்ளது; எனவே Effect dependencies-இலிருந்து அது omit செய்யப்பட்டிருப்பதை நீங்கள் அடிக்கடி காண்பீர்கள், ஆனால் அதை include செய்தாலும் Effect fire ஆகாது. Linter ஒரு dependency-ஐ errors இல்லாமல் omit செய்ய அனுமதித்தால், அது safe. [Effect dependencies remove செய்வது பற்றி மேலும் அறிக.](/learn/removing-effect-dependencies#move-dynamic-objects-and-functions-inside-your-effect)
+* Strict Mode-இல், [accidental impurities கண்டுபிடிக்க உதவ](/reference/react/useReducer#my-reducer-or-initializer-function-runs-twice) React உங்கள் reducer மற்றும் initializer-ஐ **இருமுறை call செய்யும்**. இது development-only behavior; production-ஐ பாதிக்காது. உங்கள் reducer மற்றும் initializer pure ஆக இருந்தால் (அப்படியே இருக்க வேண்டும்), இது உங்கள் logic-ஐ பாதிக்கக்கூடாது. Calls-இல் ஒன்றின் result ignore செய்யப்படும்.
 
 ---
 
 ### `dispatch` function {/*dispatch*/}
 
-The `dispatch` function returned by `useReducer` lets you update the state to a different value and trigger a re-render. You need to pass the action as the only argument to the `dispatch` function:
+`useReducer` return செய்யும் `dispatch` function, state-ஐ வேறு value-க்கு update செய்து re-render trigger செய்ய அனுமதிக்கிறது. `dispatch` function-க்கு action-ஐ மட்டுமே argument ஆக pass செய்ய வேண்டும்:
 
 ```js
 const [state, dispatch] = useReducer(reducer, { age: 42 });
@@ -69,31 +69,31 @@ function handleClick() {
   // ...
 ```
 
-React will set the next state to the result of calling the `reducer` function you've provided with the current `state` and the action you've passed to `dispatch`.
+நீங்கள் provide செய்த `reducer` function-ஐ தற்போதைய `state` மற்றும் `dispatch`-க்கு pass செய்த action உடன் call செய்த result-க்கு React next state-ஐ set செய்யும்.
 
-#### Parameters {/*dispatch-parameters*/}
+#### அளவுருக்கள் {/*dispatch-parameters*/}
 
-* `action`: The action performed by the user. It can be a value of any type. By convention, an action is usually an object with a `type` property identifying it and, optionally, other properties with additional information.
+* `action`: User செய்த action. இது எந்த type value ஆகவும் இருக்கலாம். Convention படி, action என்பது வழக்கமாக அதை identify செய்யும் `type` property கொண்ட object ஆக இருக்கும்; optionally கூடுதல் தகவலுடன் பிற properties-யும் இருக்கலாம்.
 
-#### Returns {/*dispatch-returns*/}
+#### திருப்பி அளிப்பது {/*dispatch-returns*/}
 
-`dispatch` functions do not have a return value.
+`dispatch` functions-க்கு return value இல்லை.
 
-#### Caveats {/*setstate-caveats*/}
+#### கவனிக்க வேண்டியவை {/*setstate-caveats*/}
 
-* The `dispatch` function **only updates the state variable for the *next* render**. If you read the state variable after calling the `dispatch` function, [you will still get the old value](#ive-dispatched-an-action-but-logging-gives-me-the-old-state-value) that was on the screen before your call.
+* `dispatch` function **state variable-ஐ *அடுத்த* render-க்காக மட்டுமே update செய்கிறது**. `dispatch` function call செய்த பிறகு state variable-ஐ read செய்தால், உங்கள் call-க்கு முன் screen-இல் இருந்த [பழைய value-யையே இன்னும் பெறுவீர்கள்](#ive-dispatched-an-action-but-logging-gives-me-the-old-state-value).
 
-* If the new value you provide is identical to the current `state`, as determined by an [`Object.is`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is) comparison, React will **skip re-rendering the component and its children.** This is an optimization. React may still need to call your component before ignoring the result, but it shouldn't affect your code.
+* நீங்கள் provide செய்யும் new value தற்போதைய `state`-க்கு identical ஆக இருந்தால், [`Object.is`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is) comparison மூலம் தீர்மானிக்கப்படும் போல, React **component மற்றும் அதன் children-ஐ re-render செய்வதை skip செய்யும்.** இது optimization. Result ignore செய்வதற்கு முன் React இன்னும் உங்கள் component-ஐ call செய்ய வேண்டியிருக்கலாம்; ஆனால் அது உங்கள் code-ஐ பாதிக்கக்கூடாது.
 
-* React [batches state updates.](/learn/queueing-a-series-of-state-updates) It updates the screen **after all the event handlers have run** and have called their `set` functions. This prevents multiple re-renders during a single event. In the rare case that you need to force React to update the screen earlier, for example to access the DOM, you can use [`flushSync`.](/reference/react-dom/flushSync)
+* React [state updates-ஐ batch செய்கிறது.](/learn/queueing-a-series-of-state-updates) அனைத்து event handlers run ஆகி அவற்றின் `set` functions call செய்த பிறகு தான் screen-ஐ update செய்கிறது. இது single event-இல் multiple re-renders-ஐ தடுக்கிறது. DOM access செய்ய வேண்டும் போன்ற அரிதான சூழலில் React screen-ஐ முன்னதாக update செய்ய force செய்ய வேண்டும் என்றால், [`flushSync`.](/reference/react-dom/flushSync) பயன்படுத்தலாம்.
 
 ---
 
-## Usage {/*usage*/}
+## பயன்பாடு {/*usage*/}
 
-### Adding a reducer to a component {/*adding-a-reducer-to-a-component*/}
+### Component-க்கு reducer சேர்த்தல் {/*adding-a-reducer-to-a-component*/}
 
-Call `useReducer` at the top level of your component to manage state with a [reducer.](/learn/extracting-state-logic-into-a-reducer)
+[Reducer](/learn/extracting-state-logic-into-a-reducer) மூலம் state manage செய்ய, உங்கள் component-ன் top level-இல் `useReducer`-ஐ call செய்யுங்கள்.
 
 ```js [[1, 8, "state"], [2, 8, "dispatch"], [4, 8, "reducer"], [3, 8, "{ age: 42 }"]]
 import { useReducer } from 'react';
@@ -107,12 +107,12 @@ function MyComponent() {
   // ...
 ```
 
-`useReducer` returns an array with exactly two items:
+`useReducer` சரியாக இரண்டு items கொண்ட array ஒன்றை return செய்கிறது:
 
-1. The <CodeStep step={1}>current state</CodeStep> of this state variable, initially set to the <CodeStep step={3}>initial state</CodeStep> you provided.
-2. The <CodeStep step={2}>`dispatch` function</CodeStep> that lets you change it in response to interaction.
+1. நீங்கள் provide செய்த <CodeStep step={3}>initial state</CodeStep>-க்கு initially set செய்யப்பட்ட இந்த state variable-ன் <CodeStep step={1}>current state</CodeStep>.
+2. Interaction-க்கு response ஆக அதை change செய்ய அனுமதிக்கும் <CodeStep step={2}>`dispatch` function</CodeStep>.
 
-To update what's on the screen, call <CodeStep step={2}>`dispatch`</CodeStep> with an object representing what the user did, called an *action*:
+Screen-இல் உள்ளதை update செய்ய, user செய்ததை represent செய்யும் object ஒன்றுடன் <CodeStep step={2}>`dispatch`</CodeStep>-ஐ call செய்யுங்கள்; அது *action* என்று அழைக்கப்படுகிறது:
 
 ```js [[2, 2, "dispatch"]]
 function handleClick() {
@@ -120,7 +120,7 @@ function handleClick() {
 }
 ```
 
-React will pass the current state and the action to your <CodeStep step={4}>reducer function</CodeStep>. Your reducer will calculate and return the next state. React will store that next state, render your component with it, and update the UI.
+React current state மற்றும் action-ஐ உங்கள் <CodeStep step={4}>reducer function</CodeStep>-க்கு pass செய்யும். உங்கள் reducer next state-ஐ calculate செய்து return செய்யும். React அந்த next state-ஐ store செய்து, அதனுடன் உங்கள் component-ஐ render செய்து, UI-ஐ update செய்யும்.
 
 <Sandpack>
 
@@ -133,7 +133,7 @@ function reducer(state, action) {
       age: state.age + 1
     };
   }
-  throw Error('Unknown action.');
+  throw Error('தெரியாத action.');
 }
 
 export default function Counter() {
@@ -144,9 +144,9 @@ export default function Counter() {
       <button onClick={() => {
         dispatch({ type: 'incremented_age' })
       }}>
-        Increment age
+        வயதை அதிகரி
       </button>
-      <p>Hello! You are {state.age}.</p>
+      <p>வணக்கம்! உங்கள் வயது {state.age}.</p>
     </>
   );
 }
@@ -158,13 +158,13 @@ button { display: block; margin-top: 10px; }
 
 </Sandpack>
 
-`useReducer` is very similar to [`useState`](/reference/react/useState), but it lets you move the state update logic from event handlers into a single function outside of your component. Read more about [choosing between `useState` and `useReducer`.](/learn/extracting-state-logic-into-a-reducer#comparing-usestate-and-usereducer)
+`useReducer` [`useState`](/reference/react/useState)-க்கு மிகவும் ஒத்தது; ஆனால் அது event handlers-இலிருந்து state update logic-ஐ உங்கள் component-க்கு வெளியே single function-க்கு move செய்ய அனுமதிக்கிறது. [`useState` மற்றும் `useReducer` இடையே தேர்வு செய்வது பற்றி மேலும் வாசிக்கவும்.](/learn/extracting-state-logic-into-a-reducer#comparing-usestate-and-usereducer)
 
 ---
 
-### Writing the reducer function {/*writing-the-reducer-function*/}
+### Reducer function எழுதுதல் {/*writing-the-reducer-function*/}
 
-A reducer function is declared like this:
+Reducer function இப்படிப் declare செய்யப்படுகிறது:
 
 ```js
 function reducer(state, action) {
@@ -172,7 +172,7 @@ function reducer(state, action) {
 }
 ```
 
-Then you need to fill in the code that will calculate and return the next state. By convention, it is common to write it as a [`switch` statement.](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/switch) For each `case` in the `switch`, calculate and return some next state.
+பிறகு next state-ஐ calculate செய்து return செய்யும் code-ஐ நிரப்ப வேண்டும். Convention படி, அதை [`switch` statement](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/switch) ஆக எழுதுவது பொதுவானது. `switch`-இல் ஒவ்வொரு `case`-க்கும் next state ஒன்றை calculate செய்து return செய்யுங்கள்.
 
 ```js {4-7,10-13}
 function reducer(state, action) {
@@ -190,11 +190,11 @@ function reducer(state, action) {
       };
     }
   }
-  throw Error('Unknown action: ' + action.type);
+  throw Error('தெரியாத action: ' + action.type);
 }
 ```
 
-Actions can have any shape. By convention, it's common to pass objects with a `type` property identifying the action. It should include the minimal necessary information that the reducer needs to compute the next state.
+Actions எந்த shape-ஆகவும் இருக்கலாம். Convention படி, action-ஐ identify செய்யும் `type` property கொண்ட objects pass செய்வது பொதுவானது. Reducer next state compute செய்ய தேவையான மிகக் குறைந்த information மட்டும் அதில் இருக்க வேண்டும்.
 
 ```js {5,9-12}
 function Form() {
@@ -213,13 +213,13 @@ function Form() {
   // ...
 ```
 
-The action type names are local to your component. [Each action describes a single interaction, even if that leads to multiple changes in data.](/learn/extracting-state-logic-into-a-reducer#writing-reducers-well) The shape of the state is arbitrary, but usually it'll be an object or an array.
+Action type names உங்கள் component-க்கு local ஆகும். [ஒவ்வொரு action-மும் data-வில் multiple changes ஏற்படுத்தினாலும், ஒரு single interaction-ஐ describe செய்கிறது.](/learn/extracting-state-logic-into-a-reducer#writing-reducers-well) State-ன் shape arbitrary; ஆனால் பொதுவாக அது object அல்லது array ஆக இருக்கும்.
 
-Read [extracting state logic into a reducer](/learn/extracting-state-logic-into-a-reducer) to learn more.
+மேலும் அறிய [state logic-ஐ reducer-க்கு extract செய்தல்](/learn/extracting-state-logic-into-a-reducer) வாசிக்கவும்.
 
 <Pitfall>
 
-State is read-only. Don't modify any objects or arrays in state:
+State read-only. State-இல் உள்ள objects அல்லது arrays எதையும் modify செய்யாதீர்கள்:
 
 ```js {4,5}
 function reducer(state, action) {
@@ -231,7 +231,7 @@ function reducer(state, action) {
     }
 ```
 
-Instead, always return new objects from your reducer:
+அதற்கு பதிலாக, எப்போதும் உங்கள் reducer-இலிருந்து புதிய objects return செய்யுங்கள்:
 
 ```js {4-8}
 function reducer(state, action) {
@@ -245,15 +245,15 @@ function reducer(state, action) {
     }
 ```
 
-Read [updating objects in state](/learn/updating-objects-in-state) and [updating arrays in state](/learn/updating-arrays-in-state) to learn more.
+மேலும் அறிய [state-இல் objects update செய்தல்](/learn/updating-objects-in-state) மற்றும் [state-இல் arrays update செய்தல்](/learn/updating-arrays-in-state) வாசிக்கவும்.
 
 </Pitfall>
 
-<Recipes titleText="Basic useReducer examples" titleId="examples-basic">
+<Recipes titleText="அடிப்படை useReducer examples" titleId="examples-basic">
 
 #### Form (object) {/*form-object*/}
 
-In this example, the reducer manages a state object with two fields: `name` and `age`.
+இந்த example-இல், reducer இரண்டு fields கொண்ட state object ஒன்றை manage செய்கிறது: `name` மற்றும் `age`.
 
 <Sandpack>
 
@@ -275,7 +275,7 @@ function reducer(state, action) {
       };
     }
   }
-  throw Error('Unknown action: ' + action.type);
+  throw Error('தெரியாத action: ' + action.type);
 }
 
 const initialState = { name: 'Taylor', age: 42 };
@@ -301,9 +301,9 @@ export default function Form() {
         onChange={handleInputChange}
       />
       <button onClick={handleButtonClick}>
-        Increment age
+        வயதை அதிகரி
       </button>
-      <p>Hello, {state.name}. You are {state.age}.</p>
+      <p>வணக்கம், {state.name}. உங்கள் வயது {state.age}.</p>
     </>
   );
 }
@@ -317,9 +317,9 @@ button { display: block; margin-top: 10px; }
 
 <Solution />
 
-#### Todo list (array) {/*todo-list-array*/}
+#### Todo பட்டியல் (array) {/*todo-list-array*/}
 
-In this example, the reducer manages an array of tasks. The array needs to be updated [without mutation.](/learn/updating-arrays-in-state)
+இந்த example-இல், reducer tasks array ஒன்றை manage செய்கிறது. Array [mutation இல்லாமல்](/learn/updating-arrays-in-state) update செய்யப்பட வேண்டும்.
 
 <Sandpack>
 
@@ -350,7 +350,7 @@ function tasksReducer(tasks, action) {
       return tasks.filter(t => t.id !== action.id);
     }
     default: {
-      throw Error('Unknown action: ' + action.type);
+      throw Error('தெரியாத action: ' + action.type);
     }
   }
 }
@@ -385,7 +385,7 @@ export default function TaskApp() {
 
   return (
     <>
-      <h1>Prague itinerary</h1>
+      <h1>Prague பயணத்திட்டம்</h1>
       <AddTask
         onAddTask={handleAddTask}
       />
@@ -400,9 +400,9 @@ export default function TaskApp() {
 
 let nextId = 3;
 const initialTasks = [
-  { id: 0, text: 'Visit Kafka Museum', done: true },
-  { id: 1, text: 'Watch a puppet show', done: false },
-  { id: 2, text: 'Lennon Wall pic', done: false }
+  { id: 0, text: 'Kafka Museum பார்க்கவும்', done: true },
+  { id: 1, text: 'Puppet show பார்க்கவும்', done: false },
+  { id: 2, text: 'Lennon Wall படம்', done: false }
 ];
 ```
 
@@ -414,14 +414,14 @@ export default function AddTask({ onAddTask }) {
   return (
     <>
       <input
-        placeholder="Add task"
+        placeholder="Task சேர்க்கவும்"
         value={text}
         onChange={e => setText(e.target.value)}
       />
       <button onClick={() => {
         setText('');
         onAddTask(text);
-      }}>Add</button>
+      }}>சேர்</button>
     </>
   )
 }
@@ -465,7 +465,7 @@ function Task({ task, onChange, onDelete }) {
             });
           }} />
         <button onClick={() => setIsEditing(false)}>
-          Save
+          சேமி
         </button>
       </>
     );
@@ -474,7 +474,7 @@ function Task({ task, onChange, onDelete }) {
       <>
         {task.text}
         <button onClick={() => setIsEditing(true)}>
-          Edit
+          திருத்து
         </button>
       </>
     );
@@ -493,7 +493,7 @@ function Task({ task, onChange, onDelete }) {
       />
       {taskContent}
       <button onClick={() => onDelete(task.id)}>
-        Delete
+        நீக்கு
       </button>
     </label>
   );
@@ -510,9 +510,9 @@ ul, li { margin: 0; padding: 0; }
 
 <Solution />
 
-#### Writing concise update logic with Immer {/*writing-concise-update-logic-with-immer*/}
+#### Immer மூலம் concise update logic எழுதுதல் {/*writing-concise-update-logic-with-immer*/}
 
-If updating arrays and objects without mutation feels tedious, you can use a library like [Immer](https://github.com/immerjs/use-immer#useimmerreducer) to reduce repetitive code. Immer lets you write concise code as if you were mutating objects, but under the hood it performs immutable updates:
+Mutation இல்லாமல் arrays மற்றும் objects update செய்வது tedious ஆக இருந்தால், repetitive code-ஐ குறைக்க [Immer](https://github.com/immerjs/use-immer#useimmerreducer) போன்ற library பயன்படுத்தலாம். Objects mutate செய்வது போல concise code எழுத Immer அனுமதிக்கிறது; ஆனால் உள்ளார்ந்த முறையில் அது immutable updates செய்கிறது:
 
 <Sandpack>
 
@@ -542,7 +542,7 @@ function tasksReducer(draft, action) {
       return draft.filter(t => t.id !== action.id);
     }
     default: {
-      throw Error('Unknown action: ' + action.type);
+      throw Error('தெரியாத action: ' + action.type);
     }
   }
 }
@@ -577,7 +577,7 @@ export default function TaskApp() {
 
   return (
     <>
-      <h1>Prague itinerary</h1>
+      <h1>Prague பயணத்திட்டம்</h1>
       <AddTask
         onAddTask={handleAddTask}
       />
@@ -592,9 +592,9 @@ export default function TaskApp() {
 
 let nextId = 3;
 const initialTasks = [
-  { id: 0, text: 'Visit Kafka Museum', done: true },
-  { id: 1, text: 'Watch a puppet show', done: false },
-  { id: 2, text: 'Lennon Wall pic', done: false },
+  { id: 0, text: 'Kafka Museum பார்க்கவும்', done: true },
+  { id: 1, text: 'Puppet show பார்க்கவும்', done: false },
+  { id: 2, text: 'Lennon Wall படம்', done: false },
 ];
 ```
 
@@ -606,14 +606,14 @@ export default function AddTask({ onAddTask }) {
   return (
     <>
       <input
-        placeholder="Add task"
+        placeholder="Task சேர்க்கவும்"
         value={text}
         onChange={e => setText(e.target.value)}
       />
       <button onClick={() => {
         setText('');
         onAddTask(text);
-      }}>Add</button>
+      }}>சேர்</button>
     </>
   )
 }
@@ -657,7 +657,7 @@ function Task({ task, onChange, onDelete }) {
             });
           }} />
         <button onClick={() => setIsEditing(false)}>
-          Save
+          சேமி
         </button>
       </>
     );
@@ -666,7 +666,7 @@ function Task({ task, onChange, onDelete }) {
       <>
         {task.text}
         <button onClick={() => setIsEditing(true)}>
-          Edit
+          திருத்து
         </button>
       </>
     );
@@ -685,7 +685,7 @@ function Task({ task, onChange, onDelete }) {
       />
       {taskContent}
       <button onClick={() => onDelete(task.id)}>
-        Delete
+        நீக்கு
       </button>
     </label>
   );
@@ -724,9 +724,9 @@ ul, li { margin: 0; padding: 0; }
 
 ---
 
-### Avoiding recreating the initial state {/*avoiding-recreating-the-initial-state*/}
+### Initial state மீண்டும் உருவாகாமல் தவிர்த்தல் {/*avoiding-recreating-the-initial-state*/}
 
-React saves the initial state once and ignores it on the next renders.
+React initial state-ஐ ஒருமுறை save செய்து, அடுத்த renders-இல் அதை ignore செய்கிறது.
 
 ```js
 function createInitialState(username) {
@@ -738,9 +738,9 @@ function TodoList({ username }) {
   // ...
 ```
 
-Although the result of `createInitialState(username)` is only used for the initial render, you're still calling this function on every render. This can be wasteful if it's creating large arrays or performing expensive calculations.
+`createInitialState(username)`-ன் result initial render-க்காக மட்டுமே பயன்படுத்தப்பட்டாலும், ஒவ்வொரு render-இலும் இந்த function-ஐ நீங்கள் இன்னும் call செய்கிறீர்கள். இது பெரிய arrays உருவாக்கினால் அல்லது expensive calculations செய்தால் wasteful ஆக இருக்கலாம்.
 
-To solve this, you may **pass it as an _initializer_ function** to `useReducer` as the third argument instead:
+இதைக் தீர்க்க, அதை `useReducer`-க்கு third argument ஆக **_initializer_ function** ஆக pass செய்யலாம்:
 
 ```js {6}
 function createInitialState(username) {
@@ -752,15 +752,15 @@ function TodoList({ username }) {
   // ...
 ```
 
-Notice that you’re passing `createInitialState`, which is the *function itself*, and not `createInitialState()`, which is the result of calling it. This way, the initial state does not get re-created after initialization.
+நீங்கள் pass செய்வது `createInitialState` என்ற *function தானே*, call செய்த result ஆன `createInitialState()` அல்ல என்பதை கவனியுங்கள். இவ்வாறு, initialization-க்கு பிறகு initial state மீண்டும் re-create ஆகாது.
 
-In the above example, `createInitialState` takes a `username` argument. If your initializer doesn't need any information to compute the initial state, you may pass `null` as the second argument to `useReducer`.
+மேலுள்ள example-இல், `createInitialState` `username` argument எடுக்கிறது. உங்கள் initializer initial state compute செய்ய எந்த information-மும் தேவையில்லை என்றால், `useReducer`-க்கு second argument ஆக `null` pass செய்யலாம்.
 
-<Recipes titleText="The difference between passing an initializer and passing the initial state directly" titleId="examples-initializer">
+<Recipes titleText="Initializer pass செய்வதுக்கும் initial state-ஐ நேரடியாக pass செய்வதுக்கும் உள்ள வேறுபாடு" titleId="examples-initializer">
 
-#### Passing the initializer function {/*passing-the-initializer-function*/}
+#### Initializer function pass செய்தல் {/*passing-the-initializer-function*/}
 
-This example passes the initializer function, so the `createInitialState` function only runs during initialization. It does not run when component re-renders, such as when you type into the input.
+இந்த example initializer function-ஐ pass செய்கிறது; எனவே `createInitialState` function initialization போது மட்டுமே run ஆகும். Input-இல் type செய்வது போன்ற component re-renders போது அது run ஆகாது.
 
 <Sandpack>
 
@@ -780,7 +780,7 @@ function createInitialState(username) {
   for (let i = 0; i < 50; i++) {
     initialTodos.push({
       id: i,
-      text: username + "'s task #" + (i + 1)
+      text: username + "-ன் task #" + (i + 1)
     });
   }
   return {
@@ -807,7 +807,7 @@ function reducer(state, action) {
       }
     }
   }
-  throw Error('Unknown action: ' + action.type);
+  throw Error('தெரியாத action: ' + action.type);
 }
 
 export default function TodoList({ username }) {
@@ -829,7 +829,7 @@ export default function TodoList({ username }) {
       />
       <button onClick={() => {
         dispatch({ type: 'added_todo' });
-      }}>Add</button>
+      }}>சேர்</button>
       <ul>
         {state.todos.map(item => (
           <li key={item.id}>
@@ -846,9 +846,9 @@ export default function TodoList({ username }) {
 
 <Solution />
 
-#### Passing the initial state directly {/*passing-the-initial-state-directly*/}
+#### Initial state-ஐ நேரடியாக pass செய்தல் {/*passing-the-initial-state-directly*/}
 
-This example **does not** pass the initializer function, so the `createInitialState` function runs on every render, such as when you type into the input. There is no observable difference in behavior, but this code is less efficient.
+இந்த example initializer function-ஐ pass செய்யவில்லை; எனவே input-இல் type செய்வது போன்ற ஒவ்வொரு render-இலும் `createInitialState` function run ஆகும். Behavior-இல் observable difference இல்லை, ஆனால் இந்த code குறைவாக efficient.
 
 <Sandpack>
 
@@ -868,7 +868,7 @@ function createInitialState(username) {
   for (let i = 0; i < 50; i++) {
     initialTodos.push({
       id: i,
-      text: username + "'s task #" + (i + 1)
+      text: username + "-ன் task #" + (i + 1)
     });
   }
   return {
@@ -895,7 +895,7 @@ function reducer(state, action) {
       }
     }
   }
-  throw Error('Unknown action: ' + action.type);
+  throw Error('தெரியாத action: ' + action.type);
 }
 
 export default function TodoList({ username }) {
@@ -916,7 +916,7 @@ export default function TodoList({ username }) {
       />
       <button onClick={() => {
         dispatch({ type: 'added_todo' });
-      }}>Add</button>
+      }}>சேர்</button>
       <ul>
         {state.todos.map(item => (
           <li key={item.id}>
@@ -937,28 +937,28 @@ export default function TodoList({ username }) {
 
 ---
 
-## Troubleshooting {/*troubleshooting*/}
+## சிக்கல் தீர்த்தல் {/*troubleshooting*/}
 
-### I've dispatched an action, but logging gives me the old state value {/*ive-dispatched-an-action-but-logging-gives-me-the-old-state-value*/}
+### நான் action dispatch செய்தேன், ஆனால் logging பழைய state value தருகிறது {/*ive-dispatched-an-action-but-logging-gives-me-the-old-state-value*/}
 
-Calling the `dispatch` function **does not change state in the running code**:
+`dispatch` function call செய்வது **running code-இல் state-ஐ change செய்யாது**:
 
 ```js {4,5,8}
 function handleClick() {
   console.log(state.age);  // 42
 
-  dispatch({ type: 'incremented_age' }); // Request a re-render with 43
-  console.log(state.age);  // Still 42!
+  dispatch({ type: 'incremented_age' }); // 43 உடன் re-render request செய்கிறது
+  console.log(state.age);  // இன்னும் 42!
 
   setTimeout(() => {
-    console.log(state.age); // Also 42!
+    console.log(state.age); // இதுவும் 42!
   }, 5000);
 }
 ```
 
-This is because [states behaves like a snapshot.](/learn/state-as-a-snapshot) Updating state requests another render with the new state value, but does not affect the `state` JavaScript variable in your already-running event handler.
+இதற்குக் காரணம் [states snapshot போல நடப்பது.](/learn/state-as-a-snapshot) State update செய்வது new state value உடன் இன்னொரு render request செய்கிறது; ஆனால் ஏற்கனவே running event handler-இல் உள்ள `state` JavaScript variable-ஐ அது பாதிக்காது.
 
-If you need to guess the next state value, you can calculate it manually by calling the reducer yourself:
+Next state value-ஐ கணிக்க வேண்டுமெனில், reducer-ஐ நீங்களே call செய்து manually calculate செய்யலாம்:
 
 ```js
 const action = { type: 'incremented_age' };
@@ -971,9 +971,9 @@ console.log(nextState); // { age: 43 }
 
 ---
 
-### I've dispatched an action, but the screen doesn't update {/*ive-dispatched-an-action-but-the-screen-doesnt-update*/}
+### நான் action dispatch செய்தேன், ஆனால் screen update ஆகவில்லை {/*ive-dispatched-an-action-but-the-screen-doesnt-update*/}
 
-React will **ignore your update if the next state is equal to the previous state,** as determined by an [`Object.is`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is) comparison. This usually happens when you change an object or an array in state directly:
+[`Object.is`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is) comparison மூலம் தீர்மானிக்கப்படும் போல, next state previous state-க்கு equal என்றால் React **உங்கள் update-ஐ ignore செய்யும்.** State-இல் உள்ள object அல்லது array-ஐ நேரடியாக change செய்தால் இது பொதுவாக நடக்கும்:
 
 ```js {4-5,9-10}
 function reducer(state, action) {
@@ -993,7 +993,7 @@ function reducer(state, action) {
 }
 ```
 
-You mutated an existing `state` object and returned it, so React ignored the update. To fix this, you need to ensure that you're always [updating objects in state](/learn/updating-objects-in-state) and [updating arrays in state](/learn/updating-arrays-in-state) instead of mutating them:
+நீங்கள் existing `state` object-ஐ mutate செய்து அதை return செய்தீர்கள்; எனவே React update-ஐ ignore செய்தது. இதை fix செய்ய, அவற்றை mutate செய்வதற்கு பதிலாக எப்போதும் [state-இல் objects update செய்தல்](/learn/updating-objects-in-state) மற்றும் [state-இல் arrays update செய்தல்](/learn/updating-arrays-in-state) செய்யப்படுகின்றன என்பதை உறுதி செய்ய வேண்டும்:
 
 ```js {4-8,11-15}
 function reducer(state, action) {
@@ -1019,29 +1019,29 @@ function reducer(state, action) {
 
 ---
 
-### A part of my reducer state becomes undefined after dispatching {/*a-part-of-my-reducer-state-becomes-undefined-after-dispatching*/}
+### Dispatch செய்த பிறகு என் reducer state-ன் ஒரு பகுதி undefined ஆகிறது {/*a-part-of-my-reducer-state-becomes-undefined-after-dispatching*/}
 
-Make sure that every `case` branch **copies all of the existing fields** when returning the new state:
+New state return செய்யும்போது ஒவ்வொரு `case` branch-மும் **existing fields அனைத்தையும் copy செய்கிறது** என்பதை உறுதி செய்யுங்கள்:
 
 ```js {5}
 function reducer(state, action) {
   switch (action.type) {
     case 'incremented_age': {
       return {
-        ...state, // Don't forget this!
+        ...state, // இதை மறக்க வேண்டாம்!
         age: state.age + 1
       };
     }
     // ...
 ```
 
-Without `...state` above, the returned next state would only contain the `age` field and nothing else.
+மேலுள்ள `...state` இல்லாமல், returned next state `age` field மட்டும் கொண்டிருக்கும், வேறு எதுவும் இருக்காது.
 
 ---
 
-### My entire reducer state becomes undefined after dispatching {/*my-entire-reducer-state-becomes-undefined-after-dispatching*/}
+### Dispatch செய்த பிறகு என் முழு reducer state undefined ஆகிறது {/*my-entire-reducer-state-becomes-undefined-after-dispatching*/}
 
-If your state unexpectedly becomes `undefined`, you're likely forgetting to `return` state in one of the cases, or your action type doesn't match any of the `case` statements. To find why, throw an error outside the `switch`:
+உங்கள் state எதிர்பாராதவிதமாக `undefined` ஆகுமானால், cases-இல் ஒன்றில் state-ஐ `return` செய்ய மறந்திருக்கலாம், அல்லது உங்கள் action type எந்த `case` statements-உடனும் match ஆகாமல் இருக்கலாம். ஏன் என்பதை கண்டுபிடிக்க, `switch`-க்கு வெளியே error throw செய்யுங்கள்:
 
 ```js {10}
 function reducer(state, action) {
@@ -1053,40 +1053,40 @@ function reducer(state, action) {
       // ...
     }
   }
-  throw Error('Unknown action: ' + action.type);
+  throw Error('தெரியாத action: ' + action.type);
 }
 ```
 
-You can also use a static type checker like TypeScript to catch such mistakes.
+இத்தகைய mistakes-ஐ catch செய்ய TypeScript போன்ற static type checker-யையும் பயன்படுத்தலாம்.
 
 ---
 
-### I'm getting an error: "Too many re-renders" {/*im-getting-an-error-too-many-re-renders*/}
+### எனக்கு error வருகிறது: "Too many re-renders" {/*im-getting-an-error-too-many-re-renders*/}
 
-You might get an error that says: `Too many re-renders. React limits the number of renders to prevent an infinite loop.` Typically, this means that you're unconditionally dispatching an action *during render*, so your component enters a loop: render, dispatch (which causes a render), render, dispatch (which causes a render), and so on. Very often, this is caused by a mistake in specifying an event handler:
+`Too many re-renders. React limits the number of renders to prevent an infinite loop.` என்று சொல்லும் error உங்களுக்கு வரலாம். பொதுவாக, இது render *போது* unconditional ஆக action dispatch செய்கிறீர்கள் என்பதைக் குறிக்கிறது; அதனால் உங்கள் component ஒரு loop-இல் செல்கிறது: render, dispatch (render ஏற்படுத்துகிறது), render, dispatch (render ஏற்படுத்துகிறது), இப்படியே. இது பெரும்பாலும் event handler specify செய்வதில் ஏற்படும் mistake காரணமாக இருக்கும்:
 
 ```js {1-2}
 // 🚩 Wrong: calls the handler during render
-return <button onClick={handleClick()}>Click me</button>
+return <button onClick={handleClick()}>என்னை click செய்</button>
 
 // ✅ Correct: passes down the event handler
-return <button onClick={handleClick}>Click me</button>
+return <button onClick={handleClick}>என்னை click செய்</button>
 
 // ✅ Correct: passes down an inline function
-return <button onClick={(e) => handleClick(e)}>Click me</button>
+return <button onClick={(e) => handleClick(e)}>என்னை click செய்</button>
 ```
 
-If you can't find the cause of this error, click on the arrow next to the error in the console and look through the JavaScript stack to find the specific `dispatch` function call responsible for the error.
+இந்த error-ன் காரணத்தை கண்டுபிடிக்க முடியாவிட்டால், console-இல் error-க்கு அடுத்துள்ள arrow-ஐ click செய்து, error-க்கு காரணமான குறிப்பிட்ட `dispatch` function call-ஐ கண்டுபிடிக்க JavaScript stack-ஐ பாருங்கள்.
 
 ---
 
-### My reducer or initializer function runs twice {/*my-reducer-or-initializer-function-runs-twice*/}
+### என் reducer அல்லது initializer function இருமுறை run ஆகிறது {/*my-reducer-or-initializer-function-runs-twice*/}
 
-In [Strict Mode](/reference/react/StrictMode), React will call your reducer and initializer functions twice. This shouldn't break your code.
+[Strict Mode](/reference/react/StrictMode)-இல், React உங்கள் reducer மற்றும் initializer functions-ஐ இருமுறை call செய்யும். இது உங்கள் code-ஐ உடைக்கக்கூடாது.
 
-This **development-only** behavior helps you [keep components pure.](/learn/keeping-components-pure) React uses the result of one of the calls, and ignores the result of the other call. As long as your component, initializer, and reducer functions are pure, this shouldn't affect your logic. However, if they are accidentally impure, this helps you notice the mistakes.
+இந்த **development-only** behavior [components-ஐ pure ஆக வைத்திருக்க](/learn/keeping-components-pure) உதவுகிறது. React calls-இல் ஒன்றின் result-ஐ பயன்படுத்தி, மற்றதின் result-ஐ ignore செய்கிறது. உங்கள் component, initializer, மற்றும் reducer functions pure ஆக இருக்கும் வரை, இது உங்கள் logic-ஐ பாதிக்கக்கூடாது. ஆனால் அவை accidentally impure ஆக இருந்தால், mistakes-ஐ notice செய்ய இது உதவும்.
 
-For example, this impure reducer function mutates an array in state:
+உதாரணமாக, இந்த impure reducer function state-இல் உள்ள array-ஐ mutate செய்கிறது:
 
 ```js {4-6}
 function reducer(state, action) {
@@ -1101,7 +1101,7 @@ function reducer(state, action) {
 }
 ```
 
-Because React calls your reducer function twice, you'll see the todo was added twice, so you'll know that there is a mistake. In this example, you can fix the mistake by [replacing the array instead of mutating it](/learn/updating-arrays-in-state#adding-to-an-array):
+React உங்கள் reducer function-ஐ இருமுறை call செய்வதால், todo இருமுறை சேர்க்கப்பட்டதை காண்பீர்கள்; இதன் மூலம் mistake உள்ளது என்பதை அறியலாம். இந்த example-இல், [array-ஐ mutate செய்வதற்கு பதிலாக replace செய்வதன் மூலம்](/learn/updating-arrays-in-state#adding-to-an-array) mistake-ஐ fix செய்யலாம்:
 
 ```js {4-11}
 function reducer(state, action) {
@@ -1121,6 +1121,6 @@ function reducer(state, action) {
 }
 ```
 
-Now that this reducer function is pure, calling it an extra time doesn't make a difference in behavior. This is why React calling it twice helps you find mistakes. **Only component, initializer, and reducer functions need to be pure.** Event handlers don't need to be pure, so React will never call your event handlers twice.
+இப்போது இந்த reducer function pure ஆக இருப்பதால், அதை கூடுதல் முறையாக call செய்தாலும் behavior-இல் difference வராது. அதனால்தான் React அதை இருமுறை call செய்வது mistakes கண்டுபிடிக்க உதவுகிறது. **Component, initializer, மற்றும் reducer functions மட்டுமே pure ஆக இருக்க வேண்டும்.** Event handlers pure ஆக இருக்க வேண்டியதில்லை; எனவே React உங்கள் event handlers-ஐ ஒருபோதும் இருமுறை call செய்யாது.
 
-Read [keeping components pure](/learn/keeping-components-pure) to learn more.
+மேலும் அறிய [components pure ஆக வைத்திருத்தல்](/learn/keeping-components-pure) வாசிக்கவும்.

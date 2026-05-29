@@ -4,13 +4,13 @@ title: flushSync
 
 <Pitfall>
 
-Using `flushSync` is uncommon and can hurt the performance of your app.
+`flushSync` பயன்படுத்துவது அரிதானது; இது உங்கள் app-ன் performance-ஐ பாதிக்கலாம்.
 
 </Pitfall>
 
 <Intro>
 
-`flushSync` lets you force React to flush any updates inside the provided callback synchronously. This ensures that the DOM is updated immediately.
+கொடுக்கப்பட்ட callback-க்குள் உள்ள updates-ஐ synchronously flush செய்ய React-ஐ force செய்ய `flushSync` உதவுகிறது. இதனால் DOM உடனடியாக update ஆகிறது என்பதை உறுதிசெய்கிறது.
 
 ```js
 flushSync(callback)
@@ -22,11 +22,11 @@ flushSync(callback)
 
 ---
 
-## Reference {/*reference*/}
+## குறிப்பு {/*reference*/}
 
 ### `flushSync(callback)` {/*flushsync*/}
 
-Call `flushSync` to force React to flush any pending work and update the DOM synchronously.
+Pending work எதையும் flush செய்து DOM-ஐ synchronously update செய்ய React-ஐ force செய்ய `flushSync`-ஐ call செய்யுங்கள்.
 
 ```js
 import { flushSync } from 'react-dom';
@@ -36,33 +36,33 @@ flushSync(() => {
 });
 ```
 
-Most of the time, `flushSync` can be avoided. Use `flushSync` as last resort.
+பெரும்பாலும், `flushSync`-ஐத் தவிர்க்கலாம். கடைசி வழியாக மட்டுமே `flushSync` பயன்படுத்துங்கள்.
 
-[See more examples below.](#usage)
+[மேலும் உதாரணங்களை கீழே பார்க்கவும்.](#usage)
 
 #### Parameters {/*parameters*/}
 
 
-* `callback`: A function. React will immediately call this callback and flush any updates it contains synchronously. It may also flush any pending updates, or Effects, or updates inside of Effects. If an update suspends as a result of this `flushSync` call, the fallbacks may be re-shown.
+* `callback`: ஒரு function. React இந்த callback-ஐ உடனடியாக call செய்து, இதில் உள்ள updates-ஐ synchronously flush செய்யும். Pending updates, Effects, அல்லது Effects-க்குள் உள்ள updates-ஐயும் flush செய்யலாம். இந்த `flushSync` call-ன் விளைவாக ஒரு update suspend ஆனால், fallbacks மீண்டும் காட்டப்படலாம்.
 
 #### Returns {/*returns*/}
 
-`flushSync` returns `undefined`.
+`flushSync` `undefined` return செய்கிறது.
 
 #### Caveats {/*caveats*/}
 
-* `flushSync` can significantly hurt performance. Use sparingly.
-* `flushSync` may force pending Suspense boundaries to show their `fallback` state.
-* `flushSync` may run pending Effects and synchronously apply any updates they contain before returning.
-* `flushSync` may flush updates outside the callback when necessary to flush the updates inside the callback. For example, if there are pending updates from a click, React may flush those before flushing the updates inside the callback.
+* `flushSync` performance-ஐ குறிப்பிடத்தக்க அளவில் பாதிக்கலாம். குறைவாக பயன்படுத்துங்கள்.
+* Pending Suspense boundaries அவற்றின் `fallback` state-ஐ காட்ட `flushSync` force செய்யலாம்.
+* Return செய்வதற்கு முன் pending Effects-ஐ run செய்து, அவற்றில் உள்ள updates-ஐ synchronously apply செய்ய `flushSync` செய்யலாம்.
+* Callback-க்குள் உள்ள updates-ஐ flush செய்ய தேவையானபோது, callback-க்கு வெளியிலுள்ள updates-ஐயும் `flushSync` flush செய்யலாம். உதாரணமாக, ஒரு click-இலிருந்து pending updates இருந்தால், callback-க்குள் உள்ள updates-க்கு முன் React அவற்றை flush செய்யலாம்.
 
 ---
 
-## Usage {/*usage*/}
+## பயன்பாடு {/*usage*/}
 
-### Flushing updates for third-party integrations {/*flushing-updates-for-third-party-integrations*/}
+### Third-party integrations-க்காக updates flush செய்தல் {/*flushing-updates-for-third-party-integrations*/}
 
-When integrating with third-party code such as browser APIs or UI libraries, it may be necessary to force React to flush updates. Use `flushSync` to force React to flush any <CodeStep step={1}>state updates</CodeStep> inside the callback synchronously:
+Browser APIs அல்லது UI libraries போன்ற third-party code உடன் integrate செய்யும்போது, updates-ஐ flush செய்ய React-ஐ force செய்ய வேண்டியிருக்கலாம். Callback-க்குள் உள்ள <CodeStep step={1}>state updates</CodeStep>-ஐ synchronously flush செய்ய React-ஐ force செய்ய `flushSync`-ஐப் பயன்படுத்துங்கள்:
 
 ```js [[1, 2, "setSomething(123)"]]
 flushSync(() => {
@@ -71,15 +71,15 @@ flushSync(() => {
 // By this line, the DOM is updated.
 ```
 
-This ensures that, by the time the next line of code runs, React has already updated the DOM.
+அடுத்த code line run ஆகும் நேரத்திற்குள் React ஏற்கனவே DOM-ஐ update செய்துவிட்டதை இது உறுதிசெய்கிறது.
 
-**Using `flushSync` is uncommon, and using it often can significantly hurt the performance of your app.** If your app only uses React APIs, and does not integrate with third-party libraries, `flushSync` should be unnecessary.
+**`flushSync` பயன்படுத்துவது அரிதானது; அதை அடிக்கடி பயன்படுத்துவது உங்கள் app-ன் performance-ஐ குறிப்பிடத்தக்க அளவில் பாதிக்கலாம்.** உங்கள் app React APIs மட்டும் பயன்படுத்தி, third-party libraries உடன் integrate செய்யவில்லை என்றால், `flushSync` தேவையில்லை.
 
-However, it can be helpful for integrating with third-party code like browser APIs.
+ஆனால் browser APIs போன்ற third-party code உடன் integrate செய்ய இது உதவியாக இருக்கலாம்.
 
-Some browser APIs expect results inside of callbacks to be written to the DOM synchronously, by the end of the callback, so the browser can do something with the rendered DOM. In most cases, React handles this for you automatically. But in some cases it may be necessary to force a synchronous update.
+சில browser APIs, callbacks-க்குள் உள்ள results callback முடியும் நேரத்திற்குள் DOM-இல் synchronously எழுதப்பட்டிருக்க வேண்டும் என்று எதிர்பார்க்கின்றன; அப்போதுதான் browser rendered DOM-ஐ வைத்து ஏதாவது செய்ய முடியும். பெரும்பாலான சூழல்களில் React இதை உங்களுக்காக தானாக கையாளுகிறது. ஆனால் சில சூழல்களில் synchronous update-ஐ force செய்ய வேண்டியிருக்கலாம்.
 
-For example, the browser `onbeforeprint` API allows you to change the page immediately before the print dialog opens. This is useful for applying custom print styles that allow the document to display better for printing. In the example below, you use `flushSync` inside of the `onbeforeprint` callback to immediately "flush" the React state to the DOM. Then, by the time the print dialog opens, `isPrinting` displays "yes":
+உதாரணமாக, browser `onbeforeprint` API print dialog திறக்கும் முன் page-ஐ உடனடியாக மாற்ற அனுமதிக்கிறது. Printing-க்கு document சிறப்பாக display ஆக custom print styles apply செய்ய இது பயனுள்ளது. கீழே உள்ள உதாரணத்தில், React state-ஐ DOM-க்கு உடனடியாக "flush" செய்ய `onbeforeprint` callback-க்குள் `flushSync` பயன்படுத்துகிறீர்கள். பிறகு print dialog திறக்கும் நேரத்திற்குள், `isPrinting` `"yes"` என்று காட்டும்:
 
 <Sandpack>
 
@@ -122,24 +122,24 @@ export default function PrintApp() {
 
 </Sandpack>
 
-Without `flushSync`, the print dialog will display `isPrinting` as "no". This is because React batches the updates asynchronously and the print dialog is displayed before the state is updated.
+`flushSync` இல்லையெனில், print dialog `isPrinting`-ஐ `"no"` என்று காட்டும். ஏனெனில் React updates-ஐ asynchronously batch செய்கிறது; state update ஆகும் முன்பே print dialog காட்டப்படுகிறது.
 
 <Pitfall>
 
-`flushSync` can significantly hurt performance, and may unexpectedly force pending Suspense boundaries to show their fallback state.
+`flushSync` performance-ஐ குறிப்பிடத்தக்க அளவில் பாதிக்கலாம்; மேலும் pending Suspense boundaries திடீரென fallback state-ஐ காட்ட force செய்யப்படலாம்.
 
-Most of the time, `flushSync` can be avoided, so use `flushSync` as a last resort.
+பெரும்பாலும், `flushSync`-ஐத் தவிர்க்கலாம்; எனவே கடைசி வழியாக மட்டுமே `flushSync` பயன்படுத்துங்கள்.
 
 </Pitfall>
 
 ---
 
-## Troubleshooting {/*troubleshooting*/}
+## சிக்கல் தீர்வு {/*troubleshooting*/}
 
-### I'm getting an error: "flushSync was called from inside a lifecycle method" {/*im-getting-an-error-flushsync-was-called-from-inside-a-lifecycle-method*/}
+### "flushSync was called from inside a lifecycle method" என்ற error வருகிறது {/*im-getting-an-error-flushsync-was-called-from-inside-a-lifecycle-method*/}
 
 
-React cannot `flushSync` in the middle of a render. If you do, it will noop and warn:
+ஒரு render நடுவில் React `flushSync` செய்ய முடியாது. அப்படிச் செய்தால், அது noop ஆகி warning காட்டும்:
 
 <ConsoleBlock level="error">
 
@@ -147,13 +147,13 @@ Warning: flushSync was called from inside a lifecycle method. React cannot flush
 
 </ConsoleBlock>
 
-This includes calling `flushSync` inside:
+இதில் `flushSync`-ஐ பின்வரும் இடங்களில் call செய்வதும் அடங்கும்:
 
-- rendering a component.
-- `useLayoutEffect` or `useEffect` hooks.
-- Class component lifecycle methods.
+- ஒரு component render செய்யும்போது.
+- `useLayoutEffect` அல்லது `useEffect` hooks-இல்.
+- Class component lifecycle methods-இல்.
 
-For example, calling `flushSync` in an Effect will noop and warn:
+உதாரணமாக, Effect-இல் `flushSync` call செய்தால் அது noop ஆகி warning காட்டும்:
 
 ```js
 import { useEffect } from 'react';
@@ -171,7 +171,7 @@ function MyComponent() {
 }
 ```
 
-To fix this, you usually want to move the `flushSync` call to an event:
+இதைக் சரிசெய்ய, பொதுவாக `flushSync` call-ஐ ஒரு event-க்கு நகர்த்த வேண்டும்:
 
 ```js
 function handleClick() {
@@ -183,7 +183,7 @@ function handleClick() {
 ```
 
 
-If it's difficult to move to an event, you can defer `flushSync` in a microtask:
+Event-க்கு நகர்த்துவது கடினமாக இருந்தால், microtask-இல் `flushSync`-ஐ defer செய்யலாம்:
 
 ```js {3,7}
 useEffect(() => {
@@ -196,10 +196,10 @@ useEffect(() => {
 }, []);
 ```
 
-This will allow the current render to finish and schedule another syncronous render to flush the updates.
+இது தற்போதைய render முடிவதற்கு அனுமதித்து, updates-ஐ flush செய்ய மற்றொரு synchronous render-ஐ schedule செய்யும்.
 
 <Pitfall>
 
-`flushSync` can significantly hurt performance, but this particular pattern is even worse for performance. Exhaust all other options before calling `flushSync` in a microtask as an escape hatch.
+`flushSync` performance-ஐ குறிப்பிடத்தக்க அளவில் பாதிக்கலாம்; ஆனால் இந்த குறிப்பிட்ட pattern performance-க்கு இன்னும் மோசமானது. Escape hatch ஆக microtask-இல் `flushSync` call செய்வதற்கு முன் மற்ற எல்லா options-ஐயும் முயற்சி செய்யுங்கள்.
 
 </Pitfall>

@@ -1,59 +1,59 @@
 ---
-title: Add React to an Existing Project
+title: Existing project-இல் React சேர்த்தல்
 ---
 
 <Intro>
 
-If you want to add some interactivity to your existing project, you don't have to rewrite it in React. Add React to your existing stack, and render interactive React components anywhere.
+உங்கள் existing project-இல் சிறிது interactivity சேர்க்க விரும்பினால், அதை React-இல் rewrite செய்ய தேவையில்லை. உங்கள் existing stack-க்கு React சேர்த்து, எங்கு வேண்டுமானாலும் interactive React components render செய்யலாம்.
 
 </Intro>
 
 <Note>
 
-**You need to install [Node.js](https://nodejs.org/en/) for local development.** Although you can [try React](/learn/installation#try-react) online or with a simple HTML page, realistically most JavaScript tooling you'll want to use for development requires Node.js.
+**Local development-க்கு [Node.js](https://nodejs.org/en/) install செய்ய வேண்டும்.** Online-இல் அல்லது நேரடியான HTML page மூலம் [React முயற்சிக்க](/learn/installation#try-react) முடிந்தாலும், development-க்கு நீங்கள் பயன்படுத்த விரும்பும் பெரும்பாலான JavaScript tooling-க்கு நடைமுறையில் Node.js தேவைப்படும்.
 
 </Note>
 
-## Using React for an entire subroute of your existing website {/*using-react-for-an-entire-subroute-of-your-existing-website*/}
+## Existing website-ன் முழு subroute-க்கு React பயன்படுத்துதல் {/*using-react-for-an-entire-subroute-of-your-existing-website*/}
 
-Let's say you have an existing web app at `example.com` built with another server technology (like Rails), and you want to implement all routes starting with `example.com/some-app/` fully with React.
+`example.com`-இல் Rails போன்ற வேறு server technology கொண்டு உருவாக்கப்பட்ட existing web app உள்ளது என்று வைத்துக்கொள்வோம்; `example.com/some-app/` என்று தொடங்கும் அனைத்து routes-ஐயும் முழுமையாக React கொண்டு implement செய்ய விரும்புகிறீர்கள்.
 
-Here's how we recommend to set it up:
+அதை இவ்வாறு set up செய்ய பரிந்துரைக்கிறோம்:
 
-1. **Build the React part of your app** using one of the [React-based frameworks](/learn/creating-a-react-app).
-2. **Specify `/some-app` as the *base path*** in your framework's configuration (here's how: [Next.js](https://nextjs.org/docs/app/api-reference/config/next-config-js/basePath), [Gatsby](https://www.gatsbyjs.com/docs/how-to/previews-deploys-hosting/path-prefix/)).
-3. **Configure your server or a proxy** so that all requests under `/some-app/` are handled by your React app.
+1. [React-based frameworks](/learn/creating-a-react-app)-இல் ஒன்றைப் பயன்படுத்தி **உங்கள் app-ன் React பகுதியை build செய்யுங்கள்**.
+2. உங்கள் framework configuration-இல் **`/some-app`-ஐ *base path* ஆக குறிப்பிடுங்கள்** (இதற்கான வழி: [Next.js](https://nextjs.org/docs/app/api-reference/config/next-config-js/basePath), [Gatsby](https://www.gatsbyjs.com/docs/how-to/previews-deploys-hosting/path-prefix/)).
+3. `/some-app/`-க்குள் வரும் அனைத்து requests-யும் உங்கள் React app handle செய்யும் வகையில் **உங்கள் server அல்லது proxy-ஐ configure செய்யுங்கள்**.
 
-This ensures the React part of your app can [benefit from the best practices](/learn/build-a-react-app-from-scratch#consider-using-a-framework) baked into those frameworks.
+இதனால் உங்கள் app-ன் React பகுதி, அந்த frameworks-இல் உள்ள [best practices-ன் பயனைப் பெறும்](/learn/build-a-react-app-from-scratch#consider-using-a-framework).
 
-Many React-based frameworks are full-stack and let your React app take advantage of the server. However, you can use the same approach even if you can't or don't want to run JavaScript on the server. In that case, serve the HTML/CSS/JS export ([`next export` output](https://nextjs.org/docs/advanced-features/static-html-export) for Next.js, default for Gatsby) at `/some-app/` instead.
+பல React-based frameworks full-stack ஆக உள்ளன; அவை உங்கள் React app server-ன் பயனைப் பெற அனுமதிக்கின்றன. ஆனால் server-இல் JavaScript run செய்ய முடியாவிட்டாலும் அல்லது விரும்பாவிட்டாலும் இதே அணுகுமுறையைப் பயன்படுத்தலாம். அந்த case-இல், `/some-app/`-இல் HTML/CSS/JS export-ஐ (Next.js-க்கு [`next export` output](https://nextjs.org/docs/advanced-features/static-html-export), Gatsby-க்கு default) serve செய்யுங்கள்.
 
-## Using React for a part of your existing page {/*using-react-for-a-part-of-your-existing-page*/}
+## Existing page-ன் ஒரு பகுதிக்கு React பயன்படுத்துதல் {/*using-react-for-a-part-of-your-existing-page*/}
 
-Let's say you have an existing page built with another technology (either a server one like Rails, or a client one like Backbone), and you want to render interactive React components somewhere on that page. That's a common way to integrate React--in fact, it's how most React usage looked at Meta for many years!
+Rails போன்ற server technology அல்லது Backbone போன்ற client technology கொண்டு உருவாக்கப்பட்ட existing page ஒன்று உங்களிடம் உள்ளது, அதில் எங்கோ interactive React components render செய்ய விரும்புகிறீர்கள் என்று வைத்துக்கொள்வோம். இது React integrate செய்யும் பொதுவான வழி; உண்மையில் பல ஆண்டுகள் Meta-வில் React usage பெரும்பாலும் இப்படித்தான் இருந்தது!
 
-You can do this in two steps:
+இதை இரண்டு படிகளில் செய்யலாம்:
 
-1. **Set up a JavaScript environment** that lets you use the [JSX syntax](/learn/writing-markup-with-jsx), split your code into modules with the [`import`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import) / [`export`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export) syntax, and use packages (for example, React) from the [npm](https://www.npmjs.com/) package registry.
-2. **Render your React components** where you want to see them on the page.
+1. [JSX syntax](/learn/writing-markup-with-jsx) பயன்படுத்தவும், [`import`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import) / [`export`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export) syntax மூலம் code-ஐ modules ஆகப் பிரிக்கவும், [npm](https://www.npmjs.com/) package registry-யிலிருந்து packages (உதாரணமாக React) பயன்படுத்தவும் அனுமதிக்கும் **JavaScript environment அமைக்கவும்**.
+2. Page-இல் நீங்கள் பார்க்க விரும்பும் இடத்தில் **உங்கள் React components-ஐ render செய்யவும்**.
 
-The exact approach depends on your existing page setup, so let's walk through some details.
+சரியான அணுகுமுறை உங்கள் existing page setup-ஐப் பொறுத்தது; சில விவரங்களைப் பார்ப்போம்.
 
-### Step 1: Set up a modular JavaScript environment {/*step-1-set-up-a-modular-javascript-environment*/}
+### படி 1: Modular JavaScript environment அமைத்தல் {/*step-1-set-up-a-modular-javascript-environment*/}
 
-A modular JavaScript environment lets you write your React components in individual files, as opposed to writing all of your code in a single file. It also lets you use all the wonderful packages published by other developers on the [npm](https://www.npmjs.com/) registry--including React itself! How you do this depends on your existing setup:
+Modular JavaScript environment, உங்கள் code அனைத்தையும் ஒரே file-இல் எழுதுவதற்கு பதிலாக, React components-ஐ தனித்தனி files-இல் எழுத அனுமதிக்கிறது. [npm](https://www.npmjs.com/) registry-யில் பிற developers publish செய்த சிறந்த packages அனைத்தையும், React உட்பட, பயன்படுத்தவும் அனுமதிக்கிறது! இதை எப்படி செய்வது உங்கள் existing setup-ஐப் பொறுத்தது:
 
-* **If your app is already split into files that use `import` statements,** try to use the setup you already have. Check whether writing `<div />` in your JS code causes a syntax error. If it causes a syntax error, you might need to [transform your JavaScript code with Babel](https://babeljs.io/setup), and enable the [Babel React preset](https://babeljs.io/docs/babel-preset-react) to use JSX.
+* **உங்கள் app ஏற்கனவே `import` statements பயன்படுத்தும் files ஆகப் பிரிக்கப்பட்டிருந்தால்,** உங்களிடம் ஏற்கனவே உள்ள setup-ஐ பயன்படுத்த முயற்சிக்கவும். உங்கள் JS code-இல் `<div />` எழுதுவது syntax error தருகிறதா என்று பார்க்கவும். Syntax error வந்தால், JSX பயன்படுத்த [Babel மூலம் உங்கள் JavaScript code-ஐ transform செய்ய](https://babeljs.io/setup), மேலும் [Babel React preset](https://babeljs.io/docs/babel-preset-react)-ஐ enable செய்ய வேண்டியிருக்கலாம்.
 
-* **If your app doesn't have an existing setup for compiling JavaScript modules,** set it up with [Vite](https://vite.dev/). The Vite community maintains [many integrations with backend frameworks](https://github.com/vitejs/awesome-vite#integrations-with-backends), including Rails, Django, and Laravel. If your backend framework is not listed, [follow this guide](https://vite.dev/guide/backend-integration.html) to manually integrate Vite builds with your backend.
+* **உங்கள் app-க்கு JavaScript modules compile செய்ய existing setup இல்லையென்றால்,** [Vite](https://vite.dev/) கொண்டு அதை அமைக்கவும். Rails, Django, Laravel உட்பட [backend frameworks உடன் பல integrations](https://github.com/vitejs/awesome-vite#integrations-with-backends)-ஐ Vite community maintain செய்கிறது. உங்கள் backend framework பட்டியலில் இல்லையென்றால், Vite builds-ஐ உங்கள் backend உடன் manually integrate செய்ய [இந்த guide](https://vite.dev/guide/backend-integration.html)-ஐப் பின்பற்றவும்.
 
-To check whether your setup works, run this command in your project folder:
+உங்கள் setup வேலை செய்கிறதா என்பதைப் பார்க்க, உங்கள் project folder-இல் இந்த command-ஐ run செய்யுங்கள்:
 
 <TerminalBlock>
 npm install react react-dom
 </TerminalBlock>
 
-Then add these lines of code at the top of your main JavaScript file (it might be called `index.js` or `main.js`):
+பிறகு உங்கள் main JavaScript file-ன் மேலே இந்த code lines-ஐ சேர்க்கவும் (அது `index.js` அல்லது `main.js` என்று அழைக்கப்படலாம்):
 
 <Sandpack>
 
@@ -81,17 +81,17 @@ root.render(<h1>Hello, world</h1>);
 
 </Sandpack>
 
-If the entire content of your page was replaced by a "Hello, world!", everything worked! Keep reading.
+உங்கள் page-ன் முழு content "Hello, world!"-ஆல் replace செய்யப்பட்டிருந்தால், எல்லாம் வேலை செய்தது! தொடர்ந்து படியுங்கள்.
 
 <Note>
 
-Integrating a modular JavaScript environment into an existing project for the first time can feel intimidating, but it's worth it! If you get stuck, try our [community resources](/community) or the [Vite Chat](https://chat.vite.dev/).
+Existing project-இல் modular JavaScript environment-ஐ முதல் முறையாக integrate செய்வது சற்று பயமுறுத்தலாம்; ஆனால் அது மதிப்புள்ளது! நீங்கள் சிக்கினால், எங்கள் [community resources](/community) அல்லது [Vite Chat](https://chat.vite.dev/)-ஐ முயற்சிக்கவும்.
 
 </Note>
 
-### Step 2: Render React components anywhere on the page {/*step-2-render-react-components-anywhere-on-the-page*/}
+### படி 2: Page-இல் எங்கும் React components render செய்தல் {/*step-2-render-react-components-anywhere-on-the-page*/}
 
-In the previous step, you put this code at the top of your main file:
+முந்தைய படியில், உங்கள் main file-ன் மேலே இந்த code-ஐ வைத்தீர்கள்:
 
 ```js
 import { createRoot } from 'react-dom/client';
@@ -104,11 +104,11 @@ const root = createRoot(document.getElementById('app'));
 root.render(<h1>Hello, world</h1>);
 ```
 
-Of course, you don't actually want to clear the existing HTML content!
+நிச்சயமாக, existing HTML content-ஐ உண்மையில் clear செய்ய நீங்கள் விரும்பவில்லை!
 
-Delete this code.
+இந்த code-ஐ delete செய்யுங்கள்.
 
-Instead, you probably want to render your React components in specific places in your HTML. Open your HTML page (or the server templates that generate it) and add a unique [`id`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id) attribute to any tag, for example:
+அதற்கு பதிலாக, உங்கள் HTML-இல் குறிப்பிட்ட இடங்களில் React components render செய்ய விரும்புவீர்கள். உங்கள் HTML page-ஐ (அல்லது அதை generate செய்யும் server templates-ஐ) open செய்து, எந்த tag-க்கும் unique [`id`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id) attribute சேர்க்கவும். உதாரணமாக:
 
 ```html
 <!-- ... somewhere in your html ... -->
@@ -116,7 +116,7 @@ Instead, you probably want to render your React components in specific places in
 <!-- ... more html ... -->
 ```
 
-This lets you find that HTML element with [`document.getElementById`](https://developer.mozilla.org/en-US/docs/Web/API/Document/getElementById) and pass it to [`createRoot`](/reference/react-dom/client/createRoot) so that you can render your own React component inside:
+இதனால் அந்த HTML element-ஐ [`document.getElementById`](https://developer.mozilla.org/en-US/docs/Web/API/Document/getElementById) மூலம் கண்டுபிடித்து [`createRoot`](/reference/react-dom/client/createRoot)-க்கு pass செய்யலாம்; அதன் உள்ளே உங்கள் சொந்த React component-ஐ render செய்ய முடியும்:
 
 <Sandpack>
 
@@ -147,10 +147,10 @@ root.render(<NavigationBar />);
 
 </Sandpack>
 
-Notice how the original HTML content from `index.html` is preserved, but your own `NavigationBar` React component now appears inside the `<nav id="navigation">` from your HTML. Read the [`createRoot` usage documentation](/reference/react-dom/client/createRoot#rendering-a-page-partially-built-with-react) to learn more about rendering React components inside an existing HTML page.
+`index.html`-இலிருந்த original HTML content preserve செய்யப்பட்டிருப்பதையும், ஆனால் உங்கள் சொந்த `NavigationBar` React component இப்போது உங்கள் HTML-இல் உள்ள `<nav id="navigation">`-க்குள் தோன்றுவதையும் கவனியுங்கள். Existing HTML page-க்குள் React components render செய்வதைப் பற்றி மேலும் அறிய [`createRoot` usage documentation](/reference/react-dom/client/createRoot#rendering-a-page-partially-built-with-react)-ஐ படிக்கவும்.
 
-When you adopt React in an existing project, it's common to start with small interactive components (like buttons), and then gradually keep "moving upwards" until eventually your entire page is built with React. If you ever reach that point, we recommend migrating to [a React framework](/learn/creating-a-react-app) right after to get the most out of React.
+Existing project-இல் React adopt செய்யும்போது, buttons போன்ற சிறிய interactive components-இலிருந்து தொடங்கி, பிறகு படிப்படியாக "மேலே நகர்ந்து", இறுதியில் உங்கள் முழு page-யும் React கொண்டு build ஆகும் நிலைக்கு செல்வது பொதுவானது. அந்த நிலையை அடைந்தால், React-ன் முழு பயனைப் பெற உடனே [React framework](/learn/creating-a-react-app)-க்கு migrate செய்ய பரிந்துரைக்கிறோம்.
 
-## Using React Native in an existing native mobile app {/*using-react-native-in-an-existing-native-mobile-app*/}
+## Existing native mobile app-இல் React Native பயன்படுத்துதல் {/*using-react-native-in-an-existing-native-mobile-app*/}
 
-[React Native](https://reactnative.dev/) can also be integrated into existing native apps incrementally. If you have an existing native app for Android (Java or Kotlin) or iOS (Objective-C or Swift), [follow this guide](https://reactnative.dev/docs/integration-with-existing-apps) to add a React Native screen to it.
+[React Native](https://reactnative.dev/) existing native apps-இலும் incrementally integrate செய்யலாம். Android (Java அல்லது Kotlin) அல்லது iOS (Objective-C அல்லது Swift)-க்கான existing native app உங்களிடம் இருந்தால், அதில் React Native screen சேர்க்க [இந்த guide](https://reactnative.dev/docs/integration-with-existing-apps)-ஐப் பின்பற்றவும்.

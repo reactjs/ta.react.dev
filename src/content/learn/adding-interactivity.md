@@ -1,30 +1,30 @@
 ---
-title: Adding Interactivity
+title: Interactivity சேர்த்தல்
 ---
 
 <Intro>
 
-Some things on the screen update in response to user input. For example, clicking an image gallery switches the active image. In React, data that changes over time is called *state.* You can add state to any component, and update it as needed. In this chapter, you'll learn how to write components that handle interactions, update their state, and display different output over time.
+Screen-இல் உள்ள சில விஷயங்கள் user input-க்கு பதிலாக update ஆகின்றன. உதாரணமாக, image gallery-யை click செய்வது active image-ஐ மாற்றுகிறது. React-இல், காலத்துடன் மாறும் data *state* என்று அழைக்கப்படுகிறது. எந்த component-க்கும் state சேர்த்து, தேவையானபடி அதை update செய்யலாம். இந்த chapter-இல், interactions handle செய்யும், தங்கள் state-ஐ update செய்யும், மற்றும் காலத்துடன் வேறுபட்ட output-ஐ display செய்யும் components எழுதுவது எப்படி என்பதை கற்றுக்கொள்வீர்கள்.
 
 </Intro>
 
 <YouWillLearn isChapter={true}>
 
-* [How to handle user-initiated events](/learn/responding-to-events)
-* [How to make components "remember" information with state](/learn/state-a-components-memory)
-* [How React updates the UI in two phases](/learn/render-and-commit)
-* [Why state doesn't update right after you change it](/learn/state-as-a-snapshot)
-* [How to queue multiple state updates](/learn/queueing-a-series-of-state-updates)
-* [How to update an object in state](/learn/updating-objects-in-state)
-* [How to update an array in state](/learn/updating-arrays-in-state)
+* [User-initiated events-ஐ handle செய்வது எப்படி](/learn/responding-to-events)
+* [State மூலம் components தகவலை "நினைவில்" வைத்திருக்க செய்வது எப்படி](/learn/state-a-components-memory)
+* [React இரண்டு phases-இல் UI-யை update செய்வது எப்படி](/learn/render-and-commit)
+* [State-ஐ மாற்றிய உடனே அது ஏன் update ஆகாது](/learn/state-as-a-snapshot)
+* [பல state updates-ஐ queue செய்வது எப்படி](/learn/queueing-a-series-of-state-updates)
+* [State-இல் object-ஐ update செய்வது எப்படி](/learn/updating-objects-in-state)
+* [State-இல் array-ஐ update செய்வது எப்படி](/learn/updating-arrays-in-state)
 
 </YouWillLearn>
 
-## Responding to events {/*responding-to-events*/}
+## Events-க்கு பதிலளித்தல் {/*responding-to-events*/}
 
-React lets you add *event handlers* to your JSX. Event handlers are your own functions that will be triggered in response to user interactions like clicking, hovering, focusing on form inputs, and so on.
+உங்கள் JSX-க்கு *event handlers* சேர்க்க React அனுமதிக்கிறது. Event handlers என்பது clicking, hovering, form inputs-ல் focus செய்தல் போன்ற user interactions-க்கு பதிலாக trigger ஆகும் உங்கள் சொந்த functions.
 
-Built-in components like `<button>` only support built-in browser events like `onClick`. However, you can also create your own components, and give their event handler props any application-specific names that you like.
+`<button>` போன்ற built-in components, `onClick` போன்ற built-in browser events-ஐ மட்டுமே support செய்கின்றன. ஆனால் நீங்கள் உங்கள் சொந்த components-ஐயும் உருவாக்கலாம்; அவற்றின் event handler props-க்கு உங்களுக்கு விருப்பமான application-specific names கொடுக்கலாம்.
 
 <Sandpack>
 
@@ -32,8 +32,8 @@ Built-in components like `<button>` only support built-in browser events like `o
 export default function App() {
   return (
     <Toolbar
-      onPlayMovie={() => alert('Playing!')}
-      onUploadImage={() => alert('Uploading!')}
+      onPlayMovie={() => alert('இயக்கப்படுகிறது!')}
+      onUploadImage={() => alert('Upload செய்யப்படுகிறது!')}
     />
   );
 }
@@ -42,10 +42,10 @@ function Toolbar({ onPlayMovie, onUploadImage }) {
   return (
     <div>
       <Button onClick={onPlayMovie}>
-        Play Movie
+        Movie-ஐ இயக்கு
       </Button>
       <Button onClick={onUploadImage}>
-        Upload Image
+        Image-ஐ upload செய்
       </Button>
     </div>
   );
@@ -68,22 +68,22 @@ button { margin-right: 10px; }
 
 <LearnMore path="/learn/responding-to-events">
 
-Read **[Responding to Events](/learn/responding-to-events)** to learn how to add event handlers.
+Event handlers சேர்ப்பது எப்படி என்பதை அறிய **[Responding to Events](/learn/responding-to-events)**-ஐ படியுங்கள்.
 
 </LearnMore>
 
-## State: a component's memory {/*state-a-components-memory*/}
+## State: component-ன் memory {/*state-a-components-memory*/}
 
-Components often need to change what's on the screen as a result of an interaction. Typing into the form should update the input field, clicking "next" on an image carousel should change which image is displayed, clicking "buy" puts a product in the shopping cart. Components need to "remember" things: the current input value, the current image, the shopping cart. In React, this kind of component-specific memory is called *state.*
+Interaction-ன் விளைவாக screen-இல் உள்ளதை மாற்ற components-க்கு அடிக்கடி தேவைப்படும். Form-இல் type செய்தால் input field update ஆக வேண்டும்; image carousel-இல் "next" click செய்தால் காட்டப்படும் image மாற வேண்டும்; "buy" click செய்தால் product shopping cart-இல் சேர வேண்டும். Components விஷயங்களை "நினைவில்" வைத்திருக்க வேண்டும்: current input value, current image, shopping cart. React-இல், இத்தகைய component-specific memory *state* என்று அழைக்கப்படுகிறது.
 
-You can add state to a component with a [`useState`](/reference/react/useState) Hook. *Hooks* are special functions that let your components use React features (state is one of those features). The `useState` Hook lets you declare a state variable. It takes the initial state and returns a pair of values: the current state, and a state setter function that lets you update it.
+[`useState`](/reference/react/useState) Hook மூலம் component-க்கு state சேர்க்கலாம். *Hooks* என்பது உங்கள் components React features-ஐ பயன்படுத்த அனுமதிக்கும் சிறப்பு functions (state அவற்றில் ஒன்று). `useState` Hook state variable ஒன்றை declare செய்ய அனுமதிக்கிறது. அது initial state-ஐ எடுத்து, இரண்டு values கொண்ட pair-ஐ return செய்கிறது: current state, அதை update செய்யும் state setter function.
 
 ```js
 const [index, setIndex] = useState(0);
 const [showMore, setShowMore] = useState(false);
 ```
 
-Here is how an image gallery uses and updates state on click:
+Image gallery click போது state-ஐ எப்படி பயன்படுத்தி update செய்கிறது என்பதற்கான example:
 
 <Sandpack>
 
@@ -112,17 +112,17 @@ export default function Gallery() {
   return (
     <>
       <button onClick={handleNextClick}>
-        Next
+        அடுத்து
       </button>
       <h2>
         <i>{sculpture.name} </i>
-        by {sculpture.artist}
+        கலைஞர்: {sculpture.artist}
       </h2>
       <h3>
-        ({index + 1} of {sculptureList.length})
+        ({index + 1} / {sculptureList.length})
       </h3>
       <button onClick={handleMoreClick}>
-        {showMore ? 'Hide' : 'Show'} details
+        விவரங்களை {showMore ? 'மறை' : 'காட்டு'}
       </button>
       {showMore && <p>{sculpture.description}</p>}
       <img
@@ -138,75 +138,75 @@ export default function Gallery() {
 export const sculptureList = [{
   name: 'Homenaje a la Neurocirugía',
   artist: 'Marta Colvin Andrade',
-  description: 'Although Colvin is predominantly known for abstract themes that allude to pre-Hispanic symbols, this gigantic sculpture, an homage to neurosurgery, is one of her most recognizable public art pieces.',
+  description: 'Pre-Hispanic symbols-ஐ குறிப்பது போன்ற abstract themes-க்காக Colvin பெரும்பாலும் அறியப்பட்டாலும், neurosurgery-க்கு homage ஆன இந்த மிகப்பெரிய sculpture, அவரது மிகவும் அடையாளம் காணக்கூடிய public art pieces-இல் ஒன்று.',
   url: 'https://react.dev/images/docs/scientists/Mx7dA2Y.jpg',
-  alt: 'A bronze statue of two crossed hands delicately holding a human brain in their fingertips.'
+  alt: 'மனித மூளையை விரல் நுனிகளில் மென்மையாகத் தாங்கும், குறுக்காக அமைந்த இரண்டு கைகளின் bronze statue.'
 }, {
   name: 'Floralis Genérica',
   artist: 'Eduardo Catalano',
-  description: 'This enormous (75 ft. or 23m) silver flower is located in Buenos Aires. It is designed to move, closing its petals in the evening or when strong winds blow and opening them in the morning.',
+  description: 'இந்த மிகப்பெரிய (75 ft. அல்லது 23m) silver flower Buenos Aires-இல் உள்ளது. மாலையில் அல்லது பலமான காற்று வீசும்போது petals மூடிக் கொள்ளவும், காலையில் திறக்கவும் அது வடிவமைக்கப்பட்டுள்ளது.',
   url: 'https://react.dev/images/docs/scientists/ZF6s192m.jpg',
-  alt: 'A gigantic metallic flower sculpture with reflective mirror-like petals and strong stamens.'
+  alt: 'Reflective mirror-like petals மற்றும் வலுவான stamens கொண்ட மிகப்பெரிய metallic flower sculpture.'
 }, {
   name: 'Eternal Presence',
   artist: 'John Woodrow Wilson',
-  description: 'Wilson was known for his preoccupation with equality, social justice, as well as the essential and spiritual qualities of humankind. This massive (7ft. or 2,13m) bronze represents what he described as "a symbolic Black presence infused with a sense of universal humanity."',
+  description: 'Wilson சமத்துவம், சமூக நீதி, மேலும் மனிதகுலத்தின் essential மற்றும் spiritual qualities மீது கொண்ட அக்கறைக்காக அறியப்பட்டார். இந்த பெரும் (7ft. அல்லது 2.13m) bronze, அவர் "universal humanity உணர்வுடன் நிரம்பிய symbolic Black presence" என்று விவரித்ததை பிரதிநிதித்துவப்படுத்துகிறது.',
   url: 'https://react.dev/images/docs/scientists/aTtVpES.jpg',
-  alt: 'The sculpture depicting a human head seems ever-present and solemn. It radiates calm and serenity.'
+  alt: 'மனிதத் தலை போல் தோன்றும் sculpture நிலைத்தும் solemn ஆகவும் தெரிகிறது. அது அமைதியையும் serenity-யையும் வெளிப்படுத்துகிறது.'
 }, {
   name: 'Moai',
   artist: 'Unknown Artist',
-  description: 'Located on the Easter Island, there are 1,000 moai, or extant monumental statues, created by the early Rapa Nui people, which some believe represented deified ancestors.',
+  description: 'Easter Island-இல் அமைந்துள்ள 1,000 moai, அல்லது இன்றும் உள்ள monumental statues, early Rapa Nui மக்களால் உருவாக்கப்பட்டவை; சிலர் அவை deified ancestors-ஐ பிரதிநிதித்துவப்படுத்தின என்று நம்புகிறார்கள்.',
   url: 'https://react.dev/images/docs/scientists/RCwLEoQm.jpg',
-  alt: 'Three monumental stone busts with the heads that are disproportionately large with somber faces.'
+  alt: 'அளவுக்கு மீறி பெரிய தலைகளும் சோகம் நிறைந்த முகங்களும் கொண்ட மூன்று monumental stone busts.'
 }, {
   name: 'Blue Nana',
   artist: 'Niki de Saint Phalle',
-  description: 'The Nanas are triumphant creatures, symbols of femininity and maternity. Initially, Saint Phalle used fabric and found objects for the Nanas, and later on introduced polyester to achieve a more vibrant effect.',
+  description: 'Nanas என்பது femininity மற்றும் maternity-யின் symbols ஆன triumphant creatures. ஆரம்பத்தில் Saint Phalle Nanas-க்காக fabric மற்றும் found objects பயன்படுத்தினார்; பின்னர் மேலும் vibrant effect பெற polyester-ஐ அறிமுகப்படுத்தினார்.',
   url: 'https://react.dev/images/docs/scientists/Sd1AgUOm.jpg',
-  alt: 'A large mosaic sculpture of a whimsical dancing female figure in a colorful costume emanating joy.'
+  alt: 'மகிழ்ச்சி வெளிப்படுத்தும் colorful costume அணிந்த whimsical dancing female figure-ன் பெரிய mosaic sculpture.'
 }, {
   name: 'Ultimate Form',
   artist: 'Barbara Hepworth',
-  description: 'This abstract bronze sculpture is a part of The Family of Man series located at Yorkshire Sculpture Park. Hepworth chose not to create literal representations of the world but developed abstract forms inspired by people and landscapes.',
+  description: 'இந்த abstract bronze sculpture, Yorkshire Sculpture Park-இல் உள்ள The Family of Man series-ன் ஒரு பகுதி. Hepworth உலகின் literal representations உருவாக்காமல், மக்கள் மற்றும் landscapes-இல் இருந்து ஊக்கமடைந்த abstract forms உருவாக்கத் தேர்ந்தெடுத்தார்.',
   url: 'https://react.dev/images/docs/scientists/2heNQDcm.jpg',
-  alt: 'A tall sculpture made of three elements stacked on each other reminding of a human figure.'
+  alt: 'மனித figure-ஐ நினைவூட்டும் வகையில் ஒன்றின் மேல் ஒன்று stacked செய்யப்பட்ட மூன்று elements கொண்ட உயரமான sculpture.'
 }, {
   name: 'Cavaliere',
   artist: 'Lamidi Olonade Fakeye',
-  description: "Descended from four generations of woodcarvers, Fakeye's work blended traditional and contemporary Yoruba themes.",
+  description: 'நான்கு தலைமுறை woodcarvers-இலிருந்து வந்த Fakeye-ன் work, traditional மற்றும் contemporary Yoruba themes-ஐ blended செய்தது.',
   url: 'https://react.dev/images/docs/scientists/wIdGuZwm.png',
-  alt: 'An intricate wood sculpture of a warrior with a focused face on a horse adorned with patterns.'
+  alt: 'Patterns-ஆல் அலங்கரிக்கப்பட்ட குதிரையின் மேல் கவனமான முகத்துடன் இருக்கும் warrior-ன் intricate wood sculpture.'
 }, {
   name: 'Big Bellies',
   artist: 'Alina Szapocznikow',
-  description: "Szapocznikow is known for her sculptures of the fragmented body as a metaphor for the fragility and impermanence of youth and beauty. This sculpture depicts two very realistic large bellies stacked on top of each other, each around five feet (1,5m) tall.",
+  description: 'Youth மற்றும் beauty-யின் fragility மற்றும் impermanence-க்கு metaphor ஆக fragmented body sculptures-க்காக Szapocznikow அறியப்பட்டார். இந்த sculpture, ஒன்றின் மேல் ஒன்று stacked செய்யப்பட்ட மிகவும் realistic ஆன இரண்டு பெரிய bellies-ஐ காட்டுகிறது; ஒவ்வொன்றும் சுமார் ஐந்து feet (1.5m) உயரம்.',
   url: 'https://react.dev/images/docs/scientists/AlHTAdDm.jpg',
-  alt: 'The sculpture reminds a cascade of folds, quite different from bellies in classical sculptures.'
+  alt: 'Classical sculptures-இல் உள்ள bellies-இலிருந்து மிகவும் வேறுபட்ட folds-ன் cascade-ஐ நினைவூட்டும் sculpture.'
 }, {
   name: 'Terracotta Army',
   artist: 'Unknown Artist',
-  description: 'The Terracotta Army is a collection of terracotta sculptures depicting the armies of Qin Shi Huang, the first Emperor of China. The army consisted of more than 8,000 soldiers, 130 chariots with 520 horses, and 150 cavalry horses.',
+  description: 'Terracotta Army என்பது சீனாவின் முதல் Emperor Qin Shi Huang-ன் armies-ஐ depict செய்யும் terracotta sculptures-ன் collection. இந்த army-யில் 8,000-க்கும் அதிகமான soldiers, 520 horses கொண்ட 130 chariots, மற்றும் 150 cavalry horses இருந்தன.',
   url: 'https://react.dev/images/docs/scientists/HMFmH6m.jpg',
-  alt: '12 terracotta sculptures of solemn warriors, each with a unique facial expression and armor.'
+  alt: 'ஒவ்வொன்றும் தனித்த facial expression மற்றும் armor கொண்ட 12 solemn warriors-ன் terracotta sculptures.'
 }, {
   name: 'Lunar Landscape',
   artist: 'Louise Nevelson',
-  description: 'Nevelson was known for scavenging objects from New York City debris, which she would later assemble into monumental constructions. In this one, she used disparate parts like a bedpost, juggling pin, and seat fragment, nailing and gluing them into boxes that reflect the influence of Cubism’s geometric abstraction of space and form.',
+  description: 'New York City debris-இலிருந்து objects scavenging செய்து, பின்னர் அவற்றை monumental constructions ஆக assemble செய்வதற்காக Nevelson அறியப்பட்டார். இதில், bedpost, juggling pin, seat fragment போன்ற disparate parts-ஐ பயன்படுத்தி, Cubism-ன் geometric abstraction of space and form தாக்கத்தை பிரதிபலிக்கும் boxes-களாக அவற்றை nail மற்றும் glue செய்தார்.',
   url: 'https://react.dev/images/docs/scientists/rN7hY6om.jpg',
-  alt: 'A black matte sculpture where the individual elements are initially indistinguishable.'
+  alt: 'தனித்தனி elements முதலில் தெளிவாகத் தெரியாத black matte sculpture.'
 }, {
   name: 'Aureole',
   artist: 'Ranjani Shettar',
-  description: 'Shettar merges the traditional and the modern, the natural and the industrial. Her art focuses on the relationship between man and nature. Her work was described as compelling both abstractly and figuratively, gravity defying, and a "fine synthesis of unlikely materials."',
+  description: 'Shettar traditional மற்றும் modern, natural மற்றும் industrial ஆகியவற்றை merge செய்கிறார். அவரது art மனிதன் மற்றும் இயற்கை இடையிலான relationship-ஐ மையப்படுத்துகிறது. அவரது work abstract ஆகவும் figurative ஆகவும் compelling, gravity defying, மேலும் "unlikely materials-ன் fine synthesis" என்று விவரிக்கப்பட்டது.',
   url: 'https://react.dev/images/docs/scientists/okTpbHhm.jpg',
-  alt: 'A pale wire-like sculpture mounted on concrete wall and descending on the floor. It appears light.'
+  alt: 'Concrete wall-இல் mounted செய்யப்பட்டு floor-க்கு இறங்கும் pale wire-like sculpture. அது இலகுவாகத் தோன்றுகிறது.'
 }, {
   name: 'Hippos',
   artist: 'Taipei Zoo',
-  description: 'The Taipei Zoo commissioned a Hippo Square featuring submerged hippos at play.',
+  description: 'Taipei Zoo நீரில் மூழ்கி விளையாடும் hippos இடம்பெறும் Hippo Square ஒன்றை commission செய்தது.',
   url: 'https://react.dev/images/docs/scientists/6o5Vuyu.jpg',
-  alt: 'A group of bronze hippo sculptures emerging from the sett sidewalk as if they were swimming.'
+  alt: 'நீரில் நீந்துவது போல sidewalk-இலிருந்து மேலெழும் bronze hippo sculptures குழு.'
 }];
 ```
 
@@ -229,43 +229,43 @@ button {
 
 <LearnMore path="/learn/state-a-components-memory">
 
-Read **[State: A Component's Memory](/learn/state-a-components-memory)** to learn how to remember a value and update it on interaction.
+ஒரு value-ஐ நினைவில் வைத்து interaction போது அதை update செய்வது எப்படி என்பதை அறிய **[State: A Component's Memory](/learn/state-a-components-memory)**-ஐ படியுங்கள்.
 
 </LearnMore>
 
-## Render and commit {/*render-and-commit*/}
+## Render மற்றும் commit {/*render-and-commit*/}
 
-Before your components are displayed on the screen, they must be rendered by React. Understanding the steps in this process will help you think about how your code executes and explain its behavior.
+உங்கள் components screen-இல் display ஆகும் முன், அவை React-ஆல் rendered செய்யப்பட வேண்டும். இந்த process-இன் steps-ஐப் புரிந்துகொள்வது, உங்கள் code எப்படி execute ஆகிறது மற்றும் அதன் behavior-ஐ எப்படி விளக்குவது என்பதைச் சிந்திக்க உதவும்.
 
-Imagine that your components are cooks in the kitchen, assembling tasty dishes from ingredients. In this scenario, React is the waiter who puts in requests from customers and brings them their orders. This process of requesting and serving UI has three steps:
+உங்கள் components kitchen-இல் சுவையான dishes-ஐ ingredients-இலிருந்து assemble செய்யும் cooks என்று கற்பனை செய்யுங்கள். இந்த scenario-வில், React customers-இலிருந்து requests எடுத்து அவர்களுக்கு orders கொண்டு வரும் waiter. UI-ஐ request செய்து serve செய்வதற்கான இந்த process மூன்று steps கொண்டது:
 
-1. **Triggering** a render (delivering the diner's order to the kitchen)
-2. **Rendering** the component (preparing the order in the kitchen)
-3. **Committing** to the DOM (placing the order on the table)
+1. Render ஒன்றை **Triggering** செய்தல் (diner-ன் order-ஐ kitchen-க்கு deliver செய்தல்)
+2. Component-ஐ **Rendering** செய்தல் (kitchen-இல் order-ஐ தயாரித்தல்)
+3. DOM-க்கு **Committing** செய்தல் (order-ஐ table-ல் வைப்பது)
 
 <IllustrationBlock sequential>
-  <Illustration caption="Trigger" alt="React as a server in a restaurant, fetching orders from the users and delivering them to the Component Kitchen." src="/images/docs/illustrations/i_render-and-commit1.png" />
-  <Illustration caption="Render" alt="The Card Chef gives React a fresh Card component." src="/images/docs/illustrations/i_render-and-commit2.png" />
-  <Illustration caption="Commit" alt="React delivers the Card to the user at their table." src="/images/docs/illustrations/i_render-and-commit3.png" />
+  <Illustration caption="Trigger" alt="Restaurant-இல் server போல React, users-இலிருந்து orders எடுத்து Component Kitchen-க்கு deliver செய்கிறது." src="/images/docs/illustrations/i_render-and-commit1.png" />
+  <Illustration caption="Render" alt="Card Chef React-க்கு புதிய Card component ஒன்றை தருகிறார்." src="/images/docs/illustrations/i_render-and-commit2.png" />
+  <Illustration caption="Commit" alt="React user-ன் table-க்கு Card-ஐ deliver செய்கிறது." src="/images/docs/illustrations/i_render-and-commit3.png" />
 </IllustrationBlock>
 
 <LearnMore path="/learn/render-and-commit">
 
-Read **[Render and Commit](/learn/render-and-commit)** to learn the lifecycle of a UI update.
+UI update-ன் lifecycle-ஐ அறிய **[Render and Commit](/learn/render-and-commit)**-ஐ படியுங்கள்.
 
 </LearnMore>
 
-## State as a snapshot {/*state-as-a-snapshot*/}
+## Snapshot ஆக state {/*state-as-a-snapshot*/}
 
-Unlike regular JavaScript variables, React state behaves more like a snapshot. Setting it does not change the state variable you already have, but instead triggers a re-render. This can be surprising at first!
+சாதாரண JavaScript variables-க்கு மாறாக, React state snapshot போல நடக்கிறது. அதை set செய்வது உங்களிடம் ஏற்கனவே உள்ள state variable-ஐ மாற்றாது; அதற்கு பதிலாக re-render ஒன்றை trigger செய்கிறது. இது முதலில் ஆச்சரியமாக இருக்கலாம்!
 
 ```js
 console.log(count);  // 0
-setCount(count + 1); // Request a re-render with 1
-console.log(count);  // Still 0!
+setCount(count + 1); // 1 உடன் re-render request செய்
+console.log(count);  // இன்னும் 0!
 ```
 
-This behavior helps you avoid subtle bugs. Here is a little chat app. Try to guess what happens if you press "Send" first and *then* change the recipient to Bob. Whose name will appear in the `alert` five seconds later?
+இந்த behavior subtle bugs-ஐத் தவிர்க்க உதவுகிறது. சிறிய chat app ஒன்று இதோ. முதலில் "அனுப்பு" அழுத்தி, *பிறகு* recipient-ஐ Bob-ஆக மாற்றினால் என்ன நடக்கும் என்று ஊகிக்கவும். ஐந்து seconds கழித்து `alert`-இல் யாருடைய பெயர் தோன்றும்?
 
 <Sandpack>
 
@@ -274,19 +274,19 @@ import { useState } from 'react';
 
 export default function Form() {
   const [to, setTo] = useState('Alice');
-  const [message, setMessage] = useState('Hello');
+  const [message, setMessage] = useState('வணக்கம்');
 
   function handleSubmit(e) {
     e.preventDefault();
     setTimeout(() => {
-      alert(`You said ${message} to ${to}`);
+      alert(`நீங்கள் ${to}-க்கு "${message}" என்று சொன்னீர்கள்`);
     }, 5000);
   }
 
   return (
     <form onSubmit={handleSubmit}>
       <label>
-        To:{' '}
+        பெறுநர்:{' '}
         <select
           value={to}
           onChange={e => setTo(e.target.value)}>
@@ -295,11 +295,11 @@ export default function Form() {
         </select>
       </label>
       <textarea
-        placeholder="Message"
+        placeholder="செய்தி"
         value={message}
         onChange={e => setMessage(e.target.value)}
       />
-      <button type="submit">Send</button>
+      <button type="submit">அனுப்பு</button>
     </form>
   );
 }
@@ -314,13 +314,13 @@ label, textarea { margin-bottom: 10px; display: block; }
 
 <LearnMore path="/learn/state-as-a-snapshot">
 
-Read **[State as a Snapshot](/learn/state-as-a-snapshot)** to learn why state appears "fixed" and unchanging inside the event handlers.
+Event handlers-க்குள் state ஏன் "fixed" ஆகவும் மாறாததாகவும் தோன்றுகிறது என்பதை அறிய **[State as a Snapshot](/learn/state-as-a-snapshot)**-ஐ படியுங்கள்.
 
 </LearnMore>
 
-## Queueing a series of state updates {/*queueing-a-series-of-state-updates*/}
+## State updates தொடரை queue செய்தல் {/*queueing-a-series-of-state-updates*/}
 
-This component is buggy: clicking "+3" increments the score only once.
+இந்த component-இல் bug உள்ளது: "+3" click செய்தால் score ஒருமுறை மட்டுமே increment ஆகிறது.
 
 <Sandpack>
 
@@ -342,7 +342,7 @@ export default function Counter() {
         increment();
         increment();
       }}>+3</button>
-      <h1>Score: {score}</h1>
+      <h1>மதிப்பெண்: {score}</h1>
     </>
   )
 }
@@ -354,7 +354,7 @@ button { display: inline-block; margin: 10px; font-size: 20px; }
 
 </Sandpack>
 
-[State as a Snapshot](/learn/state-as-a-snapshot) explains why this is happening. Setting state requests a new re-render, but does not change it in the already running code. So `score` continues to be `0` right after you call `setScore(score + 1)`.
+இது ஏன் நடக்கிறது என்பதை [State as a Snapshot](/learn/state-as-a-snapshot) விளக்குகிறது. State set செய்வது புதிய re-render ஒன்றை request செய்கிறது, ஆனால் ஏற்கனவே running code-இல் அதை மாற்றாது. எனவே `setScore(score + 1)` call செய்த உடனேயும் `score` தொடர்ந்து `0` ஆகவே இருக்கும்.
 
 ```js
 console.log(score);  // 0
@@ -366,7 +366,7 @@ setScore(score + 1); // setScore(0 + 1);
 console.log(score);  // 0
 ```
 
-You can fix this by passing an *updater function* when setting state. Notice how replacing `setScore(score + 1)` with `setScore(s => s + 1)` fixes the "+3" button. This lets you queue multiple state updates.
+State set செய்யும்போது *updater function* ஒன்றை pass செய்வதன் மூலம் இதை fix செய்யலாம். `setScore(score + 1)`-ஐ `setScore(s => s + 1)`-ஆல் replace செய்வது "+3" button-ஐ எப்படி fix செய்கிறது என்பதை கவனியுங்கள். இது பல state updates-ஐ queue செய்ய அனுமதிக்கிறது.
 
 <Sandpack>
 
@@ -388,7 +388,7 @@ export default function Counter() {
         increment();
         increment();
       }}>+3</button>
-      <h1>Score: {score}</h1>
+      <h1>மதிப்பெண்: {score}</h1>
     </>
   )
 }
@@ -402,15 +402,15 @@ button { display: inline-block; margin: 10px; font-size: 20px; }
 
 <LearnMore path="/learn/queueing-a-series-of-state-updates">
 
-Read **[Queueing a Series of State Updates](/learn/queueing-a-series-of-state-updates)** to learn how to queue a sequence of state updates.
+State updates தொடரை எப்படி queue செய்வது என்பதை அறிய **[Queueing a Series of State Updates](/learn/queueing-a-series-of-state-updates)**-ஐ படியுங்கள்.
 
 </LearnMore>
 
-## Updating objects in state {/*updating-objects-in-state*/}
+## State-இல் objects update செய்தல் {/*updating-objects-in-state*/}
 
-State can hold any kind of JavaScript value, including objects. But you shouldn't change objects and arrays that you hold in the React state directly. Instead, when you want to update an object and array, you need to create a new one (or make a copy of an existing one), and then update the state to use that copy.
+State, objects உட்பட எந்த வகையான JavaScript value-ஐயும் hold செய்ய முடியும். ஆனால் React state-இல் வைத்திருக்கும் objects மற்றும் arrays-ஐ நேரடியாக மாற்றக்கூடாது. அதற்கு பதிலாக, object அல்லது array-ஐ update செய்யும்போது, புதிய ஒன்றை உருவாக்க வேண்டும் (அல்லது existing ஒன்றின் copy செய்ய வேண்டும்), பின்னர் அந்த copy-ஐப் பயன்படுத்த state-ஐ update செய்ய வேண்டும்.
 
-Usually, you will use the `...` spread syntax to copy objects and arrays that you want to change. For example, updating a nested object could look like this:
+பொதுவாக, மாற்ற விரும்பும் objects மற்றும் arrays-ஐ copy செய்ய `...` spread syntax-ஐ பயன்படுத்துவீர்கள். உதாரணமாக, nested object-ஐ update செய்வது இதுபோல் இருக்கலாம்:
 
 <Sandpack>
 
@@ -467,28 +467,28 @@ export default function Form() {
   return (
     <>
       <label>
-        Name:
+        பெயர்:
         <input
           value={person.name}
           onChange={handleNameChange}
         />
       </label>
       <label>
-        Title:
+        தலைப்பு:
         <input
           value={person.artwork.title}
           onChange={handleTitleChange}
         />
       </label>
       <label>
-        City:
+        நகரம்:
         <input
           value={person.artwork.city}
           onChange={handleCityChange}
         />
       </label>
       <label>
-        Image:
+        படம்:
         <input
           value={person.artwork.image}
           onChange={handleImageChange}
@@ -496,10 +496,10 @@ export default function Form() {
       </label>
       <p>
         <i>{person.artwork.title}</i>
-        {' by '}
+        {' - கலைஞர்: '}
         {person.name}
         <br />
-        (located in {person.artwork.city})
+        ({person.artwork.city}-இல் உள்ளது)
       </p>
       <img
         src={person.artwork.image}
@@ -518,7 +518,7 @@ img { width: 200px; height: 200px; }
 
 </Sandpack>
 
-If copying objects in code gets tedious, you can use a library like [Immer](https://github.com/immerjs/use-immer) to reduce repetitive code:
+Code-இல் objects copy செய்வது tedious ஆக இருந்தால், repetitive code-ஐ குறைக்க [Immer](https://github.com/immerjs/use-immer) போன்ற library ஒன்றை பயன்படுத்தலாம்:
 
 <Sandpack>
 
@@ -562,28 +562,28 @@ export default function Form() {
   return (
     <>
       <label>
-        Name:
+        பெயர்:
         <input
           value={person.name}
           onChange={handleNameChange}
         />
       </label>
       <label>
-        Title:
+        தலைப்பு:
         <input
           value={person.artwork.title}
           onChange={handleTitleChange}
         />
       </label>
       <label>
-        City:
+        நகரம்:
         <input
           value={person.artwork.city}
           onChange={handleCityChange}
         />
       </label>
       <label>
-        Image:
+        படம்:
         <input
           value={person.artwork.image}
           onChange={handleImageChange}
@@ -591,10 +591,10 @@ export default function Form() {
       </label>
       <p>
         <i>{person.artwork.title}</i>
-        {' by '}
+        {' - கலைஞர்: '}
         {person.name}
         <br />
-        (located in {person.artwork.city})
+        ({person.artwork.city}-இல் உள்ளது)
       </p>
       <img
         src={person.artwork.image}
@@ -633,13 +633,13 @@ img { width: 200px; height: 200px; }
 
 <LearnMore path="/learn/updating-objects-in-state">
 
-Read **[Updating Objects in State](/learn/updating-objects-in-state)** to learn how to update objects correctly.
+Objects-ஐ சரியாக update செய்வது எப்படி என்பதை அறிய **[Updating Objects in State](/learn/updating-objects-in-state)**-ஐ படியுங்கள்.
 
 </LearnMore>
 
-## Updating arrays in state {/*updating-arrays-in-state*/}
+## State-இல் arrays update செய்தல் {/*updating-arrays-in-state*/}
 
-Arrays are another type of mutable JavaScript objects you can store in state and should treat as read-only. Just like with objects, when you want to update an array stored in state, you need to create a new one (or make a copy of an existing one), and then set state to use the new array:
+Arrays என்பது state-இல் store செய்யக்கூடிய மற்றொரு mutable JavaScript objects வகை; அவற்றை read-only ஆக நடத்த வேண்டும். Objects போலவே, state-இல் store செய்யப்பட்ட array-ஐ update செய்யும்போது, புதிய ஒன்றை உருவாக்க வேண்டும் (அல்லது existing ஒன்றின் copy செய்ய வேண்டும்), பின்னர் புதிய array-ஐ பயன்படுத்த state set செய்ய வேண்டும்:
 
 <Sandpack>
 
@@ -669,8 +669,8 @@ export default function BucketList() {
 
   return (
     <>
-      <h1>Art Bucket List</h1>
-      <h2>My list of art to see:</h2>
+      <h1>கலை பார்க்க வேண்டிய பட்டியல்</h1>
+      <h2>நான் பார்க்க வேண்டிய கலைப் பட்டியல்:</h2>
       <ItemList
         artworks={list}
         onToggle={handleToggle} />
@@ -705,7 +705,7 @@ function ItemList({ artworks, onToggle }) {
 
 </Sandpack>
 
-If copying arrays in code gets tedious, you can use a library like [Immer](https://github.com/immerjs/use-immer) to reduce repetitive code:
+Code-இல் arrays copy செய்வது tedious ஆக இருந்தால், repetitive code-ஐ குறைக்க [Immer](https://github.com/immerjs/use-immer) போன்ற library ஒன்றை பயன்படுத்தலாம்:
 
 <Sandpack>
 
@@ -733,8 +733,8 @@ export default function BucketList() {
 
   return (
     <>
-      <h1>Art Bucket List</h1>
-      <h2>My list of art to see:</h2>
+      <h1>கலை பார்க்க வேண்டிய பட்டியல்</h1>
+      <h2>நான் பார்க்க வேண்டிய கலைப் பட்டியல்:</h2>
       <ItemList
         artworks={list}
         onToggle={handleToggle} />
@@ -789,12 +789,12 @@ function ItemList({ artworks, onToggle }) {
 
 <LearnMore path="/learn/updating-arrays-in-state">
 
-Read **[Updating Arrays in State](/learn/updating-arrays-in-state)** to learn how to update arrays correctly.
+Arrays-ஐ சரியாக update செய்வது எப்படி என்பதை அறிய **[Updating Arrays in State](/learn/updating-arrays-in-state)**-ஐ படியுங்கள்.
 
 </LearnMore>
 
-## What's next? {/*whats-next*/}
+## அடுத்து என்ன? {/*whats-next*/}
 
-Head over to [Responding to Events](/learn/responding-to-events) to start reading this chapter page by page!
+இந்த chapter-ஐ page by page படிக்கத் தொடங்க [Responding to Events](/learn/responding-to-events)-க்கு செல்லுங்கள்!
 
-Or, if you're already familiar with these topics, why not read about [Managing State](/learn/managing-state)?
+அல்லது, இந்த topics உங்களுக்கு ஏற்கனவே தெரிந்திருந்தால், [Managing State](/learn/managing-state) பற்றி படிக்கலாமே?

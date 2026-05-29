@@ -4,7 +4,7 @@ title: logger
 
 <Intro>
 
-The `logger` option provides custom logging for React Compiler events during compilation.
+Compilation நடக்கும் போது React Compiler events-க்கு custom logging வழங்க `logger` option உதவுகிறது.
 
 </Intro>
 
@@ -26,7 +26,7 @@ The `logger` option provides custom logging for React Compiler events during com
 
 ### `logger` {/*logger*/}
 
-Configures custom logging to track compiler behavior and debug issues.
+Compiler behavior-ஐ track செய்யவும் பிரச்சினைகளை debug செய்யவும் custom logging-ஐ configure செய்கிறது.
 
 #### Type {/*type*/}
 
@@ -42,29 +42,29 @@ Configures custom logging to track compiler behavior and debug issues.
 
 #### Methods {/*methods*/}
 
-- **`logEvent`**: Called for each compiler event with the filename and event details
+- **`logEvent`**: ஒவ்வொரு compiler event-க்கும் filename மற்றும் event details-உடன் அழைக்கப்படும்
 
 #### Event types {/*event-types*/}
 
-- **`CompileSuccess`**: Function successfully compiled
-- **`CompileError`**: Function skipped due to errors
-- **`CompileDiagnostic`**: Non-fatal diagnostic information
-- **`CompileSkip`**: Function skipped for other reasons
-- **`PipelineError`**: Unexpected compilation error
+- **`CompileSuccess`**: Function வெற்றிகரமாக compiled ஆனது
+- **`CompileError`**: Errors காரணமாக function skip செய்யப்பட்டது
+- **`CompileDiagnostic`**: Fatal அல்லாத diagnostic information
+- **`CompileSkip`**: பிற காரணங்களால் function skip செய்யப்பட்டது
+- **`PipelineError`**: எதிர்பாராத compilation error
 - **`Timing`**: Performance timing information
 
 #### Caveats {/*caveats*/}
 
-- Event structure may change between versions
-- Large codebases generate many log entries
+- Event structure versions இடையே மாறலாம்
+- பெரிய codebases பல log entries உருவாக்கும்
 
 ---
 
 ## Usage {/*usage*/}
 
-### Basic logging {/*basic-logging*/}
+### அடிப்படை logging {/*basic-logging*/}
 
-Track compilation success and failures:
+Compilation success மற்றும் failures-ஐ track செய்ய:
 
 ```js
 {
@@ -86,9 +86,9 @@ Track compilation success and failures:
 }
 ```
 
-### Detailed error logging {/*detailed-error-logging*/}
+### விரிவான error logging {/*detailed-error-logging*/}
 
-Get specific information about compilation failures:
+Compilation failures பற்றிய குறிப்பிட்ட தகவல்களைப் பெற:
 
 ```js
 {
@@ -115,4 +115,3 @@ Get specific information about compilation failures:
   }
 }
 ```
-

@@ -4,13 +4,13 @@ title: compilationMode
 
 <Intro>
 
-The `compilationMode` option controls how the React Compiler selects which functions to compile.
+React Compiler எந்த functions-ஐ compile செய்ய வேண்டும் என்பதை எவ்வாறு தேர்வு செய்கிறது என்பதை `compilationMode` option கட்டுப்படுத்துகிறது.
 
 </Intro>
 
 ```js
 {
-  compilationMode: 'infer' // or 'annotation', 'syntax', 'all'
+  compilationMode: 'infer' // அல்லது 'annotation', 'syntax', 'all'
 }
 ```
 
@@ -18,11 +18,11 @@ The `compilationMode` option controls how the React Compiler selects which funct
 
 ---
 
-## Reference {/*reference*/}
+## குறிப்பு {/*reference*/}
 
 ### `compilationMode` {/*compilationmode*/}
 
-Controls the strategy for determining which functions the React Compiler will optimize.
+React Compiler எந்த functions-ஐ optimize செய்யும் என்பதை தீர்மானிக்கும் strategy-ஐ கட்டுப்படுத்துகிறது.
 
 #### Type {/*type*/}
 
@@ -36,30 +36,30 @@ Controls the strategy for determining which functions the React Compiler will op
 
 #### Options {/*options*/}
 
-- **`'infer'`** (default): The compiler uses intelligent heuristics to identify React components and hooks:
-  - Functions explicitly annotated with `"use memo"` directive
-  - Functions that are named like components (PascalCase) or hooks (`use` prefix) AND create JSX and/or call other hooks
+- **`'infer'`** (default): React components மற்றும் hooks-ஐ கண்டறிய compiler intelligent heuristics-ஐப் பயன்படுத்தும்:
+  - `"use memo"` directive மூலம் explicit-ஆக annotated செய்யப்பட்ட functions
+  - Components போல பெயரிடப்பட்ட (PascalCase) அல்லது hooks போல பெயரிடப்பட்ட (`use` prefix) functions, மேலும் JSX உருவாக்கும் மற்றும்/அல்லது பிற hooks-ஐ call செய்யும் functions
 
-- **`'annotation'`**: Only compile functions explicitly marked with the `"use memo"` directive. Ideal for incremental adoption.
+- **`'annotation'`**: `"use memo"` directive மூலம் explicit-ஆக குறிக்கப்பட்ட functions மட்டும் compile செய்யப்படும். Incremental adoption-க்கு ஏற்றது.
 
-- **`'syntax'`**: Only compile components and hooks that use Flow's [component](https://flow.org/en/docs/react/component-syntax/) and [hook](https://flow.org/en/docs/react/hook-syntax/) syntax.
+- **`'syntax'`**: Flow-ன் [component](https://flow.org/en/docs/react/component-syntax/) மற்றும் [hook](https://flow.org/en/docs/react/hook-syntax/) syntax பயன்படுத்தும் components மற்றும் hooks மட்டும் compile செய்யப்படும்.
 
-- **`'all'`**: Compile all top-level functions. Not recommended as it may compile non-React functions.
+- **`'all'`**: அனைத்து top-level functions-ஐயும் compile செய்யும். Non-React functions-ஐயும் compile செய்யக்கூடும் என்பதால் பரிந்துரைக்கப்படவில்லை.
 
 #### Caveats {/*caveats*/}
 
-- The `'infer'` mode requires functions to follow React naming conventions to be detected
-- Using `'all'` mode may negatively impact performance by compiling utility functions
-- The `'syntax'` mode requires Flow and won't work with TypeScript
-- Regardless of mode, functions with `"use no memo"` directive are always skipped
+- `'infer'` mode functions கண்டறியப்பட React naming conventions-ஐப் பின்பற்ற வேண்டும்
+- `'all'` mode பயன்படுத்துவது utility functions-ஐ compile செய்வதால் performance-ஐ பாதிக்கலாம்
+- `'syntax'` mode-க்கு Flow தேவை; TypeScript உடன் வேலை செய்யாது
+- Mode எதுவாக இருந்தாலும், `"use no memo"` directive உள்ள functions எப்போதும் skip செய்யப்படும்
 
 ---
 
-## Usage {/*usage*/}
+## பயன்பாடு {/*usage*/}
 
 ### Default inference mode {/*default-inference-mode*/}
 
-The default `'infer'` mode works well for most codebases that follow React conventions:
+React conventions-ஐப் பின்பற்றும் பெரும்பாலான codebases-க்கு default `'infer'` mode நன்றாக வேலை செய்கிறது:
 
 ```js
 {
@@ -67,7 +67,7 @@ The default `'infer'` mode works well for most codebases that follow React conve
 }
 ```
 
-With this mode, these functions will be compiled:
+இந்த mode-இல், பின்வரும் functions compile செய்யப்படும்:
 
 ```js
 // ✅ Compiled: Named like a component + returns JSX
@@ -93,9 +93,9 @@ function calculateTotal(items) {
 }
 ```
 
-### Incremental adoption with annotation mode {/*incremental-adoption*/}
+### Annotation mode உடன் incremental adoption {/*incremental-adoption*/}
 
-For gradual migration, use `'annotation'` mode to only compile marked functions:
+Gradual migration-க்கு, குறிக்கப்பட்ட functions மட்டும் compile செய்ய `'annotation'` mode-ஐப் பயன்படுத்துங்கள்:
 
 ```js
 {
@@ -103,7 +103,7 @@ For gradual migration, use `'annotation'` mode to only compile marked functions:
 }
 ```
 
-Then explicitly mark functions to compile:
+பின்னர் compile செய்ய வேண்டிய functions-ஐ explicit-ஆக குறிக்கவும்:
 
 ```js
 // Only this function will be compiled
@@ -124,9 +124,9 @@ function NormalComponent(props) {
 }
 ```
 
-### Using Flow syntax mode {/*flow-syntax-mode*/}
+### Flow syntax mode பயன்படுத்துதல் {/*flow-syntax-mode*/}
 
-If your codebase uses Flow instead of TypeScript:
+உங்கள் codebase TypeScript-க்கு பதிலாக Flow பயன்படுத்தினால்:
 
 ```js
 {
@@ -154,13 +154,13 @@ function helper(data) {
 }
 ```
 
-### Opting out specific functions {/*opting-out*/}
+### குறிப்பிட்ட functions-ஐ opt out செய்தல் {/*opting-out*/}
 
-Regardless of compilation mode, use `"use no memo"` to skip compilation:
+Compilation mode எதுவாக இருந்தாலும், compilation-ஐ skip செய்ய `"use no memo"` பயன்படுத்துங்கள்:
 
 ```js
 function ComponentWithSideEffects() {
-  "use no memo"; // Prevent compilation
+  "use no memo"; // Compilation-ஐத் தடுக்கவும்
 
   // This component has side effects that shouldn't be memoized
   logToAnalytics('component_rendered');
@@ -171,11 +171,11 @@ function ComponentWithSideEffects() {
 
 ---
 
-## Troubleshooting {/*troubleshooting*/}
+## சிக்கல் தீர்வு {/*troubleshooting*/}
 
-### Component not being compiled in infer mode {/*component-not-compiled-infer*/}
+### Infer mode-இல் component compile ஆகவில்லை {/*component-not-compiled-infer*/}
 
-In `'infer'` mode, ensure your component follows React conventions:
+`'infer'` mode-இல், உங்கள் component React conventions-ஐப் பின்பற்றுகிறதா என்பதை உறுதிசெய்யுங்கள்:
 
 ```js
 // ❌ Won't be compiled: lowercase name

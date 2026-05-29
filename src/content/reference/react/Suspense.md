@@ -4,7 +4,7 @@ title: <Suspense>
 
 <Intro>
 
-`<Suspense>` lets you display a fallback until its children have finished loading.
+`<Suspense>` அதன் children loading முடியும் வரை fallback ஒன்றைக் காட்ட அனுமதிக்கிறது.
 
 
 ```js
@@ -19,28 +19,28 @@ title: <Suspense>
 
 ---
 
-## Reference {/*reference*/}
+## குறிப்பு {/*reference*/}
 
 ### `<Suspense>` {/*suspense*/}
 
 #### Props {/*props*/}
-* `children`: The actual UI you intend to render. If `children` suspends while rendering, the Suspense boundary will switch to rendering `fallback`.
-* `fallback`: An alternate UI to render in place of the actual UI if it has not finished loading. Any valid React node is accepted, though in practice, a fallback is a lightweight placeholder view, such as a loading spinner or skeleton. Suspense will automatically switch to `fallback` when `children` suspends, and back to `children` when the data is ready. If `fallback` suspends while rendering, it will activate the closest parent Suspense boundary.
+* `children`: நீங்கள் render செய்ய நினைக்கும் உண்மையான UI. rendering நடக்கும் போது `children` suspend ஆனால், Suspense boundary `fallback`-ஐ render செய்வதற்கு மாறும்.
+* `fallback`: உண்மையான UI loading முடிக்கவில்லை என்றால், அதன் இடத்தில் render செய்யப்படும் மாற்று UI. எந்த செல்லுபடியான React node-ஐயும் ஏற்கலாம்; நடைமுறையில் fallback என்பது loading spinner அல்லது skeleton போன்ற இலகுவான placeholder view ஆக இருக்கும். `children` suspend ஆகும்போது Suspense தானாகவே `fallback`-க்கு மாறி, data தயாரானதும் மீண்டும் `children`-க்கு திரும்பும். rendering நடக்கும் போது `fallback` suspend ஆனால், அது அருகிலுள்ள parent Suspense boundary-ஐ இயக்கும்.
 
-#### Caveats {/*caveats*/}
+#### கவனிக்க வேண்டியவை {/*caveats*/}
 
-- React does not preserve any state for renders that got suspended before they were able to mount for the first time. When the component has loaded, React will retry rendering the suspended tree from scratch.
-- If Suspense was displaying content for the tree, but then it suspended again, the `fallback` will be shown again unless the update causing it was caused by [`startTransition`](/reference/react/startTransition) or [`useDeferredValue`](/reference/react/useDeferredValue).
-- If React needs to hide the already visible content because it suspended again, it will clean up [layout Effects](/reference/react/useLayoutEffect) in the content tree. When the content is ready to be shown again, React will fire the layout Effects again. This ensures that Effects measuring the DOM layout don't try to do this while the content is hidden.
-- React includes under-the-hood optimizations like *Streaming Server Rendering* and *Selective Hydration* that are integrated with Suspense. Read [an architectural overview](https://github.com/reactwg/react-18/discussions/37) and watch [a technical talk](https://www.youtube.com/watch?v=pj5N-Khihgc) to learn more.
+- முதல் முறையாக mount ஆகும் முன்பே suspend ஆன renders-க்காக React எந்த state-ஐயும் பாதுகாக்காது. component load ஆனதும், suspend ஆன tree-ஐ React ஆரம்பத்திலிருந்து மீண்டும் render செய்ய முயலும்.
+- Suspense ஏற்கனவே tree-க்கான content-ஐக் காட்டிக் கொண்டிருந்தபோது அது மீண்டும் suspend ஆனால், அந்த update [`startTransition`](/reference/react/startTransition) அல்லது [`useDeferredValue`](/reference/react/useDeferredValue) மூலம் ஏற்பட்டதல்ல என்றால் `fallback` மீண்டும் காட்டப்படும்.
+- மீண்டும் suspend ஆனதால் ஏற்கனவே தெரியும் content-ஐ React மறைக்க வேண்டியிருந்தால், content tree-இல் உள்ள [layout Effects](/reference/react/useLayoutEffect)-ஐ அது clean up செய்யும். content மீண்டும் காட்டத் தயாரானதும், React layout Effects-ஐ மீண்டும் fire செய்யும். இதனால் DOM layout-ஐ அளக்கும் Effects, content மறைக்கப்பட்டிருக்கும்போது அதைச் செய்ய முயலாது.
+- React-இல் Suspense உடன் ஒருங்கிணைக்கப்பட்ட *Streaming Server Rendering* மற்றும் *Selective Hydration* போன்ற உள்ளக optimizations உள்ளன. மேலும் அறிய [architecture overview](https://github.com/reactwg/react-18/discussions/37)-ஐப் படித்து, [technical talk](https://www.youtube.com/watch?v=pj5N-Khihgc)-ஐப் பாருங்கள்.
 
 ---
 
-## Usage {/*usage*/}
+## பயன்பாடு {/*usage*/}
 
-### Displaying a fallback while content is loading {/*displaying-a-fallback-while-content-is-loading*/}
+### content loading ஆகும்போது fallback காட்டுதல் {/*displaying-a-fallback-while-content-is-loading*/}
 
-You can wrap any part of your application with a Suspense boundary:
+உங்கள் application-ன் எந்த பகுதியையும் Suspense boundary-யால் wrap செய்யலாம்:
 
 ```js [[1, 1, "<Loading />"], [2, 2, "<Albums />"]]
 <Suspense fallback={<Loading />}>
@@ -48,9 +48,9 @@ You can wrap any part of your application with a Suspense boundary:
 </Suspense>
 ```
 
-React will display your <CodeStep step={1}>loading fallback</CodeStep> until all the code and data needed by <CodeStep step={2}>the children</CodeStep> has been loaded.
+<CodeStep step={2}>children</CodeStep>-க்கு தேவையான code மற்றும் data அனைத்தும் load ஆகும் வரை, React உங்கள் <CodeStep step={1}>loading fallback</CodeStep>-ஐக் காட்டும்.
 
-In the example below, the `Albums` component *suspends* while fetching the list of albums. Until it's ready to render, React switches the closest Suspense boundary above to show the fallback--your `Loading` component. Then, when the data loads, React hides the `Loading` fallback and renders the `Albums` component with data.
+கீழே உள்ள எடுத்துக்காட்டில், albums பட்டியலை fetch செய்யும் போது `Albums` component *suspend* ஆகிறது. அது render ஆகத் தயாராகும் வரை, React மேலுள்ள அருகிலுள்ள Suspense boundary-யை fallback-ஆகிய உங்கள் `Loading` component-ஐக் காட்டுமாறு மாற்றும். பின்னர் data load ஆனதும், React `Loading` fallback-ஐ மறைத்து, data உடன் `Albums` component-ஐ render செய்கிறது.
 
 <Sandpack>
 
@@ -72,7 +72,7 @@ export default function App() {
   } else {
     return (
       <button onClick={() => setShow(true)}>
-        Open The Beatles artist page
+        The Beatles artist page-ஐ திற
       </button>
     );
   }
@@ -95,7 +95,7 @@ export default function ArtistPage({ artist }) {
 }
 
 function Loading() {
-  return <h2>🌀 Loading...</h2>;
+  return <h2>🌀 ஏற்றுகிறது...</h2>;
 }
 ```
 
@@ -135,7 +135,7 @@ async function getData(url) {
   if (url === '/the-beatles/albums') {
     return await getAlbums();
   } else {
-    throw Error('Not implemented');
+    throw Error('இன்னும் செயல்படுத்தப்படவில்லை');
   }
 }
 
@@ -205,25 +205,25 @@ async function getAlbums() {
 
 <Note>
 
-**Only Suspense-enabled data sources will activate the Suspense component.** They include:
+**Suspense-enabled data sources மட்டுமே Suspense component-ஐ இயக்கும்.** அவற்றில் அடங்குபவை:
 
-- Data fetching with Suspense-enabled frameworks like [Relay](https://relay.dev/docs/guided-tour/rendering/loading-states/) and [Next.js](https://nextjs.org/docs/app/building-your-application/routing/loading-ui-and-streaming#streaming-with-suspense)
-- Lazy-loading component code with [`lazy`](/reference/react/lazy)
-- Reading the value of a cached Promise with [`use`](/reference/react/use)
+- [Relay](https://relay.dev/docs/guided-tour/rendering/loading-states/) மற்றும் [Next.js](https://nextjs.org/docs/app/building-your-application/routing/loading-ui-and-streaming#streaming-with-suspense) போன்ற Suspense-enabled frameworks மூலம் data fetching
+- [`lazy`](/reference/react/lazy) மூலம் component code-ஐ lazy-load செய்தல்
+- [`use`](/reference/react/use) மூலம் cached Promise-ன் value-ஐ வாசித்தல்
 
-Suspense **does not** detect when data is fetched inside an Effect or event handler.
+ஒரு Effect அல்லது event handler-க்குள் data fetch செய்யப்படும்போது Suspense அதை கண்டறியாது.
 
-The exact way you would load data in the `Albums` component above depends on your framework. If you use a Suspense-enabled framework, you'll find the details in its data fetching documentation.
+மேலுள்ள `Albums` component-இல் data-ஐ நீங்கள் எப்படி load செய்வீர்கள் என்பது உங்கள் framework-ஐப் பொறுத்தது. Suspense-enabled framework ஒன்றைப் பயன்படுத்தினால், அதன் data fetching documentation-இல் விவரங்களைக் காணலாம்.
 
-Suspense-enabled data fetching without the use of an opinionated framework is not yet supported. The requirements for implementing a Suspense-enabled data source are unstable and undocumented. An official API for integrating data sources with Suspense will be released in a future version of React.
+opinionated framework ஒன்றைப் பயன்படுத்தாமல் Suspense-enabled data fetching செய்வது இன்னும் ஆதரிக்கப்படவில்லை. Suspense-enabled data source ஒன்றை implement செய்வதற்கான தேவைகள் நிலையாகவும் documentation உடனும் இல்லை. data sources-ஐ Suspense உடன் ஒருங்கிணைக்க ஒரு official API React-ன் எதிர்கால பதிப்பில் வெளியிடப்படும்.
 
 </Note>
 
 ---
 
-### Revealing content together at once {/*revealing-content-together-at-once*/}
+### content-ஐ ஒரே நேரத்தில் சேர்த்து வெளிப்படுத்துதல் {/*revealing-content-together-at-once*/}
 
-By default, the whole tree inside Suspense is treated as a single unit. For example, even if *only one* of these components suspends waiting for some data, *all* of them together will be replaced by the loading indicator:
+இயல்பாக, Suspense-க்குள் உள்ள முழு tree-யும் ஒரே unit ஆக கருதப்படும். எடுத்துக்காட்டாக, இந்த components-இல் *ஒன்று மட்டுமே* data-க்காக காத்திருந்து suspend ஆனாலும், அவை *அனைத்தும்* சேர்ந்து loading indicator-ஆல் மாற்றப்படும்:
 
 ```js {2-5}
 <Suspense fallback={<Loading />}>
@@ -234,9 +234,9 @@ By default, the whole tree inside Suspense is treated as a single unit. For exam
 </Suspense>
 ```
 
-Then, after all of them are ready to be displayed, they will all appear together at once.
+பின்னர் அவை அனைத்தும் காட்டத் தயாரானதும், அனைத்தும் ஒரே நேரத்தில் சேர்ந்து தோன்றும்.
 
-In the example below, both `Biography` and `Albums` fetch some data. However, because they are grouped under a single Suspense boundary, these components always "pop in" together at the same time.
+கீழே உள்ள எடுத்துக்காட்டில், `Biography` மற்றும் `Albums` இரண்டும் சில data-ஐ fetch செய்கின்றன. ஆனால் அவை ஒரே Suspense boundary-க்குள் தொகுக்கப்பட்டிருப்பதால், இந்த components எப்போதும் ஒரே நேரத்தில் சேர்ந்து "pop in" ஆகும்.
 
 <Sandpack>
 
@@ -258,7 +258,7 @@ export default function App() {
   } else {
     return (
       <button onClick={() => setShow(true)}>
-        Open The Beatles artist page
+        The Beatles artist page-ஐ திற
       </button>
     );
   }
@@ -286,7 +286,7 @@ export default function ArtistPage({ artist }) {
 }
 
 function Loading() {
-  return <h2>🌀 Loading...</h2>;
+  return <h2>🌀 ஏற்றுகிறது...</h2>;
 }
 ```
 
@@ -352,7 +352,7 @@ async function getData(url) {
   } else if (url === '/the-beatles/bio') {
     return await getBio();
   } else {
-    throw Error('Not implemented');
+    throw Error('இன்னும் செயல்படுத்தப்படவில்லை');
   }
 }
 
@@ -362,14 +362,13 @@ async function getBio() {
     setTimeout(resolve, 1500);
   });
 
-  return `The Beatles were an English rock band,
-    formed in Liverpool in 1960, that comprised
-    John Lennon, Paul McCartney, George Harrison
-    and Ringo Starr.`;
+  return `The Beatles 1960-இல் Liverpool-இல் உருவான ஆங்கில rock band ஆக இருந்தனர்;
+    அதில் John Lennon, Paul McCartney, George Harrison
+    மற்றும் Ringo Starr இருந்தனர்.`;
 }
 
 async function getAlbums() {
-  // Add a fake delay to make waiting noticeable.
+async function getAlbums() {
   await new Promise(resolve => {
     setTimeout(resolve, 3000);
   });
@@ -443,7 +442,7 @@ async function getAlbums() {
 
 </Sandpack>
 
-Components that load data don't have to be direct children of the Suspense boundary. For example, you can move `Biography` and `Albums` into a new `Details` component. This doesn't change the behavior. `Biography` and `Albums` share the same closest parent Suspense boundary, so their reveal is coordinated together.
+data load செய்யும் components, Suspense boundary-ன் நேரடி children ஆக இருக்க வேண்டிய அவசியமில்லை. எடுத்துக்காட்டாக, `Biography` மற்றும் `Albums`-ஐ புதிய `Details` component-க்குள் நகர்த்தலாம். இது behavior-ஐ மாற்றாது. `Biography` மற்றும் `Albums` ஒரே அருகிலுள்ள parent Suspense boundary-யைப் பகிர்வதால், அவற்றின் reveal சேர்த்து ஒருங்கிணைக்கப்படும்.
 
 ```js {2,8-11}
 <Suspense fallback={<Loading />}>
@@ -464,9 +463,9 @@ function Details({ artistId }) {
 
 ---
 
-### Revealing nested content as it loads {/*revealing-nested-content-as-it-loads*/}
+### nested content load ஆகும் போதே அதை வெளிப்படுத்துதல் {/*revealing-nested-content-as-it-loads*/}
 
-When a component suspends, the closest parent Suspense component shows the fallback. This lets you nest multiple Suspense components to create a loading sequence. Each Suspense boundary's fallback will be filled in as the next level of content becomes available. For example, you can give the album list its own fallback:
+ஒரு component suspend ஆகும்போது, அருகிலுள்ள parent Suspense component fallback-ஐக் காட்டும். இதனால் loading sequence ஒன்றை உருவாக்க பல Suspense components-ஐ nest செய்யலாம். அடுத்த நிலை content கிடைக்கத் தொடங்கும் போது, ஒவ்வொரு Suspense boundary-ன் fallback நிரப்பப்படும். எடுத்துக்காட்டாக, album பட்டியலுக்கே தனி fallback கொடுக்கலாம்:
 
 ```js {3,7}
 <Suspense fallback={<BigSpinner />}>
@@ -479,14 +478,14 @@ When a component suspends, the closest parent Suspense component shows the fallb
 </Suspense>
 ```
 
-With this change, displaying the `Biography` doesn't need to "wait" for the `Albums` to load.
+இந்த மாற்றத்துடன், `Biography`-ஐக் காட்டுவதற்கு `Albums` load ஆக "காத்திருக்க" வேண்டியதில்லை.
 
-The sequence will be:
+sequence இதுவாக இருக்கும்:
 
-1. If `Biography` hasn't loaded yet, `BigSpinner` is shown in place of the entire content area.
-2. Once `Biography` finishes loading, `BigSpinner` is replaced by the content.
-3. If `Albums` hasn't loaded yet, `AlbumsGlimmer` is shown in place of `Albums` and its parent `Panel`.
-4. Finally, once `Albums` finishes loading, it replaces `AlbumsGlimmer`.
+1. `Biography` இன்னும் load ஆகவில்லை என்றால், முழு content area-வின் இடத்தில் `BigSpinner` காட்டப்படும்.
+2. `Biography` loading முடித்ததும், `BigSpinner` content-ஆல் மாற்றப்படும்.
+3. `Albums` இன்னும் load ஆகவில்லை என்றால், `Albums` மற்றும் அதன் parent `Panel` இடத்தில் `AlbumsGlimmer` காட்டப்படும்.
+4. இறுதியாக, `Albums` loading முடித்ததும், அது `AlbumsGlimmer`-ஐ மாற்றும்.
 
 <Sandpack>
 
@@ -508,7 +507,7 @@ export default function App() {
   } else {
     return (
       <button onClick={() => setShow(true)}>
-        Open The Beatles artist page
+        The Beatles artist page-ஐ திற
       </button>
     );
   }
@@ -538,7 +537,7 @@ export default function ArtistPage({ artist }) {
 }
 
 function BigSpinner() {
-  return <h2>🌀 Loading...</h2>;
+  return <h2>🌀 ஏற்றுகிறது...</h2>;
 }
 
 function AlbumsGlimmer() {
@@ -614,7 +613,7 @@ async function getData(url) {
   } else if (url === '/the-beatles/bio') {
     return await getBio();
   } else {
-    throw Error('Not implemented');
+    throw Error('இன்னும் செயல்படுத்தப்படவில்லை');
   }
 }
 
@@ -624,14 +623,13 @@ async function getBio() {
     setTimeout(resolve, 500);
   });
 
-  return `The Beatles were an English rock band,
-    formed in Liverpool in 1960, that comprised
-    John Lennon, Paul McCartney, George Harrison
-    and Ringo Starr.`;
+  return `The Beatles 1960-இல் Liverpool-இல் உருவான ஆங்கில rock band ஆக இருந்தனர்;
+    அதில் John Lennon, Paul McCartney, George Harrison
+    மற்றும் Ringo Starr இருந்தனர்.`;
 }
 
 async function getAlbums() {
-  // Add a fake delay to make waiting noticeable.
+async function getAlbums() {
   await new Promise(resolve => {
     setTimeout(resolve, 3000);
   });
@@ -722,15 +720,15 @@ async function getAlbums() {
 
 </Sandpack>
 
-Suspense boundaries let you coordinate which parts of your UI should always "pop in" together at the same time, and which parts should progressively reveal more content in a sequence of loading states. You can add, move, or delete Suspense boundaries in any place in the tree without affecting the rest of your app's behavior.
+உங்கள் UI-யின் எந்த பகுதிகள் எப்போதும் ஒரே நேரத்தில் சேர்ந்து "pop in" ஆக வேண்டும், எந்த பகுதிகள் loading states-ன் sequence-இல் படிப்படியாக மேலும் content-ஐ வெளிப்படுத்த வேண்டும் என்பதை Suspense boundaries மூலம் ஒருங்கிணைக்கலாம். உங்கள் app-ன் மற்ற behavior-ஐ பாதிக்காமல் tree-இன் எந்த இடத்திலும் Suspense boundaries-ஐ சேர்க்கலாம், நகர்த்தலாம், அல்லது நீக்கலாம்.
 
-Don't put a Suspense boundary around every component. Suspense boundaries should not be more granular than the loading sequence that you want the user to experience. If you work with a designer, ask them where the loading states should be placed--it's likely that they've already included them in their design wireframes.
+ஒவ்வொரு component-ஐச் சுற்றியும் Suspense boundary வைக்க வேண்டாம். பயனர் அனுபவிக்க வேண்டும் என்று நீங்கள் நினைக்கும் loading sequence-ஐ விட Suspense boundaries அதிக granular ஆக இருக்கக்கூடாது. நீங்கள் designer உடன் பணிபுரிந்தால், loading states எங்கு வைக்கப்பட வேண்டும் என்று அவர்களிடம் கேளுங்கள்; அவர்கள் அதை ஏற்கனவே design wireframes-இல் சேர்த்திருக்க வாய்ப்பு உள்ளது.
 
 ---
 
-### Showing stale content while fresh content is loading {/*showing-stale-content-while-fresh-content-is-loading*/}
+### புதிய content loading ஆகும்போது பழைய content-ஐக் காட்டுதல் {/*showing-stale-content-while-fresh-content-is-loading*/}
 
-In this example, the `SearchResults` component suspends while fetching the search results. Type `"a"`, wait for the results, and then edit it to `"ab"`. The results for `"a"` will get replaced by the loading fallback.
+இந்த எடுத்துக்காட்டில், search results-ஐ fetch செய்யும் போது `SearchResults` component suspend ஆகிறது. `"a"` என type செய்து, results வர காத்திருந்து, பின்னர் அதை `"ab"` ஆக மாற்றுங்கள். `"a"`-க்கான results loading fallback-ஆல் மாற்றப்படும்.
 
 <Sandpack>
 
@@ -743,10 +741,10 @@ export default function App() {
   return (
     <>
       <label>
-        Search albums:
+        ஆல்பங்களைத் தேடு:
         <input value={query} onChange={e => setQuery(e.target.value)} />
       </label>
-      <Suspense fallback={<h2>Loading...</h2>}>
+      <Suspense fallback={<h2>ஏற்றுகிறது...</h2>}>
         <SearchResults query={query} />
       </Suspense>
     </>
@@ -764,7 +762,7 @@ export default function SearchResults({ query }) {
   }
   const albums = use(fetchData(`/search?q=${query}`));
   if (albums.length === 0) {
-    return <p>No matches for <i>"{query}"</i></p>;
+    return <p><i>"{query}"</i>-க்கு பொருத்தங்கள் இல்லை</p>;
   }
   return (
     <ul>
@@ -796,7 +794,7 @@ async function getData(url) {
   if (url.startsWith('/search?q=')) {
     return await getSearchResults(url.slice('/search?q='.length));
   } else {
-    throw Error('Not implemented');
+    throw Error('இன்னும் செயல்படுத்தப்படவில்லை');
   }
 }
 
@@ -877,7 +875,7 @@ input { margin: 10px; }
 
 </Sandpack>
 
-A common alternative UI pattern is to *defer* updating the list and to keep showing the previous results until the new results are ready. The [`useDeferredValue`](/reference/react/useDeferredValue) Hook lets you pass a deferred version of the query down:
+ஒரு பொதுவான மாற்று UI pattern என்பது பட்டியலை update செய்வதை *defer* செய்து, புதிய results தயாராகும் வரை முந்தைய results-ஐத் தொடர்ந்து காட்டுவது. [`useDeferredValue`](/reference/react/useDeferredValue) Hook query-ன் deferred version-ஐ கீழே pass செய்ய அனுமதிக்கிறது:
 
 ```js {3,11}
 export default function App() {
@@ -886,10 +884,10 @@ export default function App() {
   return (
     <>
       <label>
-        Search albums:
+        ஆல்பங்களைத் தேடு:
         <input value={query} onChange={e => setQuery(e.target.value)} />
       </label>
-      <Suspense fallback={<h2>Loading...</h2>}>
+      <Suspense fallback={<h2>ஏற்றுகிறது...</h2>}>
         <SearchResults query={deferredQuery} />
       </Suspense>
     </>
@@ -897,9 +895,9 @@ export default function App() {
 }
 ```
 
-The `query` will update immediately, so the input will display the new value. However, the `deferredQuery` will keep its previous value until the data has loaded, so `SearchResults` will show the stale results for a bit.
+`query` உடனடியாக update ஆகும், எனவே input புதிய value-ஐக் காட்டும். ஆனால் data load ஆகும் வரை `deferredQuery` அதன் முந்தைய value-ஐ வைத்திருக்கும், எனவே `SearchResults` சிறிது நேரம் பழைய results-ஐக் காட்டும்.
 
-To make it more obvious to the user, you can add a visual indication when the stale result list is displayed:
+பயனருக்கு இது தெளிவாகத் தெரிய, பழைய result list காட்டப்படும் போது ஒரு visual indication சேர்க்கலாம்:
 
 ```js {2}
 <div style={{
@@ -909,7 +907,7 @@ To make it more obvious to the user, you can add a visual indication when the st
 </div>
 ```
 
-Enter `"a"` in the example below, wait for the results to load, and then edit the input to `"ab"`. Notice how instead of the Suspense fallback, you now see the dimmed stale result list until the new results have loaded:
+கீழே உள்ள எடுத்துக்காட்டில் `"a"` என உள்ளிட்டு, results load ஆக காத்திருந்து, பின்னர் input-ஐ `"ab"` ஆக மாற்றுங்கள். புதிய results load ஆகும் வரை Suspense fallback-க்கு பதிலாக மங்கலான பழைய result list தெரிகிறது என்பதை கவனியுங்கள்:
 
 
 <Sandpack>
@@ -925,10 +923,10 @@ export default function App() {
   return (
     <>
       <label>
-        Search albums:
+        ஆல்பங்களைத் தேடு:
         <input value={query} onChange={e => setQuery(e.target.value)} />
       </label>
-      <Suspense fallback={<h2>Loading...</h2>}>
+      <Suspense fallback={<h2>ஏற்றுகிறது...</h2>}>
         <div style={{ opacity: isStale ? 0.5 : 1 }}>
           <SearchResults query={deferredQuery} />
         </div>
@@ -948,7 +946,7 @@ export default function SearchResults({ query }) {
   }
   const albums = use(fetchData(`/search?q=${query}`));
   if (albums.length === 0) {
-    return <p>No matches for <i>"{query}"</i></p>;
+    return <p><i>"{query}"</i>-க்கு பொருத்தங்கள் இல்லை</p>;
   }
   return (
     <ul>
@@ -980,7 +978,7 @@ async function getData(url) {
   if (url.startsWith('/search?q=')) {
     return await getSearchResults(url.slice('/search?q='.length));
   } else {
-    throw Error('Not implemented');
+    throw Error('இன்னும் செயல்படுத்தப்படவில்லை');
   }
 }
 
@@ -1063,15 +1061,15 @@ input { margin: 10px; }
 
 <Note>
 
-Both deferred values and [Transitions](#preventing-already-revealed-content-from-hiding) let you avoid showing Suspense fallback in favor of inline indicators. Transitions mark the whole update as non-urgent so they are typically used by frameworks and router libraries for navigation. Deferred values, on the other hand, are mostly useful in application code where you want to mark a part of UI as non-urgent and let it "lag behind" the rest of the UI.
+deferred values மற்றும் [Transitions](#preventing-already-revealed-content-from-hiding) இரண்டும் inline indicators-ஐ முன்னிலைப்படுத்தி Suspense fallback காட்டப்படுவதைத் தவிர்க்க உதவும். Transitions முழு update-ஐ non-urgent எனக் குறிக்கும், எனவே அவை பொதுவாக frameworks மற்றும் router libraries மூலம் navigation-க்கு பயன்படுத்தப்படுகின்றன. மறுபுறம், UI-யின் ஒரு பகுதியை non-urgent எனக் குறித்து, அது UI-யின் மீதியை விட சிறிது "lag behind" ஆக இருக்க அனுமதிக்க வேண்டிய application code-இல் deferred values பெரும்பாலும் பயனுள்ளதாக இருக்கும்.
 
 </Note>
 
 ---
 
-### Preventing already revealed content from hiding {/*preventing-already-revealed-content-from-hiding*/}
+### ஏற்கனவே வெளிப்பட்ட content மறைக்கப்படுவதைத் தடுக்குதல் {/*preventing-already-revealed-content-from-hiding*/}
 
-When a component suspends, the closest parent Suspense boundary switches to showing the fallback. This can lead to a jarring user experience if it was already displaying some content. Try pressing this button:
+ஒரு component suspend ஆகும்போது, அருகிலுள்ள parent Suspense boundary fallback-ஐக் காட்ட மாறும். அது ஏற்கனவே சில content-ஐக் காட்டிக் கொண்டிருந்தால், இது சீரற்ற user experience-ஐ உருவாக்கலாம். இந்த button-ஐ அழுத்திப் பாருங்கள்:
 
 <Sandpack>
 
@@ -1119,7 +1117,7 @@ function Router() {
 }
 
 function BigSpinner() {
-  return <h2>🌀 Loading...</h2>;
+  return <h2>🌀 ஏற்றுகிறது...</h2>;
 }
 ```
 
@@ -1128,7 +1126,7 @@ export default function Layout({ children }) {
   return (
     <div className="layout">
       <section className="header">
-        Music Browser
+        இசை உலாவி
       </section>
       <main>
         {children}
@@ -1142,7 +1140,7 @@ export default function Layout({ children }) {
 export default function IndexPage({ navigate }) {
   return (
     <button onClick={() => navigate('/the-beatles')}>
-      Open The Beatles artist page
+      The Beatles artist page-ஐ திற
     </button>
   );
 }
@@ -1241,7 +1239,7 @@ async function getData(url) {
   } else if (url === '/the-beatles/bio') {
     return await getBio();
   } else {
-    throw Error('Not implemented');
+    throw Error('இன்னும் செயல்படுத்தப்படவில்லை');
   }
 }
 
@@ -1251,14 +1249,13 @@ async function getBio() {
     setTimeout(resolve, 500);
   });
 
-  return `The Beatles were an English rock band,
-    formed in Liverpool in 1960, that comprised
-    John Lennon, Paul McCartney, George Harrison
-    and Ringo Starr.`;
+  return `The Beatles 1960-இல் Liverpool-இல் உருவான ஆங்கில rock band ஆக இருந்தனர்;
+    அதில் John Lennon, Paul McCartney, George Harrison
+    மற்றும் Ringo Starr இருந்தனர்.`;
 }
 
 async function getAlbums() {
-  // Add a fake delay to make waiting noticeable.
+async function getAlbums() {
   await new Promise(resolve => {
     setTimeout(resolve, 3000);
   });
@@ -1365,9 +1362,9 @@ main {
 
 </Sandpack>
 
-When you pressed the button, the `Router` component rendered `ArtistPage` instead of `IndexPage`. A component inside `ArtistPage` suspended, so the closest Suspense boundary started showing the fallback. The closest Suspense boundary was near the root, so the whole site layout got replaced by `BigSpinner`.
+நீங்கள் button-ஐ அழுத்தியபோது, `Router` component `IndexPage`-க்கு பதிலாக `ArtistPage`-ஐ render செய்தது. `ArtistPage`-க்குள் உள்ள ஒரு component suspend ஆனதால், அருகிலுள்ள Suspense boundary fallback-ஐக் காட்டத் தொடங்கியது. அருகிலுள்ள Suspense boundary root-க்கு அருகில் இருந்ததால், முழு site layout `BigSpinner`-ஆல் மாற்றப்பட்டது.
 
-To prevent this, you can mark the navigation state update as a *Transition* with [`startTransition`:](/reference/react/startTransition)
+இதைக் தடுக்க, [`startTransition`:](/reference/react/startTransition) மூலம் navigation state update-ஐ *Transition* ஆகக் குறிக்கலாம்:
 
 ```js {5,7}
 function Router() {
@@ -1381,7 +1378,7 @@ function Router() {
   // ...
 ```
 
-This tells React that the state transition is not urgent, and it's better to keep showing the previous page instead of hiding any already revealed content. Now clicking the button "waits" for the `Biography` to load:
+state transition urgent அல்ல; ஏற்கனவே வெளிப்பட்ட content-ஐ மறைப்பதற்குப் பதிலாக முந்தைய page-ஐத் தொடர்ந்து காட்டுவது நல்லது என்று இது React-க்கு தெரிவிக்கிறது. இப்போது button-ஐ click செய்தால், `Biography` load ஆகும் வரை அது "காத்திருக்கும்":
 
 <Sandpack>
 
@@ -1431,7 +1428,7 @@ function Router() {
 }
 
 function BigSpinner() {
-  return <h2>🌀 Loading...</h2>;
+  return <h2>🌀 ஏற்றுகிறது...</h2>;
 }
 ```
 
@@ -1440,7 +1437,7 @@ export default function Layout({ children }) {
   return (
     <div className="layout">
       <section className="header">
-        Music Browser
+        இசை உலாவி
       </section>
       <main>
         {children}
@@ -1454,7 +1451,7 @@ export default function Layout({ children }) {
 export default function IndexPage({ navigate }) {
   return (
     <button onClick={() => navigate('/the-beatles')}>
-      Open The Beatles artist page
+      The Beatles artist page-ஐ திற
     </button>
   );
 }
@@ -1553,7 +1550,7 @@ async function getData(url) {
   } else if (url === '/the-beatles/bio') {
     return await getBio();
   } else {
-    throw Error('Not implemented');
+    throw Error('இன்னும் செயல்படுத்தப்படவில்லை');
   }
 }
 
@@ -1563,14 +1560,13 @@ async function getBio() {
     setTimeout(resolve, 500);
   });
 
-  return `The Beatles were an English rock band,
-    formed in Liverpool in 1960, that comprised
-    John Lennon, Paul McCartney, George Harrison
-    and Ringo Starr.`;
+  return `The Beatles 1960-இல் Liverpool-இல் உருவான ஆங்கில rock band ஆக இருந்தனர்;
+    அதில் John Lennon, Paul McCartney, George Harrison
+    மற்றும் Ringo Starr இருந்தனர்.`;
 }
 
 async function getAlbums() {
-  // Add a fake delay to make waiting noticeable.
+async function getAlbums() {
   await new Promise(resolve => {
     setTimeout(resolve, 3000);
   });
@@ -1677,19 +1673,19 @@ main {
 
 </Sandpack>
 
-A Transition doesn't wait for *all* content to load. It only waits long enough to avoid hiding already revealed content. For example, the website `Layout` was already revealed, so it would be bad to hide it behind a loading spinner. However, the nested `Suspense` boundary around `Albums` is new, so the Transition doesn't wait for it.
+Transition *அனைத்து* content-மும் load ஆக காத்திருக்காது. ஏற்கனவே வெளிப்பட்ட content மறைக்கப்படுவதைத் தவிர்க்க தேவையான அளவு நேரம் மட்டுமே காத்திருக்கும். எடுத்துக்காட்டாக, website `Layout` ஏற்கனவே வெளிப்பட்டிருந்ததால், அதை loading spinner-க்கு பின்னால் மறைப்பது சரியாக இருக்காது. ஆனால் `Albums`-ஐச் சுற்றியுள்ள nested `Suspense` boundary புதியது, எனவே Transition அதற்காக காத்திருக்காது.
 
 <Note>
 
-Suspense-enabled routers are expected to wrap the navigation updates into Transitions by default.
+Suspense-enabled routers இயல்பாகவே navigation updates-ஐ Transitions-க்குள் wrap செய்யும் என்று எதிர்பார்க்கப்படுகிறது.
 
 </Note>
 
 ---
 
-### Indicating that a Transition is happening {/*indicating-that-a-transition-is-happening*/}
+### Transition நடந்து கொண்டிருப்பதைச் சுட்டிக்காட்டுதல் {/*indicating-that-a-transition-is-happening*/}
 
-In the above example, once you click the button, there is no visual indication that a navigation is in progress. To add an indicator, you can replace [`startTransition`](/reference/react/startTransition) with [`useTransition`](/reference/react/useTransition) which gives you a boolean `isPending` value. In the example below, it's used to change the website header styling while a Transition is happening:
+மேலுள்ள எடுத்துக்காட்டில், button-ஐ click செய்த பிறகு navigation நடந்து கொண்டிருக்கிறது என்பதற்கான visual indication இல்லை. indicator ஒன்றைச் சேர்க்க, [`startTransition`](/reference/react/startTransition)-க்கு பதிலாக boolean `isPending` value-ஐ தரும் [`useTransition`](/reference/react/useTransition)-ஐப் பயன்படுத்தலாம். கீழே உள்ள எடுத்துக்காட்டில், Transition நடந்து கொண்டிருக்கும் போது website header styling-ஐ மாற்ற இது பயன்படுத்தப்படுகிறது:
 
 <Sandpack>
 
@@ -1740,7 +1736,7 @@ function Router() {
 }
 
 function BigSpinner() {
-  return <h2>🌀 Loading...</h2>;
+  return <h2>🌀 ஏற்றுகிறது...</h2>;
 }
 ```
 
@@ -1751,7 +1747,7 @@ export default function Layout({ children, isPending }) {
       <section className="header" style={{
         opacity: isPending ? 0.7 : 1
       }}>
-        Music Browser
+        இசை உலாவி
       </section>
       <main>
         {children}
@@ -1765,7 +1761,7 @@ export default function Layout({ children, isPending }) {
 export default function IndexPage({ navigate }) {
   return (
     <button onClick={() => navigate('/the-beatles')}>
-      Open The Beatles artist page
+      The Beatles artist page-ஐ திற
     </button>
   );
 }
@@ -1864,7 +1860,7 @@ async function getData(url) {
   } else if (url === '/the-beatles/bio') {
     return await getBio();
   } else {
-    throw Error('Not implemented');
+    throw Error('இன்னும் செயல்படுத்தப்படவில்லை');
   }
 }
 
@@ -1874,14 +1870,13 @@ async function getBio() {
     setTimeout(resolve, 500);
   });
 
-  return `The Beatles were an English rock band,
-    formed in Liverpool in 1960, that comprised
-    John Lennon, Paul McCartney, George Harrison
-    and Ringo Starr.`;
+  return `The Beatles 1960-இல் Liverpool-இல் உருவான ஆங்கில rock band ஆக இருந்தனர்;
+    அதில் John Lennon, Paul McCartney, George Harrison
+    மற்றும் Ringo Starr இருந்தனர்.`;
 }
 
 async function getAlbums() {
-  // Add a fake delay to make waiting noticeable.
+async function getAlbums() {
   await new Promise(resolve => {
     setTimeout(resolve, 3000);
   });
@@ -1990,27 +1985,27 @@ main {
 
 ---
 
-### Resetting Suspense boundaries on navigation {/*resetting-suspense-boundaries-on-navigation*/}
+### navigation-இல் Suspense boundaries-ஐ reset செய்தல் {/*resetting-suspense-boundaries-on-navigation*/}
 
-During a Transition, React will avoid hiding already revealed content. However, if you navigate to a route with different parameters, you might want to tell React it is *different* content. You can express this with a `key`:
+Transition நடக்கும் போது, ஏற்கனவே வெளிப்பட்ட content மறைக்கப்படுவதை React தவிர்க்கும். ஆனால் வேறு parameters உள்ள route-க்கு navigate செய்தால், அது *வேறு* content என்று React-க்கு தெரிவிக்க வேண்டியிருக்கலாம். இதை `key` மூலம் வெளிப்படுத்தலாம்:
 
 ```js
 <ProfilePage key={queryParams.id} />
 ```
 
-Imagine you're navigating within a user's profile page, and something suspends. If that update is wrapped in a Transition, it will not trigger the fallback for already visible content. That's the expected behavior.
+ஒரு பயனரின் profile page-க்குள் நீங்கள் navigate செய்கிறீர்கள், அப்போது ஏதாவது suspend ஆகிறது என்று கற்பனை செய்யுங்கள். அந்த update Transition-க்குள் wrap செய்யப்பட்டிருந்தால், ஏற்கனவே தெரியும் content-க்கு fallback-ஐ trigger செய்யாது. அதுதான் எதிர்பார்க்கப்படும் behavior.
 
-However, now imagine you're navigating between two different user profiles. In that case, it makes sense to show the fallback. For example, one user's timeline is *different content* from another user's timeline. By specifying a `key`, you ensure that React treats different users' profiles as different components, and resets the Suspense boundaries during navigation. Suspense-integrated routers should do this automatically.
+ஆனால் இப்போது நீங்கள் இரண்டு வெவ்வேறு user profiles-க்கு இடையில் navigate செய்கிறீர்கள் என்று கற்பனை செய்யுங்கள். அப்படியானால் fallback-ஐக் காட்டுவது பொருத்தமானது. எடுத்துக்காட்டாக, ஒரு user-ன் timeline மற்றொரு user-ன் timeline-இலிருந்து *வேறு content* ஆகும். `key` குறிப்பிடுவதன் மூலம், வெவ்வேறு users-ன் profiles-ஐ React வெவ்வேறு components ஆக நடத்தி, navigation நடக்கும் போது Suspense boundaries-ஐ reset செய்வதை உறுதி செய்கிறீர்கள். Suspense-integrated routers இதை தானாகச் செய்ய வேண்டும்.
 
 ---
 
-### Providing a fallback for server errors and client-only content {/*providing-a-fallback-for-server-errors-and-client-only-content*/}
+### server errors மற்றும் client-only content-க்கு fallback வழங்குதல் {/*providing-a-fallback-for-server-errors-and-client-only-content*/}
 
-If you use one of the [streaming server rendering APIs](/reference/react-dom/server) (or a framework that relies on them), React will also use your `<Suspense>` boundaries to handle errors on the server. If a component throws an error on the server, React will not abort the server render. Instead, it will find the closest `<Suspense>` component above it and include its fallback (such as a spinner) into the generated server HTML. The user will see a spinner at first.
+நீங்கள் [streaming server rendering APIs](/reference/react-dom/server)-இல் ஒன்றையோ (அவற்றை நம்பியிருக்கும் framework ஒன்றையோ) பயன்படுத்தினால், server-இல் errors-ஐ handle செய்ய React உங்கள் `<Suspense>` boundaries-ஐயும் பயன்படுத்தும். ஒரு component server-இல் error throw செய்தால், React server render-ஐ abort செய்யாது. அதற்கு பதிலாக, மேலுள்ள அருகிலுள்ள `<Suspense>` component-ஐ கண்டுபிடித்து, அதன் fallback-ஐ (spinner போன்றது) உருவாக்கப்பட்ட server HTML-இல் சேர்க்கும். பயனர் முதலில் spinner-ஐப் பார்ப்பார்.
 
-On the client, React will attempt to render the same component again. If it errors on the client too, React will throw the error and display the closest [Error Boundary.](/reference/react/Component#static-getderivedstatefromerror) However, if it does not error on the client, React will not display the error to the user since the content was eventually displayed successfully.
+client-இல், அதே component-ஐ React மீண்டும் render செய்ய முயலும். அது client-இலும் error ஆனால், React error-ஐ throw செய்து, அருகிலுள்ள [Error Boundary](/reference/react/Component#static-getderivedstatefromerror)-ஐக் காட்டும். ஆனால் client-இல் error ஆகவில்லை என்றால், content இறுதியில் வெற்றிகரமாகக் காட்டப்பட்டதால் React அந்த error-ஐ பயனருக்கு காட்டாது.
 
-You can use this to opt out some components from rendering on the server. To do this, throw an error in the server environment and then wrap them in a `<Suspense>` boundary to replace their HTML with fallbacks:
+சில components server-இல் render ஆகாமல் opt out செய்ய இதைப் பயன்படுத்தலாம். இதற்கு server environment-இல் error throw செய்து, பின்னர் அவற்றின் HTML-ஐ fallbacks-ஆல் மாற்ற `<Suspense>` boundary-க்குள் wrap செய்யவும்:
 
 ```js
 <Suspense fallback={<Loading />}>
@@ -2019,23 +2014,23 @@ You can use this to opt out some components from rendering on the server. To do 
 
 function Chat() {
   if (typeof window === 'undefined') {
-    throw Error('Chat should only render on the client.');
+    throw Error('Chat client-இல் மட்டுமே render செய்ய வேண்டும்.');
   }
   // ...
 }
 ```
 
-The server HTML will include the loading indicator. It will be replaced by the `Chat` component on the client.
+server HTML-இல் loading indicator இருக்கும். client-இல் அது `Chat` component-ஆல் மாற்றப்படும்.
 
 ---
 
 ## Troubleshooting {/*troubleshooting*/}
 
-### How do I prevent the UI from being replaced by a fallback during an update? {/*preventing-unwanted-fallbacks*/}
+### update நடக்கும் போது UI fallback-ஆல் மாற்றப்படுவதை எப்படி தடுக்கலாம்? {/*preventing-unwanted-fallbacks*/}
 
-Replacing visible UI with a fallback creates a jarring user experience. This can happen when an update causes a component to suspend, and the nearest Suspense boundary is already showing content to the user.
+தெரியும் UI-ஐ fallback-ஆல் மாற்றுவது சீரற்ற user experience-ஐ உருவாக்கும். ஒரு update component-ஐ suspend செய்யும்போது, அருகிலுள்ள Suspense boundary ஏற்கனவே பயனருக்கு content-ஐக் காட்டிக் கொண்டிருந்தால் இது நடக்கலாம்.
 
-To prevent this from happening, [mark the update as non-urgent using `startTransition`](#preventing-already-revealed-content-from-hiding). During a Transition, React will wait until enough data has loaded to prevent an unwanted fallback from appearing:
+இது நடக்காமல் தடுக்க, [`startTransition` பயன்படுத்தி update-ஐ non-urgent எனக் குறியிடுங்கள்](#preventing-already-revealed-content-from-hiding). Transition நடக்கும் போது, தேவையற்ற fallback தோன்றுவதைத் தடுக்க போதுமான data load ஆகும் வரை React காத்திருக்கும்:
 
 ```js {2-3,5}
 function handleNextPageClick() {
@@ -2046,8 +2041,8 @@ function handleNextPageClick() {
 }
 ```
 
-This will avoid hiding existing content. However, any newly rendered `Suspense` boundaries will still immediately display fallbacks to avoid blocking the UI and let the user see the content as it becomes available.
+இது ஏற்கனவே உள்ள content மறைக்கப்படுவதைத் தவிர்க்கும். ஆனால் புதிதாக render செய்யப்பட்ட எந்த `Suspense` boundaries-மும் UI-ஐ block செய்யாமல், content கிடைக்கும் போதே பயனர் பார்க்க அனுமதிக்க உடனடியாக fallbacks-ஐக் காட்டும்.
 
-**React will only prevent unwanted fallbacks during non-urgent updates**. It will not delay a render if it's the result of an urgent update. You must opt in with an API like [`startTransition`](/reference/react/startTransition) or [`useDeferredValue`](/reference/react/useDeferredValue).
+**non-urgent updates நடக்கும் போது மட்டுமே React தேவையற்ற fallbacks-ஐத் தடுக்கும்**. urgent update-ன் விளைவாக render வந்தால், React அதை தாமதப்படுத்தாது. [`startTransition`](/reference/react/startTransition) அல்லது [`useDeferredValue`](/reference/react/useDeferredValue) போன்ற API மூலம் நீங்கள் opt in செய்ய வேண்டும்.
 
-If your router is integrated with Suspense, it should wrap its updates into [`startTransition`](/reference/react/startTransition) automatically.
+உங்கள் router Suspense உடன் integrated ஆக இருந்தால், அது அதன் updates-ஐ தானாகவே [`startTransition`](/reference/react/startTransition)-க்குள் wrap செய்ய வேண்டும்.

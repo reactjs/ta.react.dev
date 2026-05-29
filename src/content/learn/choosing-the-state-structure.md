@@ -1,53 +1,53 @@
 ---
-title: Choosing the State Structure
+title: State அமைப்பைத் தேர்வு செய்தல்
 ---
 
 <Intro>
 
-Structuring state well can make a difference between a component that is pleasant to modify and debug, and one that is a constant source of bugs. Here are some tips you should consider when structuring state.
+state-ஐ நன்றாக அமைப்பது, மாற்றவும் debug செய்யவும் இனிமையான component-க்கும், தொடர்ந்து bug-களின் மூலமாக இருக்கும் component-க்கும் உள்ள வேறுபாட்டை உருவாக்கும். state-ஐ அமைக்கும் போது கருத வேண்டிய சில குறிப்புகள் இங்கே.
 
 </Intro>
 
 <YouWillLearn>
 
-* When to use a single vs multiple state variables
-* What to avoid when organizing state
-* How to fix common issues with the state structure
+* ஒரே state variable மற்றும் பல state variable-களை எப்போது பயன்படுத்துவது
+* state-ஐ ஒழுங்குபடுத்தும் போது எதைத் தவிர்க்க வேண்டும்
+* state அமைப்பில் பொதுவான பிரச்சினைகளை எப்படி சரிசெய்வது
 
 </YouWillLearn>
 
-## Principles for structuring state {/*principles-for-structuring-state*/}
+## state-ஐ அமைப்பதற்கான கொள்கைகள் {/*principles-for-structuring-state*/}
 
-When you write a component that holds some state, you'll have to make choices about how many state variables to use and what the shape of their data should be. While it's possible to write correct programs even with a suboptimal state structure, there are a few principles that can guide you to make better choices:
+சில state-ஐ வைத்திருக்கும் component-ஐ எழுதும்போது, எத்தனை state variable-களைப் பயன்படுத்த வேண்டும், அவற்றின் data shape எப்படி இருக்க வேண்டும் என்பதில் தேர்வுகள் செய்ய வேண்டும். சிறந்ததல்லாத state அமைப்புடனும் சரியான program-களை எழுத முடிந்தாலும், சிறந்த தேர்வுகளைச் செய்ய உங்களுக்கு வழிகாட்டும் சில கொள்கைகள் உள்ளன:
 
-1. **Group related state.** If you always update two or more state variables at the same time, consider merging them into a single state variable.
-2. **Avoid contradictions in state.** When the state is structured in a way that several pieces of state may contradict and "disagree" with each other, you leave room for mistakes. Try to avoid this.
-3. **Avoid redundant state.** If you can calculate some information from the component's props or its existing state variables during rendering, you should not put that information into that component's state.
-4. **Avoid duplication in state.** When the same data is duplicated between multiple state variables, or within nested objects, it is difficult to keep them in sync. Reduce duplication when you can.
-5. **Avoid deeply nested state.** Deeply hierarchical state is not very convenient to update. When possible, prefer to structure state in a flat way.
+1. **தொடர்புடைய state-ஐ group செய்யுங்கள்.** இரண்டு அல்லது அதற்கு மேற்பட்ட state variable-களை எப்போதும் ஒரே நேரத்தில் update செய்கிறீர்கள் என்றால், அவற்றை ஒரே state variable-ஆக merge செய்வதை கருதுங்கள்.
+2. **state-இல் முரண்பாடுகளைத் தவிருங்கள்.** பல state துண்டுகள் ஒன்றுக்கொன்று முரண்பட்டு "ஒத்துக்கொள்ளாமல்" இருக்குமாறு state அமைக்கப்பட்டால், பிழைகளுக்கு இடமளிக்கிறீர்கள். இதைத் தவிர்க்க முயலுங்கள்.
+3. **redundant state-ஐத் தவிருங்கள்.** rendering நடக்கும் போது component-ன் props அல்லது ஏற்கனவே உள்ள state variable-களிலிருந்து சில தகவலை கணக்கிட முடிந்தால், அந்த தகவலை அந்த component-ன் state-இல் வைக்க வேண்டாம்.
+4. **state-இல் duplication-ஐத் தவிருங்கள்.** ஒரே data பல state variable-களுக்கிடையே, அல்லது nested object-களுக்குள் duplicate செய்யப்பட்டால், அவற்றை sync-இல் வைத்திருப்பது கடினம். முடிந்தால் duplication-ஐக் குறையுங்கள்.
+5. **ஆழமாக nested state-ஐத் தவிருங்கள்.** ஆழமான hierarchical state update செய்ய வசதியாக இருக்காது. முடிந்தால், state-ஐ flat முறையில் அமைப்பதை விரும்புங்கள்.
 
-The goal behind these principles is to *make state easy to update without introducing mistakes*. Removing redundant and duplicate data from state helps ensure that all its pieces stay in sync. This is similar to how a database engineer might want to ["normalize" the database structure](https://docs.microsoft.com/en-us/office/troubleshoot/access/database-normalization-description) to reduce the chance of bugs. To paraphrase Albert Einstein, **"Make your state as simple as it can be--but no simpler."**
+இந்த கொள்கைகளின் நோக்கம், *பிழைகளை அறிமுகப்படுத்தாமல் state-ஐ update செய்வதை மேம்படுத்துவது*. state-இலிருந்து redundant மற்றும் duplicate data-வை நீக்குவது, அதன் எல்லா பகுதிகளும் sync-இல் இருப்பதை உறுதிசெய்ய உதவும். bug வாய்ப்பைக் குறைக்க database engineer ஒருவர் database அமைப்பை ["normalize" செய்ய](https://docs.microsoft.com/en-us/office/troubleshoot/access/database-normalization-description) விரும்புவதை இது ஒத்திருக்கும். Albert Einstein சொன்னதை மாற்றிச் சொன்னால், **"உங்கள் state-ஐ இயன்ற அளவு நேரடியாக வைத்திருங்கள்; ஆனால் அதற்கும் குறைவாக அல்ல."**
 
-Now let's see how these principles apply in action.
+இப்போது இந்த கொள்கைகள் செயலில் எப்படி பொருந்துகின்றன என்பதைப் பார்ப்போம்.
 
-## Group related state {/*group-related-state*/}
+## தொடர்புடைய state-ஐ group செய்யுங்கள் {/*group-related-state*/}
 
-You might sometimes be unsure between using a single or multiple state variables.
+சில சமயம் ஒரே state variable-ஐப் பயன்படுத்தலாமா, பல state variable-களைப் பயன்படுத்தலாமா என்று குழப்பமாக இருக்கலாம்.
 
-Should you do this?
+இப்படிச் செய்ய வேண்டுமா?
 
 ```js
 const [x, setX] = useState(0);
 const [y, setY] = useState(0);
 ```
 
-Or this?
+அல்லது இப்படியா?
 
 ```js
 const [position, setPosition] = useState({ x: 0, y: 0 });
 ```
 
-Technically, you can use either of these approaches. But **if some two state variables always change together, it might be a good idea to unify them into a single state variable.** Then you won't forget to always keep them in sync, like in this example where moving the cursor updates both coordinates of the red dot:
+தொழில்நுட்ப ரீதியாக, இந்த இரு அணுகுமுறைகளிலும் ஏதாவது ஒன்றைப் பயன்படுத்தலாம். ஆனால் **இரண்டு state variable-கள் எப்போதும் ஒன்றாக மாறினால், அவற்றை ஒரே state variable-ஆக ஒன்றிணைப்பது நல்ல யோசனையாக இருக்கலாம்.** அப்போது அவற்றை எப்போதும் sync-இல் வைத்திருக்க மறந்து விடமாட்டீர்கள்; cursor-ஐ நகர்த்தும்போது red dot-ன் இரண்டு coordinate-களும் update ஆகும் இந்த உதாரணம் போல:
 
 <Sandpack>
 
@@ -93,17 +93,17 @@ body { margin: 0; padding: 0; height: 250px; }
 
 </Sandpack>
 
-Another case where you'll group data into an object or an array is when you don't know how many pieces of state you'll need. For example, it's helpful when you have a form where the user can add custom fields.
+உங்களுக்கு எத்தனை state துண்டுகள் தேவைப்படும் என்று தெரியாதபோது data-வை object அல்லது array-ஆக group செய்வதும் உதவும். உதாரணமாக, பயனர் custom field-களைச் சேர்க்கக்கூடிய form இருந்தால் இது பயனுள்ளதாக இருக்கும்.
 
 <Pitfall>
 
-If your state variable is an object, remember that [you can't update only one field in it](/learn/updating-objects-in-state) without explicitly copying the other fields. For example, you can't do `setPosition({ x: 100 })` in the above example because it would not have the `y` property at all! Instead, if you wanted to set `x` alone, you would either do `setPosition({ ...position, x: 100 })`, or split them into two state variables and do `setX(100)`.
+உங்கள் state variable object ஆக இருந்தால், மற்ற field-களை வெளிப்படையாக copy செய்யாமல் [அதில் ஒரே ஒரு field-ஐ மட்டும் update செய்ய முடியாது](/learn/updating-objects-in-state) என்பதை நினைவில் கொள்ளுங்கள். உதாரணமாக, மேலுள்ள உதாரணத்தில் `setPosition({ x: 100 })` செய்ய முடியாது, ஏனெனில் அதில் `y` property இல்லையே! அதற்கு பதிலாக, `x`-ஐ மட்டும் அமைக்க விரும்பினால், `setPosition({ ...position, x: 100 })` செய்யலாம், அல்லது அவற்றை இரண்டு state variable-களாகப் பிரித்து `setX(100)` செய்யலாம்.
 
 </Pitfall>
 
-## Avoid contradictions in state {/*avoid-contradictions-in-state*/}
+## state-இல் முரண்பாடுகளைத் தவிருங்கள் {/*avoid-contradictions-in-state*/}
 
-Here is a hotel feedback form with `isSending` and `isSent` state variables:
+`isSending` மற்றும் `isSent` state variable-களுடன் ஒரு hotel feedback form இதோ:
 
 <Sandpack>
 
@@ -124,12 +124,12 @@ export default function FeedbackForm() {
   }
 
   if (isSent) {
-    return <h1>Thanks for feedback!</h1>
+    return <h1>feedback-க்கு நன்றி!</h1>
   }
 
   return (
     <form onSubmit={handleSubmit}>
-      <p>How was your stay at The Prancing Pony?</p>
+      <p>The Prancing Pony-இல் உங்கள் தங்கும் அனுபவம் எப்படி இருந்தது?</p>
       <textarea
         disabled={isSending}
         value={text}
@@ -140,9 +140,9 @@ export default function FeedbackForm() {
         disabled={isSending}
         type="submit"
       >
-        Send
+        அனுப்பு
       </button>
-      {isSending && <p>Sending...</p>}
+      {isSending && <p>அனுப்புகிறது...</p>}
     </form>
   );
 }
@@ -157,9 +157,9 @@ function sendMessage(text) {
 
 </Sandpack>
 
-While this code works, it leaves the door open for "impossible" states. For example, if you forget to call `setIsSent` and `setIsSending` together, you may end up in a situation where both `isSending` and `isSent` are `true` at the same time. The more complex your component is, the harder it is to understand what happened.
+இந்த code வேலை செய்தாலும், "சாத்தியமில்லாத" state-களுக்கான வாய்ப்பை திறந்து விடுகிறது. உதாரணமாக, `setIsSent` மற்றும் `setIsSending`-ஐ சேர்த்து call செய்ய மறந்தால், `isSending` மற்றும் `isSent` இரண்டும் ஒரே நேரத்தில் `true` ஆக இருக்கும் நிலை உருவாகலாம். உங்கள் component அதிகமாக சிக்கலானதாக இருக்கும்போது, என்ன நடந்தது என்பதைப் புரிந்துகொள்வது கடினமாகும்.
 
-**Since `isSending` and `isSent` should never be `true` at the same time, it is better to replace them with one `status` state variable that may take one of *three* valid states:** `'typing'` (initial), `'sending'`, and `'sent'`:
+**`isSending` மற்றும் `isSent` ஒரே நேரத்தில் `true` ஆக இருக்கக்கூடாததால், அவற்றை *மூன்று* செல்லுபடியான state-களில் ஒன்றை எடுக்கக்கூடிய ஒரே `status` state variable-ஆல் மாற்றுவது நல்லது:** `'typing'` (initial), `'sending'`, மற்றும் `'sent'`:
 
 <Sandpack>
 
@@ -181,12 +181,12 @@ export default function FeedbackForm() {
   const isSent = status === 'sent';
 
   if (isSent) {
-    return <h1>Thanks for feedback!</h1>
+    return <h1>feedback-க்கு நன்றி!</h1>
   }
 
   return (
     <form onSubmit={handleSubmit}>
-      <p>How was your stay at The Prancing Pony?</p>
+      <p>The Prancing Pony-இல் உங்கள் தங்கும் அனுபவம் எப்படி இருந்தது?</p>
       <textarea
         disabled={isSending}
         value={text}
@@ -197,9 +197,9 @@ export default function FeedbackForm() {
         disabled={isSending}
         type="submit"
       >
-        Send
+        அனுப்பு
       </button>
-      {isSending && <p>Sending...</p>}
+      {isSending && <p>அனுப்புகிறது...</p>}
     </form>
   );
 }
@@ -214,20 +214,20 @@ function sendMessage(text) {
 
 </Sandpack>
 
-You can still declare some constants for readability:
+வாசிப்புத் தெளிவுக்காக சில constant-களை இன்னும் அறிவிக்கலாம்:
 
 ```js
 const isSending = status === 'sending';
 const isSent = status === 'sent';
 ```
 
-But they're not state variables, so you don't need to worry about them getting out of sync with each other.
+ஆனால் அவை state variable-கள் அல்ல, எனவே அவை ஒன்றுக்கொன்று sync-இல் இல்லாமல் போகுமா என்று கவலைப்பட வேண்டியதில்லை.
 
-## Avoid redundant state {/*avoid-redundant-state*/}
+## redundant state-ஐத் தவிருங்கள் {/*avoid-redundant-state*/}
 
-If you can calculate some information from the component's props or its existing state variables during rendering, you **should not** put that information into that component's state.
+rendering நடக்கும் போது component-ன் props அல்லது ஏற்கனவே உள்ள state variable-களிலிருந்து சில தகவலை கணக்கிட முடிந்தால், அந்த தகவலை அந்த component-ன் state-இல் **வைக்கக்கூடாது**.
 
-For example, take this form. It works, but can you find any redundant state in it?
+உதாரணமாக, இந்த form-ஐ எடுத்துக் கொள்ளுங்கள். இது வேலை செய்கிறது, ஆனால் இதில் redundant state ஏதாவது இருக்கிறதா கண்டுபிடிக்க முடியுமா?
 
 <Sandpack>
 
@@ -251,23 +251,23 @@ export default function Form() {
 
   return (
     <>
-      <h2>Let’s check you in</h2>
+      <h2>உங்களை check in செய்வோம்</h2>
       <label>
-        First name:{' '}
+        முதல் பெயர்:{' '}
         <input
           value={firstName}
           onChange={handleFirstNameChange}
         />
       </label>
       <label>
-        Last name:{' '}
+        கடைசி பெயர்:{' '}
         <input
           value={lastName}
           onChange={handleLastNameChange}
         />
       </label>
       <p>
-        Your ticket will be issued to: <b>{fullName}</b>
+        உங்கள் ticket இப்பெயரில் வழங்கப்படும்: <b>{fullName}</b>
       </p>
     </>
   );
@@ -280,9 +280,9 @@ label { display: block; margin-bottom: 5px; }
 
 </Sandpack>
 
-This form has three state variables: `firstName`, `lastName`, and `fullName`. However, `fullName` is redundant. **You can always calculate `fullName` from `firstName` and `lastName` during render, so remove it from state.**
+இந்த form-இல் மூன்று state variable-கள் உள்ளன: `firstName`, `lastName`, மற்றும் `fullName`. ஆனால் `fullName` redundant. **render நடக்கும் போது `firstName` மற்றும் `lastName`-இலிருந்து `fullName`-ஐ எப்போதும் கணக்கிட முடியும், எனவே அதை state-இலிருந்து நீக்குங்கள்.**
 
-This is how you can do it:
+இதைக் இப்படிச் செய்யலாம்:
 
 <Sandpack>
 
@@ -305,23 +305,23 @@ export default function Form() {
 
   return (
     <>
-      <h2>Let’s check you in</h2>
+      <h2>உங்களை check in செய்வோம்</h2>
       <label>
-        First name:{' '}
+        முதல் பெயர்:{' '}
         <input
           value={firstName}
           onChange={handleFirstNameChange}
         />
       </label>
       <label>
-        Last name:{' '}
+        கடைசி பெயர்:{' '}
         <input
           value={lastName}
           onChange={handleLastNameChange}
         />
       </label>
       <p>
-        Your ticket will be issued to: <b>{fullName}</b>
+        உங்கள் ticket இப்பெயரில் வழங்கப்படும்: <b>{fullName}</b>
       </p>
     </>
   );
@@ -334,37 +334,37 @@ label { display: block; margin-bottom: 5px; }
 
 </Sandpack>
 
-Here, `fullName` is *not* a state variable. Instead, it's calculated during render:
+இங்கே, `fullName` state variable *அல்ல*. அதற்கு பதிலாக, அது render நடக்கும் போது கணக்கிடப்படுகிறது:
 
 ```js
 const fullName = firstName + ' ' + lastName;
 ```
 
-As a result, the change handlers don't need to do anything special to update it. When you call `setFirstName` or `setLastName`, you trigger a re-render, and then the next `fullName` will be calculated from the fresh data.
+இதன் விளைவாக, change handler-கள் அதை update செய்ய சிறப்பாக எதையும் செய்ய வேண்டியதில்லை. நீங்கள் `setFirstName` அல்லது `setLastName`-ஐ call செய்தால், re-render trigger ஆகும்; பின்னர் புதிய data-விலிருந்து அடுத்த `fullName` கணக்கிடப்படும்.
 
 <DeepDive>
 
-#### Don't mirror props in state {/*don-t-mirror-props-in-state*/}
+#### props-ஐ state-இல் mirror செய்ய வேண்டாம் {/*don-t-mirror-props-in-state*/}
 
-A common example of redundant state is code like this:
+redundant state-ன் பொதுவான உதாரணம் இதுபோன்ற code:
 
 ```js
 function Message({ messageColor }) {
   const [color, setColor] = useState(messageColor);
 ```
 
-Here, a `color` state variable is initialized to the `messageColor` prop. The problem is that **if the parent component passes a different value of `messageColor` later (for example, `'red'` instead of `'blue'`), the `color` *state variable* would not be updated!** The state is only initialized during the first render.
+இங்கே, `color` state variable `messageColor` prop-ன் மதிப்பால் initialize செய்யப்படுகிறது. பிரச்சினை என்னவென்றால், **parent component பின்னர் வேறு `messageColor` மதிப்பை pass செய்தால் (உதாரணமாக, `'blue'`-க்கு பதிலாக `'red'`), `color` *state variable* update ஆகாது!** state முதல் render-இல் மட்டுமே initialize செய்யப்படுகிறது.
 
-This is why "mirroring" some prop in a state variable can lead to confusion. Instead, use the `messageColor` prop directly in your code. If you want to give it a shorter name, use a constant:
+அதனால் prop ஒன்றை state variable-இல் "mirror" செய்வது குழப்பத்திற்கு வழிவகுக்கலாம். அதற்கு பதிலாக, உங்கள் code-இல் `messageColor` prop-ஐ நேரடியாகப் பயன்படுத்துங்கள். அதற்கு குறுகிய பெயர் தர விரும்பினால், constant ஒன்றைப் பயன்படுத்துங்கள்:
 
 ```js
 function Message({ messageColor }) {
   const color = messageColor;
 ```
 
-This way it won't get out of sync with the prop passed from the parent component.
+இவ்வாறு செய்தால், parent component-இலிருந்து pass செய்யப்பட்ட prop-உடன் அது sync இழக்காது.
 
-"Mirroring" props into state only makes sense when you *want* to ignore all updates for a specific prop. By convention, start the prop name with `initial` or `default` to clarify that its new values are ignored:
+குறிப்பிட்ட prop-க்கான எல்லா update-களையும் *நீங்கள் புறக்கணிக்க விரும்பும்* போது மட்டுமே props-ஐ state-க்கு "mirror" செய்வது பொருள் கொள்ளும். அதன் புதிய மதிப்புகள் புறக்கணிக்கப்படுகின்றன என்பதைத் தெளிவுபடுத்த, மரபுப்படி prop பெயரை `initial` அல்லது `default`-ஆல் தொடங்குங்கள்:
 
 ```js
 function Message({ initialColor }) {
@@ -375,9 +375,9 @@ function Message({ initialColor }) {
 
 </DeepDive>
 
-## Avoid duplication in state {/*avoid-duplication-in-state*/}
+## state-இல் duplication-ஐத் தவிருங்கள் {/*avoid-duplication-in-state*/}
 
-This menu list component lets you choose a single travel snack out of several:
+இந்த menu list component பலவற்றிலிருந்து ஒரு travel snack-ஐத் தேர்ந்தெடுக்க அனுமதிக்கிறது:
 
 <Sandpack>
 
@@ -385,9 +385,9 @@ This menu list component lets you choose a single travel snack out of several:
 import { useState } from 'react';
 
 const initialItems = [
-  { title: 'pretzels', id: 0 },
-  { title: 'crispy seaweed', id: 1 },
-  { title: 'granola bar', id: 2 },
+  { title: 'பிரெட்ஸல்கள்', id: 0 },
+  { title: 'மொறு மொறு கடல்பாசி', id: 1 },
+  { title: 'கிரானோலா பார்', id: 2 },
 ];
 
 export default function Menu() {
@@ -398,7 +398,7 @@ export default function Menu() {
 
   return (
     <>
-      <h2>What's your travel snack?</h2>
+      <h2>உங்கள் travel snack என்ன?</h2>
       <ul>
         {items.map(item => (
           <li key={item.id}>
@@ -406,11 +406,11 @@ export default function Menu() {
             {' '}
             <button onClick={() => {
               setSelectedItem(item);
-            }}>Choose</button>
+            }}>தேர்வு செய்</button>
           </li>
         ))}
       </ul>
-      <p>You picked {selectedItem.title}.</p>
+      <p>நீங்கள் {selectedItem.title}-ஐ தேர்ந்தெடுத்தீர்கள்.</p>
     </>
   );
 }
@@ -422,9 +422,9 @@ button { margin-top: 10px; }
 
 </Sandpack>
 
-Currently, it stores the selected item as an object in the `selectedItem` state variable. However, this is not great: **the contents of the `selectedItem` is the same object as one of the items inside the `items` list.** This means that the information about the item itself is duplicated in two places.
+தற்போது, தேர்ந்தெடுக்கப்பட்ட item-ஐ `selectedItem` state variable-இல் object ஆக சேமிக்கிறது. ஆனால் இது சிறந்ததல்ல: **`selectedItem`-ன் உள்ளடக்கம் `items` பட்டியலுக்குள் உள்ள item-களில் ஒன்றே அதே object ஆகும்.** இதன் பொருள், item பற்றிய தகவல் இரண்டு இடங்களில் duplicate செய்யப்பட்டுள்ளது.
 
-Why is this a problem? Let's make each item editable:
+இது ஏன் பிரச்சினை? ஒவ்வொரு item-ஐயும் edit செய்யக்கூடியதாக மாற்றுவோம்:
 
 <Sandpack>
 
@@ -432,9 +432,9 @@ Why is this a problem? Let's make each item editable:
 import { useState } from 'react';
 
 const initialItems = [
-  { title: 'pretzels', id: 0 },
-  { title: 'crispy seaweed', id: 1 },
-  { title: 'granola bar', id: 2 },
+  { title: 'பிரெட்ஸல்கள்', id: 0 },
+  { title: 'மொறு மொறு கடல்பாசி', id: 1 },
+  { title: 'கிரானோலா பார்', id: 2 },
 ];
 
 export default function Menu() {
@@ -458,7 +458,7 @@ export default function Menu() {
 
   return (
     <>
-      <h2>What's your travel snack?</h2>
+      <h2>உங்கள் travel snack என்ன?</h2>
       <ul>
         {items.map((item, index) => (
           <li key={item.id}>
@@ -471,11 +471,11 @@ export default function Menu() {
             {' '}
             <button onClick={() => {
               setSelectedItem(item);
-            }}>Choose</button>
+            }}>தேர்வு செய்</button>
           </li>
         ))}
       </ul>
-      <p>You picked {selectedItem.title}.</p>
+      <p>நீங்கள் {selectedItem.title}-ஐ தேர்ந்தெடுத்தீர்கள்.</p>
     </>
   );
 }
@@ -487,9 +487,9 @@ button { margin-top: 10px; }
 
 </Sandpack>
 
-Notice how if you first click "Choose" on an item and *then* edit it, **the input updates but the label at the bottom does not reflect the edits.** This is because you have duplicated state, and you forgot to update `selectedItem`.
+முதலில் ஒரு item-இல் "தேர்வு செய்" click செய்து *பிறகு* அதை edit செய்தால், **input update ஆகிறது ஆனால் கீழே உள்ள label அந்த edit-களை பிரதிபலிக்கவில்லை** என்பதை கவனியுங்கள். இதற்குக் காரணம் state duplicate ஆகியிருக்கிறது, மேலும் `selectedItem`-ஐ update செய்ய மறந்துவிட்டீர்கள்.
 
-Although you could update `selectedItem` too, an easier fix is to remove duplication. In this example, instead of a `selectedItem` object (which creates a duplication with objects inside `items`), you hold the `selectedId` in state, and *then* get the `selectedItem` by searching the `items` array for an item with that ID:
+`selectedItem`-யையும் update செய்யலாம், ஆனால் நேரடியான சரிசெய்தல் duplication-ஐ நீக்குவது. இந்த உதாரணத்தில், `selectedItem` object-க்கு பதிலாக (`items`-க்குள் உள்ள object-களுடன் duplication உருவாக்குவது), `selectedId`-ஐ state-இல் வைத்திருந்து, *பிறகு* அந்த ID உடைய item-ஐ `items` array-இல் தேடி `selectedItem`-ஐ பெறுகிறீர்கள்:
 
 <Sandpack>
 
@@ -497,9 +497,9 @@ Although you could update `selectedItem` too, an easier fix is to remove duplica
 import { useState } from 'react';
 
 const initialItems = [
-  { title: 'pretzels', id: 0 },
-  { title: 'crispy seaweed', id: 1 },
-  { title: 'granola bar', id: 2 },
+  { title: 'பிரெட்ஸல்கள்', id: 0 },
+  { title: 'மொறு மொறு கடல்பாசி', id: 1 },
+  { title: 'கிரானோலா பார்', id: 2 },
 ];
 
 export default function Menu() {
@@ -525,7 +525,7 @@ export default function Menu() {
 
   return (
     <>
-      <h2>What's your travel snack?</h2>
+      <h2>உங்கள் travel snack என்ன?</h2>
       <ul>
         {items.map((item, index) => (
           <li key={item.id}>
@@ -538,11 +538,11 @@ export default function Menu() {
             {' '}
             <button onClick={() => {
               setSelectedId(item.id);
-            }}>Choose</button>
+            }}>தேர்வு செய்</button>
           </li>
         ))}
       </ul>
-      <p>You picked {selectedItem.title}.</p>
+      <p>நீங்கள் {selectedItem.title}-ஐ தேர்ந்தெடுத்தீர்கள்.</p>
     </>
   );
 }
@@ -554,23 +554,23 @@ button { margin-top: 10px; }
 
 </Sandpack>
 
-The state used to be duplicated like this:
+state முன்பு இவ்வாறு duplicate ஆக இருந்தது:
 
-* `items = [{ id: 0, title: 'pretzels'}, ...]`
-* `selectedItem = {id: 0, title: 'pretzels'}`
+* `items = [{ id: 0, title: 'பிரெட்ஸல்கள்'}, ...]`
+* `selectedItem = {id: 0, title: 'பிரெட்ஸல்கள்'}`
 
-But after the change it's like this:
+ஆனால் மாற்றத்திற்குப் பிறகு இது இவ்வாறு உள்ளது:
 
-* `items = [{ id: 0, title: 'pretzels'}, ...]`
+* `items = [{ id: 0, title: 'பிரெட்ஸல்கள்'}, ...]`
 * `selectedId = 0`
 
-The duplication is gone, and you only keep the essential state!
+duplication நீக்கப்பட்டுள்ளது, மேலும் அவசியமான state மட்டும் வைத்திருக்கப்படுகிறது!
 
-Now if you edit the *selected* item, the message below will update immediately. This is because `setItems` triggers a re-render, and `items.find(...)` would find the item with the updated title. You didn't need to hold *the selected item* in state, because only the *selected ID* is essential. The rest could be calculated during render.
+இப்போது *தேர்ந்தெடுக்கப்பட்ட* item-ஐ edit செய்தால், கீழே உள்ள message உடனடியாக update ஆகும். ஏனெனில் `setItems` re-render-ஐ trigger செய்கிறது, மேலும் `items.find(...)` update செய்யப்பட்ட title உடைய item-ஐ கண்டுபிடிக்கும். *தேர்ந்தெடுக்கப்பட்ட item*-ஐ state-இல் வைத்திருக்க வேண்டியதில்லை, ஏனெனில் *தேர்ந்தெடுக்கப்பட்ட ID* மட்டுமே அவசியமானது. மீதமுள்ளவை render நடக்கும் போது கணக்கிடலாம்.
 
-## Avoid deeply nested state {/*avoid-deeply-nested-state*/}
+## ஆழமாக nested state-ஐத் தவிருங்கள் {/*avoid-deeply-nested-state*/}
 
-Imagine a travel plan consisting of planets, continents, and countries. You might be tempted to structure its state using nested objects and arrays, like in this example:
+கோள்கள், கண்டங்கள், நாடுகள் அடங்கிய travel plan ஒன்றை நினைத்துப் பாருங்கள். இந்த உதாரணம் போல nested object-களையும் array-களையும் பயன்படுத்தி அதன் state-ஐ அமைக்க உங்களுக்கு தோன்றலாம்:
 
 <Sandpack>
 
@@ -599,7 +599,7 @@ export default function TravelPlan() {
   const planets = plan.childPlaces;
   return (
     <>
-      <h2>Places to visit</h2>
+      <h2>பார்வையிட வேண்டிய இடங்கள்</h2>
       <ol>
         {planets.map(place => (
           <PlaceTree key={place.id} place={place} />
@@ -812,11 +812,11 @@ export const initialTravelPlan = {
 
 </Sandpack>
 
-Now let's say you want to add a button to delete a place you've already visited. How would you go about it? [Updating nested state](/learn/updating-objects-in-state#updating-a-nested-object) involves making copies of objects all the way up from the part that changed. Deleting a deeply nested place would involve copying its entire parent place chain. Such code can be very verbose.
+இப்போது நீங்கள் ஏற்கனவே பார்வையிட்ட இடத்தை delete செய்ய button ஒன்றைச் சேர்க்க விரும்புகிறீர்கள் என்று வைத்துக்கொள்வோம். அதை எப்படி செய்வீர்கள்? [nested state-ஐ update செய்வது](/learn/updating-objects-in-state#updating-a-nested-object), மாறிய பகுதியிலிருந்து மேலே உள்ள எல்லா object-களையும் copy செய்வதை உள்ளடக்கும். ஆழமாக nested ஆன இடத்தை delete செய்வது, அதன் முழு parent place chain-ஐ copy செய்வதை உள்ளடக்கும். இத்தகைய code மிகவும் verbose ஆக இருக்கலாம்.
 
-**If the state is too nested to update easily, consider making it "flat".** Here is one way you can restructure this data. Instead of a tree-like structure where each `place` has an array of *its child places*, you can have each place hold an array of *its child place IDs*. Then store a mapping from each place ID to the corresponding place.
+**state நேரடியாக update செய்ய முடியாத அளவுக்கு nested ஆக இருந்தால், அதை "flat" ஆக்குவதை கருதுங்கள்.** இந்த data-வை restructure செய்யும் ஒரு வழி இதோ. ஒவ்வொரு `place`-க்கும் *அதன் child place-கள்* கொண்ட array இருக்கும் tree போன்ற அமைப்பிற்கு பதிலாக, ஒவ்வொரு place-மும் *அதன் child place ID-கள்* கொண்ட array-ஐ வைத்திருக்கலாம். பிறகு ஒவ்வொரு place ID-யிலிருந்தும் தொடர்புடைய place-க்கு mapping ஒன்றைச் சேமிக்கலாம்.
 
-This data restructuring might remind you of seeing a database table:
+இந்த data restructuring database table ஒன்றைப் பார்க்கும் உணர்வை தரலாம்:
 
 <Sandpack>
 
@@ -851,7 +851,7 @@ export default function TravelPlan() {
   const planetIds = root.childIds;
   return (
     <>
-      <h2>Places to visit</h2>
+      <h2>பார்வையிட வேண்டிய இடங்கள்</h2>
       <ol>
         {planetIds.map(id => (
           <PlaceTree
@@ -1118,14 +1118,14 @@ export const initialTravelPlan = {
 
 </Sandpack>
 
-**Now that the state is "flat" (also known as "normalized"), updating nested items becomes easier.**
+**இப்போது state "flat" ஆக (அதாவது "normalized" ஆகவும் அழைக்கப்படும்) இருப்பதால், nested item-களை update செய்வது மேம்படுகிறது.**
 
-In order to remove a place now, you only need to update two levels of state:
+இப்போது ஒரு இடத்தை remove செய்ய, state-ன் இரண்டு level-களை மட்டுமே update செய்ய வேண்டும்:
 
-- The updated version of its *parent* place should exclude the removed ID from its `childIds` array.
-- The updated version of the root "table" object should include the updated version of the parent place.
+- அதன் *parent* place-ன் updated version, நீக்கப்பட்ட ID-யை அதன் `childIds` array-இலிருந்து விலக்க வேண்டும்.
+- root "table" object-ன் updated version, parent place-ன் updated version-ஐச் சேர்க்க வேண்டும்.
 
-Here is an example of how you could go about it:
+இதை எப்படி செய்யலாம் என்பதற்கான உதாரணம் இதோ:
 
 <Sandpack>
 
@@ -1157,7 +1157,7 @@ export default function TravelPlan() {
   const planetIds = root.childIds;
   return (
     <>
-      <h2>Places to visit</h2>
+      <h2>பார்வையிட வேண்டிய இடங்கள்</h2>
       <ol>
         {planetIds.map(id => (
           <PlaceTree
@@ -1182,7 +1182,7 @@ function PlaceTree({ id, parentId, placesById, onComplete }) {
       <button onClick={() => {
         onComplete(parentId, id);
       }}>
-        Complete
+        முடி
       </button>
       {childIds.length > 0 &&
         <ol>
@@ -1458,13 +1458,13 @@ button { margin: 10px; }
 
 </Sandpack>
 
-You can nest state as much as you like, but making it "flat" can solve numerous problems. It makes state easier to update, and it helps ensure you don't have duplication in different parts of a nested object.
+நீங்கள் விரும்பும் அளவுக்கு state-ஐ nest செய்யலாம், ஆனால் அதை "flat" ஆக்குவது பல பிரச்சினைகளைத் தீர்க்கும். இது state-ஐ update செய்வதை உதவுகிறது, மேலும் nested object-ன் வேறு பகுதிகளில் duplication இல்லாமல் இருக்க உதவுகிறது.
 
 <DeepDive>
 
-#### Improving memory usage {/*improving-memory-usage*/}
+#### memory usage-ஐ மேம்படுத்துதல் {/*improving-memory-usage*/}
 
-Ideally, you would also remove the deleted items (and their children!) from the "table" object to improve memory usage. This version does that. It also [uses Immer](/learn/updating-objects-in-state#write-concise-update-logic-with-immer) to make the update logic more concise.
+சிறந்த நிலையில், memory usage-ஐ மேம்படுத்த "table" object-இலிருந்து deleted item-களையும் (அவற்றின் children-களையும்!) நீக்குவீர்கள். இந்த version அதையே செய்கிறது. update logic-ஐ சுருக்கமாக்க இது [Immer-யையும் பயன்படுத்துகிறது](/learn/updating-objects-in-state#write-concise-update-logic-with-immer).
 
 <Sandpack>
 
@@ -1496,7 +1496,7 @@ export default function TravelPlan() {
   const planetIds = root.childIds;
   return (
     <>
-      <h2>Places to visit</h2>
+      <h2>பார்வையிட வேண்டிய இடங்கள்</h2>
       <ol>
         {planetIds.map(id => (
           <PlaceTree
@@ -1521,7 +1521,7 @@ function PlaceTree({ id, parentId, placesById, onComplete }) {
       <button onClick={() => {
         onComplete(parentId, id);
       }}>
-        Complete
+        முடி
       </button>
       {childIds.length > 0 &&
         <ol>
@@ -1817,25 +1817,25 @@ button { margin: 10px; }
 
 </DeepDive>
 
-Sometimes, you can also reduce state nesting by moving some of the nested state into the child components. This works well for ephemeral UI state that doesn't need to be stored, like whether an item is hovered.
+சில நேரங்களில், nested state-ன் சில பகுதியை child component-களுக்குள் நகர்த்துவதன் மூலமும் state nesting-ஐக் குறைக்கலாம். ஒரு item hover செய்யப்பட்டுள்ளதா போன்ற, சேமிக்க வேண்டிய அவசியமில்லாத ephemeral UI state-க்கு இது நன்றாக வேலை செய்கிறது.
 
 <Recap>
 
-* If two state variables always update together, consider merging them into one.
-* Choose your state variables carefully to avoid creating "impossible" states.
-* Structure your state in a way that reduces the chances that you'll make a mistake updating it.
-* Avoid redundant and duplicate state so that you don't need to keep it in sync.
-* Don't put props *into* state unless you specifically want to prevent updates.
-* For UI patterns like selection, keep ID or index in state instead of the object itself.
-* If updating deeply nested state is complicated, try flattening it.
+* இரண்டு state variable-கள் எப்போதும் ஒன்றாக update ஆகினால், அவற்றை ஒன்றாக merge செய்வதை கருதுங்கள்.
+* "சாத்தியமில்லாத" state-களை உருவாக்காமல் இருக்க உங்கள் state variable-களை கவனமாகத் தேர்ந்தெடுக்கவும்.
+* state-ஐ update செய்யும்போது பிழை செய்வதற்கான வாய்ப்பைக் குறைக்கும் வகையில் state-ஐ அமைக்கவும்.
+* redundant மற்றும் duplicate state-ஐத் தவிருங்கள்; அப்படிச் செய்தால் அதை sync-இல் வைத்திருக்க வேண்டியதில்லை.
+* update-களைத் தடுப்பது உங்கள் குறிப்பிட்ட நோக்கமல்லாவிட்டால் props-ஐ state-*க்குள்* வைக்க வேண்டாம்.
+* selection போன்ற UI pattern-களுக்கு, object-ஐயே state-இல் வைப்பதற்குப் பதிலாக ID அல்லது index-ஐ வைத்திருங்கள்.
+* ஆழமாக nested state-ஐ update செய்வது சிக்கலானதாக இருந்தால், அதை flatten செய்ய முயலுங்கள்.
 
 </Recap>
 
 <Challenges>
 
-#### Fix a component that's not updating {/*fix-a-component-thats-not-updating*/}
+#### update ஆகாத component-ஐச் சரிசெய்யுங்கள் {/*fix-a-component-thats-not-updating*/}
 
-This `Clock` component receives two props: `color` and `time`. When you select a different color in the select box, the `Clock` component receives a different `color` prop from its parent component. However, for some reason, the displayed color doesn't update. Why? Fix the problem.
+இந்த `Clock` component இரண்டு props பெறுகிறது: `color` மற்றும் `time`. select box-இல் வேறு color-ஐத் தேர்ந்தெடுக்கும்போது, `Clock` component அதன் parent component-இலிருந்து வேறு `color` prop-ஐப் பெறுகிறது. ஆனால் ஏதோ காரணத்தால் காட்டப்படும் color update ஆகவில்லை. ஏன்? பிரச்சினையைச் சரிசெய்யுங்கள்.
 
 <Sandpack>
 
@@ -1873,7 +1873,7 @@ export default function App() {
   return (
     <div>
       <p>
-        Pick a color:{' '}
+        color-ஐத் தேர்ந்தெடுக்கவும்:{' '}
         <select value={color} onChange={e => setColor(e.target.value)}>
           <option value="lightcoral">lightcoral</option>
           <option value="midnightblue">midnightblue</option>
@@ -1890,7 +1890,7 @@ export default function App() {
 
 <Solution>
 
-The issue is that this component has `color` state initialized with the initial value of the `color` prop. But when the `color` prop changes, this does not affect the state variable! So they get out of sync. To fix this issue, remove the state variable altogether, and use the `color` prop directly.
+பிரச்சினை என்னவென்றால், இந்த component-இல் `color` prop-ன் initial value-ஆல் initialize செய்யப்பட்ட `color` state உள்ளது. ஆனால் `color` prop மாறும்போது, இது state variable-ஐ பாதிக்காது! அதனால் அவை sync இழக்கின்றன. இந்த பிரச்சினையைச் சரிசெய்ய, state variable-ஐ முற்றிலும் நீக்கி, `color` prop-ஐ நேரடியாகப் பயன்படுத்துங்கள்.
 
 <Sandpack>
 
@@ -1927,7 +1927,7 @@ export default function App() {
   return (
     <div>
       <p>
-        Pick a color:{' '}
+        color-ஐத் தேர்ந்தெடுக்கவும்:{' '}
         <select value={color} onChange={e => setColor(e.target.value)}>
           <option value="lightcoral">lightcoral</option>
           <option value="midnightblue">midnightblue</option>
@@ -1942,7 +1942,7 @@ export default function App() {
 
 </Sandpack>
 
-Or, using the destructuring syntax:
+அல்லது destructuring syntax-ஐப் பயன்படுத்தி:
 
 <Sandpack>
 
@@ -1979,7 +1979,7 @@ export default function App() {
   return (
     <div>
       <p>
-        Pick a color:{' '}
+        color-ஐத் தேர்ந்தெடுக்கவும்:{' '}
         <select value={color} onChange={e => setColor(e.target.value)}>
           <option value="lightcoral">lightcoral</option>
           <option value="midnightblue">midnightblue</option>
@@ -1996,13 +1996,13 @@ export default function App() {
 
 </Solution>
 
-#### Fix a broken packing list {/*fix-a-broken-packing-list*/}
+#### உடைந்த packing list-ஐச் சரிசெய்யுங்கள் {/*fix-a-broken-packing-list*/}
 
-This packing list has a footer that shows how many items are packed, and how many items there are overall. It seems to work at first, but it is buggy. For example, if you mark an item as packed and then delete it, the counter will not be updated correctly. Fix the counter so that it's always correct.
+இந்த packing list-இல் எத்தனை item-கள் packed ஆக உள்ளன, மொத்தம் எத்தனை item-கள் உள்ளன என்பதைக் காட்டும் footer உள்ளது. தொடக்கத்தில் இது வேலை செய்வது போல தெரிகிறது, ஆனால் இதில் bug உள்ளது. உதாரணமாக, ஒரு item-ஐ packed என்று குறித்துப் பிறகு அதை delete செய்தால், counter சரியாக update ஆகாது. counter எப்போதும் சரியாக இருக்குமாறு சரிசெய்யுங்கள்.
 
 <Hint>
 
-Is any state in this example redundant?
+இந்த உதாரணத்தில் ஏதேனும் state redundant ஆக உள்ளதா?
 
 </Hint>
 
@@ -2015,9 +2015,9 @@ import PackingList from './PackingList.js';
 
 let nextId = 3;
 const initialItems = [
-  { id: 0, title: 'Warm socks', packed: true },
-  { id: 1, title: 'Travel journal', packed: false },
-  { id: 2, title: 'Watercolors', packed: false },
+  { id: 0, title: 'சூடான காலுறைகள்', packed: true },
+  { id: 1, title: 'பயண குறிப்பேடு', packed: false },
+  { id: 2, title: 'நீர்வண்ணங்கள்', packed: false },
 ];
 
 export default function TravelPlan() {
@@ -2070,7 +2070,7 @@ export default function TravelPlan() {
         onDeleteItem={handleDeleteItem}
       />
       <hr />
-      <b>{packed} out of {total} packed!</b>
+      <b>{total}-இல் {packed} பேக் செய்யப்பட்டது!</b>
     </>
   );
 }
@@ -2084,14 +2084,14 @@ export default function AddItem({ onAddItem }) {
   return (
     <>
       <input
-        placeholder="Add item"
+        placeholder="item-ஐச் சேர்"
         value={title}
         onChange={e => setTitle(e.target.value)}
       />
       <button onClick={() => {
         setTitle('');
         onAddItem(title);
-      }}>Add</button>
+      }}>சேர்</button>
     </>
   )
 }
@@ -2124,7 +2124,7 @@ export default function PackingList({
             {item.title}
           </label>
           <button onClick={() => onDeleteItem(item.id)}>
-            Delete
+            நீக்கு
           </button>
         </li>
       ))}
@@ -2143,7 +2143,7 @@ ul, li { margin: 0; padding: 0; }
 
 <Solution>
 
-Although you could carefully change each event handler to update the `total` and `packed` counters correctly, the root problem is that these state variables exist at all. They are redundant because you can always calculate the number of items (packed or total) from the `items` array itself. Remove the redundant state to fix the bug:
+ஒவ்வொரு event handler-யையும் கவனமாக மாற்றி `total` மற்றும் `packed` counter-களை சரியாக update செய்யலாம், ஆனால் அடிப்படை பிரச்சினை இந்த state variable-கள் இருப்பதே. அவை redundant, ஏனெனில் item-களின் எண்ணிக்கையை (packed அல்லது total) `items` array-இலிருந்தே எப்போதும் கணக்கிடலாம். bug-ஐச் சரிசெய்ய redundant state-ஐ நீக்குங்கள்:
 
 <Sandpack>
 
@@ -2154,9 +2154,9 @@ import PackingList from './PackingList.js';
 
 let nextId = 3;
 const initialItems = [
-  { id: 0, title: 'Warm socks', packed: true },
-  { id: 1, title: 'Travel journal', packed: false },
-  { id: 2, title: 'Watercolors', packed: false },
+  { id: 0, title: 'சூடான காலுறைகள்', packed: true },
+  { id: 1, title: 'பயண குறிப்பேடு', packed: false },
+  { id: 2, title: 'நீர்வண்ணங்கள்', packed: false },
 ];
 
 export default function TravelPlan() {
@@ -2205,7 +2205,7 @@ export default function TravelPlan() {
         onDeleteItem={handleDeleteItem}
       />
       <hr />
-      <b>{packed} out of {total} packed!</b>
+      <b>{total}-இல் {packed} பேக் செய்யப்பட்டது!</b>
     </>
   );
 }
@@ -2219,14 +2219,14 @@ export default function AddItem({ onAddItem }) {
   return (
     <>
       <input
-        placeholder="Add item"
+        placeholder="item-ஐச் சேர்"
         value={title}
         onChange={e => setTitle(e.target.value)}
       />
       <button onClick={() => {
         setTitle('');
         onAddItem(title);
-      }}>Add</button>
+      }}>சேர்</button>
     </>
   )
 }
@@ -2259,7 +2259,7 @@ export default function PackingList({
             {item.title}
           </label>
           <button onClick={() => onDeleteItem(item.id)}>
-            Delete
+            நீக்கு
           </button>
         </li>
       ))}
@@ -2276,15 +2276,15 @@ ul, li { margin: 0; padding: 0; }
 
 </Sandpack>
 
-Notice how the event handlers are only concerned with calling `setItems` after this change. The item counts are now calculated during the next render from `items`, so they are always up-to-date.
+இந்த மாற்றத்திற்குப் பிறகு event handler-கள் `setItems`-ஐ call செய்வதில் மட்டுமே கவனம் செலுத்துகின்றன என்பதை கவனியுங்கள். item count-கள் இப்போது அடுத்த render-இல் `items`-இலிருந்து கணக்கிடப்படுகின்றன, எனவே அவை எப்போதும் up-to-date ஆக இருக்கும்.
 
 </Solution>
 
-#### Fix the disappearing selection {/*fix-the-disappearing-selection*/}
+#### மறைந்து போகும் selection-ஐச் சரிசெய்யுங்கள் {/*fix-the-disappearing-selection*/}
 
-There is a list of `letters` in state. When you hover or focus a particular letter, it gets highlighted. The currently highlighted letter is stored in the `highlightedLetter` state variable. You can "star" and "unstar" individual letters, which updates the `letters` array in state.
+state-இல் `letters` பட்டியல் உள்ளது. குறிப்பிட்ட letter-ஐ hover அல்லது focus செய்தால், அது highlight செய்யப்படும். தற்போது highlighted ஆன letter `highlightedLetter` state variable-இல் சேமிக்கப்படுகிறது. தனிப்பட்ட letter-களை "நட்சத்திரமிடு" மற்றும் "நட்சத்திரத்தை நீக்கு" செய்யலாம்; இது state-இல் உள்ள `letters` array-ஐ update செய்கிறது.
 
-This code works, but there is a minor UI glitch. When you press "Star" or "Unstar", the highlighting disappears for a moment. However, it reappears as soon as you move your pointer or switch to another letter with keyboard. Why is this happening? Fix it so that the highlighting doesn't disappear after the button click.
+இந்த code வேலை செய்கிறது, ஆனால் சிறிய UI glitch உள்ளது. நீங்கள் "நட்சத்திரமிடு" அல்லது "நட்சத்திரத்தை நீக்கு" அழுத்தும்போது, highlighting ஒரு கணம் மறைகிறது. ஆனால் pointer-ஐ நகர்த்தியவுடன் அல்லது keyboard மூலம் வேறு letter-க்கு மாறியவுடன் அது மீண்டும் தோன்றும். இது ஏன் நடக்கிறது? button click-க்கு பிறகு highlighting மறையாதபடி சரிசெய்யுங்கள்.
 
 <Sandpack>
 
@@ -2316,7 +2316,7 @@ export default function MailClient() {
 
   return (
     <>
-      <h2>Inbox</h2>
+      <h2>அஞ்சல் பெட்டி</h2>
       <ul>
         {letters.map(letter => (
           <Letter
@@ -2357,7 +2357,7 @@ export default function Letter({
       <button onClick={() => {
         onToggleStar(letter);
       }}>
-        {letter.isStarred ? 'Unstar' : 'Star'}
+        {letter.isStarred ? 'நட்சத்திரத்தை நீக்கு' : 'நட்சத்திரமிடு'}
       </button>
       {letter.subject}
     </li>
@@ -2368,15 +2368,15 @@ export default function Letter({
 ```js src/data.js
 export const initialLetters = [{
   id: 0,
-  subject: 'Ready for adventure?',
+  subject: 'சாகசத்துக்கு தயாரா?',
   isStarred: true,
 }, {
   id: 1,
-  subject: 'Time to check in!',
+  subject: 'check in செய்ய நேரம்!',
   isStarred: false,
 }, {
   id: 2,
-  subject: 'Festival Begins in Just SEVEN Days!',
+  subject: 'விழா இன்னும் ஏழு நாட்களில் தொடங்குகிறது!',
   isStarred: false,
 }];
 ```
@@ -2391,9 +2391,9 @@ li { border-radius: 5px; }
 
 <Solution>
 
-The problem is that you're holding the letter object in `highlightedLetter`. But you're also holding the same information in the `letters` array. So your state has duplication! When you update the `letters` array after the button click, you create a new letter object which is different from `highlightedLetter`. This is why `highlightedLetter === letter` check becomes `false`, and the highlight disappears. It reappears the next time you call `setHighlightedLetter` when the pointer moves.
+பிரச்சினை என்னவென்றால், நீங்கள் letter object-ஐ `highlightedLetter`-இல் வைத்திருக்கிறீர்கள். ஆனால் அதே தகவலை `letters` array-இலும் வைத்திருக்கிறீர்கள். எனவே உங்கள் state-இல் duplication உள்ளது! button click-க்கு பிறகு `letters` array-ஐ update செய்யும்போது, `highlightedLetter`-இலிருந்து வேறான புதிய letter object ஒன்றை உருவாக்குகிறீர்கள். அதனால் `highlightedLetter === letter` check `false` ஆகிறது, highlight மறைகிறது. pointer நகரும் போது அடுத்த முறை `setHighlightedLetter`-ஐ call செய்ததும் அது மீண்டும் தோன்றுகிறது.
 
-To fix the issue, remove the duplication from state. Instead of storing *the letter itself* in two places, store the `highlightedId` instead. Then you can check `isHighlighted` for each letter with `letter.id === highlightedId`, which will work even if the `letter` object has changed since the last render.
+பிரச்சினையைச் சரிசெய்ய, state-இலிருந்து duplication-ஐ நீக்குங்கள். *letter-ஐயே* இரண்டு இடங்களில் சேமிப்பதற்கு பதிலாக, `highlightedId`-ஐச் சேமியுங்கள். பிறகு ஒவ்வொரு letter-க்கும் `letter.id === highlightedId` மூலம் `isHighlighted`-ஐச் சரிபார்க்கலாம்; last render-க்கு பிறகு `letter` object மாறியிருந்தாலும் இது வேலை செய்யும்.
 
 <Sandpack>
 
@@ -2425,7 +2425,7 @@ export default function MailClient() {
 
   return (
     <>
-      <h2>Inbox</h2>
+      <h2>அஞ்சல் பெட்டி</h2>
       <ul>
         {letters.map(letter => (
           <Letter
@@ -2466,7 +2466,7 @@ export default function Letter({
       <button onClick={() => {
         onToggleStar(letter.id);
       }}>
-        {letter.isStarred ? 'Unstar' : 'Star'}
+        {letter.isStarred ? 'நட்சத்திரத்தை நீக்கு' : 'நட்சத்திரமிடு'}
       </button>
       {letter.subject}
     </li>
@@ -2477,15 +2477,15 @@ export default function Letter({
 ```js src/data.js
 export const initialLetters = [{
   id: 0,
-  subject: 'Ready for adventure?',
+  subject: 'சாகசத்துக்கு தயாரா?',
   isStarred: true,
 }, {
   id: 1,
-  subject: 'Time to check in!',
+  subject: 'check in செய்ய நேரம்!',
   isStarred: false,
 }, {
   id: 2,
-  subject: 'Festival Begins in Just SEVEN Days!',
+  subject: 'விழா இன்னும் ஏழு நாட்களில் தொடங்குகிறது!',
   isStarred: false,
 }];
 ```
@@ -2500,15 +2500,15 @@ li { border-radius: 5px; }
 
 </Solution>
 
-#### Implement multiple selection {/*implement-multiple-selection*/}
+#### பல selection-களை implement செய்யுங்கள் {/*implement-multiple-selection*/}
 
-In this example, each `Letter` has an `isSelected` prop and an `onToggle` handler that marks it as selected. This works, but the state is stored as a `selectedId` (either `null` or an ID), so only one letter can get selected at any given time.
+இந்த உதாரணத்தில், ஒவ்வொரு `Letter`-க்கும் `isSelected` prop மற்றும் அதை selected ஆக குறிக்கும் `onToggle` handler உள்ளது. இது வேலை செய்கிறது, ஆனால் state `selectedId` (அல்லது `null` அல்லது ID) ஆக சேமிக்கப்படுகிறது; எனவே எந்த நேரத்திலும் ஒரே ஒரு letter மட்டுமே selected ஆக முடியும்.
 
-Change the state structure to support multiple selection. (How would you structure it? Think about this before writing the code.) Each checkbox should become independent from the others. Clicking a selected letter should uncheck it. Finally, the footer should show the correct number of the selected items.
+பல selection-களை support செய்ய state structure-ஐ மாற்றுங்கள். (அதை எப்படி structure செய்வீர்கள்? code எழுதுவதற்கு முன் இதைப் பற்றி யோசியுங்கள்.) ஒவ்வொரு checkbox-மும் மற்றவற்றிலிருந்து independent ஆக இருக்க வேண்டும். selected letter-ஐ click செய்தால் அது uncheck ஆக வேண்டும். இறுதியாக, footer selected item-களின் சரியான எண்ணிக்கையை காட்ட வேண்டும்.
 
 <Hint>
 
-Instead of a single selected ID, you might want to hold an array or a [Set](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set) of selected IDs in state.
+ஒரே selected ID-க்கு பதிலாக, selected ID-களின் array அல்லது [Set](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set)-ஐ state-இல் வைத்திருக்கலாம்.
 
 </Hint>
 
@@ -2532,7 +2532,7 @@ export default function MailClient() {
 
   return (
     <>
-      <h2>Inbox</h2>
+      <h2>அஞ்சல் பெட்டி</h2>
       <ul>
         {letters.map(letter => (
           <Letter
@@ -2548,7 +2548,7 @@ export default function MailClient() {
         <hr />
         <p>
           <b>
-            You selected {selectedCount} letters
+            நீங்கள் {selectedCount} letter-களைத் தேர்ந்தெடுத்துள்ளீர்கள்
           </b>
         </p>
       </ul>
@@ -2585,15 +2585,15 @@ export default function Letter({
 ```js src/data.js
 export const letters = [{
   id: 0,
-  subject: 'Ready for adventure?',
+  subject: 'சாகசத்துக்கு தயாரா?',
   isStarred: true,
 }, {
   id: 1,
-  subject: 'Time to check in!',
+  subject: 'check in செய்ய நேரம்!',
   isStarred: false,
 }, {
   id: 2,
-  subject: 'Festival Begins in Just SEVEN Days!',
+  subject: 'விழா இன்னும் ஏழு நாட்களில் தொடங்குகிறது!',
   isStarred: false,
 }];
 ```
@@ -2609,7 +2609,7 @@ label { width: 100%; padding: 5px; display: inline-block; }
 
 <Solution>
 
-Instead of a single `selectedId`, keep a `selectedIds` *array* in state. For example, if you select the first and the last letter, it would contain `[0, 2]`. When nothing is selected, it would be an empty `[]` array:
+ஒரே `selectedId`-க்கு பதிலாக, `selectedIds` *array*-ஐ state-இல் வைத்திருங்கள். உதாரணமாக, முதல் மற்றும் கடைசி letter-ஐத் தேர்ந்தெடுத்தால், அதில் `[0, 2]` இருக்கும். எதுவும் selected இல்லாதபோது, அது காலியான `[]` array ஆக இருக்கும்:
 
 <Sandpack>
 
@@ -2641,7 +2641,7 @@ export default function MailClient() {
 
   return (
     <>
-      <h2>Inbox</h2>
+      <h2>அஞ்சல் பெட்டி</h2>
       <ul>
         {letters.map(letter => (
           <Letter
@@ -2656,7 +2656,7 @@ export default function MailClient() {
         <hr />
         <p>
           <b>
-            You selected {selectedCount} letters
+            நீங்கள் {selectedCount} letter-களைத் தேர்ந்தெடுத்துள்ளீர்கள்
           </b>
         </p>
       </ul>
@@ -2693,15 +2693,15 @@ export default function Letter({
 ```js src/data.js
 export const letters = [{
   id: 0,
-  subject: 'Ready for adventure?',
+  subject: 'சாகசத்துக்கு தயாரா?',
   isStarred: true,
 }, {
   id: 1,
-  subject: 'Time to check in!',
+  subject: 'check in செய்ய நேரம்!',
   isStarred: false,
 }, {
   id: 2,
-  subject: 'Festival Begins in Just SEVEN Days!',
+  subject: 'விழா இன்னும் ஏழு நாட்களில் தொடங்குகிறது!',
   isStarred: false,
 }];
 ```
@@ -2715,9 +2715,9 @@ label { width: 100%; padding: 5px; display: inline-block; }
 
 </Sandpack>
 
-One minor downside of using an array is that for each item, you're calling `selectedIds.includes(letter.id)` to check whether it's selected. If the array is very large, this can become a performance problem because array search with [`includes()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/includes) takes linear time, and you're doing this search for each individual item.
+array-ஐப் பயன்படுத்துவதில் சிறிய குறை என்னவென்றால், ஒவ்வொரு item-க்கும் அது selected ஆக உள்ளதா என்பதைச் சரிபார்க்க `selectedIds.includes(letter.id)`-ஐ call செய்கிறீர்கள். array மிகவும் பெரியதாக இருந்தால், இது performance பிரச்சினையாக மாறலாம், ஏனெனில் [`includes()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/includes) மூலம் array search linear time எடுக்கும், மேலும் இந்த search-ஐ ஒவ்வொரு தனிப்பட்ட item-க்கும் செய்கிறீர்கள்.
 
-To fix this, you can hold a [Set](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set) in state instead, which provides a fast [`has()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/has) operation:
+இதைக் சரிசெய்ய, அதற்கு பதிலாக state-இல் [Set](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set)-ஐ வைத்திருக்கலாம்; அது வேகமான [`has()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/has) operation-ஐ வழங்குகிறது:
 
 <Sandpack>
 
@@ -2746,7 +2746,7 @@ export default function MailClient() {
 
   return (
     <>
-      <h2>Inbox</h2>
+      <h2>அஞ்சல் பெட்டி</h2>
       <ul>
         {letters.map(letter => (
           <Letter
@@ -2761,7 +2761,7 @@ export default function MailClient() {
         <hr />
         <p>
           <b>
-            You selected {selectedCount} letters
+            நீங்கள் {selectedCount} letter-களைத் தேர்ந்தெடுத்துள்ளீர்கள்
           </b>
         </p>
       </ul>
@@ -2798,15 +2798,15 @@ export default function Letter({
 ```js src/data.js
 export const letters = [{
   id: 0,
-  subject: 'Ready for adventure?',
+  subject: 'சாகசத்துக்கு தயாரா?',
   isStarred: true,
 }, {
   id: 1,
-  subject: 'Time to check in!',
+  subject: 'check in செய்ய நேரம்!',
   isStarred: false,
 }, {
   id: 2,
-  subject: 'Festival Begins in Just SEVEN Days!',
+  subject: 'விழா இன்னும் ஏழு நாட்களில் தொடங்குகிறது!',
   isStarred: false,
 }];
 ```
@@ -2820,9 +2820,9 @@ label { width: 100%; padding: 5px; display: inline-block; }
 
 </Sandpack>
 
-Now each item does a `selectedIds.has(letter.id)` check, which is very fast.
+இப்போது ஒவ்வொரு item-மும் `selectedIds.has(letter.id)` check செய்கிறது; இது மிகவும் வேகமானது.
 
-Keep in mind that you [should not mutate objects in state](/learn/updating-objects-in-state), and that includes Sets, too. This is why the `handleToggle` function creates a *copy* of the Set first, and then updates that copy.
+நீங்கள் [state-இல் உள்ள object-களை mutate செய்யக்கூடாது](/learn/updating-objects-in-state) என்பதை நினைவில் கொள்ளுங்கள்; அதில் Set-களும் அடங்கும். அதனால் `handleToggle` function முதலில் Set-ன் *copy*-ஐ உருவாக்கி, பிறகு அந்த copy-ஐ update செய்கிறது.
 
 </Solution>
 

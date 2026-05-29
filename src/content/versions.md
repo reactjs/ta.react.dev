@@ -1,22 +1,22 @@
 ---
-title: React Versions
+title: React versions
 ---
 
 <Intro>
 
-The React docs at [react.dev](https://react.dev) provide documentation for the latest version of React.
+[react.dev](https://react.dev)-இல் உள்ள React docs, React-ன் சமீபத்திய version-க்கான documentation-ஐ வழங்குகின்றன.
 
 </Intro>
 
-We aim to keep the docs updated within major versions, and do not publish versions for each minor or patch version. When a new major is released, we archive the docs for the previous version as `x.react.dev`. See our [versioning policy](/community/versioning-policy) for more info.
+Major versions-க்குள் docs-ஐ updated ஆக வைத்திருக்க முயற்சிக்கிறோம்; ஒவ்வொரு minor அல்லது patch version-க்கும் தனி docs publish செய்வதில்லை. புதிய major release ஆனபோது, முந்தைய version-க்கான docs-ஐ `x.react.dev` ஆக archive செய்கிறோம். மேலும் தகவலுக்கு எங்கள் [versioning policy](/community/versioning-policy)-ஐப் பார்க்கவும்.
 
-You can find an archive of previous major versions below.
+முந்தைய major versions-ன் archive-ஐ கீழே காணலாம்.
 
-## Latest version: 19.2 {/*latest-version*/}
+## சமீபத்திய version: 19.2 {/*latest-version*/}
 
 - [react.dev](https://react.dev) {/*docs-19*/}
 
-## Previous versions {/*previous-versions*/}
+## முந்தைய versions {/*previous-versions*/}
 
 - [18.react.dev](https://18.react.dev) {/*docs-18*/}
 - [17.react.dev](https://17.react.dev) {/*docs-17*/}
@@ -27,9 +27,9 @@ You can find an archive of previous major versions below.
 
 #### Legacy Docs {/*legacy-docs*/}
 
-In 2023, we [launched our new docs](/blog/2023/03/16/introducing-react-dev) for React 18 as [react.dev](https://react.dev). The legacy React 18 docs are available at [legacy.reactjs.org](https://legacy.reactjs.org). Versions 17 and below are hosted on legacy sites.
+2023-இல், React 18-க்கான [புதிய docs-ஐ](/blog/2023/03/16/introducing-react-dev) [react.dev](https://react.dev) ஆக launch செய்தோம். Legacy React 18 docs [legacy.reactjs.org](https://legacy.reactjs.org)-இல் கிடைக்கின்றன. Versions 17 மற்றும் அதற்கு கீழே உள்ளவை legacy sites-இல் host செய்யப்படுகின்றன.
 
-For versions older than React 15, see [15.react.dev](https://15.react.dev).
+React 15-ஐ விட பழைய versions-க்கு, [15.react.dev](https://15.react.dev)-ஐப் பார்க்கவும்.
 
 </Note>
 
@@ -37,7 +37,7 @@ For versions older than React 15, see [15.react.dev](https://15.react.dev).
 
 ### React 19 {/*react-19*/}
 
-**Blog Posts**
+**Blog posts**
 - [React v19](/blog/2024/12/05/react-19)
 - [React 19 Upgrade Guide](/blog/2024/04/25/react-19-upgrade-guide)
 - [React Compiler Beta Release](/blog/2024/10/21/react-compiler-beta-release)
@@ -67,7 +67,7 @@ For versions older than React 15, see [15.react.dev](https://15.react.dev).
 
 ### React 18 {/*react-18*/}
 
-**Blog Posts**
+**Blog posts**
 - [React v18.0](/blog/2022/03/29/react-v18)
 - [How to Upgrade to React 18](/blog/2022/03/08/react-18-upgrade-guide)
 - [The Plan for React 18](/blog/2021/06/08/the-plan-for-react-18)
@@ -91,7 +91,7 @@ For versions older than React 15, see [15.react.dev](https://15.react.dev).
 
 ### React 17 {/*react-17*/}
 
-**Blog Posts**
+**Blog posts**
 - [React v17.0](https://legacy.reactjs.org/blog/2020/10/20/react-v17.html)
 - [Introducing the New JSX Transform](https://legacy.reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html)
 - [React v17.0 Release Candidate: No New Features](https://legacy.reactjs.org/blog/2020/08/10/react-v17-rc.html)
@@ -103,7 +103,7 @@ For versions older than React 15, see [15.react.dev](https://15.react.dev).
 
 ### React 16 {/*react-16*/}
 
-**Blog Posts**
+**Blog posts**
 - [React v16.0](https://legacy.reactjs.org/blog/2017/09/26/react-v16.0.html)
 - [DOM Attributes in React 16](https://legacy.reactjs.org/blog/2017/09/08/dom-attributes-in-react-16.html)
 - [Error Handling in React 16](https://legacy.reactjs.org/blog/2017/07/26/error-handling-in-react-16.html)
@@ -158,7 +158,7 @@ For versions older than React 15, see [15.react.dev](https://15.react.dev).
 
 ### React 15 {/*react-15*/}
 
-**Blog Posts**
+**Blog posts**
 - [React v15.0](https://legacy.reactjs.org/blog/2016/04/07/react-v15.html)
 - [React v15.0 Release Candidate 2](https://legacy.reactjs.org/blog/2016/03/16/react-v15-rc2.html)
 - [React v15.0 Release Candidate](https://legacy.reactjs.org/blog/2016/03/07/react-v15-rc1.html)
@@ -196,7 +196,7 @@ For versions older than React 15, see [15.react.dev](https://15.react.dev).
 
 ### React 0.14 {/*react-14*/}
 
-**Blog Posts**
+**Blog posts**
 - [React v0.14](https://legacy.reactjs.org/blog/2015/10/07/react-v0.14.html)
 - [React v0.14 Release Candidate](https://legacy.reactjs.org/blog/2015/09/10/react-v0.14-rc1.html)
 - [React v0.14 Beta 1](https://legacy.reactjs.org/blog/2015/07/03/react-v0.14-beta-1.html)
@@ -222,7 +222,7 @@ For versions older than React 15, see [15.react.dev](https://15.react.dev).
 
 ### React 0.13 {/*react-13*/}
 
-**Blog Posts**
+**Blog posts**
 - [React Native v0.4](https://legacy.reactjs.org/blog/2015/04/17/react-native-v0.4.html)
 - [React v0.13](https://legacy.reactjs.org/blog/2015/03/10/react-v0.13.html)
 - [React v0.13 RC2](https://legacy.reactjs.org/blog/2015/03/03/react-v0.13-rc2.html)
@@ -243,7 +243,7 @@ For versions older than React 15, see [15.react.dev](https://15.react.dev).
 
 ### React 0.12 {/*react-12*/}
 
-**Blog Posts**
+**Blog posts**
 - [React v0.12](https://legacy.reactjs.org/blog/2014/10/28/react-v0.12.html)
 - [React v0.12 RC](https://legacy.reactjs.org/blog/2014/10/16/react-v0.12-rc1.html)
 - [Introducing React Elements](https://legacy.reactjs.org/blog/2014/10/14/introducing-react-elements.html)
@@ -256,7 +256,7 @@ For versions older than React 15, see [15.react.dev](https://15.react.dev).
 
 ### React 0.11 {/*react-11*/}
 
-**Blog Posts**
+**Blog posts**
 - [React v0.11](https://legacy.reactjs.org/blog/2014/07/17/react-v0.11.html)
 - [React v0.11 RC](https://legacy.reactjs.org/blog/2014/07/13/react-v0.11-rc1.html)
 - [One Year of Open-Source React](https://legacy.reactjs.org/blog/2014/05/29/one-year-of-open-source-react.html)
@@ -304,10 +304,10 @@ For versions older than React 15, see [15.react.dev](https://15.react.dev).
 
 ### Initial Commit {/*initial-commit*/}
 
-React was open-sourced on May 29, 2013. The initial commit is: [`75897c`: Initial public release](https://github.com/facebook/react/commit/75897c2dcd1dd3a6ca46284dd37e13d22b4b16b4)
+React May 29, 2013 அன்று open-source செய்யப்பட்டது. Initial commit: [`75897c`: Initial public release](https://github.com/facebook/react/commit/75897c2dcd1dd3a6ca46284dd37e13d22b4b16b4)
 
-See the first blog post: [Why did we build React?](https://legacy.reactjs.org/blog/2013/06/05/why-react.html)
+முதல் blog post-ஐப் பார்க்கவும்: [Why did we build React?](https://legacy.reactjs.org/blog/2013/06/05/why-react.html)
 
-React was open sourced at Facebook Seattle in 2013:
+React 2013-இல் Facebook Seattle-இல் open sourced செய்யப்பட்டது:
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/XxVg_s8xAms?si=466vSJrnXTn05j9A" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>

@@ -4,31 +4,31 @@ title: rules-of-hooks
 
 <Intro>
 
-Validates that components and hooks follow the [Rules of Hooks](/reference/rules/rules-of-hooks).
+Components மற்றும் hooks [Rules of Hooks](/reference/rules/rules-of-hooks)-ஐப் பின்பற்றுகின்றனவா என்பதை validate செய்கிறது.
 
 </Intro>
 
-## Rule Details {/*rule-details*/}
+## Rule விவரங்கள் {/*rule-details*/}
 
-React relies on the order in which hooks are called to correctly preserve state between renders. Each time your component renders, React expects the exact same hooks to be called in the exact same order. When hooks are called conditionally or in loops, React loses track of which state corresponds to which hook call, leading to bugs like state mismatches and "Rendered fewer/more hooks than expected" errors.
+Renders இடையே state-ஐ சரியாக preserve செய்ய, hooks எந்த வரிசையில் call செய்யப்படுகின்றன என்பதையே React நம்புகிறது. உங்கள் component ஒவ்வொரு முறை render ஆகும்போதும், அதே hooks அதே வரிசையில் call செய்யப்படும் என்று React எதிர்பார்க்கிறது. Hooks conditionally அல்லது loops-இல் call செய்யப்பட்டால், எந்த state எந்த hook call-க்கு பொருந்துகிறது என்பதை React track செய்ய முடியாது; இதனால் state mismatches மற்றும் `"Rendered fewer/more hooks than expected"` போன்ற errors ஏற்படும்.
 
-## Common Violations {/*common-violations*/}
+## பொதுவான மீறல்கள் {/*common-violations*/}
 
-These patterns violate the Rules of Hooks:
+இந்த patterns Rules of Hooks-ஐ மீறுகின்றன:
 
-- **Hooks in conditions** (`if`/`else`, ternary, `&&`/`||`)
-- **Hooks in loops** (`for`, `while`, `do-while`)
-- **Hooks after early returns**
-- **Hooks in callbacks/event handlers**
-- **Hooks in async functions**
-- **Hooks in class methods**
-- **Hooks at module level**
+- **Conditions-இல் hooks** (`if`/`else`, ternary, `&&`/`||`)
+- **Loops-இல் hooks** (`for`, `while`, `do-while`)
+- **Early returns-க்கு பிறகு hooks**
+- **Callbacks/event handlers-இல் hooks**
+- **Async functions-இல் hooks**
+- **Class methods-இல் hooks**
+- **Module level-இல் hooks**
 
 <Note>
 
 ### `use` hook {/*use-hook*/}
 
-The `use` hook is different from other React hooks. You can call it conditionally and in loops:
+`use` hook பிற React hooks-இலிருந்து வேறுபட்டது. அதை conditionally மற்றும் loops-இல் call செய்யலாம்:
 
 ```js
 // ✅ `use` can be conditional
@@ -42,17 +42,17 @@ for (const promise of promises) {
 }
 ```
 
-However, `use` still has restrictions:
-- Can't be wrapped in try/catch
-- Must be called inside a component or hook
+ஆனால் `use`-க்கு இன்னும் சில restrictions உள்ளன:
+- try/catch-க்குள் wrap செய்யக்கூடாது
+- Component அல்லது hook-க்குள் call செய்யப்பட வேண்டும்
 
-Learn more: [`use` API Reference](/reference/react/use)
+மேலும் அறிக: [`use` API Reference](/reference/react/use)
 
 </Note>
 
 ### Invalid {/*invalid*/}
 
-Examples of incorrect code for this rule:
+இந்த rule-க்கான தவறான code உதாரணங்கள்:
 
 ```js
 // ❌ Hook in condition
@@ -77,12 +77,12 @@ try {
 }
 
 // ❌ Hook at module level
-const globalState = useState(0); // Outside component
+const globalState = useState(0); // Component-க்கு வெளியே
 ```
 
 ### Valid {/*valid*/}
 
-Examples of correct code for this rule:
+இந்த rule-க்கான சரியான code உதாரணங்கள்:
 
 ```js
 function Component({ isSpecial, shouldFetch, fetchPromise }) {
@@ -104,11 +104,11 @@ function Component({ isSpecial, shouldFetch, fetchPromise }) {
 }
 ```
 
-## Troubleshooting {/*troubleshooting*/}
+## சிக்கல் தீர்வு {/*troubleshooting*/}
 
-### I want to fetch data based on some condition {/*conditional-data-fetching*/}
+### ஒரு condition அடிப்படையில் data fetch செய்ய வேண்டும் {/*conditional-data-fetching*/}
 
-You're trying to conditionally call useEffect:
+நீங்கள் `useEffect`-ஐ conditionally call செய்ய முயற்சிக்கிறீர்கள்:
 
 ```js
 // ❌ Conditional hook
@@ -119,7 +119,7 @@ if (isLoggedIn) {
 }
 ```
 
-Call the hook unconditionally, check condition inside:
+Hook-ஐ unconditionally call செய்து, condition-ஐ உள்ளே check செய்யுங்கள்:
 
 ```js
 // ✅ Condition inside hook
@@ -132,15 +132,15 @@ useEffect(() => {
 
 <Note>
 
-There are better ways to fetch data rather than in a useEffect. Consider using TanStack Query, useSWR, or React Router 6.4+ for data fetching. These solutions handle deduplicating requests, caching responses, and avoiding network waterfalls.
+`useEffect`-இல் data fetch செய்வதைவிட சிறந்த வழிகள் உள்ளன. Data fetching-க்கு TanStack Query, useSWR, அல்லது React Router 6.4+ பயன்படுத்துவதைக் கருதுங்கள். இந்த solutions requests-ஐ deduplicate செய்தல், responses-ஐ cache செய்தல், network waterfalls-ஐத் தவிர்த்தல் ஆகியவற்றை கையாளுகின்றன.
 
-Learn more: [Fetching Data](/learn/synchronizing-with-effects#fetching-data)
+மேலும் அறிக: [Fetching Data](/learn/synchronizing-with-effects#fetching-data)
 
 </Note>
 
-### I need different state for different scenarios {/*conditional-state-initialization*/}
+### வெவ்வேறு சூழல்களுக்கு வெவ்வேறு state தேவை {/*conditional-state-initialization*/}
 
-You're trying to conditionally initialize state:
+நீங்கள் state-ஐ conditionally initialize செய்ய முயற்சிக்கிறீர்கள்:
 
 ```js
 // ❌ Conditional state
@@ -151,7 +151,7 @@ if (userType === 'admin') {
 }
 ```
 
-Always call useState, conditionally set the initial value:
+எப்போதும் `useState`-ஐ call செய்து, initial value-ஐ conditionally அமைக்கவும்:
 
 ```js
 // ✅ Conditional initial value
@@ -162,7 +162,7 @@ const [permissions, setPermissions] = useState(
 
 ## Options {/*options*/}
 
-You can configure custom effect hooks using shared ESLint settings (available in `eslint-plugin-react-hooks` 6.1.1 and later):
+Shared ESLint settings மூலம் custom effect hooks-ஐ configure செய்யலாம் (`eslint-plugin-react-hooks` 6.1.1 மற்றும் அதன் பின்வரும் versions-இல் கிடைக்கும்):
 
 ```js
 {
@@ -174,6 +174,6 @@ You can configure custom effect hooks using shared ESLint settings (available in
 }
 ```
 
-- `additionalEffectHooks`: Regex pattern matching custom hooks that should be treated as effects. This allows `useEffectEvent` and similar event functions to be called from your custom effect hooks.
+- `additionalEffectHooks`: Effects-ஆக நடத்தப்பட வேண்டிய custom hooks-ஐ match செய்யும் Regex pattern. இதனால் `useEffectEvent` மற்றும் அதுபோன்ற event functions உங்கள் custom effect hooks-இலிருந்து call செய்யப்படலாம்.
 
-This shared configuration is used by both `rules-of-hooks` and `exhaustive-deps` rules, ensuring consistent behavior across all hook-related linting.
+இந்த shared configuration `rules-of-hooks` மற்றும் `exhaustive-deps` என்ற இரு rules-களாலும் பயன்படுத்தப்படுகிறது; இதனால் hook தொடர்பான எல்லா linting-இலும் consistent behavior உறுதியாகும்.

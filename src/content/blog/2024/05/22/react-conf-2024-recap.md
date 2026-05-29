@@ -1,8 +1,8 @@
 ---
-title: "React Conf 2024 Recap"
+title: "React Conf 2024 சுருக்கம்"
 author: Ricky Hanlon
 date: 2024/05/22
-description: Last week we hosted React Conf 2024, a two-day conference in Henderson, Nevada where 700+ attendees gathered in-person to discuss the latest in UI engineering. In this post, we'll summarize the talks and announcements from the event.
+description: கடந்த வாரம் React Conf 2024 நடத்தினோம்; Henderson, Nevada-வில் நடைபெற்ற இரண்டு நாள் conference-இல் 700-க்கும் மேற்பட்டோர் நேரில் கூடி UI engineering-ன் சமீபத்தியவற்றை விவாதித்தனர். இந்த post-இல், நிகழ்வின் talks மற்றும் announcements-ஐ சுருக்கமாகப் பார்க்கிறோம்.
 ---
 
 May 22, 2024 by [Ricky Hanlon](https://twitter.com/rickhanlonii).
@@ -11,114 +11,113 @@ May 22, 2024 by [Ricky Hanlon](https://twitter.com/rickhanlonii).
 
 <Intro>
 
-Last week we hosted React Conf 2024, a two-day conference in Henderson, Nevada where 700+ attendees gathered in-person to discuss the latest in UI engineering. This was our first in-person conference since 2019, and we were thrilled to be able to bring the community together again.
+கடந்த வாரம் React Conf 2024 நடத்தினோம்; Henderson, Nevada-வில் நடைபெற்ற இரண்டு நாள் conference-இல் 700-க்கும் மேற்பட்டோர் நேரில் கூடி UI engineering-ன் சமீபத்தியவற்றை விவாதித்தனர். 2019-க்குப் பிறகு இது எங்கள் முதல் in-person conference; community-யை மீண்டும் ஒன்றாகக் கொண்டு வர முடிந்ததில் மகிழ்ச்சி அடைந்தோம்.
 
 </Intro>
 
 ---
 
-At React Conf 2024, we announced the [React 19 RC](/blog/2024/12/05/react-19), the [React Native New Architecture Beta](https://github.com/reactwg/react-native-new-architecture/discussions/189), and an experimental release of the [React Compiler](/learn/react-compiler). The community also took the stage to announce [React Router v7](https://remix.run/blog/merging-remix-and-react-router), [Universal Server Components](https://www.youtube.com/watch?v=T8TZQ6k4SLE&t=20765s) in Expo Router, React Server Components in [RedwoodJS](https://redwoodjs.com/blog/rsc-now-in-redwoodjs), and much more.
+React Conf 2024-இல், [React 19 RC](/blog/2024/12/05/react-19), [React Native New Architecture Beta](https://github.com/reactwg/react-native-new-architecture/discussions/189), மற்றும் [React Compiler](/learn/react-compiler)-ன் experimental release-ஐ அறிவித்தோம். Community-யும் stage-இல் வந்து [React Router v7](https://remix.run/blog/merging-remix-and-react-router), Expo Router-இல் [Universal Server Components](https://www.youtube.com/watch?v=T8TZQ6k4SLE&t=20765s), [RedwoodJS](https://redwoodjs.com/blog/rsc-now-in-redwoodjs)-இல் React Server Components, மேலும் பலவற்றை அறிவித்தது.
 
-The entire [day 1](https://www.youtube.com/watch?v=T8TZQ6k4SLE) and [day 2](https://www.youtube.com/watch?v=0ckOUBiuxVY) streams are available online. In this post, we'll summarize the talks and announcements from the event.
+முழு [day 1](https://www.youtube.com/watch?v=T8TZQ6k4SLE) மற்றும் [day 2](https://www.youtube.com/watch?v=0ckOUBiuxVY) streams online-இல் கிடைக்கின்றன. இந்த post-இல், நிகழ்வின் talks மற்றும் announcements-ஐ சுருக்கமாகப் பார்க்கிறோம்.
 
 ## Day 1 {/*day-1*/}
 
-_[Watch the full day 1 stream here.](https://www.youtube.com/watch?v=T8TZQ6k4SLE&t=973s)_
+_[முழு day 1 stream-ஐ இங்கே பார்க்கவும்.](https://www.youtube.com/watch?v=T8TZQ6k4SLE&t=973s)_
 
-To kick off day 1, Meta CTO [Andrew "Boz" Bosworth](https://www.threads.net/@boztank) shared a welcome message followed by an introduction by [Seth Webster](https://twitter.com/sethwebster), who manages the React Org at Meta, and our MC [Ashley Narcisse](https://twitter.com/_darkfadr).
+Day 1-ஐ தொடங்க, Meta CTO [Andrew "Boz" Bosworth](https://www.threads.net/@boztank) welcome message பகிர்ந்தார்; அதன் பிறகு Meta-வில் React Org-ஐ manage செய்யும் [Seth Webster](https://twitter.com/sethwebster) மற்றும் எங்கள் MC [Ashley Narcisse](https://twitter.com/_darkfadr) அறிமுகம் வழங்கினர்.
 
-In the day 1 keynote, [Joe Savona](https://twitter.com/en_JS) shared our goals and vision for React to make it easy for anyone to build great user experiences. [Lauren Tan](https://twitter.com/potetotes) followed with a State of React, where she shared that React was downloaded over 1 billion times in 2023, and that 37% of new developers learn to program with React. Finally, she highlighted the work of the React community to make React, React.
+Day 1 keynote-இல், எவரும் சிறந்த user experiences உருவாக்க உதவும் React-க்கான எங்கள் இலக்குகள் மற்றும் vision-ஐ [Joe Savona](https://twitter.com/en_JS) பகிர்ந்தார். அதனைத் தொடர்ந்து [Lauren Tan](https://twitter.com/potetotes) State of React வழங்கினார்; 2023-இல் React 1 billion-க்கு மேற்பட்ட முறை download செய்யப்பட்டதாகவும், புதிய developers-இல் 37% பேர் React மூலம் program செய்ய கற்கிறார்கள் என்றும் பகிர்ந்தார். இறுதியாக, React-ஐ React ஆக்கும் React community-யின் பணியை highlight செய்தார்.
 
-For more, check out these talks from the community later in the conference:
+மேலும் அறிய, conference-இல் பின்னர் community வழங்கிய இந்த talks-ஐ பார்க்கவும்:
 
-- [Vanilla React](https://www.youtube.com/watch?v=T8TZQ6k4SLE&t=5542s) by [Ryan Florence](https://twitter.com/ryanflorence)
-- [React Rhythm & Blues](https://www.youtube.com/watch?v=0ckOUBiuxVY&t=12728s) by [Lee Robinson](https://twitter.com/leeerob)
-- [RedwoodJS, now with React Server Components](https://www.youtube.com/watch?v=T8TZQ6k4SLE&t=26815s) by [Amy Dutton](https://twitter.com/selfteachme)
-- [Introducing Universal React Server Components in Expo Router](https://www.youtube.com/watch?v=T8TZQ6k4SLE&t=20765s) by [Evan Bacon](https://twitter.com/Baconbrix)
+- [Vanilla React](https://www.youtube.com/watch?v=T8TZQ6k4SLE&t=5542s) - [Ryan Florence](https://twitter.com/ryanflorence) வழங்கியது
+- [React Rhythm & Blues](https://www.youtube.com/watch?v=0ckOUBiuxVY&t=12728s) - [Lee Robinson](https://twitter.com/leeerob) வழங்கியது
+- [RedwoodJS, now with React Server Components](https://www.youtube.com/watch?v=T8TZQ6k4SLE&t=26815s) - [Amy Dutton](https://twitter.com/selfteachme) வழங்கியது
+- [Introducing Universal React Server Components in Expo Router](https://www.youtube.com/watch?v=T8TZQ6k4SLE&t=20765s) - [Evan Bacon](https://twitter.com/Baconbrix) வழங்கியது
 
-Next in the keynote, [Josh Story](https://twitter.com/joshcstory) and [Andrew Clark](https://twitter.com/acdlite) shared new features coming in React 19, and announced the React 19 RC which is ready for testing in production. Check out all the features in the [React 19 release post](/blog/2024/12/05/react-19), and see these talks for deep dives on the new features:
+Keynote-இல் அடுத்ததாக, React 19-இல் வரும் புதிய features-ஐ [Josh Story](https://twitter.com/joshcstory) மற்றும் [Andrew Clark](https://twitter.com/acdlite) பகிர்ந்து, production-இல் testing-க்கு தயார் நிலையில் உள்ள React 19 RC-ஐ அறிவித்தனர். அனைத்து features-ஐ [React 19 release post](/blog/2024/12/05/react-19)-இல் பார்க்கவும்; புதிய features குறித்த deep dives-க்கு இந்த talks-ஐ பார்க்கவும்:
 
-- [What's new in React 19](https://www.youtube.com/watch?v=T8TZQ6k4SLE&t=8880s) by [Lydia Hallie](https://twitter.com/lydiahallie)
-- [React Unpacked: A Roadmap to React 19](https://www.youtube.com/watch?v=T8TZQ6k4SLE&t=10112s) by [Sam Selikoff](https://twitter.com/samselikoff)
-- [React 19 Deep Dive: Coordinating HTML](https://www.youtube.com/watch?v=T8TZQ6k4SLE&t=24916s) by [Josh Story](https://twitter.com/joshcstory)
-- [Enhancing Forms with React Server Components](https://www.youtube.com/watch?v=0ckOUBiuxVY&t=25280s) by [Aurora Walberg Scharff](https://twitter.com/aurorascharff)
-- [React for Two Computers](https://www.youtube.com/watch?v=T8TZQ6k4SLE&t=18825s) by [Dan Abramov](https://bsky.app/profile/danabra.mov)
-- [And Now You Understand React Server Components](https://www.youtube.com/watch?v=0ckOUBiuxVY&t=11256s) by [Kent C. Dodds](https://twitter.com/kentcdodds)
+- [What's new in React 19](https://www.youtube.com/watch?v=T8TZQ6k4SLE&t=8880s) - [Lydia Hallie](https://twitter.com/lydiahallie) வழங்கியது
+- [React Unpacked: A Roadmap to React 19](https://www.youtube.com/watch?v=T8TZQ6k4SLE&t=10112s) - [Sam Selikoff](https://twitter.com/samselikoff) வழங்கியது
+- [React 19 Deep Dive: Coordinating HTML](https://www.youtube.com/watch?v=T8TZQ6k4SLE&t=24916s) - [Josh Story](https://twitter.com/joshcstory) வழங்கியது
+- [Enhancing Forms with React Server Components](https://www.youtube.com/watch?v=0ckOUBiuxVY&t=25280s) - [Aurora Walberg Scharff](https://twitter.com/aurorascharff) வழங்கியது
+- [React for Two Computers](https://www.youtube.com/watch?v=T8TZQ6k4SLE&t=18825s) - [Dan Abramov](https://bsky.app/profile/danabra.mov) வழங்கியது
+- [And Now You Understand React Server Components](https://www.youtube.com/watch?v=0ckOUBiuxVY&t=11256s) - [Kent C. Dodds](https://twitter.com/kentcdodds) வழங்கியது
 
-Finally, we ended the keynote with [Joe Savona](https://twitter.com/en_JS), [Sathya Gunasekaran](https://twitter.com/_gsathya), and [Mofei Zhang](https://twitter.com/zmofei) announcing that the React Compiler is now [Open Source](https://github.com/facebook/react/pull/29061), and sharing an experimental version of the React Compiler to try out.
+இறுதியாக, React Compiler இப்போது [Open Source](https://github.com/facebook/react/pull/29061) என [Joe Savona](https://twitter.com/en_JS), [Sathya Gunasekaran](https://twitter.com/_gsathya), மற்றும் [Mofei Zhang](https://twitter.com/zmofei) அறிவித்து, முயற்சிக்க React Compiler-ன் experimental version-ஐ பகிர்ந்ததுடன் keynote-ஐ முடித்தோம்.
 
-For more information on using the Compiler and how it works, check out [the docs](/learn/react-compiler) and these talks:
+Compiler-ஐ பயன்படுத்துவது மற்றும் அது எப்படி வேலை செய்கிறது பற்றிய கூடுதல் தகவலுக்கு [docs](/learn/react-compiler) மற்றும் இந்த talks-ஐ பார்க்கவும்:
 
-- [Forget About Memo](https://www.youtube.com/watch?v=T8TZQ6k4SLE&t=12020s) by [Lauren Tan](https://twitter.com/potetotes)
-- [React Compiler Deep Dive](https://www.youtube.com/watch?v=0ckOUBiuxVY&t=9313s) by [Sathya Gunasekaran](https://twitter.com/_gsathya) and [Mofei Zhang](https://twitter.com/zmofei)
+- [Forget About Memo](https://www.youtube.com/watch?v=T8TZQ6k4SLE&t=12020s) - [Lauren Tan](https://twitter.com/potetotes) வழங்கியது
+- [React Compiler Deep Dive](https://www.youtube.com/watch?v=0ckOUBiuxVY&t=9313s) - [Sathya Gunasekaran](https://twitter.com/_gsathya) மற்றும் [Mofei Zhang](https://twitter.com/zmofei) வழங்கியது
 
-Watch the full day 1 keynote here:
+முழு day 1 keynote-ஐ இங்கே பார்க்கவும்:
 
 <YouTubeIframe src="https://www.youtube.com/embed/T8TZQ6k4SLE?t=973s" />
 
 ## Day 2 {/*day-2*/}
 
-_[Watch the full day 2 stream here.](https://www.youtube.com/watch?v=0ckOUBiuxVY&t=1720s)_
+_[முழு day 2 stream-ஐ இங்கே பார்க்கவும்.](https://www.youtube.com/watch?v=0ckOUBiuxVY&t=1720s)_
 
-To kick off day 2, [Seth Webster](https://twitter.com/sethwebster) shared a welcome message, followed by a Thank You from [Eli White](https://x.com/Eli_White) and an introduction by our Chief Vibes Officer [Ashley Narcisse](https://twitter.com/_darkfadr).
+Day 2-ஐ தொடங்க, [Seth Webster](https://twitter.com/sethwebster) welcome message பகிர்ந்தார்; அதன் பிறகு [Eli White](https://x.com/Eli_White) நன்றி தெரிவித்தார்; எங்கள் Chief Vibes Officer [Ashley Narcisse](https://twitter.com/_darkfadr) அறிமுகம் வழங்கினார்.
 
-In the day 2 keynote, [Nicola Corti](https://twitter.com/cortinico) shared the State of React Native, including 78 million downloads in 2023. He also highlighted apps using React Native including 2000+ screens used inside of Meta; the product details page in Facebook Marketplace, which is visited more than 2 billion times per day; and part of the Microsoft Windows Start Menu and some features in almost every Microsoft Office product across mobile and desktop.
+Day 2 keynote-இல், [Nicola Corti](https://twitter.com/cortinico) State of React Native-ஐ பகிர்ந்தார்; அதில் 2023-இல் 78 million downloads உள்ளிட்டவை இடம்பெற்றன. React Native பயன்படுத்தும் apps-ஐயும் அவர் highlight செய்தார்: Meta-க்குள் பயன்படுத்தப்படும் 2000+ screens; நாளொன்றுக்கு 2 billion-க்கும் மேற்பட்ட முறை பார்க்கப்படும் Facebook Marketplace-ன் product details page; Microsoft Windows Start Menu-வின் ஒரு பகுதி; mobile மற்றும் desktop முழுவதிலும் கிட்டத்தட்ட ஒவ்வொரு Microsoft Office product-இலும் உள்ள சில features.
 
-Nicola also highlighted all the work the community does to support React Native including libraries, frameworks, and multiple platforms. For more, check out these talks from the community:
+Libraries, frameworks, மற்றும் multiple platforms உட்பட React Native-ஐ support செய்ய community செய்துவரும் பணியையும் Nicola highlight செய்தார். மேலும் அறிய community-யிலிருந்து இந்த talks-ஐ பார்க்கவும்:
 
-- [Extending React Native beyond Mobile and Desktop Apps](https://www.youtube.com/watch?v=0ckOUBiuxVY&t=5798s) by [Chris Traganos](https://twitter.com/chris_trag) and [Anisha Malde](https://twitter.com/anisha_malde)
-- [Spatial computing with React](https://www.youtube.com/watch?v=0ckOUBiuxVY&t=22525s) by [Michał Pierzchała](https://twitter.com/thymikee)
+- [Extending React Native beyond Mobile and Desktop Apps](https://www.youtube.com/watch?v=0ckOUBiuxVY&t=5798s) - [Chris Traganos](https://twitter.com/chris_trag) மற்றும் [Anisha Malde](https://twitter.com/anisha_malde) வழங்கியது
+- [Spatial computing with React](https://www.youtube.com/watch?v=0ckOUBiuxVY&t=22525s) - [Michał Pierzchała](https://twitter.com/thymikee) வழங்கியது
 
-[Riccardo Cipolleschi](https://twitter.com/cipolleschir) continued the day 2 keynote by announcing that the React Native New Architecture is now in Beta and ready for apps to adopt in production. He shared new features and improvements in the new architecture, and shared the roadmap for the future of React Native. For more check out:
+[Riccardo Cipolleschi](https://twitter.com/cipolleschir), React Native New Architecture இப்போது Beta-வில் உள்ளது மற்றும் production-இல் apps adopt செய்ய தயாராக உள்ளது என்று அறிவித்து day 2 keynote-ஐத் தொடர்ந்தார். புதிய architecture-இல் உள்ள features மற்றும் improvements-ஐ பகிர்ந்து, React Native-ன் எதிர்கால roadmap-ஐ பகிர்ந்தார். மேலும் அறிய:
 
-- [Cross Platform React](https://www.youtube.com/watch?v=0ckOUBiuxVY&t=26569s) by [Olga Zinoveva](https://github.com/SlyCaptainFlint) and [Naman Goel](https://twitter.com/naman34)
+- [Cross Platform React](https://www.youtube.com/watch?v=0ckOUBiuxVY&t=26569s) - [Olga Zinoveva](https://github.com/SlyCaptainFlint) மற்றும் [Naman Goel](https://twitter.com/naman34) வழங்கியது
 
-Next in the keynote, Nicola announced that we are now recommending starting with a framework like Expo for all new apps created with React Native. With the change, he also announced a new React Native homepage and new Getting Started docs. You can view the new Getting Started guide in the [React Native docs](https://reactnative.dev/docs/next/environment-setup).
+Keynote-இல் அடுத்ததாக, React Native கொண்டு உருவாக்கப்படும் எல்லா புதிய apps-க்கும் Expo போன்ற framework-இலிருந்து தொடங்க பரிந்துரைக்கிறோம் என்று Nicola அறிவித்தார். இந்த மாற்றத்துடன், புதிய React Native homepage மற்றும் புதிய Getting Started docs-ஐயும் அறிவித்தார். புதிய Getting Started guide-ஐ [React Native docs](https://reactnative.dev/docs/next/environment-setup)-இல் பார்க்கலாம்.
 
-Finally, to end the keynote, [Kadi Kraman](https://twitter.com/kadikraman) shared the latest features and improvements in Expo, and how to get started developing with React Native using Expo.
+இறுதியாக, keynote-ஐ முடிக்க, Expo-வில் உள்ள சமீபத்திய features மற்றும் improvements, மேலும் Expo பயன்படுத்தி React Native உடன் development தொடங்குவது எப்படி என்பதை [Kadi Kraman](https://twitter.com/kadikraman) பகிர்ந்தார்.
 
-Watch the full day 2 keynote here:
+முழு day 2 keynote-ஐ இங்கே பார்க்கவும்:
 
 <YouTubeIframe src="https://www.youtube.com/embed/0ckOUBiuxVY?t=1720s" />
 
 ## Q&A {/*q-and-a*/}
 
-The React and React Native teams also ended each day with a Q&A session:
+React மற்றும் React Native teams ஒவ்வொரு நாளையும் Q&A session-ஆக முடித்தன:
 
-- [React Q&A](https://www.youtube.com/watch?v=T8TZQ6k4SLE&t=27518s) hosted by [Michael Chan](https://twitter.com/chantastic)
-- [React Native Q&A](https://www.youtube.com/watch?v=0ckOUBiuxVY&t=27935s) hosted by [Jamon Holmgren](https://twitter.com/jamonholmgren)
+- [React Q&A](https://www.youtube.com/watch?v=T8TZQ6k4SLE&t=27518s) - [Michael Chan](https://twitter.com/chantastic) host செய்தார்
+- [React Native Q&A](https://www.youtube.com/watch?v=0ckOUBiuxVY&t=27935s) - [Jamon Holmgren](https://twitter.com/jamonholmgren) host செய்தார்
 
-## And more... {/*and-more*/}
+## மேலும்... {/*and-more*/}
 
-We also heard talks on accessibility, error reporting, css, and more:
+Accessibility, error reporting, CSS, மேலும் பலவற்றைப் பற்றியும் talks கேட்டோம்:
 
-- [Demystifying accessibility in React apps](https://www.youtube.com/watch?v=0ckOUBiuxVY&t=20655s) by [Kateryna Porshnieva](https://twitter.com/krambertech)
-- [Pigment CSS, CSS in the server component age](https://www.youtube.com/watch?v=0ckOUBiuxVY&t=21696s) by [Olivier Tassinari](https://twitter.com/olivtassinari)
-- [Real-time React Server Components](https://www.youtube.com/watch?v=T8TZQ6k4SLE&t=24070s) by [Sunil Pai](https://twitter.com/threepointone)
-- [Let's break React Rules](https://www.youtube.com/watch?v=T8TZQ6k4SLE&t=25862s) by [Charlotte Isambert](https://twitter.com/c_isambert)
-- [Solve 100% of your errors](https://www.youtube.com/watch?v=0ckOUBiuxVY&t=19881s) by [Ryan Albrecht](https://github.com/ryan953)
+- [Demystifying accessibility in React apps](https://www.youtube.com/watch?v=0ckOUBiuxVY&t=20655s) - [Kateryna Porshnieva](https://twitter.com/krambertech) வழங்கியது
+- [Pigment CSS, CSS in the server component age](https://www.youtube.com/watch?v=0ckOUBiuxVY&t=21696s) - [Olivier Tassinari](https://twitter.com/olivtassinari) வழங்கியது
+- [Real-time React Server Components](https://www.youtube.com/watch?v=T8TZQ6k4SLE&t=24070s) - [Sunil Pai](https://twitter.com/threepointone) வழங்கியது
+- [Let's break React Rules](https://www.youtube.com/watch?v=T8TZQ6k4SLE&t=25862s) - [Charlotte Isambert](https://twitter.com/c_isambert) வழங்கியது
+- [Solve 100% of your errors](https://www.youtube.com/watch?v=0ckOUBiuxVY&t=19881s) - [Ryan Albrecht](https://github.com/ryan953) வழங்கியது
 
-## Thank you {/*thank-you*/}
+## நன்றி {/*thank-you*/}
 
-Thank you to all the staff, speakers, and participants who made React Conf 2024 possible. There are too many to list, but we want to thank a few in particular.
+React Conf 2024-ஐ சாத்தியமாக்கிய அனைத்து staff, speakers, மற்றும் participants-க்கு நன்றி. பட்டியலிட மிக அதிகமானோர் உள்ளனர்; ஆனால் சிலருக்கு குறிப்பாக நன்றி சொல்ல விரும்புகிறோம்.
 
-Thank you to [Barbara Markiewicz](https://twitter.com/barbara_markie), the team at [Callstack](https://www.callstack.com/), and our React Team Developer Advocate [Matt Carroll](https://twitter.com/mattcarrollcode) for helping to plan the entire event; and to [Sunny Leggett](https://zeroslopeevents.com/about) and everyone from [Zero Slope](https://zeroslopeevents.com) for helping to organize the event.
+முழு event-ஐ திட்டமிட உதவிய [Barbara Markiewicz](https://twitter.com/barbara_markie), [Callstack](https://www.callstack.com/) team, மற்றும் எங்கள் React Team Developer Advocate [Matt Carroll](https://twitter.com/mattcarrollcode)-க்கு நன்றி; event-ஐ organize செய்ய உதவிய [Sunny Leggett](https://zeroslopeevents.com/about) மற்றும் [Zero Slope](https://zeroslopeevents.com)-இல் உள்ள அனைவருக்கும் நன்றி.
 
-Thank you [Ashley Narcisse](https://twitter.com/_darkfadr) for being our MC and Chief Vibes Officer; and to [Michael Chan](https://twitter.com/chantastic) and [Jamon Holmgren](https://twitter.com/jamonholmgren) for hosting the Q&A sessions.
+எங்கள் MC மற்றும் Chief Vibes Officer ஆக இருந்த [Ashley Narcisse](https://twitter.com/_darkfadr)-க்கு நன்றி; Q&A sessions-ஐ host செய்த [Michael Chan](https://twitter.com/chantastic) மற்றும் [Jamon Holmgren](https://twitter.com/jamonholmgren)-க்கு நன்றி.
 
-Thank you [Seth Webster](https://twitter.com/sethwebster) and [Eli White](https://x.com/Eli_White) for welcoming us each day and providing direction on structure and content; and to [Tom Occhino](https://twitter.com/tomocchino) for joining us with a special message during the after-party.
+ஒவ்வொரு நாளும் எங்களை வரவேற்று structure மற்றும் content குறித்து direction வழங்கிய [Seth Webster](https://twitter.com/sethwebster) மற்றும் [Eli White](https://x.com/Eli_White)-க்கு நன்றி; after-party-இல் special message உடன் இணைந்த [Tom Occhino](https://twitter.com/tomocchino)-க்கு நன்றி.
 
-Thank you [Ricky Hanlon](https://www.youtube.com/watch?v=FxTZL2U-uKg&t=1263s) for providing detailed feedback on talks, working on slide designs, and generally filling in the gaps to sweat the details.
+Talks மீது detailed feedback வழங்கி, slide designs-இல் பணியாற்றி, பொதுவாக gaps-ஐ நிரப்பி details மீது கவனம் செலுத்திய [Ricky Hanlon](https://www.youtube.com/watch?v=FxTZL2U-uKg&t=1263s)-க்கு நன்றி.
 
-Thank you [Callstack](https://www.callstack.com/) for building the conference website; and to [Kadi Kraman](https://twitter.com/kadikraman) and the [Expo](https://expo.dev/) team for building the conference mobile app.
+Conference website உருவாக்கிய [Callstack](https://www.callstack.com/)-க்கு நன்றி; conference mobile app உருவாக்கிய [Kadi Kraman](https://twitter.com/kadikraman) மற்றும் [Expo](https://expo.dev/) team-க்கு நன்றி.
 
-Thank you to all the sponsors who made the event possible: [Remix](https://remix.run/), [Amazon](https://developer.amazon.com/apps-and-games?cmp=US_2024_05_3P_React-Conf-2024&ch=prtnr&chlast=prtnr&pub=ref&publast=ref&type=org&typelast=org), [MUI](https://mui.com/), [Sentry](https://sentry.io/for/react/?utm_source=sponsored-conf&utm_medium=sponsored-event&utm_campaign=frontend-fy25q2-evergreen&utm_content=logo-reactconf2024-learnmore), [Abbott](https://www.jobs.abbott/software), [Expo](https://expo.dev/), [RedwoodJS](https://rwsdk.com/), and [Vercel](https://vercel.com).
+இந்த நிகழ்வை சாத்தியமாக்கிய அனைத்து sponsors-க்கும் நன்றி: [Remix](https://remix.run/), [Amazon](https://developer.amazon.com/apps-and-games?cmp=US_2024_05_3P_React-Conf-2024&ch=prtnr&chlast=prtnr&pub=ref&publast=ref&type=org&typelast=org), [MUI](https://mui.com/), [Sentry](https://sentry.io/for/react/?utm_source=sponsored-conf&utm_medium=sponsored-event&utm_campaign=frontend-fy25q2-evergreen&utm_content=logo-reactconf2024-learnmore), [Abbott](https://www.jobs.abbott/software), [Expo](https://expo.dev/), [RedwoodJS](https://rwsdk.com/), மற்றும் [Vercel](https://vercel.com).
 
-Thank you to the AV Team for the visuals, stage, and sound; and to the Westin Hotel for hosting us.
+Visuals, stage, மற்றும் sound-க்காக AV Team-க்கு நன்றி; எங்களை host செய்த Westin Hotel-க்கும் நன்றி.
 
-Thank you to all the speakers who shared their knowledge and experiences with the community.
+தங்கள் அறிவையும் அனுபவங்களையும் community-யுடன் பகிர்ந்த அனைத்து speakers-க்கும் நன்றி.
 
-Finally, thank you to everyone who attended in person and online to show what makes React, React. React is more than a library, it is a community, and it was inspiring to see everyone come together to share and learn together.
+இறுதியாக, React-ஐ React ஆக்கும் விஷயம் என்ன என்பதை காட்ட in person மற்றும் online-இல் கலந்து கொண்ட அனைவருக்கும் நன்றி. React ஒரு library-யை விட அதிகம்; அது ஒரு community. எல்லோரும் ஒன்றாக வந்து பகிர்ந்து கற்றுக்கொண்டதை பார்க்க மிகவும் ஊக்கமளித்தது.
 
-See you next time!
-
+அடுத்த முறை சந்திப்போம்!

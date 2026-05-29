@@ -2,7 +2,7 @@
 title: RSC Sandbox Test
 ---
 
-## Basic Server Component {/*basic-server-component*/}
+## அடிப்படை Server Component {/*basic-server-component*/}
 
 <SandpackRSC>
 
@@ -48,7 +48,7 @@ export default function Counter() {
 
 </SandpackRSC>
 
-## Async Server Component with Suspense {/*async-suspense*/}
+## Suspense உடன் Async Server Component {/*async-suspense*/}
 
 <SandpackRSC>
 
@@ -88,9 +88,9 @@ export default async function Albums() {
 
 </SandpackRSC>
 
-## Streaming Proof {/*streaming-proof*/}
+## Streaming proof {/*streaming-proof*/}
 
-This demo proves streaming is incremental. The shell renders instantly with a `<Suspense>` fallback. After 2 seconds the async component streams in and replaces it — without re-rendering the outer content. The timestamps show the gap.
+இந்த demo streaming incremental என்பதை நிரூபிக்கிறது. Shell `<Suspense>` fallback உடன் உடனே render ஆகிறது. 2 seconds-க்கு பிறகு async component stream ஆகி வந்து, outer content re-render ஆகாமல் அதை மாற்றுகிறது. Timestamps அந்த இடைவெளியை காட்டுகின்றன.
 
 <SandpackRSC>
 
@@ -145,9 +145,9 @@ export default function Timestamp() {
 
 </SandpackRSC>
 
-## Flight Data Types {/*flight-data-types*/}
+## Flight data types {/*flight-data-types*/}
 
-This demo passes Map, Set, Date, and BigInt from a server component through the Flight stream to a client component, proving the full Flight protocol type system works end-to-end.
+இந்த demo Map, Set, Date, மற்றும் BigInt-ஐ server component-இலிருந்து Flight stream வழியாக client component-க்கு pass செய்கிறது; முழு Flight protocol type system end-to-end வேலை செய்கிறது என்பதை நிரூபிக்கிறது.
 
 <SandpackRSC>
 
@@ -206,9 +206,9 @@ export default function DataViewer({ map, set, date, big }) {
 
 </SandpackRSC>
 
-## Promise Streaming with use() {/*promise-streaming-use*/}
+## use() உடன் Promise streaming {/*promise-streaming-use*/}
 
-The server creates a promise (resolves in 2s) and passes it as a prop through a parent async component that suspends for 3s. When the parent reveals at ~3s, the promise is already resolved — so `use()` returns instantly with no inner fallback. The elapsed time should be ~3000ms (the parent's delay), not ~5000ms (which would mean the promise restarted on the client).
+Server ஒரு promise உருவாக்குகிறது (2s-இல் resolve ஆகும்) மற்றும் 3s suspend ஆகும் parent async component வழியாக அதை prop ஆக pass செய்கிறது. Parent ~3s-இல் reveal ஆகும் போது, promise ஏற்கனவே resolved ஆகிவிட்டது; ஆகவே `use()` inner fallback இல்லாமல் உடனே return செய்கிறது. Elapsed time ~3000ms (parent-ன் delay) ஆக இருக்க வேண்டும்; ~5000ms அல்ல (அப்படியானால் promise client-இல் restart ஆனது என்று அர்த்தம்).
 
 <SandpackRSC>
 
@@ -284,9 +284,9 @@ export default function UserCard({ userPromise, serverTime }) {
 
 </SandpackRSC>
 
-## Flight Data Types in Server Actions {/*flight-data-types-actions*/}
+## Server Actions-இல் Flight data types {/*flight-data-types-actions*/}
 
-This demo sends Map, Set, Date, and BigInt from a client component *to* a server action via `encodeReply`/`decodeReply`, then verifies the types survived the round trip.
+இந்த demo Map, Set, Date, மற்றும் BigInt-ஐ client component-இலிருந்து `encodeReply`/`decodeReply` மூலம் server action-க்கு அனுப்பி, பின்னர் round trip முடிந்தும் types சரியாக உள்ளனவா என்பதை verify செய்கிறது.
 
 <SandpackRSC>
 
@@ -388,9 +388,9 @@ export default function TestButton({ testTypes }) {
 
 </SandpackRSC>
 
-## Server Action Mutation + Re-render {/*action-mutation-rerender*/}
+## Server Action mutation + re-render {/*action-mutation-rerender*/}
 
-The server action mutates server-side data and returns a confirmation string. The updated list is only visible because the framework automatically re-renders the entire server component tree after the action completes — the server component re-reads the data and streams the new UI to the client.
+Server action server-side data-வை mutate செய்து confirmation string return செய்கிறது. Action முடிந்த பிறகு framework முழு server component tree-ஐ தானாக re-render செய்வதால் மட்டுமே updated list visible ஆகிறது; server component data-வை மீண்டும் read செய்து புதிய UI-ஐ client-க்கு stream செய்கிறது.
 
 <SandpackRSC>
 
@@ -487,7 +487,7 @@ export default function AddTodo({ createTodo }) {
 
 ## Inline Server Actions {/*inline-server-actions*/}
 
-Server actions defined inline inside a server component with `'use server'` on the function body. The action closes over module-level state and is passed as a prop — no separate `actions.js` file needed.
+Function body-யில் `'use server'` கொண்டு server component-க்குள் inline-ஆக define செய்யப்பட்ட server actions. Action module-level state மீது close over செய்து prop ஆக pass செய்யப்படுகிறது; தனி `actions.js` file தேவையில்லை.
 
 <SandpackRSC>
 

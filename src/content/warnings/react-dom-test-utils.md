@@ -1,34 +1,34 @@
 ---
-title: react-dom/test-utils Deprecation Warnings
+title: react-dom/test-utils ஓய்வு பெறுதல் குறித்த எச்சரிக்கைகள்
 ---
 
-## ReactDOMTestUtils.act() warning {/*reactdomtestutilsact-warning*/}
+## ReactDOMTestUtils.act() எச்சரிக்கை {/*reactdomtestutilsact-warning*/}
 
-`act` from `react-dom/test-utils` has been deprecated in favor of `act` from `react`.
+`react`-இலுள்ள `act`-ஐப் பயன்படுத்துவதற்கு ஆதரவாக, `react-dom/test-utils`-இலுள்ள `act` ஓய்வு பெறப்பட்டுள்ளது (deprecated).
 
-Before:
+முன்பு:
 
 ```js
 import {act} from 'react-dom/test-utils';
 ```
 
-After:
+இப்போது:
 
 ```js
 import {act} from 'react';
 ```
 
-## Rest of ReactDOMTestUtils APIS {/*rest-of-reactdomtestutils-apis*/}
+## மீதமுள்ள ReactDOMTestUtils APIs {/*rest-of-reactdomtestutils-apis*/}
 
-All APIs except `act` have been removed.
+`act` தவிர மற்ற அனைத்து APIs-உம் நீக்கப்பட்டுள்ளன.
 
-The React Team recommends migrating your tests to [@testing-library/react](https://testing-library.com/docs/react-testing-library/intro/) for a modern and well supported testing experience.
+நவீனமான, சிறப்பாக ஆதரிக்கப்படும் testing அனுபவத்திற்காக, உங்கள் tests-ஐ [@testing-library/react](https://testing-library.com/docs/react-testing-library/intro/)-க்கு மாற்றுமாறு React குழு பரிந்துரைக்கிறது.
 
 ### ReactDOMTestUtils.renderIntoDocument {/*reactdomtestutilsrenderintodocument*/}
 
-`renderIntoDocument` can be replaced with `render` from `@testing-library/react`.
+`renderIntoDocument`-க்குப் பதிலாக `@testing-library/react`-இலுள்ள `render`-ஐப் பயன்படுத்தலாம்.
 
-Before:
+முன்பு:
 
 ```js
 import {renderIntoDocument} from 'react-dom/test-utils';
@@ -36,7 +36,7 @@ import {renderIntoDocument} from 'react-dom/test-utils';
 renderIntoDocument(<Component />);
 ```
 
-After:
+இப்போது:
 
 ```js
 import {render} from '@testing-library/react';
@@ -46,9 +46,9 @@ render(<Component />);
 
 ### ReactDOMTestUtils.Simulate {/*reactdomtestutilssimulate*/}
 
-`Simulate` can be replaced with `fireEvent` from `@testing-library/react`.
+`Simulate`-க்குப் பதிலாக `@testing-library/react`-இலுள்ள `fireEvent`-ஐப் பயன்படுத்தலாம்.
 
-Before:
+முன்பு:
 
 ```js
 import {Simulate} from 'react-dom/test-utils';
@@ -57,7 +57,7 @@ const element = document.querySelector('button');
 Simulate.click(element);
 ```
 
-After:
+இப்போது:
 
 ```js
 import {fireEvent} from '@testing-library/react';
@@ -66,9 +66,9 @@ const element = document.querySelector('button');
 fireEvent.click(element);
 ```
 
-Be aware that `fireEvent` dispatches an actual event on the element and doesn't just synthetically call the event handler.
+`fireEvent`, event handler-ஐ செயற்கையாக அழைப்பது மட்டுமல்லாமல், அந்தக் கூறில் உண்மையான event ஒன்றை dispatch செய்கிறது என்பதை நினைவில் கொள்ளவும்.
 
-### List of all removed APIs {/*list-of-all-removed-apis-list-of-all-removed-apis*/}
+### நீக்கப்பட்ட அனைத்து APIs-இன் பட்டியல் {/*list-of-all-removed-apis-list-of-all-removed-apis*/}
 
 - `mockComponent()`
 - `isElement()`

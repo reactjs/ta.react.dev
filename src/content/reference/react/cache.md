@@ -4,13 +4,13 @@ title: cache
 
 <RSC>
 
-`cache` is only for use with [React Server Components](/reference/rsc/server-components).
+`cache` [React Server Components](/reference/rsc/server-components) உடன் மட்டுமே பயன்படுத்தப்பட வேண்டும்.
 
 </RSC>
 
 <Intro>
 
-`cache` lets you cache the result of a data fetch or computation.
+Data fetch அல்லது computation-ன் result-ஐ cache செய்ய `cache` உதவுகிறது.
 
 ```js
 const cachedFn = cache(fn);
@@ -22,11 +22,11 @@ const cachedFn = cache(fn);
 
 ---
 
-## Reference {/*reference*/}
+## குறிப்பு {/*reference*/}
 
 ### `cache(fn)` {/*cache*/}
 
-Call `cache` outside of any components to create a version of the function with caching.
+Caching கொண்ட function version ஒன்றை உருவாக்க, எந்த components-க்கும் வெளியே `cache` call செய்யவும்.
 
 ```js {4,7}
 import {cache} from 'react';
@@ -40,40 +40,40 @@ function Chart({data}) {
 }
 ```
 
-When `getMetrics` is first called with `data`, `getMetrics` will call `calculateMetrics(data)` and store the result in cache. If `getMetrics` is called again with the same `data`, it will return the cached result instead of calling `calculateMetrics(data)` again.
+`getMetrics` முதல் முறையாக `data` உடன் call செய்யப்படும்போது, `getMetrics` `calculateMetrics(data)`-ஐ call செய்து result-ஐ cache-இல் store செய்யும். அதே `data` உடன் `getMetrics` மீண்டும் call செய்யப்பட்டால், `calculateMetrics(data)`-ஐ மீண்டும் call செய்வதற்கு பதிலாக cached result-ஐ return செய்யும்.
 
-[See more examples below.](#usage)
+[மேலும் examples-ஐ கீழே பார்க்கவும்.](#usage)
 
 #### Parameters {/*parameters*/}
 
-- `fn`: The function you want to cache results for. `fn` can take any arguments and return any value.
+- `fn`: Results cache செய்ய வேண்டிய function. `fn` எந்த arguments-யும் எடுக்கலாம், எந்த value-யும் return செய்யலாம்.
 
 #### Returns {/*returns*/}
 
-`cache` returns a cached version of `fn` with the same type signature. It does not call `fn` in the process.
+`cache`, அதே type signature உடன் `fn`-ன் cached version-ஐ return செய்கிறது. இந்த process-இல் அது `fn`-ஐ call செய்யாது.
 
-When calling `cachedFn` with given arguments, it first checks if a cached result exists in the cache. If a cached result exists, it returns the result. If not, it calls `fn` with the arguments, stores the result in the cache, and returns the result. The only time `fn` is called is when there is a cache miss.
+கொடுக்கப்பட்ட arguments உடன் `cachedFn` call செய்யும்போது, முதலில் cached result cache-இல் உள்ளதா என்று check செய்கிறது. Cached result இருந்தால், result-ஐ return செய்கிறது. இல்லையெனில், arguments உடன் `fn`-ஐ call செய்து, result-ஐ cache-இல் store செய்து, result-ஐ return செய்கிறது. Cache miss இருந்தால் மட்டுமே `fn` call செய்யப்படும்.
 
 <Note>
 
-The optimization of caching return values based on inputs is known as [_memoization_](https://en.wikipedia.org/wiki/Memoization). We refer to the function returned from `cache` as a memoized function.
+Inputs அடிப்படையில் return values cache செய்வதற்கான optimization [_memoization_](https://en.wikipedia.org/wiki/Memoization) என்று அறியப்படுகிறது. `cache` return செய்யும் function-ஐ memoized function என்று குறிப்பிடுகிறோம்.
 
 </Note>
 
-#### Caveats {/*caveats*/}
+#### கவனிக்க வேண்டியவை {/*caveats*/}
 
-- React will invalidate the cache for all memoized functions for each server request.
-- Each call to `cache` creates a new function. This means that calling `cache` with the same function multiple times will return different memoized functions that do not share the same cache.
-- `cachedFn` will also cache errors. If `fn` throws an error for certain arguments, it will be cached, and the same error is re-thrown when `cachedFn` is called with those same arguments.
-- `cache` is for use in [Server Components](/reference/rsc/server-components) only.
+- ஒவ்வொரு server request-க்கும் அனைத்து memoized functions-க்கான cache-ஐ React invalidate செய்யும்.
+- `cache`-க்கு ஒவ்வொரு call-உம் புதிய function உருவாக்கும். அதாவது அதே function உடன் `cache`-ஐ பல முறை call செய்தால், ஒரே cache-ஐ share செய்யாத வேறு memoized functions return ஆகும்.
+- `cachedFn` errors-ஐயும் cache செய்யும். சில arguments-க்கு `fn` error throw செய்தால், அது cached ஆகி, அதே arguments உடன் `cachedFn` call செய்யும்போது அதே error மீண்டும் throw செய்யப்படும்.
+- `cache` [Server Components](/reference/rsc/server-components)-இல் மட்டுமே பயன்படுத்தப்பட வேண்டும்.
 
 ---
 
-## Usage {/*usage*/}
+## பயன்பாடு {/*usage*/}
 
-### Cache an expensive computation {/*cache-expensive-computation*/}
+### செலவான computation ஒன்றை cache செய்தல் {/*cache-expensive-computation*/}
 
-Use `cache` to skip duplicate work.
+Duplicate work தவிர்க்க `cache` பயன்படுத்தவும்.
 
 ```js [[1, 7, "getUserMetrics(user)"],[2, 13, "getUserMetrics(user)"]]
 import {cache} from 'react';
@@ -95,19 +95,19 @@ function TeamReport({users}) {
 }
 ```
 
-If the same `user` object is rendered in both `Profile` and `TeamReport`, the two components can share work and only call `calculateUserMetrics` once for that `user`.
+அதே `user` object `Profile` மற்றும் `TeamReport` இரண்டிலும் rendered ஆனால், இரண்டு components வேலை share செய்து அந்த `user`-க்காக `calculateUserMetrics`-ஐ ஒருமுறை மட்டுமே call செய்யலாம்.
 
-Assume `Profile` is rendered first. It will call <CodeStep step={1}>`getUserMetrics`</CodeStep>, and check if there is a cached result. Since it is the first time `getUserMetrics` is called with that `user`, there will be a cache miss. `getUserMetrics` will then call `calculateUserMetrics` with that `user` and write the result to cache.
+`Profile` முதலில் rendered ஆகிறது என்று நினைத்துக் கொள்ளுங்கள். அது <CodeStep step={1}>`getUserMetrics`</CodeStep>-ஐ call செய்து cached result உள்ளதா என்று check செய்யும். அந்த `user` உடன் `getUserMetrics` call செய்யப்படுவது இதுவே முதல் முறை என்பதால் cache miss இருக்கும். பின்னர் `getUserMetrics` அந்த `user` உடன் `calculateUserMetrics`-ஐ call செய்து result-ஐ cache-க்கு write செய்யும்.
 
-When `TeamReport` renders its list of `users` and reaches the same `user` object, it will call <CodeStep step={2}>`getUserMetrics`</CodeStep> and read the result from cache.
+`TeamReport` அதன் `users` list-ஐ render செய்து அதே `user` object-ஐ அடையும் போது, அது <CodeStep step={2}>`getUserMetrics`</CodeStep>-ஐ call செய்து cache-இலிருந்து result-ஐ படிக்கும்.
 
-If `calculateUserMetrics` can be aborted by passing an [`AbortSignal`](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal), you can use [`cacheSignal()`](/reference/react/cacheSignal) to cancel the expensive computation if React has finished rendering. `calculateUserMetrics` may already handle cancellation internally by using `cacheSignal` directly.
+[`AbortSignal`](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) pass செய்வதன் மூலம் `calculateUserMetrics` abort செய்யக்கூடியதாக இருந்தால், React rendering முடித்துவிட்டபின் செலவான computation-ஐ cancel செய்ய [`cacheSignal()`](/reference/react/cacheSignal) பயன்படுத்தலாம். `calculateUserMetrics` ஏற்கனவே `cacheSignal`-ஐ நேரடியாகப் பயன்படுத்தி cancellation-ஐ internally handle செய்திருக்கலாம்.
 
 <Pitfall>
 
-##### Calling different memoized functions will read from different caches. {/*pitfall-different-memoized-functions*/}
+##### வேறு memoized functions-ஐ call செய்தால் வேறு caches-இலிருந்து படிக்கும். {/*pitfall-different-memoized-functions*/}
 
-To access the same cache, components must call the same memoized function.
+அதே cache-ஐ access செய்ய, components அதே memoized function-ஐ call செய்ய வேண்டும்.
 
 ```js [[1, 7, "getWeekReport"], [1, 7, "cache(calculateWeekReport)"], [1, 8, "getWeekReport"]]
 // Temperature.js
@@ -136,11 +136,11 @@ export function Precipitation({cityData}) {
 }
 ```
 
-In the above example, <CodeStep step={2}>`Precipitation`</CodeStep> and <CodeStep step={1}>`Temperature`</CodeStep> each call `cache` to create a new memoized function with their own cache look-up. If both components render for the same `cityData`, they will do duplicate work to call `calculateWeekReport`.
+மேலுள்ள example-இல், <CodeStep step={2}>`Precipitation`</CodeStep> மற்றும் <CodeStep step={1}>`Temperature`</CodeStep> இரண்டும் தங்களுக்கே உரிய cache look-up கொண்ட புதிய memoized function உருவாக்க `cache` call செய்கின்றன. இரண்டு components-உம் அதே `cityData`-க்காக render ஆனால், `calculateWeekReport` call செய்ய duplicate work செய்வார்கள்.
 
-In addition, `Temperature` creates a <CodeStep step={1}>new memoized function</CodeStep> each time the component is rendered which doesn't allow for any cache sharing.
+மேலும், component render ஆகும் ஒவ்வொரு முறையும் `Temperature` <CodeStep step={1}>புதிய memoized function</CodeStep> உருவாக்குகிறது; இதனால் cache sharing சாத்தியமில்லை.
 
-To maximize cache hits and reduce work, the two components should call the same memoized function to access the same cache. Instead, define the memoized function in a dedicated module that can be [`import`-ed](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import) across components.
+Cache hits அதிகரிக்கவும் வேலை குறைக்கவும், இரண்டு components அதே cache-ஐ access செய்ய அதே memoized function-ஐ call செய்ய வேண்டும். அதற்கு, components முழுவதும் [`import` செய்யக்கூடிய](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import) dedicated module ஒன்றில் memoized function-ஐ define செய்யவும்.
 
 ```js [[3, 5, "export default cache(calculateWeekReport)"]]
 // getWeekReport.js
@@ -155,7 +155,7 @@ export default cache(calculateWeekReport);
 import getWeekReport from './getWeekReport';
 
 export default function Temperature({cityData}) {
-	const report = getWeekReport(cityData);
+  const report = getWeekReport(cityData);
   // ...
 }
 ```
@@ -169,56 +169,58 @@ export default function Precipitation({cityData}) {
   // ...
 }
 ```
-Here, both components call the <CodeStep step={3}>same memoized function</CodeStep> exported from `./getWeekReport.js` to read and write to the same cache.
+
+இங்கே, இரண்டு components-உம் `./getWeekReport.js`-இலிருந்து exported ஆகும் <CodeStep step={3}>அதே memoized function</CodeStep>-ஐ call செய்து அதே cache-இல் read மற்றும் write செய்கின்றன.
+
 </Pitfall>
 
-### Share a snapshot of data {/*take-and-share-snapshot-of-data*/}
+### Data snapshot ஒன்றை share செய்தல் {/*take-and-share-snapshot-of-data*/}
 
-To share a snapshot of data between components, call `cache` with a data-fetching function like `fetch`. When multiple components make the same data fetch, only one request is made and the data returned is cached and shared across components. All components refer to the same snapshot of data across the server render.
+Components இடையே data snapshot ஒன்றை share செய்ய, `fetch` போன்ற data-fetching function உடன் `cache` call செய்யவும். பல components அதே data fetch செய்தால், ஒரு request மட்டும் செய்யப்படும்; return ஆன data cached ஆகி components முழுவதும் shared ஆகும். Server render முழுவதும் அனைத்து components-உம் அதே data snapshot-ஐ refer செய்கின்றன.
 
 ```js [[1, 4, "city"], [1, 5, "fetchTemperature(city)"], [2, 4, "getTemperature"], [2, 9, "getTemperature"], [1, 9, "city"], [2, 14, "getTemperature"], [1, 14, "city"]]
 import {cache} from 'react';
 import {fetchTemperature} from './api.js';
 
 const getTemperature = cache(async (city) => {
-	return await fetchTemperature(city);
+  return await fetchTemperature(city);
 });
 
 async function AnimatedWeatherCard({city}) {
-	const temperature = await getTemperature(city);
-	// ...
+  const temperature = await getTemperature(city);
+  // ...
 }
 
 async function MinimalWeatherCard({city}) {
-	const temperature = await getTemperature(city);
-	// ...
+  const temperature = await getTemperature(city);
+  // ...
 }
 ```
 
-If `AnimatedWeatherCard` and `MinimalWeatherCard` both render for the same <CodeStep step={1}>city</CodeStep>, they will receive the same snapshot of data from the <CodeStep step={2}>memoized function</CodeStep>.
+`AnimatedWeatherCard` மற்றும் `MinimalWeatherCard` இரண்டும் அதே <CodeStep step={1}>city</CodeStep>-க்காக render ஆனால், <CodeStep step={2}>memoized function</CodeStep>-இலிருந்து அதே data snapshot-ஐ பெறும்.
 
-If `AnimatedWeatherCard` and `MinimalWeatherCard` supply different <CodeStep step={1}>city</CodeStep> arguments to <CodeStep step={2}>`getTemperature`</CodeStep>, then `fetchTemperature` will be called twice and each call site will receive different data.
+`AnimatedWeatherCard` மற்றும் `MinimalWeatherCard` வேறு <CodeStep step={1}>city</CodeStep> arguments-ஐ <CodeStep step={2}>`getTemperature`</CodeStep>-க்கு வழங்கினால், `fetchTemperature` இரண்டு முறை call செய்யப்படும்; ஒவ்வொரு call site-உம் வேறு data பெறும்.
 
-The <CodeStep step={1}>city</CodeStep> acts as a cache key.
+<CodeStep step={1}>city</CodeStep> cache key ஆக செயல்படுகிறது.
 
 <Note>
 
-<CodeStep step={3}>Asynchronous rendering</CodeStep> is only supported for Server Components.
+<CodeStep step={3}>Asynchronous rendering</CodeStep> Server Components-க்கு மட்டுமே supported.
 
 ```js [[3, 1, "async"], [3, 2, "await"]]
 async function AnimatedWeatherCard({city}) {
-	const temperature = await getTemperature(city);
-	// ...
+  const temperature = await getTemperature(city);
+  // ...
 }
 ```
 
-To render components that use asynchronous data in Client Components, see [`use()` documentation](/reference/react/use).
+Asynchronous data பயன்படுத்தும் components-ஐ Client Components-இல் render செய்ய, [`use()` documentation](/reference/react/use)-ஐ பார்க்கவும்.
 
 </Note>
 
-### Preload data {/*preload-data*/}
+### Data-ஐ preload செய்தல் {/*preload-data*/}
 
-By caching a long-running data fetch, you can kick off asynchronous work prior to rendering the component.
+நேரம் எடுக்கும் data fetch ஒன்றை cache செய்வதன் மூலம், component render ஆகும்முன் asynchronous work-ஐ தொடங்கலாம்.
 
 ```jsx [[2, 6, "await getUser(id)"], [1, 17, "getUser(id)"]]
 const getUser = cache(async (id) => {
@@ -247,17 +249,17 @@ function Page({id}) {
 }
 ```
 
-When rendering `Page`, the component calls <CodeStep step={1}>`getUser`</CodeStep> but note that it doesn't use the returned data. This early <CodeStep step={1}>`getUser`</CodeStep> call kicks off the asynchronous database query that occurs while `Page` is doing other computational work and rendering children.
+`Page` render ஆகும்போது, component <CodeStep step={1}>`getUser`</CodeStep>-ஐ call செய்கிறது; ஆனால் return ஆன data-வை அது பயன்படுத்தவில்லை என்பதை கவனிக்கவும். இந்த early <CodeStep step={1}>`getUser`</CodeStep> call, `Page` மற்ற computational work செய்து children render செய்யும் போது நடக்கும் asynchronous database query-ஐ தொடங்குகிறது.
 
-When rendering `Profile`, we call <CodeStep step={2}>`getUser`</CodeStep> again. If the initial <CodeStep step={1}>`getUser`</CodeStep> call has already returned and cached the user data, when `Profile` <CodeStep step={2}>asks and waits for this data</CodeStep>, it can simply read from the cache without requiring another remote procedure call. If the <CodeStep step={1}> initial data request</CodeStep> hasn't been completed, preloading data in this pattern reduces delay in data-fetching.
+`Profile` render ஆகும்போது, நாம் <CodeStep step={2}>`getUser`</CodeStep>-ஐ மீண்டும் call செய்கிறோம். Initial <CodeStep step={1}>`getUser`</CodeStep> call ஏற்கனவே return செய்து user data-வை cache செய்திருந்தால், `Profile` <CodeStep step={2}>இந்த data-வை கேட்டு காத்திருக்கும்போது</CodeStep>, மற்றொரு remote procedure call தேவைப்படாமல் cache-இலிருந்து நேரடியாகப் படிக்க முடியும். <CodeStep step={1}>Initial data request</CodeStep> இன்னும் முடிவடையவில்லை என்றால், இந்த pattern-இல் data preload செய்வது data-fetching delay-ஐ குறைக்கும்.
 
 <DeepDive>
 
-#### Caching asynchronous work {/*caching-asynchronous-work*/}
+#### Asynchronous work-ஐ cache செய்தல் {/*caching-asynchronous-work*/}
 
-When evaluating an [asynchronous function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function), you will receive a [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) for that work. The promise holds the state of that work (_pending_, _fulfilled_, _failed_) and its eventual settled result.
+[Asynchronous function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function) ஒன்றை evaluate செய்யும்போது, அந்த work-க்கான [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) கிடைக்கும். Promise அந்த work-ன் state-ஐ (_pending_, _fulfilled_, _failed_) மற்றும் இறுதியில் settle ஆன result-ஐ வைத்திருக்கும்.
 
-In this example, the asynchronous function <CodeStep step={1}>`fetchData`</CodeStep> returns a promise that is awaiting the `fetch`.
+இந்த example-இல், asynchronous function <CodeStep step={1}>`fetchData`</CodeStep> `fetch`-ஐ await செய்யும் promise ஒன்றை return செய்கிறது.
 
 ```js [[1, 1, "fetchData()"], [2, 8, "getData()"], [3, 10, "getData()"]]
 async function fetchData() {
@@ -274,18 +276,19 @@ async function MyComponent() {
 }
 ```
 
-In calling <CodeStep step={2}>`getData`</CodeStep> the first time, the promise returned from <CodeStep step={1}>`fetchData`</CodeStep> is cached. Subsequent look-ups will then return the same promise.
+முதல் முறையாக <CodeStep step={2}>`getData`</CodeStep> call செய்யும்போது, <CodeStep step={1}>`fetchData`</CodeStep> return செய்த promise cached ஆகிறது. பின்னர் வரும் look-ups அதே promise-ஐ return செய்யும்.
 
-Notice that the first <CodeStep step={2}>`getData`</CodeStep> call does not `await` whereas the <CodeStep step={3}>second</CodeStep> does. [`await`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await) is a JavaScript operator that will wait and return the settled result of the promise. The first <CodeStep step={2}>`getData`</CodeStep> call simply initiates the `fetch` to cache the promise for the second <CodeStep step={3}>`getData`</CodeStep> to look-up.
+முதல் <CodeStep step={2}>`getData`</CodeStep> call `await` செய்யவில்லை; ஆனால் <CodeStep step={3}>இரண்டாவது</CodeStep> call செய்கிறது என்பதை கவனிக்கவும். [`await`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await) என்பது promise-ன் settled result-ஐ காத்திருந்து return செய்யும் JavaScript operator. முதல் <CodeStep step={2}>`getData`</CodeStep> call, இரண்டாவது <CodeStep step={3}>`getData`</CodeStep> look-up செய்ய promise cache ஆகும் வகையில் `fetch`-ஐ தொடங்குவதற்கே செய்கிறது.
 
-If by the <CodeStep step={3}>second call</CodeStep> the promise is still _pending_, then `await` will pause for the result. The optimization is that while we wait on the `fetch`, React can continue with computational work, thus reducing the wait time for the <CodeStep step={3}>second call</CodeStep>.
+<CodeStep step={3}>இரண்டாவது call</CodeStep> நேரத்தில் promise இன்னும் _pending_ ஆக இருந்தால், `await` result-க்காக pause செய்யும். Optimization என்னவென்றால், `fetch` காத்திருக்கும் போது React computational work தொடர முடியும்; இதனால் <CodeStep step={3}>இரண்டாவது call</CodeStep>-க்கான wait time குறையும்.
 
-If the promise is already settled, either to an error or the _fulfilled_ result, `await` will return that value immediately. In both outcomes, there is a performance benefit.
+Promise ஏற்கனவே error ஆகவோ _fulfilled_ result ஆகவோ settled ஆக இருந்தால், `await` அந்த value-ஐ உடனடியாக return செய்யும். இரண்டு outcomes-இலும் performance benefit உள்ளது.
+
 </DeepDive>
 
 <Pitfall>
 
-##### Calling a memoized function outside of a component will not use the cache. {/*pitfall-memoized-call-outside-component*/}
+##### Component-க்கு வெளியே memoized function call செய்தால் cache பயன்படுத்தப்படாது. {/*pitfall-memoized-call-outside-component*/}
 
 ```jsx [[1, 3, "getUser"]]
 import {cache} from 'react';
@@ -304,21 +307,21 @@ async function DemoProfile() {
 }
 ```
 
-React only provides cache access to the memoized function in a component. When calling <CodeStep step={1}>`getUser`</CodeStep> outside of a component, it will still evaluate the function but not read or update the cache.
+Component-இல் உள்ள memoized function-க்கு மட்டுமே React cache access வழங்குகிறது. Component-க்கு வெளியே <CodeStep step={1}>`getUser`</CodeStep> call செய்தால், அது function-ஐ evaluate செய்தாலும் cache-ஐ படிக்கவோ update செய்யவோ செய்யாது.
 
-This is because cache access is provided through a [context](/learn/passing-data-deeply-with-context) which is only accessible from a component.
+இதற்குக் காரணம் cache access [context](/learn/passing-data-deeply-with-context) மூலம் வழங்கப்படுகிறது; அது component-இலிருந்தே accessible.
 
 </Pitfall>
 
 <DeepDive>
 
-#### When should I use `cache`, [`memo`](/reference/react/memo), or [`useMemo`](/reference/react/useMemo)? {/*cache-memo-usememo*/}
+#### `cache`, [`memo`](/reference/react/memo), அல்லது [`useMemo`](/reference/react/useMemo) எப்போது பயன்படுத்த வேண்டும்? {/*cache-memo-usememo*/}
 
-All mentioned APIs offer memoization but the difference is what they're intended to memoize, who can access the cache, and when their cache is invalidated.
+குறிப்பிடப்பட்ட அனைத்து APIs-உம் memoization வழங்குகின்றன; ஆனால் வேறுபாடு, அவை எதை memoize செய்ய நோக்கமுடையவை, cache-ஐ யார் access செய்ய முடியும், அவற்றின் cache எப்போது invalidated ஆகிறது என்பதில் உள்ளது.
 
 #### `useMemo` {/*deep-dive-use-memo*/}
 
-In general, you should use [`useMemo`](/reference/react/useMemo) for caching an expensive computation in a Client Component across renders. As an example, to memoize a transformation of data within a component.
+பொதுவாக, Client Component-இல் renders முழுவதும் செலவான computation ஒன்றை cache செய்ய [`useMemo`](/reference/react/useMemo) பயன்படுத்த வேண்டும். உதாரணமாக, component-க்குள் data transformation ஒன்றை memoize செய்ய.
 
 ```jsx {expectedErrors: {'react-compiler': [4]}} {4}
 'use client';
@@ -338,13 +341,14 @@ function App() {
   );
 }
 ```
-In this example, `App` renders two `WeatherReport`s with the same record. Even though both components do the same work, they cannot share work. `useMemo`'s cache is only local to the component.
 
-However, `useMemo` does ensure that if `App` re-renders and the `record` object doesn't change, each component instance would skip work and use the memoized value of `avgTemp`. `useMemo` will only cache the last computation of `avgTemp` with the given dependencies.
+இந்த example-இல், `App` அதே record உடன் இரண்டு `WeatherReport`-களை render செய்கிறது. இரண்டு components-உம் அதே வேலை செய்தாலும், அவை work share செய்ய முடியாது. `useMemo`-ன் cache component-க்கு local மட்டுமே.
+
+ஆனால் `App` re-render ஆகி `record` object மாறவில்லை என்றால், ஒவ்வொரு component instance-உம் work skip செய்து `avgTemp`-ன் memoized value-ஐப் பயன்படுத்தும் என்பதை `useMemo` உறுதிசெய்கிறது. கொடுக்கப்பட்ட dependencies உடன் `avgTemp`-ன் கடைசி computation-ஐ மட்டுமே `useMemo` cache செய்யும்.
 
 #### `cache` {/*deep-dive-cache*/}
 
-In general, you should use `cache` in Server Components to memoize work that can be shared across components.
+பொதுவாக, components முழுவதும் share செய்யக்கூடிய work-ஐ memoize செய்ய Server Components-இல் `cache` பயன்படுத்த வேண்டும்.
 
 ```js [[1, 12, "<WeatherReport city={city} />"], [3, 13, "<WeatherReport city={city} />"], [2, 1, "cache(fetchReport)"]]
 const cachedFetchReport = cache(fetchReport);
@@ -364,13 +368,14 @@ function App() {
   );
 }
 ```
-Re-writing the previous example to use `cache`, in this case the <CodeStep step={3}>second instance of `WeatherReport`</CodeStep> will be able to skip duplicate work and read from the same cache as the <CodeStep step={1}>first `WeatherReport`</CodeStep>. Another difference from the previous example is that `cache` is also recommended for <CodeStep step={2}>memoizing data fetches</CodeStep>, unlike `useMemo` which should only be used for computations.
 
-At this time, `cache` should only be used in Server Components and the cache will be invalidated across server requests.
+முந்தைய example-ஐ `cache` பயன்படுத்தி மீண்டும் எழுதினால், இந்த case-இல் <CodeStep step={3}>`WeatherReport`-ன் இரண்டாவது instance</CodeStep>, duplicate work-ஐ skip செய்து <CodeStep step={1}>முதல் `WeatherReport`</CodeStep> போல அதே cache-இலிருந்து read செய்ய முடியும். முந்தைய example-இலிருந்து இன்னொரு வேறுபாடு: computations-க்கு மட்டுமே பயன்படுத்தப்பட வேண்டிய `useMemo`-வுக்கு மாறாக, <CodeStep step={2}>data fetches-ஐ memoize செய்யவும்</CodeStep> `cache` பரிந்துரைக்கப்படுகிறது.
+
+தற்போது, `cache` Server Components-இல் மட்டுமே பயன்படுத்தப்பட வேண்டும்; cache server requests முழுவதும் invalidated ஆகும்.
 
 #### `memo` {/*deep-dive-memo*/}
 
-You should use [`memo`](reference/react/memo) to prevent a component re-rendering if its props are unchanged.
+Props மாறாதபோது component re-render ஆகாமல் தடுக்க [`memo`](/reference/react/memo) பயன்படுத்த வேண்டும்.
 
 ```js
 'use client';
@@ -393,9 +398,9 @@ function App() {
 }
 ```
 
-In this example, both `MemoWeatherReport` components will call `calculateAvg` when first rendered. However, if `App` re-renders, with no changes to `record`, none of the props have changed and `MemoWeatherReport` will not re-render.
+இந்த example-இல், இரண்டு `MemoWeatherReport` components-உம் முதலில் render ஆகும்போது `calculateAvg` call செய்யும். ஆனால் `record` மாறாமல் `App` re-render ஆனால், props எதுவும் மாறவில்லை; ஆகவே `MemoWeatherReport` re-render ஆகாது.
 
-Compared to `useMemo`, `memo` memoizes the component render based on props vs. specific computations. Similar to `useMemo`, the memoized component only caches the last render with the last prop values. Once the props change, the cache invalidates and the component re-renders.
+`useMemo`-வுடன் ஒப்பிடும்போது, `memo` குறிப்பிட்ட computations-ஐ விட props அடிப்படையில் component render-ஐ memoize செய்கிறது. `useMemo` போலவே, memoized component கடைசி prop values உடன் கடைசி render-ஐ மட்டுமே cache செய்கிறது. Props மாறியவுடன், cache invalidate ஆகி component re-render ஆகும்.
 
 </DeepDive>
 
@@ -403,17 +408,17 @@ Compared to `useMemo`, `memo` memoizes the component render based on props vs. s
 
 ## Troubleshooting {/*troubleshooting*/}
 
-### My memoized function still runs even though I've called it with the same arguments {/*memoized-function-still-runs*/}
+### அதே arguments உடன் call செய்திருந்தாலும் என் memoized function இன்னும் run ஆகிறது {/*memoized-function-still-runs*/}
 
-See prior mentioned pitfalls
-* [Calling different memoized functions will read from different caches.](#pitfall-different-memoized-functions)
-* [Calling a memoized function outside of a component will not use the cache.](#pitfall-memoized-call-outside-component)
+முன்பு குறிப்பிடப்பட்ட pitfalls-ஐ பார்க்கவும்:
+* [வேறு memoized functions-ஐ call செய்தால் வேறு caches-இலிருந்து படிக்கும்.](#pitfall-different-memoized-functions)
+* [Component-க்கு வெளியே memoized function call செய்தால் cache பயன்படுத்தப்படாது.](#pitfall-memoized-call-outside-component)
 
-If none of the above apply, it may be a problem with how React checks if something exists in cache.
+மேலுள்ளவை எதுவும் பொருந்தாவிட்டால், cache-இல் ஏதாவது இருக்கிறதா என்று React check செய்வது எப்படி என்பதில் சிக்கல் இருக்கலாம்.
 
-If your arguments are not [primitives](https://developer.mozilla.org/en-US/docs/Glossary/Primitive) (ex. objects, functions, arrays), ensure you're passing the same object reference.
+உங்கள் arguments [primitives](https://developer.mozilla.org/en-US/docs/Glossary/Primitive) அல்லாவிட்டால் (எ.கா. objects, functions, arrays), அதே object reference pass செய்கிறீர்கள் என்பதை உறுதிசெய்யவும்.
 
-When calling a memoized function, React will look up the input arguments to see if a result is already cached. React will use shallow equality of the arguments to determine if there is a cache hit.
+Memoized function call செய்யும்போது, result ஏற்கனவே cached ஆக உள்ளதா என்று பார்க்க React input arguments-ஐ look up செய்யும். Cache hit உள்ளதா என்பதை தீர்மானிக்க React arguments-ன் shallow equality-ஐ பயன்படுத்தும்.
 
 ```js
 import {cache} from 'react';
@@ -438,9 +443,9 @@ function App() {
 }
 ```
 
-In this case the two `MapMarker`s look like they're doing the same work and calling `calculateNorm` with the same value of `{x: 10, y: 10, z:10}`. Even though the objects contain the same values, they are not the same object reference as each component creates its own `props` object.
+இந்த case-இல், இரண்டு `MapMarker`-களும் அதே வேலை செய்கிறதுபோல், `{x: 10, y: 10, z:10}` என்ற அதே value உடன் `calculateNorm` call செய்கிறதுபோல் தெரியும். Objects அதே values கொண்டிருந்தாலும், ஒவ்வொரு component-உம் தனது சொந்த `props` object உருவாக்குவதால் அவை அதே object reference அல்ல.
 
-React will call [`Object.is`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is) on the input to verify if there is a cache hit.
+Cache hit உள்ளதா என்பதை verify செய்ய React input மீது [`Object.is`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is) call செய்யும்.
 
 ```js {3,9}
 import {cache} from 'react';
@@ -465,9 +470,9 @@ function App() {
 }
 ```
 
-One way to address this could be to pass the vector dimensions to `calculateNorm`. This works because the dimensions themselves are primitives.
+இதைக் கையாள ஒரு வழி, vector dimensions-ஐ `calculateNorm`-க்கு pass செய்வதாக இருக்கலாம். இது வேலை செய்கிறது, ஏனெனில் dimensions தாமே primitives.
 
-Another solution may be to pass the vector object itself as a prop to the component. We'll need to pass the same object to both component instances.
+மற்றொரு solution, vector object-ஐ component-க்கு prop ஆக pass செய்வதாக இருக்கலாம். இரண்டு component instances-க்கும் அதே object-ஐ pass செய்ய வேண்டும்.
 
 ```js {3,9,14}
 import {cache} from 'react';

@@ -1,41 +1,41 @@
 ---
-title: Understanding Your UI as a Tree
+title: உங்கள் UI-ஐ tree ஆகப் புரிந்துகொள்ளுதல்
 ---
 
 <Intro>
 
-Your React app is taking shape with many components being nested within each other. How does React keep track of your app's component structure?
+உங்கள் React app, பல components ஒன்றுக்குள் ஒன்று nested ஆகி வடிவம் பெறுகிறது. உங்கள் app-ன் component structure-ஐ React எப்படி track செய்கிறது?
 
-React, and many other UI libraries, model UI as a tree. Thinking of your app as a tree is useful for understanding the relationship between components. This understanding will help you debug future concepts like performance and state management.
+React மற்றும் பல UI libraries, UI-ஐ tree ஆக model செய்கின்றன. உங்கள் app-ஐ tree ஆக சிந்திப்பது components இடையிலான உறவைப் புரிந்துகொள்ள பயனுள்ளதாகும். இந்த புரிதல் performance மற்றும் state management போன்ற எதிர்கால concepts-ஐ debug செய்ய உதவும்.
 
 </Intro>
 
 <YouWillLearn>
 
-* How React "sees" component structures
-* What a render tree is and what it is useful for
-* What a module dependency tree is and what it is useful for
+* Component structures-ஐ React எப்படி "பார்க்கிறது"
+* Render tree என்றால் என்ன, அது எதற்கு பயனுள்ளது
+* Module dependency tree என்றால் என்ன, அது எதற்கு பயனுள்ளது
 
 </YouWillLearn>
 
-## Your UI as a tree {/*your-ui-as-a-tree*/}
+## உங்கள் UI ஒரு tree ஆக {/*your-ui-as-a-tree*/}
 
-Trees are a relationship model between items. The UI is often represented using tree structures. For example, browsers use tree structures to model HTML ([DOM](https://developer.mozilla.org/docs/Web/API/Document_Object_Model/Introduction)) and CSS ([CSSOM](https://developer.mozilla.org/docs/Web/API/CSS_Object_Model)). Mobile platforms also use trees to represent their view hierarchy.
+Trees என்பது items இடையிலான relationship model. UI பெரும்பாலும் tree structures மூலம் represent செய்யப்படுகிறது. உதாரணமாக, browsers HTML ([DOM](https://developer.mozilla.org/docs/Web/API/Document_Object_Model/Introduction)) மற்றும் CSS ([CSSOM](https://developer.mozilla.org/docs/Web/API/CSS_Object_Model)) model செய்ய tree structures பயன்படுத்துகின்றன. Mobile platforms-யும் தங்களின் view hierarchy-ஐ represent செய்ய trees பயன்படுத்துகின்றன.
 
-<Diagram name="preserving_state_dom_tree" height={193} width={864} alt="Diagram with three sections arranged horizontally. In the first section, there are three rectangles stacked vertically, with labels 'Component A', 'Component B', and 'Component C'. Transitioning to the next pane is an arrow with the React logo on top labeled 'React'. The middle section contains a tree of components, with the root labeled 'A' and two children labeled 'B' and 'C'. The next section is again transitioned using an arrow with the React logo on top labeled 'React DOM'. The third and final section is a wireframe of a browser, containing a tree of 8 nodes, which has only a subset highlighted (indicating the subtree from the middle section).">
+<Diagram name="preserving_state_dom_tree" height={193} width={864} alt="கிடைமட்டமாக அமைக்கப்பட்ட மூன்று sections கொண்ட diagram. முதல் section-இல், 'Component A', 'Component B', மற்றும் 'Component C' labels கொண்ட மூன்று rectangles vertically stacked ஆக உள்ளன. அடுத்த pane-க்கு செல்லும் arrow மேல் React logo உள்ளது, அது 'React' என label செய்யப்பட்டிருக்கிறது. நடுப்பகுதியில் components tree உள்ளது; root 'A' எனவும் இரண்டு children 'B' மற்றும் 'C' எனவும் label செய்யப்பட்டுள்ளன. அடுத்த section-க்கு மீண்டும் React logo உடன் 'React DOM' label கொண்ட arrow மூலம் transition ஆகிறது. மூன்றாவது மற்றும் இறுதி section browser wireframe ஆகும்; அதில் 8 nodes கொண்ட tree உள்ளது, அதில் ஒரு subset மட்டும் highlighted ஆக உள்ளது (நடுப்பகுதி section-இலிருந்து subtree-ஐ குறிக்கிறது).">
 
-React creates a UI tree from your components. In this example, the UI tree is then used to render to the DOM.
+React உங்கள் components-இலிருந்து UI tree ஒன்றை உருவாக்குகிறது. இந்த example-இல், UI tree பின்னர் DOM-க்கு render செய்ய பயன்படுத்தப்படுகிறது.
 </Diagram>
 
-Like browsers and mobile platforms, React also uses tree structures to manage and model the relationship between components in a React app. These trees are useful tools to understand how data flows through a React app and how to optimize rendering and app size.
+Browsers மற்றும் mobile platforms போலவே, React app-இல் components இடையிலான உறவை manage மற்றும் model செய்ய React-யும் tree structures பயன்படுத்துகிறது. React app வழியாக data எப்படி flow ஆகிறது, rendering மற்றும் app size-ஐ எப்படி optimize செய்வது என்பதைக் புரிந்துகொள்ள இந்த trees பயனுள்ள tools.
 
-## The Render Tree {/*the-render-tree*/}
+## Render tree {/*the-render-tree*/}
 
-A major feature of components is the ability to compose components of other components. As we [nest components](/learn/your-first-component#nesting-and-organizing-components), we have the concept of parent and child components, where each parent component may itself be a child of another component.
+Components-ன் முக்கிய feature ஒன்று, மற்ற components-இன் components-ஐ compose செய்யும் திறன். நாம் [components-ஐ nest](/learn/your-first-component#nesting-and-organizing-components) செய்யும்போது, parent மற்றும் child components என்ற concept வருகிறது; ஒவ்வொரு parent component-யும் தானே மற்றொரு component-ன் child ஆக இருக்கலாம்.
 
-When we render a React app, we can model this relationship in a tree, known as the render tree.
+React app ஒன்றை render செய்யும்போது, இந்த relationship-ஐ render tree எனப்படும் tree-இல் model செய்யலாம்.
 
-Here is a React app that renders inspirational quotes.
+Inspirational quotes render செய்யும் React app இதோ.
 
 <Sandpack>
 
@@ -47,7 +47,7 @@ import Copyright from './Copyright';
 export default function App() {
   return (
     <>
-      <FancyText title text="Get Inspired App" />
+      <FancyText title text="ஊக்கம் தரும் app" />
       <InspirationGenerator>
         <Copyright year={2004} />
       </InspirationGenerator>
@@ -77,9 +77,9 @@ export default function InspirationGenerator({children}) {
 
   return (
     <>
-      <p>Your inspirational quote is:</p>
+      <p>உங்கள் inspirational quote:</p>
       <FancyText text={quote} />
-      <button onClick={next}>Inspire me again</button>
+      <button onClick={next}>மீண்டும் ஊக்கம் கொடுங்கள்</button>
       {children}
     </>
   );
@@ -94,9 +94,9 @@ export default function Copyright({year}) {
 
 ```js src/quotes.js
 export default [
-  "Don’t let yesterday take up too much of today.” — Will Rogers",
-  "Ambition is putting a ladder against the sky.",
-  "A joy that's shared is a joy made double.",
+  "நேற்றையதை இன்று அதிகம் பிடித்துக்கொள்ள விடாதீர்கள். - Will Rogers",
+  "லட்சியம் என்பது வானத்தை நோக்கி ஏணியை சாய்ப்பது.",
+  "பகிரப்பட்ட மகிழ்ச்சி இரட்டிப்பான மகிழ்ச்சி.",
   ];
 ```
 
@@ -118,34 +118,34 @@ export default [
 
 </Sandpack>
 
-<Diagram name="render_tree" height={250} width={500} alt="Tree graph with five nodes. Each node represents a component. The root of the tree is App, with two arrows extending from it to 'InspirationGenerator' and 'FancyText'. The arrows are labelled with the word 'renders'. 'InspirationGenerator' node also has two arrows pointing to nodes 'FancyText' and 'Copyright'.">
+<Diagram name="render_tree" height={250} width={500} alt="ஐந்து nodes கொண்ட tree graph. ஒவ்வொரு node-யும் ஒரு component-ஐ represent செய்கிறது. Tree-ன் root App; அதிலிருந்து 'InspirationGenerator' மற்றும் 'FancyText' நோக்கி இரண்டு arrows செல்கின்றன. Arrows 'renders' என்ற வார்த்தையால் labelled செய்யப்பட்டுள்ளன. 'InspirationGenerator' node-இலும் 'FancyText' மற்றும் 'Copyright' nodes நோக்கி இரண்டு arrows உள்ளன.">
 
-React creates a *render tree*, a UI tree, composed of the rendered components.
+Rendered components-ஆல் composed ஆன UI tree-யான *render tree*-யை React உருவாக்குகிறது.
 
 
 </Diagram>
 
-From the example app, we can construct the above render tree.
+Example app-இலிருந்து, மேலுள்ள render tree-ஐ construct செய்யலாம்.
 
-The tree is composed of nodes, each of which represents a component. `App`, `FancyText`, `Copyright`, to name a few, are all nodes in our tree.
+Tree nodes-ஆல் composed ஆகும்; ஒவ்வொரு node-யும் ஒரு component-ஐ represent செய்கிறது. `App`, `FancyText`, `Copyright` போன்றவை எல்லாம் எங்கள் tree-இல் nodes.
 
-The root node in a React render tree is the [root component](/learn/importing-and-exporting-components#the-root-component-file) of the app. In this case, the root component is `App` and it is the first component React renders. Each arrow in the tree points from a parent component to a child component.
+React render tree-இல் root node என்பது app-ன் [root component](/learn/importing-and-exporting-components#the-root-component-file). இந்த case-இல், root component `App`; React render செய்யும் முதல் component அதுவே. Tree-இல் உள்ள ஒவ்வொரு arrow-வும் parent component-இலிருந்து child component நோக்கி காட்டுகிறது.
 
 <DeepDive>
 
-#### Where are the HTML tags in the render tree? {/*where-are-the-html-elements-in-the-render-tree*/}
+#### Render tree-இல் HTML tags எங்கே? {/*where-are-the-html-elements-in-the-render-tree*/}
 
-You'll notice in the above render tree, there is no mention of the HTML tags that each component renders. This is because the render tree is only composed of React [components](learn/your-first-component#components-ui-building-blocks).
+மேலுள்ள render tree-இல், ஒவ்வொரு component render செய்யும் HTML tags பற்றி mention இல்லை என்பதை கவனிப்பீர்கள். ஏனெனில் render tree, React [components](learn/your-first-component#components-ui-building-blocks) மட்டுமே கொண்டதாக இருக்கும்.
 
-React, as a UI framework, is platform agnostic. On react.dev, we showcase examples that render to the web, which uses HTML markup as its UI primitives. But a React app could just as likely render to a mobile or desktop platform, which may use different UI primitives like [UIView](https://developer.apple.com/documentation/uikit/uiview) or [FrameworkElement](https://learn.microsoft.com/en-us/dotnet/api/system.windows.frameworkelement?view=windowsdesktop-7.0).
+React, UI framework ஆக, platform agnostic. react.dev-இல், web-க்கு render செய்யும் examples-ஐ நாங்கள் காட்டுகிறோம்; web, HTML markup-ஐ அதன் UI primitives ஆக பயன்படுத்துகிறது. ஆனால் React app ஒன்று mobile அல்லது desktop platform-க்கும் render செய்யலாம்; அவை [UIView](https://developer.apple.com/documentation/uikit/uiview) அல்லது [FrameworkElement](https://learn.microsoft.com/en-us/dotnet/api/system.windows.frameworkelement?view=windowsdesktop-7.0) போன்ற வேறு UI primitives பயன்படுத்தலாம்.
 
-These platform UI primitives are not a part of React. React render trees can provide insight to our React app regardless of what platform your app renders to.
+இந்த platform UI primitives React-ன் பகுதியாக இல்லை. உங்கள் app எந்த platform-க்கு render செய்தாலும், React render trees எங்கள் React app பற்றி insight வழங்க முடியும்.
 
 </DeepDive>
 
-A render tree represents a single render pass of a React application. With [conditional rendering](/learn/conditional-rendering), a parent component may render different children depending on the data passed.
+Render tree, React application-ன் ஒரு single render pass-ஐ represent செய்கிறது. [Conditional rendering](/learn/conditional-rendering) உடன், parent component, pass செய்யப்பட்ட data-வைப் பொறுத்து வேறு children render செய்யலாம்.
 
-We can update the app to conditionally render either an inspirational quote or color.
+Inspirational quote அல்லது color ஒன்றை conditionally render செய்ய app-ஐ update செய்யலாம்.
 
 <Sandpack>
 
@@ -157,7 +157,7 @@ import Copyright from './Copyright';
 export default function App() {
   return (
     <>
-      <FancyText title text="Get Inspired App" />
+      <FancyText title text="ஊக்கம் தரும் app" />
       <InspirationGenerator>
         <Copyright year={2004} />
       </InspirationGenerator>
@@ -194,12 +194,12 @@ export default function InspirationGenerator({children}) {
 
   return (
     <>
-      <p>Your inspirational {inspiration.type} is:</p>
+      <p>உங்கள் inspirational {inspiration.type}:</p>
       {inspiration.type === 'quote'
       ? <FancyText text={inspiration.value} />
       : <Color value={inspiration.value} />}
 
-      <button onClick={next}>Inspire me again</button>
+      <button onClick={next}>மீண்டும் ஊக்கம் கொடுங்கள்</button>
       {children}
     </>
   );
@@ -214,11 +214,11 @@ export default function Copyright({year}) {
 
 ```js src/inspirations.js
 export default [
-  {type: 'quote', value: "Don’t let yesterday take up too much of today.” — Will Rogers"},
+  {type: 'quote', value: "நேற்றையதை இன்று அதிகம் பிடித்துக்கொள்ள விடாதீர்கள். - Will Rogers"},
   {type: 'color', value: "#B73636"},
-  {type: 'quote', value: "Ambition is putting a ladder against the sky."},
+  {type: 'quote', value: "லட்சியம் என்பது வானத்தை நோக்கி ஏணியை சாய்ப்பது."},
   {type: 'color', value: "#256266"},
-  {type: 'quote', value: "A joy that's shared is a joy made double."},
+  {type: 'quote', value: "பகிரப்பட்ட மகிழ்ச்சி இரட்டிப்பான மகிழ்ச்சி."},
   {type: 'color', value: "#F9F2B4"},
 ];
 ```
@@ -245,56 +245,56 @@ export default [
 ```
 </Sandpack>
 
-<Diagram name="conditional_render_tree" height={250} width={561} alt="Tree graph with six nodes. The top node of the tree is labelled 'App' with two arrows extending to nodes labelled 'InspirationGenerator' and 'FancyText'. The arrows are solid lines and are labelled with the word 'renders'. 'InspirationGenerator' node also has three arrows. The arrows to nodes 'FancyText' and 'Color' are dashed and labelled with 'renders?'. The last arrow points to the node labelled 'Copyright' and is solid and labelled with 'renders'.">
+<Diagram name="conditional_render_tree" height={250} width={561} alt="ஆறு nodes கொண்ட tree graph. Tree-ன் top node 'App' என labelled; அதிலிருந்து 'InspirationGenerator' மற்றும் 'FancyText' என labelled nodes நோக்கி இரண்டு arrows செல்கின்றன. Arrows solid lines ஆகவும் 'renders' என்ற வார்த்தையால் labelled ஆகவும் உள்ளன. 'InspirationGenerator' node-இலும் மூன்று arrows உள்ளன. 'FancyText' மற்றும் 'Color' nodes நோக்கி செல்கின்ற arrows dashed ஆகவும் 'renders?' என labelled ஆகவும் உள்ளன. கடைசி arrow 'Copyright' என labelled node நோக்கி solid ஆக 'renders' label உடன் செல்கிறது.">
 
-With conditional rendering, across different renders, the render tree may render different components.
-
-</Diagram>
-
-In this example, depending on what `inspiration.type` is, we may render `<FancyText>` or `<Color>`. The render tree may be different for each render pass.
-
-Although render trees may differ across render passes, these trees are generally helpful for identifying what the *top-level* and *leaf components* are in a React app. Top-level components are the components nearest to the root component and affect the rendering performance of all the components beneath them and often contain the most complexity. Leaf components are near the bottom of the tree and have no child components and are often frequently re-rendered.
-
-Identifying these categories of components are useful for understanding data flow and performance of your app.
-
-## The Module Dependency Tree {/*the-module-dependency-tree*/}
-
-Another relationship in a React app that can be modeled with a tree are an app's module dependencies. As we [break up our components](/learn/importing-and-exporting-components#exporting-and-importing-a-component) and logic into separate files, we create [JS modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules) where we may export components, functions, or constants.
-
-Each node in a module dependency tree is a module and each branch represents an `import` statement in that module.
-
-If we take the previous Inspirations app, we can build a module dependency tree, or dependency tree for short.
-
-<Diagram name="module_dependency_tree" height={250} width={658} alt="A tree graph with seven nodes. Each node is labelled with a module name. The top level node of the tree is labelled 'App.js'. There are three arrows pointing to the modules 'InspirationGenerator.js', 'FancyText.js' and 'Copyright.js' and the arrows are labelled with 'imports'. From the 'InspirationGenerator.js' node, there are three arrows that extend to three modules: 'FancyText.js', 'Color.js', and 'inspirations.js'. The arrows are labelled with 'imports'.">
-
-The module dependency tree for the Inspirations app.
+Conditional rendering உடன், வெவ்வேறு renders முழுவதும் render tree வேறு components render செய்யலாம்.
 
 </Diagram>
 
-The root node of the tree is the root module, also known as the entrypoint file. It often is the module that contains the root component.
+இந்த example-இல், `inspiration.type` என்ன என்பதைப் பொறுத்து, `<FancyText>` அல்லது `<Color>` render செய்யலாம். ஒவ்வொரு render pass-க்கும் render tree வேறுபடலாம்.
 
-Comparing to the render tree of the same app, there are similar structures but some notable differences:
+Render passes முழுவதும் render trees மாறினாலும், React app-இல் *top-level* மற்றும் *leaf components* என்ன என்பதை identify செய்ய இந்த trees பொதுவாக உதவும். Top-level components root component-க்கு மிக அருகிலுள்ள components; அவை தங்களுக்குக் கீழுள்ள அனைத்து components-ன் rendering performance-ஐ பாதிக்கும் மற்றும் பெரும்பாலும் அதிக complexity கொண்டிருக்கும். Leaf components tree-ன் கீழ்பகுதிக்கு அருகில் இருக்கும்; child components இல்லாது, அவை பெரும்பாலும் அடிக்கடி re-render ஆகும்.
 
-* The nodes that make-up the tree represent modules, not components.
-* Non-component modules, like `inspirations.js`, are also represented in this tree. The render tree only encapsulates components.
-* `Copyright.js` appears under `App.js` but in the render tree, `Copyright`, the component, appears as a child of `InspirationGenerator`. This is because `InspirationGenerator` accepts JSX as [children props](/learn/passing-props-to-a-component#passing-jsx-as-children), so it renders `Copyright` as a child component but does not import the module.
+இந்த component categories-ஐ identify செய்வது உங்கள் app-ன் data flow மற்றும் performance-ஐப் புரிந்துகொள்ள பயனுள்ளதாகும்.
 
-Dependency trees are useful to determine what modules are necessary to run your React app. When building a React app for production, there is typically a build step that will bundle all the necessary JavaScript to ship to the client. The tool responsible for this is called a [bundler](https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Understanding_client-side_tools/Overview#the_modern_tooling_ecosystem), and bundlers will use the dependency tree to determine what modules should be included.
+## Module dependency tree {/*the-module-dependency-tree*/}
 
-As your app grows, often the bundle size does too. Large bundle sizes are expensive for a client to download and run. Large bundle sizes can delay the time for your UI to get drawn. Getting a sense of your app's dependency tree may help with debugging these issues.
+React app-இல் tree மூலம் model செய்யக்கூடிய மற்றொரு relationship, app-ன் module dependencies. நாங்கள் [components](/learn/importing-and-exporting-components#exporting-and-importing-a-component) மற்றும் logic-ஐ தனித்தனியான files-ஆக பிரிக்கும் போது, components, functions, அல்லது constants export செய்யக்கூடிய [JS modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules) உருவாக்குகிறோம்.
 
-[comment]: <> (perhaps we should also deep dive on conditional imports)
+Module dependency tree-இல் ஒவ்வொரு node-யும் ஒரு module; ஒவ்வொரு branch-வும் அந்த module-இல் உள்ள `import` statement-ஐ represent செய்கிறது.
+
+முந்தைய Inspirations app-ஐ எடுத்துக்கொண்டால், module dependency tree, அல்லது சுருக்கமாக dependency tree, உருவாக்கலாம்.
+
+<Diagram name="module_dependency_tree" height={250} width={658} alt="ஏழு nodes கொண்ட tree graph. ஒவ்வொரு node-யும் module name உடன் labelled. Tree-ன் top level node 'App.js' என labelled. 'InspirationGenerator.js', 'FancyText.js', மற்றும் 'Copyright.js' modules நோக்கி மூன்று arrows செல்கின்றன; arrows 'imports' என labelled. 'InspirationGenerator.js' node-இலிருந்து 'FancyText.js', 'Color.js', மற்றும் 'inspirations.js' என்ற மூன்று modules நோக்கி மூன்று arrows செல்கின்றன. Arrows 'imports' என labelled.">
+
+Inspirations app-க்கான module dependency tree.
+
+</Diagram>
+
+Tree-ன் root node என்பது root module; இது entrypoint file என்றும் அழைக்கப்படுகிறது. இது பெரும்பாலும் root component கொண்ட module ஆக இருக்கும்.
+
+அதே app-ன் render tree உடன் ஒப்பிடும்போது, சில similar structures உள்ளன; ஆனால் சில குறிப்பிடத்தக்க differences உள்ளன:
+
+* Tree-ஐ உருவாக்கும் nodes modules-ஐ represent செய்கின்றன; components அல்ல.
+* `inspirations.js` போன்ற non-component modules-யும் இந்த tree-இல் represent செய்யப்படுகின்றன. Render tree components-ஐ மட்டுமே encapsulate செய்கிறது.
+* `Copyright.js`, `App.js`-ன் கீழ் தோன்றுகிறது; ஆனால் render tree-இல் component ஆன `Copyright`, `InspirationGenerator`-ன் child ஆக தோன்றுகிறது. ஏனெனில் `InspirationGenerator`, JSX-ஐ [children props](/learn/passing-props-to-a-component#passing-jsx-as-children) ஆக ஏற்கிறது; அதனால் `Copyright`-ஐ child component ஆக render செய்கிறது, ஆனால் module-ஐ import செய்வதில்லை.
+
+உங்கள் React app run ஆக எந்த modules தேவை என்பதை தீர்மானிக்க dependency trees பயனுள்ளதாகும். Production-க்காக React app build செய்யும்போது, client-க்கு ship செய்ய தேவையான JavaScript அனைத்தையும் bundle செய்யும் build step பொதுவாக இருக்கும். இதற்கு பொறுப்பான tool [bundler](https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Understanding_client-side_tools/Overview#the_modern_tooling_ecosystem) என்று அழைக்கப்படுகிறது; எந்த modules include செய்யப்பட வேண்டும் என்பதை தீர்மானிக்க bundlers dependency tree-ஐ பயன்படுத்தும்.
+
+உங்கள் app வளரும்போது, bundle size-மும் பெரும்பாலும் வளர்கிறது. பெரிய bundle sizes client download செய்து run செய்ய அதிக செலவானவை. பெரிய bundle sizes, உங்கள் UI draw ஆகும் நேரத்தை தாமதப்படுத்தலாம். உங்கள் app-ன் dependency tree பற்றிய ஒரு புரிதல், இந்த issues debug செய்ய உதவலாம்.
+
+[comment]: <> (conditional imports பற்றியும் deep dive சேர்க்கலாம்)
 
 <Recap>
 
-* Trees are a common way to represent the relationship between entities. They are often used to model UI.
-* Render trees represent the nested relationship between React components across a single render.
-* With conditional rendering, the render tree may change across different renders. With different prop values, components may render different children components.
-* Render trees help identify what the top-level and leaf components are. Top-level components affect the rendering performance of all components beneath them and leaf components are often re-rendered frequently. Identifying them is useful for understanding and debugging rendering performance.
-* Dependency trees represent the module dependencies in a React app.
-* Dependency trees are used by build tools to bundle the necessary code to ship an app.
-* Dependency trees are useful for debugging large bundle sizes that slow time to paint and expose opportunities for optimizing what code is bundled.
+* Entities இடையிலான relationship-ஐ represent செய்ய trees பொதுவான வழி. அவை UI model செய்ய அடிக்கடி பயன்படுத்தப்படுகின்றன.
+* Render trees, ஒரு single render முழுவதும் React components இடையிலான nested relationship-ஐ represent செய்கின்றன.
+* Conditional rendering உடன், render tree வெவ்வேறு renders-இல் மாறலாம். வேறு prop values உடன், components வேறு child components render செய்யலாம்.
+* Render trees, top-level மற்றும் leaf components என்ன என்பதை identify செய்ய உதவுகின்றன. Top-level components அவற்றுக்குக் கீழுள்ள அனைத்து components-ன் rendering performance-ஐ பாதிக்கின்றன; leaf components பெரும்பாலும் அடிக்கடி re-render செய்யப்படுகின்றன. Rendering performance-ஐப் புரிந்து debug செய்ய அவற்றை identify செய்வது பயனுள்ளதாகும்.
+* Dependency trees, React app-இல் module dependencies-ஐ represent செய்கின்றன.
+* App ship செய்ய தேவையான code-ஐ bundle செய்ய build tools dependency trees-ஐ பயன்படுத்துகின்றன.
+* Time to paint-ஐ slow ஆக்கும் பெரிய bundle sizes-ஐ debug செய்யவும், எந்த code bundle செய்யப்படுகிறது என்பதை optimize செய்யும் வாய்ப்புகளை வெளிப்படுத்தவும் dependency trees பயனுள்ளதாகும்.
 
 </Recap>
 
-[TODO]: <> (Add challenges)
+[TODO]: <> (Challenges சேர்க்கவும்)

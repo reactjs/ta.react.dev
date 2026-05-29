@@ -1,47 +1,47 @@
 ---
-title: "How to Upgrade to React 18"
+title: "React 18-க்கு upgrade செய்வது எப்படி"
 author: Rick Hanlon
 date: 2022/03/08
-description: As we shared in the release post, React 18 introduces features powered by our new concurrent renderer, with a gradual adoption strategy for existing applications. In this post, we will guide you through the steps for upgrading to React 18.
+description: Release post-இல் பகிர்ந்தபடி, React 18 எங்கள் புதிய concurrent renderer மூலம் இயங்கும் features-ஐ, existing applications-க்கான gradual adoption strategy உடன் அறிமுகப்படுத்துகிறது. இந்த post-இல், React 18-க்கு upgrade செய்ய வேண்டிய steps வழியாக உங்களை வழிநடத்துகிறோம்.
 ---
 
-March 08, 2022 by [Rick Hanlon](https://twitter.com/rickhanlonii)
+March 08, 2022 அன்று [Rick Hanlon](https://twitter.com/rickhanlonii) எழுதியது
 
 ---
 
 <Intro>
 
-As we shared in the [release post](/blog/2022/03/29/react-v18), React 18 introduces features powered by our new concurrent renderer, with a gradual adoption strategy for existing applications. In this post, we will guide you through the steps for upgrading to React 18.
+[Release post](/blog/2022/03/29/react-v18)-இல் பகிர்ந்தபடி, React 18 எங்கள் புதிய concurrent renderer மூலம் இயங்கும் features-ஐ, existing applications-க்கான gradual adoption strategy உடன் அறிமுகப்படுத்துகிறது. இந்த post-இல், React 18-க்கு upgrade செய்ய வேண்டிய steps வழியாக உங்களை வழிநடத்துகிறோம்.
 
-Please [report any issues](https://github.com/facebook/react/issues/new/choose) you encounter while upgrading to React 18.
+React 18-க்கு upgrade செய்யும்போது சந்திக்கும் issues-ஐ [report செய்யவும்](https://github.com/facebook/react/issues/new/choose).
 
 </Intro>
 
 <Note>
 
-For React Native users, React 18 will ship in a future version of React Native. This is because React 18 relies on the New React Native Architecture to benefit from the new capabilities presented in this blogpost. For more information, see the [React Conf keynote here](https://www.youtube.com/watch?v=FZ0cG47msEk&t=1530s).
+React Native users-க்கு, React 18 React Native-ன் எதிர்கால version ஒன்றில் ship ஆகும். காரணம், இந்த blogpost-இல் காணப்படும் புதிய capabilities-ன் பயனைப் பெற React 18, New React Native Architecture-ஐ சார்ந்துள்ளது. மேலும் தகவலுக்கு, [இங்கே React Conf keynote](https://www.youtube.com/watch?v=FZ0cG47msEk&t=1530s)-ஐ பார்க்கவும்.
 
 </Note>
 
 ---
 
-## Installing {/*installing*/}
+## Install செய்தல் {/*installing*/}
 
-To install the latest version of React:
+React-ன் latest version install செய்ய:
 
 ```bash
 npm install react react-dom
 ```
 
-Or if you’re using yarn:
+அல்லது yarn பயன்படுத்தினால்:
 
 ```bash
 yarn add react react-dom
 ```
 
-## Updates to Client Rendering APIs {/*updates-to-client-rendering-apis*/}
+## Client rendering APIs-இல் மாற்றங்கள் {/*updates-to-client-rendering-apis*/}
 
-When you first install React 18, you will see a warning in the console:
+React 18-ஐ முதலில் install செய்தால், console-இல் warning ஒன்றைக் காண்பீர்கள்:
 
 <ConsoleBlock level="error">
 
@@ -49,7 +49,7 @@ ReactDOM.render is no longer supported in React 18. Use createRoot instead. Unti
 
 </ConsoleBlock>
 
-React 18 introduces a new root API which provides better ergonomics for managing roots. The new root API also enables the new concurrent renderer, which allows you to opt-into concurrent features.
+React 18 roots manage செய்ய சிறந்த ergonomics வழங்கும் புதிய root API-ஐ அறிமுகப்படுத்துகிறது. புதிய root API புதிய concurrent renderer-யையும் enable செய்கிறது; இது concurrent features-க்கு opt in செய்ய அனுமதிக்கிறது.
 
 ```js
 // Before
@@ -60,11 +60,11 @@ render(<App tab="home" />, container);
 // After
 import { createRoot } from 'react-dom/client';
 const container = document.getElementById('app');
-const root = createRoot(container); // createRoot(container!) if you use TypeScript
+const root = createRoot(container); // TypeScript பயன்படுத்தினால் createRoot(container!)
 root.render(<App tab="home" />);
 ```
 
-We’ve also changed `unmountComponentAtNode` to `root.unmount`:
+`unmountComponentAtNode`-ஐ `root.unmount` ஆகவும் மாற்றியுள்ளோம்:
 
 ```js
 // Before
@@ -74,7 +74,7 @@ unmountComponentAtNode(container);
 root.unmount();
 ```
 
-We've also removed the callback from render, since it usually does not have the expected result when using Suspense:
+Suspense பயன்படுத்தும்போது render callback பொதுவாக எதிர்பார்த்த result தராததால், render-இலிருந்து callback-ஐயும் remove செய்துள்ளோம்:
 
 ```js
 // Before
@@ -99,11 +99,11 @@ root.render(<AppWithCallbackAfterRender />);
 
 <Note>
 
-There is no one-to-one replacement for the old render callback API — it depends on your use case. See the working group post for [Replacing render with createRoot](https://github.com/reactwg/react-18/discussions/5) for more information.
+பழைய render callback API-க்கு one-to-one replacement இல்லை - அது உங்கள் use case-ஐப் பொறுத்தது. மேலும் தகவலுக்கு [Replacing render with createRoot](https://github.com/reactwg/react-18/discussions/5) working group post-ஐ பார்க்கவும்.
 
 </Note>
 
-Finally, if your app uses server-side rendering with hydration, upgrade `hydrate` to `hydrateRoot`:
+இறுதியாக, உங்கள் app server-side rendering with hydration பயன்படுத்தினால், `hydrate`-ஐ `hydrateRoot`-க்கு upgrade செய்யவும்:
 
 ```js
 // Before
@@ -118,40 +118,40 @@ const root = hydrateRoot(container, <App tab="home" />);
 // Unlike with createRoot, you don't need a separate root.render() call here.
 ```
 
-For more information, see the [working group discussion here](https://github.com/reactwg/react-18/discussions/5).
+மேலும் தகவலுக்கு, [இங்கே working group discussion](https://github.com/reactwg/react-18/discussions/5)-ஐ பார்க்கவும்.
 
 <Note>
 
-**If your app doesn't work after upgrading, check whether it's wrapped in `<StrictMode>`.** [Strict Mode has gotten stricter in React 18](#updates-to-strict-mode), and not all your components may be resilient to the new checks it adds in development mode. If removing Strict Mode fixes your app, you can remove it during the upgrade, and then add it back (either at the top or for a part of the tree) after you fix the issues that it's pointing out.
+**Upgrade செய்த பிறகு உங்கள் app வேலை செய்யவில்லை என்றால், அது `<StrictMode>`-இல் wrapped உள்ளதா என்று check செய்யவும்.** [React 18-இல் Strict Mode இன்னும் strict ஆகியுள்ளது](#updates-to-strict-mode), development mode-இல் அது சேர்க்கும் புதிய checks-க்கு உங்கள் எல்லா components-மும் resilient ஆக இருக்காது. Strict Mode remove செய்தால் app fix ஆகினால், upgrade போது அதை remove செய்து, அது சுட்டிக்காட்டும் issues fix செய்த பிறகு மீண்டும் சேர்க்கலாம் (tree-ன் top-இல் அல்லது ஒரு பகுதியிலாவது).
 
 </Note>
 
-## Updates to Server Rendering APIs {/*updates-to-server-rendering-apis*/}
+## Server rendering APIs-இல் மாற்றங்கள் {/*updates-to-server-rendering-apis*/}
 
-In this release, we’re revamping our `react-dom/server` APIs to fully support Suspense on the server and Streaming SSR. As part of these changes, we're deprecating the old Node streaming API, which does not support incremental Suspense streaming on the server.
+இந்த release-இல், server-இல் Suspense மற்றும் Streaming SSR-ஐ முழுமையாக support செய்ய எங்கள் `react-dom/server` APIs-ஐ revamp செய்கிறோம். இந்த changes-ன் ஒரு பகுதியாக, server-இல் incremental Suspense streaming support செய்யாத பழைய Node streaming API-ஐ deprecate செய்கிறோம்.
 
-Using this API will now warn:
+இந்த API பயன்படுத்தினால் இப்போது warn செய்யும்:
 
 * `renderToNodeStream`: **Deprecated ⛔️️**
 
-Instead, for streaming in Node environments, use:
+அதற்கு பதிலாக, Node environments-இல் streaming-க்கு இதைப் பயன்படுத்தவும்:
 * `renderToPipeableStream`: **New ✨**
 
-We're also introducing a new API to support streaming SSR with Suspense for modern edge runtime environments, such as Deno and Cloudflare workers:
+Deno மற்றும் Cloudflare workers போன்ற modern edge runtime environments-க்காக Suspense உடன் streaming SSR support செய்ய புதிய API-யையும் அறிமுகப்படுத்துகிறோம்:
 * `renderToReadableStream`: **New ✨**
 
-The following APIs will continue working, but with limited support for Suspense:
+பின்வரும் APIs தொடர்ந்து வேலை செய்யும்; ஆனால் Suspense support limited:
 * `renderToString`: **Limited** ⚠️
 * `renderToStaticMarkup`: **Limited** ⚠️
 
-Finally, this API will continue to work for rendering e-mails:
+இறுதியாக, இந்த API e-mails render செய்வதற்காக தொடர்ந்து வேலை செய்யும்:
 * `renderToStaticNodeStream`
 
-For more information on the changes to server rendering APIs, see the working group post on [Upgrading to React 18 on the server](https://github.com/reactwg/react-18/discussions/22), a [deep dive on the new Suspense SSR Architecture](https://github.com/reactwg/react-18/discussions/37), and [Shaundai Person’s](https://twitter.com/shaundai) talk on [Streaming Server Rendering with Suspense](https://www.youtube.com/watch?v=pj5N-Khihgc) at React Conf 2021.
+Server rendering APIs-க்கு changes பற்றிய மேலும் தகவலுக்கு, [Upgrading to React 18 on the server](https://github.com/reactwg/react-18/discussions/22) working group post, புதிய Suspense SSR Architecture பற்றிய [deep dive](https://github.com/reactwg/react-18/discussions/37), மற்றும் React Conf 2021-இல் [Streaming Server Rendering with Suspense](https://www.youtube.com/watch?v=pj5N-Khihgc) பற்றி [Shaundai Person](https://twitter.com/shaundai) வழங்கிய talk-ஐ பார்க்கவும்.
 
-## Updates to TypeScript definitions {/*updates-to-typescript-definitions*/}
+## TypeScript definitions-இல் மாற்றங்கள் {/*updates-to-typescript-definitions*/}
 
-If your project uses TypeScript, you will need to update your `@types/react` and `@types/react-dom` dependencies to the latest versions. The new types are safer and catch issues that used to be ignored by the type checker. The most notable change is that the `children` prop now needs to be listed explicitly when defining props, for example:
+உங்கள் project TypeScript பயன்படுத்தினால், `@types/react` மற்றும் `@types/react-dom` dependencies-ஐ latest versions-க்கு update செய்ய வேண்டும். புதிய types பாதுகாப்பானவை; முன்பு type checker ignore செய்த issues-ஐ catch செய்கின்றன. குறிப்பிடத்தக்க change: props define செய்யும்போது `children` prop இப்போது explicit ஆக list செய்யப்பட வேண்டும். உதாரணம்:
 
 ```typescript{3}
 interface MyButtonProps {
@@ -160,13 +160,13 @@ interface MyButtonProps {
 }
 ```
 
-See the [React 18 typings pull request](https://github.com/DefinitelyTyped/DefinitelyTyped/pull/56210) for a full list of type-only changes. It links to example fixes in library types so you can see how to adjust your code. You can use the [automated migration script](https://github.com/eps1lon/types-react-codemod) to help port your application code to the new and safer typings faster.
+Type-only changes-ன் முழு பட்டியலுக்கு [React 18 typings pull request](https://github.com/DefinitelyTyped/DefinitelyTyped/pull/56210)-ஐ பார்க்கவும். உங்கள் code-ஐ எப்படி adjust செய்யலாம் என்பதைப் பார்க்க library types-இல் example fixes-க்கு அது link செய்கிறது. உங்கள் application code-ஐ புதிய மற்றும் பாதுகாப்பான typings-க்கு விரைவாக port செய்ய [automated migration script](https://github.com/eps1lon/types-react-codemod) பயன்படுத்தலாம்.
 
-If you find a bug in the typings, please [file an issue](https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/new?category=issues-with-a-types-package) in the DefinitelyTyped repo.
+Typings-இல் bug கண்டால், DefinitelyTyped repo-இல் [issue file செய்யவும்](https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/new?category=issues-with-a-types-package).
 
-## Automatic Batching {/*automatic-batching*/}
+## Automatic batching {/*automatic-batching*/}
 
-React 18 adds out-of-the-box performance improvements by doing more batching by default. Batching is when React groups multiple state updates into a single re-render for better performance. Before React 18, we only batched updates inside React event handlers. Updates inside of promises, setTimeout, native event handlers, or any other event were not batched in React by default:
+React 18 default ஆக அதிக batching செய்வதால் out-of-the-box performance improvements சேர்க்கிறது. Batching என்பது, React பல state updates-ஐ better performance-க்காக single re-render ஆக group செய்வது. React 18-க்கு முன், React event handlers உள்ளே நடந்த updates மட்டும் batched செய்யப்பட்டன. Promises, setTimeout, native event handlers, அல்லது வேறு event உள்ளே updates React-இல் default ஆக batched செய்யப்படவில்லை:
 
 ```js
 // Before React 18 only React events were batched
@@ -185,7 +185,7 @@ setTimeout(() => {
 ```
 
 
-Starting in React 18 with `createRoot`, all updates will be automatically batched, no matter where they originate from. This means that updates inside of timeouts, promises, native event handlers or any other event will batch the same way as updates inside of React events:
+React 18-இல் `createRoot` உடன் தொடங்கி, updates எங்கிருந்து originate ஆனாலும் எல்லாம் automatically batched செய்யப்படும். இதன் அர்த்தம்: timeouts, promises, native event handlers அல்லது வேறு event உள்ளே updates, React events உள்ளே updates போல் batch செய்யப்படும்:
 
 ```js
 // After React 18 updates inside of timeouts, promises,
@@ -204,7 +204,7 @@ setTimeout(() => {
 }, 1000);
 ```
 
-This is a breaking change, but we expect this to result in less work rendering, and therefore better performance in your applications. To opt-out of automatic batching, you can use `flushSync`:
+இது breaking change; ஆனால் இதனால் rendering work குறைந்து, உங்கள் applications-இல் better performance கிடைக்கும் என்று எதிர்பார்க்கிறோம். Automatic batching-இலிருந்து opt out செய்ய `flushSync` பயன்படுத்தலாம்:
 
 ```js
 import { flushSync } from 'react-dom';
@@ -221,26 +221,26 @@ function handleClick() {
 }
 ```
 
-For more information, see the [Automatic batching deep dive](https://github.com/reactwg/react-18/discussions/21).
+மேலும் தகவலுக்கு, [Automatic batching deep dive](https://github.com/reactwg/react-18/discussions/21)-ஐ பார்க்கவும்.
 
-## New APIs for Libraries {/*new-apis-for-libraries*/}
+## Libraries-க்கான புதிய APIs {/*new-apis-for-libraries*/}
 
-In the React 18 Working Group we worked with library maintainers to create new APIs needed to support concurrent rendering for use cases specific to their use case in areas like styles, and external stores. To support React 18, some libraries may need to switch to one of the following APIs:
+React 18 Working Group-இல், styles மற்றும் external stores போன்ற areas-இல் specific use cases-க்கு concurrent rendering support செய்ய தேவையான புதிய APIs உருவாக்க library maintainers உடன் பணிபுரிந்தோம். React 18 support செய்ய, சில libraries பின்வரும் APIs-ல் ஒன்றுக்கு switch செய்ய வேண்டியிருக்கலாம்:
 
-* `useSyncExternalStore` is a new Hook that allows external stores to support concurrent reads by forcing updates to the store to be synchronous. This new API is recommended for any library that integrates with state external to React. For more information, see the [useSyncExternalStore overview post](https://github.com/reactwg/react-18/discussions/70) and [useSyncExternalStore API details](https://github.com/reactwg/react-18/discussions/86).
-* `useInsertionEffect` is a new Hook that allows CSS-in-JS libraries to address performance issues of injecting styles in render. Unless you've already built a CSS-in-JS library we don't expect you to ever use this. This Hook will run after the DOM is mutated, but before layout effects read the new layout. This solves an issue that already exists in React 17 and below, but is even more important in React 18 because React yields to the browser during concurrent rendering, giving it a chance to recalculate layout. For more information, see the [Library Upgrade Guide for `<style>`](https://github.com/reactwg/react-18/discussions/110).
+* `useSyncExternalStore` என்பது external stores concurrent reads support செய்ய அனுமதிக்கும் புதிய Hook; store updates synchronous ஆக இருக்க force செய்கிறது. React-க்கு வெளியில் உள்ள state உடன் integrate செய்யும் எந்த library-க்கும் இந்த புதிய API பரிந்துரைக்கப்படுகிறது. மேலும் தகவலுக்கு, [useSyncExternalStore overview post](https://github.com/reactwg/react-18/discussions/70) மற்றும் [useSyncExternalStore API details](https://github.com/reactwg/react-18/discussions/86)-ஐ பார்க்கவும்.
+* `useInsertionEffect` என்பது render-இல் styles inject செய்வதால் ஏற்படும் performance issues-ஐ CSS-in-JS libraries address செய்ய அனுமதிக்கும் புதிய Hook. நீங்கள் ஏற்கனவே CSS-in-JS library build செய்யவில்லை என்றால் இதை பயன்படுத்த வேண்டியிருக்கும் என்று எதிர்பார்ப்பதில்லை. DOM mutate ஆன பிறகு, ஆனால் layout effects புதிய layout read செய்வதற்கு முன் இந்த Hook run ஆகும். இது React 17 மற்றும் அதற்கு கீழே ஏற்கனவே இருந்த issue ஒன்றை solve செய்கிறது; React 18-இல் இது இன்னும் முக்கியமானது, ஏனெனில் concurrent rendering போது React browser-க்கு yield செய்து layout recalculate செய்ய வாய்ப்பு தருகிறது. மேலும் தகவலுக்கு, [`<style>`-க்கான Library Upgrade Guide](https://github.com/reactwg/react-18/discussions/110)-ஐ பார்க்கவும்.
 
-React 18 also introduces new APIs for concurrent rendering such as `startTransition`, `useDeferredValue` and `useId`, which we share more about in the [release post](/blog/2022/03/29/react-v18).
+React 18, `startTransition`, `useDeferredValue`, மற்றும் `useId` போன்ற concurrent rendering-க்கான புதிய APIs-யையும் அறிமுகப்படுத்துகிறது; இதைப் பற்றி [release post](/blog/2022/03/29/react-v18)-இல் மேலும் பகிர்ந்துள்ளோம்.
 
-## Updates to Strict Mode {/*updates-to-strict-mode*/}
+## Strict Mode-க்கு updates {/*updates-to-strict-mode*/}
 
-In the future, we'd like to add a feature that allows React to add and remove sections of the UI while preserving state. For example, when a user tabs away from a screen and back, React should be able to immediately show the previous screen. To do this, React would unmount and remount trees using the same component state as before.
+எதிர்காலத்தில், state preserve செய்தபடி UI-ன் sections-ஐ add மற்றும் remove செய்ய React-க்கு அனுமதிக்கும் feature சேர்க்க விரும்புகிறோம். உதாரணமாக, user ஒரு screen-இலிருந்து வேறு tab-க்கு சென்று மீண்டும் திரும்பும்போது, React previous screen-ஐ உடனடியாக காட்ட முடியும். இதை செய்ய, React முன்பிருந்த அதே component state பயன்படுத்தி trees-ஐ unmount மற்றும் remount செய்யும்.
 
-This feature will give React better performance out-of-the-box, but requires components to be resilient to effects being mounted and destroyed multiple times. Most effects will work without any changes, but some effects assume they are only mounted or destroyed once.
+இந்த feature React-க்கு out-of-the-box better performance தரும்; ஆனால் effects பலமுறை mount மற்றும் destroy செய்யப்படுவதற்கு components resilient ஆக இருக்க வேண்டும். பெரும்பாலான effects changes இல்லாமல் வேலை செய்யும்; ஆனால் சில effects ஒருமுறை மட்டுமே mount அல்லது destroy ஆகும் என்று assume செய்கின்றன.
 
-To help surface these issues, React 18 introduces a new development-only check to Strict Mode. This new check will automatically unmount and remount every component, whenever a component mounts for the first time, restoring the previous state on the second mount.
+இந்த issues surface செய்ய, React 18 Strict Mode-க்கு புதிய development-only check ஒன்றை அறிமுகப்படுத்துகிறது. ஒரு component முதல் முறையாக mount ஆகும் போதெல்லாம், இந்த புதிய check ஒவ்வொரு component-ஐயும் automatically unmount மற்றும் remount செய்து, இரண்டாவது mount-இல் previous state-ஐ restore செய்யும்.
 
-Before this change, React would mount the component and create the effects:
+இந்த change-க்கு முன், React component-ஐ mount செய்து effects உருவாக்கும்:
 
 ```
 * React mounts the component.
@@ -248,7 +248,7 @@ Before this change, React would mount the component and create the effects:
     * Effect effects are created.
 ```
 
-With Strict Mode in React 18, React will simulate unmounting and remounting the component in development mode:
+React 18-இல் Strict Mode உடன், React development mode-இல் component-ஐ unmount மற்றும் remount செய்வதை simulate செய்யும்:
 
 ```
 * React mounts the component.
@@ -262,11 +262,11 @@ With Strict Mode in React 18, React will simulate unmounting and remounting the 
     * Effect setup code runs
 ```
 
-For more information, see the Working Group posts for [Adding Reusable State to StrictMode](https://github.com/reactwg/react-18/discussions/19) and [How to support Reusable State in Effects](https://github.com/reactwg/react-18/discussions/18).
+மேலும் தகவலுக்கு, [Adding Reusable State to StrictMode](https://github.com/reactwg/react-18/discussions/19) மற்றும் [How to support Reusable State in Effects](https://github.com/reactwg/react-18/discussions/18) Working Group posts-ஐ பார்க்கவும்.
 
-## Configuring Your Testing Environment {/*configuring-your-testing-environment*/}
+## உங்கள் testing environment configure செய்தல் {/*configuring-your-testing-environment*/}
 
-When you first update your tests to use `createRoot`, you may see this warning in your test console:
+`createRoot` பயன்படுத்த உங்கள் tests-ஐ முதலில் update செய்தால், test console-இல் இந்த warning-ஐ பார்க்கலாம்:
 
 <ConsoleBlock level="error">
 
@@ -274,58 +274,58 @@ The current testing environment is not configured to support act(...)
 
 </ConsoleBlock>
 
-To fix this, set `globalThis.IS_REACT_ACT_ENVIRONMENT` to `true` before running your test:
+இதை fix செய்ய, test run செய்வதற்கு முன் `globalThis.IS_REACT_ACT_ENVIRONMENT`-ஐ `true` ஆக set செய்யவும்:
 
 ```js
 // In your test setup file
 globalThis.IS_REACT_ACT_ENVIRONMENT = true;
 ```
 
-The purpose of the flag is to tell React that it's running in a unit test-like environment. React will log helpful warnings if you forget to wrap an update with `act`.
+இந்த flag-ன் நோக்கம், React unit test போன்ற environment-இல் run ஆகிறது என்று React-க்கு சொல்லுவது. Update ஒன்றை `act`-ல் wrap செய்ய மறந்தால் React helpful warnings log செய்யும்.
 
-You can also set the flag to `false` to tell React that `act` isn't needed. This can be useful for end-to-end tests that simulate a full browser environment.
+`act` தேவையில்லை என்று React-க்கு சொல்ல flag-ஐ `false` ஆகவும் set செய்யலாம். Full browser environment simulate செய்யும் end-to-end tests-க்கு இது பயனுள்ளதாக இருக்கலாம்.
 
-Eventually, we expect testing libraries will configure this for you automatically. For example, the [next version of React Testing Library has built-in support for React 18](https://github.com/testing-library/react-testing-library/issues/509#issuecomment-917989936) without any additional configuration.
+இறுதியில், testing libraries இதை உங்களுக்காக automatically configure செய்யும் என்று எதிர்பார்க்கிறோம். உதாரணமாக, எந்த கூடுதல் configuration-மும் இல்லாமல் [React Testing Library-ன் அடுத்த version-இல் React 18-க்கு built-in support உள்ளது](https://github.com/testing-library/react-testing-library/issues/509#issuecomment-917989936).
 
-[More background on the `act` testing API and related changes](https://github.com/reactwg/react-18/discussions/102) is available in the working group.
+[`act` testing API மற்றும் தொடர்புடைய changes பற்றிய மேலும் background](https://github.com/reactwg/react-18/discussions/102) working group-இல் கிடைக்கிறது.
 
-## Dropping Support for Internet Explorer {/*dropping-support-for-internet-explorer*/}
+## Internet Explorer support நீக்குதல் {/*dropping-support-for-internet-explorer*/}
 
-In this release, React is dropping support for Internet Explorer, which is [going out of support on June 15, 2022](https://blogs.windows.com/windowsexperience/2021/05/19/the-future-of-internet-explorer-on-windows-10-is-in-microsoft-edge). We’re making this change now because new features introduced in React 18 are built using modern browser features such as microtasks which cannot be adequately polyfilled in IE.
+இந்த release-இல், [ஜூன் 15, 2022 அன்று support முடிவடையும்](https://blogs.windows.com/windowsexperience/2021/05/19/the-future-of-internet-explorer-on-windows-10-is-in-microsoft-edge) Internet Explorer-க்கு React support drop செய்கிறது. React 18-இல் அறிமுகப்படுத்தப்பட்ட புதிய features, IE-இல் போதுமான அளவு polyfill செய்ய முடியாத microtasks போன்ற modern browser features பயன்படுத்தி build செய்யப்பட்டுள்ளதால் இந்த change-ஐ இப்போது செய்கிறோம்.
 
-If you need to support Internet Explorer we recommend you stay with React 17.
+Internet Explorer support செய்ய வேண்டுமெனில், React 17-இலேயே இருக்க பரிந்துரைக்கிறோம்.
 
 ## Deprecations {/*deprecations*/}
 
-* `react-dom`: `ReactDOM.render` has been deprecated. Using it will warn and run your app in React 17 mode.
-* `react-dom`: `ReactDOM.hydrate` has been deprecated. Using it will warn and run your app in React 17 mode.
-* `react-dom`: `ReactDOM.unmountComponentAtNode` has been deprecated.
-* `react-dom`: `ReactDOM.renderSubtreeIntoContainer` has been deprecated.
-* `react-dom/server`: `ReactDOMServer.renderToNodeStream` has been deprecated.
+* `react-dom`: `ReactDOM.render` deprecated. இதைப் பயன்படுத்தினால் warning வரும்; உங்கள் app React 17 mode-இல் run ஆகும்.
+* `react-dom`: `ReactDOM.hydrate` deprecated. இதைப் பயன்படுத்தினால் warning வரும்; உங்கள் app React 17 mode-இல் run ஆகும்.
+* `react-dom`: `ReactDOM.unmountComponentAtNode` deprecated.
+* `react-dom`: `ReactDOM.renderSubtreeIntoContainer` deprecated.
+* `react-dom/server`: `ReactDOMServer.renderToNodeStream` deprecated.
 
-## Other Breaking Changes {/*other-breaking-changes*/}
+## பிற breaking changes {/*other-breaking-changes*/}
 
-* **Consistent useEffect timing**: React now always synchronously flushes effect functions if the update was triggered during a discrete user input event such as a click or a keydown event. Previously, the behavior wasn't always predictable or consistent.
-* **Stricter hydration errors**: Hydration mismatches due to missing or extra text content are now treated like errors instead of warnings. React will no longer attempt to "patch up" individual nodes by inserting or deleting a node on the client in an attempt to match the server markup, and will revert to client rendering up to the closest `<Suspense>` boundary in the tree. This ensures the hydrated tree is consistent and avoids potential privacy and security holes that can be caused by hydration mismatches.
-* **Suspense trees are always consistent:** If a component suspends before it's fully added to the tree, React will not add it to the tree in an incomplete state or fire its effects. Instead, React will throw away the new tree completely, wait for the asynchronous operation to finish, and then retry rendering again from scratch. React will render the retry attempt concurrently, and without blocking the browser.
-* **Layout Effects with Suspense**: When a tree re-suspends and reverts to a fallback, React will now clean up layout effects, and then re-create them when the content inside the boundary is shown again. This fixes an issue which prevented component libraries from correctly measuring layout when used with Suspense.
-* **New JS Environment Requirements**: React now depends on modern browsers features including `Promise`, `Symbol`, and `Object.assign`. If you support older browsers and devices such as Internet Explorer which do not provide modern browser features natively or have non-compliant implementations, consider including a global polyfill in your bundled application.
+* **Consistent useEffect timing**: Click அல்லது keydown event போன்ற discrete user input event போது update trigger செய்யப்பட்டிருந்தால், React இப்போது effect functions-ஐ எப்போதும் synchronously flush செய்கிறது. முன்பு behavior எப்போதும் predictable அல்லது consistent இல்லை.
+* **கடுமையான hydration errors**: Missing அல்லது extra text content காரணமான hydration mismatches இப்போது warnings-க்கு பதிலாக errors போல treat செய்யப்படுகின்றன. Server markup-க்கு match செய்ய client-இல் node insert அல்லது delete செய்து individual nodes-ஐ "patch up" செய்ய React இனி முயற்சிக்காது; tree-இல் closest `<Suspense>` boundary வரை client rendering-க்கு revert செய்யும். இதனால் hydrated tree consistent ஆக இருக்கும்; hydration mismatches காரணமாக ஏற்படக்கூடிய potential privacy மற்றும் security holes தவிர்க்கப்படுகின்றன.
+* **Suspense trees எப்போதும் consistent:** Component முழுமையாக tree-க்கு add செய்யப்படுவதற்கு முன் suspend ஆனால், React அதை incomplete state-இல் tree-க்கு add செய்யவோ அதன் effects fire செய்யவோ செய்யாது. அதற்கு பதிலாக, React புதிய tree-ஐ முழுமையாக throw away செய்து, asynchronous operation முடியும் வரை காத்திருந்து, பின்னர் scratch-இலிருந்து மீண்டும் rendering retry செய்யும். React retry attempt-ஐ concurrently render செய்யும்; browser-ஐ block செய்யாமல்.
+* **Suspense உடன் Layout Effects**: Tree மீண்டும் suspend ஆகி fallback-க்கு revert ஆனபோது, React இப்போது layout effects clean up செய்து, boundary உள்ள content மீண்டும் காட்டப்படும் போது அவற்றை re-create செய்கிறது. Suspense உடன் பயன்படுத்தும்போது component libraries layout-ஐ சரியாக measure செய்ய முடியாமல் இருந்த issue-ஐ இது fix செய்கிறது.
+* **புதிய JS environment requirements**: React இப்போது `Promise`, `Symbol`, மற்றும் `Object.assign` உட்பட modern browser features-ஐ சார்ந்துள்ளது. Modern browser features native ஆக வழங்காத அல்லது non-compliant implementations கொண்ட Internet Explorer போன்ற older browsers மற்றும் devices support செய்தால், உங்கள் bundled application-இல் global polyfill include செய்வதைப் பரிசீலிக்கவும்.
 
-## Other Notable Changes {/*other-notable-changes*/}
+## பிற notable changes {/*other-notable-changes*/}
 
 ### React {/*react*/}
 
-* **Components can now render `undefined`:** React no longer warns if you return `undefined` from a component. This makes the allowed component return values consistent with values that are allowed in the middle of a component tree. We suggest to use a linter to prevent mistakes like forgetting a `return` statement before JSX.
-* **In tests, `act` warnings are now opt-in:** If you're running end-to-end tests, the `act` warnings are unnecessary. We've introduced an [opt-in](https://github.com/reactwg/react-18/discussions/102) mechanism so you can enable them only for unit tests where they are useful and beneficial.
-* **No warning about `setState` on unmounted components:** Previously, React warned about memory leaks when you call `setState` on an unmounted component. This warning was added for subscriptions, but people primarily run into it in scenarios where setting state is fine, and workarounds make the code worse. We've [removed](https://github.com/facebook/react/pull/22114) this warning.
-* **No suppression of console logs:** When you use Strict Mode, React renders each component twice to help you find unexpected side effects. In React 17, we've suppressed console logs for one of the two renders to make the logs easier to read. In response to [community feedback](https://github.com/facebook/react/issues/21783) about this being confusing, we've removed the suppression. Instead, if you have React DevTools installed, the second log's renders will be displayed in grey, and there will be an option (off by default) to suppress them completely.
-* **Improved memory usage:** React now cleans up more internal fields on unmount, making the impact from unfixed memory leaks that may exist in your application code less severe.
+* **Components இப்போது `undefined` render செய்யலாம்:** Component ஒன்றிலிருந்து `undefined` return செய்தால் React இனி warn செய்யாது. இது allowed component return values-ஐ component tree நடுப்பகுதியில் அனுமதிக்கப்படும் values உடன் consistent ஆக்குகிறது. JSX-க்கு முன் `return` statement மறப்பது போன்ற mistakes-ஐ தடுக்க linter பயன்படுத்த பரிந்துரைக்கிறோம்.
+* **Tests-இல், `act` warnings இப்போது opt-in:** End-to-end tests run செய்தால், `act` warnings தேவையில்லை. அவை பயனுள்ளதாக இருக்கும் unit tests-க்கு மட்டும் enable செய்ய [opt-in](https://github.com/reactwg/react-18/discussions/102) mechanism அறிமுகப்படுத்தியுள்ளோம்.
+* **Unmounted components-இல் `setState` பற்றி warning இல்லை:** முன்பு, unmounted component-இல் `setState` call செய்தால் memory leaks பற்றி React warn செய்தது. இந்த warning subscriptions-க்காக சேர்க்கப்பட்டது; ஆனால் மக்கள் பெரும்பாலும் state setting fine ஆக இருக்கும் scenarios-இல் இதை சந்தித்தனர், மேலும் workarounds code-ஐ மோசமாக்கின. இந்த warning-ஐ [remove செய்துள்ளோம்](https://github.com/facebook/react/pull/22114).
+* **Console logs suppress செய்யப்படாது:** Strict Mode பயன்படுத்தும்போது, unexpected side effects கண்டறிய React ஒவ்வொரு component-யையும் இருமுறை render செய்கிறது. React 17-இல், logs படிக்க நேரடியாக இருக்க இரண்டு renders-இல் ஒன்றுக்கான console logs suppress செய்தோம். இது confusing என்கிற [community feedback](https://github.com/facebook/react/issues/21783)-க்கு பதிலாக suppression remove செய்துள்ளோம். அதற்கு பதிலாக, React DevTools install செய்யப்பட்டிருந்தால், இரண்டாவது render-ன் logs grey-ஆக காட்டப்படும்; அவற்றை முழுமையாக suppress செய்யும் option இருக்கும் (default ஆக off).
+* **மேம்பட்ட memory usage:** Unmount போது React இப்போது அதிக internal fields clean up செய்கிறது; இதனால் உங்கள் application code-இல் இருக்கக்கூடிய unfixed memory leaks-ன் impact குறையும்.
 
 ### React DOM Server {/*react-dom-server*/}
 
-* **`renderToString`:** Will no longer error when suspending on the server. Instead, it will emit the fallback HTML for the closest `<Suspense>` boundary and then retry rendering the same content on the client. It is still recommended that you switch to a streaming API like `renderToPipeableStream` or `renderToReadableStream` instead.
-* **`renderToStaticMarkup`:** Will no longer error when suspending on the server. Instead, it will emit the fallback HTML for the closest `<Suspense>` boundary.
+* **`renderToString`:** Server-இல் suspending போது இனி error ஆகாது. அதற்கு பதிலாக, closest `<Suspense>` boundary-க்கான fallback HTML emit செய்து, அதே content-ஐ client-இல் rendering retry செய்யும். இருந்தாலும் `renderToPipeableStream` அல்லது `renderToReadableStream` போன்ற streaming API-க்கு switch செய்ய பரிந்துரைக்கப்படுகிறது.
+* **`renderToStaticMarkup`:** Server-இல் suspending போது இனி error ஆகாது. அதற்கு பதிலாக, closest `<Suspense>` boundary-க்கான fallback HTML emit செய்யும்.
 
 ## Changelog {/*changelog*/}
 
-You can view the [full changelog here](https://github.com/facebook/react/blob/main/CHANGELOG.md).
+[முழு changelog-ஐ இங்கே](https://github.com/facebook/react/blob/main/CHANGELOG.md) பார்க்கலாம்.

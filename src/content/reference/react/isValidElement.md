@@ -4,7 +4,7 @@ title: isValidElement
 
 <Intro>
 
-`isValidElement` checks whether a value is a React element.
+ஒரு value React element ஆக உள்ளதா என்பதை `isValidElement` சரிபார்க்கிறது.
 
 ```js
 const isElement = isValidElement(value)
@@ -20,7 +20,7 @@ const isElement = isValidElement(value)
 
 ### `isValidElement(value)` {/*isvalidelement*/}
 
-Call `isValidElement(value)` to check whether `value` is a React element.
+`value` React element ஆக உள்ளதா என்பதைச் சரிபார்க்க `isValidElement(value)`-ஐ அழைக்கவும்.
 
 ```js
 import { isValidElement, createElement } from 'react';
@@ -35,34 +35,34 @@ console.log(isValidElement('Hello')); // false
 console.log(isValidElement({ age: 42 })); // false
 ```
 
-[See more examples below.](#usage)
+[மேலும் உதாரணங்களை கீழே பார்க்கவும்.](#usage)
 
 #### Parameters {/*parameters*/}
 
-* `value`: The `value` you want to check. It can be any a value of any type.
+* `value`: நீங்கள் சரிபார்க்க விரும்பும் `value`. இது எந்த type-இன் value ஆகவும் இருக்கலாம்.
 
 #### Returns {/*returns*/}
 
-`isValidElement` returns `true` if the `value` is a React element. Otherwise, it returns `false`.
+`value` React element என்றால் `isValidElement` `true` return செய்யும். இல்லையெனில் `false` return செய்யும்.
 
 #### Caveats {/*caveats*/}
 
-* **Only [JSX tags](/learn/writing-markup-with-jsx) and objects returned by [`createElement`](/reference/react/createElement) are considered to be React elements.** For example, even though a number like `42` is a valid React *node* (and can be returned from a component), it is not a valid React element. Arrays and portals created with [`createPortal`](/reference/react-dom/createPortal) are also *not* considered to be React elements.
+* **[JSX tags](/learn/writing-markup-with-jsx) மற்றும் [`createElement`](/reference/react/createElement) return செய்யும் objects மட்டுமே React elements ஆகக் கருதப்படுகின்றன.** உதாரணமாக, `42` போன்ற number ஒரு செல்லுபடியாகும் React *node* (மேலும் component-இலிருந்து return செய்யப்படலாம்) என்றாலும், அது செல்லுபடியாகும் React element அல்ல. Arrays மற்றும் [`createPortal`](/reference/react-dom/createPortal) மூலம் உருவாக்கப்பட்ட portals-உம் React elements ஆகக் கருதப்படாது.
 
 ---
 
 ## Usage {/*usage*/}
 
-### Checking if something is a React element {/*checking-if-something-is-a-react-element*/}
+### ஏதாவது ஒன்று React element ஆக உள்ளதா என்று சரிபார்த்தல் {/*checking-if-something-is-a-react-element*/}
 
-Call `isValidElement` to check if some value is a *React element.*
+ஒரு value *React element* ஆக உள்ளதா என்பதைச் சரிபார்க்க `isValidElement`-ஐ அழைக்கவும்.
 
-React elements are:
+React elements:
 
-- Values produced by writing a [JSX tag](/learn/writing-markup-with-jsx)
-- Values produced by calling [`createElement`](/reference/react/createElement)
+- [JSX tag](/learn/writing-markup-with-jsx) எழுதுவதால் உருவாகும் values
+- [`createElement`](/reference/react/createElement) அழைப்பதால் உருவாகும் values
 
-For React elements, `isValidElement` returns `true`:
+React elements-க்கு, `isValidElement` `true` return செய்யும்:
 
 ```js
 import { isValidElement, createElement } from 'react';
@@ -76,9 +76,9 @@ console.log(isValidElement(createElement('p'))); // true
 console.log(isValidElement(createElement(MyComponent))); // true
 ```
 
-Any other values, such as strings, numbers, or arbitrary objects and arrays, are not React elements.
+Strings, numbers, அல்லது arbitrary objects மற்றும் arrays போன்ற பிற values React elements அல்ல.
 
-For them, `isValidElement` returns `false`:
+அவற்றுக்கு `isValidElement` `false` return செய்யும்:
 
 ```js
 // ❌ These are *not* React elements
@@ -90,15 +90,15 @@ console.log(isValidElement([<div />, <div />])); // false
 console.log(isValidElement(MyComponent)); // false
 ```
 
-It is very uncommon to need `isValidElement`. It's mostly useful if you're calling another API that *only* accepts elements (like [`cloneElement`](/reference/react/cloneElement) does) and you want to avoid an error when your argument is not a React element.
+`isValidElement` தேவைப்படுவது மிகவும் அரிது. [`cloneElement`](/reference/react/cloneElement) போல elements மட்டுமே ஏற்கும் மற்றொரு API-யை அழைக்கும் போது, உங்கள் argument React element அல்லாதபோது error தவிர்க்க விரும்பினால் இது பெரும்பாலும் பயனுள்ளதாக இருக்கும்.
 
-Unless you have some very specific reason to add an `isValidElement` check, you probably don't need it.
+`isValidElement` check சேர்க்க மிகவும் குறிப்பிட்ட காரணம் இல்லாவிட்டால், உங்களுக்கு இது தேவையில்லாமல் இருக்கலாம்.
 
 <DeepDive>
 
 #### React elements vs React nodes {/*react-elements-vs-react-nodes*/}
 
-When you write a component, you can return any kind of *React node* from it:
+ஒரு component எழுதும்போது, அதிலிருந்து எந்த வகை *React node*-ஐயும் return செய்யலாம்:
 
 ```js
 function MyComponent() {
@@ -106,23 +106,23 @@ function MyComponent() {
 }
 ```
 
-A React node can be:
+React node ஆக இருக்கக்கூடியவை:
 
-- A React element created like `<div />` or `createElement('div')`
-- A portal created with [`createPortal`](/reference/react-dom/createPortal)
-- A string
-- A number
-- `true`, `false`, `null`, or `undefined` (which are not displayed)
-- An array of other React nodes
+- `<div />` அல்லது `createElement('div')` போன்ற முறையில் உருவாக்கப்பட்ட React element
+- [`createPortal`](/reference/react-dom/createPortal) மூலம் உருவாக்கப்பட்ட portal
+- String
+- Number
+- `true`, `false`, `null`, அல்லது `undefined` (இவை காட்டப்படாது)
+- பிற React nodes கொண்ட array
 
-**Note `isValidElement` checks whether the argument is a *React element,* not whether it's a React node.** For example, `42` is not a valid React element. However, it is a perfectly valid React node:
+**`isValidElement` argument *React element* ஆக உள்ளதா என்பதையே சரிபார்க்கிறது; அது React node ஆக உள்ளதா என்பதை அல்ல என்பதை கவனிக்கவும்.** உதாரணமாக, `42` செல்லுபடியாகும் React element அல்ல. ஆனால் அது முழுமையாக செல்லுபடியாகும் React node:
 
 ```js
 function MyComponent() {
-  return 42; // It's ok to return a number from component
+  return 42; // Component-இலிருந்து number return செய்வது சரி
 }
 ```
 
-This is why you shouldn't use `isValidElement` as a way to check whether something can be rendered.
+இதனால், ஏதாவது ஒன்று render செய்யப்படுமா என்பதைச் சரிபார்க்க `isValidElement`-ஐப் பயன்படுத்தக்கூடாது.
 
 </DeepDive>

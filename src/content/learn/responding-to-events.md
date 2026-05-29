@@ -1,24 +1,24 @@
 ---
-title: Responding to Events
+title: Events-க்கு பதிலளித்தல்
 ---
 
 <Intro>
 
-React lets you add *event handlers* to your JSX. Event handlers are your own functions that will be triggered in response to interactions like clicking, hovering, focusing form inputs, and so on.
+உங்கள் JSX-க்கு *event handlers* சேர்க்க React அனுமதிக்கிறது. Event handlers என்பது clicking, hovering, form inputs-ஐ focusing செய்வது போன்ற interactions-க்கு பதிலாக trigger ஆகும் உங்கள் சொந்த functions.
 
 </Intro>
 
 <YouWillLearn>
 
-* Different ways to write an event handler
-* How to pass event handling logic from a parent component
-* How events propagate and how to stop them
+* Event handler எழுதும் வெவ்வேறு வழிகள்
+* Parent component-இலிருந்து event handling logic-ஐ எப்படி pass செய்வது
+* Events எப்படி propagate ஆகின்றன மற்றும் அவற்றை எப்படி stop செய்வது
 
 </YouWillLearn>
 
-## Adding event handlers {/*adding-event-handlers*/}
+## Event handlers சேர்த்தல் {/*adding-event-handlers*/}
 
-To add an event handler, you will first define a function and then [pass it as a prop](/learn/passing-props-to-a-component) to the appropriate JSX tag. For example, here is a button that doesn't do anything yet:
+Event handler சேர்க்க, முதலில் ஒரு function-ஐ define செய்து, பின்னர் அதை பொருத்தமான JSX tag-க்கு [prop ஆக pass](/learn/passing-props-to-a-component) செய்வீர்கள். உதாரணமாக, இன்னும் எதையும் செய்யாத button ஒன்று இங்கே:
 
 <Sandpack>
 
@@ -26,7 +26,7 @@ To add an event handler, you will first define a function and then [pass it as a
 export default function Button() {
   return (
     <button>
-      I don't do anything
+      நான் எதையும் செய்யவில்லை
     </button>
   );
 }
@@ -34,23 +34,23 @@ export default function Button() {
 
 </Sandpack>
 
-You can make it show a message when a user clicks by following these three steps:
+User click செய்தால் ஒரு message காட்ட, இந்த மூன்று படிகளைப் பின்பற்றலாம்:
 
-1. Declare a function called `handleClick` *inside* your `Button` component.
-2. Implement the logic inside that function (use `alert` to show the message).
-3. Add `onClick={handleClick}` to the `<button>` JSX.
+1. உங்கள் `Button` component-க்குள் `handleClick` எனும் function-ஐ declare செய்யுங்கள்.
+2. அந்த function-க்குள் logic-ஐ implement செய்யுங்கள் (message காட்ட `alert` பயன்படுத்துங்கள்).
+3. `<button>` JSX-க்கு `onClick={handleClick}` சேர்க்குங்கள்.
 
 <Sandpack>
 
 ```js
 export default function Button() {
   function handleClick() {
-    alert('You clicked me!');
+    alert('நீங்கள் என்னை click செய்தீர்கள்!');
   }
 
   return (
     <button onClick={handleClick}>
-      Click me
+      என்னை click செய்க
     </button>
   );
 }
@@ -62,77 +62,77 @@ button { margin-right: 10px; }
 
 </Sandpack>
 
-You defined the `handleClick` function and then [passed it as a prop](/learn/passing-props-to-a-component) to `<button>`.  `handleClick` is an **event handler.** Event handler functions:
+நீங்கள் `handleClick` function-ஐ define செய்து, பின்னர் அதை `<button>`-க்கு [prop ஆக pass](/learn/passing-props-to-a-component) செய்தீர்கள். `handleClick` ஒரு **event handler.** Event handler functions:
 
-* Are usually defined *inside* your components.
-* Have names that start with `handle`, followed by the name of the event.
+* பொதுவாக உங்கள் components-க்குள் define செய்யப்படும்.
+* `handle` என்று தொடங்கி, அதன் பின் event பெயர் வரும் names கொண்டிருக்கும்.
 
-By convention, it is common to name event handlers as `handle` followed by the event name. You'll often see `onClick={handleClick}`, `onMouseEnter={handleMouseEnter}`, and so on.
+Convention படி, event handlers-க்கு `handle` தொடர்ந்து event name வரும் பெயர் வைப்பது பொதுவானது. `onClick={handleClick}`, `onMouseEnter={handleMouseEnter}` போன்றவற்றை அடிக்கடி காண்பீர்கள்.
 
-Alternatively, you can define an event handler inline in the JSX:
+மாற்றாக, JSX-க்குள் inline ஆக event handler define செய்யலாம்:
 
 ```jsx
 <button onClick={function handleClick() {
-  alert('You clicked me!');
+  alert('நீங்கள் என்னை click செய்தீர்கள்!');
 }}>
 ```
 
-Or, more concisely, using an arrow function:
+அல்லது, இன்னும் சுருக்கமாக arrow function பயன்படுத்தலாம்:
 
 ```jsx
 <button onClick={() => {
-  alert('You clicked me!');
+  alert('நீங்கள் என்னை click செய்தீர்கள்!');
 }}>
 ```
 
-All of these styles are equivalent. Inline event handlers are convenient for short functions.
+இந்த styles அனைத்தும் equivalent. Short functions-க்கு inline event handlers வசதியானவை.
 
 <Pitfall>
 
-Functions passed to event handlers must be passed, not called. For example:
+Event handlers-க்கு pass செய்யப்படும் functions pass செய்யப்பட வேண்டும்; call செய்யப்படக்கூடாது. உதாரணமாக:
 
-| passing a function (correct)     | calling a function (incorrect)     |
+| function pass செய்வது (சரி)       | function call செய்வது (தவறு)       |
 | -------------------------------- | ---------------------------------- |
 | `<button onClick={handleClick}>` | `<button onClick={handleClick()}>` |
 
-The difference is subtle. In the first example, the `handleClick` function is passed as an `onClick` event handler. This tells React to remember it and only call your function when the user clicks the button.
+வேறுபாடு நுட்பமானது. முதல் example-இல், `handleClick` function `onClick` event handler ஆக pass செய்யப்படுகிறது. இதனால் அதை React நினைவில் வைத்திருந்து, user button-ஐ click செய்தால் மட்டுமே உங்கள் function-ஐ call செய்யும்.
 
-In the second example, the `()` at the end of `handleClick()` fires the function *immediately* during [rendering](/learn/render-and-commit), without any clicks. This is because JavaScript inside the [JSX `{` and `}`](/learn/javascript-in-jsx-with-curly-braces) executes right away.
+இரண்டாவது example-இல், `handleClick()` முடிவில் உள்ள `()` clicks இல்லாமலேயே [rendering](/learn/render-and-commit) போது function-ஐ *உடனடியாக* fire செய்கிறது. ஏனெனில் [JSX `{` மற்றும் `}`](/learn/javascript-in-jsx-with-curly-braces)-க்குள் உள்ள JavaScript உடனே execute ஆகிறது.
 
-When you write code inline, the same pitfall presents itself in a different way:
+Inline ஆக code எழுதும்போது, அதே pitfall வேறு வடிவில் தோன்றும்:
 
-| passing a function (correct)            | calling a function (incorrect)    |
+| function pass செய்வது (சரி)              | function call செய்வது (தவறு)      |
 | --------------------------------------- | --------------------------------- |
 | `<button onClick={() => alert('...')}>` | `<button onClick={alert('...')}>` |
 
 
-Passing inline code like this won't fire on click—it fires every time the component renders:
+இப்படி inline code pass செய்தால் click போது fire ஆகாது--component render ஆகும் ஒவ்வொரு முறையும் fire ஆகும்:
 
 ```jsx
 // This alert fires when the component renders, not when clicked!
-<button onClick={alert('You clicked me!')}>
+<button onClick={alert('நீங்கள் என்னை click செய்தீர்கள்!')}>
 ```
 
-If you want to define your event handler inline, wrap it in an anonymous function like so:
+உங்கள் event handler-ஐ inline ஆக define செய்ய விரும்பினால், அதை anonymous function-க்குள் wrap செய்யுங்கள்:
 
 ```jsx
-<button onClick={() => alert('You clicked me!')}>
+<button onClick={() => alert('நீங்கள் என்னை click செய்தீர்கள்!')}>
 ```
 
-Rather than executing the code inside with every render, this creates a function to be called later.
+ஒவ்வொரு render-இலும் உள்ள code-ஐ execute செய்வதற்கு பதிலாக, இது பின்னர் call செய்யப்பட வேண்டிய function ஒன்றை உருவாக்குகிறது.
 
-In both cases, what you want to pass is a function:
+இரண்டு cases-லுமே, நீங்கள் pass செய்ய விரும்புவது ஒரு function:
 
-* `<button onClick={handleClick}>` passes the `handleClick` function.
-* `<button onClick={() => alert('...')}>` passes the `() => alert('...')` function.
+* `<button onClick={handleClick}>` `handleClick` function-ஐ pass செய்கிறது.
+* `<button onClick={() => alert('...')}>` `() => alert('...')` function-ஐ pass செய்கிறது.
 
-[Read more about arrow functions.](https://javascript.info/arrow-functions-basics)
+[Arrow functions பற்றி மேலும் படிக்கவும்.](https://javascript.info/arrow-functions-basics)
 
 </Pitfall>
 
-### Reading props in event handlers {/*reading-props-in-event-handlers*/}
+### Event handlers-இல் props-ஐ வாசித்தல் {/*reading-props-in-event-handlers*/}
 
-Because event handlers are declared inside of a component, they have access to the component's props. Here is a button that, when clicked, shows an alert with its `message` prop:
+Event handlers ஒரு component-க்குள் declared செய்யப்படுவதால், அவற்றுக்கு அந்த component-ன் props access இருக்கும். Click செய்தால் தனது `message` prop உடன் alert காட்டும் button இதோ:
 
 <Sandpack>
 
@@ -148,11 +148,11 @@ function AlertButton({ message, children }) {
 export default function Toolbar() {
   return (
     <div>
-      <AlertButton message="Playing!">
-        Play Movie
+      <AlertButton message="இயக்கப்படுகிறது!">
+        Movie-ஐ இயக்கு
       </AlertButton>
-      <AlertButton message="Uploading!">
-        Upload Image
+      <AlertButton message="Upload செய்யப்படுகிறது!">
+        Image-ஐ upload செய்
       </AlertButton>
     </div>
   );
@@ -165,13 +165,13 @@ button { margin-right: 10px; }
 
 </Sandpack>
 
-This lets these two buttons show different messages. Try changing the messages passed to them.
+இதனால் இந்த இரண்டு buttons வெவ்வேறு messages காட்ட முடியும். அவற்றுக்கு pass செய்யப்பட்ட messages-ஐ மாற்றிப் பாருங்கள்.
 
-### Passing event handlers as props {/*passing-event-handlers-as-props*/}
+### Event handlers-ஐ props ஆக pass செய்தல் {/*passing-event-handlers-as-props*/}
 
-Often you'll want the parent component to specify a child's event handler. Consider buttons: depending on where you're using a `Button` component, you might want to execute a different function—perhaps one plays a movie and another uploads an image.
+Parent component ஒரு child-ன் event handler-ஐ specify செய்ய வேண்டும் என்பது அடிக்கடி வரும். Buttons-ஐ எடுத்துக்கொள்ளுங்கள்: `Button` component-ஐ எங்கு பயன்படுத்துகிறீர்கள் என்பதைப் பொறுத்து வேறு function execute செய்ய விரும்பலாம்--ஒன்று movie play செய்யலாம், மற்றொன்று image upload செய்யலாம்.
 
-To do this, pass a prop the component receives from its parent as the event handler like so:
+இதைக் செய்ய, component தனது parent-இலிருந்து பெறும் prop-ஐ event handler ஆக இதுபோல் pass செய்யுங்கள்:
 
 <Sandpack>
 
@@ -186,20 +186,20 @@ function Button({ onClick, children }) {
 
 function PlayButton({ movieName }) {
   function handlePlayClick() {
-    alert(`Playing ${movieName}!`);
+    alert(`${movieName} இயக்கப்படுகிறது!`);
   }
 
   return (
     <Button onClick={handlePlayClick}>
-      Play "{movieName}"
+      "{movieName}"-ஐ இயக்கு
     </Button>
   );
 }
 
 function UploadButton() {
   return (
-    <Button onClick={() => alert('Uploading!')}>
-      Upload Image
+    <Button onClick={() => alert('Upload செய்யப்படுகிறது!')}>
+      Image-ஐ upload செய்
     </Button>
   );
 }
@@ -220,22 +220,22 @@ button { margin-right: 10px; }
 
 </Sandpack>
 
-Here, the `Toolbar` component renders a `PlayButton` and an `UploadButton`:
+இங்கே, `Toolbar` component ஒரு `PlayButton` மற்றும் ஒரு `UploadButton`-ஐ render செய்கிறது:
 
-- `PlayButton` passes `handlePlayClick` as the `onClick` prop to the `Button` inside.
-- `UploadButton` passes `() => alert('Uploading!')` as the `onClick` prop to the `Button` inside.
+- `PlayButton` உள்ளே உள்ள `Button`-க்கு `handlePlayClick`-ஐ `onClick` prop ஆக pass செய்கிறது.
+- `UploadButton` உள்ளே உள்ள `Button`-க்கு `() => alert('Upload செய்யப்படுகிறது!')`-ஐ `onClick` prop ஆக pass செய்கிறது.
 
-Finally, your `Button` component accepts a prop called `onClick`. It passes that prop directly to the built-in browser `<button>` with `onClick={onClick}`. This tells React to call the passed function on click.
+இறுதியாக, உங்கள் `Button` component `onClick` எனும் prop-ஐ ஏற்கிறது. அது அந்த prop-ஐ built-in browser `<button>`-க்கு `onClick={onClick}` உடன் நேரடியாக pass செய்கிறது. இதனால் click போது pass செய்யப்பட்ட function-ஐ call செய்ய React-க்கு தெரியும்.
 
-If you use a [design system](https://uxdesign.cc/everything-you-need-to-know-about-design-systems-54b109851969), it's common for components like buttons to contain styling but not specify behavior. Instead, components like `PlayButton` and `UploadButton` will pass event handlers down.
+நீங்கள் [design system](https://uxdesign.cc/everything-you-need-to-know-about-design-systems-54b109851969) பயன்படுத்தினால், buttons போன்ற components styling-ஐ கொண்டிருப்பதும் behavior-ஐ specify செய்யாததும் பொதுவானது. அதற்கு பதிலாக, `PlayButton` மற்றும் `UploadButton` போன்ற components event handlers-ஐ கீழே pass செய்யும்.
 
-### Naming event handler props {/*naming-event-handler-props*/}
+### Event handler props-க்கு பெயர் வைப்பது {/*naming-event-handler-props*/}
 
-Built-in components like `<button>` and `<div>` only support [browser event names](/reference/react-dom/components/common#common-props) like `onClick`. However, when you're building your own components, you can name their event handler props any way that you like.
+`<button>` மற்றும் `<div>` போன்ற built-in components, `onClick` போன்ற [browser event names](/reference/react-dom/components/common#common-props)-ஐ மட்டுமே support செய்கின்றன. ஆனால் நீங்கள் உங்கள் சொந்த components கட்டும்போது, அவற்றின் event handler props-க்கு உங்களுக்கு விருப்பமான எந்தப் பெயரையும் வைக்கலாம்.
 
-By convention, event handler props should start with `on`, followed by a capital letter.
+Convention படி, event handler props `on` என்று தொடங்கி, அதன் பின் capital letter வர வேண்டும்.
 
-For example, the `Button` component's `onClick` prop could have been called `onSmash`:
+உதாரணமாக, `Button` component-ன் `onClick` prop-க்கு `onSmash` என்று பெயர் வைத்திருக்கலாம்:
 
 <Sandpack>
 
@@ -251,11 +251,11 @@ function Button({ onSmash, children }) {
 export default function App() {
   return (
     <div>
-      <Button onSmash={() => alert('Playing!')}>
-        Play Movie
+      <Button onSmash={() => alert('இயக்கப்படுகிறது!')}>
+        Movie-ஐ இயக்கு
       </Button>
-      <Button onSmash={() => alert('Uploading!')}>
-        Upload Image
+      <Button onSmash={() => alert('Upload செய்யப்படுகிறது!')}>
+        Image-ஐ upload செய்
       </Button>
     </div>
   );
@@ -268,9 +268,9 @@ button { margin-right: 10px; }
 
 </Sandpack>
 
-In this example, `<button onClick={onSmash}>` shows that the browser `<button>` (lowercase) still needs a prop called `onClick`, but the prop name received by your custom `Button` component is up to you!
+இந்த example-இல், browser `<button>` (lowercase) இன்னும் `onClick` எனும் prop-ஐத் தேவைப்படுகின்றது என்பதை `<button onClick={onSmash}>` காட்டுகிறது. ஆனால் உங்கள் custom `Button` component பெறும் prop name உங்கள் விருப்பம்!
 
-When your component supports multiple interactions, you might name event handler props for app-specific concepts. For example, this `Toolbar` component receives `onPlayMovie` and `onUploadImage` event handlers:
+உங்கள் component பல interactions-ஐ support செய்தால், app-specific concepts-ஐ வைத்து event handler props-க்கு பெயர் வைக்கலாம். உதாரணமாக, இந்த `Toolbar` component `onPlayMovie` மற்றும் `onUploadImage` event handlers-ஐப் பெறுகிறது:
 
 <Sandpack>
 
@@ -278,8 +278,8 @@ When your component supports multiple interactions, you might name event handler
 export default function App() {
   return (
     <Toolbar
-      onPlayMovie={() => alert('Playing!')}
-      onUploadImage={() => alert('Uploading!')}
+      onPlayMovie={() => alert('இயக்கப்படுகிறது!')}
+      onUploadImage={() => alert('Upload செய்யப்படுகிறது!')}
     />
   );
 }
@@ -288,10 +288,10 @@ function Toolbar({ onPlayMovie, onUploadImage }) {
   return (
     <div>
       <Button onClick={onPlayMovie}>
-        Play Movie
+        Movie-ஐ இயக்கு
       </Button>
       <Button onClick={onUploadImage}>
-        Upload Image
+        Image-ஐ upload செய்
       </Button>
     </div>
   );
@@ -312,19 +312,19 @@ button { margin-right: 10px; }
 
 </Sandpack>
 
-Notice how the `App` component does not need to know *what* `Toolbar` will do with `onPlayMovie` or `onUploadImage`. That's an implementation detail of the `Toolbar`. Here, `Toolbar` passes them down as `onClick` handlers to its `Button`s, but it could later also trigger them on a keyboard shortcut. Naming props after app-specific interactions like `onPlayMovie` gives you the flexibility to change how they're used later.
+`App` component, `Toolbar` `onPlayMovie` அல்லது `onUploadImage` கொண்டு *என்ன* செய்யும் என்பதை அறிய தேவையில்லை என்பதை கவனியுங்கள். அது `Toolbar`-ன் implementation detail. இங்கே, `Toolbar` அவற்றை தனது `Button`s-க்கு `onClick` handlers ஆக கீழே pass செய்கிறது; ஆனால் பின்னர் keyboard shortcut-இலும் அவற்றை trigger செய்யலாம். `onPlayMovie` போன்ற app-specific interactions பெயர்களை props-க்கு வைப்பது, அவை பின்னர் எப்படி பயன்படுத்தப்படுகின்றன என்பதை மாற்றும் flexibility-யை உங்களுக்கு வழங்குகிறது.
 
 <Note>
 
-Make sure that you use the appropriate HTML tags for your event handlers. For example, to handle clicks, use [`<button onClick={handleClick}>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button) instead of `<div onClick={handleClick}>`. Using a real browser `<button>` enables built-in browser behaviors like keyboard navigation. If you don't like the default browser styling of a button and want to make it look more like a link or a different UI element, you can achieve it with CSS. [Learn more about writing accessible markup.](https://developer.mozilla.org/en-US/docs/Learn/Accessibility/HTML)
+உங்கள் event handlers-க்கு பொருத்தமான HTML tags-ஐ பயன்படுத்துகிறீர்கள் என்பதை உறுதி செய்யுங்கள். உதாரணமாக, clicks handle செய்ய, `<div onClick={handleClick}>`-க்கு பதிலாக [`<button onClick={handleClick}>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button)-ஐ பயன்படுத்துங்கள். உண்மையான browser `<button>` பயன்படுத்துவது keyboard navigation போன்ற built-in browser behaviors-ஐ enable செய்கிறது. Button-ன் default browser styling பிடிக்கவில்லை என்றால், அதை link அல்லது வேறு UI element போல தோற்றமளிக்க CSS மூலம் செய்யலாம். [Accessible markup எழுதுவது பற்றி மேலும் அறிக.](https://developer.mozilla.org/en-US/docs/Learn/Accessibility/HTML)
 
 </Note>
 
 ## Event propagation {/*event-propagation*/}
 
-Event handlers will also catch events from any children your component might have. We say that an event "bubbles" or "propagates" up the tree: it starts with where the event happened, and then goes up the tree.
+Event handlers, உங்கள் component-க்கு இருக்கக்கூடிய எந்த children-இலிருந்தும் events-ஐ catch செய்யும். ஒரு event tree-யில் மேலே "bubbles" அல்லது "propagates" ஆகிறது என்று சொல்வோம்: event நடந்த இடத்திலிருந்து தொடங்கி tree-யில் மேலே செல்கிறது.
 
-This `<div>` contains two buttons. Both the `<div>` *and* each button have their own `onClick` handlers. Which handlers do you think will fire when you click a button?
+இந்த `<div>` இரண்டு buttons-ஐ கொண்டுள்ளது. `<div>` *மற்றும்* ஒவ்வொரு button-க்கும் தனி `onClick` handlers உள்ளன. Button ஒன்றை click செய்தால் எந்த handlers fire ஆகும் என்று நினைக்கிறீர்கள்?
 
 <Sandpack>
 
@@ -332,13 +332,13 @@ This `<div>` contains two buttons. Both the `<div>` *and* each button have their
 export default function Toolbar() {
   return (
     <div className="Toolbar" onClick={() => {
-      alert('You clicked on the toolbar!');
+      alert('நீங்கள் toolbar-ஐ click செய்தீர்கள்!');
     }}>
-      <button onClick={() => alert('Playing!')}>
-        Play Movie
+      <button onClick={() => alert('இயக்கப்படுகிறது!')}>
+        Movie-ஐ இயக்கு
       </button>
-      <button onClick={() => alert('Uploading!')}>
-        Upload Image
+      <button onClick={() => alert('Upload செய்யப்படுகிறது!')}>
+        Image-ஐ upload செய்
       </button>
     </div>
   );
@@ -355,19 +355,19 @@ button { margin: 5px; }
 
 </Sandpack>
 
-If you click on either button, its `onClick` will run first, followed by the parent `<div>`'s `onClick`. So two messages will appear. If you click the toolbar itself, only the parent `<div>`'s `onClick` will run.
+ஏதாவது button-ஐ click செய்தால், முதலில் அதன் `onClick` run ஆகும்; அதன் பின் parent `<div>`-ன் `onClick` run ஆகும். எனவே இரண்டு messages தோன்றும். Toolbar-ஐத் தானே click செய்தால், parent `<div>`-ன் `onClick` மட்டும் run ஆகும்.
 
 <Pitfall>
 
-All events propagate in React except `onScroll`, which only works on the JSX tag you attach it to.
+React-இல் அனைத்து events-மும் propagate ஆகும்; `onScroll` மட்டும் விதிவிலக்கு, அது நீங்கள் attach செய்த JSX tag-இல் மட்டுமே வேலை செய்யும்.
 
 </Pitfall>
 
-### Stopping propagation {/*stopping-propagation*/}
+### Propagation-ஐ நிறுத்துதல் {/*stopping-propagation*/}
 
-Event handlers receive an **event object** as their only argument. By convention, it's usually called `e`, which stands for "event". You can use this object to read information about the event.
+Event handlers தங்கள் ஒரே argument ஆக **event object**-ஐப் பெறுகின்றன. Convention படி, அது பொதுவாக `e` என்று அழைக்கப்படுகிறது; அது "event" என்பதைக் குறிக்கும். Event பற்றிய தகவலை வாசிக்க இந்த object-ஐ பயன்படுத்தலாம்.
 
-That event object also lets you stop the propagation. If you want to prevent an event from reaching parent components, you need to call `e.stopPropagation()` like this `Button` component does:
+அந்த event object propagation-ஐ stop செய்யவும் அனுமதிக்கிறது. Event parent components-ஐ அடையாமல் தடுக்க விரும்பினால், இந்த `Button` component செய்வது போல `e.stopPropagation()` call செய்ய வேண்டும்:
 
 <Sandpack>
 
@@ -386,13 +386,13 @@ function Button({ onClick, children }) {
 export default function Toolbar() {
   return (
     <div className="Toolbar" onClick={() => {
-      alert('You clicked on the toolbar!');
+      alert('நீங்கள் toolbar-ஐ click செய்தீர்கள்!');
     }}>
-      <Button onClick={() => alert('Playing!')}>
-        Play Movie
+      <Button onClick={() => alert('இயக்கப்படுகிறது!')}>
+        Movie-ஐ இயக்கு
       </Button>
-      <Button onClick={() => alert('Uploading!')}>
-        Upload Image
+      <Button onClick={() => alert('Upload செய்யப்படுகிறது!')}>
+        Image-ஐ upload செய்
       </Button>
     </div>
   );
@@ -409,43 +409,43 @@ button { margin: 5px; }
 
 </Sandpack>
 
-When you click on a button:
+Button ஒன்றை click செய்தால்:
 
-1. React calls the `onClick` handler passed to `<button>`.
-2. That handler, defined in `Button`, does the following:
-   * Calls `e.stopPropagation()`, preventing the event from bubbling further.
-   * Calls the `onClick` function, which is a prop passed from the `Toolbar` component.
-3. That function, defined in the `Toolbar` component, displays the button's own alert.
-4. Since the propagation was stopped, the parent `<div>`'s `onClick` handler does *not* run.
+1. `<button>`-க்கு pass செய்யப்பட்ட `onClick` handler-ஐ React call செய்கிறது.
+2. `Button`-இல் defined செய்யப்பட்ட அந்த handler, பின்வருவன செய்கிறது:
+   * `e.stopPropagation()`-ஐ call செய்து, event மேலும் bubble ஆகாமல் தடுக்கிறது.
+   * `Toolbar` component-இலிருந்து prop ஆக pass செய்யப்பட்ட `onClick` function-ஐ call செய்கிறது.
+3. `Toolbar` component-இல் defined செய்யப்பட்ட அந்த function, button-ன் சொந்த alert-ஐ display செய்கிறது.
+4. Propagation stop செய்யப்பட்டதால், parent `<div>`-ன் `onClick` handler run ஆகாது.
 
-As a result of `e.stopPropagation()`, clicking on the buttons now only shows a single alert (from the `<button>`) rather than the two of them (from the `<button>` and the parent toolbar `<div>`). Clicking a button is not the same thing as clicking the surrounding toolbar, so stopping the propagation makes sense for this UI.
+`e.stopPropagation()`-ன் விளைவாக, buttons-ஐ click செய்தால் இப்போது இரண்டு alerts-க்கு பதிலாக (`<button>` மற்றும் parent toolbar `<div>`-இலிருந்து), ஒரு alert மட்டும் (`<button>`-இலிருந்து) காட்டும். Button click செய்வது surrounding toolbar click செய்வதற்கு சமமல்ல; எனவே இந்த UI-க்கு propagation-ஐ stop செய்வது பொருத்தமானது.
 
 <DeepDive>
 
 #### Capture phase events {/*capture-phase-events*/}
 
-In rare cases, you might need to catch all events on child elements, *even if they stopped propagation*. For example, maybe you want to log every click to analytics, regardless of the propagation logic. You can do this by adding `Capture` at the end of the event name:
+அரிதான cases-இல், child elements-இல் உள்ள அனைத்து events-ஐயும், *அவை propagation stop செய்திருந்தாலும்* catch செய்ய வேண்டியிருக்கும். உதாரணமாக, propagation logic எப்படியிருந்தாலும் ஒவ்வொரு click-ஐயும் analytics-க்கு log செய்ய விரும்பலாம். Event name-ன் முடிவில் `Capture` சேர்ப்பதன் மூலம் இதைச் செய்யலாம்:
 
 ```js
-<div onClickCapture={() => { /* this runs first */ }}>
+<div onClickCapture={() => { /* இது முதலில் run ஆகும் */ }}>
   <button onClick={e => e.stopPropagation()} />
   <button onClick={e => e.stopPropagation()} />
 </div>
 ```
 
-Each event propagates in three phases:
+ஒவ்வொரு event-மும் மூன்று phases-இல் propagate ஆகிறது:
 
-1. It travels down, calling all `onClickCapture` handlers.
-2. It runs the clicked element's `onClick` handler.
-3. It travels upwards, calling all `onClick` handlers.
+1. அது கீழே பயணித்து, அனைத்து `onClickCapture` handlers-ஐ call செய்கிறது.
+2. Click செய்யப்பட்ட element-ன் `onClick` handler-ஐ run செய்கிறது.
+3. அது மேலே பயணித்து, அனைத்து `onClick` handlers-ஐ call செய்கிறது.
 
-Capture events are useful for code like routers or analytics, but you probably won't use them in app code.
+Capture events routers அல்லது analytics போன்ற code-க்கு பயனுள்ளவை; ஆனால் app code-இல் அவற்றை நீங்கள் பெரும்பாலும் பயன்படுத்தமாட்டீர்கள்.
 
 </DeepDive>
 
-### Passing handlers as alternative to propagation {/*passing-handlers-as-alternative-to-propagation*/}
+### Propagation-க்கு மாற்றாக handlers-ஐ pass செய்தல் {/*passing-handlers-as-alternative-to-propagation*/}
 
-Notice how this click handler runs a line of code _and then_ calls the `onClick` prop passed by the parent:
+இந்த click handler ஒரு வரி code-ஐ run செய்து _பிறகு_ parent pass செய்த `onClick` prop-ஐ call செய்வதை கவனியுங்கள்:
 
 ```js {4,5}
 function Button({ onClick, children }) {
@@ -460,22 +460,22 @@ function Button({ onClick, children }) {
 }
 ```
 
-You could add more code to this handler before calling the parent `onClick` event handler, too. This pattern provides an *alternative* to propagation. It lets the child component handle the event, while also letting the parent component specify some additional behavior. Unlike propagation, it's not automatic. But the benefit of this pattern is that you can clearly follow the whole chain of code that executes as a result of some event.
+Parent `onClick` event handler-ஐ call செய்வதற்கு முன் இந்த handler-க்கு இன்னும் code சேர்க்கலாம். இந்த pattern propagation-க்கு ஒரு *alternative* வழங்குகிறது. இது child component event-ஐ handle செய்ய அனுமதிக்கிறது; அதே சமயம் parent component கூடுதல் behavior ஒன்றை specify செய்யவும் அனுமதிக்கிறது. Propagation போல இது automatic அல்ல. ஆனால் இந்த pattern-ன் நன்மை, event ஒன்றின் விளைவாக execute ஆகும் code chain முழுவதையும் தெளிவாகப் பின்தொடர முடியும் என்பதுதான்.
 
-If you rely on propagation and it's difficult to trace which handlers execute and why, try this approach instead.
+நீங்கள் propagation-ஐ சார்ந்து, எந்த handlers ஏன் execute ஆகின்றன என்பதை trace செய்வது கடினமாக இருந்தால், இந்த அணுகுமுறையை முயற்சி செய்யுங்கள்.
 
-### Preventing default behavior {/*preventing-default-behavior*/}
+### Default behavior-ஐத் தடுப்பது {/*preventing-default-behavior*/}
 
-Some browser events have default behavior associated with them. For example, a `<form>` submit event, which happens when a button inside of it is clicked, will reload the whole page by default:
+சில browser events-க்கு அவற்றுடன் தொடர்புடைய default behavior உள்ளது. உதாரணமாக, ஒரு `<form>` submit event, அதற்குள் உள்ள button click செய்யப்பட்டால் நடக்கும்; default ஆக அது முழு page-ஐ reload செய்யும்:
 
 <Sandpack>
 
 ```js
 export default function Signup() {
   return (
-    <form onSubmit={() => alert('Submitting!')}>
+    <form onSubmit={() => alert('Submit செய்யப்படுகிறது!')}>
       <input />
-      <button>Send</button>
+      <button>அனுப்பு</button>
     </form>
   );
 }
@@ -487,7 +487,7 @@ button { margin-left: 5px; }
 
 </Sandpack>
 
-You can call `e.preventDefault()` on the event object to stop this from happening:
+இது நடக்காமல் தடுக்க event object-இல் `e.preventDefault()` call செய்யலாம்:
 
 <Sandpack>
 
@@ -496,10 +496,10 @@ export default function Signup() {
   return (
     <form onSubmit={e => {
       e.preventDefault();
-      alert('Submitting!');
+      alert('Submit செய்யப்படுகிறது!');
     }}>
       <input />
-      <button>Send</button>
+      <button>அனுப்பு</button>
     </form>
   );
 }
@@ -511,28 +511,28 @@ button { margin-left: 5px; }
 
 </Sandpack>
 
-Don't confuse `e.stopPropagation()` and `e.preventDefault()`. They are both useful, but are unrelated:
+`e.stopPropagation()` மற்றும் `e.preventDefault()`-ஐ குழப்ப வேண்டாம். இரண்டும் பயனுள்ளவை, ஆனால் தொடர்பில்லாதவை:
 
-* [`e.stopPropagation()`](https://developer.mozilla.org/docs/Web/API/Event/stopPropagation) stops the event handlers attached to the tags above from firing.
-* [`e.preventDefault()` ](https://developer.mozilla.org/docs/Web/API/Event/preventDefault) prevents the default browser behavior for the few events that have it.
+* [`e.stopPropagation()`](https://developer.mozilla.org/docs/Web/API/Event/stopPropagation) மேலுள்ள tags-க்கு attach செய்யப்பட்ட event handlers fire ஆகாமல் தடுக்கிறது.
+* [`e.preventDefault()` ](https://developer.mozilla.org/docs/Web/API/Event/preventDefault) default browser behavior உள்ள சில events-க்கு அந்த behavior-ஐத் தடுக்கிறது.
 
-## Can event handlers have side effects? {/*can-event-handlers-have-side-effects*/}
+## Event handlers-க்கு side effects இருக்க முடியுமா? {/*can-event-handlers-have-side-effects*/}
 
-Absolutely! Event handlers are the best place for side effects.
+மிகவும் முடியும்! Side effects-க்கு event handlers சிறந்த இடம்.
 
-Unlike rendering functions, event handlers don't need to be [pure](/learn/keeping-components-pure), so it's a great place to *change* something—for example, change an input's value in response to typing, or change a list in response to a button press. However, in order to change some information, you first need some way to store it. In React, this is done by using [state, a component's memory.](/learn/state-a-components-memory) You will learn all about it on the next page.
+Rendering functions போல அல்லாமல், event handlers [pure](/learn/keeping-components-pure) ஆக இருக்க வேண்டியதில்லை; எனவே ஏதாவது ஒன்றை *மாற்ற* அது சிறந்த இடம்--உதாரணமாக, typing-க்கு பதிலாக input-ன் value-ஐ மாற்றுதல், அல்லது button press-க்கு பதிலாக list-ஐ மாற்றுதல். ஆனால் எந்த தகவலையும் மாற்ற, முதலில் அதை store செய்ய ஒரு வழி தேவை. React-இல், இது [state, component-ன் memory](/learn/state-a-components-memory) பயன்படுத்தி செய்யப்படுகிறது. அடுத்த page-இல் இதைப் பற்றி அனைத்தையும் கற்றுக்கொள்வீர்கள்.
 
 <Recap>
 
-* You can handle events by passing a function as a prop to an element like `<button>`.
-* Event handlers must be passed, **not called!** `onClick={handleClick}`, not `onClick={handleClick()}`.
-* You can define an event handler function separately or inline.
-* Event handlers are defined inside a component, so they can access props.
-* You can declare an event handler in a parent and pass it as a prop to a child.
-* You can define your own event handler props with application-specific names.
-* Events propagate upwards. Call `e.stopPropagation()` on the first argument to prevent that.
-* Events may have unwanted default browser behavior. Call `e.preventDefault()` to prevent that.
-* Explicitly calling an event handler prop from a child handler is a good alternative to propagation.
+* `<button>` போன்ற element-க்கு function-ஐ prop ஆக pass செய்வதன் மூலம் events-ஐ handle செய்யலாம்.
+* Event handlers pass செய்யப்பட வேண்டும், **call செய்யப்படக்கூடாது!** `onClick={handleClick}`, `onClick={handleClick()}` அல்ல.
+* Event handler function-ஐ தனியாகவோ inline ஆகவோ define செய்யலாம்.
+* Event handlers component-க்குள் define செய்யப்படுகின்றன, எனவே அவை props-ஐ access செய்ய முடியும்.
+* Parent-இல் event handler ஒன்றை declare செய்து child-க்கு prop ஆக pass செய்யலாம்.
+* Application-specific names கொண்டு உங்கள் சொந்த event handler props-ஐ define செய்யலாம்.
+* Events மேலே propagate ஆகும். அதைத் தடுக்க முதல் argument-இல் `e.stopPropagation()` call செய்யுங்கள்.
+* Events-க்கு வேண்டாத default browser behavior இருக்கலாம். அதைத் தடுக்க `e.preventDefault()` call செய்யுங்கள்.
+* Child handler-இலிருந்து event handler prop-ஐ explicit ஆக call செய்வது propagation-க்கு நல்ல alternative.
 
 </Recap>
 
@@ -540,9 +540,9 @@ Unlike rendering functions, event handlers don't need to be [pure](/learn/keepin
 
 <Challenges>
 
-#### Fix an event handler {/*fix-an-event-handler*/}
+#### Event handler-ஐ சரிசெய்யுங்கள் {/*fix-an-event-handler*/}
 
-Clicking this button is supposed to switch the page background between white and black. However, nothing happens when you click it. Fix the problem. (Don't worry about the logic inside `handleClick`—that part is fine.)
+இந்த button-ஐ click செய்தால் page background white மற்றும் black இடையே மாற வேண்டும். ஆனால் அதை click செய்தால் எதுவும் நடக்கவில்லை. பிரச்சினையைச் சரிசெய்யுங்கள். (`handleClick`-க்குள் உள்ள logic பற்றி கவலைப்பட வேண்டாம்--அந்த பகுதி சரியாக இருக்கிறது.)
 
 <Sandpack>
 
@@ -559,7 +559,7 @@ export default function LightSwitch() {
 
   return (
     <button onClick={handleClick()}>
-      Toggle the lights
+      விளக்குகளை மாற்று
     </button>
   );
 }
@@ -569,7 +569,7 @@ export default function LightSwitch() {
 
 <Solution>
 
-The problem is that `<button onClick={handleClick()}>` _calls_ the `handleClick` function while rendering instead of _passing_ it. Removing the `()` call so that it's `<button onClick={handleClick}>` fixes the issue:
+பிரச்சினை என்னவெனில் `<button onClick={handleClick()}>` rendering போது `handleClick` function-ஐ _passing_ செய்வதற்கு பதிலாக அதை _call_ செய்கிறது. `()` call-ஐ remove செய்து `<button onClick={handleClick}>` ஆக்கினால் issue சரியாகும்:
 
 <Sandpack>
 
@@ -586,7 +586,7 @@ export default function LightSwitch() {
 
   return (
     <button onClick={handleClick}>
-      Toggle the lights
+      விளக்குகளை மாற்று
     </button>
   );
 }
@@ -594,7 +594,7 @@ export default function LightSwitch() {
 
 </Sandpack>
 
-Alternatively, you could wrap the call into another function, like `<button onClick={() => handleClick()}>`:
+மாற்றாக, `<button onClick={() => handleClick()}>` போல call-ஐ வேறு function-க்குள் wrap செய்யலாம்:
 
 <Sandpack>
 
@@ -611,7 +611,7 @@ export default function LightSwitch() {
 
   return (
     <button onClick={() => handleClick()}>
-      Toggle the lights
+      விளக்குகளை மாற்று
     </button>
   );
 }
@@ -621,11 +621,11 @@ export default function LightSwitch() {
 
 </Solution>
 
-#### Wire up the events {/*wire-up-the-events*/}
+#### Events-ஐ wire up செய்யுங்கள் {/*wire-up-the-events*/}
 
-This `ColorSwitch` component renders a button. It's supposed to change the page color. Wire it up to the `onChangeColor` event handler prop it receives from the parent so that clicking the button changes the color.
+இந்த `ColorSwitch` component ஒரு button-ஐ render செய்கிறது. அது page color-ஐ மாற்ற வேண்டும். Parent-இலிருந்து பெறும் `onChangeColor` event handler prop-உடன் அதை wire up செய்யுங்கள், button click செய்தால் color மாறும்.
 
-After you do this, notice that clicking the button also increments the page click counter. Your colleague who wrote the parent component insists that `onChangeColor` does not increment any counters. What else might be happening? Fix it so that clicking the button *only* changes the color, and does _not_ increment the counter.
+இதை செய்த பிறகு, button click செய்தால் page click counter-உம் increment ஆகிறது என்பதை கவனியுங்கள். Parent component எழுதிய உங்கள் colleague, `onChangeColor` எந்த counters-ஐயும் increment செய்யாது என்று வலியுறுத்துகிறார். வேறு என்ன நடக்கலாம்? Button click செய்தால் color மட்டும் மாறி, counter increment ஆகாமல் இருப்பதற்குச் சரிசெய்யுங்கள்.
 
 <Sandpack>
 
@@ -635,7 +635,7 @@ export default function ColorSwitch({
 }) {
   return (
     <button>
-      Change color
+      Color மாற்று
     </button>
   );
 }
@@ -669,7 +669,7 @@ export default function App() {
       <ColorSwitch onChangeColor={handleChangeColor} />
       <br />
       <br />
-      <h2>Clicks on the page: {clicks}</h2>
+      <h2>Page-இல் clicks: {clicks}</h2>
     </div>
   );
 }
@@ -679,9 +679,9 @@ export default function App() {
 
 <Solution>
 
-First, you need to add the event handler, like `<button onClick={onChangeColor}>`.
+முதலில், `<button onClick={onChangeColor}>` போல event handler-ஐ சேர்க்க வேண்டும்.
 
-However, this introduces the problem of the incrementing counter. If `onChangeColor` does not do this, as your colleague insists, then the problem is that this event propagates up, and some handler above does it. To solve this problem, you need to stop the propagation. But don't forget that you should still call `onChangeColor`.
+ஆனால் இது incrementing counter என்ற பிரச்சினையை அறிமுகப்படுத்துகிறது. உங்கள் colleague சொல்வது போல `onChangeColor` இதைச் செய்யவில்லை என்றால், பிரச்சினை இந்த event மேலே propagate ஆகி, மேலே உள்ள ஏதோ handler அதைச் செய்கிறது என்பதுதான். இந்த பிரச்சினையைத் தீர்க்க propagation-ஐ stop செய்ய வேண்டும். ஆனால் `onChangeColor`-ஐ இன்னும் call செய்ய வேண்டும் என்பதை மறக்காதீர்கள்.
 
 <Sandpack>
 
@@ -694,7 +694,7 @@ export default function ColorSwitch({
       e.stopPropagation();
       onChangeColor();
     }}>
-      Change color
+      Color மாற்று
     </button>
   );
 }
@@ -728,7 +728,7 @@ export default function App() {
       <ColorSwitch onChangeColor={handleChangeColor} />
       <br />
       <br />
-      <h2>Clicks on the page: {clicks}</h2>
+      <h2>Page-இல் clicks: {clicks}</h2>
     </div>
   );
 }

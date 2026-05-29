@@ -4,15 +4,15 @@ title: immutability
 
 <Intro>
 
-Validates against mutating props, state, and other values that [are immutable](/reference/rules/components-and-hooks-must-be-pure#props-and-state-are-immutable).
+Props, state, மற்றும் [immutable ஆக இருக்கும்](/reference/rules/components-and-hooks-must-be-pure#props-and-state-are-immutable) பிற values-ஐ mutate செய்வதை எதிர்த்து validate செய்கிறது.
 
 </Intro>
 
-## Rule Details {/*rule-details*/}
+## Rule விவரங்கள் {/*rule-details*/}
 
-A component’s props and state are immutable snapshots. Never mutate them directly. Instead, pass new props down, and use the setter function from `useState`.
+ஒரு component-ன் props மற்றும் state immutable snapshots. அவற்றை நேரடியாக mutate செய்யக்கூடாது. அதற்கு பதிலாக புதிய props-ஐ கீழே pass செய்து, `useState`-இலிருந்து கிடைக்கும் setter function-ஐப் பயன்படுத்துங்கள்.
 
-## Common Violations {/*common-violations*/}
+## பொதுவான மீறல்கள் {/*common-violations*/}
 
 ### Invalid {/*invalid*/}
 
@@ -22,8 +22,8 @@ function Component() {
   const [items, setItems] = useState([1, 2, 3]);
 
   const addItem = () => {
-    items.push(4); // Mutating!
-    setItems(items); // Same reference, no re-render
+    items.push(4); // Mutate செய்கிறது!
+    setItems(items); // அதே reference, re-render இல்லை
   };
 }
 
@@ -32,8 +32,8 @@ function Component() {
   const [user, setUser] = useState({name: 'Alice'});
 
   const updateName = () => {
-    user.name = 'Bob'; // Mutating!
-    setUser(user); // Same reference
+    user.name = 'Bob'; // Mutate செய்கிறது!
+    setUser(user); // அதே reference
   };
 }
 
@@ -42,7 +42,7 @@ function Component() {
   const [items, setItems] = useState([3, 1, 2]);
 
   const sortItems = () => {
-    setItems(items.sort()); // sort mutates!
+    setItems(items.sort()); // sort mutate செய்கிறது!
   };
 }
 ```
@@ -55,7 +55,7 @@ function Component() {
   const [items, setItems] = useState([1, 2, 3]);
 
   const addItem = () => {
-    setItems([...items, 4]); // New array
+    setItems([...items, 4]); // புதிய array
   };
 }
 
@@ -64,16 +64,16 @@ function Component() {
   const [user, setUser] = useState({name: 'Alice'});
 
   const updateName = () => {
-    setUser({...user, name: 'Bob'}); // New object
+    setUser({...user, name: 'Bob'}); // புதிய object
   };
 }
 ```
 
-## Troubleshooting {/*troubleshooting*/}
+## சிக்கல் தீர்வு {/*troubleshooting*/}
 
-### I need to add items to an array {/*add-items-array*/}
+### ஒரு array-க்கு items சேர்க்க வேண்டும் {/*add-items-array*/}
 
-Mutating arrays with methods like `push()` won't trigger re-renders:
+`push()` போன்ற methods மூலம் arrays-ஐ mutate செய்தால் re-renders trigger ஆகாது:
 
 ```js
 // ❌ Wrong: Mutating the array
@@ -82,7 +82,7 @@ function TodoList() {
 
   const addTodo = (id, text) => {
     todos.push({id, text});
-    setTodos(todos); // Same array reference!
+    setTodos(todos); // அதே array reference!
   };
 
   return (
@@ -93,7 +93,7 @@ function TodoList() {
 }
 ```
 
-Create a new array instead:
+அதற்கு பதிலாக புதிய array உருவாக்குங்கள்:
 
 ```js
 // ✅ Better: Create a new array
@@ -113,9 +113,9 @@ function TodoList() {
 }
 ```
 
-### I need to update nested objects {/*update-nested-objects*/}
+### Nested objects-ஐ update செய்ய வேண்டும் {/*update-nested-objects*/}
 
-Mutating nested properties doesn't trigger re-renders:
+Nested properties-ஐ mutate செய்தால் re-renders trigger ஆகாது:
 
 ```js
 // ❌ Wrong: Mutating nested object
@@ -130,12 +130,12 @@ function UserProfile() {
 
   const toggleTheme = () => {
     user.settings.theme = 'dark'; // Mutation!
-    setUser(user); // Same object reference
+    setUser(user); // அதே object reference
   };
 }
 ```
 
-Spread at each level that needs updating:
+Update செய்ய வேண்டிய ஒவ்வொரு level-இலும் spread செய்யுங்கள்:
 
 ```js
 // ✅ Better: Create new objects at each level

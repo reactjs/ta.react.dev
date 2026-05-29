@@ -4,7 +4,7 @@ title: "<textarea>"
 
 <Intro>
 
-The [built-in browser `<textarea>` component](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea) lets you render a multiline text input.
+[Built-in browser `<textarea>` component](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea) பல வரி text input ஒன்றை render செய்ய உதவுகிறது.
 
 ```js
 <textarea />
@@ -16,72 +16,72 @@ The [built-in browser `<textarea>` component](https://developer.mozilla.org/en-U
 
 ---
 
-## Reference {/*reference*/}
+## குறிப்பு {/*reference*/}
 
 ### `<textarea>` {/*textarea*/}
 
-To display a text area, render the [built-in browser `<textarea>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea) component.
+Text area ஒன்றைக் காட்ட, [built-in browser `<textarea>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea) component-ஐ render செய்யவும்.
 
 ```js
 <textarea name="postContent" />
 ```
 
-[See more examples below.](#usage)
+[மேலும் examples-ஐ கீழே பார்க்கவும்.](#usage)
 
 #### Props {/*props*/}
 
-`<textarea>` supports all [common element props.](/reference/react-dom/components/common#common-props)
+`<textarea>` எல்லா [common element props](/reference/react-dom/components/common#common-props)-ஐயும் ஆதரிக்கிறது.
 
-You can [make a text area controlled](#controlling-a-text-area-with-a-state-variable) by passing a `value` prop:
+`value` prop-ஐ அனுப்புவதன் மூலம் [text area-வை controlled ஆக்கலாம்](#controlling-a-text-area-with-a-state-variable):
 
-* `value`: A string. Controls the text inside the text area.
+* `value`: String. Text area-க்குள் உள்ள text-ஐ control செய்கிறது.
 
-When you pass `value`, you must also pass an `onChange` handler that updates the passed value.
+நீங்கள் `value` அனுப்பும்போது, அனுப்பப்பட்ட value-ஐ update செய்யும் `onChange` handler-ஐயும் அனுப்ப வேண்டும்.
 
-If your `<textarea>` is uncontrolled, you may pass the `defaultValue` prop instead:
+உங்கள் `<textarea>` uncontrolled ஆக இருந்தால், அதற்கு பதிலாக `defaultValue` prop-ஐ அனுப்பலாம்:
 
-* `defaultValue`: A string. Specifies [the initial value](#providing-an-initial-value-for-a-text-area) for a text area.
+* `defaultValue`: String. Text area-க்கான [initial value](#providing-an-initial-value-for-a-text-area)-ஐ குறிப்பிடுகிறது.
 
-These `<textarea>` props are relevant both for uncontrolled and controlled text areas:
+இந்த `<textarea>` props uncontrolled மற்றும் controlled text areas இரண்டிற்கும் பொருந்தும்:
 
-* [`autoComplete`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea#autocomplete): Either `'on'` or `'off'`. Specifies the autocomplete behavior.
-* [`autoFocus`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea#autofocus): A boolean. If `true`, React will focus the element on mount.
-* `children`: `<textarea>` does not accept children. To set the initial value, use `defaultValue`.
-* [`cols`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea#cols): A number. Specifies the default width in average character widths. Defaults to `20`.
-* [`disabled`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea#disabled): A boolean. If `true`, the input will not be interactive and will appear dimmed.
-* [`form`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea#form): A string. Specifies the `id` of the `<form>` this input belongs to. If omitted, it's the closest parent form.
-* [`maxLength`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea#maxlength): A number. Specifies the maximum length of text.
-* [`minLength`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea#minlength): A number. Specifies the minimum length of text.
-* [`name`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#name): A string. Specifies the name for this input that's [submitted with the form.](#reading-the-textarea-value-when-submitting-a-form)
-* `onChange`: An [`Event` handler](/reference/react-dom/components/common#event-handler) function. Required for [controlled text areas.](#controlling-a-text-area-with-a-state-variable) Fires immediately when the input's value is changed by the user (for example, it fires on every keystroke). Behaves like the browser [`input` event.](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/input_event)
-* `onChangeCapture`: A version of `onChange` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onInput`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/input_event): An [`Event` handler](/reference/react-dom/components/common#event-handler) function. Fires immediately when the value is changed by the user. For historical reasons, in React it is idiomatic to use `onChange` instead which works similarly.
-* `onInputCapture`: A version of `onInput` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onInvalid`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/invalid_event): An [`Event` handler](/reference/react-dom/components/common#event-handler) function. Fires if an input fails validation on form submit. Unlike the built-in `invalid` event, the React `onInvalid` event bubbles.
-* `onInvalidCapture`: A version of `onInvalid` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onSelect`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLTextAreaElement/select_event): An [`Event` handler](/reference/react-dom/components/common#event-handler) function. Fires after the selection inside the `<textarea>` changes. React extends the `onSelect` event to also fire for empty selection and on edits (which may affect the selection).
-* `onSelectCapture`: A version of `onSelect` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`placeholder`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea#placeholder): A string. Displayed in a dimmed color when the text area value is empty.
-* [`readOnly`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea#readonly): A boolean. If `true`, the text area is not editable by the user.
-* [`required`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea#required): A boolean. If `true`, the value must be provided for the form to submit.
-* [`rows`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea#rows): A number. Specifies the default height in average character heights. Defaults to `2`.
-* [`wrap`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea#wrap): Either `'hard'`, `'soft'`, or `'off'`. Specifies how the text should be wrapped when submitting a form.
+* [`autoComplete`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea#autocomplete): `'on'` அல்லது `'off'`. Autocomplete நடத்தை எப்படியிருக்க வேண்டும் என்பதை குறிப்பிடுகிறது.
+* [`autoFocus`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea#autofocus): Boolean. `true` என்றால், mount ஆகும்போது React அந்த element-க்கு focus செய்கிறது.
+* `children`: `<textarea>` children-ஐ ஏற்காது. Initial value அமைக்க `defaultValue` பயன்படுத்தவும்.
+* [`cols`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea#cols): Number. சராசரி character அகலங்களின் அடிப்படையில் default width-ஐ குறிப்பிடுகிறது. Default `20`.
+* [`disabled`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea#disabled): Boolean. `true` என்றால், input interactive ஆக இருக்காது மற்றும் மங்கலாக தோன்றும்.
+* [`form`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea#form): String. இந்த input சேர்ந்திருக்கும் `<form>`-இன் `id`-ஐ குறிப்பிடுகிறது. விடப்பட்டால், அருகிலுள்ள parent form பயன்படுத்தப்படும்.
+* [`maxLength`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea#maxlength): Number. Text-ன் அதிகபட்ச நீளத்தை குறிப்பிடுகிறது.
+* [`minLength`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea#minlength): Number. Text-ன் குறைந்தபட்ச நீளத்தை குறிப்பிடுகிறது.
+* [`name`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#name): String. [Form உடன் submit செய்யப்படும்](#reading-the-textarea-value-when-submitting-a-form) இந்த input-ன் பெயரை குறிப்பிடுகிறது.
+* `onChange`: [`Event` handler](/reference/react-dom/components/common#event-handler) function. [Controlled text areas](#controlling-a-text-area-with-a-state-variable)-க்கு அவசியம். பயனர் input-ன் value-ஐ மாற்றியவுடன் உடனடியாக fire ஆகும் (உதாரணமாக, ஒவ்வொரு keystroke-க்கும் fire ஆகும்). Browser [`input` event](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/input_event) போல நடக்கும்.
+* `onChangeCapture`: [Capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onChange` version.
+* [`onInput`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/input_event): [`Event` handler](/reference/react-dom/components/common#event-handler) function. பயனர் value-ஐ மாற்றியவுடன் உடனடியாக fire ஆகும். வரலாற்று காரணங்களால், React-இல் இதேபோல் வேலை செய்யும் `onChange`-ஐப் பயன்படுத்துவது idiomatic ஆகும்.
+* `onInputCapture`: [Capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onInput` version.
+* [`onInvalid`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/invalid_event): [`Event` handler](/reference/react-dom/components/common#event-handler) function. Form submit ஆகும்போது input validation-ல் தோல்வியடைந்தால் fire ஆகும். Built-in `invalid` event-இற்கு மாறாக, React `onInvalid` event bubbles செய்கிறது.
+* `onInvalidCapture`: [Capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onInvalid` version.
+* [`onSelect`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLTextAreaElement/select_event): [`Event` handler](/reference/react-dom/components/common#event-handler) function. `<textarea>`-க்குள் selection மாறிய பிறகு fire ஆகும். காலியான selection-க்கும் edits-க்கும் (selection-ஐ பாதிக்கக்கூடியவை) `onSelect` event fire ஆகுமாறு React விரிவாக்குகிறது.
+* `onSelectCapture`: [Capture phase](/learn/responding-to-events#capture-phase-events)-இல் fire ஆகும் `onSelect` version.
+* [`placeholder`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea#placeholder): String. Text area value காலியாக இருக்கும்போது மங்கலான நிறத்தில் காட்டப்படும்.
+* [`readOnly`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea#readonly): Boolean. `true` என்றால், பயனர் text area-வை edit செய்ய முடியாது.
+* [`required`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea#required): Boolean. `true` என்றால், form submit ஆக value வழங்கப்பட்டிருக்க வேண்டும்.
+* [`rows`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea#rows): Number. சராசரி character உயரங்களின் அடிப்படையில் default height-ஐ குறிப்பிடுகிறது. Default `2`.
+* [`wrap`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea#wrap): `'hard'`, `'soft'`, அல்லது `'off'`. Form submit செய்யும்போது text எப்படி wrap ஆக வேண்டும் என்பதை குறிப்பிடுகிறது.
 
-#### Caveats {/*caveats*/}
+#### கவனிக்க வேண்டியவை {/*caveats*/}
 
-- Passing children like `<textarea>something</textarea>` is not allowed. [Use `defaultValue` for initial content.](#providing-an-initial-value-for-a-text-area)
-- If a text area receives a string `value` prop, it will be [treated as controlled.](#controlling-a-text-area-with-a-state-variable)
-- A text area can't be both controlled and uncontrolled at the same time.
-- A text area cannot switch between being controlled or uncontrolled over its lifetime.
-- Every controlled text area needs an `onChange` event handler that synchronously updates its backing value.
+- `<textarea>something</textarea>` போன்ற children அனுப்புவது அனுமதிக்கப்படாது. [Initial content-க்கு `defaultValue` பயன்படுத்தவும்.](#providing-an-initial-value-for-a-text-area)
+- Text area string `value` prop பெற்றால், அது [controlled ஆகக் கருதப்படும்.](#controlling-a-text-area-with-a-state-variable)
+- ஒரே நேரத்தில் ஒரு text area controlled-ஆகவும் uncontrolled-ஆகவும் இருக்க முடியாது.
+- Text area தனது lifetime முழுவதும் controlled நிலையிலிருந்து uncontrolled நிலைக்கு அல்லது மாறாக switch ஆக முடியாது.
+- ஒவ்வொரு controlled text area-க்கும் அதன் backing value-ஐ synchronously update செய்யும் `onChange` event handler தேவை.
 
 ---
 
-## Usage {/*usage*/}
+## பயன்பாடு {/*usage*/}
 
-### Displaying a text area {/*displaying-a-text-area*/}
+### Text area காட்டுதல் {/*displaying-a-text-area*/}
 
-Render `<textarea>` to display a text area. You can specify its default size with the [`rows`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea#rows) and [`cols`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea#cols) attributes, but by default the user will be able to resize it. To disable resizing, you can specify `resize: none` in the CSS.
+Text area ஒன்றைக் காட்ட `<textarea>` render செய்யவும். [`rows`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea#rows) மற்றும் [`cols`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea#cols) attributes மூலம் அதன் default size-ஐ குறிப்பிடலாம்; ஆனால் default ஆக பயனர் அதை resize செய்ய முடியும். Resizing-ஐ disable செய்ய, CSS-இல் `resize: none` குறிப்பிடலாம்.
 
 <Sandpack>
 
@@ -89,7 +89,7 @@ Render `<textarea>` to display a text area. You can specify its default size wit
 export default function NewPost() {
   return (
     <label>
-      Write your post:
+      உங்கள் பதிவை எழுதுங்கள்:
       <textarea name="postContent" rows={4} cols={40} />
     </label>
   );
@@ -107,11 +107,11 @@ label, textarea { display: block; }
 
 ---
 
-### Providing a label for a text area {/*providing-a-label-for-a-text-area*/}
+### Text area-க்கு label வழங்குதல் {/*providing-a-label-for-a-text-area*/}
 
-Typically, you will place every `<textarea>` inside a [`<label>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/label) tag. This tells the browser that this label is associated with that text area. When the user clicks the label, the browser will focus the text area. It's also essential for accessibility: a screen reader will announce the label caption when the user focuses the text area.
+பொதுவாக, ஒவ்வொரு `<textarea>`-வையும் [`<label>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/label) tag-க்குள் வைப்பீர்கள். இந்த label அந்த text area-வுடன் தொடர்புடையது என்பதை இது browser-க்கு தெரிவிக்கிறது. பயனர் label-ஐ click செய்யும்போது, browser text area-க்கு focus செய்கிறது. Accessibility-க்கும் இது அவசியம்: பயனர் text area-க்கு focus செய்தால் screen reader label caption-ஐ announce செய்யும்.
 
-If you can't nest `<textarea>` into a `<label>`, associate them by passing the same ID to `<textarea id>` and [`<label htmlFor>`.](https://developer.mozilla.org/en-US/docs/Web/API/HTMLLabelElement/htmlFor) To avoid conflicts between instances of one component, generate such an ID with [`useId`.](/reference/react/useId)
+`<textarea>`-வை `<label>`-க்குள் nest செய்ய முடியாவிட்டால், `<textarea id>` மற்றும் [`<label htmlFor>`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLLabelElement/htmlFor) இரண்டிற்கும் அதே ID-ஐ அனுப்பி அவற்றை associate செய்யவும். ஒரே component-ன் instances இடையே conflicts தவிர்க்க, அத்தகைய ID-ஐ [`useId`](/reference/react/useId) மூலம் உருவாக்கவும்.
 
 <Sandpack>
 
@@ -123,7 +123,7 @@ export default function Form() {
   return (
     <>
       <label htmlFor={postTextAreaId}>
-        Write your post:
+        உங்கள் பதிவை எழுதுங்கள்:
       </label>
       <textarea
         id={postTextAreaId}
@@ -144,9 +144,9 @@ input { margin: 5px; }
 
 ---
 
-### Providing an initial value for a text area {/*providing-an-initial-value-for-a-text-area*/}
+### Text area-க்கு initial value வழங்குதல் {/*providing-an-initial-value-for-a-text-area*/}
 
-You can optionally specify the initial value for the text area. Pass it as the `defaultValue` string.
+Text area-க்கான initial value-ஐ விருப்பமாக குறிப்பிடலாம். அதை `defaultValue` string ஆக அனுப்பவும்.
 
 <Sandpack>
 
@@ -154,10 +154,10 @@ You can optionally specify the initial value for the text area. Pass it as the `
 export default function EditPost() {
   return (
     <label>
-      Edit your post:
+      உங்கள் பதிவைத் திருத்துங்கள்:
       <textarea
         name="postContent"
-        defaultValue="I really enjoyed biking yesterday!"
+        defaultValue="நேற்று சைக்கிள் ஓட்டியது எனக்கு மிகவும் பிடித்திருந்தது!"
         rows={4}
         cols={40}
       />
@@ -177,15 +177,16 @@ label, textarea { display: block; }
 
 <Pitfall>
 
-Unlike in HTML, passing initial text like `<textarea>Some content</textarea>` is not supported.
+HTML-இல் இருப்பதுபோல், `<textarea>Some content</textarea>` போன்ற initial text அனுப்புவது support செய்யப்படாது.
 
 </Pitfall>
 
 ---
 
-### Reading the text area value when submitting a form {/*reading-the-text-area-value-when-submitting-a-form*/}
+### Form submit செய்யும்போது text area value-ஐ படித்தல் {/*reading-the-text-area-value-when-submitting-a-form*/}
 
-Add a [`<form>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form) around your textarea with a [`<button type="submit">`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button) inside. It will call your `<form onSubmit>` event handler. By default, the browser will send the form data to the current URL and refresh the page. You can override that behavior by calling `e.preventDefault()`. Read the form data with [`new FormData(e.target)`](https://developer.mozilla.org/en-US/docs/Web/API/FormData).
+உங்கள் textarea-வைச் சுற்றி [`<form>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form) ஒன்றையும், அதன் உள்ளே [`<button type="submit">`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button) ஒன்றையும் சேர்க்கவும். இது உங்கள் `<form onSubmit>` event handler-ஐ call செய்யும். Default ஆக, browser form data-வை current URL-க்கு அனுப்பி page-ஐ refresh செய்யும். `e.preventDefault()` call செய்து அந்த behavior-ஐ override செய்யலாம். [`new FormData(e.target)`](https://developer.mozilla.org/en-US/docs/Web/API/FormData) மூலம் form data-வை படிக்கவும்.
+
 <Sandpack>
 
 ```js
@@ -209,20 +210,20 @@ export default function EditPost() {
   return (
     <form method="post" onSubmit={handleSubmit}>
       <label>
-        Post title: <input name="postTitle" defaultValue="Biking" />
+        பதிவின் தலைப்பு: <input name="postTitle" defaultValue="சைக்கிள் ஓட்டுதல்" />
       </label>
       <label>
-        Edit your post:
+        உங்கள் பதிவைத் திருத்துங்கள்:
         <textarea
           name="postContent"
-          defaultValue="I really enjoyed biking yesterday!"
+          defaultValue="நேற்று சைக்கிள் ஓட்டியது எனக்கு மிகவும் பிடித்திருந்தது!"
           rows={4}
           cols={40}
         />
       </label>
       <hr />
-      <button type="reset">Reset edits</button>
-      <button type="submit">Save post</button>
+      <button type="reset">திருத்தங்களை reset செய்</button>
+      <button type="submit">பதிவை சேமி</button>
     </form>
   );
 }
@@ -237,38 +238,38 @@ input { margin: 5px; }
 
 <Note>
 
-Give a `name` to your `<textarea>`, for example `<textarea name="postContent" />`. The `name` you specified will be used as a key in the form data, for example `{ postContent: "Your post" }`.
+உங்கள் `<textarea>`-க்கு ஒரு `name` கொடுக்கவும், உதாரணமாக `<textarea name="postContent" />`. நீங்கள் குறிப்பிடும் `name` form data-வில் key ஆக பயன்படுத்தப்படும், உதாரணமாக `{ postContent: "Your post" }`.
 
 </Note>
 
 <Pitfall>
 
-By default, *any* `<button>` inside a `<form>` will submit it. This can be surprising! If you have your own custom `Button` React component, consider returning [`<button type="button">`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/button) instead of `<button>`. Then, to be explicit, use `<button type="submit">` for buttons that *are* supposed to submit the form.
+Default ஆக, `<form>`-க்குள் உள்ள *எந்த* `<button>`-உம் அதை submit செய்யும். இது எதிர்பாராததாக இருக்கலாம்! உங்கள் சொந்த custom `Button` React component இருந்தால், `<button>`-க்கு பதிலாக [`<button type="button">`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/button) return செய்வதை பரிசீலிக்கவும். பின்னர், தெளிவாக இருக்க, form submit செய்ய வேண்டிய buttons-க்கு `<button type="submit">` பயன்படுத்தவும்.
 
 </Pitfall>
 
 ---
 
-### Controlling a text area with a state variable {/*controlling-a-text-area-with-a-state-variable*/}
+### State variable கொண்டு text area-வை control செய்தல் {/*controlling-a-text-area-with-a-state-variable*/}
 
-A text area like `<textarea />` is *uncontrolled.* Even if you [pass an initial value](#providing-an-initial-value-for-a-text-area) like `<textarea defaultValue="Initial text" />`, your JSX only specifies the initial value, not the value right now.
+`<textarea />` போன்ற text area *uncontrolled* ஆகும். `<textarea defaultValue="Initial text" />` போன்ற [initial value](#providing-an-initial-value-for-a-text-area)-ஐ அனுப்பினாலும், உங்கள் JSX initial value-ஐ மட்டுமே குறிப்பிடுகிறது; இப்போது உள்ள value-ஐ அல்ல.
 
-**To render a _controlled_ text area, pass the `value` prop to it.** React will force the text area to always have the `value` you passed. Typically, you will control a text area by declaring a [state variable:](/reference/react/useState)
+**_Controlled_ text area ஒன்றை render செய்ய, அதற்கு `value` prop அனுப்பவும்.** நீங்கள் அனுப்பிய `value` text area-வில் எப்போதும் இருக்கும்படி React force செய்யும். பொதுவாக, [state variable](/reference/react/useState) ஒன்றை declare செய்து text area-வை control செய்வீர்கள்:
 
 ```js {2,6,7}
 function NewPost() {
-  const [postContent, setPostContent] = useState(''); // Declare a state variable...
+  const [postContent, setPostContent] = useState(''); // State variable ஒன்றை declare செய்யவும்...
   // ...
   return (
     <textarea
-      value={postContent} // ...force the input's value to match the state variable...
-      onChange={e => setPostContent(e.target.value)} // ... and update the state variable on any edits!
+      value={postContent} // ...input-ன் value state variable-க்கு match ஆக force செய்யவும்...
+      onChange={e => setPostContent(e.target.value)} // ...மேலும் எந்த edits வந்தாலும் state variable-ஐ update செய்யவும்!
     />
   );
 }
 ```
 
-This is useful if you want to re-render some part of the UI in response to every keystroke.
+ஒவ்வொரு keystroke-க்கும் பதிலாக UI-இன் ஏதாவது பகுதியை re-render செய்ய விரும்பினால் இது பயனுள்ளதாக இருக்கும்.
 
 <Sandpack>
 
@@ -277,11 +278,11 @@ import { useState } from 'react';
 import MarkdownPreview from './MarkdownPreview.js';
 
 export default function MarkdownEditor() {
-  const [postContent, setPostContent] = useState('_Hello,_ **Markdown**!');
+  const [postContent, setPostContent] = useState('_வணக்கம்,_ **Markdown**!');
   return (
     <>
       <label>
-        Enter some markdown:
+        Markdown உள்ளிடுங்கள்:
         <textarea
           value={postContent}
           onChange={e => setPostContent(e.target.value)}
@@ -330,7 +331,7 @@ textarea { display: block; margin-top: 5px; margin-bottom: 10px; }
 
 <Pitfall>
 
-**If you pass `value` without `onChange`, it will be impossible to type into the text area.** When you control a text area by passing some `value` to it, you *force* it to always have the value you passed. So if you pass a state variable as a `value` but forget to update that state variable synchronously during the `onChange` event handler, React will revert the text area after every keystroke back to the `value` that you specified.
+**`onChange` இல்லாமல் `value` அனுப்பினால், text area-க்குள் type செய்வது முடியாது.** ஒரு text area-க்கு ஏதாவது `value` அனுப்பி அதை control செய்யும்போது, நீங்கள் அனுப்பிய value எப்போதும் இருக்கும்படி அதை *force* செய்கிறீர்கள். எனவே state variable-ஐ `value` ஆக அனுப்பி, ஆனால் `onChange` event handler-இன் போது அந்த state variable-ஐ synchronously update செய்ய மறந்தால், ஒவ்வொரு keystroke-க்கும் பிறகு React text area-வை நீங்கள் குறிப்பிட்ட `value`-க்கே மீண்டும் மாற்றிவிடும்.
 
 </Pitfall>
 
@@ -338,9 +339,9 @@ textarea { display: block; margin-top: 5px; margin-bottom: 10px; }
 
 ## Troubleshooting {/*troubleshooting*/}
 
-### My text area doesn't update when I type into it {/*my-text-area-doesnt-update-when-i-type-into-it*/}
+### நான் type செய்யும்போது என் text area update ஆகவில்லை {/*my-text-area-doesnt-update-when-i-type-into-it*/}
 
-If you render a text area with `value` but no `onChange`, you will see an error in the console:
+`value` உடன் ஆனால் `onChange` இல்லாமல் text area render செய்தால், console-இல் error காண்பீர்கள்:
 
 ```js
 // 🔴 Bug: controlled text area with no onChange handler
@@ -353,21 +354,21 @@ You provided a `value` prop to a form field without an `onChange` handler. This 
 
 </ConsoleBlock>
 
-As the error message suggests, if you only wanted to [specify the *initial* value,](#providing-an-initial-value-for-a-text-area) pass `defaultValue` instead:
+Error message கூறுவது போல, நீங்கள் [*initial* value-ஐ மட்டும் குறிப்பிட](#providing-an-initial-value-for-a-text-area) விரும்பினால், அதற்கு பதிலாக `defaultValue` அனுப்பவும்:
 
 ```js
 // ✅ Good: uncontrolled text area with an initial value
 <textarea defaultValue={something} />
 ```
 
-If you want [to control this text area with a state variable,](#controlling-a-text-area-with-a-state-variable) specify an `onChange` handler:
+[இந்த text area-வை state variable கொண்டு control](#controlling-a-text-area-with-a-state-variable) செய்ய விரும்பினால், `onChange` handler ஒன்றை குறிப்பிடவும்:
 
 ```js
 // ✅ Good: controlled text area with onChange
 <textarea value={something} onChange={e => setSomething(e.target.value)} />
 ```
 
-If the value is intentionally read-only, add a `readOnly` prop to suppress the error:
+Value திட்டமிட்டே read-only ஆக இருந்தால், error-ஐ suppress செய்ய `readOnly` prop சேர்க்கவும்:
 
 ```js
 // ✅ Good: readonly controlled text area without on change
@@ -376,11 +377,11 @@ If the value is intentionally read-only, add a `readOnly` prop to suppress the e
 
 ---
 
-### My text area caret jumps to the beginning on every keystroke {/*my-text-area-caret-jumps-to-the-beginning-on-every-keystroke*/}
+### ஒவ்வொரு keystroke-க்கும் என் text area caret தொடக்கத்துக்கு தாவுகிறது {/*my-text-area-caret-jumps-to-the-beginning-on-every-keystroke*/}
 
-If you [control a text area,](#controlling-a-text-area-with-a-state-variable) you must update its state variable to the text area's value from the DOM during `onChange`.
+நீங்கள் [text area-வை control](#controlling-a-text-area-with-a-state-variable) செய்தால், `onChange` போது அதன் state variable-ஐ DOM-இல் உள்ள text area value-க்கு update செய்ய வேண்டும்.
 
-You can't update it to something other than `e.target.value`:
+அதை `e.target.value` அல்லாத வேறு ஒன்றாக update செய்ய முடியாது:
 
 ```js
 function handleChange(e) {
@@ -389,7 +390,7 @@ function handleChange(e) {
 }
 ```
 
-You also can't update it asynchronously:
+அதை asynchronously-ஆகவும் update செய்ய முடியாது:
 
 ```js
 function handleChange(e) {
@@ -400,7 +401,7 @@ function handleChange(e) {
 }
 ```
 
-To fix your code, update it synchronously to `e.target.value`:
+உங்கள் code-ஐ சரிசெய்ய, அதை synchronously `e.target.value`-க்கு update செய்யவும்:
 
 ```js
 function handleChange(e) {
@@ -409,15 +410,14 @@ function handleChange(e) {
 }
 ```
 
-If this doesn't fix the problem, it's possible that the text area gets removed and re-added from the DOM on every keystroke. This can happen if you're accidentally [resetting state](/learn/preserving-and-resetting-state) on every re-render. For example, this can happen if the text area or one of its parents always receives a different `key` attribute, or if you nest component definitions (which is not allowed in React and causes the "inner" component to remount on every render).
+இது பிரச்சினையை சரிசெய்யவில்லை என்றால், ஒவ்வொரு keystroke-க்கும் text area DOM-இலிருந்து அகற்றப்பட்டு மீண்டும் சேர்க்கப்படுவது சாத்தியம். ஒவ்வொரு re-render-க்கும் நீங்கள் தவறுதலாக [state-ஐ reset](/learn/preserving-and-resetting-state) செய்தால் இது நடக்கலாம். உதாரணமாக, text area அல்லது அதன் parents-இல் ஒன்று எப்போதும் வேறு `key` attribute பெறும்போது, அல்லது component definitions-ஐ nest செய்தால் (இது React-இல் அனுமதிக்கப்படாது; ஒவ்வொரு render-க்கும் "inner" component remount ஆகும்) இது நடக்கலாம்.
 
 ---
 
-### I'm getting an error: "A component is changing an uncontrolled input to be controlled" {/*im-getting-an-error-a-component-is-changing-an-uncontrolled-input-to-be-controlled*/}
+### எனக்கு error வருகிறது: "A component is changing an uncontrolled input to be controlled" {/*im-getting-an-error-a-component-is-changing-an-uncontrolled-input-to-be-controlled*/}
 
+Component-க்கு `value` வழங்கினால், அது அதன் lifetime முழுவதும் string ஆகவே இருக்க வேண்டும்.
 
-If you provide a `value` to the component, it must remain a string throughout its lifetime.
+முதலில் `value={undefined}` அனுப்பி, பின்னர் `value="some string"` அனுப்ப முடியாது; ஏனெனில் component uncontrolled ஆக இருக்க வேண்டுமா அல்லது controlled ஆக இருக்க வேண்டுமா என்பதை React அறியாது. Controlled component எப்போதும் string `value` பெற வேண்டும்; `null` அல்லது `undefined` அல்ல.
 
-You cannot pass `value={undefined}` first and later pass `value="some string"` because React won't know whether you want the component to be uncontrolled or controlled. A controlled component should always receive a string `value`, not `null` or `undefined`.
-
-If your `value` is coming from an API or a state variable, it might be initialized to `null` or `undefined`. In that case, either set it to an empty string (`''`) initially, or pass `value={someValue ?? ''}` to ensure `value` is a string.
+உங்கள் `value` API அல்லது state variable-இலிருந்து வந்தால், அது `null` அல்லது `undefined` ஆக initialized ஆகியிருக்கலாம். அப்படியானால், முதலில் அதை empty string (`''`) ஆக அமைக்கவும், அல்லது `value` string என்பதை உறுதிசெய்ய `value={someValue ?? ''}` அனுப்பவும்.

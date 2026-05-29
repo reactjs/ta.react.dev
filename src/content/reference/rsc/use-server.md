@@ -5,14 +5,14 @@ titleForTitleTag: "'use server' directive"
 
 <RSC>
 
-`'use server'` is for use with [using React Server Components](/reference/rsc/server-components).
+`'use server'` [React Server Components பயன்படுத்தும்போது](/reference/rsc/server-components) பயன்படும்.
 
 </RSC>
 
 
 <Intro>
 
-`'use server'` marks server-side functions that can be called from client-side code.
+Client-side code-இலிருந்து call செய்யக்கூடிய server-side functions-ஐ `'use server'` குறிக்கிறது.
 
 </Intro>
 
@@ -20,11 +20,11 @@ titleForTitleTag: "'use server' directive"
 
 ---
 
-## Reference {/*reference*/}
+## குறிப்பு {/*reference*/}
 
 ### `'use server'` {/*use-server*/}
 
-Add `'use server'` at the top of an async function body to mark the function as callable by the client. We call these functions [_Server Functions_](/reference/rsc/server-functions).
+ஒரு async function body-யின் மேற்பகுதியில் `'use server'` சேர்த்து, அந்த function client மூலம் call செய்யக்கூடியது என்று குறிக்கலாம். இந்த functions-ஐ நாம் [_Server Functions_](/reference/rsc/server-functions) என்று அழைக்கிறோம்.
 
 ```js {2}
 async function addToCart(data) {
@@ -33,38 +33,38 @@ async function addToCart(data) {
 }
 ```
 
-When calling a Server Function on the client, it will make a network request to the server that includes a serialized copy of any arguments passed. If the Server Function returns a value, that value will be serialized and returned to the client.
+Client-இல் Server Function call செய்யும்போது, pass செய்யப்பட்ட arguments-ன் serialized copy-யை கொண்ட network request server-க்கு அனுப்பப்படும். Server Function value return செய்தால், அந்த value serialize செய்யப்பட்டு client-க்கு return செய்யப்படும்.
 
-Instead of individually marking functions with `'use server'`, you can add the directive to the top of a file to mark all exports within that file as Server Functions that can be used anywhere, including imported in client code.
+Functions-ஐ தனித்தனியாக `'use server'` கொண்டு mark செய்வதற்குப் பதிலாக, file-ன் மேற்பகுதியில் directive-ஐச் சேர்த்து, அந்த file-இல் உள்ள அனைத்து exports-ஐயும் client code-இல் import செய்வது உட்பட எங்கும் பயன்படுத்தக்கூடிய Server Functions ஆக mark செய்யலாம்.
 
 #### Caveats {/*caveats*/}
-* `'use server'` must be at the very beginning of their function or module; above any other code including imports (comments above directives are OK). They must be written with single or double quotes, not backticks.
-* `'use server'` can only be used in server-side files. The resulting Server Functions can be passed to Client Components through props. See supported [types for serialization](#serializable-parameters-and-return-values).
-* To import a Server Functions from [client code](/reference/rsc/use-client), the directive must be used on a module level.
-* Because the underlying network calls are always asynchronous, `'use server'` can only be used on async functions.
-* Always treat arguments to Server Functions as untrusted input and authorize any mutations. See [security considerations](#security).
-* Server Functions should be called in a [Transition](/reference/react/useTransition). Server Functions passed to [`<form action>`](/reference/react-dom/components/form#props) or [`formAction`](/reference/react-dom/components/input#props) will automatically be called in a transition.
-* Server Functions are designed for mutations that update server-side state; they are not recommended for data fetching. Accordingly, frameworks implementing Server Functions typically process one action at a time and do not have a way to cache the return value.
+* `'use server'` function அல்லது module-ன் முற்றிலும் தொடக்கத்தில் இருக்க வேண்டும்; imports உட்பட எந்த code-க்கும் மேலாக (directives-க்கு மேலுள்ள comments சரி). இது single அல்லது double quotes-இல் எழுதப்பட வேண்டும்; backticks-இல் அல்ல.
+* `'use server'` server-side files-இல் மட்டுமே பயன்படுத்தப்படலாம். உருவாகும் Server Functions props மூலம் Client Components-க்கு pass செய்யப்படலாம். ஆதரிக்கப்படும் [serialization types](#serializable-parameters-and-return-values)-ஐப் பார்க்கவும்.
+* [Client code](/reference/rsc/use-client)-இலிருந்து Server Functions import செய்ய, directive module level-இல் பயன்படுத்தப்பட வேண்டும்.
+* Underlying network calls எப்போதும் asynchronous என்பதால், `'use server'` async functions-இல் மட்டுமே பயன்படுத்தப்படலாம்.
+* Server Functions-க்கு வரும் arguments-ஐ எப்போதும் untrusted input ஆகக் கருதி, mutations-ஐ authorize செய்யுங்கள். [Security considerations](#security)-ஐப் பார்க்கவும்.
+* Server Functions [Transition](/reference/react/useTransition)-இல் call செய்யப்பட வேண்டும். [`<form action>`](/reference/react-dom/components/form#props) அல்லது [`formAction`](/reference/react-dom/components/input#props)-க்கு pass செய்யப்பட்ட Server Functions தானாக transition-இல் call செய்யப்படும்.
+* Server-side state-ஐ update செய்யும் mutations-க்காக Server Functions வடிவமைக்கப்பட்டவை; data fetching-க்கு அவை பரிந்துரைக்கப்படவில்லை. அதன்படி, Server Functions implement செய்யும் frameworks பொதுவாக ஒரே நேரத்தில் ஒரு action மட்டும் process செய்யும்; return value-ஐ cache செய்ய வழி இருக்காது.
 
 ### Security considerations {/*security*/}
 
-Arguments to Server Functions are fully client-controlled. For security, always treat them as untrusted input, and make sure to validate and escape arguments as appropriate.
+Server Functions-க்கு arguments முழுவதும் client-controlled. Security-க்காக, அவற்றை எப்போதும் untrusted input ஆகக் கருதி, arguments-ஐ தேவைக்கேற்ப validate மற்றும் escape செய்வதை உறுதிசெய்யுங்கள்.
 
-In any Server Function, make sure to validate that the logged-in user is allowed to perform that action.
+எந்த Server Function-இலும், logged-in user அந்த action செய்ய அனுமதிக்கப்பட்டவரா என்பதை validate செய்யுங்கள்.
 
 <Wip>
 
-To prevent sending sensitive data from a Server Function, there are experimental taint APIs to prevent unique values and objects from being passed to client code.
+Server Function-இலிருந்து sensitive data அனுப்பப்படுவதைத் தடுக்க, unique values மற்றும் objects client code-க்கு pass செய்யப்படுவதைத் தடுக்கும் experimental taint APIs உள்ளன.
 
-See [experimental_taintUniqueValue](/reference/react/experimental_taintUniqueValue) and [experimental_taintObjectReference](/reference/react/experimental_taintObjectReference).
+[experimental_taintUniqueValue](/reference/react/experimental_taintUniqueValue) மற்றும் [experimental_taintObjectReference](/reference/react/experimental_taintObjectReference)-ஐப் பார்க்கவும்.
 
 </Wip>
 
-### Serializable arguments and return values {/*serializable-parameters-and-return-values*/}
+### Serializable arguments மற்றும் return values {/*serializable-parameters-and-return-values*/}
 
-Since client code calls the Server Function over the network, any arguments passed will need to be serializable.
+Client code Server Function-ஐ network மூலம் call செய்வதால், pass செய்யப்படும் arguments அனைத்தும் serializable ஆக இருக்க வேண்டும்.
 
-Here are supported types for Server Function arguments:
+Server Function arguments-க்கு ஆதரிக்கப்படும் types:
 
 * Primitives
 	* [string](https://developer.mozilla.org/en-US/docs/Glossary/String)
@@ -73,7 +73,7 @@ Here are supported types for Server Function arguments:
 	* [boolean](https://developer.mozilla.org/en-US/docs/Glossary/Boolean)
 	* [undefined](https://developer.mozilla.org/en-US/docs/Glossary/Undefined)
 	* [null](https://developer.mozilla.org/en-US/docs/Glossary/Null)
-	* [symbol](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol), only symbols registered in the global Symbol registry via [`Symbol.for`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/for)
+	* [symbol](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol), [`Symbol.for`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/for) மூலம் global Symbol registry-இல் register செய்யப்பட்ட symbols மட்டும்
 * Iterables containing serializable values
 	* [String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)
 	* [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)
@@ -82,29 +82,29 @@ Here are supported types for Server Function arguments:
 	* [TypedArray](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray) and [ArrayBuffer](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer)
 * [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date)
 * [FormData](https://developer.mozilla.org/en-US/docs/Web/API/FormData) instances
-* Plain [objects](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object): those created with [object initializers](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer), with serializable properties
+* Plain [objects](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object): [object initializers](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer) மூலம் உருவாக்கப்பட்ட, serializable properties கொண்டவை
 * Functions that are Server Functions
 * [Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
 
-Notably, these are not supported:
-* React elements, or [JSX](/learn/writing-markup-with-jsx)
-* Functions, including component functions or any other function that is not a Server Function
+குறிப்பாக, இவை support செய்யப்படாது:
+* React elements, அல்லது [JSX](/learn/writing-markup-with-jsx)
+* Component functions உட்பட Server Function அல்லாத எந்த functions-உம்
 * [Classes](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Classes_in_JavaScript)
-* Objects that are instances of any class (other than the built-ins mentioned) or objects with [a null prototype](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object#null-prototype_objects)
-* Symbols not registered globally, ex. `Symbol('my new symbol')`
-* Events from event handlers
+* குறிப்பிடப்பட்ட built-ins தவிர, எந்த class-ன் instances ஆன objects அல்லது [null prototype](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object#null-prototype_objects) கொண்ட objects
+* Globally register செய்யப்படாத symbols, எ.கா. `Symbol('my new symbol')`
+* Event handlers-இலிருந்து வரும் events
 
 
-Supported serializable return values are the same as [serializable props](/reference/rsc/use-client#serializable-types) for a boundary Client Component.
+ஆதரிக்கப்படும் serializable return values, boundary Client Component-க்கான [serializable props](/reference/rsc/use-client#serializable-types) போலவே இருக்கும்.
 
 
-## Usage {/*usage*/}
+## பயன்பாடு {/*usage*/}
 
-### Server Functions in forms {/*server-functions-in-forms*/}
+### Forms-இல் Server Functions {/*server-functions-in-forms*/}
 
-The most common use case of Server Functions will be calling functions that mutate data. On the browser, the [HTML form element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form) is the traditional approach for a user to submit a mutation. With React Server Components, React introduces first-class support for Server Functions as Actions in [forms](/reference/react-dom/components/form).
+Server Functions-ன் மிகப் பொதுவான use case, data mutate செய்யும் functions-ஐ call செய்வது. Browser-இல், user mutation submit செய்ய [HTML form element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form) பாரம்பரிய அணுகுமுறை. React Server Components உடன், [forms](/reference/react-dom/components/form)-இல் Server Functions-ஐ Actions ஆக first-class support செய்ய React அறிமுகப்படுத்துகிறது.
 
-Here is a form that allows a user to request a username.
+User username request செய்ய அனுமதிக்கும் form இங்கே:
 
 ```js [[1, 3, "formData"]]
 // App.js
@@ -125,15 +125,15 @@ export default function App() {
 }
 ```
 
-In this example `requestUsername` is a Server Function passed to a `<form>`. When a user submits this form, there is a network request to the server function `requestUsername`. When calling a Server Function in a form, React will supply the form's <CodeStep step={1}>[FormData](https://developer.mozilla.org/en-US/docs/Web/API/FormData)</CodeStep> as the first argument to the Server Function.
+இந்த உதாரணத்தில் `requestUsername` என்பது `<form>`-க்கு pass செய்யப்பட்ட Server Function. User இந்த form-ஐ submit செய்தால், server function `requestUsername`-க்கு network request அனுப்பப்படும். Form-இல் Server Function call செய்யும்போது, React form-ன் <CodeStep step={1}>[FormData](https://developer.mozilla.org/en-US/docs/Web/API/FormData)</CodeStep>-வை Server Function-க்கு முதல் argument ஆக வழங்கும்.
 
-By passing a Server Function to the form `action`, React can [progressively enhance](https://developer.mozilla.org/en-US/docs/Glossary/Progressive_Enhancement) the form. This means that forms can be submitted before the JavaScript bundle is loaded.
+Form `action`-க்கு Server Function pass செய்வதன் மூலம், React form-ஐ [progressively enhance](https://developer.mozilla.org/en-US/docs/Glossary/Progressive_Enhancement) செய்ய முடியும். அதாவது JavaScript bundle load ஆகும் முன்பே forms submit செய்யப்படலாம்.
 
-#### Handling return values in forms {/*handling-return-values*/}
+#### Forms-இல் return values கையாளுதல் {/*handling-return-values*/}
 
-In the username request form, there might be the chance that a username is not available. `requestUsername` should tell us if it fails or not.
+Username request form-இல், ஒரு username கிடைக்காமல் இருக்கலாம். `requestUsername` அது fail ஆனதா இல்லையா என்பதை எங்களுக்குச் சொல்ல வேண்டும்.
 
-To update the UI based on the result of a Server Function while supporting progressive enhancement, use [`useActionState`](/reference/react/useActionState).
+Progressive enhancement-ஐ support செய்யும்போது Server Function result அடிப்படையில் UI-ஐ update செய்ய, [`useActionState`](/reference/react/useActionState)-ஐப் பயன்படுத்துங்கள்.
 
 ```js
 // requestUsername.js
@@ -171,13 +171,13 @@ function UsernameForm() {
 }
 ```
 
-Note that like most Hooks, `useActionState` can only be called in <CodeStep step={1}>[client code](/reference/rsc/use-client)</CodeStep>.
+பெரும்பாலான Hooks போல, `useActionState` <CodeStep step={1}>[client code](/reference/rsc/use-client)</CodeStep>-இல் மட்டுமே call செய்யப்பட முடியும் என்பதை கவனியுங்கள்.
 
-### Calling a Server Function outside of `<form>` {/*calling-a-server-function-outside-of-form*/}
+### `<form>`-க்கு வெளியே Server Function call செய்தல் {/*calling-a-server-function-outside-of-form*/}
 
-Server Functions are exposed server endpoints and can be called anywhere in client code.
+Server Functions exposed server endpoints ஆகும்; client code-இல் எங்கிருந்தும் call செய்யலாம்.
 
-When using a Server Function outside a [form](/reference/react-dom/components/form), call the Server Function in a [Transition](/reference/react/useTransition), which allows you to display a loading indicator, show [optimistic state updates](/reference/react/useOptimistic), and handle unexpected errors. Forms will automatically wrap Server Functions in transitions.
+[Form](/reference/react-dom/components/form)-க்கு வெளியே Server Function பயன்படுத்தும்போது, Server Function-ஐ [Transition](/reference/react/useTransition)-இல் call செய்யுங்கள்; இது loading indicator display செய்ய, [optimistic state updates](/reference/react/useOptimistic) காட்ட, மற்றும் எதிர்பாராத errors-ஐ handle செய்ய அனுமதிக்கிறது. Forms Server Functions-ஐ தானாக transitions-இல் wrap செய்யும்.
 
 ```js {9-12}
 import incrementLike from './actions';
@@ -214,4 +214,4 @@ export default async function incrementLike() {
 }
 ```
 
-To read a Server Function return value, you'll need to `await` the promise returned.
+Server Function return value-ஐ read செய்ய, return செய்யப்பட்ட promise-ஐ `await` செய்ய வேண்டும்.

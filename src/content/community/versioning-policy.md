@@ -1,169 +1,169 @@
 ---
-title: Versioning Policy
+title: Versioning கொள்கை
 ---
 
 <Intro>
 
-All stable builds of React go through a high level of testing and follow semantic versioning (semver). React also offers unstable release channels to encourage early feedback on experimental features. This page describes what you can expect from React releases.
+React-ன் எல்லா stable builds-மும் உயர் நிலை testing-ஐ கடந்து semantic versioning (semver)-ஐப் பின்பற்றுகின்றன. Experimental features குறித்து early feedback ஊக்குவிக்க React unstable release channels-யையும் வழங்குகிறது. React releases-இலிருந்து என்ன எதிர்பார்க்கலாம் என்பதை இந்த page விவரிக்கிறது.
 
 </Intro>
 
-This versioning policy describes our approach to version numbers for packages such as `react` and `react-dom`. For a list of previous releases, see the [Versions](/versions) page.
+இந்த versioning policy, `react` மற்றும் `react-dom` போன்ற packages-க்கான version numbers-க்கு எங்கள் அணுகுமுறையை விவரிக்கிறது. முந்தைய releases பட்டியலுக்கு [Versions](/versions) page-ஐ பார்க்கவும்.
 
 ## Stable releases {/*stable-releases*/}
 
-Stable React releases (also known as "Latest" release channel) follow [semantic versioning (semver)](https://semver.org/) principles.
+Stable React releases ("Latest" release channel என்றும் அழைக்கப்படும்) [semantic versioning (semver)](https://semver.org/) principles-ஐப் பின்பற்றுகின்றன.
 
-That means that with a version number **x.y.z**:
+அதாவது **x.y.z** என்ற version number-இல்:
 
-* When releasing **critical bug fixes**, we make a **patch release** by changing the **z** number (ex: 15.6.2 to 15.6.3).
-* When releasing **new features** or **non-critical fixes**, we make a **minor release** by changing the **y** number (ex: 15.6.2 to 15.7.0).
-* When releasing **breaking changes**, we make a **major release** by changing the **x** number (ex: 15.6.2 to 16.0.0).
+* **Critical bug fixes** release செய்யும்போது, **z** number-ஐ மாற்றி **patch release** செய்கிறோம் (எ.கா. 15.6.2-இலிருந்து 15.6.3).
+* **New features** அல்லது **non-critical fixes** release செய்யும்போது, **y** number-ஐ மாற்றி **minor release** செய்கிறோம் (எ.கா. 15.6.2-இலிருந்து 15.7.0).
+* **Breaking changes** release செய்யும்போது, **x** number-ஐ மாற்றி **major release** செய்கிறோம் (எ.கா. 15.6.2-இலிருந்து 16.0.0).
 
-Major releases can also contain new features, and any release can include bug fixes.
+Major releases புதிய features-யையும் கொண்டிருக்கலாம்; எந்த release-யும் bug fixes சேர்க்கலாம்.
 
-Minor releases are the most common type of release.
+Minor releases தான் மிகவும் பொதுவான release வகை.
 
-We know our users continue to use old versions of React in production. If we learn of a security vulnerability in React, we release a backported fix for all major versions that are affected by the vulnerability.
+எங்கள் users production-இல் React-ன் பழைய versions-ஐ தொடர்ந்து பயன்படுத்துகிறார்கள் என்பதை நாங்கள் அறிவோம். React-இல் security vulnerability பற்றி தெரிந்தால், அந்த vulnerability பாதிக்கும் அனைத்து major versions-க்கும் backported fix release செய்கிறோம்.
 
 ### Breaking changes {/*breaking-changes*/}
 
-Breaking changes are inconvenient for everyone, so we try to minimize the number of major releases – for example, React 15 was released in April 2016 and React 16 was released in September 2017, and React 17 was released in October 2020.
+Breaking changes அனைவருக்கும் சிரமமாக இருப்பதால், major releases எண்ணிக்கையை குறைக்க முயற்சிக்கிறோம். உதாரணமாக, React 15 ஏப்ரல் 2016-இல், React 16 செப்டம்பர் 2017-இல், React 17 அக்டோபர் 2020-இல் release செய்யப்பட்டது.
 
-Instead, we release new features in minor versions. That means that minor releases are often more interesting and compelling than majors, despite their unassuming name.
+அதற்கு பதிலாக, புதிய features-ஐ minor versions-இல் release செய்கிறோம். பெயர் சாதாரணமாக இருந்தாலும், minor releases பல நேரங்களில் majors-ஐ விட interesting மற்றும் compelling ஆக இருக்கும்.
 
 ### Commitment to stability {/*commitment-to-stability*/}
 
-As we change React over time, we try to minimize the effort required to take advantage of new features. When possible, we'll keep an older API working, even if that means putting it in a separate package. For example, [mixins have been discouraged for years](https://legacy.reactjs.org/blog/2016/07/13/mixins-considered-harmful.html) but they're supported to this day [via create-react-class](https://legacy.reactjs.org/docs/react-without-es6.html#mixins) and many codebases continue to use them in stable, legacy code.
+React காலப்போக்கில் மாறும்போது, புதிய features-ன் பயனைப் பெற தேவையான effort-ஐ குறைக்க முயற்சிக்கிறோம். சாத்தியமானால், பழைய API-ஐ தொடர்ந்து வேலை செய்ய வைத்திருப்போம்; அதை separate package-இல் வைக்க வேண்டியிருந்தாலும். உதாரணமாக, [mixins பல ஆண்டுகளாக discouraged செய்யப்பட்டுள்ளன](https://legacy.reactjs.org/blog/2016/07/13/mixins-considered-harmful.html), ஆனால் அவை இன்றும் [create-react-class வழியாக](https://legacy.reactjs.org/docs/react-without-es6.html#mixins) support செய்யப்படுகின்றன; பல codebases stable, legacy code-இல் அவற்றை தொடர்ந்து பயன்படுத்துகின்றன.
 
-Over a million developers use React, collectively maintaining millions of components. The Facebook codebase alone has over 50,000 React components. That means we need to make it as easy as possible to upgrade to new versions of React; if we make large changes without a migration path, people will be stuck on old versions. We test these upgrade paths on Facebook itself – if our team of less than 10 people can update 50,000+ components alone, we hope the upgrade will be manageable for anyone using React. In many cases, we write [automated scripts](https://github.com/reactjs/react-codemod) to upgrade component syntax, which we then include in the open-source release for everyone to use.
+ஒரு million-க்கும் மேற்பட்ட developers React பயன்படுத்துகிறார்கள்; சேர்ந்து millions of components-ஐ maintain செய்கிறார்கள். Facebook codebase-இல் மட்டும் 50,000-க்கும் மேற்பட்ட React components உள்ளன. அதனால் React-ன் புதிய versions-க்கு upgrade செய்வதை நேரடியாக செய்ய வேண்டும்; migration path இல்லாமல் பெரிய changes செய்தால், மக்கள் பழைய versions-இல் சிக்கிக் கொள்வார்கள். இந்த upgrade paths-ஐ Facebook-இலேயே test செய்கிறோம்; 10 பேருக்கும் குறைவான எங்கள் team 50,000+ components-ஐ update செய்ய முடிந்தால், React பயன்படுத்தும் யாருக்கும் upgrade manageable ஆக இருக்கும் என்று நம்புகிறோம். பல cases-இல் component syntax upgrade செய்ய [automated scripts](https://github.com/reactjs/react-codemod) எழுதுகிறோம்; பின்னர் அனைவரும் பயன்படுத்த open-source release-இல் அவற்றை சேர்க்கிறோம்.
 
-### Gradual upgrades via warnings {/*gradual-upgrades-via-warnings*/}
+### Warnings மூலம் gradual upgrades {/*gradual-upgrades-via-warnings*/}
 
-Development builds of React include many helpful warnings. Whenever possible, we add warnings in preparation for future breaking changes. That way, if your app has no warnings on the latest release, it will be compatible with the next major release. This allows you to upgrade your apps one component at a time.
+React-ன் development builds பல helpful warnings கொண்டுள்ளன. சாத்தியமான எல்லா நேரங்களிலும், எதிர்கால breaking changes-க்கான preparation ஆக warnings சேர்க்கிறோம். இதனால் latest release-இல் உங்கள் app-க்கு warnings இல்லையென்றால், அது அடுத்த major release உடன் compatible ஆக இருக்கும். இதனால் உங்கள் apps-ஐ ஒரே நேரத்தில் ஒரு component ஆக upgrade செய்யலாம்.
 
-Development warnings won't affect the runtime behavior of your app. That way, you can feel confident that your app will behave the same way between the development and production builds -- the only differences are that the production build won't log the warnings and that it is more efficient. (If you ever notice otherwise, please file an issue.)
+Development warnings உங்கள் app-ன் runtime behavior-ஐ பாதிக்காது. அதனால் development மற்றும் production builds இடையே உங்கள் app ஒரேபோல் behave செய்யும் என்று நம்பலாம்; வேறுபாடுகள் என்னவென்றால் production build warnings log செய்யாது, மேலும் அது அதிக efficient. (வேறுபாடு கவனித்தால் issue file செய்யுங்கள்.)
 
-### What counts as a breaking change? {/*what-counts-as-a-breaking-change*/}
+### எது breaking change ஆக கருதப்படும்? {/*what-counts-as-a-breaking-change*/}
 
-In general, we *don't* bump the major version number for changes to:
+பொதுவாக, கீழ்க்கண்ட changes-க்காக major version number-ஐ *bump செய்ய மாட்டோம்*:
 
-* **Development warnings.** Since these don't affect production behavior, we may add new warnings or modify existing warnings in between major versions. In fact, this is what allows us to reliably warn about upcoming breaking changes.
-* **APIs starting with `unstable_`.** These are provided as experimental features whose APIs we are not yet confident in. By releasing these with an `unstable_` prefix, we can iterate faster and get to a stable API sooner.
-* **Alpha and Canary versions of React.** We provide alpha versions of React as a way to test new features early, but we need the flexibility to make changes based on what we learn in the alpha period. If you use these versions, note that APIs may change before the stable release.
-* **Undocumented APIs and internal data structures.** If you access internal property names like `__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED` or `__reactInternalInstance$uk43rzhitjg`, there is no warranty.  You are on your own.
+* **Development warnings.** இவை production behavior-ஐ பாதிக்காததால், major versions இடையில் புதிய warnings சேர்க்கலாம் அல்லது existing warnings மாற்றலாம். உண்மையில், இதுவே upcoming breaking changes பற்றி நம்பகமாக warn செய்ய அனுமதிக்கிறது.
+* **`unstable_`-ஆல் தொடங்கும் APIs.** இவை இன்னும் நம்பிக்கை பெறாத APIs கொண்ட experimental features ஆக வழங்கப்படுகின்றன. இவற்றை `unstable_` prefix உடன் release செய்வதால் வேகமாக iterate செய்து stable API-ஐ விரைவில் அடைய முடியும்.
+* **React-ன் Alpha மற்றும் Canary versions.** புதிய features-ஐ early-ஆக test செய்ய alpha versions வழங்குகிறோம்; ஆனால் alpha period-இல் கற்றவற்றின் அடிப்படையில் changes செய்ய flexibility தேவை. இந்த versions பயன்படுத்தினால், stable release-க்கு முன் APIs மாறலாம் என்பதை கவனிக்கவும்.
+* **Undocumented APIs மற்றும் internal data structures.** `__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED` அல்லது `__reactInternalInstance$uk43rzhitjg` போன்ற internal property names-ஐ access செய்தால் எந்த warranty-யும் இல்லை. நீங்கள் தனிப்பொறுப்பில் உள்ளீர்கள்.
 
-This policy is designed to be pragmatic: certainly, we don't want to cause headaches for you. If we bumped the major version for all of these changes, we would end up releasing more major versions and ultimately causing more versioning pain for the community. It would also mean that we can't make progress in improving React as fast as we'd like.
+இந்த policy pragmatic ஆக வடிவமைக்கப்பட்டுள்ளது: நிச்சயமாக, உங்களுக்கு தலைவலி தர விரும்பவில்லை. இந்த changes அனைத்திற்கும் major version bump செய்தால், மேலும் பல major versions release செய்ய வேண்டி, இறுதியில் community-க்கு versioning சிரமம் அதிகரிக்கும். React-ஐ மேம்படுத்த நாங்கள் விரும்பும் வேகத்தில் முன்னேற முடியாது என்பதையும் அதுவே குறிக்கும்.
 
-That said, if we expect that a change on this list will cause broad problems in the community, we will still do our best to provide a gradual migration path.
+அப்படியிருந்தாலும், இந்த பட்டியலில் உள்ள change ஒன்று community முழுவதும் பெரிய பிரச்சினைகளை ஏற்படுத்தும் என்று எதிர்பார்த்தால், gradual migration path வழங்க எங்களால் முடிந்ததைச் செய்வோம்.
 
-### If a minor release includes no new features, why isn't it a patch? {/*if-a-minor-release-includes-no-new-features-why-isnt-it-a-patch*/}
+### Minor release-இல் புதிய features இல்லை என்றால், அது patch அல்லாதது ஏன்? {/*if-a-minor-release-includes-no-new-features-why-isnt-it-a-patch*/}
 
-It's possible that a minor release will not include new features. [This is allowed by semver](https://semver.org/#spec-item-7), which states **"[a minor version] MAY be incremented if substantial new functionality or improvements are introduced within the private code. It MAY include patch level changes."**
+Minor release-இல் புதிய features இல்லாமலும் இருக்கலாம். [இதை semver அனுமதிக்கிறது](https://semver.org/#spec-item-7); அது **"[a minor version] MAY be incremented if substantial new functionality or improvements are introduced within the private code. It MAY include patch level changes."** என்று கூறுகிறது.
 
-However, it does raise the question of why these releases aren't versioned as patches instead.
+ஆனால் இத்தகைய releases patches ஆக version செய்யப்படாதது ஏன் என்ற கேள்வி எழுகிறது.
 
-The answer is that any change to React (or other software) carries some risk of breaking in unexpected ways. Imagine a scenario where a patch release that fixes one bug accidentally introduces a different bug. This would not only be disruptive to developers, but also harm their confidence in future patch releases. It's especially regrettable if the original fix is for a bug that is rarely encountered in practice.
+பதில்: React (அல்லது பிற software)-இல் எந்த change-க்கும் எதிர்பாராத விதமாக break ஆகும் சிறிய risk உண்டு. ஒரு bug-ஐ fix செய்யும் patch release தவறுதலாக வேறு bug ஒன்றை அறிமுகப்படுத்தும் scenario-வை கற்பனை செய்யுங்கள். இது developers-க்கு disruptive ஆக இருப்பதோடு, எதிர்கால patch releases மீதான நம்பிக்கையையும் பாதிக்கும். Original fix நடைமுறையில் அரிதாக சந்திக்கப்படும் bug-க்காக இருந்தால் இது குறிப்பாக வருந்தத்தக்கது.
 
-We have a pretty good track record for keeping React releases free of bugs, but patch releases have an even higher bar for reliability because most developers assume they can be adopted without adverse consequences.
+React releases bugs இல்லாமல் இருக்க நாங்கள் நல்ல track record வைத்திருக்கிறோம்; ஆனால் patch releases-க்கு reliability bar இன்னும் அதிகம், ஏனெனில் பெரும்பாலான developers அவற்றை adverse consequences இல்லாமல் adopt செய்யலாம் என்று கருதுகிறார்கள்.
 
-For these reasons, we reserve patch releases only for the most critical bugs and security vulnerabilities.
+இந்த காரணங்களால், patch releases-ஐ மிகவும் critical bugs மற்றும் security vulnerabilities-க்காக மட்டுமே reserve செய்கிறோம்.
 
-If a release includes non-essential changes — such as internal refactors, changes to implementation details, performance improvements, or minor bugfixes — we will bump the minor version even when there are no new features.
+ஒரு release internal refactors, implementation details மாற்றங்கள், performance improvements, அல்லது minor bugfixes போன்ற non-essential changes கொண்டிருந்தால், புதிய features இல்லாவிட்டாலும் minor version-ஐ bump செய்வோம்.
 
 ## All release channels {/*all-release-channels*/}
 
-React relies on a thriving open source community to file bug reports, open pull requests, and [submit RFCs](https://github.com/reactjs/rfcs). To encourage feedback we sometimes share special builds of React that include unreleased features.
+Bug reports file செய்ய, pull requests open செய்ய, மற்றும் [RFCs submit செய்ய](https://github.com/reactjs/rfcs) வளர்ந்த open source community மீது React சார்ந்துள்ளது. Feedback ஊக்குவிக்க சில நேரங்களில் unreleased features கொண்ட React special builds-ஐ பகிர்கிறோம்.
 
 <Note>
 
-This section will be most relevant to developers who work on frameworks, libraries, or developer tooling. Developers who use React primarily to build user-facing applications should not need to worry about our prerelease channels.
+Frameworks, libraries, அல்லது developer tooling-இல் பணிபுரியும் developers-க்கு இந்த section மிகவும் தொடர்புடையது. User-facing applications build செய்ய React-ஐ முதன்மையாக பயன்படுத்தும் developers, எங்கள் prerelease channels பற்றி கவலைப்பட தேவையில்லை.
 
 </Note>
 
-Each of React's release channels is designed for a distinct use case:
+React-ன் ஒவ்வொரு release channel-மும் தனித்த use case-க்காக வடிவமைக்கப்பட்டுள்ளது:
 
-- [**Latest**](#latest-channel) is for stable, semver React releases. It's what you get when you install React from npm. This is the channel you're already using today. **User-facing applications that consume React directly use this channel.**
-- [**Canary**](#canary-channel) tracks the main branch of the React source code repository. Think of these as release candidates for the next semver release. **[Frameworks or other curated setups may choose to use this channel with a pinned version of React.](/blog/2023/05/03/react-canaries) You can also use Canaries for integration testing between React and third party projects.**
-- [**Experimental**](#experimental-channel) includes experimental APIs and features that aren't available in the stable releases. These also track the main branch, but with additional feature flags turned on. Use this to try out upcoming features before they are released.
+- [**Latest**](#latest-channel) stable, semver React releases-க்காக. npm-இலிருந்து React install செய்யும்போது கிடைப்பது இதுவே. இன்று நீங்கள் ஏற்கனவே பயன்படுத்தும் channel இதுதான். **React-ஐ நேரடியாக consume செய்யும் user-facing applications இந்த channel-ஐ பயன்படுத்துகின்றன.**
+- [**Canary**](#canary-channel) React source code repository-ன் main branch-ஐ track செய்கிறது. இவற்றை அடுத்த semver release-க்கான release candidates போல நினைக்கலாம். **[Frameworks அல்லது பிற curated setups, pinned React version உடன் இந்த channel-ஐ பயன்படுத்தத் தேர்வு செய்யலாம்.](/blog/2023/05/03/react-canaries) React மற்றும் third party projects இடையிலான integration testing-க்கும் Canaries பயன்படுத்தலாம்.**
+- [**Experimental**](#experimental-channel) stable releases-இல் இல்லாத experimental APIs மற்றும் features-ஐ கொண்டுள்ளது. இவையும் main branch-ஐ track செய்கின்றன; ஆனால் கூடுதல் feature flags turned on ஆக இருக்கும். Release ஆகும்முன் upcoming features முயற்சிக்க இதைப் பயன்படுத்தவும்.
 
-All releases are published to npm, but only Latest uses semantic versioning. Prereleases (those in the Canary and Experimental channels) have versions generated from a hash of their contents and the commit date, e.g. `18.3.0-canary-388686f29-20230503` for Canary and `0.0.0-experimental-388686f29-20230503` for Experimental.
+அனைத்து releases-மும் npm-க்கு publish செய்யப்படுகின்றன; ஆனால் Latest மட்டும் semantic versioning பயன்படுத்துகிறது. Prereleases (Canary மற்றும் Experimental channels-இல் உள்ளவை) அவற்றின் contents hash மற்றும் commit date-இலிருந்து generated versions கொண்டிருக்கும்; உதாரணமாக Canary-க்கு `18.3.0-canary-388686f29-20230503`, Experimental-க்கு `0.0.0-experimental-388686f29-20230503`.
 
-**Both Latest and Canary channels are officially supported for user-facing applications, but with different expectations**:
+**Latest மற்றும் Canary channels இரண்டும் user-facing applications-க்கு அதிகாரப்பூர்வமாக support செய்யப்படுகின்றன; ஆனால் எதிர்பார்ப்புகள் வேறுபடும்**:
 
-* Latest releases follow the traditional semver model.
-* Canary releases [must be pinned](/blog/2023/05/03/react-canaries) and may include breaking changes. They exist for curated setups (like frameworks) that want to gradually release new React features and bugfixes on their own release schedule.
+* Latest releases பாரம்பரிய semver model-ஐப் பின்பற்றுகின்றன.
+* Canary releases [pinned ஆக இருக்க வேண்டும்](/blog/2023/05/03/react-canaries) மற்றும் breaking changes கொண்டிருக்கலாம். தங்கள் சொந்த release schedule-இல் புதிய React features மற்றும் bugfixes-ஐ gradual-ஆக release செய்ய விரும்பும் frameworks போன்ற curated setups-க்காக அவை உள்ளன.
 
-The Experimental releases are provided for testing purposes only, and we provide no guarantees that behavior won't change between releases. They do not follow the semver protocol that we use for releases from Latest.
+Experimental releases testing purposes-க்காக மட்டும் வழங்கப்படுகின்றன; releases இடையே behavior மாறாது என்ற எந்த guarantee-யும் வழங்கவில்லை. Latest releases-க்கு நாங்கள் பயன்படுத்தும் semver protocol-ஐ அவை பின்பற்றுவதில்லை.
 
-By publishing prereleases to the same registry that we use for stable releases, we are able to take advantage of the many tools that support the npm workflow, like [unpkg](https://unpkg.com) and [CodeSandbox](https://codesandbox.io).
+Stable releases-க்கு பயன்படுத்தும் அதே registry-க்கு prereleases publish செய்வதால், [unpkg](https://unpkg.com) மற்றும் [CodeSandbox](https://codesandbox.io) போன்ற npm workflow support செய்யும் பல tools-ன் பயனைப் பெற முடிகிறது.
 
 ### Latest channel {/*latest-channel*/}
 
-Latest is the channel used for stable React releases. It corresponds to the `latest` tag on npm. It is the recommended channel for all React apps that are shipped to real users.
+Latest என்பது stable React releases-க்கு பயன்படுத்தப்படும் channel. இது npm-இல் உள்ள `latest` tag-க்கு தொடர்புடையது. உண்மையான users-க்கு ship செய்யப்படும் எல்லா React apps-க்கும் இது பரிந்துரைக்கப்படும் channel.
 
-**If you're not sure which channel you should use, it's Latest.** If you're using React directly, this is what you're already using. You can expect updates to Latest to be extremely stable. Versions follow the semantic versioning scheme, as [described earlier.](#stable-releases)
+**எந்த channel பயன்படுத்த வேண்டும் என்று உறுதியாக தெரியாவிட்டால், அது Latest.** React-ஐ நேரடியாகப் பயன்படுத்தினால், நீங்கள் ஏற்கனவே இதையே பயன்படுத்துகிறீர்கள். Latest-க்கு வரும் updates மிகவும் stable இருக்கும் என்று எதிர்பார்க்கலாம். Versions [முன்பு விவரித்தபடி](#stable-releases) semantic versioning scheme-ஐப் பின்பற்றுகின்றன.
 
 ### Canary channel {/*canary-channel*/}
 
-The Canary channel is a prerelease channel that tracks the main branch of the React repository. We use prereleases in the Canary channel as release candidates for the Latest channel. You can think of Canary as a superset of Latest that is updated more frequently.
+Canary channel என்பது React repository-ன் main branch-ஐ track செய்யும் prerelease channel. Canary channel-இல் உள்ள prereleases-ஐ Latest channel-க்கான release candidates ஆக பயன்படுத்துகிறோம். Canary-யை அதிகமாக update செய்யப்படும் Latest-ன் superset போல நினைக்கலாம்.
 
-The degree of change between the most recent Canary release and the most recent Latest release is approximately the same as you would find between two minor semver releases. However, **the Canary channel does not conform to semantic versioning.** You should expect occasional breaking changes between successive releases in the Canary channel.
+மிக சமீபத்திய Canary release மற்றும் மிக சமீபத்திய Latest release இடையிலான change அளவு, இரண்டு minor semver releases இடையே காணும் அளவிற்கு சுமார் சமமானது. இருப்பினும், **Canary channel semantic versioning-க்கு conform ஆகாது.** Canary channel-இல் successive releases இடையே அவ்வப்போது breaking changes எதிர்பார்க்க வேண்டும்.
 
-**Do not use prereleases in user-facing applications directly unless you're following the [Canary workflow](/blog/2023/05/03/react-canaries).**
+**[Canary workflow](/blog/2023/05/03/react-canaries)-ஐ பின்பற்றாவிட்டால், user-facing applications-இல் prereleases-ஐ நேரடியாக பயன்படுத்த வேண்டாம்.**
 
-Releases in Canary are published with the `canary` tag on npm. Versions are generated from a hash of the build's contents and the commit date, e.g. `18.3.0-canary-388686f29-20230503`.
+Canary releases npm-இல் `canary` tag உடன் publish செய்யப்படுகின்றன. Versions build contents hash மற்றும் commit date-இலிருந்து generate செய்யப்படுகின்றன; எ.கா. `18.3.0-canary-388686f29-20230503`.
 
-#### Using the canary channel for integration testing {/*using-the-canary-channel-for-integration-testing*/}
+#### Integration testing-க்கு canary channel பயன்படுத்துதல் {/*using-the-canary-channel-for-integration-testing*/}
 
-The Canary channel also supports integration testing between React and other projects.
+Canary channel, React மற்றும் பிற projects இடையிலான integration testing-க்கும் support தருகிறது.
 
-All changes to React go through extensive internal testing before they are released to the public. However, there are a myriad of environments and configurations used throughout the React ecosystem, and it's not possible for us to test against every single one.
+React-க்கு வரும் எல்லா changes-மும் public release ஆகும்முன் extensive internal testing-ஐ கடக்கும். ஆனால் React ecosystem முழுவதும் பல environments மற்றும் configurations பயன்படுத்தப்படுகின்றன; அவற்றில் ஒவ்வொன்றுக்கும் எதிராக test செய்வது சாத்தியமில்லை.
 
-If you're the author of a third party React framework, library, developer tool, or similar infrastructure-type project, you can help us keep React stable for your users and the entire React community by periodically running your test suite against the most recent changes. If you're interested, follow these steps:
+நீங்கள் third party React framework, library, developer tool, அல்லது இதுபோன்ற infrastructure-type project-ன் author என்றால், மிக சமீபத்திய changes-க்கு எதிராக உங்கள் test suite-ஐ periodical-ஆக run செய்வதன் மூலம் உங்கள் users மற்றும் முழு React community-க்கு React stable ஆக இருக்க உதவலாம். ஆர்வமிருந்தால், இந்த படிகளைப் பின்பற்றவும்:
 
-- Set up a cron job using your preferred continuous integration platform. Cron jobs are supported by both [CircleCI](https://circleci.com/docs/2.0/triggers/#scheduled-builds) and [Travis CI](https://docs.travis-ci.com/user/cron-jobs/).
-- In the cron job, update your React packages to the most recent React release in the Canary channel, using `canary` tag on npm. Using the npm cli:
+- உங்களுக்கு விருப்பமான continuous integration platform பயன்படுத்தி cron job அமைக்கவும். Cron jobs [CircleCI](https://circleci.com/docs/2.0/triggers/#scheduled-builds) மற்றும் [Travis CI](https://docs.travis-ci.com/user/cron-jobs/) இரண்டாலும் support செய்யப்படுகின்றன.
+- Cron job-இல், npm-இல் `canary` tag பயன்படுத்தி உங்கள் React packages-ஐ Canary channel-இல் உள்ள மிக சமீபத்திய React release-க்கு update செய்யவும். npm cli பயன்படுத்தி:
 
   ```console
   npm update react@canary react-dom@canary
   ```
 
-  Or yarn:
+  அல்லது yarn:
 
   ```console
   yarn upgrade react@canary react-dom@canary
   ```
-- Run your test suite against the updated packages.
-- If everything passes, great! You can expect that your project will work with the next minor React release.
-- If something breaks unexpectedly, please let us know by [filing an issue](https://github.com/facebook/react/issues).
+- Updated packages-க்கு எதிராக உங்கள் test suite-ஐ run செய்யவும்.
+- எல்லாம் pass ஆனால் சிறப்பு! உங்கள் project அடுத்த minor React release உடன் வேலை செய்யும் என்று எதிர்பார்க்கலாம்.
+- எதிர்பாராத விதமாக ஏதேனும் break ஆனால், [issue file செய்து](https://github.com/facebook/react/issues) எங்களுக்கு தெரிவிக்கவும்.
 
-A project that uses this workflow is Next.js. You can refer to their [CircleCI configuration](https://github.com/zeit/next.js/blob/c0a1c0f93966fe33edd93fb53e5fafb0dcd80a9e/.circleci/config.yml) as an example.
+இந்த workflow-ஐ பயன்படுத்தும் project Next.js. உதாரணமாக அவர்களின் [CircleCI configuration](https://github.com/zeit/next.js/blob/c0a1c0f93966fe33edd93fb53e5fafb0dcd80a9e/.circleci/config.yml)-ஐ பார்க்கலாம்.
 
 ### Experimental channel {/*experimental-channel*/}
 
-Like Canary, the Experimental channel is a prerelease channel that tracks the main branch of the React repository. Unlike Canary, Experimental releases include additional features and APIs that are not ready for wider release.
+Canary போலவே, Experimental channel என்பது React repository-ன் main branch-ஐ track செய்யும் prerelease channel. Canary-க்கு மாறாக, Experimental releases இன்னும் wide release-க்கு தயாராகாத கூடுதல் features மற்றும் APIs கொண்டுள்ளன.
 
-Usually, an update to Canary is accompanied by a corresponding update to Experimental. They are based on the same source revision, but are built using a different set of feature flags.
+பொதுவாக Canary update-க்கு இணையாக Experimental update-மும் வரும். அவை அதே source revision அடிப்படையில் இருக்கும்; ஆனால் வேறு feature flags set பயன்படுத்தி build செய்யப்படும்.
 
-Experimental releases may be significantly different than releases to Canary and Latest. **Do not use Experimental releases in user-facing applications.** You should expect frequent breaking changes between releases in the Experimental channel.
+Experimental releases, Canary மற்றும் Latest releases-ஐ விட குறிப்பிடத்தக்க அளவு வேறுபட்டிருக்கலாம். **User-facing applications-இல் Experimental releases பயன்படுத்த வேண்டாம்.** Experimental channel releases இடையே அடிக்கடி breaking changes எதிர்பார்க்க வேண்டும்.
 
-Releases in Experimental are published with the `experimental` tag on npm. Versions are generated from a hash of the build's contents and the commit date, e.g. `0.0.0-experimental-68053d940-20210623`.
+Experimental releases npm-இல் `experimental` tag உடன் publish செய்யப்படுகின்றன. Versions build contents hash மற்றும் commit date-இலிருந்து generate செய்யப்படுகின்றன; எ.கா. `0.0.0-experimental-68053d940-20210623`.
 
-#### What goes into an experimental release? {/*what-goes-into-an-experimental-release*/}
+#### Experimental release-க்குள் என்ன சேரும்? {/*what-goes-into-an-experimental-release*/}
 
-Experimental features are ones that are not ready to be released to the wider public, and may change drastically before they are finalized. Some experiments may never be finalized -- the reason we have experiments is to test the viability of proposed changes.
+Experimental features என்பது wider public-க்கு release செய்ய இன்னும் தயாராகாதவை; finalize ஆகும்முன் மிகவும் மாறக்கூடியவை. சில experiments ஒருபோதும் finalize ஆகாமல் இருக்கலாம்; proposed changes viable ஆக உள்ளனவா என்பதை test செய்வதற்காகத்தான் experiments வைத்துள்ளோம்.
 
-For example, if the Experimental channel had existed when we announced Hooks, we would have released Hooks to the Experimental channel weeks before they were available in Latest.
+உதாரணமாக, Hooks அறிவித்தபோது Experimental channel இருந்திருந்தால், Hooks Latest-இல் கிடைக்கும் சில வாரங்களுக்கு முன்பே Experimental channel-க்கு release செய்திருப்போம்.
 
-You may find it valuable to run integration tests against Experimental. This is up to you. However, be advised that Experimental is even less stable than Canary. **We do not guarantee any stability between Experimental releases.**
+Experimental-க்கு எதிராக integration tests run செய்வது பயனுள்ளதாக இருக்கலாம். அது உங்கள் விருப்பம். ஆனால் Experimental, Canary-யை விடவும் குறைவான stable என்பதை கவனிக்கவும். **Experimental releases இடையே எந்த stability-யையும் guarantee செய்யவில்லை.**
 
-#### How can I learn more about experimental features? {/*how-can-i-learn-more-about-experimental-features*/}
+#### Experimental features பற்றி மேலும் எப்படி அறியலாம்? {/*how-can-i-learn-more-about-experimental-features*/}
 
-Experimental features may or may not be documented. Usually, experiments aren't documented until they are close to shipping in Canary or Latest.
+Experimental features documented ஆக இருக்கலாம் அல்லது இருக்காமல் இருக்கலாம். பொதுவாக experiments Canary அல்லது Latest-இல் ship ஆக நெருங்கும் வரை document செய்யப்படுவதில்லை.
 
-If a feature is not documented, they may be accompanied by an [RFC](https://github.com/reactjs/rfcs).
+Feature document செய்யப்படவில்லை என்றால், அதற்கு [RFC](https://github.com/reactjs/rfcs) இணைந்திருக்கலாம்.
 
-We will post to the [React blog](/blog) when we're ready to announce new experiments, but that doesn't mean we will publicize every experiment.
+புதிய experiments அறிவிக்க தயாரானபோது [React blog](/blog)-இல் post செய்வோம்; ஆனால் ஒவ்வொரு experiment-யையும் publicize செய்வோம் என்று அர்த்தமில்லை.
 
-You can always refer to our public GitHub repository's [history](https://github.com/facebook/react/commits/main) for a comprehensive list of changes.
+மாற்றங்களின் முழுமையான பட்டியலுக்கு எப்போதும் எங்கள் public GitHub repository-ன் [history](https://github.com/facebook/react/commits/main)-ஐ பார்க்கலாம்.

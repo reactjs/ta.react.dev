@@ -4,13 +4,13 @@ title: target
 
 <Intro>
 
-The `target` option specifies which React version the compiler should generate code for.
+Compiler எந்த React version-க்காக code உருவாக்க வேண்டும் என்பதை `target` option குறிப்பிடுகிறது.
 
 </Intro>
 
 ```js
 {
-  target: '19' // or '18', '17'
+  target: '19' // அல்லது '18', '17'
 }
 ```
 
@@ -18,13 +18,13 @@ The `target` option specifies which React version the compiler should generate c
 
 ---
 
-## Reference {/*reference*/}
+## குறிப்பு {/*reference*/}
 
 ### `target` {/*target*/}
 
-Configures the React version compatibility for the compiled output.
+Compiled output-க்கு React version compatibility-ஐ configure செய்கிறது.
 
-#### Type {/*type*/}
+#### வகை {/*type*/}
 
 ```
 '17' | '18' | '19'
@@ -34,26 +34,26 @@ Configures the React version compatibility for the compiled output.
 
 `'19'`
 
-#### Valid values {/*valid-values*/}
+#### செல்லுபடியாகும் values {/*valid-values*/}
 
-- **`'19'`**: Target React 19 (default). No additional runtime required.
-- **`'18'`**: Target React 18. Requires `react-compiler-runtime` package.
-- **`'17'`**: Target React 17. Requires `react-compiler-runtime` package.
+- **`'19'`**: React 19-ஐ target செய்கிறது (default). கூடுதல் runtime தேவையில்லை.
+- **`'18'`**: React 18-ஐ target செய்கிறது. `react-compiler-runtime` package தேவை.
+- **`'17'`**: React 17-ஐ target செய்கிறது. `react-compiler-runtime` package தேவை.
 
-#### Caveats {/*caveats*/}
+#### எச்சரிக்கைகள் {/*caveats*/}
 
-- Always use string values, not numbers (e.g., `'17'` not `17`)
-- Don't include patch versions (e.g., use `'18'` not `'18.2.0'`)
-- React 19 includes built-in compiler runtime APIs
-- React 17 and 18 require installing `react-compiler-runtime@latest`
+- எப்போதும் string values-ஐப் பயன்படுத்துங்கள்; numbers அல்ல (எ.கா. `17` அல்ல, `'17'`)
+- Patch versions-ஐ சேர்க்க வேண்டாம் (எ.கா. `'18.2.0'` அல்ல, `'18'` பயன்படுத்துங்கள்)
+- React 19 built-in compiler runtime APIs-ஐ கொண்டுள்ளது
+- React 17 மற்றும் 18-க்கு `react-compiler-runtime@latest` install செய்ய வேண்டும்
 
 ---
 
-## Usage {/*usage*/}
+## பயன்பாடு {/*usage*/}
 
-### Targeting React 19 (default) {/*targeting-react-19*/}
+### React 19-ஐ target செய்தல் (default) {/*targeting-react-19*/}
 
-For React 19, no special configuration is needed:
+React 19-க்கு சிறப்பு configuration தேவையில்லை:
 
 ```js
 {
@@ -61,24 +61,24 @@ For React 19, no special configuration is needed:
 }
 ```
 
-The compiler will use React 19's built-in runtime APIs:
+Compiler React 19-ன் built-in runtime APIs-ஐப் பயன்படுத்தும்:
 
 ```js
 // Compiled output uses React 19's native APIs
 import { c as _c } from 'react/compiler-runtime';
 ```
 
-### Targeting React 17 or 18 {/*targeting-react-17-or-18*/}
+### React 17 அல்லது 18-ஐ target செய்தல் {/*targeting-react-17-or-18*/}
 
-For React 17 and React 18 projects, you need two steps:
+React 17 மற்றும் React 18 projects-க்கு இரண்டு படிகள் தேவை:
 
-1. Install the runtime package:
+1. Runtime package-ஐ install செய்யுங்கள்:
 
 ```bash
 npm install react-compiler-runtime@latest
 ```
 
-2. Configure the target:
+2. Target-ஐ configure செய்யுங்கள்:
 
 ```js
 // For React 18
@@ -92,7 +92,7 @@ npm install react-compiler-runtime@latest
 }
 ```
 
-The compiler will use the polyfill runtime for both versions:
+இரு versions-க்கும் compiler polyfill runtime-ஐப் பயன்படுத்தும்:
 
 ```js
 // Compiled output uses the polyfill
@@ -101,41 +101,41 @@ import { c as _c } from 'react-compiler-runtime';
 
 ---
 
-## Troubleshooting {/*troubleshooting*/}
+## சிக்கல் தீர்வு {/*troubleshooting*/}
 
-### Runtime errors about missing compiler runtime {/*missing-runtime*/}
+### Compiler runtime காணப்படாதது குறித்த runtime errors {/*missing-runtime*/}
 
-If you see errors like "Cannot find module 'react/compiler-runtime'":
+`"Cannot find module 'react/compiler-runtime'"` போன்ற errors தெரிந்தால்:
 
-1. Check your React version:
+1. உங்கள் React version-ஐச் சரிபார்க்கவும்:
    ```bash
    npm why react
    ```
 
-2. If using React 17 or 18, install the runtime:
+2. React 17 அல்லது 18 பயன்படுத்தினால், runtime-ஐ install செய்யுங்கள்:
    ```bash
    npm install react-compiler-runtime@latest
    ```
 
-3. Ensure your target matches your React version:
+3. உங்கள் target உங்கள் React version-க்கு பொருந்துகிறதா என்பதை உறுதிசெய்யுங்கள்:
    ```js
    {
-     target: '18' // Must match your React major version
+     target: '18' // உங்கள் React major version-க்கு பொருந்த வேண்டும்
    }
    ```
 
-### Runtime package not working {/*runtime-not-working*/}
+### Runtime package வேலை செய்யவில்லை {/*runtime-not-working*/}
 
-Ensure the runtime package is:
+Runtime package பின்வருமாறு உள்ளதா என்பதை உறுதிசெய்யுங்கள்:
 
-1. Installed in your project (not globally)
-2. Listed in your `package.json` dependencies
-3. The correct version (`@latest` tag)
-4. Not in `devDependencies` (it's needed at runtime)
+1. உங்கள் project-இல் install செய்யப்பட்டிருக்க வேண்டும் (globally அல்ல)
+2. உங்கள் `package.json` dependencies-இல் பட்டியலிடப்பட்டிருக்க வேண்டும்
+3. சரியான version (`@latest` tag) ஆக இருக்க வேண்டும்
+4. `devDependencies`-இல் இருக்கக்கூடாது (runtime-இல் தேவைப்படும்)
 
-### Checking compiled output {/*checking-output*/}
+### Compiled output-ஐச் சரிபார்த்தல் {/*checking-output*/}
 
-To verify the correct runtime is being used, note the different import (`react/compiler-runtime` for builtin, `react-compiler-runtime` standalone package for 17/18):
+சரியான runtime பயன்படுத்தப்படுகிறதா என்பதை உறுதிசெய்ய, வேறுபட்ட import-ஐ கவனியுங்கள் (`react/compiler-runtime` என்பது builtin-க்கு, `react-compiler-runtime` என்பது 17/18-க்கான standalone package-க்கு):
 
 ```js
 // For React 19 (built-in runtime)

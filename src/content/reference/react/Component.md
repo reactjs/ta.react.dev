@@ -4,18 +4,18 @@ title: Component
 
 <Pitfall>
 
-We recommend defining components as functions instead of classes. [See how to migrate.](#alternatives)
+Components-ஐ classes-க்கு பதிலாக functions ஆக define செய்ய பரிந்துரைக்கிறோம். [Migrate செய்வது எப்படி என்பதை பார்க்கவும்.](#alternatives)
 
 </Pitfall>
 
 <Intro>
 
-`Component` is the base class for the React components defined as [JavaScript classes.](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes) Class components are still supported by React, but we don't recommend using them in new code.
+`Component` என்பது [JavaScript classes](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes) ஆக define செய்யப்பட்ட React components-க்கான base class. Class components இன்னும் React மூலம் supported; ஆனால் புதிய code-இல் அவற்றை use செய்ய பரிந்துரைக்கவில்லை.
 
 ```js
 class Greeting extends Component {
   render() {
-    return <h1>Hello, {this.props.name}!</h1>;
+    return <h1>வணக்கம், {this.props.name}!</h1>;
   }
 }
 ```
@@ -30,29 +30,29 @@ class Greeting extends Component {
 
 ### `Component` {/*component*/}
 
-To define a React component as a class, extend the built-in `Component` class and define a [`render` method:](#render)
+React component ஒன்றை class ஆக define செய்ய, built-in `Component` class-ஐ extend செய்து [`render` method](#render) define செய்யுங்கள்:
 
 ```js
 import { Component } from 'react';
 
 class Greeting extends Component {
   render() {
-    return <h1>Hello, {this.props.name}!</h1>;
+    return <h1>வணக்கம், {this.props.name}!</h1>;
   }
 }
 ```
 
-Only the `render` method is required, other methods are optional.
+`render` method மட்டுமே required; மற்ற methods optional.
 
-[See more examples below.](#usage)
+[மேலும் examples கீழே பார்க்கவும்.](#usage)
 
 ---
 
 ### `context` {/*context*/}
 
-The [context](/learn/passing-data-deeply-with-context) of a class component is available as `this.context`. It is only available if you specify *which* context you want to receive using [`static contextType`](#static-contexttype).
+Class component-ன் [context](/learn/passing-data-deeply-with-context) `this.context` ஆக கிடைக்கும். [`static contextType`](#static-contexttype) பயன்படுத்தி *எந்த* context-ஐ receive செய்ய வேண்டும் என்பதை specify செய்தால் மட்டுமே அது கிடைக்கும்.
 
-A class component can only read one context at a time.
+Class component ஒரே நேரத்தில் ஒரு context மட்டும் read செய்ய முடியும்.
 
 ```js {2,5}
 class Button extends Component {
@@ -73,9 +73,9 @@ class Button extends Component {
 
 <Note>
 
-Reading `this.context` in class components is equivalent to [`useContext`](/reference/react/useContext) in function components.
+Class components-இல் `this.context` read செய்வது function components-இல் [`useContext`](/reference/react/useContext) call செய்வதற்கு equivalent.
 
-[See how to migrate.](#migrating-a-component-with-context-from-a-class-to-a-function)
+[Migrate செய்வது எப்படி என்பதை பார்க்கவும்.](#migrating-a-component-with-context-from-a-class-to-a-function)
 
 </Note>
 
@@ -83,12 +83,12 @@ Reading `this.context` in class components is equivalent to [`useContext`](/refe
 
 ### `props` {/*props*/}
 
-The props passed to a class component are available as `this.props`.
+Class component-க்கு pass செய்யப்பட்ட props `this.props` ஆக கிடைக்கும்.
 
 ```js {3}
 class Greeting extends Component {
   render() {
-    return <h1>Hello, {this.props.name}!</h1>;
+    return <h1>வணக்கம், {this.props.name}!</h1>;
   }
 }
 
@@ -97,9 +97,9 @@ class Greeting extends Component {
 
 <Note>
 
-Reading `this.props` in class components is equivalent to [declaring props](/learn/passing-props-to-a-component#step-2-read-props-inside-the-child-component) in function components.
+Class components-இல் `this.props` read செய்வது function components-இல் [props declare செய்வதற்கு](/learn/passing-props-to-a-component#step-2-read-props-inside-the-child-component) equivalent.
 
-[See how to migrate.](#migrating-a-simple-component-from-a-class-to-a-function)
+[Migrate செய்வது எப்படி என்பதை பார்க்கவும்.](#migrating-a-simple-component-from-a-class-to-a-function)
 
 </Note>
 
@@ -107,7 +107,7 @@ Reading `this.props` in class components is equivalent to [declaring props](/lea
 
 ### `state` {/*state*/}
 
-The state of a class component is available as `this.state`. The `state` field must be an object. Do not mutate the state directly. If you wish to change the state, call `setState` with the new state.
+Class component-ன் state `this.state` ஆக கிடைக்கும். `state` field object ஆக இருக்க வேண்டும். State-ஐ நேரடியாக mutate செய்ய வேண்டாம். State-ஐ மாற்ற விரும்பினால், புதிய state உடன் `setState` call செய்யுங்கள்.
 
 ```js {2-4,7-9,18}
 class Counter extends Component {
@@ -125,9 +125,9 @@ class Counter extends Component {
     return (
       <>
         <button onClick={this.handleAgeChange}>
-        Increment age
+        வயதை அதிகரி
         </button>
-        <p>You are {this.state.age}.</p>
+        <p>உங்கள் வயது {this.state.age}.</p>
       </>
     );
   }
@@ -136,9 +136,9 @@ class Counter extends Component {
 
 <Note>
 
-Defining `state` in class components is equivalent to calling [`useState`](/reference/react/useState) in function components.
+Class components-இல் `state` define செய்வது function components-இல் [`useState`](/reference/react/useState) call செய்வதற்கு equivalent.
 
-[See how to migrate.](#migrating-a-component-with-state-from-a-class-to-a-function)
+[Migrate செய்வது எப்படி என்பதை பார்க்கவும்.](#migrating-a-component-with-state-from-a-class-to-a-function)
 
 </Note>
 
@@ -146,7 +146,7 @@ Defining `state` in class components is equivalent to calling [`useState`](/refe
 
 ### `constructor(props)` {/*constructor*/}
 
-The [constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/constructor) runs before your class component *mounts* (gets added to the screen). Typically, a constructor is only used for two purposes in React. It lets you declare state and [bind](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_objects/Function/bind) your class methods to the class instance:
+[Constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/constructor) உங்கள் class component *mount* ஆகும் முன் (screen-க்கு add ஆகும் முன்) run ஆகும். React-இல் constructor பொதுவாக இரண்டு purposes-க்காக மட்டுமே use செய்யப்படும். அது state declare செய்யவும், உங்கள் class methods-ஐ class instance-க்கு [bind](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_objects/Function/bind) செய்யவும் அனுமதிக்கிறது:
 
 ```js {2-6}
 class Counter extends Component {
@@ -161,7 +161,7 @@ class Counter extends Component {
   }
 ```
 
-If you use modern JavaScript syntax, constructors are rarely needed. Instead, you can rewrite this code above using the [public class field syntax](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Public_class_fields) which is supported both by modern browsers and tools like [Babel:](https://babeljs.io/)
+Modern JavaScript syntax use செய்தால், constructors அரிதாகவே தேவைப்படும். அதற்கு பதிலாக, modern browsers மற்றும் [Babel](https://babeljs.io/) போன்ற tools இரண்டாலும் supported ஆன [public class field syntax](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Public_class_fields) பயன்படுத்தி மேலுள்ள code-ஐ rewrite செய்யலாம்:
 
 ```js {2,4}
 class Counter extends Component {
@@ -172,31 +172,31 @@ class Counter extends Component {
   }
 ```
 
-A constructor should not contain any side effects or subscriptions.
+Constructor-இல் side effects அல்லது subscriptions இருக்கக்கூடாது.
 
 #### Parameters {/*constructor-parameters*/}
 
-* `props`: The component's initial props.
+* `props`: Component-ன் initial props.
 
 #### Returns {/*constructor-returns*/}
 
-`constructor` should not return anything.
+`constructor` எதையும் return செய்யக்கூடாது.
 
 #### Caveats {/*constructor-caveats*/}
 
-* Do not run any side effects or subscriptions in the constructor. Instead, use [`componentDidMount`](#componentdidmount) for that.
+* Constructor-இல் side effects அல்லது subscriptions எதையும் run செய்ய வேண்டாம். அதற்கு [`componentDidMount`](#componentdidmount) use செய்யுங்கள்.
 
-* Inside a constructor, you need to call `super(props)` before any other statement. If you don't do that, `this.props` will be `undefined` while the constructor runs, which can be confusing and cause bugs.
+* Constructor-க்குள், வேறு எந்த statement-க்கும் முன் `super(props)` call செய்ய வேண்டும். அதை செய்யாவிட்டால், constructor run ஆகும் போது `this.props` `undefined` ஆக இருக்கும்; இது குழப்பத்தையும் bugs-ஐயும் ஏற்படுத்தலாம்.
 
-* Constructor is the only place where you can assign [`this.state`](#state) directly. In all other methods, you need to use [`this.setState()`](#setstate) instead. Do not call `setState` in the constructor.
+* [`this.state`](#state)-ஐ நேரடியாக assign செய்யக்கூடிய ஒரே இடம் constructor. மற்ற எல்லா methods-இலும் அதற்கு பதிலாக [`this.setState()`](#setstate) use செய்ய வேண்டும். Constructor-இல் `setState` call செய்ய வேண்டாம்.
 
-* When you use [server rendering,](/reference/react-dom/server) the constructor will run on the server too, followed by the [`render`](#render) method. However, lifecycle methods like `componentDidMount` or `componentWillUnmount` will not run on the server.
+* [Server rendering](/reference/react-dom/server) use செய்தால், constructor server-இலும் run ஆகும்; அதன் பிறகு [`render`](#render) method run ஆகும். ஆனால் `componentDidMount` அல்லது `componentWillUnmount` போன்ற lifecycle methods server-இல் run ஆகாது.
 
-* When [Strict Mode](/reference/react/StrictMode) is on, React will call `constructor` twice in development and then throw away one of the instances. This helps you notice the accidental side effects that need to be moved out of the `constructor`.
+* [Strict Mode](/reference/react/StrictMode) on ஆக இருந்தால், development-இல் React `constructor`-ஐ இருமுறை call செய்து, பின்னர் instances-இல் ஒன்றை throw away செய்யும். `constructor`-இலிருந்து move செய்ய வேண்டிய accidental side effects-ஐ கவனிக்க இது உதவும்.
 
 <Note>
 
-There is no exact equivalent for `constructor` in function components. To declare state in a function component, call [`useState`.](/reference/react/useState) To avoid recalculating the initial state, [pass a function to `useState`.](/reference/react/useState#avoiding-recreating-the-initial-state)
+Function components-இல் `constructor`-க்கு exact equivalent இல்லை. Function component-இல் state declare செய்ய [`useState`](/reference/react/useState) call செய்யுங்கள். Initial state-ஐ மீண்டும் calculate செய்வதை தவிர்க்க, [`useState`-க்கு function pass செய்யுங்கள்.](/reference/react/useState#avoiding-recreating-the-initial-state)
 
 </Note>
 
@@ -204,31 +204,31 @@ There is no exact equivalent for `constructor` in function components. To declar
 
 ### `componentDidCatch(error, info)` {/*componentdidcatch*/}
 
-If you define `componentDidCatch`, React will call it when some child component (including distant children) throws an error during rendering. This lets you log that error to an error reporting service in production.
+நீங்கள் `componentDidCatch` define செய்தால், rendering போது எந்த child component (தொலைவில் உள்ள children உட்பட) error throw செய்தாலும் React அதை call செய்யும். Production-இல் அந்த error-ஐ error reporting service-க்கு log செய்ய இது அனுமதிக்கிறது.
 
-Typically, it is used together with [`static getDerivedStateFromError`](#static-getderivedstatefromerror) which lets you update state in response to an error and display an error message to the user. A component with these methods is called an *Error Boundary*.
+பொதுவாக, error-க்கு response ஆக state update செய்து user-க்கு error message display செய்ய அனுமதிக்கும் [`static getDerivedStateFromError`](#static-getderivedstatefromerror) உடன் இது சேர்த்து use செய்யப்படுகிறது. இந்த methods கொண்ட component *Error Boundary* என்று அழைக்கப்படுகிறது.
 
-[See an example.](#catching-rendering-errors-with-an-error-boundary)
+[ஒரு example பார்க்கவும்.](#catching-rendering-errors-with-an-error-boundary)
 
 #### Parameters {/*componentdidcatch-parameters*/}
 
-* `error`: The error that was thrown. In practice, it will usually be an instance of [`Error`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error) but this is not guaranteed because JavaScript allows to [`throw`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/throw) any value, including strings or even `null`.
+* `error`: Throw செய்யப்பட்ட error. நடைமுறையில், இது பொதுவாக [`Error`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error) instance ஆக இருக்கும்; ஆனால் இது guaranteed அல்ல, ஏனெனில் JavaScript strings அல்லது `null` உட்பட எந்த value-யையும் [`throw`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/throw) செய்ய அனுமதிக்கிறது.
 
-* `info`: An object containing additional information about the error. Its `componentStack` field contains a stack trace with the component that threw, as well as the names and source locations of all its parent components. In production, the component names will be minified. If you set up production error reporting, you can decode the component stack using sourcemaps the same way as you would do for regular JavaScript error stacks.
+* `info`: Error பற்றிய additional information கொண்ட object. அதன் `componentStack` field-இல் throw செய்த component மற்றும் அதன் parent components அனைத்தின் names மற்றும் source locations கொண்ட stack trace இருக்கும். Production-இல் component names minified ஆகும். Production error reporting set up செய்தால், regular JavaScript error stacks போலவே sourcemaps பயன்படுத்தி component stack-ஐ decode செய்யலாம்.
 
 #### Returns {/*componentdidcatch-returns*/}
 
-`componentDidCatch` should not return anything.
+`componentDidCatch` எதையும் return செய்யக்கூடாது.
 
 #### Caveats {/*componentdidcatch-caveats*/}
 
-* In the past, it was common to call `setState` inside `componentDidCatch` in order to update the UI and display the fallback error message. This is deprecated in favor of defining [`static getDerivedStateFromError`.](#static-getderivedstatefromerror)
+* கடந்த காலத்தில், UI-ஐ update செய்து fallback error message display செய்ய `componentDidCatch`-க்குள் `setState` call செய்வது பொதுவாக இருந்தது. [`static getDerivedStateFromError`](#static-getderivedstatefromerror) define செய்வதற்கு ஆதரவாக இது deprecated.
 
-* Production and development builds of React slightly differ in the way `componentDidCatch` handles errors. In development, the errors will bubble up to `window`, which means that any `window.onerror` or `window.addEventListener('error', callback)` will intercept the errors that have been caught by `componentDidCatch`. In production, instead, the errors will not bubble up, which means any ancestor error handler will only receive errors not explicitly caught by `componentDidCatch`.
+* React-ன் production மற்றும் development builds `componentDidCatch` errors handle செய்வதில் சிறிது வேறுபடும். Development-இல், errors `window`-க்கு bubble up ஆகும்; அதாவது `window.onerror` அல்லது `window.addEventListener('error', callback)` எதுவாக இருந்தாலும் `componentDidCatch` catch செய்த errors-ஐ intercept செய்யும். Production-இல், errors bubble up ஆகாது; அதாவது ancestor error handler `componentDidCatch` explicit ஆக catch செய்யாத errors-ஐ மட்டுமே receive செய்யும்.
 
 <Note>
 
-There is no direct equivalent for `componentDidCatch` in function components yet. If you'd like to avoid creating class components, write a single `ErrorBoundary` component like above and use it throughout your app. Alternatively, you can use the [`react-error-boundary`](https://github.com/bvaughn/react-error-boundary) package which does that for you.
+Function components-இல் `componentDidCatch`-க்கு இன்னும் direct equivalent இல்லை. Class components create செய்வதைத் தவிர்க்க விரும்பினால், மேலுள்ளதைப் போன்ற single `ErrorBoundary` component எழுதிவிட்டு உங்கள் app முழுவதும் use செய்யுங்கள். மாற்றாக, அதை உங்களுக்காக செய்யும் [`react-error-boundary`](https://github.com/bvaughn/react-error-boundary) package-ஐ use செய்யலாம்.
 
 </Note>
 
@@ -236,9 +236,9 @@ There is no direct equivalent for `componentDidCatch` in function components yet
 
 ### `componentDidMount()` {/*componentdidmount*/}
 
-If you define the `componentDidMount` method, React will call it when your component is added *(mounted)* to the screen. This is a common place to start data fetching, set up subscriptions, or manipulate the DOM nodes.
+நீங்கள் `componentDidMount` method define செய்தால், உங்கள் component screen-க்கு add *(mounted)* ஆகும்போது React அதை call செய்யும். Data fetching தொடங்க, subscriptions set up செய்ய, அல்லது DOM nodes manipulate செய்ய இது பொதுவான இடம்.
 
-If you implement `componentDidMount`, you usually need to implement other lifecycle methods to avoid bugs. For example, if `componentDidMount` reads some state or props, you also have to implement [`componentDidUpdate`](#componentdidupdate) to handle their changes, and [`componentWillUnmount`](#componentwillunmount) to clean up whatever `componentDidMount` was doing.
+`componentDidMount` implement செய்தால், bugs தவிர்க்க பொதுவாக மற்ற lifecycle methods-யும் implement செய்ய வேண்டும். உதாரணமாக, `componentDidMount` சில state அல்லது props read செய்தால், அவற்றின் changes handle செய்ய [`componentDidUpdate`](#componentdidupdate)-ஐயும், `componentDidMount` செய்ததை clean up செய்ய [`componentWillUnmount`](#componentwillunmount)-ஐயும் implement செய்ய வேண்டும்.
 
 ```js {6-8}
 class ChatRoom extends Component {
@@ -268,27 +268,27 @@ class ChatRoom extends Component {
 }
 ```
 
-[See more examples.](#adding-lifecycle-methods-to-a-class-component)
+[மேலும் examples பார்க்கவும்.](#adding-lifecycle-methods-to-a-class-component)
 
 #### Parameters {/*componentdidmount-parameters*/}
 
-`componentDidMount` does not take any parameters.
+`componentDidMount` எந்த parameters-யும் எடுக்காது.
 
 #### Returns {/*componentdidmount-returns*/}
 
-`componentDidMount` should not return anything.
+`componentDidMount` எதையும் return செய்யக்கூடாது.
 
 #### Caveats {/*componentdidmount-caveats*/}
 
-- When [Strict Mode](/reference/react/StrictMode) is on, in development React will call `componentDidMount`, then immediately call [`componentWillUnmount`,](#componentwillunmount) and then call `componentDidMount` again. This helps you notice if you forgot to implement `componentWillUnmount` or if its logic doesn't fully "mirror" what `componentDidMount` does.
+- [Strict Mode](/reference/react/StrictMode) on ஆக இருந்தால், development-இல் React `componentDidMount`-ஐ call செய்து, உடனே [`componentWillUnmount`](#componentwillunmount)-ஐ call செய்து, பின்னர் `componentDidMount`-ஐ மீண்டும் call செய்யும். `componentWillUnmount` implement செய்ய மறந்தீர்களா அல்லது அதன் logic `componentDidMount` செய்வதை முழுமையாக "mirror" செய்யவில்லையா என்பதை கவனிக்க இது உதவும்.
 
-- Although you may call [`setState`](#setstate) immediately in `componentDidMount`, it's best to avoid that when you can. It will trigger an extra rendering, but it will happen before the browser updates the screen. This guarantees that even though the [`render`](#render) will be called twice in this case, the user won't see the intermediate state. Use this pattern with caution because it often causes performance issues. In most cases, you should be able to assign the initial state in the [`constructor`](#constructor) instead. It can, however, be necessary for cases like modals and tooltips when you need to measure a DOM node before rendering something that depends on its size or position.
+- [`componentDidMount`](#componentdidmount)-இல் உடனே [`setState`](#setstate) call செய்யலாம் என்றாலும், முடிந்தவரை அதை தவிர்ப்பது சிறந்தது. அது கூடுதல் rendering trigger செய்யும்; ஆனால் browser screen update செய்வதற்கு முன் அது நடக்கும். இதனால் இந்த case-இல் [`render`](#render) இருமுறை call செய்யப்பட்டாலும், user intermediate state-ஐ பார்க்கமாட்டார். இந்த pattern பெரும்பாலும் performance issues ஏற்படுத்துவதால் கவனமாக use செய்யுங்கள். பெரும்பாலான cases-இல், initial state-ஐ அதற்கு பதிலாக [`constructor`](#constructor)-இல் assign செய்ய முடியும். ஆனால் size அல்லது position-ஐ சார்ந்த ஏதாவது render செய்வதற்கு முன் DOM node-ஐ measure செய்ய வேண்டிய modals மற்றும் tooltips போன்ற cases-இல் இது தேவைப்படலாம்.
 
 <Note>
 
-For many use cases, defining `componentDidMount`, `componentDidUpdate`, and `componentWillUnmount` together in class components is equivalent to calling [`useEffect`](/reference/react/useEffect) in function components. In the rare cases where it's important for the code to run before browser paint, [`useLayoutEffect`](/reference/react/useLayoutEffect) is a closer match.
+பல use cases-க்கு, class components-இல் `componentDidMount`, `componentDidUpdate`, மற்றும் `componentWillUnmount` மூன்றையும் சேர்த்து define செய்வது function components-இல் [`useEffect`](/reference/react/useEffect) call செய்வதற்கு equivalent. Browser paint-க்கு முன் code run ஆகுவது முக்கியமான அரிதான cases-இல், [`useLayoutEffect`](/reference/react/useLayoutEffect) இன்னும் நெருக்கமான match.
 
-[See how to migrate.](#migrating-a-component-with-lifecycle-methods-from-a-class-to-a-function)
+[Migrate செய்வது எப்படி என்பதை பார்க்கவும்.](#migrating-a-component-with-lifecycle-methods-from-a-class-to-a-function)
 
 </Note>
 
@@ -296,9 +296,9 @@ For many use cases, defining `componentDidMount`, `componentDidUpdate`, and `com
 
 ### `componentDidUpdate(prevProps, prevState, snapshot?)` {/*componentdidupdate*/}
 
-If you define the `componentDidUpdate` method, React will call it immediately after your component has been re-rendered with updated props or state.  This method is not called for the initial render.
+நீங்கள் `componentDidUpdate` method define செய்தால், உங்கள் component updated props அல்லது state உடன் re-render ஆன உடனே React அதை call செய்யும். இந்த method initial render-க்கு call செய்யப்படாது.
 
-You can use it to manipulate the DOM after an update. This is also a common place to do network requests as long as you compare the current props to previous props (e.g. a network request may not be necessary if the props have not changed). Typically, you'd use it together with [`componentDidMount`](#componentdidmount) and [`componentWillUnmount`:](#componentwillunmount)
+Update-க்கு பிறகு DOM manipulate செய்ய இதை use செய்யலாம். Current props-ஐ previous props உடன் compare செய்கிறவரை network requests செய்யவும் இது பொதுவான இடம் (எ.கா. props மாறவில்லை என்றால் network request தேவையில்லாமல் இருக்கலாம்). பொதுவாக, இதை [`componentDidMount`](#componentdidmount) மற்றும் [`componentWillUnmount`](#componentwillunmount) உடன் சேர்த்து use செய்வீர்கள்:
 
 ```js {10-18}
 class ChatRoom extends Component {
@@ -328,34 +328,34 @@ class ChatRoom extends Component {
 }
 ```
 
-[See more examples.](#adding-lifecycle-methods-to-a-class-component)
+[மேலும் examples பார்க்கவும்.](#adding-lifecycle-methods-to-a-class-component)
 
 
 #### Parameters {/*componentdidupdate-parameters*/}
 
-* `prevProps`: Props before the update. Compare `prevProps` to [`this.props`](#props) to determine what changed.
+* `prevProps`: Update-க்கு முந்தைய props. என்ன மாறியது என்பதை தீர்மானிக்க `prevProps`-ஐ [`this.props`](#props) உடன் compare செய்யுங்கள்.
 
-* `prevState`: State before the update. Compare `prevState` to [`this.state`](#state) to determine what changed.
+* `prevState`: Update-க்கு முந்தைய state. என்ன மாறியது என்பதை தீர்மானிக்க `prevState`-ஐ [`this.state`](#state) உடன் compare செய்யுங்கள்.
 
-* `snapshot`: If you implemented [`getSnapshotBeforeUpdate`](#getsnapshotbeforeupdate), `snapshot` will contain the value you returned from that method. Otherwise, it will be `undefined`.
+* `snapshot`: நீங்கள் [`getSnapshotBeforeUpdate`](#getsnapshotbeforeupdate) implement செய்திருந்தால், அந்த method-இலிருந்து return செய்த value `snapshot`-இல் இருக்கும். இல்லையெனில் அது `undefined` ஆக இருக்கும்.
 
 #### Returns {/*componentdidupdate-returns*/}
 
-`componentDidUpdate` should not return anything.
+`componentDidUpdate` எதையும் return செய்யக்கூடாது.
 
 #### Caveats {/*componentdidupdate-caveats*/}
 
-- `componentDidUpdate` will not get called if [`shouldComponentUpdate`](#shouldcomponentupdate) is defined and returns `false`.
+- [`shouldComponentUpdate`](#shouldcomponentupdate) defined ஆகி `false` return செய்தால் `componentDidUpdate` call செய்யப்படாது.
 
-- The logic inside `componentDidUpdate` should usually be wrapped in conditions comparing `this.props` with `prevProps`, and `this.state` with `prevState`. Otherwise, there's a risk of creating infinite loops.
+- `componentDidUpdate`-க்குள் உள்ள logic பொதுவாக `this.props`-ஐ `prevProps` உடனும், `this.state`-ஐ `prevState` உடனும் compare செய்யும் conditions-இல் wrap செய்யப்பட வேண்டும். இல்லையெனில் infinite loops உருவாகும் risk உள்ளது.
 
-- Although you may call [`setState`](#setstate) immediately in `componentDidUpdate`, it's best to avoid that when you can. It will trigger an extra rendering, but it will happen before the browser updates the screen. This guarantees that even though the [`render`](#render) will be called twice in this case, the user won't see the intermediate state. This pattern often causes performance issues, but it may be necessary for rare cases like modals and tooltips when you need to measure a DOM node before rendering something that depends on its size or position.
+- `componentDidUpdate`-இல் உடனே [`setState`](#setstate) call செய்யலாம் என்றாலும், முடிந்தவரை அதை தவிர்ப்பது சிறந்தது. அது கூடுதல் rendering trigger செய்யும்; ஆனால் browser screen update செய்வதற்கு முன் அது நடக்கும். இதனால் இந்த case-இல் [`render`](#render) இருமுறை call செய்யப்பட்டாலும், user intermediate state-ஐ பார்க்கமாட்டார். இந்த pattern பெரும்பாலும் performance issues ஏற்படுத்தும்; ஆனால் size அல்லது position-ஐ சார்ந்த ஏதாவது render செய்வதற்கு முன் DOM node-ஐ measure செய்ய வேண்டிய modals மற்றும் tooltips போன்ற அரிதான cases-இல் இது தேவைப்படலாம்.
 
 <Note>
 
-For many use cases, defining `componentDidMount`, `componentDidUpdate`, and `componentWillUnmount` together in class components is equivalent to calling [`useEffect`](/reference/react/useEffect) in function components. In the rare cases where it's important for the code to run before browser paint, [`useLayoutEffect`](/reference/react/useLayoutEffect) is a closer match.
+பல use cases-க்கு, class components-இல் `componentDidMount`, `componentDidUpdate`, மற்றும் `componentWillUnmount` மூன்றையும் சேர்த்து define செய்வது function components-இல் [`useEffect`](/reference/react/useEffect) call செய்வதற்கு equivalent. Browser paint-க்கு முன் code run ஆகுவது முக்கியமான அரிதான cases-இல், [`useLayoutEffect`](/reference/react/useLayoutEffect) இன்னும் நெருக்கமான match.
 
-[See how to migrate.](#migrating-a-component-with-lifecycle-methods-from-a-class-to-a-function)
+[Migrate செய்வது எப்படி என்பதை பார்க்கவும்.](#migrating-a-component-with-lifecycle-methods-from-a-class-to-a-function)
 
 </Note>
 ---
@@ -364,9 +364,9 @@ For many use cases, defining `componentDidMount`, `componentDidUpdate`, and `com
 
 <Deprecated>
 
-This API has been renamed from `componentWillMount` to [`UNSAFE_componentWillMount`.](#unsafe_componentwillmount) The old name has been deprecated. In a future major version of React, only the new name will work.
+இந்த API `componentWillMount` இலிருந்து [`UNSAFE_componentWillMount`](#unsafe_componentwillmount) ஆக rename செய்யப்பட்டுள்ளது. பழைய பெயர் deprecated. React-ன் எதிர்கால major version ஒன்றில் புதிய பெயர் மட்டும் வேலை செய்யும்.
 
-Run the [`rename-unsafe-lifecycles` codemod](https://github.com/reactjs/react-codemod#rename-unsafe-lifecycles) to automatically update your components.
+உங்கள் components-ஐ automatic ஆக update செய்ய [`rename-unsafe-lifecycles` codemod](https://github.com/reactjs/react-codemod#rename-unsafe-lifecycles) run செய்யுங்கள்.
 
 </Deprecated>
 
@@ -376,9 +376,9 @@ Run the [`rename-unsafe-lifecycles` codemod](https://github.com/reactjs/react-co
 
 <Deprecated>
 
-This API has been renamed from `componentWillReceiveProps` to [`UNSAFE_componentWillReceiveProps`.](#unsafe_componentwillreceiveprops) The old name has been deprecated. In a future major version of React, only the new name will work.
+இந்த API `componentWillReceiveProps` இலிருந்து [`UNSAFE_componentWillReceiveProps`](#unsafe_componentwillreceiveprops) ஆக rename செய்யப்பட்டுள்ளது. பழைய பெயர் deprecated. React-ன் எதிர்கால major version ஒன்றில் புதிய பெயர் மட்டும் வேலை செய்யும்.
 
-Run the [`rename-unsafe-lifecycles` codemod](https://github.com/reactjs/react-codemod#rename-unsafe-lifecycles) to automatically update your components.
+உங்கள் components-ஐ automatic ஆக update செய்ய [`rename-unsafe-lifecycles` codemod](https://github.com/reactjs/react-codemod#rename-unsafe-lifecycles) run செய்யுங்கள்.
 
 </Deprecated>
 
@@ -388,9 +388,9 @@ Run the [`rename-unsafe-lifecycles` codemod](https://github.com/reactjs/react-co
 
 <Deprecated>
 
-This API has been renamed from `componentWillUpdate` to [`UNSAFE_componentWillUpdate`.](#unsafe_componentwillupdate) The old name has been deprecated. In a future major version of React, only the new name will work.
+இந்த API `componentWillUpdate` இலிருந்து [`UNSAFE_componentWillUpdate`](#unsafe_componentwillupdate) ஆக rename செய்யப்பட்டுள்ளது. பழைய பெயர் deprecated. React-ன் எதிர்கால major version ஒன்றில் புதிய பெயர் மட்டும் வேலை செய்யும்.
 
-Run the [`rename-unsafe-lifecycles` codemod](https://github.com/reactjs/react-codemod#rename-unsafe-lifecycles) to automatically update your components.
+உங்கள் components-ஐ automatic ஆக update செய்ய [`rename-unsafe-lifecycles` codemod](https://github.com/reactjs/react-codemod#rename-unsafe-lifecycles) run செய்யுங்கள்.
 
 </Deprecated>
 
@@ -398,9 +398,9 @@ Run the [`rename-unsafe-lifecycles` codemod](https://github.com/reactjs/react-co
 
 ### `componentWillUnmount()` {/*componentwillunmount*/}
 
-If you define the `componentWillUnmount` method, React will call it before your component is removed *(unmounted)* from the screen. This is a common place to cancel data fetching or remove subscriptions.
+நீங்கள் `componentWillUnmount` method define செய்தால், உங்கள் component screen-இலிருந்து remove *(unmounted)* ஆகும் முன் React அதை call செய்யும். Data fetching cancel செய்ய அல்லது subscriptions remove செய்ய இது பொதுவான இடம்.
 
-The logic inside `componentWillUnmount` should "mirror" the logic inside [`componentDidMount`.](#componentdidmount) For example, if `componentDidMount` sets up a subscription, `componentWillUnmount` should clean up that subscription. If the cleanup logic in your `componentWillUnmount` reads some props or state, you will usually also need to implement [`componentDidUpdate`](#componentdidupdate) to clean up resources (such as subscriptions) corresponding to the old props and state.
+`componentWillUnmount`-க்குள் உள்ள logic [`componentDidMount`](#componentdidmount)-க்குள் உள்ள logic-ஐ "mirror" செய்ய வேண்டும். உதாரணமாக, `componentDidMount` subscription ஒன்றை set up செய்தால், `componentWillUnmount` அந்த subscription-ஐ clean up செய்ய வேண்டும். உங்கள் `componentWillUnmount` cleanup logic சில props அல்லது state read செய்தால், பழைய props மற்றும் state-க்கு corresponding ஆன resources-ஐ (subscriptions போன்றவை) clean up செய்ய பொதுவாக [`componentDidUpdate`](#componentdidupdate)-ஐயும் implement செய்ய வேண்டும்.
 
 ```js {20-22}
 class ChatRoom extends Component {
@@ -430,25 +430,25 @@ class ChatRoom extends Component {
 }
 ```
 
-[See more examples.](#adding-lifecycle-methods-to-a-class-component)
+[மேலும் examples பார்க்கவும்.](#adding-lifecycle-methods-to-a-class-component)
 
 #### Parameters {/*componentwillunmount-parameters*/}
 
-`componentWillUnmount` does not take any parameters.
+`componentWillUnmount` எந்த parameters-யும் எடுக்காது.
 
 #### Returns {/*componentwillunmount-returns*/}
 
-`componentWillUnmount` should not return anything.
+`componentWillUnmount` எதையும் return செய்யக்கூடாது.
 
 #### Caveats {/*componentwillunmount-caveats*/}
 
-- When [Strict Mode](/reference/react/StrictMode) is on, in development React will call [`componentDidMount`,](#componentdidmount) then immediately call `componentWillUnmount`, and then call `componentDidMount` again. This helps you notice if you forgot to implement `componentWillUnmount` or if its logic doesn't fully "mirror" what `componentDidMount` does.
+- [Strict Mode](/reference/react/StrictMode) on ஆக இருந்தால், development-இல் React [`componentDidMount`](#componentdidmount)-ஐ call செய்து, உடனே `componentWillUnmount`-ஐ call செய்து, பின்னர் `componentDidMount`-ஐ மீண்டும் call செய்யும். `componentWillUnmount` implement செய்ய மறந்தீர்களா அல்லது அதன் logic `componentDidMount` செய்வதை முழுமையாக "mirror" செய்யவில்லையா என்பதை கவனிக்க இது உதவும்.
 
 <Note>
 
-For many use cases, defining `componentDidMount`, `componentDidUpdate`, and `componentWillUnmount` together in class components is equivalent to calling [`useEffect`](/reference/react/useEffect) in function components. In the rare cases where it's important for the code to run before browser paint, [`useLayoutEffect`](/reference/react/useLayoutEffect) is a closer match.
+பல use cases-க்கு, class components-இல் `componentDidMount`, `componentDidUpdate`, மற்றும் `componentWillUnmount` மூன்றையும் சேர்த்து define செய்வது function components-இல் [`useEffect`](/reference/react/useEffect) call செய்வதற்கு equivalent. Browser paint-க்கு முன் code run ஆகுவது முக்கியமான அரிதான cases-இல், [`useLayoutEffect`](/reference/react/useLayoutEffect) இன்னும் நெருக்கமான match.
 
-[See how to migrate.](#migrating-a-component-with-lifecycle-methods-from-a-class-to-a-function)
+[Migrate செய்வது எப்படி என்பதை பார்க்கவும்.](#migrating-a-component-with-lifecycle-methods-from-a-class-to-a-function)
 
 </Note>
 
@@ -456,27 +456,27 @@ For many use cases, defining `componentDidMount`, `componentDidUpdate`, and `com
 
 ### `forceUpdate(callback?)` {/*forceupdate*/}
 
-Forces a component to re-render.
+Component-ஐ re-render செய்ய force செய்கிறது.
 
-Usually, this is not necessary. If your component's [`render`](#render) method only reads from [`this.props`](#props), [`this.state`](#state), or [`this.context`,](#context) it will re-render automatically when you call [`setState`](#setstate) inside your component or one of its parents. However, if your component's `render` method reads directly from an external data source, you have to tell React to update the user interface when that data source changes. That's what `forceUpdate` lets you do.
+பொதுவாக, இது தேவையில்லை. உங்கள் component-ன் [`render`](#render) method [`this.props`](#props), [`this.state`](#state), அல்லது [`this.context`](#context)-இலிருந்து மட்டும் read செய்தால், உங்கள் component அல்லது அதன் parents ஒன்றுக்குள் [`setState`](#setstate) call செய்யும் போது அது automatic ஆக re-render ஆகும். ஆனால் உங்கள் component-ன் `render` method external data source-இலிருந்து நேரடியாக read செய்தால், அந்த data source மாறும்போது user interface update செய்ய React-க்கு சொல்ல வேண்டும். அதையே `forceUpdate` செய்ய அனுமதிக்கிறது.
 
-Try to avoid all uses of `forceUpdate` and only read from `this.props` and `this.state` in `render`.
+`forceUpdate` use செய்வதை எல்லாம் தவிர்க்க முயற்சிக்கவும்; `render`-இல் `this.props` மற்றும் `this.state`-இலிருந்து மட்டும் read செய்யுங்கள்.
 
 #### Parameters {/*forceupdate-parameters*/}
 
-* **optional** `callback` If specified, React will call the `callback` you've provided after the update is committed.
+* **optional** `callback`: Specify செய்தால், update committed ஆன பிறகு நீங்கள் provided செய்த `callback`-ஐ React call செய்யும்.
 
 #### Returns {/*forceupdate-returns*/}
 
-`forceUpdate` does not return anything.
+`forceUpdate` எதையும் return செய்யாது.
 
 #### Caveats {/*forceupdate-caveats*/}
 
-- If you call `forceUpdate`, React will re-render without calling [`shouldComponentUpdate`.](#shouldcomponentupdate)
+- நீங்கள் `forceUpdate` call செய்தால், [`shouldComponentUpdate`](#shouldcomponentupdate) call செய்யாமல் React re-render செய்யும்.
 
 <Note>
 
-Reading an external data source and forcing class components to re-render in response to its changes with `forceUpdate` has been superseded by [`useSyncExternalStore`](/reference/react/useSyncExternalStore) in function components.
+External data source ஒன்றை read செய்து, அதன் changes-க்கு response ஆக `forceUpdate` மூலம் class components re-render செய்ய force செய்வதை function components-இல் [`useSyncExternalStore`](/reference/react/useSyncExternalStore) supersede செய்துள்ளது.
 
 </Note>
 
@@ -484,9 +484,9 @@ Reading an external data source and forcing class components to re-render in res
 
 ### `getSnapshotBeforeUpdate(prevProps, prevState)` {/*getsnapshotbeforeupdate*/}
 
-If you implement `getSnapshotBeforeUpdate`, React will call it immediately before React updates the DOM. It enables your component to capture some information from the DOM (e.g. scroll position) before it is potentially changed. Any value returned by this lifecycle method will be passed as a parameter to [`componentDidUpdate`.](#componentdidupdate)
+நீங்கள் `getSnapshotBeforeUpdate` implement செய்தால், React DOM update செய்வதற்கு உடனடியாக முன் React அதை call செய்யும். DOM மாறக்கூடும் முன் அதிலிருந்து சில information-ஐ (எ.கா. scroll position) capture செய்ய இது உங்கள் component-க்கு உதவும். இந்த lifecycle method return செய்யும் எந்த value-யும் [`componentDidUpdate`](#componentdidupdate)-க்கு parameter ஆக pass செய்யப்படும்.
 
-For example, you can use it in a UI like a chat thread that needs to preserve its scroll position during updates:
+உதாரணமாக, updates போது தனது scroll position-ஐ preserve செய்ய வேண்டிய chat thread போன்ற UI-இல் இதை use செய்யலாம்:
 
 ```js {7-15,17}
 class ScrollingList extends React.Component {
@@ -523,25 +523,25 @@ class ScrollingList extends React.Component {
 }
 ```
 
-In the above example, it is important to read the `scrollHeight` property directly in `getSnapshotBeforeUpdate`. It is not safe to read it in [`render`](#render), [`UNSAFE_componentWillReceiveProps`](#unsafe_componentwillreceiveprops), or [`UNSAFE_componentWillUpdate`](#unsafe_componentwillupdate) because there is a potential time gap between these methods getting called and React updating the DOM.
+மேலுள்ள example-இல், `scrollHeight` property-ஐ `getSnapshotBeforeUpdate`-இல் நேரடியாக read செய்வது முக்கியம். அதை [`render`](#render), [`UNSAFE_componentWillReceiveProps`](#unsafe_componentwillreceiveprops), அல்லது [`UNSAFE_componentWillUpdate`](#unsafe_componentwillupdate)-இல் read செய்வது safe அல்ல; ஏனெனில் இந்த methods call செய்யப்படுவதற்கும் React DOM update செய்வதற்கும் இடையில் time gap இருக்கலாம்.
 
 #### Parameters {/*getsnapshotbeforeupdate-parameters*/}
 
-* `prevProps`: Props before the update. Compare `prevProps` to [`this.props`](#props) to determine what changed.
+* `prevProps`: Update-க்கு முந்தைய props. என்ன மாறியது என்பதை தீர்மானிக்க `prevProps`-ஐ [`this.props`](#props) உடன் compare செய்யுங்கள்.
 
-* `prevState`: State before the update. Compare `prevState` to [`this.state`](#state) to determine what changed.
+* `prevState`: Update-க்கு முந்தைய state. என்ன மாறியது என்பதை தீர்மானிக்க `prevState`-ஐ [`this.state`](#state) உடன் compare செய்யுங்கள்.
 
 #### Returns {/*getsnapshotbeforeupdate-returns*/}
 
-You should return a snapshot value of any type that you'd like, or `null`. The value you returned will be passed as the third argument to [`componentDidUpdate`.](#componentdidupdate)
+நீங்கள் விரும்பும் எந்த type-இலும் snapshot value ஒன்றை அல்லது `null`-ஐ return செய்ய வேண்டும். நீங்கள் return செய்த value [`componentDidUpdate`](#componentdidupdate)-க்கு மூன்றாவது argument ஆக pass செய்யப்படும்.
 
 #### Caveats {/*getsnapshotbeforeupdate-caveats*/}
 
-- `getSnapshotBeforeUpdate` will not get called if [`shouldComponentUpdate`](#shouldcomponentupdate) is defined and returns `false`.
+- [`shouldComponentUpdate`](#shouldcomponentupdate) defined ஆகி `false` return செய்தால் `getSnapshotBeforeUpdate` call செய்யப்படாது.
 
 <Note>
 
-At the moment, there is no equivalent to `getSnapshotBeforeUpdate` for function components. This use case is very uncommon, but if you have the need for it, for now you'll have to write a class component.
+தற்போது function components-க்கு `getSnapshotBeforeUpdate` equivalent இல்லை. இந்த use case மிகவும் uncommon; ஆனால் அது தேவைப்பட்டால் இப்போது class component எழுத வேண்டும்.
 
 </Note>
 
@@ -549,47 +549,47 @@ At the moment, there is no equivalent to `getSnapshotBeforeUpdate` for function 
 
 ### `render()` {/*render*/}
 
-The `render` method is the only required method in a class component.
+Class component-இல் required ஆன ஒரே method `render` method.
 
-The `render` method should specify what you want to appear on the screen, for example:
+Screen-இல் என்ன தோன்ற வேண்டும் என்பதை `render` method specify செய்ய வேண்டும், உதாரணமாக:
 
 ```js {4-6}
 import { Component } from 'react';
 
 class Greeting extends Component {
   render() {
-    return <h1>Hello, {this.props.name}!</h1>;
+    return <h1>வணக்கம், {this.props.name}!</h1>;
   }
 }
 ```
 
-React may call `render` at any moment, so you shouldn't assume that it runs at a particular time. Usually, the `render` method should return a piece of [JSX](/learn/writing-markup-with-jsx), but a few [other return types](#render-returns) (like strings) are supported. To calculate the returned JSX, the `render` method can read [`this.props`](#props), [`this.state`](#state), and [`this.context`](#context).
+React எந்த தருணத்திலும் `render` call செய்யலாம்; எனவே அது குறிப்பிட்ட நேரத்தில் run ஆகும் என்று assume செய்யக்கூடாது. பொதுவாக, `render` method [JSX](/learn/writing-markup-with-jsx) பகுதியை return செய்ய வேண்டும்; ஆனால் strings போன்ற சில [மற்ற return types](#render-returns) supported. Returned JSX-ஐ calculate செய்ய, `render` method [`this.props`](#props), [`this.state`](#state), மற்றும் [`this.context`](#context)-ஐ read செய்யலாம்.
 
-You should write the `render` method as a pure function, meaning that it should return the same result if props, state, and context are the same. It also shouldn't contain side effects (like setting up subscriptions) or interact with the browser APIs. Side effects should happen either in event handlers or methods like [`componentDidMount`.](#componentdidmount)
+`render` method-ஐ pure function ஆக எழுத வேண்டும்; அதாவது props, state, மற்றும் context ஒரே மாதிரி இருந்தால் அது அதே result-ஐ return செய்ய வேண்டும். அதில் subscriptions set up செய்வது போன்ற side effects இருக்கக்கூடாது; browser APIs உடன் interact செய்யக்கூடாது. Side effects event handlers-இலோ அல்லது [`componentDidMount`](#componentdidmount) போன்ற methods-இலோ நடக்க வேண்டும்.
 
 #### Parameters {/*render-parameters*/}
 
-`render` does not take any parameters.
+`render` எந்த parameters-யும் எடுக்காது.
 
 #### Returns {/*render-returns*/}
 
-`render` can return any valid React node. This includes React elements such as `<div />`, strings, numbers, [portals](/reference/react-dom/createPortal), empty nodes (`null`, `undefined`, `true`, and `false`), and arrays of React nodes.
+`render` எந்த valid React node-ஐயும் return செய்யலாம். இதில் `<div />` போன்ற React elements, strings, numbers, [portals](/reference/react-dom/createPortal), empty nodes (`null`, `undefined`, `true`, மற்றும் `false`), மற்றும் React nodes arrays அடங்கும்.
 
 #### Caveats {/*render-caveats*/}
 
-- `render` should be written as a pure function of props, state, and context. It should not have side effects.
+- `render` props, state, மற்றும் context-ன் pure function ஆக எழுதப்பட வேண்டும். அதில் side effects இருக்கக்கூடாது.
 
-- `render` will not get called if [`shouldComponentUpdate`](#shouldcomponentupdate) is defined and returns `false`.
+- [`shouldComponentUpdate`](#shouldcomponentupdate) defined ஆகி `false` return செய்தால் `render` call செய்யப்படாது.
 
-- When [Strict Mode](/reference/react/StrictMode) is on, React will call `render` twice in development and then throw away one of the results. This helps you notice the accidental side effects that need to be moved out of the `render` method.
+- [Strict Mode](/reference/react/StrictMode) on ஆக இருந்தால், development-இல் React `render`-ஐ இருமுறை call செய்து, பின்னர் results-இல் ஒன்றை throw away செய்யும். `render` method-இலிருந்து move செய்ய வேண்டிய accidental side effects-ஐ கவனிக்க இது உதவும்.
 
-- There is no one-to-one correspondence between the `render` call and the subsequent `componentDidMount` or `componentDidUpdate` call. Some of the `render` call results may be discarded by React when it's beneficial.
+- `render` call மற்றும் பின்னர் வரும் `componentDidMount` அல்லது `componentDidUpdate` call இடையே one-to-one correspondence இல்லை. பயனுள்ளதாக இருந்தால் சில `render` call results-ஐ React discard செய்யலாம்.
 
 ---
 
 ### `setState(nextState, callback?)` {/*setstate*/}
 
-Call `setState` to update the state of your React component.
+உங்கள் React component-ன் state update செய்ய `setState` call செய்யுங்கள்.
 
 ```js {8-10}
 class Form extends Component {
@@ -608,18 +608,18 @@ class Form extends Component {
     return (
       <>
         <input value={this.state.name} onChange={this.handleNameChange} />
-        <p>Hello, {this.state.name}.</p>
+        <p>வணக்கம், {this.state.name}.</p>
       </>
     );
   }
 }
 ```
 
-`setState` enqueues changes to the component state. It tells React that this component and its children need to re-render with the new state. This is the main way you'll update the user interface in response to interactions.
+`setState` component state-க்கு changes-ஐ enqueue செய்கிறது. இந்த component மற்றும் அதன் children புதிய state உடன் re-render ஆக வேண்டும் என்று அது React-க்கு சொல்கிறது. Interactions-க்கு response ஆக user interface update செய்யும் முக்கியமான வழி இதுதான்.
 
 <Pitfall>
 
-Calling `setState` **does not** change the current state in the already executing code:
+`setState` call செய்வது ஏற்கனவே executing ஆகிக் கொண்டிருக்கும் code-இல் current state-ஐ மாற்றாது:
 
 ```js {6}
 function handleClick() {
@@ -627,15 +627,15 @@ function handleClick() {
   this.setState({
     name: 'Robin'
   });
-  console.log(this.state.name); // Still "Taylor"!
+  console.log(this.state.name); // இன்னும் "Taylor" தான்!
 }
 ```
 
-It only affects what `this.state` will return starting from the *next* render.
+அது *அடுத்த* render முதல் `this.state` என்ன return செய்யும் என்பதை மட்டும் பாதிக்கும்.
 
 </Pitfall>
 
-You can also pass a function to `setState`. It lets you update state based on the previous state:
+`setState`-க்கு function ஒன்றையும் pass செய்யலாம். Previous state அடிப்படையில் state update செய்ய இது அனுமதிக்கிறது:
 
 ```js {2-6}
   handleIncreaseAge = () => {
@@ -647,31 +647,31 @@ You can also pass a function to `setState`. It lets you update state based on th
   }
 ```
 
-You don't have to do this, but it's handy if you want to update state multiple times during the same event.
+இதை செய்ய வேண்டிய கட்டாயம் இல்லை; ஆனால் அதே event நேரத்தில் state-ஐ பல முறை update செய்ய விரும்பினால் இது பயனுள்ளதாக இருக்கும்.
 
 #### Parameters {/*setstate-parameters*/}
 
-* `nextState`: Either an object or a function.
-  * If you pass an object as `nextState`, it will be shallowly merged into `this.state`.
-  * If you pass a function as `nextState`, it will be treated as an _updater function_. It must be pure, should take the pending state and props as arguments, and should return the object to be shallowly merged into `this.state`. React will put your updater function in a queue and re-render your component. During the next render, React will calculate the next state by applying all of the queued updaters to the previous state.
+* `nextState`: Object அல்லது function.
+  * `nextState` ஆக object pass செய்தால், அது `this.state`-க்குள் shallowly merged செய்யப்படும்.
+  * `nextState` ஆக function pass செய்தால், அது _updater function_ ஆக treat செய்யப்படும். அது pure ஆக இருக்க வேண்டும், pending state மற்றும் props-ஐ arguments ஆக எடுக்க வேண்டும், மேலும் `this.state`-க்குள் shallowly merge செய்யப்படும் object-ஐ return செய்ய வேண்டும். React உங்கள் updater function-ஐ queue-இல் வைத்து component-ஐ re-render செய்யும். அடுத்த render போது, queued updaters அனைத்தையும் previous state-க்கு apply செய்து next state-ஐ React calculate செய்யும்.
 
-* **optional** `callback`: If specified, React will call the `callback` you've provided after the update is committed.
+* **optional** `callback`: Specify செய்தால், update committed ஆன பிறகு நீங்கள் provided செய்த `callback`-ஐ React call செய்யும்.
 
 #### Returns {/*setstate-returns*/}
 
-`setState` does not return anything.
+`setState` எதையும் return செய்யாது.
 
 #### Caveats {/*setstate-caveats*/}
 
-- Think of `setState` as a *request* rather than an immediate command to update the component. When multiple components update their state in response to an event, React will batch their updates and re-render them together in a single pass at the end of the event. In the rare case that you need to force a particular state update to be applied synchronously, you may wrap it in [`flushSync`,](/reference/react-dom/flushSync) but this may hurt performance.
+- `setState`-ஐ component update செய்யும் immediate command ஆக அல்ல, ஒரு *request* ஆக நினைக்கவும். பல components ஒரு event-க்கு response ஆக தங்கள் state-ஐ update செய்தால், React அவற்றின் updates-ஐ batch செய்து event முடிவில் single pass-இல் ஒன்றாக re-render செய்யும். குறிப்பிட்ட state update synchronously apply ஆக force செய்ய வேண்டிய அரிதான case-இல், அதை [`flushSync`](/reference/react-dom/flushSync)-இல் wrap செய்யலாம்; ஆனால் இது performance-ஐ பாதிக்கலாம்.
 
-- `setState` does not update `this.state` immediately. This makes reading `this.state` right after calling `setState` a potential pitfall. Instead, use [`componentDidUpdate`](#componentdidupdate) or the setState `callback` argument, either of which are guaranteed to fire after the update has been applied. If you need to set the state based on the previous state, you can pass a function to `nextState` as described above.
+- `setState` `this.state`-ஐ உடனடியாக update செய்யாது. அதனால் `setState` call செய்த உடனே `this.state` read செய்வது potential pitfall. அதற்கு பதிலாக [`componentDidUpdate`](#componentdidupdate) அல்லது setState `callback` argument use செய்யுங்கள்; இவை இரண்டும் update applied ஆன பிறகு fire ஆகும் என்று guaranteed. Previous state அடிப்படையில் state set செய்ய வேண்டுமெனில், மேலே விவரிக்கப்பட்டபடி `nextState`-க்கு function pass செய்யலாம்.
 
 <Note>
 
-Calling `setState` in class components is similar to calling a [`set` function](/reference/react/useState#setstate) in function components.
+Class components-இல் `setState` call செய்வது function components-இல் [`set` function](/reference/react/useState#setstate) call செய்வதைப் போன்றது.
 
-[See how to migrate.](#migrating-a-component-with-state-from-a-class-to-a-function)
+[Migrate செய்வது எப்படி என்பதை பார்க்கவும்.](#migrating-a-component-with-state-from-a-class-to-a-function)
 
 </Note>
 
@@ -679,9 +679,9 @@ Calling `setState` in class components is similar to calling a [`set` function](
 
 ### `shouldComponentUpdate(nextProps, nextState, nextContext)` {/*shouldcomponentupdate*/}
 
-If you define `shouldComponentUpdate`, React will call it to determine whether a re-render can be skipped.
+நீங்கள் `shouldComponentUpdate` define செய்தால், re-render skip செய்யலாமா என்பதை தீர்மானிக்க React அதை call செய்யும்.
 
-If you are confident you want to write it by hand, you may compare `this.props` with `nextProps` and `this.state` with `nextState` and return `false` to tell React the update can be skipped.
+அதை கைமுறையாக எழுத வேண்டும் என்று உறுதியாக இருந்தால், `this.props`-ஐ `nextProps` உடனும் `this.state`-ஐ `nextState` உடனும் compare செய்து update skip செய்யலாம் என்று React-க்கு சொல்ல `false` return செய்யலாம்.
 
 ```js {6-18}
 class Rectangle extends Component {
@@ -708,35 +708,35 @@ class Rectangle extends Component {
 
 ```
 
-React calls `shouldComponentUpdate` before rendering when new props or state are being received. Defaults to `true`. This method is not called for the initial render or when [`forceUpdate`](#forceupdate) is used.
+புதிய props அல்லது state receive செய்யப்படும் போது render செய்வதற்கு முன் React `shouldComponentUpdate` call செய்கிறது. Default `true`. Initial render-க்கோ அல்லது [`forceUpdate`](#forceupdate) use செய்யப்படும் போதோ இந்த method call செய்யப்படாது.
 
 #### Parameters {/*shouldcomponentupdate-parameters*/}
 
-- `nextProps`: The next props that the component is about to render with. Compare `nextProps` to [`this.props`](#props) to determine what changed.
-- `nextState`: The next state that the component is about to render with. Compare `nextState` to [`this.state`](#props) to determine what changed.
-- `nextContext`: The next context that the component is about to render with. Compare `nextContext` to [`this.context`](#context) to determine what changed. Only available if you specify [`static contextType`](#static-contexttype).
+- `nextProps`: Component render ஆகவிருக்கும் next props. என்ன மாறியது என்பதை தீர்மானிக்க `nextProps`-ஐ [`this.props`](#props) உடன் compare செய்யுங்கள்.
+- `nextState`: Component render ஆகவிருக்கும் next state. என்ன மாறியது என்பதை தீர்மானிக்க `nextState`-ஐ [`this.state`](#props) உடன் compare செய்யுங்கள்.
+- `nextContext`: Component render ஆகவிருக்கும் next context. என்ன மாறியது என்பதை தீர்மானிக்க `nextContext`-ஐ [`this.context`](#context) உடன் compare செய்யுங்கள். [`static contextType`](#static-contexttype) specify செய்தால் மட்டுமே கிடைக்கும்.
 
 #### Returns {/*shouldcomponentupdate-returns*/}
 
-Return `true` if you want the component to re-render. That's the default behavior.
+Component re-render ஆக வேண்டும் என்றால் `true` return செய்யுங்கள். அதுவே default behavior.
 
-Return `false` to tell React that re-rendering can be skipped.
+Re-rendering skip செய்யலாம் என்று React-க்கு சொல்ல `false` return செய்யுங்கள்.
 
 #### Caveats {/*shouldcomponentupdate-caveats*/}
 
-- This method *only* exists as a performance optimization. If your component breaks without it, fix that first.
+- இந்த method performance optimization-க்காக *மட்டுமே* உள்ளது. இது இல்லாமல் உங்கள் component break ஆனால், முதலில் அதையே fix செய்யுங்கள்.
 
-- Consider using [`PureComponent`](/reference/react/PureComponent) instead of writing `shouldComponentUpdate` by hand. `PureComponent` shallowly compares props and state, and reduces the chance that you'll skip a necessary update.
+- `shouldComponentUpdate`-ஐ கைமுறையாக எழுதுவதற்கு பதிலாக [`PureComponent`](/reference/react/PureComponent) use செய்வதை consider செய்யுங்கள். `PureComponent` props மற்றும் state-ஐ shallowly compare செய்கிறது; தேவையான update ஒன்றை skip செய்யும் வாய்ப்பை குறைக்கிறது.
 
-- We do not recommend doing deep equality checks or using `JSON.stringify` in `shouldComponentUpdate`. It makes performance unpredictable and dependent on the data structure of every prop and state. In the best case, you risk introducing multi-second stalls to your application, and in the worst case you risk crashing it.
+- `shouldComponentUpdate`-இல் deep equality checks செய்வதையோ `JSON.stringify` use செய்வதையோ பரிந்துரைக்கவில்லை. அது performance-ஐ unpredictable ஆக்கி, ஒவ்வொரு prop மற்றும் state-ன் data structure-ஐ depend செய்ய வைக்கிறது. Best case-இல், உங்கள் application-க்கு multi-second stalls அறிமுகப்படுத்தும் risk; worst case-இல் அதை crash செய்யும் risk.
 
-- Returning `false` does not prevent child components from re-rendering when *their* state changes.
+- `false` return செய்வது child components-ன் *அவற்றின்* state மாறும்போது re-render ஆகுவதைத் தடுக்காது.
 
-- Returning `false` does not *guarantee* that the component will not re-render. React will use the return value as a hint but it may still choose to re-render your component if it makes sense to do for other reasons.
+- `false` return செய்வது component re-render ஆகாது என்று *guarantee* செய்யாது. React return value-ஐ hint ஆக use செய்யும்; ஆனால் மற்ற காரணங்களுக்காக பொருத்தமானதாக இருந்தால் உங்கள் component-ஐ இன்னும் re-render செய்ய தேர்வு செய்யலாம்.
 
 <Note>
 
-Optimizing class components with `shouldComponentUpdate` is similar to optimizing function components with [`memo`.](/reference/react/memo) Function components also offer more granular optimization with [`useMemo`.](/reference/react/useMemo)
+Class components-ஐ `shouldComponentUpdate` மூலம் optimize செய்வது function components-ஐ [`memo`](/reference/react/memo) மூலம் optimize செய்வதைப் போன்றது. Function components [`useMemo`](/reference/react/useMemo) மூலம் இன்னும் granular optimization வழங்குகின்றன.
 
 </Note>
 
@@ -744,10 +744,10 @@ Optimizing class components with `shouldComponentUpdate` is similar to optimizin
 
 ### `UNSAFE_componentWillMount()` {/*unsafe_componentwillmount*/}
 
-If you define `UNSAFE_componentWillMount`, React will call it immediately after the [`constructor`.](#constructor) It only exists for historical reasons and should not be used in any new code. Instead, use one of the alternatives:
+நீங்கள் `UNSAFE_componentWillMount` define செய்தால், [`constructor`](#constructor)-க்கு உடனடியாக பிறகு React அதை call செய்யும். இது historical reasons-க்காக மட்டுமே உள்ளது; புதிய code-இல் use செய்யக்கூடாது. அதற்கு பதிலாக alternatives-இல் ஒன்றை use செய்யுங்கள்:
 
 - To initialize state, declare [`state`](#state) as a class field or set `this.state` inside the [`constructor`.](#constructor)
-- If you need to run a side effect or set up a subscription, move that logic to [`componentDidMount`](#componentdidmount) instead.
+- Side effect run செய்ய அல்லது subscription set up செய்ய வேண்டுமெனில், அந்த logic-ஐ [`componentDidMount`](#componentdidmount)-க்கு move செய்யுங்கள்.
 
 [See examples of migrating away from unsafe lifecycles.](https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#examples)
 
@@ -763,13 +763,13 @@ If you define `UNSAFE_componentWillMount`, React will call it immediately after 
 
 - `UNSAFE_componentWillMount` will not get called if the component implements [`static getDerivedStateFromProps`](#static-getderivedstatefromprops) or [`getSnapshotBeforeUpdate`.](#getsnapshotbeforeupdate)
 
-- Despite its naming, `UNSAFE_componentWillMount` does not guarantee that the component *will* get mounted if your app uses modern React features like [`Suspense`.](/reference/react/Suspense) If a render attempt is suspended (for example, because the code for some child component has not loaded yet), React will throw the in-progress tree away and attempt to construct the component from scratch during the next attempt. This is why this method is "unsafe". Code that relies on mounting (like adding a subscription) should go into [`componentDidMount`.](#componentdidmount)
+- பெயர் அப்படியாக இருந்தாலும், உங்கள் app [`Suspense`](/reference/react/Suspense) போன்ற modern React features use செய்தால் component *நிச்சயம்* mount ஆகும் என்று `UNSAFE_componentWillMount` guarantee செய்யாது. Render attempt suspend ஆனால் (உதாரணமாக, சில child component-ன் code இன்னும் load ஆகாததால்), React in-progress tree-ஐ throw away செய்து அடுத்த attempt போது component-ஐ scratch-இலிருந்து construct செய்ய முயலும். அதனால்தான் இந்த method "unsafe". Mounting-ஐ rely செய்யும் code (subscription சேர்ப்பது போன்றது) [`componentDidMount`](#componentdidmount)-க்கு செல்ல வேண்டும்.
 
-- `UNSAFE_componentWillMount` is the only lifecycle method that runs during [server rendering.](/reference/react-dom/server) For all practical purposes, it is identical to [`constructor`,](#constructor) so you should use the `constructor` for this type of logic instead.
+- [Server rendering](/reference/react-dom/server) போது run ஆகும் ஒரே lifecycle method `UNSAFE_componentWillMount`. நடைமுறை purposes அனைத்துக்கும் இது [`constructor`](#constructor)-க்கு identical; எனவே இத்தகைய logic-க்கு அதற்கு பதிலாக `constructor` use செய்ய வேண்டும்.
 
 <Note>
 
-Calling [`setState`](#setstate) inside `UNSAFE_componentWillMount` in a class component to initialize state is equivalent to passing that state as the initial state to [`useState`](/reference/react/useState) in a function component.
+Class component-இல் state initialize செய்ய `UNSAFE_componentWillMount`-க்குள் [`setState`](#setstate) call செய்வது, function component-இல் அந்த state-ஐ [`useState`](/reference/react/useState)-க்கு initial state ஆக pass செய்வதற்கு equivalent.
 
 </Note>
 
@@ -777,19 +777,19 @@ Calling [`setState`](#setstate) inside `UNSAFE_componentWillMount` in a class co
 
 ### `UNSAFE_componentWillReceiveProps(nextProps, nextContext)` {/*unsafe_componentwillreceiveprops*/}
 
-If you define `UNSAFE_componentWillReceiveProps`, React will call it when the component receives new props. It only exists for historical reasons and should not be used in any new code. Instead, use one of the alternatives:
+நீங்கள் `UNSAFE_componentWillReceiveProps` define செய்தால், component புதிய props receive செய்யும் போது React அதை call செய்யும். இது historical reasons-க்காக மட்டுமே உள்ளது; புதிய code-இல் use செய்யக்கூடாது. அதற்கு பதிலாக alternatives-இல் ஒன்றை use செய்யுங்கள்:
 
-- If you need to **run a side effect** (for example, fetch data, run an animation, or reinitialize a subscription) in response to prop changes, move that logic to [`componentDidUpdate`](#componentdidupdate) instead.
-- If you need to **avoid re-computing some data only when a prop changes,** use a [memoization helper](https://legacy.reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html#what-about-memoization) instead.
-- If you need to **"reset" some state when a prop changes,** consider either making a component [fully controlled](https://legacy.reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html#recommendation-fully-controlled-component) or [fully uncontrolled with a key](https://legacy.reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html#recommendation-fully-uncontrolled-component-with-a-key) instead.
-- If you need to **"adjust" some state when a prop changes,** check whether you can compute all the necessary information from props alone during rendering. If you can't, use [`static getDerivedStateFromProps`](/reference/react/Component#static-getderivedstatefromprops) instead.
+- Prop changes-க்கு response ஆக **side effect run செய்ய** வேண்டுமெனில் (உதாரணமாக data fetch செய்தல், animation run செய்தல், அல்லது subscription reinitialize செய்தல்), அந்த logic-ஐ [`componentDidUpdate`](#componentdidupdate)-க்கு move செய்யுங்கள்.
+- Prop மாறும்போது மட்டும் **சில data மீண்டும் compute ஆகாமல் தவிர்க்க** வேண்டுமெனில், அதற்கு பதிலாக [memoization helper](https://legacy.reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html#what-about-memoization) use செய்யுங்கள்.
+- Prop மாறும்போது **சில state-ஐ "reset" செய்ய** வேண்டுமெனில், component-ஐ [fully controlled](https://legacy.reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html#recommendation-fully-controlled-component) ஆக்கவோ அல்லது [key உடன் fully uncontrolled](https://legacy.reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html#recommendation-fully-uncontrolled-component-with-a-key) ஆக்கவோ consider செய்யுங்கள்.
+- Prop மாறும்போது **சில state-ஐ "adjust" செய்ய** வேண்டுமெனில், rendering போது props மட்டும் கொண்டு தேவையான information அனைத்தையும் compute செய்ய முடியுமா என்று check செய்யுங்கள். முடியாவிட்டால், அதற்கு பதிலாக [`static getDerivedStateFromProps`](/reference/react/Component#static-getderivedstatefromprops) use செய்யுங்கள்.
 
 [See examples of migrating away from unsafe lifecycles.](https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#updating-state-based-on-props)
 
 #### Parameters {/*unsafe_componentwillreceiveprops-parameters*/}
 
-- `nextProps`: The next props that the component is about to receive from its parent component. Compare `nextProps` to [`this.props`](#props) to determine what changed.
-- `nextContext`: The next context that the component is about to receive from the closest provider. Compare `nextContext` to [`this.context`](#context) to determine what changed. Only available if you specify [`static contextType`](#static-contexttype).
+- `nextProps`: Component தனது parent component-இலிருந்து receive செய்யவிருக்கும் next props. என்ன மாறியது என்பதை தீர்மானிக்க `nextProps`-ஐ [`this.props`](#props) உடன் compare செய்யுங்கள்.
+- `nextContext`: Component closest provider-இலிருந்து receive செய்யவிருக்கும் next context. என்ன மாறியது என்பதை தீர்மானிக்க `nextContext`-ஐ [`this.context`](#context) உடன் compare செய்யுங்கள். [`static contextType`](#static-contexttype) specify செய்தால் மட்டுமே கிடைக்கும்.
 
 #### Returns {/*unsafe_componentwillreceiveprops-returns*/}
 
@@ -799,15 +799,15 @@ If you define `UNSAFE_componentWillReceiveProps`, React will call it when the co
 
 - `UNSAFE_componentWillReceiveProps` will not get called if the component implements [`static getDerivedStateFromProps`](#static-getderivedstatefromprops) or [`getSnapshotBeforeUpdate`.](#getsnapshotbeforeupdate)
 
-- Despite its naming, `UNSAFE_componentWillReceiveProps` does not guarantee that the component *will* receive those props if your app uses modern React features like [`Suspense`.](/reference/react/Suspense) If a render attempt is suspended (for example, because the code for some child component has not loaded yet), React will throw the in-progress tree away and attempt to construct the component from scratch during the next attempt. By the time of the next render attempt, the props might be different. This is why this method is "unsafe". Code that should run only for committed updates (like resetting a subscription) should go into [`componentDidUpdate`.](#componentdidupdate)
+- பெயர் அப்படியாக இருந்தாலும், உங்கள் app [`Suspense`](/reference/react/Suspense) போன்ற modern React features use செய்தால் component அந்த props-ஐ *நிச்சயம்* receive செய்யும் என்று `UNSAFE_componentWillReceiveProps` guarantee செய்யாது. Render attempt suspend ஆனால் (உதாரணமாக, சில child component-ன் code இன்னும் load ஆகாததால்), React in-progress tree-ஐ throw away செய்து அடுத்த attempt போது component-ஐ scratch-இலிருந்து construct செய்ய முயலும். அடுத்த render attempt நேரத்திற்குள் props வேறுபட்டிருக்கலாம். அதனால்தான் இந்த method "unsafe". Committed updates-க்கு மட்டும் run ஆக வேண்டிய code (subscription reset செய்வது போன்றது) [`componentDidUpdate`](#componentdidupdate)-க்கு செல்ல வேண்டும்.
 
-- `UNSAFE_componentWillReceiveProps` does not mean that the component has received *different* props than the last time. You need to compare `nextProps` and `this.props` yourself to check if something changed.
+- `UNSAFE_componentWillReceiveProps` என்பது component last time-ஐ விட *different* props receive செய்தது என்று அர்த்தமல்ல. ஏதாவது மாறியதா என்று check செய்ய `nextProps` மற்றும் `this.props`-ஐ நீங்களே compare செய்ய வேண்டும்.
 
-- React doesn't call `UNSAFE_componentWillReceiveProps` with initial props during mounting. It only calls this method if some of component's props are going to be updated. For example, calling [`setState`](#setstate) doesn't generally trigger `UNSAFE_componentWillReceiveProps` inside the same component.
+- Mounting போது initial props உடன் React `UNSAFE_componentWillReceiveProps` call செய்யாது. Component-ன் சில props update ஆகப் போகும் போது மட்டுமே இந்த method-ஐ call செய்யும். உதாரணமாக, [`setState`](#setstate) call செய்வது பொதுவாக அதே component-க்குள் `UNSAFE_componentWillReceiveProps` trigger செய்யாது.
 
 <Note>
 
-Calling [`setState`](#setstate) inside `UNSAFE_componentWillReceiveProps` in a class component to "adjust" state is equivalent to [calling the `set` function from `useState` during rendering](/reference/react/useState#storing-information-from-previous-renders) in a function component.
+Class component-இல் state-ஐ "adjust" செய்ய `UNSAFE_componentWillReceiveProps`-க்குள் [`setState`](#setstate) call செய்வது, function component-இல் [rendering போது `useState`-இலிருந்து `set` function call செய்வதற்கு](/reference/react/useState#storing-information-from-previous-renders) equivalent.
 
 </Note>
 
@@ -816,17 +816,17 @@ Calling [`setState`](#setstate) inside `UNSAFE_componentWillReceiveProps` in a c
 ### `UNSAFE_componentWillUpdate(nextProps, nextState)` {/*unsafe_componentwillupdate*/}
 
 
-If you define `UNSAFE_componentWillUpdate`, React will call it before rendering with the new props or state. It only exists for historical reasons and should not be used in any new code. Instead, use one of the alternatives:
+நீங்கள் `UNSAFE_componentWillUpdate` define செய்தால், புதிய props அல்லது state உடன் render செய்வதற்கு முன் React அதை call செய்யும். இது historical reasons-க்காக மட்டுமே உள்ளது; புதிய code-இல் use செய்யக்கூடாது. அதற்கு பதிலாக alternatives-இல் ஒன்றை use செய்யுங்கள்:
 
-- If you need to run a side effect (for example, fetch data, run an animation, or reinitialize a subscription) in response to prop or state changes, move that logic to [`componentDidUpdate`](#componentdidupdate) instead.
-- If you need to read some information from the DOM (for example, to save the current scroll position) so that you can use it in [`componentDidUpdate`](#componentdidupdate) later, read it inside [`getSnapshotBeforeUpdate`](#getsnapshotbeforeupdate) instead.
+- Prop அல்லது state changes-க்கு response ஆக side effect run செய்ய வேண்டுமெனில் (உதாரணமாக data fetch செய்தல், animation run செய்தல், அல்லது subscription reinitialize செய்தல்), அந்த logic-ஐ [`componentDidUpdate`](#componentdidupdate)-க்கு move செய்யுங்கள்.
+- பின்னர் [`componentDidUpdate`](#componentdidupdate)-இல் use செய்ய DOM-இலிருந்து சில information read செய்ய வேண்டுமெனில் (உதாரணமாக current scroll position save செய்ய), அதற்கு பதிலாக [`getSnapshotBeforeUpdate`](#getsnapshotbeforeupdate)-க்குள் read செய்யுங்கள்.
 
 [See examples of migrating away from unsafe lifecycles.](https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html#examples)
 
 #### Parameters {/*unsafe_componentwillupdate-parameters*/}
 
-- `nextProps`: The next props that the component is about to render with. Compare `nextProps` to [`this.props`](#props) to determine what changed.
-- `nextState`: The next state that the component is about to render with. Compare `nextState` to [`this.state`](#state) to determine what changed.
+- `nextProps`: Component render ஆகவிருக்கும் next props. என்ன மாறியது என்பதை தீர்மானிக்க `nextProps`-ஐ [`this.props`](#props) உடன் compare செய்யுங்கள்.
+- `nextState`: Component render ஆகவிருக்கும் next state. என்ன மாறியது என்பதை தீர்மானிக்க `nextState`-ஐ [`this.state`](#state) உடன் compare செய்யுங்கள்.
 
 #### Returns {/*unsafe_componentwillupdate-returns*/}
 
@@ -838,11 +838,11 @@ If you define `UNSAFE_componentWillUpdate`, React will call it before rendering 
 
 - `UNSAFE_componentWillUpdate` will not get called if the component implements [`static getDerivedStateFromProps`](#static-getderivedstatefromprops) or [`getSnapshotBeforeUpdate`.](#getsnapshotbeforeupdate)
 
-- It's not supported to call [`setState`](#setstate) (or any method that leads to `setState` being called, like dispatching a Redux action) during `componentWillUpdate`.
+- `componentWillUpdate` போது [`setState`](#setstate) call செய்வது (அல்லது Redux action dispatch செய்வது போன்ற `setState` call ஆக வழிவகுக்கும் எந்த method-யும்) supported அல்ல.
 
-- Despite its naming, `UNSAFE_componentWillUpdate` does not guarantee that the component *will* update if your app uses modern React features like [`Suspense`.](/reference/react/Suspense) If a render attempt is suspended (for example, because the code for some child component has not loaded yet), React will throw the in-progress tree away and attempt to construct the component from scratch during the next attempt. By the time of the next render attempt, the props and state might be different. This is why this method is "unsafe". Code that should run only for committed updates (like resetting a subscription) should go into [`componentDidUpdate`.](#componentdidupdate)
+- பெயர் அப்படியாக இருந்தாலும், உங்கள் app [`Suspense`](/reference/react/Suspense) போன்ற modern React features use செய்தால் component *நிச்சயம்* update ஆகும் என்று `UNSAFE_componentWillUpdate` guarantee செய்யாது. Render attempt suspend ஆனால் (உதாரணமாக, சில child component-ன் code இன்னும் load ஆகாததால்), React in-progress tree-ஐ throw away செய்து அடுத்த attempt போது component-ஐ scratch-இலிருந்து construct செய்ய முயலும். அடுத்த render attempt நேரத்திற்குள் props மற்றும் state வேறுபட்டிருக்கலாம். அதனால்தான் இந்த method "unsafe". Committed updates-க்கு மட்டும் run ஆக வேண்டிய code (subscription reset செய்வது போன்றது) [`componentDidUpdate`](#componentdidupdate)-க்கு செல்ல வேண்டும்.
 
-- `UNSAFE_componentWillUpdate` does not mean that the component has received *different* props or state than the last time. You need to compare `nextProps` with `this.props` and `nextState` with `this.state` yourself to check if something changed.
+- `UNSAFE_componentWillUpdate` என்பது component last time-ஐ விட *different* props அல்லது state receive செய்தது என்று அர்த்தமல்ல. ஏதாவது மாறியதா என்று check செய்ய `nextProps`-ஐ `this.props` உடனும் `nextState`-ஐ `this.state` உடனும் நீங்களே compare செய்ய வேண்டும்.
 
 - React doesn't call `UNSAFE_componentWillUpdate` with initial props and state during mounting.
 
@@ -856,7 +856,7 @@ There is no direct equivalent to `UNSAFE_componentWillUpdate` in function compon
 
 ### `static contextType` {/*static-contexttype*/}
 
-If you want to read [`this.context`](#context-instance-field) from your class component, you must specify which context it needs to read. The context you specify as the `static contextType` must be a value previously created by [`createContext`.](/reference/react/createContext)
+உங்கள் class component-இலிருந்து [`this.context`](#context-instance-field) read செய்ய விரும்பினால், அது எந்த context-ஐ read செய்ய வேண்டும் என்பதை specify செய்ய வேண்டும். `static contextType` ஆக நீங்கள் specify செய்யும் context, முன்பு [`createContext`](/reference/react/createContext) மூலம் created ஆன value ஆக இருக்க வேண்டும்.
 
 ```js {2}
 class Button extends Component {
@@ -876,9 +876,9 @@ class Button extends Component {
 
 <Note>
 
-Reading `this.context` in class components is equivalent to [`useContext`](/reference/react/useContext) in function components.
+Class components-இல் `this.context` read செய்வது function components-இல் [`useContext`](/reference/react/useContext) call செய்வதற்கு equivalent.
 
-[See how to migrate.](#migrating-a-component-with-context-from-a-class-to-a-function)
+[Migrate செய்வது எப்படி என்பதை பார்க்கவும்.](#migrating-a-component-with-context-from-a-class-to-a-function)
 
 </Note>
 
@@ -886,9 +886,9 @@ Reading `this.context` in class components is equivalent to [`useContext`](/refe
 
 ### `static defaultProps` {/*static-defaultprops*/}
 
-You can define `static defaultProps` to set the default props for the class. They will be used for `undefined` and missing props, but not for `null` props.
+Class-க்கு default props set செய்ய `static defaultProps` define செய்யலாம். அவை `undefined` மற்றும் missing props-க்கு use செய்யப்படும்; ஆனால் `null` props-க்கு அல்ல.
 
-For example, here is how you define that the `color` prop should default to `'blue'`:
+உதாரணமாக, `color` prop default ஆக `'blue'` ஆக இருக்க வேண்டும் என்பதை இவ்வாறு define செய்யலாம்:
 
 ```js {2-4}
 class Button extends Component {
@@ -897,12 +897,12 @@ class Button extends Component {
   };
 
   render() {
-    return <button className={this.props.color}>click me</button>;
+    return <button className={this.props.color}>click செய்</button>;
   }
 }
 ```
 
-If the `color` prop is not provided or is `undefined`, it will be set by default to `'blue'`:
+`color` prop provided செய்யப்படவில்லை அல்லது `undefined` ஆக இருந்தால், அது default ஆக `'blue'` ஆக set செய்யப்படும்:
 
 ```js
 <>
@@ -922,7 +922,7 @@ If the `color` prop is not provided or is `undefined`, it will be set by default
 
 <Note>
 
-Defining `defaultProps` in class components is similar to using [default values](/learn/passing-props-to-a-component#specifying-a-default-value-for-a-prop) in function components.
+Class components-இல் `defaultProps` define செய்வது function components-இல் [default values](/learn/passing-props-to-a-component#specifying-a-default-value-for-a-prop) use செய்வதைப் போன்றது.
 
 </Note>
 
@@ -930,27 +930,27 @@ Defining `defaultProps` in class components is similar to using [default values]
 
 ### `static getDerivedStateFromError(error)` {/*static-getderivedstatefromerror*/}
 
-If you define `static getDerivedStateFromError`, React will call it when a child component (including distant children) throws an error during rendering. This lets you display an error message instead of clearing the UI.
+நீங்கள் `static getDerivedStateFromError` define செய்தால், rendering போது child component (தொலைவில் உள்ள children உட்பட) error throw செய்யும்போது React அதை call செய்யும். UI-ஐ clear செய்வதற்கு பதிலாக error message display செய்ய இது அனுமதிக்கிறது.
 
-Typically, it is used together with [`componentDidCatch`](#componentdidcatch) which lets you send the error report to some analytics service. A component with these methods is called an *Error Boundary*.
+பொதுவாக, error report-ஐ analytics service ஒன்றுக்கு send செய்ய அனுமதிக்கும் [`componentDidCatch`](#componentdidcatch) உடன் இது சேர்த்து use செய்யப்படுகிறது. இந்த methods கொண்ட component *Error Boundary* என்று அழைக்கப்படுகிறது.
 
 [See an example.](#catching-rendering-errors-with-an-error-boundary)
 
 #### Parameters {/*static-getderivedstatefromerror-parameters*/}
 
-* `error`: The error that was thrown. In practice, it will usually be an instance of [`Error`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error) but this is not guaranteed because JavaScript allows to [`throw`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/throw) any value, including strings or even `null`.
+* `error`: Throw செய்யப்பட்ட error. நடைமுறையில், இது பொதுவாக [`Error`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error) instance ஆக இருக்கும்; ஆனால் இது guaranteed அல்ல, ஏனெனில் JavaScript strings அல்லது `null` உட்பட எந்த value-யையும் [`throw`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/throw) செய்ய அனுமதிக்கிறது.
 
 #### Returns {/*static-getderivedstatefromerror-returns*/}
 
-`static getDerivedStateFromError` should return the state telling the component to display the error message.
+`static getDerivedStateFromError`, error message display செய்ய component-க்கு சொல்லும் state-ஐ return செய்ய வேண்டும்.
 
 #### Caveats {/*static-getderivedstatefromerror-caveats*/}
 
-* `static getDerivedStateFromError` should be a pure function. If you want to perform a side effect (for example, to call an analytics service), you need to also implement [`componentDidCatch`.](#componentdidcatch)
+* `static getDerivedStateFromError` pure function ஆக இருக்க வேண்டும். Side effect செய்ய விரும்பினால் (உதாரணமாக analytics service call செய்ய), [`componentDidCatch`](#componentdidcatch)-ஐயும் implement செய்ய வேண்டும்.
 
 <Note>
 
-There is no direct equivalent for `static getDerivedStateFromError` in function components yet. If you'd like to avoid creating class components, write a single `ErrorBoundary` component like above and use it throughout your app. Alternatively, use the [`react-error-boundary`](https://github.com/bvaughn/react-error-boundary) package which does that.
+Function components-இல் `static getDerivedStateFromError`-க்கு இன்னும் direct equivalent இல்லை. Class components create செய்வதைத் தவிர்க்க விரும்பினால், மேலுள்ளதைப் போன்ற single `ErrorBoundary` component எழுதிவிட்டு உங்கள் app முழுவதும் use செய்யுங்கள். மாற்றாக, அதைச் செய்யும் [`react-error-boundary`](https://github.com/bvaughn/react-error-boundary) package-ஐ use செய்யலாம்.
 
 </Note>
 
@@ -958,9 +958,9 @@ There is no direct equivalent for `static getDerivedStateFromError` in function 
 
 ### `static getDerivedStateFromProps(props, state)` {/*static-getderivedstatefromprops*/}
 
-If you define `static getDerivedStateFromProps`, React will call it right before calling [`render`,](#render) both on the initial mount and on subsequent updates. It should return an object to update the state, or `null` to update nothing.
+நீங்கள் `static getDerivedStateFromProps` define செய்தால், initial mount-இலும் subsequent updates-இலும் [`render`](#render) call செய்வதற்கு உடனடியாக முன் React அதை call செய்யும். State update செய்ய object ஒன்றையோ, எதையும் update செய்ய வேண்டாம் எனில் `null`-ஐயோ return செய்ய வேண்டும்.
 
-This method exists for [rare use cases](https://legacy.reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html#when-to-use-derived-state) where the state depends on changes in props over time. For example, this `Form` component resets the `email` state when the `userID` prop changes:
+State காலப்போக்கில் props changes-ஐ depend செய்யும் [அரிதான use cases](https://legacy.reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html#when-to-use-derived-state)-க்காக இந்த method உள்ளது. உதாரணமாக, `userID` prop மாறும்போது இந்த `Form` component `email` state-ஐ reset செய்கிறது:
 
 ```js {7-18}
 class Form extends Component {
@@ -986,15 +986,15 @@ class Form extends Component {
 }
 ```
 
-Note that this pattern requires you to keep a previous value of the prop (like `userID`) in state (like `prevUserID`).
+இந்த pattern, prop-ன் previous value ஒன்றை (`userID` போன்றது) state-இல் (`prevUserID` போன்றது) வைத்திருக்க வேண்டும் என்பதை கவனிக்கவும்.
 
 <Pitfall>
 
-Deriving state leads to verbose code and makes your components difficult to think about. [Make sure you're familiar with simpler alternatives:](https://legacy.reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html)
+State derive செய்வது verbose code-க்கு வழிவகுக்கும்; உங்கள் components பற்றி சிந்திப்பதை கடினமாக்கும். [நேரடியான alternatives உங்களுக்கு தெரிந்திருக்கிறதா என்பதை உறுதி செய்யுங்கள்:](https://legacy.reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html)
 
-- If you need to **perform a side effect** (for example, data fetching or an animation) in response to a change in props, use [`componentDidUpdate`](#componentdidupdate) method instead.
+- Props-இல் change-க்கு response ஆக **side effect செய்ய** வேண்டுமெனில் (உதாரணமாக data fetching அல்லது animation), அதற்கு பதிலாக [`componentDidUpdate`](#componentdidupdate) method use செய்யுங்கள்.
 - If you want to **re-compute some data only when a prop changes,** [use a memoization helper instead.](https://legacy.reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html#what-about-memoization)
-- If you want to **"reset" some state when a prop changes,** consider either making a component [fully controlled](https://legacy.reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html#recommendation-fully-controlled-component) or [fully uncontrolled with a key](https://legacy.reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html#recommendation-fully-uncontrolled-component-with-a-key) instead.
+- Prop மாறும்போது **சில state-ஐ "reset" செய்ய** வேண்டுமெனில், component-ஐ [fully controlled](https://legacy.reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html#recommendation-fully-controlled-component) ஆக்கவோ அல்லது [key உடன் fully uncontrolled](https://legacy.reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html#recommendation-fully-uncontrolled-component-with-a-key) ஆக்கவோ consider செய்யுங்கள்.
 
 </Pitfall>
 
@@ -1009,13 +1009,13 @@ Deriving state leads to verbose code and makes your components difficult to thin
 
 #### Caveats {/*static-getderivedstatefromprops-caveats*/}
 
-- This method is fired on *every* render, regardless of the cause. This is different from [`UNSAFE_componentWillReceiveProps`](#unsafe_cmoponentwillreceiveprops), which only fires when the parent causes a re-render and not as a result of a local `setState`.
+- இந்த method cause எதுவாக இருந்தாலும் *ஒவ்வொரு* render-இலும் fired ஆகும். Parent re-render ஏற்படுத்தும் போது மட்டும் fire ஆகும், local `setState` காரணமாக அல்லாத [`UNSAFE_componentWillReceiveProps`](#unsafe_cmoponentwillreceiveprops)-இலிருந்து இது வேறுபடும்.
 
-- This method doesn't have access to the component instance. If you'd like, you can reuse some code between `static getDerivedStateFromProps` and the other class methods by extracting pure functions of the component props and state outside the class definition.
+- இந்த method component instance-க்கு access இல்லை. விரும்பினால், component props மற்றும் state-ன் pure functions-ஐ class definition-க்கு வெளியே extract செய்வதன் மூலம் `static getDerivedStateFromProps` மற்றும் மற்ற class methods இடையே சில code reuse செய்யலாம்.
 
 <Note>
 
-Implementing `static getDerivedStateFromProps` in a class component is equivalent to [calling the `set` function from `useState` during rendering](/reference/react/useState#storing-information-from-previous-renders) in a function component.
+Class component-இல் `static getDerivedStateFromProps` implement செய்வது function component-இல் [rendering போது `useState`-இலிருந்து `set` function call செய்வதற்கு](/reference/react/useState#storing-information-from-previous-renders) equivalent.
 
 </Note>
 
@@ -1025,21 +1025,21 @@ Implementing `static getDerivedStateFromProps` in a class component is equivalen
 
 ### Defining a class component {/*defining-a-class-component*/}
 
-To define a React component as a class, extend the built-in `Component` class and define a [`render` method:](#render)
+React component ஒன்றை class ஆக define செய்ய, built-in `Component` class-ஐ extend செய்து [`render` method](#render) define செய்யுங்கள்:
 
 ```js
 import { Component } from 'react';
 
 class Greeting extends Component {
   render() {
-    return <h1>Hello, {this.props.name}!</h1>;
+    return <h1>வணக்கம், {this.props.name}!</h1>;
   }
 }
 ```
 
-React will call your [`render`](#render) method whenever it needs to figure out what to display on the screen. Usually, you will return some [JSX](/learn/writing-markup-with-jsx) from it. Your `render` method should be a [pure function:](https://en.wikipedia.org/wiki/Pure_function) it should only calculate the JSX.
+Screen-இல் என்ன display செய்ய வேண்டும் என்பதை தெரிந்துகொள்ள வேண்டிய ஒவ்வொரு முறையும் React உங்கள் [`render`](#render) method-ஐ call செய்யும். பொதுவாக, அதிலிருந்து சில [JSX](/learn/writing-markup-with-jsx) return செய்வீர்கள். உங்கள் `render` method [pure function](https://en.wikipedia.org/wiki/Pure_function) ஆக இருக்க வேண்டும்: அது JSX-ஐ மட்டும் calculate செய்ய வேண்டும்.
 
-Similarly to [function components,](/learn/your-first-component#defining-a-component) a class component can [receive information by props](/learn/your-first-component#defining-a-component) from its parent component. However, the syntax for reading props is different. For example, if the parent component renders `<Greeting name="Taylor" />`, then you can read the `name` prop from [`this.props`](#props), like `this.props.name`:
+[Function components](/learn/your-first-component#defining-a-component) போலவே, class component தனது parent component-இலிருந்து [props மூலம் information receive செய்யலாம்](/learn/your-first-component#defining-a-component). ஆனால் props read செய்யும் syntax வேறுபடும். உதாரணமாக, parent component `<Greeting name="Taylor" />` render செய்தால், `name` prop-ஐ [`this.props`](#props)-இலிருந்து `this.props.name` போல read செய்யலாம்:
 
 <Sandpack>
 
@@ -1048,7 +1048,7 @@ import { Component } from 'react';
 
 class Greeting extends Component {
   render() {
-    return <h1>Hello, {this.props.name}!</h1>;
+    return <h1>வணக்கம், {this.props.name}!</h1>;
   }
 }
 
@@ -1065,11 +1065,11 @@ export default function App() {
 
 </Sandpack>
 
-Note that Hooks (functions starting with `use`, like [`useState`](/reference/react/useState)) are not supported inside class components.
+[`useState`](/reference/react/useState) போன்ற `use`-ஆல் தொடங்கும் functions ஆன Hooks class components-க்குள் supported அல்ல என்பதை கவனிக்கவும்.
 
 <Pitfall>
 
-We recommend defining components as functions instead of classes. [See how to migrate.](#migrating-a-simple-component-from-a-class-to-a-function)
+Components-ஐ classes-க்கு பதிலாக functions ஆக define செய்ய பரிந்துரைக்கிறோம். [Migrate செய்வது எப்படி என்பதை பார்க்கவும்.](#migrating-a-simple-component-from-a-class-to-a-function)
 
 </Pitfall>
 
@@ -1077,7 +1077,7 @@ We recommend defining components as functions instead of classes. [See how to mi
 
 ### Adding state to a class component {/*adding-state-to-a-class-component*/}
 
-To add [state](/learn/state-a-components-memory) to a class, assign an object to a property called [`state`](#state). To update state, call [`this.setState`](#setstate).
+Class-க்கு [state](/learn/state-a-components-memory) add செய்ய, [`state`](#state) என்ற property-க்கு object assign செய்யுங்கள். State update செய்ய [`this.setState`](#setstate) call செய்யுங்கள்.
 
 <Sandpack>
 
@@ -1110,9 +1110,9 @@ export default class Counter extends Component {
           onChange={this.handleNameChange}
         />
         <button onClick={this.handleAgeChange}>
-          Increment age
+          வயதை அதிகரி
         </button>
-        <p>Hello, {this.state.name}. You are {this.state.age}.</p>
+        <p>வணக்கம், {this.state.name}. உங்கள் வயது {this.state.age}.</p>
       </>
     );
   }
@@ -1127,21 +1127,21 @@ button { display: block; margin-top: 10px; }
 
 <Pitfall>
 
-We recommend defining components as functions instead of classes. [See how to migrate.](#migrating-a-component-with-state-from-a-class-to-a-function)
+Components-ஐ classes-க்கு பதிலாக functions ஆக define செய்ய பரிந்துரைக்கிறோம். [Migrate செய்வது எப்படி என்பதை பார்க்கவும்.](#migrating-a-component-with-state-from-a-class-to-a-function)
 
 </Pitfall>
 
 ---
 
-### Adding lifecycle methods to a class component {/*adding-lifecycle-methods-to-a-class-component*/}
+### Class component-க்கு lifecycle methods சேர்த்தல் {/*adding-lifecycle-methods-to-a-class-component*/}
 
-There are a few special methods you can define on your class.
+உங்கள் class-இல் define செய்யக்கூடிய சில special methods உள்ளன.
 
-If you define the [`componentDidMount`](#componentdidmount) method, React will call it when your component is added *(mounted)* to the screen. React will call [`componentDidUpdate`](#componentdidupdate) after your component re-renders due to changed props or state. React will call [`componentWillUnmount`](#componentwillunmount) after your component has been removed *(unmounted)* from the screen.
+நீங்கள் [`componentDidMount`](#componentdidmount) method define செய்தால், உங்கள் component screen-க்கு add *(mounted)* ஆகும்போது React அதை call செய்யும். Props அல்லது state மாறியதால் உங்கள் component re-render ஆன பிறகு React [`componentDidUpdate`](#componentdidupdate)-ஐ call செய்யும். உங்கள் component screen-இலிருந்து remove *(unmounted)* ஆன பிறகு React [`componentWillUnmount`](#componentwillunmount)-ஐ call செய்யும்.
 
-If you implement `componentDidMount`, you usually need to implement all three lifecycles to avoid bugs. For example, if `componentDidMount` reads some state or props, you also have to implement `componentDidUpdate` to handle their changes, and `componentWillUnmount` to clean up whatever `componentDidMount` was doing.
+`componentDidMount` implement செய்தால், bugs தவிர்க்க பொதுவாக மூன்று lifecycles அனைத்தையும் implement செய்ய வேண்டும். உதாரணமாக, `componentDidMount` சில state அல்லது props read செய்தால், அவற்றின் changes handle செய்ய `componentDidUpdate`-ஐயும், `componentDidMount` செய்ததை clean up செய்ய `componentWillUnmount`-ஐயும் implement செய்ய வேண்டும்.
 
-For example, this `ChatRoom` component keeps a chat connection synchronized with props and state:
+உதாரணமாக, இந்த `ChatRoom` component props மற்றும் state உடன் chat connection-ஐ synchronized ஆக வைத்திருக்கிறது:
 
 <Sandpack>
 
@@ -1155,18 +1155,18 @@ export default function App() {
   return (
     <>
       <label>
-        Choose the chat room:{' '}
+        Chat room-ஐ தேர்வு செய்க:{' '}
         <select
           value={roomId}
           onChange={e => setRoomId(e.target.value)}
         >
-          <option value="general">general</option>
-          <option value="travel">travel</option>
-          <option value="music">music</option>
+          <option value="general">பொது</option>
+          <option value="travel">பயணம்</option>
+          <option value="music">இசை</option>
         </select>
       </label>
       <button onClick={() => setShow(!show)}>
-        {show ? 'Close chat' : 'Open chat'}
+        {show ? 'Chat-ஐ மூடு' : 'Chat-ஐ திற'}
       </button>
       {show && <hr />}
       {show && <ChatRoom roomId={roomId} />}
@@ -1229,7 +1229,7 @@ export default class ChatRoom extends Component {
             }}
           />
         </label>
-        <h1>Welcome to the {this.props.roomId} room!</h1>
+        <h1>{this.props.roomId} அறைக்கு வரவேற்கிறோம்!</h1>
       </>
     );
   }
@@ -1241,10 +1241,10 @@ export function createConnection(serverUrl, roomId) {
   // A real implementation would actually connect to the server
   return {
     connect() {
-      console.log('✅ Connecting to "' + roomId + '" room at ' + serverUrl + '...');
+      console.log('✅ "' + roomId + '" அறைக்கு ' + serverUrl + ' இல் connect செய்கிறது...');
     },
     disconnect() {
-      console.log('❌ Disconnected from "' + roomId + '" room at ' + serverUrl);
+      console.log('❌ "' + roomId + '" அறையிலிருந்து ' + serverUrl + ' இல் disconnect ஆனது');
     }
   };
 }
@@ -1257,33 +1257,33 @@ button { margin-left: 10px; }
 
 </Sandpack>
 
-Note that in development when [Strict Mode](/reference/react/StrictMode) is on, React will call `componentDidMount`, immediately call `componentWillUnmount`, and then call `componentDidMount` again. This helps you notice if you forgot to implement `componentWillUnmount` or if its logic doesn't fully "mirror" what `componentDidMount` does.
+Development-இல் [Strict Mode](/reference/react/StrictMode) on ஆக இருந்தால், React `componentDidMount`-ஐ call செய்து, உடனே `componentWillUnmount`-ஐ call செய்து, பின்னர் `componentDidMount`-ஐ மீண்டும் call செய்யும் என்பதை கவனிக்கவும். `componentWillUnmount` implement செய்ய மறந்தீர்களா அல்லது அதன் logic `componentDidMount` செய்வதை முழுமையாக "mirror" செய்யவில்லையா என்பதை கவனிக்க இது உதவும்.
 
 <Pitfall>
 
-We recommend defining components as functions instead of classes. [See how to migrate.](#migrating-a-component-with-lifecycle-methods-from-a-class-to-a-function)
+Components-ஐ classes-க்கு பதிலாக functions ஆக define செய்ய பரிந்துரைக்கிறோம். [Migrate செய்வது எப்படி என்பதை பார்க்கவும்.](#migrating-a-component-with-lifecycle-methods-from-a-class-to-a-function)
 
 </Pitfall>
 
 ---
 
-### Catching rendering errors with an Error Boundary {/*catching-rendering-errors-with-an-error-boundary*/}
+### Error Boundary மூலம் rendering errors catch செய்தல் {/*catching-rendering-errors-with-an-error-boundary*/}
 
-By default, if your application throws an error during rendering, React will remove its UI from the screen. To prevent this, you can wrap a part of your UI into an *Error Boundary*. An Error Boundary is a special component that lets you display some fallback UI instead of the part that crashed--for example, an error message.
+Default ஆக, உங்கள் application rendering போது error throw செய்தால், React அதன் UI-ஐ screen-இலிருந்து remove செய்யும். இதைத் தடுக்க, உங்கள் UI-ன் ஒரு பகுதியை *Error Boundary* ஒன்றில் wrap செய்யலாம். Error Boundary என்பது crashed ஆன பகுதியின் பதிலாக சில fallback UI-ஐ, உதாரணமாக error message-ஐ, display செய்ய அனுமதிக்கும் special component.
 
 <Note>
-Error boundaries do not catch errors for:
+Error boundaries பின்வற்றுக்கான errors-ஐ catch செய்யாது:
 
-- Event handlers [(learn more)](/learn/responding-to-events)
+- Event handlers [(மேலும் அறிக)](/learn/responding-to-events)
 - [Server side rendering](/reference/react-dom/server)
-- Errors thrown in the error boundary itself (rather than its children)
-- Asynchronous code (e.g. `setTimeout` or `requestAnimationFrame` callbacks); an exception is the usage of the [`startTransition`](/reference/react/useTransition#starttransition) function returned by the [`useTransition`](/reference/react/useTransition) Hook. Errors thrown inside the transition function are caught by error boundaries [(learn more)](/reference/react/useTransition#displaying-an-error-to-users-with-error-boundary)
+- Error boundary-யிலேயே throw செய்யப்பட்ட errors (அதன் children அல்ல)
+- Asynchronous code (எ.கா. `setTimeout` அல்லது `requestAnimationFrame` callbacks); இதற்கு exception: [`useTransition`](/reference/react/useTransition) Hook return செய்யும் [`startTransition`](/reference/react/useTransition#starttransition) function-ன் usage. Transition function-க்குள் throw செய்யப்படும் errors error boundaries மூலம் catch செய்யப்படும் [(மேலும் அறிக)](/reference/react/useTransition#displaying-an-error-to-users-with-error-boundary)
 
 </Note>
 
-To implement an Error Boundary component, you need to provide [`static getDerivedStateFromError`](#static-getderivedstatefromerror) which lets you update state in response to an error and display an error message to the user. You can also optionally implement [`componentDidCatch`](#componentdidcatch) to add some extra logic, for example, to log the error to an analytics service.
+Error Boundary component implement செய்ய, error-க்கு response ஆக state update செய்து user-க்கு error message display செய்ய அனுமதிக்கும் [`static getDerivedStateFromError`](#static-getderivedstatefromerror)-ஐ provide செய்ய வேண்டும். கூடுதல் logic சேர்க்க, உதாரணமாக error-ஐ analytics service-க்கு log செய்ய, optional ஆக [`componentDidCatch`](#componentdidcatch)-ஐயும் implement செய்யலாம்.
 
-With [`captureOwnerStack`](/reference/react/captureOwnerStack) you can include the Owner Stack during development.
+[`captureOwnerStack`](/reference/react/captureOwnerStack) மூலம் development போது Owner Stack-ஐ include செய்யலாம்.
 
 ```js {9-12,14-27}
 import * as React from 'react';
@@ -1324,21 +1324,21 @@ class ErrorBoundary extends React.Component {
 }
 ```
 
-Then you can wrap a part of your component tree with it:
+பிறகு உங்கள் component tree-ன் ஒரு பகுதியை அதனால் wrap செய்யலாம்:
 
 ```js {1,3}
-<ErrorBoundary fallback={<p>Something went wrong</p>}>
+<ErrorBoundary fallback={<p>ஏதோ தவறு நடந்தது</p>}>
   <Profile />
 </ErrorBoundary>
 ```
 
-If `Profile` or its child component throws an error, `ErrorBoundary` will "catch" that error, display a fallback UI with the error message you've provided, and send a production error report to your error reporting service.
+`Profile` அல்லது அதன் child component error throw செய்தால், `ErrorBoundary` அந்த error-ஐ "catch" செய்து, நீங்கள் provided செய்த error message உடன் fallback UI display செய்து, production error report-ஐ உங்கள் error reporting service-க்கு send செய்யும்.
 
-You don't need to wrap every component into a separate Error Boundary. When you think about the [granularity of Error Boundaries,](https://www.brandondail.com/posts/fault-tolerance-react) consider where it makes sense to display an error message. For example, in a messaging app, it makes sense to place an Error Boundary around the list of conversations. It also makes sense to place one around every individual message. However, it wouldn't make sense to place a boundary around every avatar.
+ஒவ்வொரு component-ஐயும் தனி Error Boundary-இல் wrap செய்ய வேண்டியதில்லை. [Error Boundaries-ன் granularity](https://www.brandondail.com/posts/fault-tolerance-react) பற்றி சிந்திக்கும் போது, error message display செய்வது எங்கே பொருத்தமுள்ளதாக இருக்கும் என்பதை consider செய்யுங்கள். உதாரணமாக, messaging app-இல் conversations list சுற்றி Error Boundary வைப்பது பொருத்தம். ஒவ்வொரு individual message-ஐச் சுற்றியும் ஒன்று வைப்பதும் பொருத்தம். ஆனால் ஒவ்வொரு avatar-ஐச் சுற்றியும் boundary வைப்பது பொருத்தமல்ல.
 
 <Note>
 
-There is currently no way to write an Error Boundary as a function component. However, you don't have to write the Error Boundary class yourself. For example, you can use [`react-error-boundary`](https://github.com/bvaughn/react-error-boundary) instead.
+தற்போது Error Boundary-ஐ function component ஆக எழுத வழி இல்லை. ஆனால் Error Boundary class-ஐ நீங்களே எழுத வேண்டியதில்லை. உதாரணமாக, அதற்கு பதிலாக [`react-error-boundary`](https://github.com/bvaughn/react-error-boundary) use செய்யலாம்.
 
 </Note>
 
@@ -1346,11 +1346,11 @@ There is currently no way to write an Error Boundary as a function component. Ho
 
 ## Alternatives {/*alternatives*/}
 
-### Migrating a simple component from a class to a function {/*migrating-a-simple-component-from-a-class-to-a-function*/}
+### Simple component-ஐ class-இலிருந்து function-க்கு migrate செய்தல் {/*migrating-a-simple-component-from-a-class-to-a-function*/}
 
-Typically, you will [define components as functions](/learn/your-first-component#defining-a-component) instead.
+பொதுவாக, அதற்கு பதிலாக [components-ஐ functions ஆக define செய்வீர்கள்](/learn/your-first-component#defining-a-component).
 
-For example, suppose you're converting this `Greeting` class component to a function:
+உதாரணமாக, இந்த `Greeting` class component-ஐ function-ஆக convert செய்கிறீர்கள் என வைத்துக்கொள்ளுங்கள்:
 
 <Sandpack>
 
@@ -1359,7 +1359,7 @@ import { Component } from 'react';
 
 class Greeting extends Component {
   render() {
-    return <h1>Hello, {this.props.name}!</h1>;
+    return <h1>வணக்கம், {this.props.name}!</h1>;
   }
 }
 
@@ -1376,7 +1376,7 @@ export default function App() {
 
 </Sandpack>
 
-Define a function called `Greeting`. This is where you will move the body of your `render` function.
+`Greeting` என்ற function define செய்யுங்கள். உங்கள் `render` function-ன் body-ஐ இங்கே move செய்வீர்கள்.
 
 ```js
 function Greeting() {
@@ -1384,21 +1384,21 @@ function Greeting() {
 }
 ```
 
-Instead of `this.props.name`, define the `name` prop [using the destructuring syntax](/learn/passing-props-to-a-component) and read it directly:
+`this.props.name` பதிலாக, [destructuring syntax](/learn/passing-props-to-a-component) பயன்படுத்தி `name` prop-ஐ define செய்து நேரடியாக read செய்யுங்கள்:
 
 ```js
 function Greeting({ name }) {
-  return <h1>Hello, {name}!</h1>;
+  return <h1>வணக்கம், {name}!</h1>;
 }
 ```
 
-Here is a complete example:
+முழு example இதோ:
 
 <Sandpack>
 
 ```js
 function Greeting({ name }) {
-  return <h1>Hello, {name}!</h1>;
+  return <h1>வணக்கம், {name}!</h1>;
 }
 
 export default function App() {
@@ -1416,9 +1416,9 @@ export default function App() {
 
 ---
 
-### Migrating a component with state from a class to a function {/*migrating-a-component-with-state-from-a-class-to-a-function*/}
+### State கொண்ட component-ஐ class-இலிருந்து function-க்கு migrate செய்தல் {/*migrating-a-component-with-state-from-a-class-to-a-function*/}
 
-Suppose you're converting this `Counter` class component to a function:
+இந்த `Counter` class component-ஐ function-ஆக convert செய்கிறீர்கள் என வைத்துக்கொள்ளுங்கள்:
 
 <Sandpack>
 
@@ -1451,9 +1451,9 @@ export default class Counter extends Component {
           onChange={this.handleNameChange}
         />
         <button onClick={this.handleAgeChange}>
-          Increment age
+          வயதை அதிகரி
         </button>
-        <p>Hello, {this.state.name}. You are {this.state.age}.</p>
+        <p>வணக்கம், {this.state.name}. உங்கள் வயது {this.state.age}.</p>
       </>
     );
   }
@@ -1466,7 +1466,7 @@ button { display: block; margin-top: 10px; }
 
 </Sandpack>
 
-Start by declaring a function with the necessary [state variables:](/reference/react/useState#adding-state-to-a-component)
+தேவையான [state variables](/reference/react/useState#adding-state-to-a-component) உடன் function declare செய்வதிலிருந்து தொடங்குங்கள்:
 
 ```js {4-5}
 import { useState } from 'react';
@@ -1477,7 +1477,7 @@ function Counter() {
   // ...
 ```
 
-Next, convert the event handlers:
+அடுத்து, event handlers-ஐ convert செய்யுங்கள்:
 
 ```js {5-7,9-11}
 function Counter() {
@@ -1494,9 +1494,9 @@ function Counter() {
   // ...
 ```
 
-Finally, replace all references starting with `this` with the variables and functions you defined in your component. For example, replace `this.state.age` with `age`, and replace `this.handleNameChange` with `handleNameChange`.
+இறுதியாக, `this`-ஆல் தொடங்கும் references அனைத்தையும் உங்கள் component-இல் defined செய்த variables மற்றும் functions-ஆக replace செய்யுங்கள். உதாரணமாக, `this.state.age`-ஐ `age`-ஆகவும், `this.handleNameChange`-ஐ `handleNameChange`-ஆகவும் replace செய்யுங்கள்.
 
-Here is a fully converted component:
+முழுமையாக converted component இதோ:
 
 <Sandpack>
 
@@ -1522,9 +1522,9 @@ export default function Counter() {
         onChange={handleNameChange}
       />
       <button onClick={handleAgeChange}>
-        Increment age
+        வயதை அதிகரி
       </button>
-      <p>Hello, {name}. You are {age}.</p>
+      <p>வணக்கம், {name}. உங்கள் வயது {age}.</p>
     </>
   )
 }
@@ -1538,9 +1538,9 @@ button { display: block; margin-top: 10px; }
 
 ---
 
-### Migrating a component with lifecycle methods from a class to a function {/*migrating-a-component-with-lifecycle-methods-from-a-class-to-a-function*/}
+### Lifecycle methods கொண்ட component-ஐ class-இலிருந்து function-க்கு migrate செய்தல் {/*migrating-a-component-with-lifecycle-methods-from-a-class-to-a-function*/}
 
-Suppose you're converting this `ChatRoom` class component with lifecycle methods to a function:
+Lifecycle methods கொண்ட இந்த `ChatRoom` class component-ஐ function-ஆக convert செய்கிறீர்கள் என வைத்துக்கொள்ளுங்கள்:
 
 <Sandpack>
 
@@ -1554,18 +1554,18 @@ export default function App() {
   return (
     <>
       <label>
-        Choose the chat room:{' '}
+        Chat room-ஐ தேர்வு செய்க:{' '}
         <select
           value={roomId}
           onChange={e => setRoomId(e.target.value)}
         >
-          <option value="general">general</option>
-          <option value="travel">travel</option>
-          <option value="music">music</option>
+          <option value="general">பொது</option>
+          <option value="travel">பயணம்</option>
+          <option value="music">இசை</option>
         </select>
       </label>
       <button onClick={() => setShow(!show)}>
-        {show ? 'Close chat' : 'Open chat'}
+        {show ? 'Chat-ஐ மூடு' : 'Chat-ஐ திற'}
       </button>
       {show && <hr />}
       {show && <ChatRoom roomId={roomId} />}
@@ -1628,7 +1628,7 @@ export default class ChatRoom extends Component {
             }}
           />
         </label>
-        <h1>Welcome to the {this.props.roomId} room!</h1>
+        <h1>{this.props.roomId} அறைக்கு வரவேற்கிறோம்!</h1>
       </>
     );
   }
@@ -1640,10 +1640,10 @@ export function createConnection(serverUrl, roomId) {
   // A real implementation would actually connect to the server
   return {
     connect() {
-      console.log('✅ Connecting to "' + roomId + '" room at ' + serverUrl + '...');
+      console.log('✅ "' + roomId + '" அறைக்கு ' + serverUrl + ' இல் connect செய்கிறது...');
     },
     disconnect() {
-      console.log('❌ Disconnected from "' + roomId + '" room at ' + serverUrl);
+      console.log('❌ "' + roomId + '" அறையிலிருந்து ' + serverUrl + ' இல் disconnect ஆனது');
     }
   };
 }
@@ -1656,11 +1656,11 @@ button { margin-left: 10px; }
 
 </Sandpack>
 
-First, verify that your [`componentWillUnmount`](#componentwillunmount) does the opposite of [`componentDidMount`.](#componentdidmount) In the above example, that's true: it disconnects the connection that `componentDidMount` sets up. If such logic is missing, add it first.
+முதலில், உங்கள் [`componentWillUnmount`](#componentwillunmount), [`componentDidMount`](#componentdidmount) செய்வதற்கு opposite ஆக செய்கிறதா என்பதை verify செய்யுங்கள். மேலுள்ள example-இல் அது உண்மை: `componentDidMount` set up செய்யும் connection-ஐ அது disconnect செய்கிறது. அத்தகைய logic missing என்றால், அதை முதலில் சேர்க்கவும்.
 
-Next, verify that your [`componentDidUpdate`](#componentdidupdate) method handles changes to any props and state you're using in `componentDidMount`. In the above example, `componentDidMount` calls `setupConnection` which reads `this.state.serverUrl` and `this.props.roomId`. This is why `componentDidUpdate` checks whether `this.state.serverUrl` and `this.props.roomId` have changed, and resets the connection if they did. If your `componentDidUpdate` logic is missing or doesn't handle changes to all relevant props and state, fix that first.
+அடுத்து, `componentDidMount`-இல் use செய்யும் props மற்றும் state-இல் ஏதாவது changes-ஐ உங்கள் [`componentDidUpdate`](#componentdidupdate) method handle செய்கிறதா என்பதை verify செய்யுங்கள். மேலுள்ள example-இல், `componentDidMount` `setupConnection` call செய்கிறது; அது `this.state.serverUrl` மற்றும் `this.props.roomId` read செய்கிறது. அதனால்தான் `componentDidUpdate`, `this.state.serverUrl` மற்றும் `this.props.roomId` மாறியுள்ளதா என்று check செய்து, மாறியிருந்தால் connection-ஐ reset செய்கிறது. உங்கள் `componentDidUpdate` logic missing அல்லது relevant props மற்றும் state அனைத்தின் changes-ஐ handle செய்யவில்லை என்றால், அதை முதலில் fix செய்யுங்கள்.
 
-In the above example, the logic inside the lifecycle methods connects the component to a system outside of React (a chat server). To connect a component to an external system, [describe this logic as a single Effect:](/reference/react/useEffect#connecting-to-an-external-system)
+மேலுள்ள example-இல், lifecycle methods-க்குள் உள்ள logic component-ஐ React-க்கு வெளியே உள்ள system ஒன்றுக்கு (chat server) connect செய்கிறது. Component-ஐ external system-க்கு connect செய்ய, [இந்த logic-ஐ single Effect ஆக describe செய்யுங்கள்:](/reference/react/useEffect#connecting-to-an-external-system)
 
 ```js {6-12}
 import { useState, useEffect } from 'react';
@@ -1680,7 +1680,7 @@ function ChatRoom({ roomId }) {
 }
 ```
 
-This [`useEffect`](/reference/react/useEffect) call is equivalent to the logic in the lifecycle methods above. If your lifecycle methods do multiple unrelated things, [split them into multiple independent Effects.](/learn/removing-effect-dependencies#is-your-effect-doing-several-unrelated-things) Here is a complete example you can play with:
+இந்த [`useEffect`](/reference/react/useEffect) call மேலுள்ள lifecycle methods-இல் உள்ள logic-க்கு equivalent. உங்கள் lifecycle methods பல unrelated விஷயங்களைச் செய்தால், [அவற்றை பல independent Effects-ஆக split செய்யுங்கள்.](/learn/removing-effect-dependencies#is-your-effect-doing-several-unrelated-things) பயன்படுத்திப் பார்க்கக்கூடிய முழு example இதோ:
 
 <Sandpack>
 
@@ -1694,18 +1694,18 @@ export default function App() {
   return (
     <>
       <label>
-        Choose the chat room:{' '}
+        Chat room-ஐ தேர்வு செய்க:{' '}
         <select
           value={roomId}
           onChange={e => setRoomId(e.target.value)}
         >
-          <option value="general">general</option>
-          <option value="travel">travel</option>
-          <option value="music">music</option>
+          <option value="general">பொது</option>
+          <option value="travel">பயணம்</option>
+          <option value="music">இசை</option>
         </select>
       </label>
       <button onClick={() => setShow(!show)}>
-        {show ? 'Close chat' : 'Open chat'}
+        {show ? 'Chat-ஐ மூடு' : 'Chat-ஐ திற'}
       </button>
       {show && <hr />}
       {show && <ChatRoom roomId={roomId} />}
@@ -1738,7 +1738,7 @@ export default function ChatRoom({ roomId }) {
           onChange={e => setServerUrl(e.target.value)}
         />
       </label>
-      <h1>Welcome to the {roomId} room!</h1>
+      <h1>{roomId} அறைக்கு வரவேற்கிறோம்!</h1>
     </>
   );
 }
@@ -1749,10 +1749,10 @@ export function createConnection(serverUrl, roomId) {
   // A real implementation would actually connect to the server
   return {
     connect() {
-      console.log('✅ Connecting to "' + roomId + '" room at ' + serverUrl + '...');
+      console.log('✅ "' + roomId + '" அறைக்கு ' + serverUrl + ' இல் connect செய்கிறது...');
     },
     disconnect() {
-      console.log('❌ Disconnected from "' + roomId + '" room at ' + serverUrl);
+      console.log('❌ "' + roomId + '" அறையிலிருந்து ' + serverUrl + ' இல் disconnect ஆனது');
     }
   };
 }
@@ -1767,15 +1767,15 @@ button { margin-left: 10px; }
 
 <Note>
 
-If your component does not synchronize with any external systems, [you might not need an Effect.](/learn/you-might-not-need-an-effect)
+உங்கள் component எந்த external systems-உடனும் synchronize செய்யவில்லை என்றால், [உங்களுக்கு Effect தேவைப்படாமல் இருக்கலாம்.](/learn/you-might-not-need-an-effect)
 
 </Note>
 
 ---
 
-### Migrating a component with context from a class to a function {/*migrating-a-component-with-context-from-a-class-to-a-function*/}
+### Context கொண்ட component-ஐ class-இலிருந்து function-க்கு migrate செய்தல் {/*migrating-a-component-with-context-from-a-class-to-a-function*/}
 
-In this example, the `Panel` and `Button` class components read [context](/learn/passing-data-deeply-with-context) from [`this.context`:](#context)
+இந்த example-இல், `Panel` மற்றும் `Button` class components [`this.context`](#context)-இலிருந்து [context](/learn/passing-data-deeply-with-context) read செய்கின்றன:
 
 <Sandpack>
 
@@ -1815,9 +1815,9 @@ class Button extends Component {
 
 function Form() {
   return (
-    <Panel title="Welcome">
-      <Button>Sign up</Button>
-      <Button>Log in</Button>
+    <Panel title="வரவேற்கிறோம்">
+      <Button>பதிவு செய்</Button>
+      <Button>உள்நுழை</Button>
     </Panel>
   );
 }
@@ -1869,7 +1869,7 @@ export default function MyApp() {
 
 </Sandpack>
 
-When you convert them to function components, replace `this.context` with [`useContext`](/reference/react/useContext) calls:
+அவற்றை function components-ஆக convert செய்யும்போது, `this.context`-ஐ [`useContext`](/reference/react/useContext) calls-ஆக replace செய்யுங்கள்:
 
 <Sandpack>
 
@@ -1901,9 +1901,9 @@ function Button({ children }) {
 
 function Form() {
   return (
-    <Panel title="Welcome">
-      <Button>Sign up</Button>
-      <Button>Log in</Button>
+    <Panel title="வரவேற்கிறோம்">
+      <Button>பதிவு செய்</Button>
+      <Button>உள்நுழை</Button>
     </Panel>
   );
 }

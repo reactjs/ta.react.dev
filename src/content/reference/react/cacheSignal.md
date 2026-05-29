@@ -4,13 +4,13 @@ title: cacheSignal
 
 <RSC>
 
-`cacheSignal` is currently only used with [React Server Components](/blog/2023/03/22/react-labs-what-we-have-been-working-on-march-2023#react-server-components).
+`cacheSignal` தற்போது [React Server Components](/blog/2023/03/22/react-labs-what-we-have-been-working-on-march-2023#react-server-components)-உடன் மட்டுமே பயன்படுத்தப்படுகிறது.
 
 </RSC>
 
 <Intro>
 
-`cacheSignal` allows you to know when the `cache()` lifetime is over.
+`cache()` lifetime முடிந்தது எப்போது என்பதை அறிய `cacheSignal` அனுமதிக்கிறது.
 
 ```js
 const signal = cacheSignal();
@@ -26,7 +26,7 @@ const signal = cacheSignal();
 
 ### `cacheSignal` {/*cachesignal*/}
 
-Call `cacheSignal` to get an `AbortSignal`.
+`AbortSignal` பெற `cacheSignal`-ஐ அழைக்கவும்.
 
 ```js {3,7}
 import {cacheSignal} from 'react';
@@ -35,32 +35,32 @@ async function Component() {
 }
 ```
 
-When React has finished rendering, the `AbortSignal` will be aborted. This allows you to cancel any in-flight work that is no longer needed.
-Rendering is considered finished when:
-- React has successfully completed rendering
-- the render was aborted
-- the render has failed
+React rendering முடித்ததும், `AbortSignal` abort செய்யப்படும். இனி தேவையில்லாத in-flight work-ஐ cancel செய்ய இது அனுமதிக்கிறது.
+பின்வரும் நேரங்களில் rendering முடிந்ததாக கருதப்படும்:
+- React rendering-ஐ வெற்றிகரமாக முடித்தது
+- Render abort செய்யப்பட்டது
+- Render தோல்வியடைந்தது
 
 #### Parameters {/*parameters*/}
 
-This function does not accept any parameters.
+இந்த function எந்த parameters-யும் ஏற்காது.
 
 #### Returns {/*returns*/}
 
-`cacheSignal` returns an `AbortSignal` if called during rendering. Otherwise `cacheSignal()` returns `null`.
+Rendering நடக்கும் போது அழைத்தால் `cacheSignal` ஒரு `AbortSignal` return செய்யும். இல்லையெனில் `cacheSignal()` `null` return செய்யும்.
 
 #### Caveats {/*caveats*/}
 
-- `cacheSignal` is currently for use in [React Server Components](/reference/rsc/server-components) only. In Client Components, it will always return `null`. In the future it will also be used for Client Component when a client cache refreshes or invalidates. You should not assume it'll always be null on the client.
-- If called outside of rendering, `cacheSignal` will return `null` to make it clear that the current scope isn't cached forever.
+- `cacheSignal` தற்போது [React Server Components](/reference/rsc/server-components)-இல் மட்டுமே பயன்படுத்தப்பட உள்ளது. Client Components-இல் இது எப்போதும் `null` return செய்யும். எதிர்காலத்தில், client cache refresh அல்லது invalidate ஆகும் போது Client Component-க்கும் இது பயன்படுத்தப்படும். Client-இல் இது எப்போதும் null தான் என்று நீங்கள் கருதக்கூடாது.
+- Rendering-க்கு வெளியே அழைத்தால், தற்போதைய scope நிரந்தரமாக cached இல்லை என்பதை தெளிவாக்க `cacheSignal` `null` return செய்யும்.
 
 ---
 
 ## Usage {/*usage*/}
 
-### Cancel in-flight requests {/*cancel-in-flight-requests*/}
+### In-flight requests-ஐ cancel செய்தல் {/*cancel-in-flight-requests*/}
 
-Call <CodeStep step={1}>`cacheSignal`</CodeStep> to abort in-flight requests.
+In-flight requests-ஐ abort செய்ய <CodeStep step={1}>`cacheSignal`</CodeStep>-ஐ அழைக்கவும்.
 
 ```js [[1, 4, "cacheSignal()"]]
 import {cache, cacheSignal} from 'react';
@@ -71,7 +71,7 @@ async function Component() {
 ```
 
 <Pitfall>
-You can't use `cacheSignal` to abort async work that was started outside of rendering e.g.
+Rendering-க்கு வெளியே தொடங்கப்பட்ட async work-ஐ abort செய்ய `cacheSignal`-ஐப் பயன்படுத்த முடியாது. உதாரணமாக:
 
 ```js
 import {cacheSignal} from 'react';
@@ -83,9 +83,9 @@ async function Component() {
 ```
 </Pitfall>
 
-### Ignore errors after React has finished rendering {/*ignore-errors-after-react-has-finished-rendering*/}
+### React rendering முடித்த பிறகு errors-ஐ புறக்கணித்தல் {/*ignore-errors-after-react-has-finished-rendering*/}
 
-If a function throws, it may be due to cancellation (e.g. <CodeStep step={1}>the Database connection</CodeStep> has been closed). You can use the <CodeStep step={2}>`aborted` property</CodeStep> to check if the error was due to cancellation or a real error. You may want to <CodeStep step={3}>ignore errors</CodeStep> that were due to cancellation.
+ஒரு function throw செய்தால், அது cancellation காரணமாக இருக்கலாம் (உதா. <CodeStep step={1}>Database connection</CodeStep> மூடப்பட்டுள்ளது). Error cancellation காரணமா அல்லது உண்மையான error-ஆ என்பதைச் சரிபார்க்க <CodeStep step={2}>`aborted` property</CodeStep>-ஐப் பயன்படுத்தலாம். Cancellation காரணமாக ஏற்பட்ட <CodeStep step={3}>errors-ஐ புறக்கணிக்க</CodeStep> நீங்கள் விரும்பலாம்.
 
 ```js [[1, 2, "./database"], [2, 8, "cacheSignal()?.aborted"], [3, 12, "return null"]]
 import {cacheSignal} from "react";

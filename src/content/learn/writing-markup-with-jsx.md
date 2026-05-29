@@ -1,34 +1,34 @@
 ---
-title: Writing Markup with JSX
+title: JSX உடன் markup எழுதுதல்
 ---
 
 <Intro>
 
-*JSX* is a syntax extension for JavaScript that lets you write HTML-like markup inside a JavaScript file. Although there are other ways to write components, most React developers prefer the conciseness of JSX, and most codebases use it.
+*JSX* என்பது JavaScript file உள்ளே HTML போல இருக்கும் markup எழுத அனுமதிக்கும் JavaScript-க்கான syntax extension. Components எழுத வேறு வழிகளும் இருந்தாலும், பெரும்பாலான React developers JSX-ன் conciseness-ஐ விரும்புகிறார்கள்; பெரும்பாலான codebases அதைப் பயன்படுத்துகின்றன.
 
 </Intro>
 
 <YouWillLearn>
 
-* Why React mixes markup with rendering logic
-* How JSX is different from HTML
-* How to display information with JSX
+* React ஏன் markup-ஐ rendering logic உடன் mix செய்கிறது
+* JSX, HTML-இலிருந்து எப்படி வேறுபடுகிறது
+* JSX மூலம் தகவலை எப்படி display செய்வது
 
 </YouWillLearn>
 
-## JSX: Putting markup into JavaScript {/*jsx-putting-markup-into-javascript*/}
+## JSX: Markup-ஐ JavaScript-க்குள் வைப்பது {/*jsx-putting-markup-into-javascript*/}
 
-The Web has been built on HTML, CSS, and JavaScript. For many years, web developers kept content in HTML, design in CSS, and logic in JavaScript—often in separate files! Content was marked up inside HTML while the page's logic lived separately in JavaScript:
+Web, HTML, CSS, மற்றும் JavaScript மேல் build செய்யப்பட்டுள்ளது. பல ஆண்டுகளாக, web developers content-ஐ HTML-இல், design-ஐ CSS-இல், logic-ஐ JavaScript-இல் வைத்தனர் - பெரும்பாலும் தனித்தனி files-இல்! Page-ன் logic JavaScript-இல் தனியாக இருந்தபோது, content HTML உள்ளே marked up செய்யப்பட்டது:
 
 <DiagramGroup>
 
-<Diagram name="writing_jsx_html" height={237} width={325} alt="HTML markup with purple background and a div with two child tags: p and form. ">
+<Diagram name="writing_jsx_html" height={237} width={325} alt="Purple background உடன் HTML markup; இரண்டு child tags கொண்ட div: p மற்றும் form. ">
 
 HTML
 
 </Diagram>
 
-<Diagram name="writing_jsx_js" height={237} width={325} alt="Three JavaScript handlers with yellow background: onSubmit, onLogin, and onClick.">
+<Diagram name="writing_jsx_js" height={237} width={325} alt="Yellow background உடன் மூன்று JavaScript handlers: onSubmit, onLogin, மற்றும் onClick.">
 
 JavaScript
 
@@ -36,17 +36,17 @@ JavaScript
 
 </DiagramGroup>
 
-But as the Web became more interactive, logic increasingly determined content. JavaScript was in charge of the HTML! This is why **in React, rendering logic and markup live together in the same place—components.**
+ஆனால் Web மேலும் interactive ஆனபோது, content-ஐ logic அதிகமாக determine செய்தது. HTML-ன் பொறுப்பை JavaScript எடுத்துக்கொண்டது! இதனால் தான் **React-இல், rendering logic மற்றும் markup ஒரே இடமான components-இல் சேர்ந்து வாழ்கின்றன.**
 
 <DiagramGroup>
 
-<Diagram name="writing_jsx_sidebar" height={330} width={325} alt="React component with HTML and JavaScript from previous examples mixed. Function name is Sidebar which calls the function isLoggedIn, highlighted in yellow. Nested inside the function highlighted in purple is the p tag from before, and a Form tag referencing the component shown in the next diagram.">
+<Diagram name="writing_jsx_sidebar" height={330} width={325} alt="முந்தைய examples-இலிருந்து HTML மற்றும் JavaScript mix செய்யப்பட்ட React component. Function name Sidebar; அது yellow-ஆக highlighted ஆன isLoggedIn function-ஐ call செய்கிறது. Purple-ஆக highlighted ஆன function உள்ளே, முன்பிருந்த p tag மற்றும் அடுத்த diagram-இல் காட்டப்படும் component-ஐ reference செய்யும் Form tag nested ஆக உள்ளது.">
 
 `Sidebar.js` React component
 
 </Diagram>
 
-<Diagram name="writing_jsx_form" height={330} width={325} alt="React component with HTML and JavaScript from previous examples mixed. Function name is Form containing two handlers onClick and onSubmit highlighted in yellow. Following the handlers is HTML highlighted in purple. The HTML contains a form element with a nested input element, each with an onClick prop.">
+<Diagram name="writing_jsx_form" height={330} width={325} alt="முந்தைய examples-இலிருந்து HTML மற்றும் JavaScript mix செய்யப்பட்ட React component. Function name Form; அதில் onClick மற்றும் onSubmit என இரண்டு handlers yellow-ஆக highlighted. Handlers-க்கு பிறகு HTML purple-ஆக highlighted. HTML-ல் nested input element கொண்ட form element உள்ளது; ஒவ்வொன்றிலும் onClick prop உள்ளது.">
 
 `Form.js` React component
 
@@ -54,35 +54,35 @@ But as the Web became more interactive, logic increasingly determined content. J
 
 </DiagramGroup>
 
-Keeping a button's rendering logic and markup together ensures that they stay in sync with each other on every edit. Conversely, details that are unrelated, such as the button's markup and a sidebar's markup, are isolated from each other, making it safer to change either of them on their own.
+Button-ன் rendering logic மற்றும் markup ஒன்றாக இருப்பதால், ஒவ்வொரு edit-இலும் அவை ஒன்றுடன் ஒன்று sync-இல் இருக்கும். மாறாக, button-ன் markup மற்றும் sidebar-ன் markup போன்ற தொடர்பில்லாத details ஒன்றிலிருந்து ஒன்று isolated ஆக இருக்கும்; இதனால் அவற்றை தனித்தனியாக மாற்றுவது safer.
 
-Each React component is a JavaScript function that may contain some markup that React renders into the browser. React components use a syntax extension called JSX to represent that markup. JSX looks a lot like HTML, but it is a bit stricter and can display dynamic information. The best way to understand this is to convert some HTML markup to JSX markup.
+ஒவ்வொரு React component-மும் browser-இல் React render செய்யும் சில markup கொண்டிருக்கக்கூடிய JavaScript function. அந்த markup-ஐ represent செய்ய React components JSX என்ற syntax extension பயன்படுத்துகின்றன. JSX HTML போலவே தெரியும்; ஆனால் அது சிறிது strict, மேலும் dynamic information display செய்ய முடியும். இதைப் புரிந்துகொள்ள சிறந்த வழி, சில HTML markup-ஐ JSX markup-ஆக convert செய்வது.
 
 <Note>
 
-JSX and React are two separate things. They're often used together, but you *can* [use them independently](https://reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html#whats-a-jsx-transform) of each other. JSX is a syntax extension, while React is a JavaScript library.
+JSX மற்றும் React இரண்டு தனி விஷயங்கள். அவை பெரும்பாலும் ஒன்றாகப் பயன்படுத்தப்படுகின்றன; ஆனால் ஒன்றையொன்று சாராமல் [independently பயன்படுத்த முடியும்](https://reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html#whats-a-jsx-transform). JSX ஒரு syntax extension; React ஒரு JavaScript library.
 
 </Note>
 
-## Converting HTML to JSX {/*converting-html-to-jsx*/}
+## HTML-ஐ JSX-ஆக convert செய்தல் {/*converting-html-to-jsx*/}
 
-Suppose that you have some (perfectly valid) HTML:
+உங்களிடம் சில (முழுமையாக valid) HTML உள்ளது என்று வைத்துக்கொள்ளுங்கள்:
 
 ```html
-<h1>Hedy Lamarr's Todos</h1>
+<h1>Hedy Lamarr-ன் Todos</h1>
 <img
   src="https://react.dev/images/docs/scientists/yXOvdOSs.jpg"
   alt="Hedy Lamarr"
   class="photo"
 >
 <ul>
-    <li>Invent new traffic lights
-    <li>Rehearse a movie scene
-    <li>Improve the spectrum technology
+    <li>புதிய traffic lights கண்டுபிடி
+    <li>ஒரு movie scene rehearse செய்
+    <li>Spectrum technology-ஐ மேம்படுத்து
 </ul>
 ```
 
-And you want to put it into your component:
+அதை உங்கள் component-க்குள் வைக்க விரும்புகிறீர்கள்:
 
 ```js
 export default function TodoList() {
@@ -92,7 +92,7 @@ export default function TodoList() {
 }
 ```
 
-If you copy and paste it as is, it will not work:
+அப்படியே copy paste செய்தால், அது வேலை செய்யாது:
 
 
 <Sandpack>
@@ -101,16 +101,16 @@ If you copy and paste it as is, it will not work:
 export default function TodoList() {
   return (
     // This doesn't quite work!
-    <h1>Hedy Lamarr's Todos</h1>
+    <h1>Hedy Lamarr-ன் Todos</h1>
     <img
       src="https://react.dev/images/docs/scientists/yXOvdOSs.jpg"
       alt="Hedy Lamarr"
       class="photo"
     >
     <ul>
-      <li>Invent new traffic lights
-      <li>Rehearse a movie scene
-      <li>Improve the spectrum technology
+      <li>புதிய traffic lights கண்டுபிடி
+      <li>ஒரு movie scene rehearse செய்
+      <li>Spectrum technology-ஐ மேம்படுத்து
     </ul>
   );
 }
@@ -122,25 +122,25 @@ img { height: 90px }
 
 </Sandpack>
 
-This is because JSX is stricter and has a few more rules than HTML! If you read the error messages above, they'll guide you to fix the markup, or you can follow the guide below.
+இதற்குக் காரணம் JSX, HTML-ஐ விட strict; மேலும் சில கூடுதல் rules கொண்டது! மேலுள்ள error messages படித்தால், markup fix செய்ய அவை உங்களை வழிநடத்தும்; அல்லது கீழுள்ள guide-ஐ பின்பற்றலாம்.
 
 <Note>
 
-Most of the time, React's on-screen error messages will help you find where the problem is. Give them a read if you get stuck!
+பெரும்பாலான நேரங்களில், React-ன் on-screen error messages problem எங்கே உள்ளது என்று கண்டுபிடிக்க உதவும். நீங்கள் stuck ஆனால் அவற்றைப் படியுங்கள்!
 
 </Note>
 
-## The Rules of JSX {/*the-rules-of-jsx*/}
+## JSX விதிகள் {/*the-rules-of-jsx*/}
 
-### 1. Return a single root element {/*1-return-a-single-root-element*/}
+### 1. Single root element return செய்யுங்கள் {/*1-return-a-single-root-element*/}
 
-To return multiple elements from a component, **wrap them with a single parent tag.**
+Component-இலிருந்து multiple elements return செய்ய, **அவற்றை single parent tag-இல் wrap செய்யுங்கள்.**
 
-For example, you can use a `<div>`:
+உதாரணமாக, `<div>` பயன்படுத்தலாம்:
 
 ```js {1,11}
 <div>
-  <h1>Hedy Lamarr's Todos</h1>
+  <h1>Hedy Lamarr-ன் Todos</h1>
   <img
     src="https://react.dev/images/docs/scientists/yXOvdOSs.jpg"
     alt="Hedy Lamarr"
@@ -153,11 +153,11 @@ For example, you can use a `<div>`:
 ```
 
 
-If you don't want to add an extra `<div>` to your markup, you can write `<>` and `</>` instead:
+உங்கள் markup-க்கு கூடுதல் `<div>` சேர்க்க விரும்பவில்லை என்றால், அதற்கு பதிலாக `<>` மற்றும் `</>` எழுதலாம்:
 
 ```js {1,11}
 <>
-  <h1>Hedy Lamarr's Todos</h1>
+  <h1>Hedy Lamarr-ன் Todos</h1>
   <img
     src="https://react.dev/images/docs/scientists/yXOvdOSs.jpg"
     alt="Hedy Lamarr"
@@ -169,21 +169,21 @@ If you don't want to add an extra `<div>` to your markup, you can write `<>` and
 </>
 ```
 
-This empty tag is called a *[Fragment.](/reference/react/Fragment)* Fragments let you group things without leaving any trace in the browser HTML tree.
+இந்த empty tag *[Fragment](/reference/react/Fragment)* என்று அழைக்கப்படுகிறது. Browser HTML tree-இல் எந்த trace-யும் வைக்காமல் things-ஐ group செய்ய Fragments அனுமதிக்கின்றன.
 
 <DeepDive>
 
-#### Why do multiple JSX tags need to be wrapped? {/*why-do-multiple-jsx-tags-need-to-be-wrapped*/}
+#### Multiple JSX tags ஏன் wrap செய்யப்பட வேண்டும்? {/*why-do-multiple-jsx-tags-need-to-be-wrapped*/}
 
-JSX looks like HTML, but under the hood it is transformed into plain JavaScript objects. You can't return two objects from a function without wrapping them into an array. This explains why you also can't return two JSX tags without wrapping them into another tag or a Fragment.
+JSX HTML போலத் தெரியும்; ஆனால் under the hood அது plain JavaScript objects-ஆக transform செய்யப்படுகிறது. அவற்றை array-க்குள் wrap செய்யாமல் function-இலிருந்து இரண்டு objects return செய்ய முடியாது. அதனால் தான் இரண்டு JSX tags-ஐ மற்றொரு tag அல்லது Fragment-இல் wrap செய்யாமல் return செய்ய முடியாது.
 
 </DeepDive>
 
-### 2. Close all the tags {/*2-close-all-the-tags*/}
+### 2. எல்லா tags-ஐயும் close செய்யுங்கள் {/*2-close-all-the-tags*/}
 
-JSX requires tags to be explicitly closed: self-closing tags like `<img>` must become `<img />`, and wrapping tags like `<li>oranges` must be written as `<li>oranges</li>`.
+JSX-இல் tags explicit ஆக closed இருக்க வேண்டும்: `<img>` போன்ற self-closing tags `<img />` ஆக மாற வேண்டும்; `<li>oranges` போன்ற wrapping tags `<li>oranges</li>` ஆக எழுதப்பட வேண்டும்.
 
-This is how Hedy Lamarr's image and list items look closed:
+Hedy Lamarr-ன் image மற்றும் list items closed ஆக இருந்தால் இவ்வாறு தெரியும்:
 
 ```js {2-6,8-10}
 <>
@@ -193,18 +193,18 @@ This is how Hedy Lamarr's image and list items look closed:
     class="photo"
    />
   <ul>
-    <li>Invent new traffic lights</li>
-    <li>Rehearse a movie scene</li>
-    <li>Improve the spectrum technology</li>
+    <li>புதிய traffic lights கண்டுபிடி</li>
+    <li>ஒரு movie scene rehearse செய்</li>
+    <li>Spectrum technology-ஐ மேம்படுத்து</li>
   </ul>
 </>
 ```
 
-### 3. camelCase <s>all</s> most of the things! {/*3-camelcase-salls-most-of-the-things*/}
+### 3. பெரும்பாலானவற்றை camelCase செய்யுங்கள்! {/*3-camelcase-salls-most-of-the-things*/}
 
-JSX turns into JavaScript and attributes written in JSX become keys of JavaScript objects. In your own components, you will often want to read those attributes into variables. But JavaScript has limitations on variable names. For example, their names can't contain dashes or be reserved words like `class`.
+JSX JavaScript-ஆக மாறுகிறது; JSX-இல் எழுதப்பட்ட attributes JavaScript objects-ன் keys ஆக மாறுகின்றன. உங்கள் சொந்த components-இல், அந்த attributes-ஐ variables-குள் read செய்ய விரும்புவீர்கள். ஆனால் JavaScript variable names-க்கு limitations உள்ளன. உதாரணமாக, names dashes கொண்டிருக்க முடியாது; `class` போன்ற reserved words ஆகவும் இருக்க முடியாது.
 
-This is why, in React, many HTML and SVG attributes are written in camelCase. For example, instead of `stroke-width` you use `strokeWidth`. Since `class` is a reserved word, in React you write `className` instead, named after the [corresponding DOM property](https://developer.mozilla.org/en-US/docs/Web/API/Element/className):
+இதனால் தான் React-இல் பல HTML மற்றும் SVG attributes camelCase-இல் எழுதப்படுகின்றன. உதாரணமாக, `stroke-width` பதிலாக `strokeWidth` பயன்படுத்துகிறீர்கள். `class` reserved word என்பதால், React-இல் அதற்கு பதிலாக [corresponding DOM property](https://developer.mozilla.org/en-US/docs/Web/API/Element/className)-ன் பெயரால் `className` எழுதுகிறீர்கள்:
 
 ```js {4}
 <img
@@ -214,19 +214,19 @@ This is why, in React, many HTML and SVG attributes are written in camelCase. Fo
 />
 ```
 
-You can [find all these attributes in the list of DOM component props.](/reference/react-dom/components/common) If you get one wrong, don't worry—React will print a message with a possible correction to the [browser console.](https://developer.mozilla.org/docs/Tools/Browser_Console)
+[DOM component props பட்டியலில் இந்த attributes அனைத்தையும் காணலாம்.](/reference/react-dom/components/common) ஒன்றை தவறாக எழுதினால் கவலைப்பட வேண்டாம் - React [browser console](https://developer.mozilla.org/docs/Tools/Browser_Console)-இல் possible correction உடன் message print செய்யும்.
 
 <Pitfall>
 
-For historical reasons, [`aria-*`](https://developer.mozilla.org/docs/Web/Accessibility/ARIA) and [`data-*`](https://developer.mozilla.org/docs/Learn/HTML/Howto/Use_data_attributes) attributes are written as in HTML with dashes.
+Historical reasons காரணமாக, [`aria-*`](https://developer.mozilla.org/docs/Web/Accessibility/ARIA) மற்றும் [`data-*`](https://developer.mozilla.org/docs/Learn/HTML/Howto/Use_data_attributes) attributes HTML போலவே dashes உடன் எழுதப்படுகின்றன.
 
 </Pitfall>
 
-### Pro-tip: Use a JSX Converter {/*pro-tip-use-a-jsx-converter*/}
+### Pro-tip: JSX converter பயன்படுத்துங்கள் {/*pro-tip-use-a-jsx-converter*/}
 
-Converting all these attributes in existing markup can be tedious! We recommend using a [converter](https://transform.tools/html-to-jsx) to translate your existing HTML and SVG to JSX. Converters are very useful in practice, but it's still worth understanding what is going on so that you can comfortably write JSX on your own.
+Existing markup-இல் இந்த attributes அனைத்தையும் convert செய்வது சலிப்பாக இருக்கலாம்! உங்கள் existing HTML மற்றும் SVG-ஐ JSX-க்கு translate செய்ய [converter](https://transform.tools/html-to-jsx) பயன்படுத்த பரிந்துரைக்கிறோம். Converters நடைமுறையில் மிகவும் பயனுள்ளவை; ஆனால் என்ன நடக்கிறது என்பதைப் புரிந்துகொள்வது இன்னும் மதிப்புள்ளது, அப்போதுதான் நீங்கள் சுலபமாக உங்கள் சொந்தமாக JSX எழுத முடியும்.
 
-Here is your final result:
+இது உங்கள் final result:
 
 <Sandpack>
 
@@ -234,16 +234,16 @@ Here is your final result:
 export default function TodoList() {
   return (
     <>
-      <h1>Hedy Lamarr's Todos</h1>
+      <h1>Hedy Lamarr-ன் Todos</h1>
       <img
         src="https://react.dev/images/docs/scientists/yXOvdOSs.jpg"
         alt="Hedy Lamarr"
         className="photo"
       />
       <ul>
-        <li>Invent new traffic lights</li>
-        <li>Rehearse a movie scene</li>
-        <li>Improve the spectrum technology</li>
+        <li>புதிய traffic lights கண்டுபிடி</li>
+        <li>ஒரு movie scene rehearse செய்</li>
+        <li>Spectrum technology-ஐ மேம்படுத்து</li>
       </ul>
     </>
   );
@@ -258,11 +258,11 @@ img { height: 90px }
 
 <Recap>
 
-Now you know why JSX exists and how to use it in components:
+இப்போது JSX ஏன் உள்ளது, components-இல் அதை எப்படி பயன்படுத்துவது என்பதை நீங்கள் அறிவீர்கள்:
 
-* React components group rendering logic together with markup because they are related.
-* JSX is similar to HTML, with a few differences. You can use a [converter](https://transform.tools/html-to-jsx) if you need to.
-* Error messages will often point you in the right direction to fixing your markup.
+* React components, markup உடன் rendering logic-ஐ group செய்கின்றன, ஏனெனில் அவை தொடர்புடையவை.
+* JSX சில differences உடன் HTML-க்கு similar. தேவைப்பட்டால் [converter](https://transform.tools/html-to-jsx) பயன்படுத்தலாம்.
+* Error messages பெரும்பாலும் உங்கள் markup fix செய்ய சரியான திசையை காட்டும்.
 
 </Recap>
 
@@ -270,9 +270,9 @@ Now you know why JSX exists and how to use it in components:
 
 <Challenges>
 
-#### Convert some HTML to JSX {/*convert-some-html-to-jsx*/}
+#### சில HTML-ஐ JSX-ஆக convert செய்யுங்கள் {/*convert-some-html-to-jsx*/}
 
-This HTML was pasted into a component, but it's not valid JSX. Fix it:
+இந்த HTML ஒரு component-க்குள் paste செய்யப்பட்டது; ஆனால் இது valid JSX அல்ல. இதை fix செய்யுங்கள்:
 
 <Sandpack>
 
@@ -280,12 +280,12 @@ This HTML was pasted into a component, but it's not valid JSX. Fix it:
 export default function Bio() {
   return (
     <div class="intro">
-      <h1>Welcome to my website!</h1>
+      <h1>என் website-க்கு வரவேற்கிறேன்!</h1>
     </div>
     <p class="summary">
-      You can find my thoughts here.
+      என் சிந்தனைகளை இங்கே காணலாம்.
       <br><br>
-      <b>And <i>pictures</b></i> of scientists!
+      <b>மேலும் <i>படங்கள்</b></i> scientists-ன்!
     </p>
   );
 }
@@ -308,7 +308,7 @@ export default function Bio() {
 
 </Sandpack>
 
-Whether to do it by hand or using the converter is up to you!
+கையால் செய்வதா அல்லது converter பயன்படுத்துவதா என்பது உங்கள் விருப்பம்!
 
 <Solution>
 
@@ -319,12 +319,12 @@ export default function Bio() {
   return (
     <div>
       <div className="intro">
-        <h1>Welcome to my website!</h1>
+        <h1>என் website-க்கு வரவேற்கிறேன்!</h1>
       </div>
       <p className="summary">
-        You can find my thoughts here.
+        என் சிந்தனைகளை இங்கே காணலாம்.
         <br /><br />
-        <b>And <i>pictures</i></b> of scientists!
+        <b>மேலும் <i>படங்கள்</i></b> scientists-ன்!
       </p>
     </div>
   );

@@ -4,7 +4,7 @@ meta: "<meta>"
 
 <Intro>
 
-The [built-in browser `<meta>` component](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta) lets you add metadata to the document.
+[உலாவியில் உள்ளமைந்த `<meta>` component](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta), document-க்கு metadata சேர்க்க உதவுகிறது.
 
 ```js
 <meta name="keywords" content="React, JavaScript, semantic markup, html" />
@@ -20,39 +20,39 @@ The [built-in browser `<meta>` component](https://developer.mozilla.org/en-US/do
 
 ### `<meta>` {/*meta*/}
 
-To add document metadata, render the [built-in browser `<meta>` component](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta). You can render `<meta>` from any component and React will always place the corresponding DOM element in the document head.
+Document metadata சேர்க்க, [உலாவியில் உள்ளமைந்த `<meta>` component](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta)-ஐ render செய்யுங்கள். எந்த component-இலிருந்தும் `<meta>`-ஐ render செய்யலாம்; React எப்போதும் அதனுடன் தொடர்புடைய DOM element-ஐ document head-இல் வைக்கும்.
 
 ```js
 <meta name="keywords" content="React, JavaScript, semantic markup, html" />
 ```
 
-[See more examples below.](#usage)
+[மேலும் உதாரணங்களை கீழே பார்க்கவும்.](#usage)
 
 #### Props {/*props*/}
 
-`<meta>` supports all [common element props.](/reference/react-dom/components/common#common-props)
+`<meta>` அனைத்து [common element props](/reference/react-dom/components/common#common-props)-ஐ ஆதரிக்கிறது.
 
-It should have *exactly one* of the following props: `name`, `httpEquiv`, `charset`, `itemProp`. The `<meta>` component does something different depending on which of these props is specified.
+இதில் பின்வரும் props-இல் *சரியாக ஒன்று* இருக்க வேண்டும்: `name`, `httpEquiv`, `charset`, `itemProp`. இவற்றில் எந்த prop குறிப்பிடப்படுகிறது என்பதைப் பொறுத்து `<meta>` component வேறுபட்ட செயலைச் செய்கிறது.
 
-* `name`: a string. Specifies the [kind of metadata](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta/name) to be attached to the document.
-* `charset`: a string. Specifies the character set used by the document. The only valid value is `"utf-8"`.
-* `httpEquiv`: a string. Specifies a directive for processing the document.
-* `itemProp`: a string. Specifies metadata about a particular item within the document rather than the document as a whole.
-* `content`: a string. Specifies the metadata to be attached when used with the `name` or `itemProp` props or the behavior of the directive when used with the `httpEquiv` prop.
+* `name`: ஒரு string. Document-க்கு இணைக்க வேண்டிய [metadata வகையை](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta/name) குறிப்பிடுகிறது.
+* `charset`: ஒரு string. Document பயன்படுத்தும் character set-ஐ குறிப்பிடுகிறது. செல்லுபடியாகும் ஒரே value `"utf-8"`.
+* `httpEquiv`: ஒரு string. Document-ஐ process செய்யும் directive-ஐ குறிப்பிடுகிறது.
+* `itemProp`: ஒரு string. முழு document-ஐப் பற்றி அல்லாமல், document-இல் உள்ள குறிப்பிட்ட item பற்றிய metadata-ஐ குறிப்பிடுகிறது.
+* `content`: ஒரு string. `name` அல்லது `itemProp` props-உடன் பயன்படுத்தும்போது இணைக்க வேண்டிய metadata-ஐ, அல்லது `httpEquiv` prop-உடன் பயன்படுத்தும்போது directive-இன் நடத்தையை குறிப்பிடுகிறது.
 
-#### Special rendering behavior {/*special-rendering-behavior*/}
+#### சிறப்பு rendering நடத்தை {/*special-rendering-behavior*/}
 
-React will always place the DOM element corresponding to the `<meta>` component within the document’s `<head>`, regardless of where in the React tree it is rendered. The `<head>` is the only valid place for `<meta>` to exist within the DOM, yet it’s convenient and keeps things composable if a component representing a specific page can render `<meta>` components itself.
+React tree-இல் எங்கு render செய்யப்பட்டாலும், `<meta>` component-க்கு தொடர்புடைய DOM element-ஐ React எப்போதும் document-இன் `<head>`-க்குள் வைக்கும். DOM-இல் `<meta>` இருக்கக்கூடிய செல்லுபடியாகும் ஒரே இடம் `<head>` தான். இருந்தாலும், ஒரு குறிப்பிட்ட page-ஐ பிரதிநிதித்துவப்படுத்தும் component தன்னுடைய `<meta>` components-ஐ தானே render செய்ய முடிவது வசதியானதும் composable ஆக வைத்திருப்பதுமானது.
 
-There is one exception to this: if `<meta>` has an [`itemProp`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemprop) prop, there is no special behavior, because in this case it doesn’t represent metadata about the document but rather metadata about a specific part of the page.
+இதற்கு ஒரு விதிவிலக்கு உள்ளது: `<meta>`-க்கு [`itemProp`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemprop) prop இருந்தால், சிறப்பு நடத்தை இல்லை. ஏனெனில் இந்த நிலையில் அது document பற்றிய metadata-ஐ குறிக்கவில்லை; மாறாக page-இன் குறிப்பிட்ட பகுதி பற்றிய metadata ஆகும்.
 
 ---
 
 ## Usage {/*usage*/}
 
-### Annotating the document with metadata {/*annotating-the-document-with-metadata*/}
+### Document-ஐ metadata-உடன் annotate செய்தல் {/*annotating-the-document-with-metadata*/}
 
-You can annotate the document with metadata such as keywords, a summary, or the author’s name. React will place this metadata within the document `<head>` regardless of where in the React tree it is rendered.
+Keywords, summary, அல்லது author பெயர் போன்ற metadata-உடன் document-ஐ annotate செய்யலாம். React tree-இல் எங்கு render செய்யப்பட்டாலும், React இந்த metadata-ஐ document `<head>`-க்குள் வைக்கும்.
 
 ```html
 <meta name="author" content="John Smith" />
@@ -60,7 +60,7 @@ You can annotate the document with metadata such as keywords, a summary, or the 
 <meta name="description" content="API reference for the <meta> component in React DOM" />
 ```
 
-You can render the `<meta>` component from any component. React will put a `<meta>` DOM node in the document `<head>`.
+எந்த component-இலிருந்தும் `<meta>` component-ஐ render செய்யலாம். React document `<head>`-இல் `<meta>` DOM node ஒன்றை வைக்கும்.
 
 <SandpackWithHTMLOutput>
 
@@ -81,9 +81,9 @@ export default function SiteMapPage() {
 
 </SandpackWithHTMLOutput>
 
-### Annotating specific items within the document with metadata {/*annotating-specific-items-within-the-document-with-metadata*/}
+### Document-இல் குறிப்பிட்ட items-ஐ metadata-உடன் annotate செய்தல் {/*annotating-specific-items-within-the-document-with-metadata*/}
 
-You can use the `<meta>` component with the `itemProp` prop to annotate specific items within the document with metadata. In this case, React will *not* place these annotations within the document `<head>` but will place them like any other React component.
+Document-இல் குறிப்பிட்ட items-ஐ metadata-உடன் annotate செய்ய, `itemProp` prop-உடன் `<meta>` component-ஐப் பயன்படுத்தலாம். இந்த நிலையில், React இந்த annotations-ஐ document `<head>`-க்குள் வைக்காது; மற்ற React component போலவே அவற்றை வைக்கும்.
 
 ```js
 <section itemScope>

@@ -1,202 +1,202 @@
 ---
-title: "Denial of Service and Source Code Exposure in React Server Components"
+title: "React Server Components-இல் Denial of Service மற்றும் Source Code Exposure"
 author: The React Team
 date: 2025/12/11
-description: Security researchers have found and disclosed two additional vulnerabilities in React Server Components while attempting to exploit the patches in last week’s critical vulnerability. High vulnerability Denial of Service (CVE-2025-55184), and medium vulnerability Source Code Exposure (CVE-2025-55183)
+description: கடந்த வார critical vulnerability-யின் patches-ஐ exploit செய்ய முயன்றபோது, security researchers React Server Components-இல் மேலும் இரண்டு vulnerabilities-ஐ கண்டறிந்து disclosure செய்துள்ளனர். High vulnerability Denial of Service (CVE-2025-55184), மற்றும் medium vulnerability Source Code Exposure (CVE-2025-55183)
 
 
 ---
 
-December 11, 2025 by [The React Team](/community/team)
+December 11, 2025 அன்று [React Team](/community/team) எழுதியது
 
-_Updated January 26, 2026._
+_January 26, 2026 அன்று update செய்யப்பட்டது._
 
 ---
 
 <Intro>
 
-Security researchers have found and disclosed two additional vulnerabilities in React Server Components while attempting to exploit the patches in last week’s critical vulnerability.
+கடந்த வார critical vulnerability-யின் patches-ஐ exploit செய்ய முயன்றபோது, security researchers React Server Components-இல் மேலும் இரண்டு vulnerabilities-ஐ கண்டறிந்து disclosure செய்துள்ளனர்.
 
-**These new vulnerabilities do not allow for Remote Code Execution.** The patch for React2Shell remains effective at mitigating the Remote Code Execution exploit.
+**இந்த புதிய vulnerabilities Remote Code Execution-ஐ அனுமதிப்பதில்லை.** React2Shell-க்கான patch, Remote Code Execution exploit-ஐ mitigate செய்வதில் இன்னும் effective ஆக உள்ளது.
 
 </Intro>
 
 ---
 
-The new vulnerabilities are disclosed as:
+புதிய vulnerabilities இவ்வாறு disclosed செய்யப்பட்டுள்ளன:
 
-- **Denial of Service - High Severity**: [CVE-2025-55184](https://www.cve.org/CVERecord?id=CVE-2025-55184), [CVE-2025-67779](https://www.cve.org/CVERecord?id=CVE-2025-67779), and [CVE-2026-23864](https://www.cve.org/CVERecord?id=CVE-2026-23864) (CVSS 7.5)
+- **Denial of Service - High Severity**: [CVE-2025-55184](https://www.cve.org/CVERecord?id=CVE-2025-55184), [CVE-2025-67779](https://www.cve.org/CVERecord?id=CVE-2025-67779), மற்றும் [CVE-2026-23864](https://www.cve.org/CVERecord?id=CVE-2026-23864) (CVSS 7.5)
 - **Source Code Exposure - Medium Severity**: [CVE-2025-55183](https://www.cve.org/CVERecord?id=CVE-2025-55183) (CVSS 5.3)
 
-We recommend upgrading immediately due to the severity of the newly disclosed vulnerabilities.
+புதியதாக disclosed செய்யப்பட்ட vulnerabilities-ன் severity காரணமாக உடனடியாக upgrade செய்ய பரிந்துரைக்கிறோம்.
 
 <Note>
 
-#### The patches published earlier are vulnerable. {/*the-patches-published-earlier-are-vulnerable*/}
+#### முன்பு publish செய்யப்பட்ட patches vulnerable ஆக உள்ளன. {/*the-patches-published-earlier-are-vulnerable*/}
 
-If you already updated for the previous vulnerabilities, you will need to update again.
+முந்தைய vulnerabilities-க்காக ஏற்கனவே update செய்திருந்தால், மீண்டும் update செய்ய வேண்டும்.
 
-If you updated to 19.0.3, 19.1.4, and 19.2.3, [these are incomplete](#additional-fix-published), and you will need to update again.
+நீங்கள் 19.0.3, 19.1.4, மற்றும் 19.2.3-க்கு update செய்திருந்தால், [இவை முழுமையற்றவை](#additional-fix-published); மீண்டும் update செய்ய வேண்டும்.
 
-Please see [the instructions in the previous post](/blog/2025/12/03/critical-security-vulnerability-in-react-server-components#update-instructions) for upgrade steps.
+Upgrade steps-க்கு [முந்தைய post-இல் உள்ள instructions](/blog/2025/12/03/critical-security-vulnerability-in-react-server-components#update-instructions)-ஐ பார்க்கவும்.
 
 -----
 
-_Updated January 26, 2026._
+_ஜனவரி 26, 2026 அன்று update செய்யப்பட்டது._
 
 </Note>
 
-Further details of these vulnerabilities will be provided after the rollout of the fixes are complete.
+Fixes rollout முழுமையாக முடிந்த பிறகு இந்த vulnerabilities குறித்த மேலும் விவரங்கள் வழங்கப்படும்.
 
-## Immediate Action Required {/*immediate-action-required*/}
+## உடனடி action தேவை {/*immediate-action-required*/}
 
-These vulnerabilities are present in the same packages and versions as [CVE-2025-55182](/blog/2025/12/03/critical-security-vulnerability-in-react-server-components).
+இந்த vulnerabilities, [CVE-2025-55182](/blog/2025/12/03/critical-security-vulnerability-in-react-server-components)-இல் உள்ள அதே packages மற்றும் versions-இல் உள்ளன.
 
-This includes 19.0.0, 19.0.1, 19.0.2, 19.0.3, 19.1.0, 19.1.1, 19.1.2, 19.1.3, 19.2.0, 19.2.1, 19.2.2, and 19.2.3 of:
+இதில் பின்வரும் packages-ன் 19.0.0, 19.0.1, 19.0.2, 19.0.3, 19.1.0, 19.1.1, 19.1.2, 19.1.3, 19.2.0, 19.2.1, 19.2.2, மற்றும் 19.2.3 அடங்கும்:
 
 * [react-server-dom-webpack](https://www.npmjs.com/package/react-server-dom-webpack)
 * [react-server-dom-parcel](https://www.npmjs.com/package/react-server-dom-parcel)
 * [react-server-dom-turbopack](https://www.npmjs.com/package/react-server-dom-turbopack?activeTab=readme)
 
-Fixes were backported to versions 19.0.4, 19.1.5, and 19.2.4. If you are using any of the above packages please upgrade to any of the fixed versions immediately.
+Fixes 19.0.4, 19.1.5, மற்றும் 19.2.4 versions-க்கு backport செய்யப்பட்டுள்ளன. மேலுள்ள packages-ல் ஏதேனும் ஒன்றைப் பயன்படுத்தினால், fixed versions-ல் ஏதேனும் ஒன்றுக்கு உடனடியாக upgrade செய்யவும்.
 
-As before, if your app’s React code does not use a server, your app is not affected by these vulnerabilities. If your app does not use a framework, bundler, or bundler plugin that supports React Server Components, your app is not affected by these vulnerabilities.
+முன்பு போலவே, உங்கள் app-ன் React code server பயன்படுத்தவில்லை என்றால், உங்கள் app இந்த vulnerabilities-ஆல் பாதிக்கப்படாது. React Server Components-ஐ support செய்யும் framework, bundler, அல்லது bundler plugin உங்கள் app பயன்படுத்தவில்லை என்றால், உங்கள் app இந்த vulnerabilities-ஆல் பாதிக்கப்படாது.
 
 <Note>
 
-#### It’s common for critical CVEs to uncover follow‑up vulnerabilities. {/*its-common-for-critical-cves-to-uncover-followup-vulnerabilities*/}
+#### Critical CVEs follow-up vulnerabilities-ஐ வெளிக்கொணர்வது பொதுவானது. {/*its-common-for-critical-cves-to-uncover-followup-vulnerabilities*/}
 
-When a critical vulnerability is disclosed, researchers scrutinize adjacent code paths looking for variant exploit techniques to test whether the initial mitigation can be bypassed.
+Critical vulnerability ஒன்று disclosed செய்யப்பட்டால், initial mitigation bypass செய்ய முடியுமா என்பதைச் சோதிக்க researchers adjacent code paths-ஐ ஆராய்ந்து variant exploit techniques-ஐ தேடுவார்கள்.
 
-This pattern shows up across the industry, not just in JavaScript. For example, after [Log4Shell](https://nvd.nist.gov/vuln/detail/cve-2021-44228), additional CVEs ([1](https://nvd.nist.gov/vuln/detail/cve-2021-45046), [2](https://nvd.nist.gov/vuln/detail/cve-2021-45105)) were reported as the community probed the original fix.
+இந்த pattern JavaScript-இல் மட்டும் அல்லாமல் industry முழுவதும் காணப்படுகிறது. உதாரணமாக, [Log4Shell](https://nvd.nist.gov/vuln/detail/cve-2021-44228)-க்கு பிறகு, community original fix-ஐ probe செய்தபோது கூடுதல் CVEs ([1](https://nvd.nist.gov/vuln/detail/cve-2021-45046), [2](https://nvd.nist.gov/vuln/detail/cve-2021-45105)) report செய்யப்பட்டன.
 
-Additional disclosures can be frustrating, but they are generally a sign of a healthy response cycle.
+கூடுதல் disclosures வருவது சிரமமாக இருக்கலாம்; ஆனால் அவை பொதுவாக ஆரோக்கியமான response cycle-ன் அறிகுறி.
 
 </Note>
 
-### Affected frameworks and bundlers {/*affected-frameworks-and-bundlers*/}
+### பாதிக்கப்பட்ட frameworks மற்றும் bundlers {/*affected-frameworks-and-bundlers*/}
 
-Some React frameworks and bundlers depended on, had peer dependencies for, or included the vulnerable React packages. The following React frameworks & bundlers are affected: [next](https://www.npmjs.com/package/next), [react-router](https://www.npmjs.com/package/react-router), [waku](https://www.npmjs.com/package/waku), [@parcel/rsc](https://www.npmjs.com/package/@parcel/rsc), [@vite/rsc-plugin](https://www.npmjs.com/package/@vitejs/plugin-rsc), and [rwsdk](https://www.npmjs.com/package/rwsdk).
+சில React frameworks மற்றும் bundlers vulnerable React packages மீது depended on, peer dependencies வைத்திருந்தன, அல்லது அவற்றை include செய்திருந்தன. பின்வரும் React frameworks மற்றும் bundlers பாதிக்கப்பட்டுள்ளன: [next](https://www.npmjs.com/package/next), [react-router](https://www.npmjs.com/package/react-router), [waku](https://www.npmjs.com/package/waku), [@parcel/rsc](https://www.npmjs.com/package/@parcel/rsc), [@vite/rsc-plugin](https://www.npmjs.com/package/@vitejs/plugin-rsc), மற்றும் [rwsdk](https://www.npmjs.com/package/rwsdk).
 
-Please see [the instructions in the previous post](/blog/2025/12/03/critical-security-vulnerability-in-react-server-components#update-instructions) for upgrade steps.
+Upgrade steps-க்கு [முந்தைய post-இல் உள்ள instructions](/blog/2025/12/03/critical-security-vulnerability-in-react-server-components#update-instructions)-ஐ பார்க்கவும்.
 
-### Hosting Provider Mitigations {/*hosting-provider-mitigations*/}
+### Hosting providers-ன் தற்காலிக பாதுகாப்பு நடவடிக்கைகள் {/*hosting-provider-mitigations*/}
 
-As before, we have worked with a number of hosting providers to apply temporary mitigations.
+முன்பு போலவே, temporary mitigations apply செய்ய பல hosting providers உடன் பணிபுரிந்துள்ளோம்.
 
-You should not depend on these to secure your app, and still update immediately.
+உங்கள் app-ஐ secure செய்ய இவற்றை மட்டும் நம்பக்கூடாது; உடனடியாக update செய்ய வேண்டும்.
 
 ### React Native {/*react-native*/}
 
-For React Native users not using a monorepo or `react-dom`, your `react` version should be pinned in your `package.json`, and there are no additional steps needed.
+Monorepo அல்லது `react-dom` பயன்படுத்தாத React Native users-க்கு, உங்கள் `react` version `package.json`-இல் pinned ஆக இருக்க வேண்டும்; கூடுதல் steps தேவையில்லை.
 
-If you are using React Native in a monorepo, you should update _only_ the impacted packages if they are installed:
+React Native-ஐ monorepo-வில் பயன்படுத்தினால், கீழுள்ள impacted packages install செய்யப்பட்டிருந்தால் அவற்றை _மட்டுமே_ update செய்ய வேண்டும்:
 
 - `react-server-dom-webpack`
 - `react-server-dom-parcel`
 - `react-server-dom-turbopack`
 
-This is required to mitigate the security advisories, but you do not need to update `react` and `react-dom` so this will not cause the version mismatch error in React Native.
+Security advisories-ஐ mitigate செய்ய இது தேவை; ஆனால் `react` மற்றும் `react-dom` update செய்ய வேண்டியதில்லை, எனவே இது React Native-இல் version mismatch error ஏற்படுத்தாது.
 
-See [this issue](https://github.com/facebook/react-native/issues/54772#issuecomment-3617929832) for more information.
+மேலும் தகவலுக்கு [இந்த issue](https://github.com/facebook/react-native/issues/54772#issuecomment-3617929832)-ஐ பார்க்கவும்.
 
 ---
 
-## High Severity: Multiple Denial of Service {/*high-severity-multiple-denial-of-service*/}
+## அதிக severity: பல சேவை மறுப்பு (DoS) vulnerabilities {/*high-severity-multiple-denial-of-service*/}
 
 **CVEs:** [CVE-2026-23864](https://www.cve.org/CVERecord?id=CVE-2026-23864)
 **Base Score:** 7.5 (High)
-**Date**: January 26, 2026
+**Date**: ஜனவரி 26, 2026
 
-Security researchers discovered additional DoS vulnerabilities still exist in React Server Components.
+React Server Components-இல் கூடுதல் DoS vulnerabilities இன்னும் உள்ளன என்பதை security researchers கண்டுபிடித்தனர்.
 
-The vulnerabilities are triggered by sending specially crafted HTTP requests to Server Function endpoints, and could lead to server crashes, out-of-memory exceptions or excessive CPU usage; depending on the vulnerable code path being exercised, the application configuration and application code.
+Server Function endpoints-க்கு specially crafted HTTP requests அனுப்புவதால் vulnerabilities trigger ஆகின்றன; மேலும் vulnerable code path, application configuration, மற்றும் application code ஆகியவற்றைப் பொறுத்து server crashes, out-of-memory exceptions, அல்லது excessive CPU usage-க்கு வழிவகுக்கலாம்.
 
-The patches published January 26th mitigate these DoS vulnerabilities.
+ஜனவரி 26 அன்று publish செய்யப்பட்ட patches இந்த DoS vulnerabilities-ஐ mitigate செய்கின்றன.
 
 <Note>
 
-#### Additional fixes published {/*additional-fix-published*/}
+#### கூடுதல் fixes publish செய்யப்பட்டன {/*additional-fix-published*/}
 
-The original fix addressing the DoS in [CVE-2025-55184](https://www.cve.org/CVERecord?id=CVE-2025-55184) was incomplete.
+[CVE-2025-55184](https://www.cve.org/CVERecord?id=CVE-2025-55184)-இல் உள்ள DoS-ஐ address செய்த original fix முழுமையற்றது.
 
-This left previous versions vulnerable. Versions 19.0.4, 19.1.5, 19.2.4 are safe.
+இதனால் முந்தைய versions vulnerable ஆக இருந்தன. Versions 19.0.4, 19.1.5, 19.2.4 safe ஆக உள்ளன.
 
 -----
 
-_Updated January 26, 2026._
+_ஜனவரி 26, 2026 அன்று update செய்யப்பட்டது._
 
 </Note>
 
 ---
 
-## High Severity: Denial of Service {/*high-severity-denial-of-service*/}
+## அதிக severity: சேவை மறுப்பு (DoS) {/*high-severity-denial-of-service*/}
 
-**CVEs:** [CVE-2025-55184](https://www.cve.org/CVERecord?id=CVE-2025-55184) and [CVE-2025-67779](https://www.cve.org/CVERecord?id=CVE-2025-67779)
+**CVEs:** [CVE-2025-55184](https://www.cve.org/CVERecord?id=CVE-2025-55184) மற்றும் [CVE-2025-67779](https://www.cve.org/CVERecord?id=CVE-2025-67779)
 **Base Score:** 7.5 (High)
 
-Security researchers have discovered that a malicious HTTP request can be crafted and sent to any Server Functions endpoint that, when deserialized by React, can cause an infinite loop that hangs the server process and consumes CPU. Even if your app does not implement any React Server Function endpoints it may still be vulnerable if your app supports React Server Components.
+Security researchers, எந்த Server Functions endpoint-க்கும் malicious HTTP request ஒன்றை craft செய்து அனுப்ப முடியும் என்பதை கண்டுபிடித்துள்ளனர்; அதை React deserialize செய்யும்போது, server process hang ஆகவும் CPU consume செய்யவும் செய்யும் infinite loop ஏற்படலாம். உங்கள் app எந்த React Server Function endpoints-யும் implement செய்யவில்லை என்றாலும், உங்கள் app React Server Components support செய்தால் அது இன்னும் vulnerable ஆக இருக்கலாம்.
 
-This creates a vulnerability vector where an attacker may be able to deny users from accessing the product, and potentially have a  performance impact on the server environment.
+இதனால் attacker users product-ஐ access செய்வதை deny செய்யக்கூடிய vulnerability vector உருவாகிறது; மேலும் server environment-இல் performance impact ஏற்படக்கூடும்.
 
-The patches published today mitigate by preventing the infinite loop.
+இன்று publish செய்யப்பட்ட patches infinite loop-ஐத் தடுக்குவதன் மூலம் mitigate செய்கின்றன.
 
-## Medium Severity: Source Code Exposure {/*low-severity-source-code-exposure*/}
+## நடுத்தர severity: Source Code Exposure {/*low-severity-source-code-exposure*/}
 
 **CVE:** [CVE-2025-55183](https://www.cve.org/CVERecord?id=CVE-2025-55183)
 **Base Score**: 5.3 (Medium)
 
-A security researcher has discovered that a malicious HTTP request sent to a vulnerable Server Function may unsafely return the source code of any Server Function. Exploitation requires the existence of a Server Function which explicitly or implicitly exposes a stringified argument:
+Vulnerable Server Function-க்கு அனுப்பப்படும் malicious HTTP request, எந்த Server Function-ன் source code-ஐயும் unsafe ஆக return செய்யக்கூடும் என்பதை security researcher கண்டுபிடித்துள்ளார். Exploitation-க்கு stringified argument ஒன்றை explicit அல்லது implicit ஆக expose செய்யும் Server Function இருக்க வேண்டும்:
 
 ```javascript
 'use server';
 
 export async function serverFunction(name) {
   const conn = db.createConnection('SECRET KEY');
-  const user = await conn.createUser(name); // implicitly stringified, leaked in db
+  const user = await conn.createUser(name); // implicit ஆக stringified, db-இல் leaked
 
   return {
    id: user.id,
-   message: `Hello, ${name}!` // explicitly stringified, leaked in reply
+   message: `Hello, ${name}!` // explicit ஆக stringified, reply-இல் leaked
   }}
 ```
 
-An attacker may be able to leak the following:
+Attacker பின்வருவன leak செய்யக்கூடும்:
 
 ```txt
 0:{"a":"$@1","f":"","b":"Wy43RxUKdxmr5iuBzJ1pN"}
 1:{"id":"tva1sfodwq","message":"Hello, async function(a){console.log(\"serverFunction\");let b=i.createConnection(\"SECRET KEY\");return{id:(await b.createUser(a)).id,message:`Hello, ${a}!`}}!"}
 ```
 
-The patches published today prevent stringifying the Server Function source code.
+இன்று publish செய்யப்பட்ட patches Server Function source code stringifying ஆகாமல் தடுக்கின்றன.
 
 <Note>
 
-#### Only secrets in source code may be exposed. {/*only-secrets-in-source-code-may-be-exposed*/}
+#### Source code-இல் உள்ள secrets மட்டுமே expose ஆகக்கூடும். {/*only-secrets-in-source-code-may-be-exposed*/}
 
-Secrets hardcoded in source code may be exposed, but runtime secrets such as `process.env.SECRET` are not affected.
+Source code-இல் hardcoded secrets expose ஆகக்கூடும்; ஆனால் `process.env.SECRET` போன்ற runtime secrets பாதிக்கப்படாது.
 
-The scope of the exposed code is limited to the code inside the Server Function, which may include other functions depending on the amount of inlining your bundler provides.
+Exposed code-ன் scope, Server Function உள்ளே உள்ள code-க்கு மட்டுமே வரையறுக்கப்பட்டுள்ளது; உங்கள் bundler வழங்கும் inlining அளவைப் பொறுத்து இதில் பிற functions சேரக்கூடும்.
 
-Always verify against production bundles.
+எப்போதும் production bundles-க்கு எதிராக verify செய்யவும்.
 
 </Note>
 
 ---
 
 ## Timeline {/*timeline*/}
-* **December 3rd**: Leak reported to Vercel and [Meta Bug Bounty](https://bugbounty.meta.com/) by [Andrew MacPherson](https://github.com/AndrewMohawk).
-* **December 4th**: Initial DoS reported to [Meta Bug Bounty](https://bugbounty.meta.com/) by [RyotaK](https://ryotak.net).
-* **December 6th**: Both issues confirmed by the React team, and the team began investigating.
-* **December 7th**: Initial fixes created and the React team began verifying and planning new patch.
-* **December 8th**: Affected hosting providers and open source projects notified.
-* **December 10th**: Hosting provider mitigations in place and patches verified.
-* **December 11th**: Additional DoS reported to [Meta Bug Bounty](https://bugbounty.meta.com/) by Shinsaku Nomura.
-* **December 11th**: Patches published and publicly disclosed as [CVE-2025-55183](https://www.cve.org/CVERecord?id=CVE-2025-55183) and [CVE-2025-55184](https://www.cve.org/CVERecord?id=CVE-2025-55184).
-* **December 11th**: Missing DoS case found internally, patched and publicly disclosed as [CVE-2025-67779](https://www.cve.org/CVERecord?id=CVE-2025-67779).
-* **January 26th**: Additional DoS cases found, patched, and publicly disclosed as [CVE-2026-23864](https://www.cve.org/CVERecord?id=CVE-2026-23864).
+* **டிசம்பர் 3**: [Andrew MacPherson](https://github.com/AndrewMohawk), Vercel மற்றும் [Meta Bug Bounty](https://bugbounty.meta.com/)-க்கு leak report செய்தார்.
+* **டிசம்பர் 4**: [RyotaK](https://ryotak.net), [Meta Bug Bounty](https://bugbounty.meta.com/)-க்கு initial DoS report செய்தார்.
+* **டிசம்பர் 6**: இரு issues-யையும் React team confirm செய்தது; team investigation தொடங்கியது.
+* **டிசம்பர் 7**: Initial fixes உருவாக்கப்பட்டன; React team புதிய patch-ஐ verify செய்து plan செய்யத் தொடங்கியது.
+* **டிசம்பர் 8**: பாதிக்கப்பட்ட hosting providers மற்றும் open source projects-க்கு அறிவிக்கப்பட்டது.
+* **டிசம்பர் 10**: Hosting provider mitigations அமலில் வந்தன; patches verify செய்யப்பட்டன.
+* **டிசம்பர் 11**: Shinsaku Nomura, [Meta Bug Bounty](https://bugbounty.meta.com/)-க்கு additional DoS report செய்தார்.
+* **டிசம்பர் 11**: Patches publish செய்யப்பட்டன; [CVE-2025-55183](https://www.cve.org/CVERecord?id=CVE-2025-55183) மற்றும் [CVE-2025-55184](https://www.cve.org/CVERecord?id=CVE-2025-55184) ஆக publicly disclosed செய்யப்பட்டன.
+* **டிசம்பர் 11**: Missing DoS case internally கண்டுபிடிக்கப்பட்டு patched செய்யப்பட்டது; [CVE-2025-67779](https://www.cve.org/CVERecord?id=CVE-2025-67779) ஆக publicly disclosed செய்யப்பட்டது.
+* **ஜனவரி 26**: Additional DoS cases கண்டுபிடிக்கப்பட்டு patched செய்யப்பட்டது; [CVE-2026-23864](https://www.cve.org/CVERecord?id=CVE-2026-23864) ஆக publicly disclosed செய்யப்பட்டது.
 ---
 
 ## Attribution {/*attribution*/}
 
-Thank you to [Andrew MacPherson (AndrewMohawk)](https://github.com/AndrewMohawk) for reporting the Source Code Exposure, [RyotaK](https://ryotak.net) from GMO Flatt Security Inc and Shinsaku Nomura of Bitforest Co., Ltd. for reporting the Denial of Service vulnerabilities. Thank you to [Mufeed VH](https://x.com/mufeedvh) from [Winfunc Research](https://winfunc.com), [Joachim Viide](https://jviide.iki.fi), [RyotaK](https://ryotak.net) from [GMO Flatt Security Inc](https://flatt.tech/en/) and Xiangwei Zhang of Tencent Security YUNDING LAB for reporting the additional DoS vulnerabilities.
+Source Code Exposure-ஐ report செய்த [Andrew MacPherson (AndrewMohawk)](https://github.com/AndrewMohawk)-க்கும், Denial of Service vulnerabilities-ஐ report செய்த [GMO Flatt Security Inc](https://flatt.tech/en/)-இலிருந்து [RyotaK](https://ryotak.net) மற்றும் Bitforest Co., Ltd.-இலிருந்து Shinsaku Nomura-க்கும் நன்றி. Additional DoS vulnerabilities-ஐ report செய்த [Winfunc Research](https://winfunc.com)-இலிருந்து [Mufeed VH](https://x.com/mufeedvh), [Joachim Viide](https://jviide.iki.fi), [GMO Flatt Security Inc](https://flatt.tech/en/)-இலிருந்து [RyotaK](https://ryotak.net), மற்றும் Tencent Security YUNDING LAB-இலிருந்து Xiangwei Zhang-க்கும் நன்றி.

@@ -2,48 +2,48 @@
 title: "React v19"
 author: The React Team
 date: 2024/12/05
-description: React 19 is now available on npm! In this post, we'll give an overview of the new features in React 19, and how you can adopt them.
+description: React 19 இப்போது npm-இல் கிடைக்கிறது! இந்த post-இல், React 19-இன் புதிய features மற்றும் அவற்றை நீங்கள் எப்படி adopt செய்யலாம் என்பதற்கான overview-ஐ தருகிறோம்.
 ---
 
-December 05, 2024 by [The React Team](/community/team)
+December 05, 2024 அன்று [The React Team](/community/team)
 
 ---
 <Note>
 
-### React 19 is now stable! {/*react-19-is-now-stable*/}
+### React 19 இப்போது stable! {/*react-19-is-now-stable*/}
 
-Additions since this post was originally shared with the React 19 RC in April:
+இந்த post ஏப்ரலில் React 19 RC உடன் முதலில் பகிரப்பட்ட பிறகு சேர்க்கப்பட்டவை:
 
-- **Pre-warming for suspended trees**: see [Improvements to Suspense](/blog/2024/04/25/react-19-upgrade-guide#improvements-to-suspense).
-- **React DOM static APIs**: see [New React DOM Static APIs](#new-react-dom-static-apis).
+- **Suspended trees-க்கான pre-warming**: [Improvements to Suspense](/blog/2024/04/25/react-19-upgrade-guide#improvements-to-suspense)-ஐ பார்க்கவும்.
+- **React DOM static APIs**: [New React DOM Static APIs](#new-react-dom-static-apis)-ஐ பார்க்கவும்.
 
-_The date for this post has been updated to reflect the stable release date._
+_Stable release date-ஐ பிரதிபலிக்க இந்த post-ன் date update செய்யப்பட்டுள்ளது._
 
 </Note>
 
 <Intro>
 
-React v19 is now available on npm!
+React v19 இப்போது npm-இல் கிடைக்கிறது!
 
 </Intro>
 
-In our [React 19 Upgrade Guide](/blog/2024/04/25/react-19-upgrade-guide), we shared step-by-step instructions for upgrading your app to React 19. In this post, we'll give an overview of the new features in React 19, and how you can adopt them.
+எங்கள் [React 19 Upgrade Guide](/blog/2024/04/25/react-19-upgrade-guide)-இல், உங்கள் app-ஐ React 19-க்கு upgrade செய்வதற்கான step-by-step instructions-ஐ பகிர்ந்தோம். இந்த post-இல், React 19-இன் புதிய features மற்றும் அவற்றை நீங்கள் எப்படி adopt செய்யலாம் என்பதற்கான overview-ஐ தருகிறோம்.
 
-- [What's new in React 19](#whats-new-in-react-19)
-- [Improvements in React 19](#improvements-in-react-19)
-- [How to upgrade](#how-to-upgrade)
+- [React 19-இல் புதியவை](#whats-new-in-react-19)
+- [React 19-இல் improvements](#improvements-in-react-19)
+- [Upgrade செய்வது எப்படி](#how-to-upgrade)
 
-For a list of breaking changes, see the [Upgrade Guide](/blog/2024/04/25/react-19-upgrade-guide).
+Breaking changes list-க்கு [Upgrade Guide](/blog/2024/04/25/react-19-upgrade-guide)-ஐ பார்க்கவும்.
 
 ---
 
-## What's new in React 19 {/*whats-new-in-react-19*/}
+## React 19-இல் புதியவை {/*whats-new-in-react-19*/}
 
 ### Actions {/*actions*/}
 
-A common use case in React apps is to perform a data mutation and then update state in response. For example, when a user submits a form to change their name, you will make an API request, and then handle the response. In the past, you would need to handle pending states, errors, optimistic updates, and sequential requests manually.
+React apps-இல் பொதுவான use case ஒன்று data mutation செய்து, அதன் response-க்கு ஏற்ப state update செய்வது. உதாரணமாக, user தன் பெயரை மாற்ற form submit செய்தால், நீங்கள் API request செய்து, பின்னர் response-ஐ handle செய்வீர்கள். முன்பு pending states, errors, optimistic updates, மற்றும் sequential requests-ஐ கைமுறையாக handle செய்ய வேண்டியிருந்தது.
 
-For example, you could handle the pending and error state in `useState`:
+உதாரணமாக, pending மற்றும் error state-ஐ `useState`-இல் handle செய்யலாம்:
 
 ```js
 // Before Actions
@@ -67,7 +67,7 @@ function UpdateName({}) {
     <div>
       <input value={name} onChange={(event) => setName(event.target.value)} />
       <button onClick={handleSubmit} disabled={isPending}>
-        Update
+        Update செய்
       </button>
       {error && <p>{error}</p>}
     </div>
@@ -75,9 +75,9 @@ function UpdateName({}) {
 }
 ```
 
-In React 19, we're adding support for using async functions in transitions to handle pending states, errors, forms, and optimistic updates automatically.
+React 19-இல், pending states, errors, forms, மற்றும் optimistic updates-ஐ தானாக handle செய்ய transitions-இல் async functions பயன்படுத்த support சேர்க்கிறோம்.
 
-For example, you can use `useTransition` to handle the pending state for you:
+உதாரணமாக, pending state-ஐ உங்களுக்காக handle செய்ய `useTransition` பயன்படுத்தலாம்:
 
 ```js
 // Using pending state from Actions
@@ -101,7 +101,7 @@ function UpdateName({}) {
     <div>
       <input value={name} onChange={(event) => setName(event.target.value)} />
       <button onClick={handleSubmit} disabled={isPending}>
-        Update
+        Update செய்
       </button>
       {error && <p>{error}</p>}
     </div>
@@ -109,24 +109,24 @@ function UpdateName({}) {
 }
 ```
 
-The async transition will immediately set the `isPending` state to true, make the async request(s), and switch `isPending` to false after any transitions. This allows you to keep the current UI responsive and interactive while the data is changing.
+Async transition உடனடியாக `isPending` state-ஐ true ஆக set செய்து, async request(s)-ஐ செய்து, எந்த transitions முடிந்த பிறகும் `isPending`-ஐ false ஆக மாற்றும். Data மாறிக்கொண்டிருக்கும்போது current UI responsive மற்றும் interactive ஆக இருக்க இது அனுமதிக்கிறது.
 
 <Note>
 
-#### By convention, functions that use async transitions are called "Actions". {/*by-convention-functions-that-use-async-transitions-are-called-actions*/}
+#### Convention படி, async transitions பயன்படுத்தும் functions "Actions" என்று அழைக்கப்படுகின்றன. {/*by-convention-functions-that-use-async-transitions-are-called-actions*/}
 
-Actions automatically manage submitting data for you:
+Actions data submit செய்வதை உங்களுக்காக தானாக manage செய்கின்றன:
 
-- **Pending state**: Actions provide a pending state that starts at the beginning of a request and automatically resets when the final state update is committed.
-- **Optimistic updates**: Actions support the new [`useOptimistic`](#new-hook-optimistic-updates) hook so you can show users instant feedback while the requests are submitting.
-- **Error handling**: Actions provide error handling so you can display Error Boundaries when a request fails, and revert optimistic updates to their original value automatically.
-- **Forms**: `<form>` elements now support passing functions to the `action` and `formAction` props. Passing functions to the `action` props use Actions by default and reset the form automatically after submission.
+- **Pending state**: Actions request தொடக்கத்தில் ஆரம்பித்து இறுதி state update committed ஆனதும் தானாக reset ஆகும் pending state-ஐ வழங்குகின்றன.
+- **Optimistic updates**: Requests submit ஆகிக்கொண்டிருக்கும்போது users-க்கு உடனடி feedback காட்ட புதிய [`useOptimistic`](#new-hook-optimistic-updates) hook-ஐ Actions support செய்கின்றன.
+- **Error handling**: Request தோல்வியடைந்தால் Error Boundaries display செய்யவும், optimistic updates-ஐ தானாக அவற்றின் original value-க்கு revert செய்யவும் Actions error handling வழங்குகின்றன.
+- **Forms**: `<form>` elements இப்போது `action` மற்றும் `formAction` props-க்கு functions pass செய்வதை support செய்கின்றன. `action` props-க்கு functions pass செய்வது default ஆக Actions-ஐப் பயன்படுத்தி submission-க்கு பிறகு form-ஐ தானாக reset செய்கிறது.
 
 </Note>
 
-Building on top of Actions, React 19 introduces [`useOptimistic`](#new-hook-optimistic-updates) to manage optimistic updates, and a new hook [`React.useActionState`](#new-hook-useactionstate) to handle common cases for Actions. In `react-dom` we're adding [`<form>` Actions](#form-actions) to manage forms automatically and [`useFormStatus`](#new-hook-useformstatus) to support the common cases for Actions in forms.
+Actions-ன் மேல் கட்டியமைத்து, optimistic updates manage செய்ய React 19 [`useOptimistic`](#new-hook-optimistic-updates)-ஐ அறிமுகப்படுத்துகிறது, மேலும் Actions-க்கான common cases handle செய்ய புதிய hook [`React.useActionState`](#new-hook-useactionstate)-ஐ வழங்குகிறது. `react-dom`-இல் forms-ஐ தானாக manage செய்ய [`<form>` Actions](#form-actions) மற்றும் forms-இல் Actions-க்கான common cases support செய்ய [`useFormStatus`](#new-hook-useformstatus)-ஐ சேர்க்கிறோம்.
 
-In React 19, the above example can be simplified to:
+React 19-இல், மேலுள்ள example இதுபோல் simplify செய்யலாம்:
 
 ```js
 // Using <form> Actions and useActionState
@@ -146,18 +146,18 @@ function ChangeName({ name, setName }) {
   return (
     <form action={submitAction}>
       <input type="text" name="name" />
-      <button type="submit" disabled={isPending}>Update</button>
+      <button type="submit" disabled={isPending}>Update செய்</button>
       {error && <p>{error}</p>}
     </form>
   );
 }
 ```
 
-In the next section, we'll break down each of the new Action features in React 19.
+அடுத்த section-இல், React 19-இல் உள்ள ஒவ்வொரு புதிய Action feature-ஐயும் பிரித்து பார்ப்போம்.
 
-### New hook: `useActionState` {/*new-hook-useactionstate*/}
+### புதிய hook: `useActionState` {/*new-hook-useactionstate*/}
 
-To make the common cases easier for Actions, we've added a new hook called `useActionState`:
+Actions-க்கான common cases-ஐ மேம்படுத்த, `useActionState` எனும் புதிய hook ஒன்றை சேர்த்துள்ளோம்:
 
 ```js
 const [error, submitAction, isPending] = useActionState(
@@ -176,33 +176,33 @@ const [error, submitAction, isPending] = useActionState(
 );
 ```
 
-`useActionState` accepts a function (the "Action"), and returns a wrapped Action to call. This works because Actions compose. When the wrapped Action is called, `useActionState` will return the last result of the Action as `data`, and the pending state of the Action as `pending`.
+`useActionState` ஒரு function-ஐ ("Action") ஏற்று, call செய்ய wrapped Action-ஐ return செய்கிறது. இது வேலை செய்வதற்கான காரணம் Actions compose ஆகும். Wrapped Action call செய்யப்படும்போது, `useActionState` Action-ன் கடைசி result-ஐ `data` ஆகவும், Action-ன் pending state-ஐ `pending` ஆகவும் return செய்யும்.
 
 <Note>
 
-`React.useActionState` was previously called `ReactDOM.useFormState` in the Canary releases, but we've renamed it and deprecated `useFormState`.
+`React.useActionState` Canary releases-இல் முன்பு `ReactDOM.useFormState` என்று அழைக்கப்பட்டது; அதை rename செய்து `useFormState`-ஐ deprecated செய்துள்ளோம்.
 
-See [#28491](https://github.com/facebook/react/pull/28491) for more info.
+மேலும் தகவலுக்கு [#28491](https://github.com/facebook/react/pull/28491)-ஐ பார்க்கவும்.
 
 </Note>
 
-For more information, see the docs for [`useActionState`](/reference/react/useActionState).
+மேலும் தகவலுக்கு [`useActionState`](/reference/react/useActionState) docs-ஐ பார்க்கவும்.
 
 ### React DOM: `<form>` Actions {/*form-actions*/}
 
-Actions are also integrated with React 19's new `<form>` features for `react-dom`. We've added support for passing functions as the `action` and `formAction` props of `<form>`, `<input>`, and `<button>` elements to automatically submit forms with Actions:
+Actions, `react-dom`-க்கான React 19-ன் புதிய `<form>` features-உடனும் integrated ஆகின்றன. Actions மூலம் forms-ஐ தானாக submit செய்ய, `<form>`, `<input>`, மற்றும் `<button>` elements-ன் `action` மற்றும் `formAction` props ஆக functions pass செய்ய support சேர்த்துள்ளோம்:
 
 ```js [[1,1,"actionFunction"]]
 <form action={actionFunction}>
 ```
 
-When a `<form>` Action succeeds, React will automatically reset the form for uncontrolled components. If you need to reset the `<form>` manually, you can call the new `requestFormReset` React DOM API.
+ஒரு `<form>` Action வெற்றி பெற்றால், uncontrolled components-க்காக React form-ஐ தானாக reset செய்யும். `<form>`-ஐ கைமுறையாக reset செய்ய வேண்டுமெனில், புதிய `requestFormReset` React DOM API-ஐ call செய்யலாம்.
 
-For more information, see the `react-dom` docs for [`<form>`](/reference/react-dom/components/form), [`<input>`](/reference/react-dom/components/input), and `<button>`.
+மேலும் தகவலுக்கு [`<form>`](/reference/react-dom/components/form), [`<input>`](/reference/react-dom/components/input), மற்றும் `<button>` பற்றிய `react-dom` docs-ஐ பார்க்கவும்.
 
-### React DOM: New hook: `useFormStatus` {/*new-hook-useformstatus*/}
+### React DOM: புதிய hook: `useFormStatus` {/*new-hook-useformstatus*/}
 
-In design systems, it's common to write design components that need access to information about the `<form>` they're in, without drilling props down to the component. This can be done via Context, but to make the common case easier, we've added a new hook `useFormStatus`:
+Design systems-இல், props-ஐ component-க்கு கீழே drilling செய்யாமல், அவை உள்ள `<form>` பற்றிய தகவலுக்கு access தேவைப்படும் design components எழுதுவது பொதுவானது. இதை Context மூலம் செய்யலாம்; ஆனால் common case-ஐ மேம்படுத்த, `useFormStatus` எனும் புதிய hook சேர்த்துள்ளோம்:
 
 ```js [[1, 4, "pending"], [1, 5, "pending"]]
 import {useFormStatus} from 'react-dom';
@@ -213,13 +213,13 @@ function DesignButton() {
 }
 ```
 
-`useFormStatus` reads the status of the parent `<form>` as if the form was a Context provider.
+Parent `<form>` ஒரு Context provider போல இருந்தால் எப்படி status read செய்வீர்களோ, `useFormStatus` அப்படியே அதன் status-ஐ read செய்கிறது.
 
-For more information, see the `react-dom` docs for [`useFormStatus`](/reference/react-dom/hooks/useFormStatus).
+மேலும் தகவலுக்கு [`useFormStatus`](/reference/react-dom/hooks/useFormStatus) பற்றிய `react-dom` docs-ஐ பார்க்கவும்.
 
-### New hook: `useOptimistic` {/*new-hook-optimistic-updates*/}
+### புதிய hook: `useOptimistic` {/*new-hook-optimistic-updates*/}
 
-Another common UI pattern when performing a data mutation is to show the final state optimistically while the async request is underway. In React 19, we're adding a new hook called `useOptimistic` to make this easier:
+Data mutation செய்யும்போது மற்றொரு பொதுவான UI pattern, async request நடந்து கொண்டிருக்கும்போது final state-ஐ optimistically காட்டுவது. இதை மேம்படுத்த React 19-இல் `useOptimistic` எனும் புதிய hook சேர்க்கிறோம்:
 
 ```js {2,6,13,19}
 function ChangeName({currentName, onUpdateName}) {
@@ -234,9 +234,9 @@ function ChangeName({currentName, onUpdateName}) {
 
   return (
     <form action={submitAction}>
-      <p>Your name is: {optimisticName}</p>
+      <p>உங்கள் பெயர்: {optimisticName}</p>
       <p>
-        <label>Change Name:</label>
+        <label>பெயரை மாற்று:</label>
         <input
           type="text"
           name="name"
@@ -248,15 +248,15 @@ function ChangeName({currentName, onUpdateName}) {
 }
 ```
 
-The `useOptimistic` hook will immediately render the `optimisticName` while the `updateName` request is in progress. When the update finishes or errors, React will automatically switch back to the `currentName` value.
+`updateName` request progress-இல் இருக்கும்போது `useOptimistic` hook உடனடியாக `optimisticName`-ஐ render செய்யும். Update முடிந்ததும் அல்லது error ஏற்பட்டதும், React தானாக `currentName` value-க்கு திரும்பும்.
 
-For more information, see the docs for [`useOptimistic`](/reference/react/useOptimistic).
+மேலும் தகவலுக்கு [`useOptimistic`](/reference/react/useOptimistic) docs-ஐ பார்க்கவும்.
 
-### New API: `use` {/*new-feature-use*/}
+### புதிய API: `use` {/*new-feature-use*/}
 
-In React 19 we're introducing a new API to read resources in render: `use`.
+React 19-இல் render போது resources read செய்ய புதிய API ஒன்றை அறிமுகப்படுத்துகிறோம்: `use`.
 
-For example, you can read a promise with `use`, and React will Suspend until the promise resolves:
+உதாரணமாக, `use` மூலம் promise ஒன்றை read செய்யலாம்; promise resolve ஆகும் வரை React Suspend செய்யும்:
 
 ```js {1,5}
 import {use} from 'react';
@@ -280,9 +280,9 @@ function Page({commentsPromise}) {
 
 <Note>
 
-#### `use` does not support promises created in render. {/*use-does-not-support-promises-created-in-render*/}
+#### Render-இல் உருவாக்கப்பட்ட promises-ஐ `use` support செய்யாது. {/*use-does-not-support-promises-created-in-render*/}
 
-If you try to pass a promise created in render to `use`, React will warn:
+Render-இல் உருவாக்கப்பட்ட promise-ஐ `use`-க்கு pass செய்ய முயன்றால், React warning தரும்:
 
 <ConsoleBlockMulti>
 
@@ -294,11 +294,11 @@ A component was suspended by an uncached promise. Creating promises inside a Cli
 
 </ConsoleBlockMulti>
 
-To fix, you need to pass a promise from a Suspense powered library or framework that supports caching for promises. In the future we plan to ship features to make it easier to cache promises in render.
+Fix செய்ய, promises-க்கு caching support செய்யும் Suspense-powered library அல்லது framework-இலிருந்து promise ஒன்றை pass செய்ய வேண்டும். எதிர்காலத்தில் render-இல் promises cache செய்வதை மேம்படுத்த features ship செய்ய திட்டமிடுகிறோம்.
 
 </Note>
 
-You can also read context with `use`, allowing you to read Context conditionally such as after early returns:
+Early returns-க்கு பிறகு போன்ற cases-இல் Context-ஐ conditionally read செய்ய அனுமதிக்கும் வகையில், `use` மூலம் context-ஐயும் read செய்யலாம்:
 
 ```js {1,11}
 import {use} from 'react';
@@ -310,7 +310,6 @@ function Heading({children}) {
   }
 
   // This would not work with useContext
-  // because of the early return.
   const theme = use(ThemeContext);
   return (
     <h1 style={{color: theme.color}}>
@@ -320,17 +319,17 @@ function Heading({children}) {
 }
 ```
 
-The `use` API can only be called in render, similar to hooks. Unlike hooks, `use` can be called conditionally. In the future we plan to support more ways to consume resources in render with `use`.
+`use` API hooks போல render-இல் மட்டுமே call செய்ய முடியும். Hooks-க்கு மாறாக, `use` conditionally call செய்ய முடியும். எதிர்காலத்தில் `use` மூலம் render-இல் resources consume செய்ய இன்னும் பல வழிகளை support செய்ய திட்டமிடுகிறோம்.
 
-For more information, see the docs for [`use`](/reference/react/use).
+மேலும் தகவலுக்கு [`use`](/reference/react/use) docs-ஐ பார்க்கவும்.
 
-## New React DOM Static APIs {/*new-react-dom-static-apis*/}
+## புதிய React DOM Static APIs {/*new-react-dom-static-apis*/}
 
-We've added two new APIs to `react-dom/static` for static site generation:
+Static site generation-க்காக `react-dom/static`-க்கு இரண்டு புதிய APIs சேர்த்துள்ளோம்:
 - [`prerender`](/reference/react-dom/static/prerender)
 - [`prerenderToNodeStream`](/reference/react-dom/static/prerenderToNodeStream)
 
-These new APIs improve on `renderToString` by waiting for data to load for static HTML generation. They are designed to work with streaming environments like Node.js Streams and Web Streams. For example, in a Web Stream environment, you can prerender a React tree to static HTML with `prerender`:
+Static HTML generation-க்காக data load ஆக காத்திருப்பதன் மூலம், இந்த புதிய APIs `renderToString`-ஐ மேம்படுத்துகின்றன. Node.js Streams மற்றும் Web Streams போன்ற streaming environments-உடன் வேலை செய்ய அவை வடிவமைக்கப்பட்டுள்ளன. உதாரணமாக, Web Stream environment-இல், `prerender` மூலம் React tree-ஐ static HTML ஆக prerender செய்யலாம்:
 
 ```js
 import { prerender } from 'react-dom/static';
@@ -345,57 +344,57 @@ async function handler(request) {
 }
 ```
 
-Prerender APIs will wait for all data to load before returning the static HTML stream. Streams can be converted to strings, or sent with a streaming response. They do not support streaming content as it loads, which is supported by the existing [React DOM server rendering APIs](/reference/react-dom/server).
+Prerender APIs static HTML stream return செய்வதற்கு முன் அனைத்து data-வும் load ஆக காத்திருக்கும். Streams strings-ஆக convert செய்யப்படலாம், அல்லது streaming response-உடன் அனுப்பப்படலாம். Existing [React DOM server rendering APIs](/reference/react-dom/server) support செய்யும் போல content load ஆகும்போது streaming செய்வதை இவை support செய்யாது.
 
-For more information, see [React DOM Static APIs](/reference/react-dom/static).
+மேலும் தகவலுக்கு [React DOM Static APIs](/reference/react-dom/static)-ஐ பார்க்கவும்.
 
 ## React Server Components {/*react-server-components*/}
 
 ### Server Components {/*server-components*/}
 
-Server Components are a new option that allows rendering components ahead of time, before bundling, in an environment separate from your client application or SSR server. This separate environment is the "server" in React Server Components. Server Components can run once at build time on your CI server, or they can be run for each request using a web server.
+Server Components என்பது bundling-க்கு முன், உங்கள் client application அல்லது SSR server-இலிருந்து தனியான environment-இல் components-ஐ ahead of time render செய்ய அனுமதிக்கும் புதிய option. இந்த தனி environment தான் React Server Components-இல் உள்ள "server". Server Components உங்கள் CI server-இல் build time-இல் ஒருமுறை run ஆகலாம், அல்லது web server பயன்படுத்தி ஒவ்வொரு request-க்கும் run செய்யலாம்.
 
-React 19 includes all of the React Server Components features included from the Canary channel. This means libraries that ship with Server Components can now target React 19 as a peer dependency with a `react-server` [export condition](https://github.com/reactjs/rfcs/blob/main/text/0227-server-module-conventions.md#react-server-conditional-exports) for use in frameworks that support the [Full-stack React Architecture](/learn/creating-a-react-app#which-features-make-up-the-react-teams-full-stack-architecture-vision).
+Canary channel-இலிருந்து included செய்யப்பட்ட React Server Components features அனைத்தும் React 19-இல் உள்ளன. இதன் பொருள், Server Components உடன் ship செய்யும் libraries, [Full-stack React Architecture](/learn/creating-a-react-app#which-features-make-up-the-react-teams-full-stack-architecture-vision)-ஐ support செய்யும் frameworks-இல் பயன்படுத்த `react-server` [export condition](https://github.com/reactjs/rfcs/blob/main/text/0227-server-module-conventions.md#react-server-conditional-exports) உடன் React 19-ஐ peer dependency ஆக target செய்யலாம்.
 
 
 <Note>
 
-#### How do I build support for Server Components? {/*how-do-i-build-support-for-server-components*/}
+#### Server Components-க்கு support எப்படி build செய்வது? {/*how-do-i-build-support-for-server-components*/}
 
-While React Server Components in React 19 are stable and will not break between minor versions, the underlying APIs used to implement a React Server Components bundler or framework do not follow semver and may break between minors in React 19.x.
+React 19-இல் React Server Components stable ஆக உள்ளன; minor versions இடையே அவை break ஆகாது. ஆனால் React Server Components bundler அல்லது framework implement செய்ய பயன்படுத்தப்படும் underlying APIs semver-ஐ follow செய்யாது; React 19.x-இல் minors இடையே break ஆகலாம்.
 
-To support React Server Components as a bundler or framework, we recommend pinning to a specific React version, or using the Canary release. We will continue working with bundlers and frameworks to stabilize the APIs used to implement React Server Components in the future.
+Bundler அல்லது framework ஆக React Server Components support செய்ய, குறிப்பிட்ட React version-க்கு pin செய்யவோ, Canary release பயன்படுத்தவோ பரிந்துரைக்கிறோம். React Server Components implement செய்ய பயன்படுத்தப்படும் APIs-ஐ எதிர்காலத்தில் stabilize செய்ய bundlers மற்றும் frameworks-உடன் தொடர்ந்து வேலை செய்வோம்.
 
 </Note>
 
 
-For more, see the docs for [React Server Components](/reference/rsc/server-components).
+மேலும் அறிய [React Server Components](/reference/rsc/server-components) docs-ஐ பார்க்கவும்.
 
 ### Server Actions {/*server-actions*/}
 
-Server Actions allow Client Components to call async functions executed on the server.
+Server Actions, server-இல் execute செய்யப்படும் async functions-ஐ Client Components call செய்ய அனுமதிக்கின்றன.
 
-When a Server Action is defined with the `"use server"` directive, your framework will automatically create a reference to the server function, and pass that reference to the Client Component. When that function is called on the client, React will send a request to the server to execute the function, and return the result.
+`"use server"` directive உடன் Server Action define செய்யப்பட்டால், உங்கள் framework server function-க்கு reference ஒன்றை தானாக உருவாக்கி, அந்த reference-ஐ Client Component-க்கு pass செய்யும். அந்த function client-இல் call செய்யப்படும்போது, function execute செய்ய React server-க்கு request அனுப்பி result-ஐ return செய்யும்.
 
 <Note>
 
-#### There is no directive for Server Components. {/*there-is-no-directive-for-server-components*/}
+#### Server Components-க்கு directive இல்லை. {/*there-is-no-directive-for-server-components*/}
 
-A common misunderstanding is that Server Components are denoted by `"use server"`, but there is no directive for Server Components. The `"use server"` directive is used for Server Actions.
+ஒரு பொதுவான தவறான புரிதல் Server Components `"use server"` மூலம் குறிக்கப்படுகின்றன என்பதாகும்; ஆனால் Server Components-க்கு directive இல்லை. `"use server"` directive Server Actions-க்காக பயன்படுத்தப்படுகிறது.
 
-For more info, see the docs for [Directives](/reference/rsc/directives).
+மேலும் தகவலுக்கு [Directives](/reference/rsc/directives) docs-ஐ பார்க்கவும்.
 
 </Note>
 
-Server Actions can be created in Server Components and passed as props to Client Components, or they can be imported and used in Client Components.
+Server Actions Server Components-இல் உருவாக்கப்பட்டு Client Components-க்கு props ஆக pass செய்யப்படலாம், அல்லது Client Components-இல் import செய்து பயன்படுத்தப்படலாம்.
 
-For more, see the docs for [React Server Actions](/reference/rsc/server-actions).
+மேலும் அறிய [React Server Actions](/reference/rsc/server-actions) docs-ஐ பார்க்கவும்.
 
-## Improvements in React 19 {/*improvements-in-react-19*/}
+## React 19-இல் improvements {/*improvements-in-react-19*/}
 
-### `ref` as a prop {/*ref-as-a-prop*/}
+### Prop ஆக `ref` {/*ref-as-a-prop*/}
 
-Starting in React 19, you can now access `ref` as a prop for function components:
+React 19 முதல், function components-க்காக `ref`-ஐ prop ஆக access செய்யலாம்:
 
 ```js [[1, 1, "ref"], [1, 2, "ref", 45], [1, 6, "ref", 14]]
 function MyInput({placeholder, ref}) {
@@ -406,17 +405,17 @@ function MyInput({placeholder, ref}) {
 <MyInput ref={ref} />
 ```
 
-New function components will no longer need `forwardRef`, and we will be publishing a codemod to automatically update your components to use the new `ref` prop. In future versions we will deprecate and remove `forwardRef`.
+புதிய function components-க்கு இனி `forwardRef` தேவைப்படாது; புதிய `ref` prop-ஐப் பயன்படுத்த உங்கள் components-ஐ தானாக update செய்ய codemod வெளியிடுவோம். Future versions-இல் `forwardRef`-ஐ deprecate செய்து remove செய்வோம்.
 
 <Note>
 
-`ref`s passed to classes are not passed as props since they reference the component instance.
+Classes-க்கு pass செய்யப்படும் `ref`s props ஆக pass செய்யப்படாது, ஏனெனில் அவை component instance-ஐ reference செய்கின்றன.
 
 </Note>
 
-### Diffs for hydration errors {/*diffs-for-hydration-errors*/}
+### Hydration errors-க்கான diffs {/*diffs-for-hydration-errors*/}
 
-We also improved error reporting for hydration errors in `react-dom`. For example, instead of logging multiple errors in DEV without any information about the mismatch:
+`react-dom`-இல் hydration errors-க்கான error reporting-ஐயும் மேம்படுத்தினோம். உதாரணமாக, mismatch பற்றிய எந்த தகவலும் இல்லாமல் DEV-இல் பல errors log செய்வதற்கு பதிலாக:
 
 <ConsoleBlockMulti>
 
@@ -458,7 +457,7 @@ Uncaught Error: Text content does not match server-rendered HTML.
 
 </ConsoleBlockMulti>
 
-We now log a single message with a diff of the mismatch:
+இப்போது mismatch-ன் diff உடன் ஒரு message மட்டும் log செய்கிறோம்:
 
 
 <ConsoleBlockMulti>
@@ -484,9 +483,9 @@ https://react.dev/link/hydration-mismatch {'\n'}
 
 </ConsoleBlockMulti>
 
-### `<Context>` as a provider {/*context-as-a-provider*/}
+### Provider ஆக `<Context>` {/*context-as-a-provider*/}
 
-In React 19, you can render `<Context>` as a provider instead of `<Context.Provider>`:
+React 19-இல், `<Context.Provider>`-க்கு பதிலாக `<Context>`-ஐ provider ஆக render செய்யலாம்:
 
 
 ```js {5,7}
@@ -501,11 +500,11 @@ function App({children}) {
 }
 ```
 
-New Context providers can use `<Context>` and we will be publishing a codemod to convert existing providers. In future versions we will deprecate `<Context.Provider>`.
+புதிய Context providers `<Context>`-ஐ பயன்படுத்தலாம்; existing providers-ஐ convert செய்ய codemod வெளியிடுவோம். Future versions-இல் `<Context.Provider>`-ஐ deprecate செய்வோம்.
 
-### Cleanup functions for refs {/*cleanup-functions-for-refs*/}
+### Refs-க்கான cleanup functions {/*cleanup-functions-for-refs*/}
 
-We now support returning a cleanup function from `ref` callbacks:
+`ref` callbacks-இலிருந்து cleanup function return செய்வதை இப்போது support செய்கிறோம்:
 
 ```js {7-9}
 <input
@@ -521,30 +520,30 @@ We now support returning a cleanup function from `ref` callbacks:
 />
 ```
 
-When the component unmounts, React will call the cleanup function returned from the `ref` callback. This works for DOM refs, refs to class components, and `useImperativeHandle`.
+Component unmount ஆகும்போது, `ref` callback-இலிருந்து return செய்யப்பட்ட cleanup function-ஐ React call செய்யும். இது DOM refs, class components-க்கான refs, மற்றும் `useImperativeHandle`-க்கு வேலை செய்கிறது.
 
 <Note>
 
-Previously, React would call `ref` functions with `null` when unmounting the component. If your `ref` returns a cleanup function, React will now skip this step.
+முன்பு, component unmount ஆகும்போது React `ref` functions-ஐ `null` உடன் call செய்தது. உங்கள் `ref` cleanup function return செய்தால், React இப்போது இந்த step-ஐ skip செய்யும்.
 
-In future versions, we will deprecate calling refs with `null` when unmounting components.
+Future versions-இல், components unmount ஆகும்போது refs-ஐ `null` உடன் call செய்வதை deprecate செய்வோம்.
 
 </Note>
 
-Due to the introduction of ref cleanup functions, returning anything else from a `ref` callback will now be rejected by TypeScript. The fix is usually to stop using implicit returns, for example:
+Ref cleanup functions அறிமுகப்படுத்தப்பட்டதால், `ref` callback-இலிருந்து வேறு எதையும் return செய்வது இப்போது TypeScript-ஆல் rejected செய்யப்படும். Fix பொதுவாக implicit returns பயன்படுத்துவதை நிறுத்துவது; உதாரணமாக:
 
 ```diff [[1, 1, "("], [1, 1, ")"], [2, 2, "{", 15], [2, 2, "}", 1]]
 - <div ref={current => (instance = current)} />
 + <div ref={current => {instance = current}} />
 ```
 
-The original code returned the instance of the `HTMLDivElement` and TypeScript wouldn't know if this was _supposed_ to be a cleanup function or if you didn't want to return a cleanup function.
+Original code `HTMLDivElement`-ன் instance-ஐ return செய்தது; இது cleanup function ஆக இருக்க வேண்டுமா, அல்லது cleanup function return செய்ய விரும்பவில்லையா என்பதை TypeScript அறிய முடியாது.
 
-You can codemod this pattern with [`no-implicit-ref-callback-return`](https://github.com/eps1lon/types-react-codemod/#no-implicit-ref-callback-return).
+இந்த pattern-ஐ [`no-implicit-ref-callback-return`](https://github.com/eps1lon/types-react-codemod/#no-implicit-ref-callback-return) மூலம் codemod செய்யலாம்.
 
 ### `useDeferredValue` initial value {/*use-deferred-value-initial-value*/}
 
-We've added an `initialValue` option to `useDeferredValue`:
+`useDeferredValue`-க்கு `initialValue` option ஒன்றை சேர்த்துள்ளோம்:
 
 ```js [[1, 1, "deferredValue"], [1, 4, "deferredValue"], [2, 4, "''"]]
 function Search({deferredValue}) {
@@ -556,17 +555,17 @@ function Search({deferredValue}) {
     <Results query={value} />
   );
 }
-````
+```
 
-When <CodeStep step={2}>initialValue</CodeStep> is provided, `useDeferredValue` will return it as `value` for the initial render of the component, and schedules a re-render in the background with the <CodeStep step={1}>deferredValue</CodeStep> returned.
+<CodeStep step={2}>initialValue</CodeStep> வழங்கப்பட்டால், component-ன் initial render-க்கு `useDeferredValue` அதை `value` ஆக return செய்யும்; பின்னணியில் <CodeStep step={1}>deferredValue</CodeStep> returned ஆகும் re-render-ஐ schedule செய்யும்.
 
-For more, see [`useDeferredValue`](/reference/react/useDeferredValue).
+மேலும் அறிய [`useDeferredValue`](/reference/react/useDeferredValue)-ஐ பார்க்கவும்.
 
-### Support for Document Metadata {/*support-for-metadata-tags*/}
+### Document Metadata-க்கு support {/*support-for-metadata-tags*/}
 
-In HTML, document metadata tags like `<title>`, `<link>`, and `<meta>` are reserved for placement in the `<head>` section of the document. In React, the component that decides what metadata is appropriate for the app may be very far from the place where you render the `<head>` or React does not render the `<head>` at all. In the past, these elements would need to be inserted manually in an effect, or by libraries like [`react-helmet`](https://github.com/nfl/react-helmet), and required careful handling when server rendering a React application.
+HTML-இல், `<title>`, `<link>`, மற்றும் `<meta>` போன்ற document metadata tags document-ன் `<head>` section-இல் வைக்க reserved செய்யப்பட்டவை. React-இல், app-க்கு பொருத்தமான metadata என்ன என்பதை முடிவு செய்யும் component, நீங்கள் `<head>` render செய்யும் இடத்திலிருந்து மிகவும் தொலைவில் இருக்கலாம்; அல்லது React `<head>`-ஐ முற்றிலும் render செய்யாமல் இருக்கலாம். முன்பு, இந்த elements effect ஒன்றில் கைமுறையாக insert செய்யப்பட வேண்டும், அல்லது [`react-helmet`](https://github.com/nfl/react-helmet) போன்ற libraries மூலம் செய்யப்பட வேண்டும்; React application-ஐ server render செய்யும்போது கவனமாக handle செய்ய வேண்டியது அவசியம்.
 
-In React 19, we're adding support for rendering document metadata tags in components natively:
+React 19-இல், components-இல் document metadata tags-ஐ natively render செய்ய support சேர்க்கிறோம்:
 
 ```js {5-8}
 function BlogPost({post}) {
@@ -585,23 +584,23 @@ function BlogPost({post}) {
 }
 ```
 
-When React renders this component, it will see the `<title>` `<link>` and `<meta>` tags, and automatically hoist them to the `<head>` section of document. By supporting these metadata tags natively, we're able to ensure they work with client-only apps, streaming SSR, and Server Components.
+React இந்த component-ஐ render செய்யும்போது, `<title>` `<link>` மற்றும் `<meta>` tags-ஐ பார்த்து, அவற்றை document-ன் `<head>` section-க்கு தானாக hoist செய்யும். இந்த metadata tags-ஐ natively support செய்வதால், client-only apps, streaming SSR, மற்றும் Server Components உடன் அவை வேலை செய்வதை உறுதி செய்ய முடிகிறது.
 
 <Note>
 
-#### You may still want a Metadata library {/*you-may-still-want-a-metadata-library*/}
+#### உங்களுக்கு இன்னும் Metadata library தேவைப்படலாம் {/*you-may-still-want-a-metadata-library*/}
 
-For simple use cases, rendering Document Metadata as tags may be suitable, but libraries can offer more powerful features like overriding generic metadata with specific metadata based on the current route. These features make it easier for frameworks and libraries like [`react-helmet`](https://github.com/nfl/react-helmet) to support metadata tags, rather than replace them.
+Simple use cases-க்கு Document Metadata-ஐ tags ஆக render செய்வது பொருத்தமாக இருக்கலாம்; ஆனால் current route அடிப்படையில் generic metadata-ஐ specific metadata-ஆல் override செய்வது போன்ற வலிமையான features-ஐ libraries வழங்க முடியும். இந்த features, [`react-helmet`](https://github.com/nfl/react-helmet) போன்ற frameworks மற்றும் libraries metadata tags-ஐ replace செய்வதற்குப் பதிலாக support செய்வதை உதவுகின்றன.
 
 </Note>
 
-For more info, see the docs for [`<title>`](/reference/react-dom/components/title), [`<link>`](/reference/react-dom/components/link), and [`<meta>`](/reference/react-dom/components/meta).
+மேலும் தகவலுக்கு [`<title>`](/reference/react-dom/components/title), [`<link>`](/reference/react-dom/components/link), மற்றும் [`<meta>`](/reference/react-dom/components/meta) docs-ஐ பார்க்கவும்.
 
-### Support for stylesheets {/*support-for-stylesheets*/}
+### Stylesheets-க்கு support {/*support-for-stylesheets*/}
 
-Stylesheets, both externally linked (`<link rel="stylesheet" href="...">`) and inline (`<style>...</style>`), require careful positioning in the DOM due to style precedence rules. Building a stylesheet capability that allows for composability within components is hard, so users often end up either loading all of their styles far from the components that may depend on them, or they use a style library which encapsulates this complexity.
+Externally linked (`<link rel="stylesheet" href="...">`) மற்றும் inline (`<style>...</style>`) ஆகிய இருவகை stylesheets-க்கும் style precedence rules காரணமாக DOM-இல் கவனமான positioning தேவைப்படுகிறது. Components-க்குள் composability அனுமதிக்கும் stylesheet capability கட்டுவது கடினம்; எனவே users தங்கள் styles அனைத்தையும் அவற்றை சாரக்கூடிய components-இலிருந்து தொலைவில் load செய்வதோ, அல்லது இந்த complexity-ஐ encapsulate செய்யும் style library பயன்படுத்துவதோ ஆகிவிடுகிறது.
 
-In React 19, we're addressing this complexity and providing even deeper integration into Concurrent Rendering on the Client and Streaming Rendering on the Server with built in support for stylesheets. If you tell React the `precedence` of your stylesheet it will manage the insertion order of the stylesheet in the DOM and ensure that the stylesheet (if external) is loaded before revealing content that depends on those style rules.
+React 19-இல், இந்த complexity-ஐ address செய்து, Client-இல் Concurrent Rendering மற்றும் Server-இல் Streaming Rendering ஆகியவற்றுடன் built-in stylesheet support மூலம் இன்னும் ஆழமான integration வழங்குகிறோம். உங்கள் stylesheet-ன் `precedence`-ஐ React-க்கு சொன்னால், அது DOM-இல் stylesheet insertion order-ஐ manage செய்து, அந்த style rules-ஐ சார்ந்த content reveal ஆகும் முன் stylesheet (external என்றால்) load ஆகியிருப்பதை உறுதி செய்யும்.
 
 ```js {4,5,17}
 function ComponentOne() {
@@ -620,44 +619,44 @@ function ComponentTwo() {
   return (
     <div>
       <p>{...}</p>
-      <link rel="stylesheet" href="baz" precedence="default" />  <-- will be inserted between foo & bar
+      <link rel="stylesheet" href="baz" precedence="default" />  <-- foo மற்றும் bar இடையில் insert செய்யப்படும்
     </div>
   )
 }
 ```
 
-During Server Side Rendering React will include the stylesheet in the `<head>`, which ensures that the browser will not paint until it has loaded. If the stylesheet is discovered late after we've already started streaming, React will ensure that the stylesheet is inserted into the `<head>` on the client before revealing the content of a Suspense boundary that depends on that stylesheet.
+Server Side Rendering போது React stylesheet-ஐ `<head>`-இல் include செய்யும்; இதனால் browser அது load ஆகும் வரை paint செய்யாது. Streaming தொடங்கிய பிறகு stylesheet தாமதமாக கண்டறியப்பட்டாலும், அந்த stylesheet-ஐ சார்ந்த Suspense boundary content reveal ஆகும் முன் client-இல் `<head>`-க்குள் stylesheet insert செய்யப்படுவதை React உறுதி செய்யும்.
 
-During Client Side Rendering React will wait for newly rendered stylesheets to load before committing the render. If you render this component from multiple places within your application React will only include the stylesheet once in the document:
+Client Side Rendering போது, newly rendered stylesheets load ஆகும் வரை render commit செய்வதற்கு React காத்திருக்கும். உங்கள் application-இல் பல இடங்களில் இந்த component-ஐ render செய்தால், React stylesheet-ஐ document-இல் ஒருமுறை மட்டும் include செய்யும்:
 
 ```js {5}
 function App() {
   return <>
     <ComponentOne />
     ...
-    <ComponentOne /> // won't lead to a duplicate stylesheet link in the DOM
+    <ComponentOne /> // DOM-இல் duplicate stylesheet link உருவாகாது
   </>
 }
 ```
 
-For users accustomed to loading stylesheets manually this is an opportunity to locate those stylesheets alongside the components that depend on them allowing for better local reasoning and an easier time ensuring you only load the stylesheets that you actually depend on.
+Stylesheets-ஐ கைமுறையாக load செய்வதில் பழகிய users-க்கு, அவற்றை சார்ந்த components-க்கு அருகில் அந்த stylesheets-ஐ அமைக்க இது ஒரு வாய்ப்பு. இதனால் local reasoning மேம்படும்; உண்மையில் சார்ந்துள்ள stylesheets மட்டுமே load ஆகின்றன என்பதை உறுதி செய்வதும் மேம்படும்.
 
-Style libraries and style integrations with bundlers can also adopt this new capability so even if you don't directly render your own stylesheets, you can still benefit as your tools are upgraded to use this feature.
+Style libraries மற்றும் bundlers-உடன் style integrations-மும் இந்த புதிய capability-ஐ adopt செய்யலாம்; ஆகவே நீங்கள் உங்கள் சொந்த stylesheets-ஐ நேரடியாக render செய்யாவிட்டாலும், உங்கள் tools இந்த feature-ஐப் பயன்படுத்த upgrade ஆகும்போது அதனால் பயன் பெறலாம்.
 
-For more details, read the docs for [`<link>`](/reference/react-dom/components/link) and [`<style>`](/reference/react-dom/components/style).
+மேலும் விவரங்களுக்கு [`<link>`](/reference/react-dom/components/link) மற்றும் [`<style>`](/reference/react-dom/components/style) docs-ஐ படியுங்கள்.
 
-### Support for async scripts {/*support-for-async-scripts*/}
+### Async scripts-க்கு support {/*support-for-async-scripts*/}
 
-In HTML normal scripts (`<script src="...">`) and deferred scripts (`<script defer="" src="...">`) load in document order which makes rendering these kinds of scripts deep within your component tree challenging. Async scripts (`<script async="" src="...">`) however will load in arbitrary order.
+HTML-இல் normal scripts (`<script src="...">`) மற்றும் deferred scripts (`<script defer="" src="...">`) document order-இல் load ஆகும்; இதனால் இத்தகைய scripts-ஐ உங்கள் component tree-யின் ஆழத்தில் render செய்வது சவாலாகிறது. ஆனால் Async scripts (`<script async="" src="...">`) arbitrary order-இல் load ஆகும்.
 
-In React 19 we've included better support for async scripts by allowing you to render them anywhere in your component tree, inside the components that actually depend on the script, without having to manage relocating and deduplicating script instances.
+React 19-இல், script-ஐ உண்மையில் சார்ந்துள்ள components-க்குள், உங்கள் component tree-யின் எங்கிருந்தாலும் அவற்றை render செய்ய அனுமதிப்பதன் மூலம் async scripts-க்கு மேம்பட்ட support சேர்த்துள்ளோம்; script instances relocate மற்றும் deduplicate செய்வதை நீங்கள் manage செய்ய வேண்டியதில்லை.
 
 ```js {4,15}
 function MyComponent() {
   return (
     <div>
       <script async={true} src="..." />
-      Hello World
+      வணக்கம் உலகமே
     </div>
   )
 }
@@ -667,39 +666,39 @@ function App() {
     <body>
       <MyComponent>
       ...
-      <MyComponent> // won't lead to duplicate script in the DOM
+      <MyComponent> // DOM-இல் duplicate script உருவாகாது
     </body>
   </html>
 }
 ```
 
-In all rendering environments, async scripts will be deduplicated so that React will only load and execute the script once even if it is rendered by multiple different components.
+அனைத்து rendering environments-இலும், async scripts deduplicate செய்யப்படும்; அதனால் பல வெவ்வேறு components மூலம் render செய்யப்பட்டாலும் React script-ஐ ஒருமுறை மட்டும் load செய்து execute செய்யும்.
 
-In Server Side Rendering, async scripts will be included in the `<head>` and prioritized behind more critical resources that block paint such as stylesheets, fonts, and image preloads.
+Server Side Rendering-இல், async scripts `<head>`-இல் include செய்யப்பட்டு, stylesheets, fonts, image preloads போன்ற paint-ஐ block செய்யும் முக்கியமான resources-க்கு பின்னால் prioritize செய்யப்படும்.
 
-For more details, read the docs for [`<script>`](/reference/react-dom/components/script).
+மேலும் விவரங்களுக்கு [`<script>`](/reference/react-dom/components/script) docs-ஐ படியுங்கள்.
 
-### Support for preloading resources {/*support-for-preloading-resources*/}
+### Resources preloading-க்கு support {/*support-for-preloading-resources*/}
 
-During initial document load and on client side updates, telling the Browser about resources that it will likely need to load as early as possible can have a dramatic effect on page performance.
+Initial document load மற்றும் client side updates போது, Browser-க்கு அது விரைவில் load செய்ய வேண்டியிருக்கும் resources பற்றி மிக ஆரம்பத்தில் சொல்வது page performance-இல் பெரிய தாக்கத்தை ஏற்படுத்தும்.
 
-React 19 includes a number of new APIs for loading and preloading Browser resources to make it as easy as possible to build great experiences that aren't held back by inefficient resource loading.
+Inefficient resource loading காரணமாக தடைபடாத சிறந்த experiences கட்டுவதைக் மிகவும் மேம்படுத்த, Browser resources load மற்றும் preload செய்ய பல புதிய APIs-ஐ React 19 சேர்க்கிறது.
 
 ```js
 import { prefetchDNS, preconnect, preload, preinit } from 'react-dom'
 function MyComponent() {
-  preinit('https://.../path/to/some/script.js', {as: 'script' }) // loads and executes this script eagerly
-  preload('https://.../path/to/font.woff', { as: 'font' }) // preloads this font
-  preload('https://.../path/to/stylesheet.css', { as: 'style' }) // preloads this stylesheet
-  prefetchDNS('https://...') // when you may not actually request anything from this host
-  preconnect('https://...') // when you will request something but aren't sure what
+  preinit('https://.../path/to/some/script.js', {as: 'script' }) // இந்த script-ஐ eager ஆக load செய்து execute செய்கிறது
+  preload('https://.../path/to/font.woff', { as: 'font' }) // இந்த font-ஐ preload செய்கிறது
+  preload('https://.../path/to/stylesheet.css', { as: 'style' }) // இந்த stylesheet-ஐ preload செய்கிறது
+  prefetchDNS('https://...') // இந்த host-இலிருந்து உண்மையில் எதையும் request செய்யாமல் இருக்கலாம்
+  preconnect('https://...') // ஏதாவது request செய்வீர்கள், ஆனால் என்ன என்று உறுதி இல்லாத போது
 }
 ```
 ```html
-<!-- the above would result in the following DOM/HTML -->
+<!-- மேலுள்ளவை பின்வரும் DOM/HTML-ஐ உருவாக்கும் -->
 <html>
   <head>
-    <!-- links/scripts are prioritized by their utility to early loading, not call order -->
+    <!-- links/scripts call order-ஆல் அல்ல, early loading-க்கு உள்ள utility-ஆல் prioritized செய்யப்படும் -->
     <link rel="prefetch-dns" href="https://...">
     <link rel="preconnect" href="https://...">
     <link rel="preload" as="font" href="https://.../path/to/font.woff">
@@ -712,23 +711,23 @@ function MyComponent() {
 </html>
 ```
 
-These APIs can be used to optimize initial page loads by moving discovery of additional resources like fonts out of stylesheet loading. They can also make client updates faster by prefetching a list of resources used by an anticipated navigation and then eagerly preloading those resources on click or even on hover.
+Stylesheet loading-இலிருந்து fonts போன்ற கூடுதல் resources discovery-ஐ வெளியே நகர்த்துவதன் மூலம் initial page loads-ஐ optimize செய்ய இந்த APIs பயன்படுத்தப்படலாம். எதிர்பார்க்கப்படும் navigation பயன்படுத்தும் resources list-ஐ prefetch செய்து, click அல்லது hover போது கூட அந்த resources-ஐ eager ஆக preload செய்வதன் மூலம் client updates-ஐ வேகமாக்கவும் முடியும்.
 
-For more details see [Resource Preloading APIs](/reference/react-dom#resource-preloading-apis).
+மேலும் விவரங்களுக்கு [Resource Preloading APIs](/reference/react-dom#resource-preloading-apis)-ஐ பார்க்கவும்.
 
-### Compatibility with third-party scripts and extensions {/*compatibility-with-third-party-scripts-and-extensions*/}
+### Third-party scripts மற்றும் extensions-உடன் compatibility {/*compatibility-with-third-party-scripts-and-extensions*/}
 
-We've improved hydration to account for third-party scripts and browser extensions.
+Third-party scripts மற்றும் browser extensions-ஐ கணக்கில் கொள்ள hydration-ஐ மேம்படுத்தியுள்ளோம்.
 
-When hydrating, if an element that renders on the client doesn't match the element found in the HTML from the server, React will force a client re-render to fix up the content. Previously, if an element was inserted by third-party scripts or browser extensions, it would trigger a mismatch error and client render.
+Hydrating போது, client-இல் render ஆகும் element server-இலிருந்து வந்த HTML-இல் உள்ள element-க்கு match ஆகவில்லை என்றால், content-ஐ fix செய்ய React client re-render-ஐ force செய்யும். முன்பு, third-party scripts அல்லது browser extensions மூலம் element insert செய்யப்பட்டிருந்தால், அது mismatch error மற்றும் client render-ஐ trigger செய்தது.
 
-In React 19, unexpected tags in the `<head>` and `<body>` will be skipped over, avoiding the mismatch errors. If React needs to re-render the entire document due to an unrelated hydration mismatch, it will leave in place stylesheets inserted by third-party scripts and browser extensions.
+React 19-இல், `<head>` மற்றும் `<body>`-இல் உள்ள unexpected tags skip செய்யப்படும்; இதனால் mismatch errors தவிர்க்கப்படும். தொடர்பில்லாத hydration mismatch காரணமாக React முழு document-ஐ re-render செய்ய வேண்டியிருந்தால், third-party scripts மற்றும் browser extensions insert செய்த stylesheets-ஐ அது அப்படியே விட்டு விடும்.
 
-### Better error reporting {/*error-handling*/}
+### மேம்பட்ட error reporting {/*error-handling*/}
 
-We improved error handling in React 19 to remove duplication and provide options for handling caught and uncaught errors. For example, when there's an error in render caught by an Error Boundary, previously React would throw the error twice (once for the original error, then again after failing to automatically recover), and then call `console.error` with info about where the error occurred.
+Duplication-ஐ remove செய்து caught மற்றும் uncaught errors handle செய்வதற்கான options வழங்க React 19-இல் error handling-ஐ மேம்படுத்தினோம். உதாரணமாக, Error Boundary-யால் catch செய்யப்பட்ட render error இருந்தால், முன்பு React error-ஐ இரண்டு முறை throw செய்தது (ஒருமுறை original error-க்காக, பின்னர் automatically recover செய்யத் தவறிய பிறகு மீண்டும்), பின்னர் error எங்கு ஏற்பட்டது பற்றிய info உடன் `console.error` call செய்தது.
 
-This resulted in three errors for every caught error:
+இதனால் ஒவ்வொரு caught error-க்கும் மூன்று errors வந்தன:
 
 <ConsoleBlockMulti>
 
@@ -762,7 +761,7 @@ React will try to recreate this component tree from scratch using the error boun
 
 </ConsoleBlockMulti>
 
-In React 19, we log a single error with all the error information included:
+React 19-இல், அனைத்து error information-உம் சேர்ந்த ஒரே error-ஐ log செய்கிறோம்:
 
 <ConsoleBlockMulti>
 
@@ -784,27 +783,27 @@ React will try to recreate this component tree from scratch using the error boun
 
 </ConsoleBlockMulti>
 
-Additionally, we've added two new root options to complement `onRecoverableError`:
+மேலும், `onRecoverableError`-ஐ complement செய்ய இரண்டு புதிய root options சேர்த்துள்ளோம்:
 
-- `onCaughtError`: called when React catches an error in an Error Boundary.
-- `onUncaughtError`: called when an error is thrown and not caught by an Error Boundary.
-- `onRecoverableError`: called when an error is thrown and automatically recovered.
+- `onCaughtError`: React Error Boundary-இல் error ஒன்றை catch செய்தால் call செய்யப்படும்.
+- `onUncaughtError`: Error throw செய்யப்பட்டு Error Boundary-யால் catch செய்யப்படாத போது call செய்யப்படும்.
+- `onRecoverableError`: Error throw செய்யப்பட்டு தானாக recovered ஆனபோது call செய்யப்படும்.
 
-For more info and examples, see the docs for [`createRoot`](/reference/react-dom/client/createRoot) and [`hydrateRoot`](/reference/react-dom/client/hydrateRoot).
+மேலும் info மற்றும் examples-க்கு [`createRoot`](/reference/react-dom/client/createRoot) மற்றும் [`hydrateRoot`](/reference/react-dom/client/hydrateRoot) docs-ஐ பார்க்கவும்.
 
-### Support for Custom Elements {/*support-for-custom-elements*/}
+### Custom Elements-க்கு support {/*support-for-custom-elements*/}
 
-React 19 adds full support for custom elements and passes all tests on [Custom Elements Everywhere](https://custom-elements-everywhere.com/).
+React 19 custom elements-க்கு முழு support சேர்க்கிறது மற்றும் [Custom Elements Everywhere](https://custom-elements-everywhere.com/)-இல் உள்ள அனைத்து tests-களையும் pass செய்கிறது.
 
-In past versions, using Custom Elements in React has been difficult because React treated unrecognized props as attributes rather than properties. In React 19, we've added support for properties that works on the client and during SSR with the following strategy:
+முந்தைய versions-இல், Custom Elements-ஐ React-இல் பயன்படுத்துவது கடினமாக இருந்தது, ஏனெனில் React unrecognized props-ஐ properties-ஆக அல்ல, attributes-ஆக நடத்தினது. React 19-இல், client-இலும் SSR நேரத்திலும் பின்வரும் strategy-யுடன் வேலை செய்யும் properties support சேர்த்துள்ளோம்:
 
-- **Server Side Rendering**: props passed to a custom element will render as attributes if their type is a primitive value like `string`, `number`, or the value is `true`. Props with non-primitive types like `object`, `symbol`, `function`, or value `false` will be omitted.
-- **Client Side Rendering**: props that match a property on the Custom Element instance will be assigned as properties, otherwise they will be assigned as attributes.
+- **Server Side Rendering**: Custom element-க்கு pass செய்யப்பட்ட props, அவற்றின் type `string`, `number` போன்ற primitive value ஆக இருந்தால், அல்லது value `true` ஆக இருந்தால் attributes ஆக render செய்யப்படும். `object`, `symbol`, `function` போன்ற non-primitive types கொண்ட props, அல்லது value `false` கொண்ட props omit செய்யப்படும்.
+- **Client Side Rendering**: Custom Element instance-இல் உள்ள property-க்கு match ஆகும் props properties ஆக assigned செய்யப்படும்; இல்லையெனில் அவை attributes ஆக assigned செய்யப்படும்.
 
-Thanks to [Joey Arhar](https://github.com/josepharhar) for driving the design and implementation of Custom Element support in React.
+React-இல் Custom Element support-ன் design மற்றும் implementation-ஐ முன்னெடுத்த [Joey Arhar](https://github.com/josepharhar)-க்கு நன்றி.
 
 
-#### How to upgrade {/*how-to-upgrade*/}
-See the [React 19 Upgrade Guide](/blog/2024/04/25/react-19-upgrade-guide) for step-by-step instructions and a full list of breaking and notable changes.
+#### Upgrade செய்வது எப்படி {/*how-to-upgrade*/}
+Step-by-step instructions மற்றும் breaking மற்றும் notable changes-ன் முழு list-க்கு [React 19 Upgrade Guide](/blog/2024/04/25/react-19-upgrade-guide)-ஐ பார்க்கவும்.
 
-_Note: this post was originally published 04/25/2024 and has been updated to 12/05/2024 with the stable release._
+_குறிப்பு: இந்த post முதலில் 04/25/2024 அன்று published செய்யப்பட்டது; stable release உடன் 12/05/2024-க்கு update செய்யப்பட்டது._

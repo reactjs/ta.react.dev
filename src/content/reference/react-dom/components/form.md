@@ -4,12 +4,12 @@ title: "<form>"
 
 <Intro>
 
-The [built-in browser `<form>` component](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form) lets you create interactive controls for submitting information.
+[Built-in browser `<form>` component](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form), information submit செய்ய interactive controls உருவாக்க அனுமதிக்கிறது.
 
 ```js
 <form action={search}>
     <input name="query" />
-    <button type="submit">Search</button>
+    <button type="submit">தேடு</button>
 </form>
 ```
 
@@ -23,34 +23,34 @@ The [built-in browser `<form>` component](https://developer.mozilla.org/en-US/do
 
 ### `<form>` {/*form*/}
 
-To create interactive controls for submitting information, render the [built-in browser `<form>` component](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form).
+Information submit செய்ய interactive controls உருவாக்க, [built-in browser `<form>` component](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form)-ஐ render செய்யவும்.
 
 ```js
 <form action={search}>
     <input name="query" />
-    <button type="submit">Search</button>
+    <button type="submit">தேடு</button>
 </form>
 ```
 
-[See more examples below.](#usage)
+[கீழே மேலும் examples பார்க்கவும்.](#usage)
 
 #### Props {/*props*/}
 
-`<form>` supports all [common element props.](/reference/react-dom/components/common#common-props)
+`<form>` அனைத்து [common element props](/reference/react-dom/components/common#common-props)-ஐ support செய்கிறது.
 
-[`action`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form#action): a URL or function. When a URL is passed to `action` the form will behave like the HTML form component. When a function is passed to `action` the function will handle the form submission in a Transition following [the Action prop pattern](/reference/react/useTransition#exposing-action-props-from-components). The function passed to `action` may be async and will be called with a single argument containing the [form data](https://developer.mozilla.org/en-US/docs/Web/API/FormData) of the submitted form. The `action` prop can be overridden by a `formAction` attribute on a `<button>`, `<input type="submit">`, or `<input type="image">` component.
+[`action`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form#action): URL அல்லது function. `action`-க்கு URL pass செய்தால் form HTML form component போல behave செய்யும். `action`-க்கு function pass செய்தால், [Action prop pattern](/reference/react/useTransition#exposing-action-props-from-components)-ஐத் தொடர்ந்து Transition-இல் அந்த function form submission-ஐ handle செய்யும். `action`-க்கு pass செய்யப்பட்ட function async ஆக இருக்கலாம்; submitted form-ன் [form data](https://developer.mozilla.org/en-US/docs/Web/API/FormData) கொண்ட single argument உடன் call செய்யப்படும். `<button>`, `<input type="submit">`, அல்லது `<input type="image">` component-இல் உள்ள `formAction` attribute மூலம் `action` prop override செய்யப்படலாம்.
 
 #### Caveats {/*caveats*/}
 
-* When a function is passed to `action` or `formAction` the HTTP method will be POST regardless of value of the `method` prop.
+* `action` அல்லது `formAction`-க்கு function pass செய்தால், `method` prop value எதுவாக இருந்தாலும் HTTP method POST ஆக இருக்கும்.
 
 ---
 
 ## Usage {/*usage*/}
 
-### Handle form submission on the client {/*handle-form-submission-on-the-client*/}
+### Client-இல் form submission handle செய்தல் {/*handle-form-submission-on-the-client*/}
 
-Pass a function to the `action` prop of form to run the function when the form is submitted. [`formData`](https://developer.mozilla.org/en-US/docs/Web/API/FormData) will be passed to the function as an argument so you can access the data submitted by the form. This differs from the conventional [HTML action](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form#action), which only accepts URLs. After the `action` function succeeds, all uncontrolled field elements in the form are reset.
+Form submit செய்யப்படும் போது function run ஆக, form-ன் `action` prop-க்கு function pass செய்யவும். [`formData`](https://developer.mozilla.org/en-US/docs/Web/API/FormData), argument ஆக function-க்கு pass செய்யப்படும்; இதனால் form submit செய்த data-வை access செய்யலாம். இது URLs மட்டுமே ஏற்கும் conventional [HTML action](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form#action)-இலிருந்து வேறுபடுகிறது. `action` function succeed ஆன பிறகு, form-இல் உள்ள எல்லா uncontrolled field elements reset செய்யப்படும்.
 
 <Sandpack>
 
@@ -58,12 +58,12 @@ Pass a function to the `action` prop of form to run the function when the form i
 export default function Search() {
   function search(formData) {
     const query = formData.get("query");
-    alert(`You searched for '${query}'`);
+    alert(`நீங்கள் '${query}' என்று தேடினீர்கள்`);
   }
   return (
     <form action={search}>
       <input name="query" />
-      <button type="submit">Search</button>
+      <button type="submit">தேடு</button>
     </form>
   );
 }
@@ -71,13 +71,13 @@ export default function Search() {
 
 </Sandpack>
 
-### Handle form submission with a Server Function {/*handle-form-submission-with-a-server-function*/}
+### Server Function உடன் form submission handle செய்தல் {/*handle-form-submission-with-a-server-function*/}
 
-Render a `<form>` with an input and submit button. Pass a Server Function (a function marked with [`'use server'`](/reference/rsc/use-server)) to the `action` prop of form to run the function when the form is submitted.
+Input மற்றும் submit button உடன் `<form>` render செய்யவும். Form submit செய்யப்படும் போது function run ஆக, form-ன் `action` prop-க்கு Server Function ([`'use server'`](/reference/rsc/use-server) கொண்டு mark செய்யப்பட்ட function) pass செய்யவும்.
 
-Passing a Server Function to `<form action>` allow users to submit forms without JavaScript enabled or before the code has loaded. This is beneficial to users who have a slow connection, device, or have JavaScript disabled and is similar to the way forms work when a URL is passed to the `action` prop.
+Server Function-ஐ `<form action>`-க்கு pass செய்வது, JavaScript enabled இல்லாமலோ code load ஆகும்முன்னோ users forms submit செய்ய அனுமதிக்கிறது. Slow connection, device, அல்லது JavaScript disabled கொண்ட users-க்கு இது பயனுள்ளது; `action` prop-க்கு URL pass செய்யும்போது forms வேலை செய்வதைப் போன்றது.
 
-You can use hidden form fields to provide data to the `<form>`'s action. The Server Function will be called with the hidden form field data as an instance of [`FormData`](https://developer.mozilla.org/en-US/docs/Web/API/FormData).
+`<form>`-ன் action-க்கு data வழங்க hidden form fields பயன்படுத்தலாம். Server Function hidden form field data-வை [`FormData`](https://developer.mozilla.org/en-US/docs/Web/API/FormData) instance ஆகப் பெற்று call செய்யப்படும்.
 
 ```jsx
 import { updateCart } from './lib.js';
@@ -91,14 +91,14 @@ function AddToCart({productId}) {
   return (
     <form action={addToCart}>
         <input type="hidden" name="productId" value={productId} />
-        <button type="submit">Add to Cart</button>
+        <button type="submit">Cart-இல் சேர்க்கவும்</button>
     </form>
 
   );
 }
 ```
 
-In lieu of using hidden form fields to provide data to the `<form>`'s action, you can call the <CodeStep step={1}>`bind`</CodeStep> method to supply it with extra arguments. This will bind a new argument (<CodeStep step={2}>`productId`</CodeStep>) to the function in addition to the <CodeStep step={3}>`formData`</CodeStep> that is passed as an argument to the function.
+Hidden form fields பயன்படுத்தி `<form>`-ன் action-க்கு data வழங்குவதற்கு பதிலாக, extra arguments supply செய்ய <CodeStep step={1}>`bind`</CodeStep> method call செய்யலாம். Function-க்கு argument ஆக pass செய்யப்படும் <CodeStep step={3}>`formData`</CodeStep>-க்கு கூடுதலாக, இது புதிய argument (<CodeStep step={2}>`productId`</CodeStep>)-ஐ function-க்கு bind செய்யும்.
 
 ```jsx [[1, 8, "bind"], [2,8, "productId"], [2,4, "productId"], [3,4, "formData"]]
 import { updateCart } from './lib.js';
@@ -111,18 +111,18 @@ function AddToCart({productId}) {
   const addProductToCart = addToCart.bind(null, productId);
   return (
     <form action={addProductToCart}>
-      <button type="submit">Add to Cart</button>
+      <button type="submit">Cart-இல் சேர்க்கவும்</button>
     </form>
   );
 }
 ```
 
-When `<form>` is rendered by a [Server Component](/reference/rsc/use-client), and a [Server Function](/reference/rsc/server-functions) is passed to the `<form>`'s `action` prop, the form is [progressively enhanced](https://developer.mozilla.org/en-US/docs/Glossary/Progressive_Enhancement).
+`<form>` [Server Component](/reference/rsc/use-client) மூலம் render செய்யப்படும் போது, மேலும் [Server Function](/reference/rsc/server-functions) `<form>`-ன் `action` prop-க்கு pass செய்யப்படும் போது, form [progressively enhanced](https://developer.mozilla.org/en-US/docs/Glossary/Progressive_Enhancement) ஆகும்.
 
-### Display a pending state during form submission {/*display-a-pending-state-during-form-submission*/}
-To display a pending state when a form is being submitted, you can call the `useFormStatus` Hook in a component rendered in a `<form>` and read the `pending` property returned.
+### Form submission போது pending state காட்டுதல் {/*display-a-pending-state-during-form-submission*/}
+Form submit ஆகும் போது pending state display செய்ய, `<form>`-இல் render செய்யப்படும் component ஒன்றில் `useFormStatus` Hook call செய்து, return செய்யப்படும் `pending` property-ஐ read செய்யலாம்.
 
-Here, we use the `pending` property to indicate the form is submitting.
+இங்கே, form submitting ஆகிறது என்பதை indicate செய்ய `pending` property பயன்படுத்துகிறோம்.
 
 <Sandpack>
 
@@ -134,7 +134,7 @@ function Submit() {
   const { pending } = useFormStatus();
   return (
     <button type="submit" disabled={pending}>
-      {pending ? "Submitting..." : "Submit"}
+      {pending ? "சமர்ப்பிக்கிறது..." : "சமர்ப்பி"}
     </button>
   );
 }
@@ -160,12 +160,12 @@ export async function submitForm(query) {
 
 </Sandpack>
 
-To learn more about the `useFormStatus` Hook see the [reference documentation](/reference/react-dom/hooks/useFormStatus).
+`useFormStatus` Hook பற்றி மேலும் அறிய [reference documentation](/reference/react-dom/hooks/useFormStatus)-ஐ பார்க்கவும்.
 
-### Optimistically updating form data {/*optimistically-updating-form-data*/}
-The `useOptimistic` Hook provides a way to optimistically update the user interface before a background operation, like a network request, completes. In the context of forms, this technique helps to make apps feel more responsive. When a user submits a form, instead of waiting for the server's response to reflect the changes, the interface is immediately updated with the expected outcome.
+### Form data-வை optimistically update செய்தல் {/*optimistically-updating-form-data*/}
+`useOptimistic` Hook, network request போன்ற background operation முடிவதற்கு முன் user interface-ஐ optimistically update செய்யும் வழி வழங்குகிறது. Forms context-இல், இந்த technique apps மேலும் responsive ஆக உணர உதவுகிறது. User form submit செய்தால், changes reflect செய்ய server response காத்திருக்காமல், expected outcome உடன் interface உடனடியாக update செய்யப்படும்.
 
-For example, when a user types a message into the form and hits the "Send" button, the `useOptimistic` Hook allows the message to immediately appear in the list with a "Sending..." label, even before the message is actually sent to a server. This "optimistic" approach gives the impression of speed and responsiveness. The form then attempts to truly send the message in the background. Once the server confirms the message has been received, the "Sending..." label is removed.
+உதாரணமாக, user form-இல் message type செய்து "Send" button அழுத்தும்போது, message உண்மையில் server-க்கு அனுப்பப்படுவதற்கு முன்பே, `useOptimistic` Hook அந்த message-ஐ "Sending..." label உடன் list-இல் உடனடியாக காட்ட அனுமதிக்கிறது. இந்த "optimistic" approach வேகம் மற்றும் responsiveness உணர்வை தருகிறது. பின்னர் form background-இல் message-ஐ உண்மையில் send செய்ய முயற்சிக்கும். Server message receive செய்ததை confirm செய்ததும், "Sending..." label remove செய்யப்படும்.
 
 <Sandpack>
 
@@ -197,12 +197,12 @@ function Thread({ messages, sendMessage }) {
       {optimisticMessages.map((message, index) => (
         <div key={index}>
           {message.text}
-          {!!message.sending && <small> (Sending...)</small>}
+          {!!message.sending && <small> (அனுப்புகிறது...)</small>}
         </div>
       ))}
       <form action={formAction} ref={formRef}>
-        <input type="text" name="message" placeholder="Hello!" />
-        <button type="submit">Send</button>
+        <input type="text" name="message" placeholder="வணக்கம்!" />
+        <button type="submit">அனுப்பு</button>
       </form>
     </>
   );
@@ -210,7 +210,7 @@ function Thread({ messages, sendMessage }) {
 
 export default function App() {
   const [messages, setMessages] = useState([
-    { text: "Hello there!", sending: false, key: 1 }
+    { text: "வணக்கம்!", sending: false, key: 1 }
   ]);
   async function sendMessage(formData) {
     const sentMessage = await deliverMessage(formData.get("message"));
@@ -229,12 +229,12 @@ export async function deliverMessage(message) {
 
 </Sandpack>
 
-[//]: # 'Uncomment the next line, and delete this line after the `useOptimistic` reference documentation page is published'
-[//]: # 'To learn more about the `useOptimistic` Hook see the [reference documentation](/reference/react/useOptimistic).'
+[//]: # '`useOptimistic` reference documentation page publish ஆன பிறகு அடுத்த line-ஐ uncomment செய்து, இந்த line-ஐ delete செய்யவும்'
+[//]: # '`useOptimistic` Hook பற்றி மேலும் அறிய [reference documentation](/reference/react/useOptimistic)-ஐ பார்க்கவும்.'
 
-### Handling form submission errors {/*handling-form-submission-errors*/}
+### Form submission errors handle செய்தல் {/*handling-form-submission-errors*/}
 
-In some cases the function called by a `<form>`'s `action` prop throws an error. You can handle these errors by wrapping `<form>` in an Error Boundary. If the function called by a `<form>`'s `action` prop throws an error, the fallback for the error boundary will be displayed.
+சில cases-இல் `<form>`-ன் `action` prop call செய்யும் function error throw செய்யும். `<form>`-ஐ Error Boundary-இல் wrap செய்வதன் மூலம் இந்த errors handle செய்யலாம். `<form>`-ன் `action` prop call செய்யும் function error throw செய்தால், error boundary-ன் fallback display செய்யப்படும்.
 
 <Sandpack>
 
@@ -247,11 +247,11 @@ export default function Search() {
   }
   return (
     <ErrorBoundary
-      fallback={<p>There was an error while submitting the form</p>}
+      fallback={<p>Form submit செய்யும் போது error ஏற்பட்டது</p>}
     >
       <form action={search}>
         <input name="query" />
-        <button type="submit">Search</button>
+        <button type="submit">தேடு</button>
       </form>
     </ErrorBoundary>
   );
@@ -274,15 +274,15 @@ export default function Search() {
 
 </Sandpack>
 
-### Display a form submission error without JavaScript {/*display-a-form-submission-error-without-javascript*/}
+### JavaScript இல்லாமல் form submission error காட்டுதல் {/*display-a-form-submission-error-without-javascript*/}
 
-Displaying a form submission error message before the JavaScript bundle loads for progressive enhancement requires that:
+Progressive enhancement-க்காக JavaScript bundle load ஆகும்முன் form submission error message display செய்ய வேண்டிய requirements:
 
-1. `<form>` be rendered by a [Client Component](/reference/rsc/use-client)
-1. the function passed to the `<form>`'s `action` prop be a [Server Function](/reference/rsc/server-functions)
-1. the `useActionState` Hook be used to display the error message
+1. `<form>` [Client Component](/reference/rsc/use-client) மூலம் render செய்யப்பட வேண்டும்
+1. `<form>`-ன் `action` prop-க்கு pass செய்யப்படும் function [Server Function](/reference/rsc/server-functions) ஆக இருக்க வேண்டும்
+1. Error message display செய்ய `useActionState` Hook பயன்படுத்தப்பட வேண்டும்
 
-`useActionState` takes two parameters: a [Server Function](/reference/rsc/server-functions) and an initial state. `useActionState` returns two values, a state variable and an action. The action returned by `useActionState` should be passed to the `action` prop of the form. The state variable returned by `useActionState` can be used to display an error message. The value returned by the Server Function passed to `useActionState` will be used to update the state variable.
+`useActionState` இரண்டு parameters ஏற்கிறது: [Server Function](/reference/rsc/server-functions) மற்றும் initial state. `useActionState` இரண்டு values return செய்கிறது: state variable மற்றும் action. `useActionState` return செய்யும் action, form-ன் `action` prop-க்கு pass செய்யப்பட வேண்டும். `useActionState` return செய்யும் state variable error message display செய்ய பயன்படுத்தலாம். `useActionState`-க்கு pass செய்யப்பட்ட Server Function return செய்யும் value, state variable update செய்ய பயன்படுத்தப்படும்.
 
 <Sandpack>
 
@@ -296,7 +296,7 @@ export default function Page() {
     const email = formData.get("email");
     try {
       await signUpNewUser(email);
-      alert(`Added "${email}"`);
+      alert(`"${email}" சேர்க்கப்பட்டது`);
     } catch (err) {
       return err.toString();
     }
@@ -304,8 +304,8 @@ export default function Page() {
   const [message, signupAction] = useActionState(signup, null);
   return (
     <>
-      <h1>Signup for my newsletter</h1>
-      <p>Signup with the same email twice to see an error</p>
+      <h1>என் newsletter-க்கு sign up செய்யுங்கள்</h1>
+      <p>Error பார்க்க அதே email-ஐ இருமுறை sign up செய்யுங்கள்</p>
       <form action={signupAction} id="signup-form">
         <label htmlFor="email">Email: </label>
         <input name="email" id="email" placeholder="react@example.com" />
@@ -322,7 +322,7 @@ let emails = [];
 
 export async function signUpNewUser(newEmail) {
   if (emails.includes(newEmail)) {
-    throw new Error("This email address has already been added");
+    throw new Error("இந்த email address ஏற்கனவே சேர்க்கப்பட்டுள்ளது");
   }
   emails.push(newEmail);
 }
@@ -330,13 +330,13 @@ export async function signUpNewUser(newEmail) {
 
 </Sandpack>
 
-Learn more about updating state from a form action with the [`useActionState`](/reference/react/useActionState) docs
+Form action-இலிருந்து state update செய்வது பற்றி மேலும் அறிய [`useActionState`](/reference/react/useActionState) docs-ஐ பார்க்கவும்
 
-### Handling multiple submission types {/*handling-multiple-submission-types*/}
+### Multiple submission types handle செய்தல் {/*handling-multiple-submission-types*/}
 
-Forms can be designed to handle multiple submission actions based on the button pressed by the user. Each button inside a form can be associated with a distinct action or behavior by setting the `formAction` prop.
+User அழுத்தும் button அடிப்படையில் multiple submission actions handle செய்ய forms design செய்யலாம். Form உள்ளே உள்ள ஒவ்வொரு button-யும், `formAction` prop set செய்வதன் மூலம் தனித்த action அல்லது behavior உடன் associate செய்யப்படலாம்.
 
-When a user taps a specific button, the form is submitted, and a corresponding action, defined by that button's attributes and action, is executed. For instance, a form might submit an article for review by default but have a separate button with `formAction` set to save the article as a draft.
+User குறிப்பிட்ட button tap செய்தால், form submit செய்யப்படும்; அந்த button-ன் attributes மற்றும் action மூலம் define செய்யப்பட்ட corresponding action execute செய்யப்படும். உதாரணமாக, form default ஆக article-ஐ review-க்கு submit செய்யலாம்; ஆனால் article-ஐ draft ஆக save செய்ய `formAction` set செய்யப்பட்ட தனி button வைத்திருக்கலாம்.
 
 <Sandpack>
 
@@ -345,12 +345,12 @@ export default function Search() {
   function publish(formData) {
     const content = formData.get("content");
     const button = formData.get("button");
-    alert(`'${content}' was published with the '${button}' button`);
+    alert(`'${content}' '${button}' button மூலம் publish செய்யப்பட்டது`);
   }
 
   function save(formData) {
     const content = formData.get("content");
-    alert(`Your draft of '${content}' has been saved!`);
+    alert(`'${content}' பற்றிய உங்கள் draft save செய்யப்பட்டது!`);
   }
 
   return (
@@ -358,7 +358,7 @@ export default function Search() {
       <textarea name="content" rows={4} cols={40} />
       <br />
       <button type="submit" name="button" value="submit">Publish</button>
-      <button formAction={save}>Save draft</button>
+      <button formAction={save}>Draft save செய்</button>
     </form>
   );
 }

@@ -1,26 +1,26 @@
 ---
-title: 'Removing Effect Dependencies'
+title: 'Effect dependencies-ஐ அகற்றுதல்'
 ---
 
 <Intro>
 
-When you write an Effect, the linter will verify that you've included every reactive value (like props and state) that the Effect reads in the list of your Effect's dependencies. This ensures that your Effect remains synchronized with the latest props and state of your component. Unnecessary dependencies may cause your Effect to run too often, or even create an infinite loop. Follow this guide to review and remove unnecessary dependencies from your Effects.
+Effect ஒன்றை எழுதும் போது, அந்த Effect வாசிக்கும் ஒவ்வொரு reactive value-யும் (props மற்றும் state போன்றவை) உங்கள் Effect-ன் dependencies பட்டியலில் சேர்க்கப்பட்டுள்ளதா என்பதை linter சரிபார்க்கும். இதனால் உங்கள் Effect, component-ன் சமீபத்திய props மற்றும் state உடன் synchronized ஆக இருக்கும். தேவையற்ற dependencies உங்கள் Effect மிக அடிக்கடி run ஆகவோ, கூடவே infinite loop உருவாக்கவோ செய்யலாம். உங்கள் Effects-இலிருந்து தேவையற்ற dependencies-ஐ review செய்து அகற்ற இந்த guide-ஐப் பின்பற்றுங்கள்.
 
 </Intro>
 
 <YouWillLearn>
 
-- How to fix infinite Effect dependency loops
-- What to do when you want to remove a dependency
-- How to read a value from your Effect without "reacting" to it
-- How and why to avoid object and function dependencies
-- Why suppressing the dependency linter is dangerous, and what to do instead
+- infinite Effect dependency loops-ஐ எப்படி சரிசெய்வது
+- dependency ஒன்றை அகற்ற விரும்பும் போது என்ன செய்ய வேண்டும்
+- value ஒன்றுக்கு "react" செய்யாமல் அதை உங்கள் Effect-இலிருந்து எப்படி வாசிப்பது
+- object மற்றும் function dependencies-ஐ எப்படி, ஏன் தவிர்க்க வேண்டும்
+- dependency linter-ஐ suppress செய்வது ஏன் ஆபத்தானது, அதற்கு பதிலாக என்ன செய்ய வேண்டும்
 
 </YouWillLearn>
 
-## Dependencies should match the code {/*dependencies-should-match-the-code*/}
+## Dependencies code-உடன் பொருந்த வேண்டும் {/*dependencies-should-match-the-code*/}
 
-When you write an Effect, you first specify how to [start and stop](/learn/lifecycle-of-reactive-effects#the-lifecycle-of-an-effect) whatever you want your Effect to be doing:
+Effect ஒன்றை எழுதும் போது, உங்கள் Effect செய்ய வேண்டும் என்று நினைக்கும் விஷயத்தை எப்படி [தொடங்கவும் நிறுத்தவும்](/learn/lifecycle-of-reactive-effects#the-lifecycle-of-an-effect) வேண்டும் என்பதை முதலில் குறிப்பிடுகிறீர்கள்:
 
 ```js {5-7}
 const serverUrl = 'https://localhost:1234';
@@ -34,7 +34,7 @@ function ChatRoom({ roomId }) {
 }
 ```
 
-Then, if you leave the Effect dependencies empty (`[]`), the linter will suggest the correct dependencies:
+பின்னர் Effect dependencies-ஐ காலியாக (`[]`) விட்டால், linter சரியான dependencies-ஐ பரிந்துரைக்கும்:
 
 <Sandpack>
 
@@ -49,8 +49,8 @@ function ChatRoom({ roomId }) {
     const connection = createConnection(serverUrl, roomId);
     connection.connect();
     return () => connection.disconnect();
-  }, []); // <-- Fix the mistake here!
-  return <h1>Welcome to the {roomId} room!</h1>;
+  }, []); // <-- இங்குள்ள தவறை சரிசெய்யவும்!
+  return <h1>{roomId} room-க்கு வரவேற்கிறோம்!</h1>;
 }
 
 export default function App() {
@@ -58,7 +58,7 @@ export default function App() {
   return (
     <>
       <label>
-        Choose the chat room:{' '}
+        chat room-ஐத் தேர்வுசெய்க:{' '}
         <select
           value={roomId}
           onChange={e => setRoomId(e.target.value)}
@@ -80,10 +80,10 @@ export function createConnection(serverUrl, roomId) {
   // A real implementation would actually connect to the server
   return {
     connect() {
-      console.log('✅ Connecting to "' + roomId + '" room at ' + serverUrl + '...');
+      console.log('✅ "' + roomId + '" room-க்கு ' + serverUrl + '-இல் இணைக்கிறது...');
     },
     disconnect() {
-      console.log('❌ Disconnected from "' + roomId + '" room at ' + serverUrl);
+      console.log('❌ "' + roomId + '" room-இலிருந்து துண்டிக்கப்பட்டது: ' + serverUrl);
     }
   };
 }
@@ -96,7 +96,7 @@ button { margin-left: 10px; }
 
 </Sandpack>
 
-Fill them in according to what the linter says:
+linter சொல்வதற்கு ஏற்ப அவற்றை நிரப்புங்கள்:
 
 ```js {6}
 function ChatRoom({ roomId }) {
@@ -104,12 +104,12 @@ function ChatRoom({ roomId }) {
     const connection = createConnection(serverUrl, roomId);
     connection.connect();
     return () => connection.disconnect();
-  }, [roomId]); // ✅ All dependencies declared
+  }, [roomId]); // ✅ அனைத்து dependencies-யும் declare செய்யப்பட்டுள்ளன
   // ...
 }
 ```
 
-[Effects "react" to reactive values.](/learn/lifecycle-of-reactive-effects#effects-react-to-reactive-values) Since `roomId` is a reactive value (it can change due to a re-render), the linter verifies that you've specified it as a dependency. If `roomId` receives a different value, React will re-synchronize your Effect. This ensures that the chat stays connected to the selected room and "reacts" to the dropdown:
+[Effects reactive values-க்கு "react" செய்கின்றன.](/learn/lifecycle-of-reactive-effects#effects-react-to-reactive-values) `roomId` reactive value ஆக இருப்பதால் (re-render காரணமாக அது மாறலாம்), அதை dependency ஆக குறிப்பிட்டுள்ளீர்களா என்பதை linter சரிபார்க்கிறது. `roomId` வேறு value பெற்றால், React உங்கள் Effect-ஐ re-synchronize செய்யும். இதனால் chat தேர்ந்தெடுத்த room-க்கு இணைந்தே இருந்து, dropdown-க்கு "react" செய்கிறது:
 
 <Sandpack>
 
@@ -125,7 +125,7 @@ function ChatRoom({ roomId }) {
     connection.connect();
     return () => connection.disconnect();
   }, [roomId]);
-  return <h1>Welcome to the {roomId} room!</h1>;
+  return <h1>{roomId} room-க்கு வரவேற்கிறோம்!</h1>;
 }
 
 export default function App() {
@@ -133,7 +133,7 @@ export default function App() {
   return (
     <>
       <label>
-        Choose the chat room:{' '}
+        chat room-ஐத் தேர்வுசெய்க:{' '}
         <select
           value={roomId}
           onChange={e => setRoomId(e.target.value)}
@@ -155,10 +155,10 @@ export function createConnection(serverUrl, roomId) {
   // A real implementation would actually connect to the server
   return {
     connect() {
-      console.log('✅ Connecting to "' + roomId + '" room at ' + serverUrl + '...');
+      console.log('✅ "' + roomId + '" room-க்கு ' + serverUrl + '-இல் இணைக்கிறது...');
     },
     disconnect() {
-      console.log('❌ Disconnected from "' + roomId + '" room at ' + serverUrl);
+      console.log('❌ "' + roomId + '" room-இலிருந்து துண்டிக்கப்பட்டது: ' + serverUrl);
     }
   };
 }
@@ -171,9 +171,9 @@ button { margin-left: 10px; }
 
 </Sandpack>
 
-### To remove a dependency, prove that it's not a dependency {/*to-remove-a-dependency-prove-that-its-not-a-dependency*/}
+### dependency ஒன்றை அகற்ற, அது dependency அல்ல என்பதை நிரூபியுங்கள் {/*to-remove-a-dependency-prove-that-its-not-a-dependency*/}
 
-Notice that you can't "choose" the dependencies of your Effect. Every <CodeStep step={2}>reactive value</CodeStep> used by your Effect's code must be declared in your dependency list. The dependency list is determined by the surrounding code:
+உங்கள் Effect-ன் dependencies-ஐ நீங்கள் "தேர்வு" செய்ய முடியாது என்பதை கவனியுங்கள். உங்கள் Effect-ன் code பயன்படுத்தும் ஒவ்வொரு <CodeStep step={2}>reactive value</CodeStep>-யும் dependency list-இல் declare செய்யப்பட வேண்டும். dependency list சுற்றியுள்ள code-ஆல் தீர்மானிக்கப்படுகிறது:
 
 ```js [[2, 3, "roomId"], [2, 5, "roomId"], [2, 8, "roomId"]]
 const serverUrl = 'https://localhost:1234';
@@ -188,7 +188,7 @@ function ChatRoom({ roomId }) { // This is a reactive value
 }
 ```
 
-[Reactive values](/learn/lifecycle-of-reactive-effects#all-variables-declared-in-the-component-body-are-reactive) include props and all variables and functions declared directly inside of your component. Since `roomId` is a reactive value, you can't remove it from the dependency list. The linter wouldn't allow it:
+[Reactive values](/learn/lifecycle-of-reactive-effects#all-variables-declared-in-the-component-body-are-reactive) என்பது props மற்றும் உங்கள் component-க்குள் நேரடியாக declare செய்யப்பட்ட அனைத்து variables மற்றும் functions-ஐ உட்கொள்கிறது. `roomId` reactive value ஆக இருப்பதால், அதை dependency list-இலிருந்து அகற்ற முடியாது. linter அதை அனுமதிக்காது:
 
 ```js {8}
 const serverUrl = 'https://localhost:1234';
@@ -198,30 +198,30 @@ function ChatRoom({ roomId }) {
     const connection = createConnection(serverUrl, roomId);
     connection.connect();
     return () => connection.disconnect();
-  }, []); // 🔴 React Hook useEffect has a missing dependency: 'roomId'
+  }, []); // 🔴 React Hook useEffect-இல் missing dependency உள்ளது: 'roomId'
   // ...
 }
 ```
 
-And the linter would be right! Since `roomId` may change over time, this would introduce a bug in your code.
+linter சரியாகத்தான் இருக்கும்! `roomId` காலப்போக்கில் மாறக்கூடியதால், இது உங்கள் code-இல் bug ஒன்றை உருவாக்கும்.
 
-**To remove a dependency, "prove" to the linter that it *doesn't need* to be a dependency.** For example, you can move `roomId` out of your component to prove that it's not reactive and won't change on re-renders:
+**dependency ஒன்றை அகற்ற, அது dependency ஆக *இருக்க வேண்டியதில்லை* என்பதை linter-க்கு "நிரூபியுங்கள்".** எடுத்துக்காட்டாக, `roomId` reactive அல்ல, re-renders-இல் மாறாது என்பதை நிரூபிக்க அதை component-க்கு வெளியே நகர்த்தலாம்:
 
 ```js {2,9}
 const serverUrl = 'https://localhost:1234';
-const roomId = 'music'; // Not a reactive value anymore
+const roomId = 'music'; // இனி reactive value அல்ல
 
 function ChatRoom() {
   useEffect(() => {
     const connection = createConnection(serverUrl, roomId);
     connection.connect();
     return () => connection.disconnect();
-  }, []); // ✅ All dependencies declared
+  }, []); // ✅ அனைத்து dependencies-யும் declare செய்யப்பட்டுள்ளன
   // ...
 }
 ```
 
-Now that `roomId` is not a reactive value (and can't change on a re-render), it doesn't need to be a dependency:
+இப்போது `roomId` reactive value அல்ல (re-render-இல் மாற முடியாது), எனவே அது dependency ஆக இருக்க வேண்டியதில்லை:
 
 <Sandpack>
 
@@ -238,7 +238,7 @@ export default function ChatRoom() {
     connection.connect();
     return () => connection.disconnect();
   }, []);
-  return <h1>Welcome to the {roomId} room!</h1>;
+  return <h1>{roomId} room-க்கு வரவேற்கிறோம்!</h1>;
 }
 ```
 
@@ -247,10 +247,10 @@ export function createConnection(serverUrl, roomId) {
   // A real implementation would actually connect to the server
   return {
     connect() {
-      console.log('✅ Connecting to "' + roomId + '" room at ' + serverUrl + '...');
+      console.log('✅ "' + roomId + '" room-க்கு ' + serverUrl + '-இல் இணைக்கிறது...');
     },
     disconnect() {
-      console.log('❌ Disconnected from "' + roomId + '" room at ' + serverUrl);
+      console.log('❌ "' + roomId + '" room-இலிருந்து துண்டிக்கப்பட்டது: ' + serverUrl);
     }
   };
 }
@@ -263,23 +263,23 @@ button { margin-left: 10px; }
 
 </Sandpack>
 
-This is why you could now specify an [empty (`[]`) dependency list.](/learn/lifecycle-of-reactive-effects#what-an-effect-with-empty-dependencies-means) Your Effect *really doesn't* depend on any reactive value anymore, so it *really doesn't* need to re-run when any of the component's props or state change.
+அதனால் இப்போது [காலியான (`[]`) dependency list](/learn/lifecycle-of-reactive-effects#what-an-effect-with-empty-dependencies-means) குறிப்பிடலாம். உங்கள் Effect இனி எந்த reactive value-யையும் *உண்மையாகவே* சார்ந்திருக்கவில்லை; எனவே component-ன் props அல்லது state மாறும் போது அது மீண்டும் run ஆக *உண்மையாகவே* தேவையில்லை.
 
-### To change the dependencies, change the code {/*to-change-the-dependencies-change-the-code*/}
+### dependencies-ஐ மாற்ற, code-ஐ மாற்றுங்கள் {/*to-change-the-dependencies-change-the-code*/}
 
-You might have noticed a pattern in your workflow:
+உங்கள் workflow-இல் ஒரு pattern-ஐ கவனித்திருக்கலாம்:
 
-1. First, you **change the code** of your Effect or how your reactive values are declared.
-2. Then, you follow the linter and adjust the dependencies to **match the code you have changed.**
-3. If you're not happy with the list of dependencies, you **go back to the first step** (and change the code again).
+1. முதலில், உங்கள் Effect-ன் **code-ஐ மாற்றுகிறீர்கள்** அல்லது reactive values எப்படித் declare செய்யப்படுகின்றன என்பதை மாற்றுகிறீர்கள்.
+2. பின்னர், linter-ஐப் பின்பற்றி, **நீங்கள் மாற்றிய code-க்கு பொருந்த** dependencies-ஐ சரிசெய்கிறீர்கள்.
+3. dependencies பட்டியலில் திருப்தி இல்லையெனில், **முதல் படிக்கு திரும்புகிறீர்கள்** (மீண்டும் code-ஐ மாற்றுகிறீர்கள்).
 
-The last part is important. **If you want to change the dependencies, change the surrounding code first.** You can think of the dependency list as [a list of all the reactive values used by your Effect's code.](/learn/lifecycle-of-reactive-effects#react-verifies-that-you-specified-every-reactive-value-as-a-dependency) You don't *choose* what to put on that list. The list *describes* your code. To change the dependency list, change the code.
+கடைசி பகுதி முக்கியமானது. **dependencies-ஐ மாற்ற விரும்பினால், முதலில் சுற்றியுள்ள code-ஐ மாற்றுங்கள்.** dependency list-ஐ [உங்கள் Effect-ன் code பயன்படுத்தும் அனைத்து reactive values-யின் பட்டியல்](/learn/lifecycle-of-reactive-effects#react-verifies-that-you-specified-every-reactive-value-as-a-dependency) என்று நினைக்கலாம். அந்த பட்டியலில் என்ன இட வேண்டும் என்பதை நீங்கள் *தேர்வு* செய்யவில்லை. அந்த பட்டியல் உங்கள் code-ஐ *விவரிக்கிறது*. dependency list-ஐ மாற்ற, code-ஐ மாற்றுங்கள்.
 
-This might feel like solving an equation. You might start with a goal (for example, to remove a dependency), and you need to "find" the code matching that goal. Not everyone finds solving equations fun, and the same thing could be said about writing Effects! Luckily, there is a list of common recipes that you can try below.
+இது equation ஒன்றைத் தீர்ப்பது போல உணரலாம். ஒரு இலக்குடன் தொடங்கலாம் (எடுத்துக்காட்டாக, dependency ஒன்றை அகற்றுதல்), அந்த இலக்குக்கு பொருந்தும் code-ஐ நீங்கள் "கண்டுபிடிக்க" வேண்டும். equations தீர்ப்பது எல்லோருக்கும் சுவாரஸ்யமாக இருக்காது; Effects எழுதுவதற்கும் அதே சொல்லலாம்! அதிர்ஷ்டமாக, கீழே முயற்சிக்கக்கூடிய பொதுவான recipes பட்டியல் உள்ளது.
 
 <Pitfall>
 
-If you have an existing codebase, you might have some Effects that suppress the linter like this:
+உங்களிடம் ஏற்கனவே உள்ள codebase இருந்தால், linter-ஐ இவ்வாறு suppress செய்யும் சில Effects இருக்கலாம்:
 
 ```js {3-4}
 useEffect(() => {
@@ -289,17 +289,17 @@ useEffect(() => {
 }, []);
 ```
 
-**When dependencies don't match the code, there is a very high risk of introducing bugs.** By suppressing the linter, you "lie" to React about the values your Effect depends on.
+**dependencies code-உடன் பொருந்தவில்லை என்றால், bugs உருவாகும் அபாயம் மிக அதிகம்.** linter-ஐ suppress செய்வதன் மூலம், உங்கள் Effect எந்த values-ஐ சார்ந்துள்ளது என்பதைப் பற்றி React-க்கு நீங்கள் "பொய்" சொல்கிறீர்கள்.
 
-Instead, use the techniques below.
+அதற்கு பதிலாக, கீழே உள்ள techniques-ஐ பயன்படுத்துங்கள்.
 
 </Pitfall>
 
 <DeepDive>
 
-#### Why is suppressing the dependency linter so dangerous? {/*why-is-suppressing-the-dependency-linter-so-dangerous*/}
+#### dependency linter-ஐ suppress செய்வது ஏன் இவ்வளவு ஆபத்தானது? {/*why-is-suppressing-the-dependency-linter-so-dangerous*/}
 
-Suppressing the linter leads to very unintuitive bugs that are hard to find and fix. Here's one example:
+linter-ஐ suppress செய்வது கண்டுபிடிக்கவும் சரிசெய்யவும் கடினமான, மிகவும் unintuitive bugs-க்கு வழிவகுக்கும். ஒரு எடுத்துக்காட்டு இதோ:
 
 <Sandpack>
 
@@ -323,12 +323,12 @@ export default function Timer() {
   return (
     <>
       <h1>
-        Counter: {count}
-        <button onClick={() => setCount(0)}>Reset</button>
+        எண்ணிக்கை: {count}
+        <button onClick={() => setCount(0)}>மீட்டமை</button>
       </h1>
       <hr />
       <p>
-        Every second, increment by:
+        ஒவ்வொரு வினாடியும் increment ஆகும் அளவு:
         <button disabled={increment === 0} onClick={() => {
           setIncrement(i => i - 1);
         }}>–</button>
@@ -348,31 +348,31 @@ button { margin: 10px; }
 
 </Sandpack>
 
-Let's say that you wanted to run the Effect "only on mount". You've read that [empty (`[]`) dependencies](/learn/lifecycle-of-reactive-effects#what-an-effect-with-empty-dependencies-means) do that, so you've decided to ignore the linter, and forcefully specified `[]` as the dependencies.
+நீங்கள் Effect-ஐ "mount ஆனபோது மட்டும்" run செய்ய விரும்பினீர்கள் என்று வைத்துக்கொள்வோம். [காலியான (`[]`) dependencies](/learn/lifecycle-of-reactive-effects#what-an-effect-with-empty-dependencies-means) அதைச் செய்கின்றன என்று படித்ததால், linter-ஐ புறக்கணித்து dependencies ஆக `[]`-ஐ கட்டாயமாக குறிப்பிட்டீர்கள்.
 
-This counter was supposed to increment every second by the amount configurable with the two buttons. However, since you "lied" to React that this Effect doesn't depend on anything, React forever keeps using the `onTick` function from the initial render. [During that render,](/learn/state-as-a-snapshot#rendering-takes-a-snapshot-in-time) `count` was `0` and `increment` was `1`. This is why `onTick` from that render always calls `setCount(0 + 1)` every second, and you always see `1`. Bugs like this are harder to fix when they're spread across multiple components.
+இந்த counter இரண்டு buttons மூலம் configure செய்யப்படும் அளவு படி ஒவ்வொரு வினாடியும் increment ஆக வேண்டும். ஆனால் இந்த Effect எதையும் சார்ந்ததல்ல என்று React-க்கு நீங்கள் "பொய்" சொன்னதால், React initial render-இலிருந்து வந்த `onTick` function-ஐ என்றைக்கும் பயன்படுத்திக் கொண்டே இருக்கும். [அந்த render-இல்,](/learn/state-as-a-snapshot#rendering-takes-a-snapshot-in-time) `count` `0` ஆகவும் `increment` `1` ஆகவும் இருந்தன. அதனால் அந்த render-இலிருந்து வந்த `onTick` ஒவ்வொரு வினாடியும் எப்போதும் `setCount(0 + 1)`-ஐ call செய்கிறது; நீங்கள் எப்போதும் `1`-ஐப் பார்க்கிறீர்கள். இப்படிப்பட்ட bugs பல components-களில் பரவியிருந்தால் சரிசெய்ய கடினமாகும்.
 
-There's always a better solution than ignoring the linter! To fix this code, you need to add `onTick` to the dependency list. (To ensure the interval is only setup once, [make `onTick` an Effect Event.](/learn/separating-events-from-effects#reading-latest-props-and-state-with-effect-events))
+linter-ஐ புறக்கணிப்பதை விட எப்போதும் சிறந்த solution இருக்கும்! இந்த code-ஐ சரிசெய்ய, `onTick`-ஐ dependency list-இல் சேர்க்க வேண்டும். (interval ஒரே முறை மட்டுமே setup ஆகும் என்பதை உறுதி செய்ய, [`onTick`-ஐ Effect Event ஆக்குங்கள்.](/learn/separating-events-from-effects#reading-latest-props-and-state-with-effect-events))
 
-**We recommend treating the dependency lint error as a compilation error. If you don't suppress it, you will never see bugs like this.** The rest of this page documents the alternatives for this and other cases.
+**dependency lint error-ஐ compilation error போல நடத்த பரிந்துரைக்கிறோம். அதை suppress செய்யவில்லை என்றால், இப்படிப்பட்ட bugs-ஐ நீங்கள் ஒருபோதும் காணமாட்டீர்கள்.** இந்த page-ன் மீதமுள்ள பகுதி, இதற்கும் பிற நிலைகளுக்கும் மாற்று வழிகளை document செய்கிறது.
 
 </DeepDive>
 
-## Removing unnecessary dependencies {/*removing-unnecessary-dependencies*/}
+## தேவையற்ற dependencies-ஐ அகற்றுதல் {/*removing-unnecessary-dependencies*/}
 
-Every time you adjust the Effect's dependencies to reflect the code, look at the dependency list. Does it make sense for the Effect to re-run when any of these dependencies change? Sometimes, the answer is "no":
+code-ஐ பிரதிபலிக்க Effect-ன் dependencies-ஐ ஒவ்வொரு முறையும் adjust செய்யும் போது, dependency list-ஐப் பாருங்கள். இந்த dependencies-இல் ஏதாவது மாறும் போது Effect மீண்டும் run ஆகுவது பொருத்தமா? சில நேரங்களில் பதில் "இல்லை":
 
-* You might want to re-execute *different parts* of your Effect under different conditions.
-* You might want to only read the *latest value* of some dependency instead of "reacting" to its changes.
-* A dependency may change too often *unintentionally* because it's an object or a function.
+* உங்கள் Effect-ன் *வேறு பகுதிகளை* வேறு conditions-இல் re-execute செய்ய விரும்பலாம்.
+* dependency ஒன்றின் மாற்றங்களுக்கு "react" செய்வதற்குப் பதிலாக, அதன் *சமீபத்திய value*-ஐ மட்டும் வாசிக்க விரும்பலாம்.
+* dependency ஒன்று object அல்லது function என்பதால் *தற்செயலாக* மிக அடிக்கடி மாறலாம்.
 
-To find the right solution, you'll need to answer a few questions about your Effect. Let's walk through them.
+சரியான solution-ஐ கண்டுபிடிக்க, உங்கள் Effect பற்றி சில கேள்விகளுக்கு பதில் அளிக்க வேண்டும். அவற்றைப் பார்ப்போம்.
 
-### Should this code move to an event handler? {/*should-this-code-move-to-an-event-handler*/}
+### இந்த code event handler-க்கு நகர வேண்டுமா? {/*should-this-code-move-to-an-event-handler*/}
 
-The first thing you should think about is whether this code should be an Effect at all.
+முதலில் சிந்திக்க வேண்டியது, இந்த code Effect ஆக இருக்க வேண்டுமா என்பதுதான்.
 
-Imagine a form. On submit, you set the `submitted` state variable to `true`. You need to send a POST request and show a notification. You've put this logic inside an Effect that "reacts" to `submitted` being `true`:
+ஒரு form-ஐ கற்பனை செய்யுங்கள். submit செய்தபோது, `submitted` state variable-ஐ `true` ஆக அமைக்கிறீர்கள். POST request அனுப்பி notification காட்ட வேண்டும். `submitted` `true` ஆக இருப்பதற்கு "react" செய்யும் Effect-க்குள் இந்த logic-ஐ வைத்துள்ளீர்கள்:
 
 ```js {6-8}
 function Form() {
@@ -382,7 +382,7 @@ function Form() {
     if (submitted) {
       // 🔴 Avoid: Event-specific logic inside an Effect
       post('/api/register');
-      showNotification('Successfully registered!');
+      showNotification('வெற்றிகரமாக பதிவு செய்யப்பட்டது!');
     }
   }, [submitted]);
 
@@ -394,7 +394,7 @@ function Form() {
 }
 ```
 
-Later, you want to style the notification message according to the current theme, so you read the current theme. Since `theme` is declared in the component body, it is a reactive value, so you add it as a dependency:
+பின்னர், தற்போதைய theme-க்கு ஏற்ப notification message-ஐ style செய்ய விரும்புகிறீர்கள், எனவே தற்போதைய theme-ஐ வாசிக்கிறீர்கள். `theme` component body-இல் declare செய்யப்பட்டதால், அது reactive value; எனவே அதை dependency ஆக சேர்க்கிறீர்கள்:
 
 ```js {3,9,11}
 function Form() {
@@ -405,9 +405,9 @@ function Form() {
     if (submitted) {
       // 🔴 Avoid: Event-specific logic inside an Effect
       post('/api/register');
-      showNotification('Successfully registered!', theme);
+      showNotification('வெற்றிகரமாக பதிவு செய்யப்பட்டது!', theme);
     }
-  }, [submitted, theme]); // ✅ All dependencies declared
+  }, [submitted, theme]); // ✅ அனைத்து dependencies-யும் declare செய்யப்பட்டுள்ளன
 
   function handleSubmit() {
     setSubmitted(true);
@@ -417,9 +417,9 @@ function Form() {
 }
 ```
 
-By doing this, you've introduced a bug. Imagine you submit the form first and then switch between Dark and Light themes. The `theme` will change, the Effect will re-run, and so it will display the same notification again!
+இதைச் செய்ததால், நீங்கள் ஒரு bug உருவாக்கிவிட்டீர்கள். முதலில் form-ஐ submit செய்து, பின்னர் Dark மற்றும் Light themes இடையே switch செய்கிறீர்கள் என்று கற்பனை செய்யுங்கள். `theme` மாறும், Effect மீண்டும் run ஆகும், அதனால் அதே notification மீண்டும் காட்டப்படும்!
 
-**The problem here is that this shouldn't be an Effect in the first place.** You want to send this POST request and show the notification in response to *submitting the form,* which is a particular interaction. To run some code in response to particular interaction, put that logic directly into the corresponding event handler:
+**இங்கே பிரச்சினை என்னவெனில் இது முதலில் Effect ஆக இருக்கவே கூடாது.** *form submit செய்தல்* என்ற குறிப்பிட்ட interaction-க்கு பதிலாக இந்த POST request-ஐ அனுப்பி notification காட்ட விரும்புகிறீர்கள். குறிப்பிட்ட interaction-க்கு பதிலாக சில code run செய்ய, அந்த logic-ஐ நேரடியாக பொருந்திய event handler-க்குள் வையுங்கள்:
 
 ```js {6-7}
 function Form() {
@@ -428,20 +428,20 @@ function Form() {
   function handleSubmit() {
     // ✅ Good: Event-specific logic is called from event handlers
     post('/api/register');
-    showNotification('Successfully registered!', theme);
+    showNotification('வெற்றிகரமாக பதிவு செய்யப்பட்டது!', theme);
   }
 
   // ...
 }
 ```
 
-Now that the code is in an event handler, it's not reactive--so it will only run when the user submits the form. Read more about [choosing between event handlers and Effects](/learn/separating-events-from-effects#reactive-values-and-reactive-logic) and [how to delete unnecessary Effects.](/learn/you-might-not-need-an-effect)
+இப்போது code event handler-இல் இருப்பதால், அது reactive அல்ல; எனவே பயனர் form-ஐ submit செய்தால் மட்டுமே run ஆகும். [event handlers மற்றும் Effects இடையே தேர்வு செய்வது](/learn/separating-events-from-effects#reactive-values-and-reactive-logic) மற்றும் [தேவையற்ற Effects-ஐ எப்படி நீக்குவது](/learn/you-might-not-need-an-effect) பற்றி மேலும் படிக்கவும்.
 
-### Is your Effect doing several unrelated things? {/*is-your-effect-doing-several-unrelated-things*/}
+### உங்கள் Effect தொடர்பில்லாத பல விஷயங்களைச் செய்கிறதா? {/*is-your-effect-doing-several-unrelated-things*/}
 
-The next question you should ask yourself is whether your Effect is doing several unrelated things.
+அடுத்ததாக, உங்கள் Effect தொடர்பில்லாத பல விஷயங்களைச் செய்கிறதா என்று உங்களையே கேளுங்கள்.
 
-Imagine you're creating a shipping form where the user needs to choose their city and area. You fetch the list of `cities` from the server according to the selected `country` to show them in a dropdown:
+பயனர் city மற்றும் area தேர்வு செய்ய வேண்டிய shipping form ஒன்றை உருவாக்குகிறீர்கள் என்று கற்பனை செய்யுங்கள். தேர்ந்தெடுக்கப்பட்ட `country` அடிப்படையில் server-இலிருந்து `cities` பட்டியலை fetch செய்து dropdown-இல் காட்டுகிறீர்கள்:
 
 ```js
 function ShippingForm({ country }) {
@@ -460,14 +460,14 @@ function ShippingForm({ country }) {
     return () => {
       ignore = true;
     };
-  }, [country]); // ✅ All dependencies declared
+  }, [country]); // ✅ அனைத்து dependencies-யும் declare செய்யப்பட்டுள்ளன
 
   // ...
 ```
 
-This is a good example of [fetching data in an Effect.](/learn/you-might-not-need-an-effect#fetching-data) You are synchronizing the `cities` state with the network according to the `country` prop. You can't do this in an event handler because you need to fetch as soon as `ShippingForm` is displayed and whenever the `country` changes (no matter which interaction causes it).
+இது [Effect-இல் data fetch செய்வதற்கான](/learn/you-might-not-need-an-effect#fetching-data) நல்ல எடுத்துக்காட்டு. `country` prop அடிப்படையில் `cities` state-ஐ network உடன் synchronize செய்கிறீர்கள். இதை event handler-இல் செய்ய முடியாது; ஏனெனில் `ShippingForm` காட்டப்படும் உடனேயும், `country` மாறும் ஒவ்வொரு முறையும் (எந்த interaction காரணமாக இருந்தாலும்) fetch செய்ய வேண்டும்.
 
-Now let's say you're adding a second select box for city areas, which should fetch the `areas` for the currently selected `city`. You might start by adding a second `fetch` call for the list of areas inside the same Effect:
+இப்போது city areas-க்கான இரண்டாவது select box-ஐ சேர்க்கிறீர்கள் என்று வைத்துக்கொள்வோம்; அது தற்போது தேர்ந்தெடுக்கப்பட்ட `city`-க்கான `areas`-ஐ fetch செய்ய வேண்டும். அதே Effect-க்குள் areas பட்டியலுக்கான இரண்டாவது `fetch` call-ஐ சேர்ப்பதிலிருந்து தொடங்கலாம்:
 
 ```js {15-24,28}
 function ShippingForm({ country }) {
@@ -497,19 +497,19 @@ function ShippingForm({ country }) {
     return () => {
       ignore = true;
     };
-  }, [country, city]); // ✅ All dependencies declared
+  }, [country, city]); // ✅ அனைத்து dependencies-யும் declare செய்யப்பட்டுள்ளன
 
   // ...
 ```
 
-However, since the Effect now uses the `city` state variable, you've had to add `city` to the list of dependencies. That, in turn, introduced a problem: when the user selects a different city, the Effect will re-run and call `fetchCities(country)`. As a result, you will be unnecessarily refetching the list of cities many times.
+ஆனால் Effect இப்போது `city` state variable-ஐ பயன்படுத்துவதால், dependencies பட்டியலில் `city`-ஐ சேர்க்க வேண்டியதாகிவிட்டது. அது ஒரு பிரச்சினையை உருவாக்கியது: பயனர் வேறு city தேர்வு செய்தால், Effect மீண்டும் run ஆகி `fetchCities(country)`-ஐ call செய்யும். இதனால் cities பட்டியலை தேவையில்லாமல் பல முறை refetch செய்வீர்கள்.
 
-**The problem with this code is that you're synchronizing two different unrelated things:**
+**இந்த code-இல் பிரச்சினை என்னவெனில், நீங்கள் தொடர்பில்லாத இரண்டு வேறு விஷயங்களை synchronize செய்கிறீர்கள்:**
 
-1. You want to synchronize the `cities` state to the network based on the `country` prop.
-1. You want to synchronize the `areas` state to the network based on the `city` state.
+1. `country` prop அடிப்படையில் `cities` state-ஐ network-க்கு synchronize செய்ய விரும்புகிறீர்கள்.
+1. `city` state அடிப்படையில் `areas` state-ஐ network-க்கு synchronize செய்ய விரும்புகிறீர்கள்.
 
-Split the logic into two Effects, each of which reacts to the prop that it needs to synchronize with:
+logic-ஐ இரண்டு Effects ஆகப் பிரியுங்கள்; ஒவ்வொன்றும் தன்னுடன் synchronize செய்ய வேண்டிய prop/state-க்கு react செய்யும்:
 
 ```js {19-33}
 function ShippingForm({ country }) {
@@ -526,7 +526,7 @@ function ShippingForm({ country }) {
     return () => {
       ignore = true;
     };
-  }, [country]); // ✅ All dependencies declared
+  }, [country]); // ✅ அனைத்து dependencies-யும் declare செய்யப்பட்டுள்ளன
 
   const [city, setCity] = useState(null);
   const [areas, setAreas] = useState(null);
@@ -544,18 +544,18 @@ function ShippingForm({ country }) {
         ignore = true;
       };
     }
-  }, [city]); // ✅ All dependencies declared
+  }, [city]); // ✅ அனைத்து dependencies-யும் declare செய்யப்பட்டுள்ளன
 
   // ...
 ```
 
-Now the first Effect only re-runs if the `country` changes, while the second Effect re-runs when the `city` changes. You've separated them by purpose: two different things are synchronized by two separate Effects. Two separate Effects have two separate dependency lists, so they won't trigger each other unintentionally.
+இப்போது முதல் Effect `country` மாறினால் மட்டுமே மீண்டும் run ஆகும்; இரண்டாவது Effect `city` மாறும்போது மீண்டும் run ஆகும். அவற்றை நோக்கத்தின் அடிப்படையில் பிரித்துள்ளீர்கள்: இரண்டு வேறு விஷயங்கள் இரண்டு தனி Effects மூலம் synchronized ஆகின்றன. இரண்டு தனி Effects-க்கு இரண்டு தனி dependency lists உள்ளன, எனவே அவை தற்செயலாக ஒன்றையொன்று trigger செய்யாது.
 
-The final code is longer than the original, but splitting these Effects is still correct. [Each Effect should represent an independent synchronization process.](/learn/lifecycle-of-reactive-effects#each-effect-represents-a-separate-synchronization-process) In this example, deleting one Effect doesn't break the other Effect's logic. This means they *synchronize different things,* and it's good to split them up. If you're concerned about duplication, you can improve this code by [extracting repetitive logic into a custom Hook.](/learn/reusing-logic-with-custom-hooks#when-to-use-custom-hooks)
+இறுதி code அசல் code-ஐ விட நீளமாக இருக்கலாம், ஆனால் இந்த Effects-ஐப் பிரிப்பது இன்னும் சரியானதே. [ஒவ்வொரு Effect-மும் independent synchronization process-ஐ குறிக்க வேண்டும்.](/learn/lifecycle-of-reactive-effects#each-effect-represents-a-separate-synchronization-process) இந்த எடுத்துக்காட்டில், ஒரு Effect-ஐ நீக்கினாலும் மற்ற Effect-ன் logic உடையாது. அதாவது அவை *வேறு விஷயங்களை synchronize செய்கின்றன,* எனவே அவற்றை பிரிப்பது நல்லது. duplication குறித்து கவலை இருந்தால், [repetitive logic-ஐ custom Hook-க்குள் extract செய்து](/learn/reusing-logic-with-custom-hooks#when-to-use-custom-hooks) இந்த code-ஐ மேம்படுத்தலாம்.
 
-### Are you reading some state to calculate the next state? {/*are-you-reading-some-state-to-calculate-the-next-state*/}
+### அடுத்த state-ஐ கணக்கிட சில state-ஐ வாசிக்கிறீர்களா? {/*are-you-reading-some-state-to-calculate-the-next-state*/}
 
-This Effect updates the `messages` state variable with a newly created array every time a new message arrives:
+புதிய message வந்த ஒவ்வொரு முறையும், இந்த Effect புதிதாக உருவாக்கப்பட்ட array மூலம் `messages` state variable-ஐ update செய்கிறது:
 
 ```js {2,6-8}
 function ChatRoom({ roomId }) {
@@ -569,7 +569,7 @@ function ChatRoom({ roomId }) {
     // ...
 ```
 
-It uses the `messages` variable to [create a new array](/learn/updating-arrays-in-state) starting with all the existing messages and adds the new message at the end. However, since `messages` is a reactive value read by an Effect, it must be a dependency:
+அனைத்து existing messages-ஐயும் வைத்து தொடங்கி, இறுதியில் புதிய message-ஐ சேர்க்க [புதிய array உருவாக்க](/learn/updating-arrays-in-state) இது `messages` variable-ஐப் பயன்படுத்துகிறது. ஆனால் `messages` Effect வாசிக்கும் reactive value என்பதால், அது dependency ஆக இருக்க வேண்டும்:
 
 ```js {7,10}
 function ChatRoom({ roomId }) {
@@ -581,15 +581,15 @@ function ChatRoom({ roomId }) {
       setMessages([...messages, receivedMessage]);
     });
     return () => connection.disconnect();
-  }, [roomId, messages]); // ✅ All dependencies declared
+  }, [roomId, messages]); // ✅ அனைத்து dependencies-யும் declare செய்யப்பட்டுள்ளன
   // ...
 ```
 
-And making `messages` a dependency introduces a problem.
+`messages`-ஐ dependency ஆக்குவது ஒரு பிரச்சினையை உருவாக்குகிறது.
 
-Every time you receive a message, `setMessages()` causes the component to re-render with a new `messages` array that includes the received message. However, since this Effect now depends on `messages`, this will *also* re-synchronize the Effect. So every new message will make the chat re-connect. The user would not like that!
+ஒவ்வொரு message-ஐப் பெறும் போதும், `setMessages()` பெற்ற message-ஐ கொண்ட புதிய `messages` array உடன் component-ஐ re-render செய்யும். ஆனால் இந்த Effect இப்போது `messages`-ஐ சார்ந்திருப்பதால், இது Effect-ஐ *மேலும்* re-synchronize செய்யும். எனவே ஒவ்வொரு புதிய message-ும் chat-ஐ reconnect செய்யும். பயனருக்கு அது பிடிக்காது!
 
-To fix the issue, don't read `messages` inside the Effect. Instead, pass an [updater function](/reference/react/useState#updating-state-based-on-the-previous-state) to `setMessages`:
+பிரச்சினையை சரிசெய்ய, Effect-க்குள் `messages`-ஐ வாசிக்க வேண்டாம். அதற்கு பதிலாக, `setMessages`-க்கு [updater function](/reference/react/useState#updating-state-based-on-the-previous-state) ஒன்றை pass செய்யுங்கள்:
 
 ```js {7,10}
 function ChatRoom({ roomId }) {
@@ -601,15 +601,15 @@ function ChatRoom({ roomId }) {
       setMessages(msgs => [...msgs, receivedMessage]);
     });
     return () => connection.disconnect();
-  }, [roomId]); // ✅ All dependencies declared
+  }, [roomId]); // ✅ அனைத்து dependencies-யும் declare செய்யப்பட்டுள்ளன
   // ...
 ```
 
-**Notice how your Effect does not read the `messages` variable at all now.** You only need to pass an updater function like `msgs => [...msgs, receivedMessage]`. React [puts your updater function in a queue](/learn/queueing-a-series-of-state-updates) and will provide the `msgs` argument to it during the next render. This is why the Effect itself doesn't need to depend on `messages` anymore. As a result of this fix, receiving a chat message will no longer make the chat re-connect.
+**இப்போது உங்கள் Effect `messages` variable-ஐ முற்றிலும் வாசிக்கவில்லை என்பதை கவனியுங்கள்.** `msgs => [...msgs, receivedMessage]` போன்ற updater function ஒன்றை pass செய்தால் போதும். React [உங்கள் updater function-ஐ queue-இல் வைக்கும்](/learn/queueing-a-series-of-state-updates), அடுத்த render-இல் அதற்கு `msgs` argument-ஐ வழங்கும். அதனால் Effect தானே இனி `messages`-ஐ சார்ந்து இருக்க வேண்டியதில்லை. இந்த fix-ன் விளைவாக, chat message ஒன்றைப் பெறுவது இனி chat-ஐ reconnect செய்யாது.
 
-### Do you want to read a value without "reacting" to its changes? {/*do-you-want-to-read-a-value-without-reacting-to-its-changes*/}
+### மாற்றங்களுக்கு "react" செய்யாமல் value ஒன்றை வாசிக்க விரும்புகிறீர்களா? {/*do-you-want-to-read-a-value-without-reacting-to-its-changes*/}
 
-Suppose that you want to play a sound when the user receives a new message unless `isMuted` is `true`:
+`isMuted` `true` அல்லாத வரை, பயனர் புதிய message பெறும் போது sound ஒன்றை play செய்ய விரும்புகிறீர்கள் என்று வைத்துக்கொள்வோம்:
 
 ```js {3,10-12}
 function ChatRoom({ roomId }) {
@@ -628,7 +628,7 @@ function ChatRoom({ roomId }) {
     // ...
 ```
 
-Since your Effect now uses `isMuted` in its code, you have to add it to the dependencies:
+உங்கள் Effect இப்போது அதன் code-இல் `isMuted`-ஐ பயன்படுத்துவதால், அதை dependencies-இல் சேர்க்க வேண்டும்:
 
 ```js {10,15}
 function ChatRoom({ roomId }) {
@@ -645,13 +645,13 @@ function ChatRoom({ roomId }) {
       }
     });
     return () => connection.disconnect();
-  }, [roomId, isMuted]); // ✅ All dependencies declared
+  }, [roomId, isMuted]); // ✅ அனைத்து dependencies-யும் declare செய்யப்பட்டுள்ளன
   // ...
 ```
 
-The problem is that every time `isMuted` changes (for example, when the user presses the "Muted" toggle), the Effect will re-synchronize, and reconnect to the chat. This is not the desired user experience! (In this example, even disabling the linter would not work--if you do that, `isMuted` would get "stuck" with its old value.)
+பிரச்சினை என்னவெனில் `isMuted` மாறும் ஒவ்வொரு முறையும் (எடுத்துக்காட்டாக, பயனர் "Muted" toggle-ஐ அழுத்தும் போது), Effect re-synchronize ஆகி chat-க்கு reconnect செய்யும். இது விரும்பத்தக்க user experience அல்ல! (இந்த எடுத்துக்காட்டில், linter-ஐ disable செய்தாலும் வேலை செய்யாது; அப்படிச் செய்தால் `isMuted` அதன் பழைய value-இலேயே "stuck" ஆகிவிடும்.)
 
-To solve this problem, you need to extract the logic that shouldn't be reactive out of the Effect. You don't want this Effect to "react" to the changes in `isMuted`. [Move this non-reactive piece of logic into an Effect Event:](/learn/separating-events-from-effects#declaring-an-effect-event)
+இந்த பிரச்சினையை தீர்க்க, reactive ஆக இருக்கக் கூடாத logic-ஐ Effect-இலிருந்து extract செய்ய வேண்டும். இந்த Effect `isMuted` மாற்றங்களுக்கு "react" செய்ய வேண்டாம். [இந்த non-reactive logic பகுதியை Effect Event-க்குள் நகர்த்துங்கள்:](/learn/separating-events-from-effects#declaring-an-effect-event)
 
 ```js {1,7-12,18,21}
 import { useState, useEffect, useEffectEvent } from 'react';
@@ -674,15 +674,15 @@ function ChatRoom({ roomId }) {
       onMessage(receivedMessage);
     });
     return () => connection.disconnect();
-  }, [roomId]); // ✅ All dependencies declared
+  }, [roomId]); // ✅ அனைத்து dependencies-யும் declare செய்யப்பட்டுள்ளன
   // ...
 ```
 
-Effect Events let you split an Effect into reactive parts (which should "react" to reactive values like `roomId` and their changes) and non-reactive parts (which only read their latest values, like `onMessage` reads `isMuted`). **Now that you read `isMuted` inside an Effect Event, it doesn't need to be a dependency of your Effect.** As a result, the chat won't re-connect when you toggle the "Muted" setting on and off, solving the original issue!
+Effect Events, Effect ஒன்றை reactive பகுதிகள் (`roomId` போன்ற reactive values மற்றும் அவற்றின் மாற்றங்களுக்கு "react" செய்ய வேண்டியவை) மற்றும் non-reactive பகுதிகள் (`onMessage` `isMuted`-ஐ வாசிப்பது போல சமீபத்திய values-ஐ மட்டும் வாசிப்பவை) எனப் பிரிக்க அனுமதிக்கின்றன. **இப்போது `isMuted`-ஐ Effect Event-க்குள் வாசிப்பதால், அது உங்கள் Effect-ன் dependency ஆக இருக்க வேண்டியதில்லை.** இதன் விளைவாக, "Muted" setting-ஐ on/off toggle செய்தால் chat reconnect ஆகாது; அசல் பிரச்சினை தீர்க்கப்படுகிறது!
 
-#### Wrapping an event handler from the props {/*wrapping-an-event-handler-from-the-props*/}
+#### props-இலிருந்து வரும் event handler-ஐ wrap செய்தல் {/*wrapping-an-event-handler-from-the-props*/}
 
-You might run into a similar problem when your component receives an event handler as a prop:
+உங்கள் component event handler ஒன்றை prop ஆக பெறும் போது இதே போன்ற பிரச்சினையை சந்திக்கலாம்:
 
 ```js {1,8,11}
 function ChatRoom({ roomId, onReceiveMessage }) {
@@ -695,11 +695,11 @@ function ChatRoom({ roomId, onReceiveMessage }) {
       onReceiveMessage(receivedMessage);
     });
     return () => connection.disconnect();
-  }, [roomId, onReceiveMessage]); // ✅ All dependencies declared
+  }, [roomId, onReceiveMessage]); // ✅ அனைத்து dependencies-யும் declare செய்யப்பட்டுள்ளன
   // ...
 ```
 
-Suppose that the parent component passes a *different* `onReceiveMessage` function on every render:
+parent component ஒவ்வொரு render-இலும் *வேறு* `onReceiveMessage` function pass செய்கிறது என்று வைத்துக்கொள்வோம்:
 
 ```js {3-5}
 <ChatRoom
@@ -710,7 +710,7 @@ Suppose that the parent component passes a *different* `onReceiveMessage` functi
 />
 ```
 
-Since `onReceiveMessage` is a dependency, it would cause the Effect to re-synchronize after every parent re-render. This would make it re-connect to the chat. To solve this, wrap the call in an Effect Event:
+`onReceiveMessage` dependency என்பதால், ஒவ்வொரு parent re-render-க்கும் பிறகு Effect re-synchronize ஆகும். இது chat-க்கு reconnect செய்யும். இதைத் தீர்க்க, call-ஐ Effect Event-க்குள் wrap செய்யுங்கள்:
 
 ```js {4-6,12,15}
 function ChatRoom({ roomId, onReceiveMessage }) {
@@ -727,17 +727,17 @@ function ChatRoom({ roomId, onReceiveMessage }) {
       onMessage(receivedMessage);
     });
     return () => connection.disconnect();
-  }, [roomId]); // ✅ All dependencies declared
+  }, [roomId]); // ✅ அனைத்து dependencies-யும் declare செய்யப்பட்டுள்ளன
   // ...
 ```
 
-Effect Events aren't reactive, so you don't need to specify them as dependencies. As a result, the chat will no longer re-connect even if the parent component passes a function that's different on every re-render.
+Effect Events reactive அல்ல, எனவே அவற்றை dependencies ஆக குறிப்பிட வேண்டியதில்லை. இதன் விளைவாக, parent component ஒவ்வொரு re-render-இலும் வேறு function pass செய்தாலும் chat இனி reconnect ஆகாது.
 
-#### Separating reactive and non-reactive code {/*separating-reactive-and-non-reactive-code*/}
+#### reactive மற்றும் non-reactive code-ஐப் பிரித்தல் {/*separating-reactive-and-non-reactive-code*/}
 
-In this example, you want to log a visit every time `roomId` changes. You want to include the current `notificationCount` with every log, but you *don't* want a change to `notificationCount` to trigger a log event.
+இந்த எடுத்துக்காட்டில், `roomId` மாறும் ஒவ்வொரு முறையும் visit ஒன்றை log செய்ய விரும்புகிறீர்கள். ஒவ்வொரு log-உடனும் தற்போதைய `notificationCount`-ஐ சேர்க்க விரும்புகிறீர்கள்; ஆனால் `notificationCount` மாறுவது log event-ஐ trigger செய்ய *விரும்பவில்லை*.
 
-The solution is again to split out the non-reactive code into an Effect Event:
+solution மீண்டும் non-reactive code-ஐ Effect Event-க்குள் பிரிப்பதே:
 
 ```js {2-4,7}
 function Chat({ roomId, notificationCount }) {
@@ -747,16 +747,16 @@ function Chat({ roomId, notificationCount }) {
 
   useEffect(() => {
     onVisit(roomId);
-  }, [roomId]); // ✅ All dependencies declared
+  }, [roomId]); // ✅ அனைத்து dependencies-யும் declare செய்யப்பட்டுள்ளன
   // ...
 }
 ```
 
-You want your logic to be reactive with regards to `roomId`, so you read `roomId` inside of your Effect. However, you don't want a change to `notificationCount` to log an extra visit, so you read `notificationCount` inside of the Effect Event. [Learn more about reading the latest props and state from Effects using Effect Events.](/learn/separating-events-from-effects#reading-latest-props-and-state-with-effect-events)
+உங்கள் logic `roomId` தொடர்பாக reactive ஆக இருக்க வேண்டும்; எனவே `roomId`-ஐ Effect-க்குள் வாசிக்கிறீர்கள். ஆனால் `notificationCount` மாறுவது கூடுதல் visit ஒன்றை log செய்ய வேண்டாம்; எனவே `notificationCount`-ஐ Effect Event-க்குள் வாசிக்கிறீர்கள். [Effect Events பயன்படுத்தி Effects-இலிருந்து சமீபத்திய props மற்றும் state-ஐ வாசிப்பது பற்றி மேலும் அறியவும்.](/learn/separating-events-from-effects#reading-latest-props-and-state-with-effect-events)
 
-### Does some reactive value change unintentionally? {/*does-some-reactive-value-change-unintentionally*/}
+### ஏதாவது reactive value தற்செயலாக மாறுகிறதா? {/*does-some-reactive-value-change-unintentionally*/}
 
-Sometimes, you *do* want your Effect to "react" to a certain value, but that value changes more often than you'd like--and might not reflect any actual change from the user's perspective. For example, let's say that you create an `options` object in the body of your component, and then read that object from inside of your Effect:
+சில நேரங்களில், உங்கள் Effect ஒரு குறிப்பிட்ட value-க்கு "react" செய்ய வேண்டும் என்று நீங்கள் உண்மையாகவே விரும்பலாம்; ஆனால் அந்த value நீங்கள் விரும்புவதை விட அடிக்கடி மாறும் -- மேலும் பயனரின் பார்வையில் உண்மையான மாற்றத்தை பிரதிபலிக்காமல் இருக்கலாம். எடுத்துக்காட்டாக, உங்கள் component body-இல் `options` object ஒன்றை உருவாக்கி, பின்னர் அதை Effect-க்குள் வாசிக்கிறீர்கள் என்று வைத்துக்கொள்வோம்:
 
 ```js {3-6,9}
 function ChatRoom({ roomId }) {
@@ -772,7 +772,7 @@ function ChatRoom({ roomId }) {
     // ...
 ```
 
-This object is declared in the component body, so it's a [reactive value.](/learn/lifecycle-of-reactive-effects#effects-react-to-reactive-values) When you read a reactive value like this inside an Effect, you declare it as a dependency. This ensures your Effect "reacts" to its changes:
+இந்த object component body-இல் declare செய்யப்பட்டதால், அது [reactive value.](/learn/lifecycle-of-reactive-effects#effects-react-to-reactive-values) Effect-க்குள் இத்தகைய reactive value-ஐ வாசிக்கும் போது, அதை dependency ஆக declare செய்கிறீர்கள். இதனால் உங்கள் Effect அதன் மாற்றங்களுக்கு "react" செய்வது உறுதி:
 
 ```js {3,6}
   // ...
@@ -780,11 +780,11 @@ This object is declared in the component body, so it's a [reactive value.](/lear
     const connection = createConnection(options);
     connection.connect();
     return () => connection.disconnect();
-  }, [options]); // ✅ All dependencies declared
+  }, [options]); // ✅ அனைத்து dependencies-யும் declare செய்யப்பட்டுள்ளன
   // ...
 ```
 
-It is important to declare it as a dependency! This ensures, for example, that if the `roomId` changes, your Effect will re-connect to the chat with the new `options`. However, there is also a problem with the code above. To see it, try typing into the input in the sandbox below, and watch what happens in the console:
+அதை dependency ஆக declare செய்வது முக்கியம்! எடுத்துக்காட்டாக, `roomId` மாறினால், புதிய `options` உடன் உங்கள் Effect chat-க்கு reconnect செய்வதை இது உறுதி செய்கிறது. ஆனால் மேலுள்ள code-இல் ஒரு பிரச்சினையும் உள்ளது. அதை பார்க்க, கீழே உள்ள sandbox-இல் input-இல் type செய்து, console-இல் என்ன நடக்கிறது என்பதைப் பாருங்கள்:
 
 <Sandpack>
 
@@ -812,7 +812,7 @@ function ChatRoom({ roomId }) {
 
   return (
     <>
-      <h1>Welcome to the {roomId} room!</h1>
+      <h1>{roomId} room-க்கு வரவேற்கிறோம்!</h1>
       <input value={message} onChange={e => setMessage(e.target.value)} />
     </>
   );
@@ -823,7 +823,7 @@ export default function App() {
   return (
     <>
       <label>
-        Choose the chat room:{' '}
+        chat room-ஐத் தேர்வுசெய்க:{' '}
         <select
           value={roomId}
           onChange={e => setRoomId(e.target.value)}
@@ -845,10 +845,10 @@ export function createConnection({ serverUrl, roomId }) {
   // A real implementation would actually connect to the server
   return {
     connect() {
-      console.log('✅ Connecting to "' + roomId + '" room at ' + serverUrl + '...');
+      console.log('✅ "' + roomId + '" room-க்கு ' + serverUrl + '-இல் இணைக்கிறது...');
     },
     disconnect() {
-      console.log('❌ Disconnected from "' + roomId + '" room at ' + serverUrl);
+      console.log('❌ "' + roomId + '" room-இலிருந்து துண்டிக்கப்பட்டது: ' + serverUrl);
     }
   };
 }
@@ -861,11 +861,11 @@ button { margin-left: 10px; }
 
 </Sandpack>
 
-In the sandbox above, the input only updates the `message` state variable. From the user's perspective, this should not affect the chat connection. However, every time you update the `message`, your component re-renders. When your component re-renders, the code inside of it runs again from scratch.
+மேலுள்ள sandbox-இல், input `message` state variable-ஐ மட்டும் update செய்கிறது. பயனரின் பார்வையில், இது chat connection-ஐ பாதிக்கக் கூடாது. ஆனால் `message`-ஐ update செய்யும் ஒவ்வொரு முறையும், உங்கள் component re-render ஆகிறது. component re-render ஆனபோது, அதன் உள்ளேயுள்ள code மீண்டும் ஆரம்பத்திலிருந்து run ஆகிறது.
 
-A new `options` object is created from scratch on every re-render of the `ChatRoom` component. React sees that the `options` object is a *different object* from the `options` object created during the last render. This is why it re-synchronizes your Effect (which depends on `options`), and the chat re-connects as you type.
+`ChatRoom` component-ன் ஒவ்வொரு re-render-இலும் புதிய `options` object ஆரம்பத்திலிருந்து உருவாக்கப்படுகிறது. கடைசி render-இல் உருவாக்கப்பட்ட `options` object-இலிருந்து இது *வேறு object* என்று React பார்க்கிறது. அதனால் `options`-ஐ சார்ந்த உங்கள் Effect re-synchronize ஆகிறது; நீங்கள் type செய்யும் போதே chat reconnect ஆகிறது.
 
-**This problem only affects objects and functions. In JavaScript, each newly created object and function is considered distinct from all the others. It doesn't matter that the contents inside of them may be the same!**
+**இந்த பிரச்சினை objects மற்றும் functions-ஐ மட்டுமே பாதிக்கும். JavaScript-இல் புதிதாக உருவாக்கப்படும் ஒவ்வொரு object மற்றும் function மற்ற அனைத்திலிருந்தும் வேறுபட்டதாக கருதப்படுகிறது. அவற்றின் உள்ளடக்கம் ஒன்றே இருந்தாலும் அதனால் மாற்றமில்லை!**
 
 ```js {7-8}
 // During the first render
@@ -878,13 +878,13 @@ const options2 = { serverUrl: 'https://localhost:1234', roomId: 'music' };
 console.log(Object.is(options1, options2)); // false
 ```
 
-**Object and function dependencies can make your Effect re-synchronize more often than you need.**
+**Object மற்றும் function dependencies, உங்கள் Effect தேவையை விட அதிகமாக re-synchronize ஆகச் செய்யலாம்.**
 
-This is why, whenever possible, you should try to avoid objects and functions as your Effect's dependencies. Instead, try moving them outside the component, inside the Effect, or extracting primitive values out of them.
+அதனால், இயன்றபோது உங்கள் Effect-ன் dependencies ஆக objects மற்றும் functions-ஐத் தவிர்க்க முயற்சி செய்ய வேண்டும். அதற்கு பதிலாக, அவற்றை component-க்கு வெளியே, Effect-க்குள் நகர்த்துங்கள், அல்லது அவற்றிலிருந்து primitive values-ஐ extract செய்யுங்கள்.
 
-#### Move static objects and functions outside your component {/*move-static-objects-and-functions-outside-your-component*/}
+#### static objects மற்றும் functions-ஐ component-க்கு வெளியே நகர்த்துங்கள் {/*move-static-objects-and-functions-outside-your-component*/}
 
-If the object does not depend on any props and state, you can move that object outside your component:
+object எந்த props மற்றும் state-யையும் சார்ந்திருக்கவில்லை என்றால், அந்த object-ஐ component-க்கு வெளியே நகர்த்தலாம்:
 
 ```js {1-4,13}
 const options = {
@@ -899,13 +899,13 @@ function ChatRoom() {
     const connection = createConnection(options);
     connection.connect();
     return () => connection.disconnect();
-  }, []); // ✅ All dependencies declared
+  }, []); // ✅ அனைத்து dependencies-யும் declare செய்யப்பட்டுள்ளன
   // ...
 ```
 
-This way, you *prove* to the linter that it's not reactive. It can't change as a result of a re-render, so it doesn't need to be a dependency. Now re-rendering `ChatRoom` won't cause your Effect to re-synchronize.
+இவ்வாறு, அது reactive அல்ல என்பதை linter-க்கு நீங்கள் *நிரூபிக்கிறீர்கள்*. re-render காரணமாக அது மாற முடியாது; எனவே அது dependency ஆக இருக்க வேண்டியதில்லை. இப்போது `ChatRoom` re-render ஆனாலும் உங்கள் Effect re-synchronize ஆகாது.
 
-This works for functions too:
+இது functions-க்கும் வேலை செய்கிறது:
 
 ```js {1-6,12}
 function createOptions() {
@@ -923,15 +923,15 @@ function ChatRoom() {
     const connection = createConnection(options);
     connection.connect();
     return () => connection.disconnect();
-  }, []); // ✅ All dependencies declared
+  }, []); // ✅ அனைத்து dependencies-யும் declare செய்யப்பட்டுள்ளன
   // ...
 ```
 
-Since `createOptions` is declared outside your component, it's not a reactive value. This is why it doesn't need to be specified in your Effect's dependencies, and why it won't ever cause your Effect to re-synchronize.
+`createOptions` உங்கள் component-க்கு வெளியே declare செய்யப்பட்டதால், அது reactive value அல்ல. அதனால் அது உங்கள் Effect-ன் dependencies-இல் குறிப்பிடப்பட வேண்டியதில்லை; மேலும் அது ஒருபோதும் உங்கள் Effect re-synchronize ஆகக் காரணமாகாது.
 
-#### Move dynamic objects and functions inside your Effect {/*move-dynamic-objects-and-functions-inside-your-effect*/}
+#### dynamic objects மற்றும் functions-ஐ உங்கள் Effect-க்குள் நகர்த்துங்கள் {/*move-dynamic-objects-and-functions-inside-your-effect*/}
 
-If your object depends on some reactive value that may change as a result of a re-render, like a `roomId` prop, you can't pull it *outside* your component. You can, however, move its creation *inside* of your Effect's code:
+உங்கள் object, re-render காரணமாக மாறக்கூடிய `roomId` prop போன்ற reactive value ஒன்றை சார்ந்திருந்தால், அதை உங்கள் component-க்கு *வெளியே* எடுத்துச் செல்ல முடியாது. ஆனால் அதன் creation-ஐ உங்கள் Effect-ன் code-க்குள் நகர்த்தலாம்:
 
 ```js {7-10,11,14}
 const serverUrl = 'https://localhost:1234';
@@ -947,11 +947,11 @@ function ChatRoom({ roomId }) {
     const connection = createConnection(options);
     connection.connect();
     return () => connection.disconnect();
-  }, [roomId]); // ✅ All dependencies declared
+  }, [roomId]); // ✅ அனைத்து dependencies-யும் declare செய்யப்பட்டுள்ளன
   // ...
 ```
 
-Now that `options` is declared inside of your Effect, it is no longer a dependency of your Effect. Instead, the only reactive value used by your Effect is `roomId`. Since `roomId` is not an object or function, you can be sure that it won't be *unintentionally* different. In JavaScript, numbers and strings are compared by their content:
+இப்போது `options` உங்கள் Effect-க்குள் declare செய்யப்பட்டதால், அது இனி உங்கள் Effect-ன் dependency அல்ல. அதற்கு பதிலாக, உங்கள் Effect பயன்படுத்தும் ஒரே reactive value `roomId`. `roomId` object அல்லது function அல்லாததால், அது *தற்செயலாக* வேறுபடாது என்பதை உறுதி செய்யலாம். JavaScript-இல் numbers மற்றும் strings அவற்றின் content மூலம் compare செய்யப்படுகின்றன:
 
 ```js {7-8}
 // During the first render
@@ -964,7 +964,7 @@ const roomId2 = 'music';
 console.log(Object.is(roomId1, roomId2)); // true
 ```
 
-Thanks to this fix, the chat no longer re-connects if you edit the input:
+இந்த fix காரணமாக, input-ஐ edit செய்தால் chat இனி reconnect ஆகாது:
 
 <Sandpack>
 
@@ -989,7 +989,7 @@ function ChatRoom({ roomId }) {
 
   return (
     <>
-      <h1>Welcome to the {roomId} room!</h1>
+      <h1>{roomId} room-க்கு வரவேற்கிறோம்!</h1>
       <input value={message} onChange={e => setMessage(e.target.value)} />
     </>
   );
@@ -1000,7 +1000,7 @@ export default function App() {
   return (
     <>
       <label>
-        Choose the chat room:{' '}
+        chat room-ஐத் தேர்வுசெய்க:{' '}
         <select
           value={roomId}
           onChange={e => setRoomId(e.target.value)}
@@ -1022,10 +1022,10 @@ export function createConnection({ serverUrl, roomId }) {
   // A real implementation would actually connect to the server
   return {
     connect() {
-      console.log('✅ Connecting to "' + roomId + '" room at ' + serverUrl + '...');
+      console.log('✅ "' + roomId + '" room-க்கு ' + serverUrl + '-இல் இணைக்கிறது...');
     },
     disconnect() {
-      console.log('❌ Disconnected from "' + roomId + '" room at ' + serverUrl);
+      console.log('❌ "' + roomId + '" room-இலிருந்து துண்டிக்கப்பட்டது: ' + serverUrl);
     }
   };
 }
@@ -1038,9 +1038,9 @@ button { margin-left: 10px; }
 
 </Sandpack>
 
-However, it *does* re-connect when you change the `roomId` dropdown, as you would expect.
+ஆனால் நீங்கள் எதிர்பார்ப்பது போல `roomId` dropdown-ஐ மாற்றும் போது அது reconnect ஆகும்.
 
-This works for functions, too:
+இது functions-க்கும் வேலை செய்கிறது:
 
 ```js {7-12,14}
 const serverUrl = 'https://localhost:1234';
@@ -1060,15 +1060,15 @@ function ChatRoom({ roomId }) {
     const connection = createConnection(options);
     connection.connect();
     return () => connection.disconnect();
-  }, [roomId]); // ✅ All dependencies declared
+  }, [roomId]); // ✅ அனைத்து dependencies-யும் declare செய்யப்பட்டுள்ளன
   // ...
 ```
 
-You can write your own functions to group pieces of logic inside your Effect. As long as you also declare them *inside* your Effect, they're not reactive values, and so they don't need to be dependencies of your Effect.
+உங்கள் Effect-க்குள் logic பகுதிகளை group செய்ய உங்கள் சொந்த functions-ஐ எழுதலாம். அவற்றையும் உங்கள் Effect-க்குள் *declare* செய்தால், அவை reactive values அல்ல; எனவே அவை உங்கள் Effect-ன் dependencies ஆக இருக்க வேண்டியதில்லை.
 
-#### Read primitive values from objects {/*read-primitive-values-from-objects*/}
+#### objects-இலிருந்து primitive values-ஐ வாசித்தல் {/*read-primitive-values-from-objects*/}
 
-Sometimes, you may receive an object from props:
+சில நேரங்களில், props-இலிருந்து object ஒன்றைப் பெறலாம்:
 
 ```js {1,5,8}
 function ChatRoom({ options }) {
@@ -1078,11 +1078,11 @@ function ChatRoom({ options }) {
     const connection = createConnection(options);
     connection.connect();
     return () => connection.disconnect();
-  }, [options]); // ✅ All dependencies declared
+  }, [options]); // ✅ அனைத்து dependencies-யும் declare செய்யப்பட்டுள்ளன
   // ...
 ```
 
-The risk here is that the parent component will create the object during rendering:
+இங்கே ஆபத்து என்னவெனில் parent component rendering நடக்கும் போது object-ஐ உருவாக்கும்:
 
 ```js {3-6}
 <ChatRoom
@@ -1094,7 +1094,7 @@ The risk here is that the parent component will create the object during renderi
 />
 ```
 
-This would cause your Effect to re-connect every time the parent component re-renders. To fix this, read information from the object *outside* the Effect, and avoid having object and function dependencies:
+இதனால் parent component re-render ஆகும் ஒவ்வொரு முறையும் உங்கள் Effect reconnect ஆகும். இதைச் சரிசெய்ய, object-இலிருந்து தகவலை Effect-க்கு *வெளியே* வாசியுங்கள்; object மற்றும் function dependencies இருக்காமல் தவிர்க்கவும்:
 
 ```js {4,7-8,12}
 function ChatRoom({ options }) {
@@ -1108,15 +1108,15 @@ function ChatRoom({ options }) {
     });
     connection.connect();
     return () => connection.disconnect();
-  }, [roomId, serverUrl]); // ✅ All dependencies declared
+  }, [roomId, serverUrl]); // ✅ அனைத்து dependencies-யும் declare செய்யப்பட்டுள்ளன
   // ...
 ```
 
-The logic gets a little repetitive (you read some values from an object outside an Effect, and then create an object with the same values inside the Effect). But it makes it very explicit what information your Effect *actually* depends on. If an object is re-created unintentionally by the parent component, the chat would not re-connect. However, if `options.roomId` or `options.serverUrl` really are different, the chat would re-connect.
+logic சற்று repetitive ஆகிறது (Effect-க்கு வெளியே object-இலிருந்து சில values-ஐ வாசித்து, பின்னர் Effect-க்குள் அதே values உடன் object ஒன்றை உருவாக்குகிறீர்கள்). ஆனால் உங்கள் Effect *உண்மையில்* எந்த தகவலை சார்ந்துள்ளது என்பதை இது மிகவும் explicit ஆக்குகிறது. parent component தற்செயலாக object-ஐ மீண்டும் உருவாக்கினால், chat reconnect ஆகாது. ஆனால் `options.roomId` அல்லது `options.serverUrl` உண்மையில் வேறுபட்டிருந்தால், chat reconnect ஆகும்.
 
-#### Calculate primitive values from functions {/*calculate-primitive-values-from-functions*/}
+#### functions-இலிருந்து primitive values-ஐ கணக்கிடுதல் {/*calculate-primitive-values-from-functions*/}
 
-The same approach can work for functions. For example, suppose the parent component passes a function:
+அதே அணுகுமுறை functions-க்கும் வேலை செய்யலாம். எடுத்துக்காட்டாக, parent component function ஒன்றை pass செய்கிறது என்று வைத்துக்கொள்வோம்:
 
 ```js {3-8}
 <ChatRoom
@@ -1130,7 +1130,7 @@ The same approach can work for functions. For example, suppose the parent compon
 />
 ```
 
-To avoid making it a dependency (and causing it to re-connect on re-renders), call it outside the Effect. This gives you the `roomId` and `serverUrl` values that aren't objects, and that you can read from inside your Effect:
+அதை dependency ஆக்காமல் இருக்க (மற்றும் re-renders-இல் reconnect ஆகாமல் இருக்க), அதை Effect-க்கு வெளியே call செய்யுங்கள். இது objects அல்லாத `roomId` மற்றும் `serverUrl` values-ஐ தருகிறது; அவற்றை உங்கள் Effect-க்குள் வாசிக்கலாம்:
 
 ```js {1,4}
 function ChatRoom({ getOptions }) {
@@ -1144,36 +1144,36 @@ function ChatRoom({ getOptions }) {
     });
     connection.connect();
     return () => connection.disconnect();
-  }, [roomId, serverUrl]); // ✅ All dependencies declared
+  }, [roomId, serverUrl]); // ✅ அனைத்து dependencies-யும் declare செய்யப்பட்டுள்ளன
   // ...
 ```
 
-This only works for [pure](/learn/keeping-components-pure) functions because they are safe to call during rendering. If your function is an event handler, but you don't want its changes to re-synchronize your Effect, [wrap it into an Effect Event instead.](#do-you-want-to-read-a-value-without-reacting-to-its-changes)
+இது [pure](/learn/keeping-components-pure) functions-க்கு மட்டுமே வேலை செய்கிறது; ஏனெனில் அவற்றை rendering நடக்கும் போது call செய்வது பாதுகாப்பானது. உங்கள் function event handler ஆக இருந்தாலும், அதன் மாற்றங்கள் உங்கள் Effect-ஐ re-synchronize செய்ய வேண்டாம் என்றால், [அதை Effect Event-க்குள் wrap செய்யுங்கள்.](#do-you-want-to-read-a-value-without-reacting-to-its-changes)
 
 <Recap>
 
-- Dependencies should always match the code.
-- When you're not happy with your dependencies, what you need to edit is the code.
-- Suppressing the linter leads to very confusing bugs, and you should always avoid it.
-- To remove a dependency, you need to "prove" to the linter that it's not necessary.
-- If some code should run in response to a specific interaction, move that code to an event handler.
-- If different parts of your Effect should re-run for different reasons, split it into several Effects.
-- If you want to update some state based on the previous state, pass an updater function.
-- If you want to read the latest value without "reacting" it, extract an Effect Event from your Effect.
-- In JavaScript, objects and functions are considered different if they were created at different times.
-- Try to avoid object and function dependencies. Move them outside the component or inside the Effect.
+- Dependencies எப்போதும் code-உடன் பொருந்த வேண்டும்.
+- உங்கள் dependencies-இல் திருப்தி இல்லையெனில், edit செய்ய வேண்டியது code தான்.
+- linter-ஐ suppress செய்வது மிகவும் குழப்பமான bugs-க்கு வழிவகுக்கும்; அதை எப்போதும் தவிர்க்க வேண்டும்.
+- dependency ஒன்றை அகற்ற, அது தேவையில்லை என்பதை linter-க்கு "நிரூபிக்க" வேண்டும்.
+- குறிப்பிட்ட interaction-க்கு பதிலாக சில code run ஆக வேண்டும் என்றால், அந்த code-ஐ event handler-க்கு நகர்த்துங்கள்.
+- உங்கள் Effect-ன் வேறு பகுதிகள் வேறு காரணங்களுக்காக re-run ஆக வேண்டும் என்றால், அதை பல Effects ஆகப் பிரியுங்கள்.
+- முந்தைய state அடிப்படையில் state-ஐ update செய்ய விரும்பினால், updater function-ஐ pass செய்யுங்கள்.
+- சமீபத்திய value-ஐ அதற்கு "react" செய்யாமல் வாசிக்க விரும்பினால், உங்கள் Effect-இலிருந்து Effect Event ஒன்றை extract செய்யுங்கள்.
+- JavaScript-இல் objects மற்றும் functions வேறு நேரங்களில் உருவாக்கப்பட்டிருந்தால் அவை வேறுபட்டவை என்று கருதப்படும்.
+- object மற்றும் function dependencies-ஐத் தவிர்க்க முயற்சி செய்யுங்கள். அவற்றை component-க்கு வெளியே அல்லது Effect-க்குள் நகர்த்துங்கள்.
 
 </Recap>
 
 <Challenges>
 
-#### Fix a resetting interval {/*fix-a-resetting-interval*/}
+#### reset ஆகிக்கொண்டிருக்கும் interval-ஐ சரிசெய்யுங்கள் {/*fix-a-resetting-interval*/}
 
-This Effect sets up an interval that ticks every second. You've noticed something strange happening: it seems like the interval gets destroyed and re-created every time it ticks. Fix the code so that the interval doesn't get constantly re-created.
+இந்த Effect ஒவ்வொரு வினாடியும் tick ஆகும் interval ஒன்றை setup செய்கிறது. விசித்திரமாக ஏதோ நடப்பதை கவனித்துள்ளீர்கள்: interval tick ஆகும் ஒவ்வொரு முறையும் அது destroy செய்யப்பட்டு மீண்டும் உருவாக்கப்படுகிறது போல தெரிகிறது. interval தொடர்ந்து மீண்டும் உருவாக்கப்படாதபடி code-ஐ சரிசெய்யுங்கள்.
 
 <Hint>
 
-It seems like this Effect's code depends on `count`. Is there some way to not need this dependency? There should be a way to update the `count` state based on its previous value without adding a dependency on that value.
+இந்த Effect-ன் code `count`-ஐ சார்ந்துள்ளது போல தெரிகிறது. இந்த dependency தேவையில்லாதபடி செய்ய ஏதாவது வழி உள்ளதா? அந்த value-க்கு dependency சேர்க்காமல், அதன் முந்தைய value அடிப்படையில் `count` state-ஐ update செய்ய வழி இருக்க வேண்டும்.
 
 </Hint>
 
@@ -1186,18 +1186,18 @@ export default function Timer() {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    console.log('✅ Creating an interval');
+    console.log('✅ interval உருவாக்கப்படுகிறது');
     const id = setInterval(() => {
-      console.log('⏰ Interval tick');
+      console.log('⏰ interval tick');
       setCount(count + 1);
     }, 1000);
     return () => {
-      console.log('❌ Clearing an interval');
+      console.log('❌ interval clear செய்யப்படுகிறது');
       clearInterval(id);
     };
   }, [count]);
 
-  return <h1>Counter: {count}</h1>
+  return <h1>எண்ணிக்கை: {count}</h1>
 }
 ```
 
@@ -1205,9 +1205,9 @@ export default function Timer() {
 
 <Solution>
 
-You want to update the `count` state to be `count + 1` from inside the Effect. However, this makes your Effect depend on `count`, which changes with every tick, and that's why your interval gets re-created on every tick.
+Effect-க்குள் இருந்து `count` state-ஐ `count + 1` ஆக update செய்ய விரும்புகிறீர்கள். ஆனால் இதனால் உங்கள் Effect `count`-ஐ சார்ந்துவிடுகிறது; அது ஒவ்வொரு tick-க்கும் மாறுகிறது. அதனால் தான் interval ஒவ்வொரு tick-க்கும் மீண்டும் உருவாக்கப்படுகிறது.
 
-To solve this, use the [updater function](/reference/react/useState#updating-state-based-on-the-previous-state) and write `setCount(c => c + 1)` instead of `setCount(count + 1)`:
+இதைக் தீர்க்க, [updater function](/reference/react/useState#updating-state-based-on-the-previous-state)-ஐ பயன்படுத்தி `setCount(count + 1)`-க்கு பதிலாக `setCount(c => c + 1)` எழுதுங்கள்:
 
 <Sandpack>
 
@@ -1218,36 +1218,36 @@ export default function Timer() {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    console.log('✅ Creating an interval');
+    console.log('✅ interval உருவாக்கப்படுகிறது');
     const id = setInterval(() => {
-      console.log('⏰ Interval tick');
+      console.log('⏰ interval tick');
       setCount(c => c + 1);
     }, 1000);
     return () => {
-      console.log('❌ Clearing an interval');
+      console.log('❌ interval clear செய்யப்படுகிறது');
       clearInterval(id);
     };
   }, []);
 
-  return <h1>Counter: {count}</h1>
+  return <h1>எண்ணிக்கை: {count}</h1>
 }
 ```
 
 </Sandpack>
 
-Instead of reading `count` inside the Effect, you pass a `c => c + 1` instruction ("increment this number!") to React. React will apply it on the next render. And since you don't need to read the value of `count` inside your Effect anymore, you can keep your Effect's dependencies empty (`[]`). This prevents your Effect from re-creating the interval on every tick.
+Effect-க்குள் `count`-ஐ வாசிப்பதற்குப் பதிலாக, React-க்கு `c => c + 1` instruction ("இந்த எண்ணை increment செய்!") ஒன்றை pass செய்கிறீர்கள். React அதை அடுத்த render-இல் apply செய்யும். மேலும் உங்கள் Effect-க்குள் `count` value-ஐ இனி வாசிக்க வேண்டியதில்லை என்பதால், உங்கள் Effect-ன் dependencies-ஐ காலியாக (`[]`) வைத்திருக்கலாம். இது ஒவ்வொரு tick-க்கும் Effect interval-ஐ மீண்டும் உருவாக்குவதைத் தடுக்கிறது.
 
 </Solution>
 
-#### Fix a retriggering animation {/*fix-a-retriggering-animation*/}
+#### மீண்டும் trigger ஆகும் animation-ஐ சரிசெய்யுங்கள் {/*fix-a-retriggering-animation*/}
 
-In this example, when you press "Show", a welcome message fades in. The animation takes a second. When you press "Remove", the welcome message immediately disappears. The logic for the fade-in animation is implemented in the `animation.js` file as plain JavaScript [animation loop.](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame) You don't need to change that logic. You can treat it as a third-party library. Your Effect creates an instance of `FadeInAnimation` for the DOM node, and then calls `start(duration)` or `stop()` to control the animation. The `duration` is controlled by a slider. Adjust the slider and see how the animation changes.
+இந்த எடுத்துக்காட்டில், "காட்டு" அழுத்தும்போது welcome message fade in ஆகிறது. animation ஒரு வினாடி எடுக்கும். "அகற்று" அழுத்தும்போது welcome message உடனடியாக மறையும். fade-in animation-க்கான logic `animation.js` file-இல் plain JavaScript [animation loop](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame) ஆக implement செய்யப்பட்டுள்ளது. அந்த logic-ஐ மாற்ற வேண்டியதில்லை. அதை third-party library போல நடத்தலாம். உங்கள் Effect DOM node-க்காக `FadeInAnimation` instance ஒன்றை உருவாக்கி, animation-ஐ control செய்ய `start(duration)` அல்லது `stop()` call செய்கிறது. `duration` slider மூலம் கட்டுப்படுத்தப்படுகிறது. slider-ஐ adjust செய்து animation எப்படி மாறுகிறது என்பதைப் பாருங்கள்.
 
-This code already works, but there is something you want to change. Currently, when you move the slider that controls the `duration` state variable, it retriggers the animation. Change the behavior so that the Effect does not "react" to the `duration` variable. When you press "Show", the Effect should use the current `duration` on the slider. However, moving the slider itself should not by itself retrigger the animation.
+இந்த code ஏற்கனவே வேலை செய்கிறது, ஆனால் நீங்கள் மாற்ற விரும்பும் ஒன்று உள்ளது. தற்போது, `duration` state variable-ஐ control செய்யும் slider-ஐ நகர்த்தும்போது, அது animation-ஐ retrigger செய்கிறது. Effect `duration` variable-க்கு "react" செய்யாதபடி behavior-ஐ மாற்றுங்கள். "காட்டு" அழுத்தும்போது, Effect slider-இல் உள்ள தற்போதைய `duration`-ஐ பயன்படுத்த வேண்டும். ஆனால் slider-ஐ நகர்த்துவது மட்டும் animation-ஐ retrigger செய்யக்கூடாது.
 
 <Hint>
 
-Is there a line of code inside the Effect that should not be reactive? How can you move non-reactive code out of the Effect?
+Effect-க்குள் reactive ஆக இருக்கக் கூடாத code line ஏதேனும் உள்ளதா? non-reactive code-ஐ Effect-இலிருந்து எப்படி வெளியே நகர்த்தலாம்?
 
 </Hint>
 
@@ -1281,7 +1281,7 @@ function Welcome({ duration }) {
         backgroundImage: 'radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%)'
       }}
     >
-      Welcome
+      வரவேற்கிறோம்
     </h1>
   );
 }
@@ -1301,10 +1301,10 @@ export default function App() {
           onChange={e => setDuration(Number(e.target.value))}
         />
         <br />
-        Fade in duration: {duration} ms
+        Fade in நேரம்: {duration} ms
       </label>
       <button onClick={() => setShow(!show)}>
-        {show ? 'Remove' : 'Show'}
+        {show ? 'அகற்று' : 'காட்டு'}
       </button>
       <hr />
       {show && <Welcome duration={duration} />}
@@ -1360,7 +1360,7 @@ html, body { min-height: 300px; }
 
 <Solution>
 
-Your Effect needs to read the latest value of `duration`, but you don't want it to "react" to changes in `duration`. You use `duration` to start the animation, but starting animation isn't reactive. Extract the non-reactive line of code into an Effect Event, and call that function from your Effect.
+உங்கள் Effect `duration`-ன் சமீபத்திய value-ஐ வாசிக்க வேண்டும்; ஆனால் `duration` மாற்றங்களுக்கு "react" செய்ய வேண்டாம். animation-ஐ தொடங்க `duration`-ஐப் பயன்படுத்துகிறீர்கள், ஆனால் animation தொடங்குவது reactive அல்ல. non-reactive code line-ஐ Effect Event-க்குள் extract செய்து, அந்த function-ஐ உங்கள் Effect-இலிருந்து call செய்யுங்கள்.
 
 <Sandpack>
 
@@ -1396,7 +1396,7 @@ function Welcome({ duration }) {
         backgroundImage: 'radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%)'
       }}
     >
-      Welcome
+      வரவேற்கிறோம்
     </h1>
   );
 }
@@ -1416,10 +1416,10 @@ export default function App() {
           onChange={e => setDuration(Number(e.target.value))}
         />
         <br />
-        Fade in duration: {duration} ms
+        Fade in நேரம்: {duration} ms
       </label>
       <button onClick={() => setShow(!show)}>
-        {show ? 'Remove' : 'Show'}
+        {show ? 'அகற்று' : 'காட்டு'}
       </button>
       <hr />
       {show && <Welcome duration={duration} />}
@@ -1467,19 +1467,19 @@ html, body { min-height: 300px; }
 
 </Sandpack>
 
-Effect Events like `onAppear` are not reactive, so you can read `duration` inside without retriggering the animation.
+`onAppear` போன்ற Effect Events reactive அல்ல, எனவே animation-ஐ retrigger செய்யாமல் அவற்றுக்குள் `duration`-ஐ வாசிக்கலாம்.
 
 </Solution>
 
-#### Fix a reconnecting chat {/*fix-a-reconnecting-chat*/}
+#### reconnect ஆகும் chat-ஐ சரிசெய்யுங்கள் {/*fix-a-reconnecting-chat*/}
 
-In this example, every time you press "Toggle theme", the chat re-connects. Why does this happen? Fix the mistake so that the chat re-connects only when you edit the Server URL or choose a different chat room.
+இந்த எடுத்துக்காட்டில், "theme-ஐ toggle செய்" அழுத்தும் ஒவ்வொரு முறையும் chat reconnect ஆகிறது. இது ஏன் நடக்கிறது? Server URL-ஐ edit செய்தாலோ வேறு chat room தேர்வு செய்தாலோ மட்டும் chat reconnect ஆகும் வகையில் தவறை சரிசெய்யுங்கள்.
 
-Treat `chat.js` as an external third-party library: you can consult it to check its API, but don't edit it.
+`chat.js`-ஐ external third-party library போல நடத்துங்கள்: அதன் API-ஐ check செய்ய அதைப் பார்க்கலாம், ஆனால் edit செய்ய வேண்டாம்.
 
 <Hint>
 
-There's more than one way to fix this, but ultimately you want to avoid having an object as your dependency.
+இதைக் சரிசெய்ய ஒன்றுக்கு மேற்பட்ட வழிகள் உள்ளன; ஆனால் இறுதியில் object ஒன்றை dependency ஆக வைத்திருப்பதைத் தவிர்க்க வேண்டும்.
 
 </Hint>
 
@@ -1502,7 +1502,7 @@ export default function App() {
   return (
     <div className={isDark ? 'dark' : 'light'}>
       <button onClick={() => setIsDark(!isDark)}>
-        Toggle theme
+        theme-ஐ toggle செய்
       </button>
       <label>
         Server URL:{' '}
@@ -1512,7 +1512,7 @@ export default function App() {
         />
       </label>
       <label>
-        Choose the chat room:{' '}
+        chat room-ஐத் தேர்வுசெய்க:{' '}
         <select
           value={roomId}
           onChange={e => setRoomId(e.target.value)}
@@ -1540,7 +1540,7 @@ export default function ChatRoom({ options }) {
     return () => connection.disconnect();
   }, [options]);
 
-  return <h1>Welcome to the {options.roomId} room!</h1>;
+  return <h1>{options.roomId} room-க்கு வரவேற்கிறோம்!</h1>;
 }
 ```
 
@@ -1548,17 +1548,17 @@ export default function ChatRoom({ options }) {
 export function createConnection({ serverUrl, roomId }) {
   // A real implementation would actually connect to the server
   if (typeof serverUrl !== 'string') {
-    throw Error('Expected serverUrl to be a string. Received: ' + serverUrl);
+    throw Error('serverUrl string ஆக இருக்க வேண்டும். கிடைத்தது: ' + serverUrl);
   }
   if (typeof roomId !== 'string') {
-    throw Error('Expected roomId to be a string. Received: ' + roomId);
+    throw Error('roomId string ஆக இருக்க வேண்டும். கிடைத்தது: ' + roomId);
   }
   return {
     connect() {
-      console.log('✅ Connecting to "' + roomId + '" room at ' + serverUrl + '...');
+      console.log('✅ "' + roomId + '" room-க்கு ' + serverUrl + '-இல் இணைக்கிறது...');
     },
     disconnect() {
-      console.log('❌ Disconnected from "' + roomId + '" room at ' + serverUrl);
+      console.log('❌ "' + roomId + '" room-இலிருந்து துண்டிக்கப்பட்டது: ' + serverUrl);
     }
   };
 }
@@ -1573,9 +1573,9 @@ label, button { display: block; margin-bottom: 5px; }
 
 <Solution>
 
-Your Effect is re-running because it depends on the `options` object. Objects can be re-created unintentionally, you should try to avoid them as dependencies of your Effects whenever possible.
+உங்கள் Effect `options` object-ஐ சார்ந்திருப்பதால் மீண்டும் run ஆகிறது. Objects தற்செயலாக மீண்டும் உருவாக்கப்படலாம்; இயன்றபோது அவற்றை உங்கள் Effects-ன் dependencies ஆகத் தவிர்க்க முயற்சி செய்ய வேண்டும்.
 
-The least invasive fix is to read `roomId` and `serverUrl` right outside the Effect, and then make the Effect depend on those primitive values (which can't change unintentionally). Inside the Effect, create an object and pass it to `createConnection`:
+மிகக் குறைந்த invasive fix என்பது `roomId` மற்றும் `serverUrl`-ஐ Effect-க்கு வெளியே வாசித்து, பின்னர் Effect அந்த primitive values-ஐ சார்ந்திருக்கச் செய்வது (அவை தற்செயலாக மாற முடியாது). Effect-க்குள் object ஒன்றை உருவாக்கி, அதை `createConnection`-க்கு pass செய்யுங்கள்:
 
 <Sandpack>
 
@@ -1596,7 +1596,7 @@ export default function App() {
   return (
     <div className={isDark ? 'dark' : 'light'}>
       <button onClick={() => setIsDark(!isDark)}>
-        Toggle theme
+        theme-ஐ toggle செய்
       </button>
       <label>
         Server URL:{' '}
@@ -1606,7 +1606,7 @@ export default function App() {
         />
       </label>
       <label>
-        Choose the chat room:{' '}
+        chat room-ஐத் தேர்வுசெய்க:{' '}
         <select
           value={roomId}
           onChange={e => setRoomId(e.target.value)}
@@ -1638,7 +1638,7 @@ export default function ChatRoom({ options }) {
     return () => connection.disconnect();
   }, [roomId, serverUrl]);
 
-  return <h1>Welcome to the {options.roomId} room!</h1>;
+  return <h1>{options.roomId} room-க்கு வரவேற்கிறோம்!</h1>;
 }
 ```
 
@@ -1646,17 +1646,17 @@ export default function ChatRoom({ options }) {
 export function createConnection({ serverUrl, roomId }) {
   // A real implementation would actually connect to the server
   if (typeof serverUrl !== 'string') {
-    throw Error('Expected serverUrl to be a string. Received: ' + serverUrl);
+    throw Error('serverUrl string ஆக இருக்க வேண்டும். கிடைத்தது: ' + serverUrl);
   }
   if (typeof roomId !== 'string') {
-    throw Error('Expected roomId to be a string. Received: ' + roomId);
+    throw Error('roomId string ஆக இருக்க வேண்டும். கிடைத்தது: ' + roomId);
   }
   return {
     connect() {
-      console.log('✅ Connecting to "' + roomId + '" room at ' + serverUrl + '...');
+      console.log('✅ "' + roomId + '" room-க்கு ' + serverUrl + '-இல் இணைக்கிறது...');
     },
     disconnect() {
-      console.log('❌ Disconnected from "' + roomId + '" room at ' + serverUrl);
+      console.log('❌ "' + roomId + '" room-இலிருந்து துண்டிக்கப்பட்டது: ' + serverUrl);
     }
   };
 }
@@ -1669,7 +1669,7 @@ label, button { display: block; margin-bottom: 5px; }
 
 </Sandpack>
 
-It would be even better to replace the object `options` prop with the more specific `roomId` and `serverUrl` props:
+object `options` prop-ஐ மேலும் குறிப்பான `roomId` மற்றும் `serverUrl` props-ஆல் மாற்றுவது இன்னும் சிறந்தது:
 
 <Sandpack>
 
@@ -1685,7 +1685,7 @@ export default function App() {
   return (
     <div className={isDark ? 'dark' : 'light'}>
       <button onClick={() => setIsDark(!isDark)}>
-        Toggle theme
+        theme-ஐ toggle செய்
       </button>
       <label>
         Server URL:{' '}
@@ -1695,7 +1695,7 @@ export default function App() {
         />
       </label>
       <label>
-        Choose the chat room:{' '}
+        chat room-ஐத் தேர்வுசெய்க:{' '}
         <select
           value={roomId}
           onChange={e => setRoomId(e.target.value)}
@@ -1729,7 +1729,7 @@ export default function ChatRoom({ roomId, serverUrl }) {
     return () => connection.disconnect();
   }, [roomId, serverUrl]);
 
-  return <h1>Welcome to the {roomId} room!</h1>;
+  return <h1>{roomId} room-க்கு வரவேற்கிறோம்!</h1>;
 }
 ```
 
@@ -1737,17 +1737,17 @@ export default function ChatRoom({ roomId, serverUrl }) {
 export function createConnection({ serverUrl, roomId }) {
   // A real implementation would actually connect to the server
   if (typeof serverUrl !== 'string') {
-    throw Error('Expected serverUrl to be a string. Received: ' + serverUrl);
+    throw Error('serverUrl string ஆக இருக்க வேண்டும். கிடைத்தது: ' + serverUrl);
   }
   if (typeof roomId !== 'string') {
-    throw Error('Expected roomId to be a string. Received: ' + roomId);
+    throw Error('roomId string ஆக இருக்க வேண்டும். கிடைத்தது: ' + roomId);
   }
   return {
     connect() {
-      console.log('✅ Connecting to "' + roomId + '" room at ' + serverUrl + '...');
+      console.log('✅ "' + roomId + '" room-க்கு ' + serverUrl + '-இல் இணைக்கிறது...');
     },
     disconnect() {
-      console.log('❌ Disconnected from "' + roomId + '" room at ' + serverUrl);
+      console.log('❌ "' + roomId + '" room-இலிருந்து துண்டிக்கப்பட்டது: ' + serverUrl);
     }
   };
 }
@@ -1760,25 +1760,25 @@ label, button { display: block; margin-bottom: 5px; }
 
 </Sandpack>
 
-Sticking to primitive props where possible makes it easier to optimize your components later.
+இயன்ற இடங்களில் primitive props-ஐப் பயன்படுத்துவது பின்னர் உங்கள் components-ஐ optimize செய்வதை உதவும்.
 
 </Solution>
 
-#### Fix a reconnecting chat, again {/*fix-a-reconnecting-chat-again*/}
+#### reconnect ஆகும் chat-ஐ மீண்டும் சரிசெய்யுங்கள் {/*fix-a-reconnecting-chat-again*/}
 
-This example connects to the chat either with or without encryption. Toggle the checkbox and notice the different messages in the console when the encryption is on and off. Try changing the room. Then, try toggling the theme. When you're connected to a chat room, you will receive new messages every few seconds. Verify that their color matches the theme you've picked.
+இந்த எடுத்துக்காட்டு encryption உடனோ இல்லாமலோ chat-க்கு connect செய்கிறது. checkbox-ஐ toggle செய்து, encryption on/off ஆக இருக்கும் போது console-இல் வரும் வேறு messages-ஐ கவனியுங்கள். room-ஐ மாற்றிப் பாருங்கள். பின்னர் theme-ஐ toggle செய்து பாருங்கள். நீங்கள் chat room-க்கு connect ஆனபோது, சில வினாடிகளுக்கு ஒருமுறை புதிய messages பெறுவீர்கள். அவற்றின் color நீங்கள் தேர்வு செய்த theme-உடன் பொருந்துகிறதா என்று சரிபாருங்கள்.
 
-In this example, the chat re-connects every time you try to change the theme. Fix this. After the fix, changing the theme should not re-connect the chat, but toggling encryption settings or changing the room should re-connect.
+இந்த எடுத்துக்காட்டில், theme-ஐ மாற்ற முயலும் ஒவ்வொரு முறையும் chat reconnect ஆகிறது. இதைச் சரிசெய்யுங்கள். fix பிறகு, theme-ஐ மாற்றுவது chat-ஐ reconnect செய்யக்கூடாது; ஆனால் encryption settings-ஐ toggle செய்வது அல்லது room-ஐ மாற்றுவது reconnect செய்ய வேண்டும்.
 
-Don't change any code in `chat.js`. Other than that, you can change any code as long as it results in the same behavior. For example, you may find it helpful to change which props are being passed down.
+`chat.js`-இல் எந்த code-ஐயும் மாற்ற வேண்டாம். அதற்கு வெளியே, அதே behavior கிடைத்தால் எந்த code-ஐயும் மாற்றலாம். எடுத்துக்காட்டாக, எந்த props கீழே pass செய்யப்படுகின்றன என்பதை மாற்றுவது உதவியாக இருக்கலாம்.
 
 <Hint>
 
-You're passing down two functions: `onMessage` and `createConnection`. Both of them are created from scratch every time `App` re-renders. They are considered to be new values every time, which is why they re-trigger your Effect.
+நீங்கள் இரண்டு functions-ஐ கீழே pass செய்கிறீர்கள்: `onMessage` மற்றும் `createConnection`. `App` re-render ஆகும் ஒவ்வொரு முறையும் இவை இரண்டும் ஆரம்பத்திலிருந்து உருவாக்கப்படுகின்றன. அவை ஒவ்வொரு முறையும் புதிய values ஆகக் கருதப்படுகின்றன; அதனால் தான் அவை உங்கள் Effect-ஐ மீண்டும் trigger செய்கின்றன.
 
-One of these functions is an event handler. Do you know some way to call an event handler an Effect without "reacting" to the new values of the event handler function? That would come in handy!
+இந்த functions-இல் ஒன்று event handler. event handler function-ன் புதிய values-க்கு "react" செய்யாமல், Effect-இல் event handler-ஐ call செய்ய ஏதாவது வழி தெரியுமா? அது இங்கே உதவும்!
 
-Another of these functions only exists to pass some state to an imported API method. Is this function really necessary? What is the essential information that's being passed down? You might need to move some imports from `App.js` to `ChatRoom.js`.
+இந்த functions-இல் மற்றொன்று imported API method-க்கு சில state pass செய்வதற்காக மட்டுமே உள்ளது. இந்த function உண்மையில் தேவையா? கீழே pass செய்யப்படும் முக்கியமான தகவல் என்ன? `App.js`-இலிருந்து `ChatRoom.js`-க்கு சில imports-ஐ நகர்த்த வேண்டியிருக்கலாம்.
 
 </Hint>
 
@@ -1823,7 +1823,7 @@ export default function App() {
           checked={isDark}
           onChange={e => setIsDark(e.target.checked)}
         />
-        Use dark theme
+        dark theme பயன்படுத்து
       </label>
       <label>
         <input
@@ -1831,10 +1831,10 @@ export default function App() {
           checked={isEncrypted}
           onChange={e => setIsEncrypted(e.target.checked)}
         />
-        Enable encryption
+        encryption-ஐ இயக்கு
       </label>
       <label>
-        Choose the chat room:{' '}
+        chat room-ஐத் தேர்வுசெய்க:{' '}
         <select
           value={roomId}
           onChange={e => setRoomId(e.target.value)}
@@ -1848,7 +1848,7 @@ export default function App() {
       <ChatRoom
         roomId={roomId}
         onMessage={msg => {
-          showNotification('New message: ' + msg, isDark ? 'dark' : 'light');
+          showNotification('புதிய message: ' + msg, isDark ? 'dark' : 'light');
         }}
         createConnection={() => {
           const options = {
@@ -1879,7 +1879,7 @@ export default function ChatRoom({ roomId, createConnection, onMessage }) {
     return () => connection.disconnect();
   }, [createConnection, onMessage]);
 
-  return <h1>Welcome to the {roomId} room!</h1>;
+  return <h1>{roomId} room-க்கு வரவேற்கிறோம்!</h1>;
 }
 ```
 
@@ -1887,16 +1887,16 @@ export default function ChatRoom({ roomId, createConnection, onMessage }) {
 export function createEncryptedConnection({ serverUrl, roomId }) {
   // A real implementation would actually connect to the server
   if (typeof serverUrl !== 'string') {
-    throw Error('Expected serverUrl to be a string. Received: ' + serverUrl);
+    throw Error('serverUrl string ஆக இருக்க வேண்டும். கிடைத்தது: ' + serverUrl);
   }
   if (typeof roomId !== 'string') {
-    throw Error('Expected roomId to be a string. Received: ' + roomId);
+    throw Error('roomId string ஆக இருக்க வேண்டும். கிடைத்தது: ' + roomId);
   }
   let intervalId;
   let messageCallback;
   return {
     connect() {
-      console.log('✅ 🔐 Connecting to "' + roomId + '" room... (encrypted)');
+      console.log('✅ 🔐 "' + roomId + '" room-க்கு இணைக்கிறது... (encrypted)');
       clearInterval(intervalId);
       intervalId = setInterval(() => {
         if (messageCallback) {
@@ -1911,14 +1911,14 @@ export function createEncryptedConnection({ serverUrl, roomId }) {
     disconnect() {
       clearInterval(intervalId);
       messageCallback = null;
-      console.log('❌ 🔐 Disconnected from "' + roomId + '" room (encrypted)');
+      console.log('❌ 🔐 "' + roomId + '" room-இலிருந்து துண்டிக்கப்பட்டது (encrypted)');
     },
     on(event, callback) {
       if (messageCallback) {
-        throw Error('Cannot add the handler twice.');
+        throw Error('handler-ஐ இரண்டு முறை சேர்க்க முடியாது.');
       }
       if (event !== 'message') {
-        throw Error('Only "message" event is supported.');
+        throw Error('"message" event மட்டுமே ஆதரிக்கப்படுகிறது.');
       }
       messageCallback = callback;
     },
@@ -1928,16 +1928,16 @@ export function createEncryptedConnection({ serverUrl, roomId }) {
 export function createUnencryptedConnection({ serverUrl, roomId }) {
   // A real implementation would actually connect to the server
   if (typeof serverUrl !== 'string') {
-    throw Error('Expected serverUrl to be a string. Received: ' + serverUrl);
+    throw Error('serverUrl string ஆக இருக்க வேண்டும். கிடைத்தது: ' + serverUrl);
   }
   if (typeof roomId !== 'string') {
-    throw Error('Expected roomId to be a string. Received: ' + roomId);
+    throw Error('roomId string ஆக இருக்க வேண்டும். கிடைத்தது: ' + roomId);
   }
   let intervalId;
   let messageCallback;
   return {
     connect() {
-      console.log('✅ Connecting to "' + roomId + '" room (unencrypted)...');
+      console.log('✅ "' + roomId + '" room-க்கு இணைக்கிறது... (unencrypted)');
       clearInterval(intervalId);
       intervalId = setInterval(() => {
         if (messageCallback) {
@@ -1952,14 +1952,14 @@ export function createUnencryptedConnection({ serverUrl, roomId }) {
     disconnect() {
       clearInterval(intervalId);
       messageCallback = null;
-      console.log('❌ Disconnected from "' + roomId + '" room (unencrypted)');
+      console.log('❌ "' + roomId + '" room-இலிருந்து துண்டிக்கப்பட்டது (unencrypted)');
     },
     on(event, callback) {
       if (messageCallback) {
-        throw Error('Cannot add the handler twice.');
+        throw Error('handler-ஐ இரண்டு முறை சேர்க்க முடியாது.');
       }
       if (event !== 'message') {
-        throw Error('Only "message" event is supported.');
+        throw Error('"message" event மட்டுமே ஆதரிக்கப்படுகிறது.');
       }
       messageCallback = callback;
     },
@@ -1993,11 +1993,11 @@ label, button { display: block; margin-bottom: 5px; }
 
 <Solution>
 
-There's more than one correct way to solve this, but here is one possible solution.
+இதைக் தீர்க்க ஒன்றுக்கு மேற்பட்ட சரியான வழிகள் உள்ளன; அவற்றில் ஒரு சாத்தியமான solution இதோ.
 
-In the original example, toggling the theme caused different `onMessage` and `createConnection` functions to be created and passed down. Since the Effect depended on these functions, the chat would re-connect every time you toggle the theme.
+அசல் எடுத்துக்காட்டில், theme-ஐ toggle செய்வது வேறு `onMessage` மற்றும் `createConnection` functions உருவாக்கப்பட்டு கீழே pass செய்யப்படுவதற்கு காரணமானது. Effect இந்த functions-ஐ சார்ந்திருந்ததால், theme-ஐ toggle செய்யும் ஒவ்வொரு முறையும் chat reconnect ஆனது.
 
-To fix the problem with `onMessage`, you needed to wrap it into an Effect Event:
+`onMessage` தொடர்பான பிரச்சினையை சரிசெய்ய, அதை Effect Event-க்குள் wrap செய்ய வேண்டியிருந்தது:
 
 ```js {1,2,6}
 export default function ChatRoom({ roomId, createConnection, onMessage }) {
@@ -2009,21 +2009,21 @@ export default function ChatRoom({ roomId, createConnection, onMessage }) {
     // ...
 ```
 
-Unlike the `onMessage` prop, the `onReceiveMessage` Effect Event is not reactive. This is why it doesn't need to be a dependency of your Effect. As a result, changes to `onMessage` won't cause the chat to re-connect.
+`onMessage` prop-இற்கு மாறாக, `onReceiveMessage` Effect Event reactive அல்ல. அதனால் அது உங்கள் Effect-ன் dependency ஆக இருக்க வேண்டியதில்லை. இதன் விளைவாக, `onMessage`-இல் வரும் மாற்றங்கள் chat reconnect ஆகக் காரணமாகாது.
 
-You can't do the same with `createConnection` because it *should* be reactive. You *want* the Effect to re-trigger if the user switches between an encrypted and an unencryption connection, or if the user switches the current room. However, because `createConnection` is a function, you can't check whether the information it reads has *actually* changed or not. To solve this, instead of passing `createConnection` down from the `App` component, pass the raw `roomId` and `isEncrypted` values:
+`createConnection`-க்கு இதேதை செய்ய முடியாது; ஏனெனில் அது *reactive ஆக இருக்க வேண்டும்*. பயனர் encrypted மற்றும் unencrypted connection இடையே switch செய்தாலோ, தற்போதைய room-ஐ switch செய்தாலோ Effect re-trigger ஆக வேண்டும் என்று நீங்கள் *விரும்புகிறீர்கள்*. ஆனால் `createConnection` function என்பதால், அது வாசிக்கும் தகவல் *உண்மையில்* மாறியதா இல்லையா என்பதைச் சரிபார்க்க முடியாது. இதைத் தீர்க்க, `App` component-இலிருந்து `createConnection`-ஐ pass செய்வதற்குப் பதிலாக raw `roomId` மற்றும் `isEncrypted` values-ஐ pass செய்யுங்கள்:
 
 ```js {2-3}
       <ChatRoom
         roomId={roomId}
         isEncrypted={isEncrypted}
         onMessage={msg => {
-          showNotification('New message: ' + msg, isDark ? 'dark' : 'light');
+          showNotification('புதிய message: ' + msg, isDark ? 'dark' : 'light');
         }}
       />
 ```
 
-Now you can move the `createConnection` function *inside* the Effect instead of passing it down from the `App`:
+இப்போது `App`-இலிருந்து `createConnection` function-ஐ கீழே pass செய்வதற்குப் பதிலாக, அதை Effect-க்குள் *நகர்த்தலாம்*:
 
 ```js {1-4,6,10-20}
 import {
@@ -2049,19 +2049,19 @@ export default function ChatRoom({ roomId, isEncrypted, onMessage }) {
     // ...
 ```
 
-After these two changes, your Effect no longer depends on any function values:
+இந்த இரண்டு மாற்றங்களுக்குப் பிறகு, உங்கள் Effect எந்த function values-யையும் சார்ந்திருக்காது:
 
 ```js {1,8,10,21}
 export default function ChatRoom({ roomId, isEncrypted, onMessage }) { // Reactive values
-  const onReceiveMessage = useEffectEvent(onMessage); // Not reactive
+  const onReceiveMessage = useEffectEvent(onMessage); // reactive அல்ல
 
   useEffect(() => {
     function createConnection() {
       const options = {
         serverUrl: 'https://localhost:1234',
-        roomId: roomId // Reading a reactive value
+        roomId: roomId // reactive value-ஐ வாசிக்கிறது
       };
-      if (isEncrypted) { // Reading a reactive value
+      if (isEncrypted) { // reactive value-ஐ வாசிக்கிறது
         return createEncryptedConnection(options);
       } else {
         return createUnencryptedConnection(options);
@@ -2072,10 +2072,10 @@ export default function ChatRoom({ roomId, isEncrypted, onMessage }) { // Reacti
     connection.on('message', (msg) => onReceiveMessage(msg));
     connection.connect();
     return () => connection.disconnect();
-  }, [roomId, isEncrypted]); // ✅ All dependencies declared
+  }, [roomId, isEncrypted]); // ✅ அனைத்து dependencies-யும் declare செய்யப்பட்டுள்ளன
 ```
 
-As a result, the chat re-connects only when something meaningful (`roomId` or `isEncrypted`) changes:
+இதன் விளைவாக, அர்த்தமுள்ள ஏதாவது ஒன்று (`roomId` அல்லது `isEncrypted`) மாறும் போது மட்டும் chat reconnect ஆகும்:
 
 <Sandpack>
 
@@ -2115,7 +2115,7 @@ export default function App() {
           checked={isDark}
           onChange={e => setIsDark(e.target.checked)}
         />
-        Use dark theme
+        dark theme பயன்படுத்து
       </label>
       <label>
         <input
@@ -2123,10 +2123,10 @@ export default function App() {
           checked={isEncrypted}
           onChange={e => setIsEncrypted(e.target.checked)}
         />
-        Enable encryption
+        encryption-ஐ இயக்கு
       </label>
       <label>
-        Choose the chat room:{' '}
+        chat room-ஐத் தேர்வுசெய்க:{' '}
         <select
           value={roomId}
           onChange={e => setRoomId(e.target.value)}
@@ -2141,7 +2141,7 @@ export default function App() {
         roomId={roomId}
         isEncrypted={isEncrypted}
         onMessage={msg => {
-          showNotification('New message: ' + msg, isDark ? 'dark' : 'light');
+          showNotification('புதிய message: ' + msg, isDark ? 'dark' : 'light');
         }}
       />
     </>
@@ -2179,7 +2179,7 @@ export default function ChatRoom({ roomId, isEncrypted, onMessage }) {
     return () => connection.disconnect();
   }, [roomId, isEncrypted]);
 
-  return <h1>Welcome to the {roomId} room!</h1>;
+  return <h1>{roomId} room-க்கு வரவேற்கிறோம்!</h1>;
 }
 ```
 
@@ -2187,16 +2187,16 @@ export default function ChatRoom({ roomId, isEncrypted, onMessage }) {
 export function createEncryptedConnection({ serverUrl, roomId }) {
   // A real implementation would actually connect to the server
   if (typeof serverUrl !== 'string') {
-    throw Error('Expected serverUrl to be a string. Received: ' + serverUrl);
+    throw Error('serverUrl string ஆக இருக்க வேண்டும். கிடைத்தது: ' + serverUrl);
   }
   if (typeof roomId !== 'string') {
-    throw Error('Expected roomId to be a string. Received: ' + roomId);
+    throw Error('roomId string ஆக இருக்க வேண்டும். கிடைத்தது: ' + roomId);
   }
   let intervalId;
   let messageCallback;
   return {
     connect() {
-      console.log('✅ 🔐 Connecting to "' + roomId + '" room... (encrypted)');
+      console.log('✅ 🔐 "' + roomId + '" room-க்கு இணைக்கிறது... (encrypted)');
       clearInterval(intervalId);
       intervalId = setInterval(() => {
         if (messageCallback) {
@@ -2211,14 +2211,14 @@ export function createEncryptedConnection({ serverUrl, roomId }) {
     disconnect() {
       clearInterval(intervalId);
       messageCallback = null;
-      console.log('❌ 🔐 Disconnected from "' + roomId + '" room (encrypted)');
+      console.log('❌ 🔐 "' + roomId + '" room-இலிருந்து துண்டிக்கப்பட்டது (encrypted)');
     },
     on(event, callback) {
       if (messageCallback) {
-        throw Error('Cannot add the handler twice.');
+        throw Error('handler-ஐ இரண்டு முறை சேர்க்க முடியாது.');
       }
       if (event !== 'message') {
-        throw Error('Only "message" event is supported.');
+        throw Error('"message" event மட்டுமே ஆதரிக்கப்படுகிறது.');
       }
       messageCallback = callback;
     },
@@ -2228,16 +2228,16 @@ export function createEncryptedConnection({ serverUrl, roomId }) {
 export function createUnencryptedConnection({ serverUrl, roomId }) {
   // A real implementation would actually connect to the server
   if (typeof serverUrl !== 'string') {
-    throw Error('Expected serverUrl to be a string. Received: ' + serverUrl);
+    throw Error('serverUrl string ஆக இருக்க வேண்டும். கிடைத்தது: ' + serverUrl);
   }
   if (typeof roomId !== 'string') {
-    throw Error('Expected roomId to be a string. Received: ' + roomId);
+    throw Error('roomId string ஆக இருக்க வேண்டும். கிடைத்தது: ' + roomId);
   }
   let intervalId;
   let messageCallback;
   return {
     connect() {
-      console.log('✅ Connecting to "' + roomId + '" room (unencrypted)...');
+      console.log('✅ "' + roomId + '" room-க்கு இணைக்கிறது... (unencrypted)');
       clearInterval(intervalId);
       intervalId = setInterval(() => {
         if (messageCallback) {
@@ -2252,14 +2252,14 @@ export function createUnencryptedConnection({ serverUrl, roomId }) {
     disconnect() {
       clearInterval(intervalId);
       messageCallback = null;
-      console.log('❌ Disconnected from "' + roomId + '" room (unencrypted)');
+      console.log('❌ "' + roomId + '" room-இலிருந்து துண்டிக்கப்பட்டது (unencrypted)');
     },
     on(event, callback) {
       if (messageCallback) {
-        throw Error('Cannot add the handler twice.');
+        throw Error('handler-ஐ இரண்டு முறை சேர்க்க முடியாது.');
       }
       if (event !== 'message') {
-        throw Error('Only "message" event is supported.');
+        throw Error('"message" event மட்டுமே ஆதரிக்கப்படுகிறது.');
       }
       messageCallback = callback;
     },

@@ -1,44 +1,44 @@
 ---
-title: Render and Commit
+title: Render மற்றும் Commit
 ---
 
 <Intro>
 
-Before your components are displayed on screen, they must be rendered by React. Understanding the steps in this process will help you think about how your code executes and explain its behavior.
+உங்கள் components screen-இல் காட்டப்படுவதற்கு முன், அவை React மூலம் render செய்யப்பட வேண்டும். இந்த process-இல் உள்ள steps-ஐ புரிந்துகொள்வது, உங்கள் code எப்படி execute ஆகிறது என்பதையும் அதன் behavior-ஐ விளக்குவதையும் உதவும்.
 
 </Intro>
 
 <YouWillLearn>
 
-* What rendering means in React
-* When and why React renders a component
-* The steps involved in displaying a component on screen
-* Why rendering does not always produce a DOM update
+* React-இல் rendering என்றால் என்ன
+* React எப்போது, ஏன் ஒரு component-ஐ render செய்கிறது
+* ஒரு component-ஐ screen-இல் காட்டும் steps
+* Rendering எப்போதும் DOM update உருவாக்காதது ஏன்
 
 </YouWillLearn>
 
-Imagine that your components are cooks in the kitchen, assembling tasty dishes from ingredients. In this scenario, React is the waiter who puts in requests from customers and brings them their orders. This process of requesting and serving UI has three steps:
+உங்கள் components சமையலறையில் ingredients கொண்டு சுவையான உணவுகளை தயாரிக்கும் cooks என்று கற்பனை செய்யுங்கள். இந்த scenario-வில், React என்பது customers-இடமிருந்து requests எடுத்து, அவர்களுக்கான orders-ஐ கொண்டு சேர்க்கும் waiter. UI-ஐ request செய்து serve செய்யும் இந்த process-க்கு மூன்று steps உள்ளன:
 
-1. **Triggering** a render (delivering the guest's order to the kitchen)
-2. **Rendering** the component (preparing the order in the kitchen)
-3. **Committing** to the DOM (placing the order on the table)
+1. Render-ஐ **trigger செய்தல்** (guest-ன் order-ஐ சமையலறைக்கு கொண்டு செல்வது)
+2. Component-ஐ **render செய்தல்** (சமையலறையில் order-ஐ தயாரித்தல்)
+3. DOM-க்கு **commit செய்தல்** (order-ஐ table-இல் வைப்பது)
 
 <IllustrationBlock sequential>
-  <Illustration caption="Trigger" alt="React as a server in a restaurant, fetching orders from the users and delivering them to the Component Kitchen." src="/images/docs/illustrations/i_render-and-commit1.png" />
-  <Illustration caption="Render" alt="The Card Chef gives React a fresh Card component." src="/images/docs/illustrations/i_render-and-commit2.png" />
-  <Illustration caption="Commit" alt="React delivers the Card to the user at their table." src="/images/docs/illustrations/i_render-and-commit3.png" />
+  <Illustration caption="Trigger" alt="ஒரு உணவகத்தில் server ஆக React, users-இடமிருந்து orders-ஐ பெற்று Component Kitchen-க்கு கொண்டு செல்கிறது." src="/images/docs/illustrations/i_render-and-commit1.png" />
+  <Illustration caption="Render" alt="Card Chef, React-க்கு புதிய Card component ஒன்றைக் கொடுக்கிறார்." src="/images/docs/illustrations/i_render-and-commit2.png" />
+  <Illustration caption="Commit" alt="React, user-ன் table-க்கு Card-ஐ கொண்டு சேர்க்கிறது." src="/images/docs/illustrations/i_render-and-commit3.png" />
 </IllustrationBlock>
 
-## Step 1: Trigger a render {/*step-1-trigger-a-render*/}
+## Step 1: Render-ஐ trigger செய்யுங்கள் {/*step-1-trigger-a-render*/}
 
-There are two reasons for a component to render:
+ஒரு component render ஆக இரண்டு காரணங்கள் உள்ளன:
 
-1. It's the component's **initial render.**
-2. The component's (or one of its ancestors') **state has been updated.**
+1. அது component-ன் **initial render.**
+2. Component-ன் (அல்லது அதன் ancestors-ல் ஒருவரின்) **state update செய்யப்பட்டுள்ளது.**
 
 ### Initial render {/*initial-render*/}
 
-When your app starts, you need to trigger the initial render. Frameworks and sandboxes sometimes hide this code, but it's done by calling [`createRoot`](/reference/react-dom/client/createRoot) with the target DOM node, and then calling its `render` method with your component:
+உங்கள் app தொடங்கும்போது, initial render-ஐ trigger செய்ய வேண்டும். Frameworks மற்றும் sandboxes சில நேரங்களில் இந்த code-ஐ மறைத்துவிடும்; ஆனால் இது target DOM node உடன் [`createRoot`](/reference/react-dom/client/createRoot) call செய்து, பிறகு அதன் `render` method-ஐ உங்கள் component உடன் call செய்வதன் மூலம் செய்யப்படுகிறது:
 
 <Sandpack>
 
@@ -55,7 +55,7 @@ export default function Image() {
   return (
     <img
       src="https://react.dev/images/docs/scientists/ZF6s192.jpg"
-      alt="'Floralis Genérica' by Eduardo Catalano: a gigantic metallic flower sculpture with reflective petals"
+      alt="'Floralis Genérica' by Eduardo Catalano: பிரதிபலிக்கும் petals கொண்ட மிகப்பெரிய metallic flower sculpture"
     />
   );
 }
@@ -63,28 +63,28 @@ export default function Image() {
 
 </Sandpack>
 
-Try commenting out the `root.render()` call and see the component disappear!
+`root.render()` call-ஐ comment out செய்து component மறைவதைப் பாருங்கள்!
 
-### Re-renders when state updates {/*re-renders-when-state-updates*/}
+### State updates நேரத்தில் re-renders {/*re-renders-when-state-updates*/}
 
-Once the component has been initially rendered, you can trigger further renders by updating its state with the [`set` function.](/reference/react/useState#setstate) Updating your component's state automatically queues a render. (You can imagine these as a restaurant guest ordering tea, dessert, and all sorts of things after putting in their first order, depending on the state of their thirst or hunger.)
+Component initially render ஆன பிறகு, அதன் state-ஐ [`set` function](/reference/react/useState#setstate) மூலம் update செய்து மேலும் renders trigger செய்யலாம். உங்கள் component-ன் state update செய்வது தானாகவே render ஒன்றை queue செய்கிறது. (ஒரு restaurant guest, முதல் order கொடுத்த பிறகு தாகம் அல்லது பசி நிலையைப் பொறுத்து tea, dessert, மற்றும் பலவற்றை order செய்வது போல இதை கற்பனை செய்யலாம்.)
 
 <IllustrationBlock sequential>
-  <Illustration caption="State update..." alt="React as a server in a restaurant, serving a Card UI to the user, represented as a patron with a cursor for their head. The patron expresses they want a pink card, not a black one!" src="/images/docs/illustrations/i_rerender1.png" />
-  <Illustration caption="...triggers..." alt="React returns to the Component Kitchen and tells the Card Chef they need a pink Card." src="/images/docs/illustrations/i_rerender2.png" />
-  <Illustration caption="...render!" alt="The Card Chef gives React the pink Card." src="/images/docs/illustrations/i_rerender3.png" />
+  <Illustration caption="State update..." alt="ஒரு உணவகத்தில் server ஆக React, head இடத்தில் cursor கொண்ட patron ஆக காட்டப்பட்ட user-க்கு Card UI serve செய்கிறது. Patron, black card அல்ல pink card வேண்டும் என்று தெரிவிக்கிறார்!" src="/images/docs/illustrations/i_rerender1.png" />
+  <Illustration caption="...trigger செய்கிறது..." alt="React Component Kitchen-க்கு திரும்பி, Card Chef-க்கு pink Card தேவை என்று சொல்கிறது." src="/images/docs/illustrations/i_rerender2.png" />
+  <Illustration caption="...render!" alt="Card Chef, React-க்கு pink Card-ஐ கொடுக்கிறார்." src="/images/docs/illustrations/i_rerender3.png" />
 </IllustrationBlock>
 
-## Step 2: React renders your components {/*step-2-react-renders-your-components*/}
+## Step 2: React உங்கள் components-ஐ render செய்கிறது {/*step-2-react-renders-your-components*/}
 
-After you trigger a render, React calls your components to figure out what to display on screen. **"Rendering" is React calling your components.**
+Render ஒன்றை trigger செய்த பிறகு, screen-இல் என்ன காட்ட வேண்டும் என்பதை கண்டறிய React உங்கள் components-ஐ call செய்கிறது. **"Rendering" என்பது React உங்கள் components-ஐ call செய்வது.**
 
-* **On initial render,** React will call the root component.
-* **For subsequent renders,** React will call the function component whose state update triggered the render.
+* **Initial render-இல்,** React root component-ஐ call செய்யும்.
+* **பிற renders-இல்,** render-ஐ trigger செய்த state update உள்ள function component-ஐ React call செய்யும்.
 
-This process is recursive: if the updated component returns some other component, React will render _that_ component next, and if that component also returns something, it will render _that_ component next, and so on. The process will continue until there are no more nested components and React knows exactly what should be displayed on screen.
+இந்த process recursive: updated component வேறு component ஒன்றை return செய்தால், React அடுத்து _அந்த_ component-ஐ render செய்யும்; அந்த component-மும் ஏதாவது return செய்தால், அடுத்து _அந்த_ component-ஐ render செய்யும்; இவ்வாறே தொடரும். Nested components எதுவும் மீதமில்லாமல், screen-இல் என்ன காட்டப்பட வேண்டும் என்பதை React துல்லியமாக அறியும் வரை process தொடரும்.
 
-In the following example, React will call `Gallery()` and `Image()` several times:
+கீழுள்ள example-இல், React `Gallery()` மற்றும் `Image()`-ஐ பலமுறை call செய்யும்:
 
 <Sandpack>
 
@@ -92,7 +92,7 @@ In the following example, React will call `Gallery()` and `Image()` several time
 export default function Gallery() {
   return (
     <section>
-      <h1>Inspiring Sculptures</h1>
+      <h1>ஊக்கமளிக்கும் சிற்பங்கள்</h1>
       <Image />
       <Image />
       <Image />
@@ -104,7 +104,7 @@ function Image() {
   return (
     <img
       src="https://react.dev/images/docs/scientists/ZF6s192.jpg"
-      alt="'Floralis Genérica' by Eduardo Catalano: a gigantic metallic flower sculpture with reflective petals"
+      alt="'Floralis Genérica' by Eduardo Catalano: பிரதிபலிக்கும் petals கொண்ட மிகப்பெரிய metallic flower sculpture"
     />
   );
 }
@@ -124,36 +124,36 @@ img { margin: 0 10px 10px 0; }
 
 </Sandpack>
 
-* **During the initial render,** React will [create the DOM nodes](https://developer.mozilla.org/docs/Web/API/Document/createElement) for `<section>`, `<h1>`, and three `<img>` tags.
-* **During a re-render,** React will calculate which of their properties, if any, have changed since the previous render. It won't do anything with that information until the next step, the commit phase.
+* **Initial render நடக்கும் போது,** `<section>`, `<h1>`, மற்றும் மூன்று `<img>` tags-க்காக React [DOM nodes உருவாக்கும்](https://developer.mozilla.org/docs/Web/API/Document/createElement).
+* **Re-render நடக்கும் போது,** முந்தைய render முதல் அவற்றின் properties-ல் ஏதேனும் மாறியுள்ளதா என்பதை React கணக்கிடும். அடுத்த step, commit phase வரைக்கும் அந்த தகவலுடன் எதையும் செய்யாது.
 
 <Pitfall>
 
-Rendering must always be a [pure calculation](/learn/keeping-components-pure):
+Rendering எப்போதும் [pure calculation](/learn/keeping-components-pure) ஆக இருக்க வேண்டும்:
 
-* **Same inputs, same output.** Given the same inputs, a component should always return the same JSX. (When someone orders a salad with tomatoes, they should not receive a salad with onions!)
-* **It minds its own business.** It should not change any objects or variables that existed before rendering. (One order should not change anyone else's order.)
+* **அதே inputs, அதே output.** அதே inputs கொடுக்கப்பட்டால், component எப்போதும் அதே JSX-ஐ return செய்ய வேண்டும். (யாராவது tomatoes உடன் salad order செய்தால், onions உடன் salad கிடைக்கக் கூடாது!)
+* **அது தனக்கான வேலையை மட்டும் செய்ய வேண்டும்.** Rendering-க்கு முன் இருந்த objects அல்லது variables எதையும் அது மாற்றக்கூடாது. (ஒரு order, வேறு ஒருவரின் order-ஐ மாற்றக் கூடாது.)
 
-Otherwise, you can encounter confusing bugs and unpredictable behavior as your codebase grows in complexity. When developing in "Strict Mode", React calls each component's function twice, which can help surface mistakes caused by impure functions.
+இல்லையெனில், உங்கள் codebase complexity-ல் வளரும்போது குழப்பமான bugs மற்றும் unpredictable behavior-ஐ சந்திக்கலாம். "Strict Mode"-இல் develop செய்யும்போது, React ஒவ்வொரு component-ன் function-ஐ இருமுறை call செய்கிறது; இது impure functions காரணமாக ஏற்படும் mistakes-ஐ surface செய்ய உதவும்.
 
 </Pitfall>
 
 <DeepDive>
 
-#### Optimizing performance {/*optimizing-performance*/}
+#### Performance-ஐ optimize செய்தல் {/*optimizing-performance*/}
 
-The default behavior of rendering all components nested within the updated component is not optimal for performance if the updated component is very high in the tree. If you run into a performance issue, there are several opt-in ways to solve it described in the [Performance](https://reactjs.org/docs/optimizing-performance.html) section. **Don't optimize prematurely!**
+Updated component tree-இல் மிகவும் உயரத்தில் இருந்தால், அதன் உள்ளே nested ஆன அனைத்து components-ஐயும் render செய்வது performance-க்கு optimal அல்ல. Performance issue ஒன்றை சந்தித்தால், அதை தீர்க்க பல opt-in வழிகள் [Performance](https://reactjs.org/docs/optimizing-performance.html) section-இல் விவரிக்கப்பட்டுள்ளன. **முன்கூட்டியே optimize செய்ய வேண்டாம்!**
 
 </DeepDive>
 
-## Step 3: React commits changes to the DOM {/*step-3-react-commits-changes-to-the-dom*/}
+## Step 3: React changes-ஐ DOM-க்கு commit செய்கிறது {/*step-3-react-commits-changes-to-the-dom*/}
 
-After rendering (calling) your components, React will modify the DOM.
+உங்கள் components-ஐ render (call) செய்த பிறகு, React DOM-ஐ modify செய்யும்.
 
-* **For the initial render,** React will use the [`appendChild()`](https://developer.mozilla.org/docs/Web/API/Node/appendChild) DOM API to put all the DOM nodes it has created on screen.
-* **For re-renders,** React will apply the minimal necessary operations (calculated while rendering!) to make the DOM match the latest rendering output.
+* **Initial render-க்கு,** React உருவாக்கிய அனைத்து DOM nodes-ஐ screen-இல் வைக்க [`appendChild()`](https://developer.mozilla.org/docs/Web/API/Node/appendChild) DOM API-ஐ பயன்படுத்தும்.
+* **Re-renders-க்கு,** DOM latest rendering output-க்கு match ஆக, தேவையான குறைந்தபட்ச operations-ஐ (rendering நடக்கும் போது கணக்கிடப்பட்டவை!) React apply செய்யும்.
 
-**React only changes the DOM nodes if there's a difference between renders.** For example, here is a component that re-renders with different props passed from its parent every second. Notice how you can add some text into the `<input>`, updating its `value`, but the text doesn't disappear when the component re-renders:
+**Renders இடையே வேறுபாடு இருந்தால் மட்டுமே React DOM nodes-ஐ மாற்றும்.** உதாரணமாக, parent-இலிருந்து ஒவ்வொரு second-க்கும் வேறு props pass ஆகி re-render ஆகும் component இதோ. `<input>`-இல் text சேர்த்து அதன் `value` update செய்யலாம்; ஆனால் component re-render ஆனாலும் அந்த text மறைவதில்லை என்பதை கவனிக்கவும்:
 
 <Sandpack>
 
@@ -193,21 +193,20 @@ export default function App() {
 
 </Sandpack>
 
-This works because during this last step, React only updates the content of `<h1>` with the new `time`. It sees that the `<input>` appears in the JSX in the same place as last time, so React doesn't touch the `<input>`—or its `value`!
+இந்த last step-இல், React புதிய `time` கொண்டு `<h1>`-ன் content-ஐ மட்டும் update செய்வதால் இது வேலை செய்கிறது. `<input>` கடந்த முறை இருந்த அதே இடத்தில் JSX-இல் இருப்பதை React பார்க்கிறது; எனவே React `<input>`-ஐயும் அதன் `value`-யையும் தொடாது!
 ## Epilogue: Browser paint {/*epilogue-browser-paint*/}
 
-After rendering is done and React updated the DOM, the browser will repaint the screen. Although this process is known as "browser rendering", we'll refer to it as "painting" to avoid confusion throughout the docs.
+Rendering முடிந்து React DOM-ஐ update செய்த பிறகு, browser screen-ஐ repaint செய்யும். இந்த process "browser rendering" என்று அறியப்பட்டாலும், docs முழுவதும் குழப்பம் தவிர்க்க இதை "painting" என்று குறிப்பிடுவோம்.
 
-<Illustration alt="A browser painting 'still life with card element'." src="/images/docs/illustrations/i_browser-paint.png" />
+<Illustration alt="Browser, 'card element உடன் still life'-ஐ paint செய்கிறது." src="/images/docs/illustrations/i_browser-paint.png" />
 
 <Recap>
 
-* Any screen update in a React app happens in three steps:
+* React app-இல் எந்த screen update-மும் மூன்று steps-இல் நடக்கிறது:
   1. Trigger
   2. Render
   3. Commit
-* You can use Strict Mode to find mistakes in your components
-* React does not touch the DOM if the rendering result is the same as last time
+* உங்கள் components-இல் mistakes கண்டறிய Strict Mode பயன்படுத்தலாம்
+* Rendering result கடந்த முறை இருந்ததைப் போலவே இருந்தால், React DOM-ஐ தொடாது
 
 </Recap>
-

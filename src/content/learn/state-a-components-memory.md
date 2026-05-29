@@ -1,25 +1,25 @@
 ---
-title: "State: A Component's Memory"
+title: "State: ஒரு Component-ன் நினைவகம்"
 ---
 
 <Intro>
 
-Components often need to change what's on the screen as a result of an interaction. Typing into the form should update the input field, clicking "next" on an image carousel should change which image is displayed, clicking "buy" should put a product in the shopping cart. Components need to "remember" things: the current input value, the current image, the shopping cart. In React, this kind of component-specific memory is called *state*.
+ஒரு interaction-ன் விளைவாக screen-இல் இருப்பதை components அடிக்கடி மாற்ற வேண்டியிருக்கும். Form-இல் type செய்வது input field-ஐ update செய்ய வேண்டும்; image carousel-இல் "next" click செய்வது எந்த image காட்டப்படுகிறது என்பதை மாற்ற வேண்டும்; "buy" click செய்வது product-ஐ shopping cart-இல் வைக்க வேண்டும். Components சில விஷயங்களை "நினைவில்" வைத்திருக்க வேண்டும்: current input value, current image, shopping cart. React-இல், இவ்வகை component-specific memory *state* என்று அழைக்கப்படுகிறது.
 
 </Intro>
 
 <YouWillLearn>
 
-* How to add a state variable with the [`useState`](/reference/react/useState) Hook
-* What pair of values the `useState` Hook returns
-* How to add more than one state variable
-* Why state is called local
+* [`useState`](/reference/react/useState) Hook மூலம் state variable சேர்ப்பது எப்படி
+* `useState` Hook எந்த value pair-ஐ return செய்கிறது
+* ஒன்றுக்கு மேற்பட்ட state variables சேர்ப்பது எப்படி
+* State ஏன் local என்று அழைக்கப்படுகிறது
 
 </YouWillLearn>
 
-## When a regular variable isn’t enough {/*when-a-regular-variable-isnt-enough*/}
+## Regular variable போதாத போது {/*when-a-regular-variable-isnt-enough*/}
 
-Here's a component that renders a sculpture image. Clicking the "Next" button should show the next sculpture by changing the `index` to `1`, then `2`, and so on. However, this **won't work** (you can try it!):
+Sculpture image ஒன்றை render செய்யும் component இதோ. "அடுத்து" button-ஐ click செய்தால் `index`-ஐ `1`, பிறகு `2`, என்று மாற்றி அடுத்த sculpture-ஐ காட்ட வேண்டும். ஆனால் இது **வேலை செய்யாது** (நீங்கள் முயற்சி செய்யலாம்!):
 
 <Sandpack>
 
@@ -37,14 +37,14 @@ export default function Gallery() {
   return (
     <>
       <button onClick={handleClick}>
-        Next
+        அடுத்து
       </button>
       <h2>
         <i>{sculpture.name} </i>
-        by {sculpture.artist}
+        உருவாக்கியவர் {sculpture.artist}
       </h2>
       <h3>
-        ({index + 1} of {sculptureList.length})
+        ({index + 1} / {sculptureList.length})
       </h3>
       <img
         src={sculpture.url}
@@ -151,46 +151,46 @@ button {
 
 </Sandpack>
 
-The `handleClick` event handler is updating a local variable, `index`. But two things prevent that change from being visible:
+`handleClick` event handler local variable ஆன `index`-ஐ update செய்கிறது. ஆனால் இரண்டு விஷயங்கள் அந்த மாற்றம் visible ஆகாமல் தடுக்கின்றன:
 
-1. **Local variables don't persist between renders.** When React renders this component a second time, it renders it from scratch—it doesn't consider any changes to the local variables.
-2. **Changes to local variables won't trigger renders.** React doesn't realize it needs to render the component again with the new data.
+1. **Local variables renders இடையில் persist ஆகாது.** React இந்த component-ஐ இரண்டாவது முறையாக render செய்யும்போது, அதை scratch-இலிருந்து render செய்கிறது; local variables-க்கு செய்யப்பட்ட மாற்றங்களை அது கருதாது.
+2. **Local variables-இல் மாற்றங்கள் renders-ஐ trigger செய்யாது.** புதிய data உடன் component-ஐ மீண்டும் render செய்ய வேண்டும் என்பதை React அறியாது.
 
-To update a component with new data, two things need to happen:
+புதிய data உடன் component-ஐ update செய்ய, இரண்டு விஷயங்கள் நடக்க வேண்டும்:
 
-1. **Retain** the data between renders.
-2. **Trigger** React to render the component with new data (re-rendering).
+1. Renders இடையில் data-வை **retain** செய்ய வேண்டும்.
+2. புதிய data உடன் component-ஐ render செய்ய React-ஐ **trigger** செய்ய வேண்டும் (re-rendering).
 
-The [`useState`](/reference/react/useState) Hook provides those two things:
+[`useState`](/reference/react/useState) Hook இந்த இரண்டு விஷயங்களையும் provide செய்கிறது:
 
-1. A **state variable** to retain the data between renders.
-2. A **state setter function** to update the variable and trigger React to render the component again.
+1. Renders இடையில் data-வை retain செய்ய ஒரு **state variable**.
+2. Variable-ஐ update செய்து component-ஐ மீண்டும் render செய்ய React-ஐ trigger செய்ய ஒரு **state setter function**.
 
-## Adding a state variable {/*adding-a-state-variable*/}
+## State variable சேர்த்தல் {/*adding-a-state-variable*/}
 
-To add a state variable, import `useState` from React at the top of the file:
+State variable சேர்க்க, file-ன் top-இல் React-இலிருந்து `useState`-ஐ import செய்யுங்கள்:
 
 ```js
 import { useState } from 'react';
 ```
 
-Then, replace this line:
+பிறகு, இந்த line-ஐ:
 
 ```js
 let index = 0;
 ```
 
-with
+இதனுடன் replace செய்யுங்கள்:
 
 ```js
 const [index, setIndex] = useState(0);
 ```
 
-`index` is a state variable and `setIndex` is the setter function.
+`index` ஒரு state variable; `setIndex` setter function ஆகும்.
 
-> The `[` and `]` syntax here is called [array destructuring](https://javascript.info/destructuring-assignment) and it lets you read values from an array. The array returned by `useState` always has exactly two items.
+> இங்கே உள்ள `[` மற்றும் `]` syntax [array destructuring](https://javascript.info/destructuring-assignment) என்று அழைக்கப்படுகிறது; அது array-இலிருந்து values-ஐ read செய்ய அனுமதிக்கிறது. `useState` return செய்யும் array எப்போதும் சரியாக இரண்டு items-ஐக் கொண்டிருக்கும்.
 
-This is how they work together in `handleClick`:
+`handleClick`-இல் அவை ஒன்றாக வேலை செய்வது இப்படி:
 
 ```js
 function handleClick() {
@@ -198,7 +198,7 @@ function handleClick() {
 }
 ```
 
-Now clicking the "Next" button switches the current sculpture:
+இப்போது "அடுத்து" button-ஐ click செய்தால் current sculpture மாறும்:
 
 <Sandpack>
 
@@ -217,14 +217,14 @@ export default function Gallery() {
   return (
     <>
       <button onClick={handleClick}>
-        Next
+        அடுத்து
       </button>
       <h2>
         <i>{sculpture.name} </i>
-        by {sculpture.artist}
+        உருவாக்கியவர் {sculpture.artist}
       </h2>
       <h3>
-        ({index + 1} of {sculptureList.length})
+        ({index + 1} / {sculptureList.length})
       </h3>
       <img
         src={sculpture.url}
@@ -331,57 +331,57 @@ button {
 
 </Sandpack>
 
-### Meet your first Hook {/*meet-your-first-hook*/}
+### உங்கள் முதல் Hook-ஐ சந்தியுங்கள் {/*meet-your-first-hook*/}
 
-In React, `useState`, as well as any other function starting with "`use`", is called a Hook.
+React-இல், `useState` மற்றும் "`use`" என்று தொடங்கும் மற்ற எந்த function-உம் Hook என்று அழைக்கப்படுகிறது.
 
-*Hooks* are special functions that are only available while React is [rendering](/learn/render-and-commit#step-1-trigger-a-render) (which we'll get into in more detail on the next page). They let you "hook into" different React features.
+*Hooks* என்பது React [rendering](/learn/render-and-commit#step-1-trigger-a-render) செய்யும் போது மட்டுமே available ஆக இருக்கும் special functions (அதை அடுத்த page-இல் மேலும் விரிவாக பார்க்கப் போகிறோம்). அவை பல்வேறு React features-க்கு "hook into" செய்ய அனுமதிக்கின்றன.
 
-State is just one of those features, but you will meet the other Hooks later.
+State அவற்றில் ஒரு feature மட்டுமே; பிற Hooks-ஐ பின்னர் சந்திப்பீர்கள்.
 
 <Pitfall>
 
-**Hooks—functions starting with `use`—can only be called at the top level of your components or [your own Hooks.](/learn/reusing-logic-with-custom-hooks)** You can't call Hooks inside conditions, loops, or other nested functions. Hooks are functions, but it's helpful to think of them as unconditional declarations about your component's needs. You "use" React features at the top of your component similar to how you "import" modules at the top of your file.
+**`use` என்று தொடங்கும் functions ஆன Hooks-ஐ உங்கள் components-ன் top level-இல் அல்லது [உங்கள் சொந்த Hooks](/learn/reusing-logic-with-custom-hooks)-இல் மட்டுமே call செய்யலாம்.** Conditions, loops, அல்லது பிற nested functions-க்குள் Hooks-ஐ call செய்ய முடியாது. Hooks functions தான், ஆனால் உங்கள் component-ன் தேவைகள் பற்றிய unconditional declarations ஆக அவற்றை நினைப்பது உதவும். File-ன் top-இல் modules-ஐ "import" செய்வது போல, component-ன் top-இல் React features-ஐ "use" செய்கிறீர்கள்.
 
 </Pitfall>
 
-### Anatomy of `useState` {/*anatomy-of-usestate*/}
+### `useState`-ன் anatomy {/*anatomy-of-usestate*/}
 
-When you call [`useState`](/reference/react/useState), you are telling React that you want this component to remember something:
+நீங்கள் [`useState`](/reference/react/useState) call செய்யும்போது, இந்த component ஏதாவது ஒன்றை நினைவில் வைத்திருக்க வேண்டும் என்று React-க்கு சொல்லுகிறீர்கள்:
 
 ```js
 const [index, setIndex] = useState(0);
 ```
 
-In this case, you want React to remember `index`.
+இந்த case-இல், `index`-ஐ React நினைவில் வைத்திருக்க வேண்டும் என்று நீங்கள் விரும்புகிறீர்கள்.
 
 <Note>
 
-The convention is to name this pair like `const [something, setSomething]`. You could name it anything you like, but conventions make things easier to understand across projects.
+இந்த pair-க்கு `const [something, setSomething]` போல பெயரிடுவது convention. உங்களுக்கு விருப்பமான பெயரை வைக்கலாம், ஆனால் conventions projects முழுவதும் விஷயங்களை நேரடியாகப் புரிந்துகொள்ள உதவுகின்றன.
 
 </Note>
 
-The only argument to `useState` is the **initial value** of your state variable. In this example, the `index`'s initial value is set to `0` with `useState(0)`.
+`useState`-க்கு உள்ள ஒரே argument உங்கள் state variable-ன் **initial value**. இந்த example-இல், `useState(0)` மூலம் `index`-ன் initial value `0` ஆக set செய்யப்படுகிறது.
 
-Every time your component renders, `useState` gives you an array containing two values:
+உங்கள் component render ஆகும் ஒவ்வொரு முறையும், இரண்டு values கொண்ட array-ஐ `useState` தருகிறது:
 
-1. The **state variable** (`index`) with the value you stored.
-2. The **state setter function** (`setIndex`) which can update the state variable and trigger React to render the component again.
+1. நீங்கள் stored செய்த value உடன் உள்ள **state variable** (`index`).
+2. State variable-ஐ update செய்து component-ஐ மீண்டும் render செய்ய React-ஐ trigger செய்யும் **state setter function** (`setIndex`).
 
-Here's how that happens in action:
+அது action-இல் நடப்பது இப்படி:
 
 ```js
 const [index, setIndex] = useState(0);
 ```
 
-1. **Your component renders the first time.** Because you passed `0` to `useState` as the initial value for `index`, it will return `[0, setIndex]`. React remembers `0` is the latest state value.
-2. **You update the state.** When a user clicks the button, it calls `setIndex(index + 1)`. `index` is `0`, so it's `setIndex(1)`. This tells React to remember `index` is `1` now and triggers another render.
-3. **Your component's second render.** React still sees `useState(0)`, but because React *remembers* that you set `index` to `1`, it returns `[1, setIndex]` instead.
-4. And so on!
+1. **உங்கள் component முதல் முறையாக render ஆகிறது.** `index`-க்கு initial value ஆக `0`-ஐ `useState`-க்கு pass செய்ததால், அது `[0, setIndex]` return செய்யும். `0` தான் latest state value என்று React நினைவில் வைத்துக்கொள்கிறது.
+2. **நீங்கள் state-ஐ update செய்கிறீர்கள்.** பயனர் button-ஐ click செய்தால், அது `setIndex(index + 1)` call செய்கிறது. `index` `0`, எனவே அது `setIndex(1)`. இது `index` இப்போது `1` என்று React நினைவில் வைத்துக்கொள்ளச் சொல்லி, மற்றொரு render-ஐ trigger செய்கிறது.
+3. **உங்கள் component-ன் இரண்டாவது render.** React இன்னும் `useState(0)`-ஐப் பார்க்கிறது, ஆனால் நீங்கள் `index`-ஐ `1` ஆக set செய்ததை React *நினைவில்* வைத்திருப்பதால், அதற்கு பதிலாக `[1, setIndex]` return செய்கிறது.
+4. இப்படியே தொடர்கிறது!
 
-## Giving a component multiple state variables {/*giving-a-component-multiple-state-variables*/}
+## ஒரு component-க்கு பல state variables கொடுத்தல் {/*giving-a-component-multiple-state-variables*/}
 
-You can have as many state variables of as many types as you like in one component. This component has two state variables, a number `index` and a boolean `showMore` that's toggled when you click "Show details":
+ஒரே component-இல் விரும்பிய அளவு state variables-ஐ, விரும்பிய types-இல் வைத்திருக்கலாம். இந்த component-இல் இரண்டு state variables உள்ளன: number ஆன `index`, மேலும் "விவரங்கள் காட்டு" click செய்தால் toggle ஆகும் boolean ஆன `showMore`:
 
 <Sandpack>
 
@@ -405,17 +405,17 @@ export default function Gallery() {
   return (
     <>
       <button onClick={handleNextClick}>
-        Next
+        அடுத்து
       </button>
       <h2>
         <i>{sculpture.name} </i>
-        by {sculpture.artist}
+        உருவாக்கியவர் {sculpture.artist}
       </h2>
       <h3>
-        ({index + 1} of {sculptureList.length})
+        ({index + 1} / {sculptureList.length})
       </h3>
       <button onClick={handleMoreClick}>
-        {showMore ? 'Hide' : 'Show'} details
+        {showMore ? 'மறை' : 'காட்டு'} விவரங்கள்
       </button>
       {showMore && <p>{sculpture.description}</p>}
       <img
@@ -520,19 +520,19 @@ button {
 
 </Sandpack>
 
-It is a good idea to have multiple state variables if their state is unrelated, like `index` and `showMore` in this example. But if you find that you often change two state variables together, it might be easier to combine them into one. For example, if you have a form with many fields, it's more convenient to have a single state variable that holds an object than state variable per field. Read [Choosing the State Structure](/learn/choosing-the-state-structure) for more tips.
+இந்த example-இல் உள்ள `index` மற்றும் `showMore` போல state ஒன்றுக்கொன்று தொடர்பற்றதாக இருந்தால், பல state variables வைத்திருப்பது நல்லது. ஆனால் நீங்கள் அடிக்கடி இரண்டு state variables-ஐ ஒன்றாக change செய்கிறீர்கள் என்றால், அவற்றை ஒன்றாக combine செய்வது நேரடியாக இருக்கலாம். உதாரணமாக, பல fields கொண்ட form இருந்தால், ஒவ்வொரு field-க்கும் தனி state variable வைத்திருப்பதை விட object வைத்திருக்கும் single state variable வைத்திருப்பது வசதியாக இருக்கும். மேலும் tips-க்கு [State Structure-ஐ தேர்ந்தெடுத்தல்](/learn/choosing-the-state-structure)-ஐ படிக்கவும்.
 
 <DeepDive>
 
-#### How does React know which state to return? {/*how-does-react-know-which-state-to-return*/}
+#### எந்த state-ஐ return செய்ய வேண்டும் என்பதை React எப்படி அறிகிறது? {/*how-does-react-know-which-state-to-return*/}
 
-You might have noticed that the `useState` call does not receive any information about *which* state variable it refers to. There is no "identifier" that is passed to `useState`, so how does it know which of the state variables to return? Does it rely on some magic like parsing your functions? The answer is no.
+`useState` call *எந்த* state variable-ஐ குறிக்கிறது என்பதற்கான எந்த information-ஐயும் பெறவில்லை என்பதை நீங்கள் கவனித்திருக்கலாம். `useState`-க்கு pass செய்யப்படும் "identifier" எதுவும் இல்லை; அப்படியானால் எந்த state variable-ஐ return செய்ய வேண்டும் என்பதை அது எப்படி அறிகிறது? உங்கள் functions-ஐ parse செய்வது போன்ற ஏதேனும் magic-ஐ அது சார்ந்துள்ளதா? பதில் இல்லை.
 
-Instead, to enable their concise syntax, Hooks **rely on a stable call order on every render of the same component.** This works well in practice because if you follow the rule above ("only call Hooks at the top level"), Hooks will always be called in the same order. Additionally, a [linter plugin](https://www.npmjs.com/package/eslint-plugin-react-hooks) catches most mistakes.
+அதற்கு பதிலாக, அவற்றின் concise syntax-ஐ சாத்தியமாக்க, Hooks **அதே component-ன் ஒவ்வொரு render-இலும் stable call order-ஐ சார்ந்துள்ளன.** மேலுள்ள rule-ஐ ("Hooks-ஐ top level-இல் மட்டுமே call செய்யுங்கள்") பின்பற்றினால், Hooks எப்போதும் அதே order-இல் call செய்யப்படும் என்பதால் இது நடைமுறையில் நன்றாக வேலை செய்கிறது. கூடுதலாக, [linter plugin](https://www.npmjs.com/package/eslint-plugin-react-hooks) பெரும்பாலான தவறுகளைப் பிடிக்கும்.
 
-Internally, React holds an array of state pairs for every component. It also maintains the current pair index, which is set to `0` before rendering. Each time you call `useState`, React gives you the next state pair and increments the index. You can read more about this mechanism in [React Hooks: Not Magic, Just Arrays.](https://medium.com/@ryardley/react-hooks-not-magic-just-arrays-cd4f1857236e)
+Internally, ஒவ்வொரு component-க்கும் state pairs-ன் array ஒன்றை React வைத்திருக்கிறது. Rendering-க்கு முன் `0` ஆக set செய்யப்படும் current pair index-ஐயும் அது maintain செய்கிறது. நீங்கள் `useState` call செய்யும் ஒவ்வொரு முறையும், React அடுத்த state pair-ஐ தருகிறது மற்றும் index-ஐ increment செய்கிறது. இந்த mechanism பற்றி [React Hooks: Not Magic, Just Arrays](https://medium.com/@ryardley/react-hooks-not-magic-just-arrays-cd4f1857236e)-இல் மேலும் படிக்கலாம்.
 
-This example **doesn't use React** but it gives you an idea of how `useState` works internally:
+இந்த example **React-ஐ use செய்யவில்லை**, ஆனால் `useState` internally எப்படி வேலை செய்கிறது என்ற ஒரு idea-வை தருகிறது:
 
 <Sandpack>
 
@@ -588,9 +588,9 @@ function Gallery() {
   return {
     onNextClick: handleNextClick,
     onMoreClick: handleMoreClick,
-    header: `${sculpture.name} by ${sculpture.artist}`,
-    counter: `${index + 1} of ${sculptureList.length}`,
-    more: `${showMore ? 'Hide' : 'Show'} details`,
+    header: `${sculpture.name} - ${sculpture.artist}`,
+    counter: `${index + 1} / ${sculptureList.length}`,
+    more: `${showMore ? 'மறை' : 'காட்டு'} விவரங்கள்`,
     description: showMore ? sculpture.description : null,
     imageSrc: sculpture.url,
     imageAlt: sculpture.alt
@@ -704,7 +704,7 @@ updateDOM();
 
 ```html public/index.html
 <button id="nextButton">
-  Next
+  அடுத்து
 </button>
 <h3 id="header"></h3>
 <button id="moreButton"></button>
@@ -724,15 +724,15 @@ button { display: block; margin-bottom: 10px; }
 
 </Sandpack>
 
-You don't have to understand it to use React, but you might find this a helpful mental model.
+React-ஐ use செய்ய இதை புரிந்திருக்க வேண்டியதில்லை, ஆனால் இது ஒரு பயனுள்ள mental model ஆக இருக்கலாம்.
 
 </DeepDive>
 
-## State is isolated and private {/*state-is-isolated-and-private*/}
+## State isolated மற்றும் private ஆகும் {/*state-is-isolated-and-private*/}
 
-State is local to a component instance on the screen. In other words, **if you render the same component twice, each copy will have completely isolated state!** Changing one of them will not affect the other.
+State screen-இல் உள்ள component instance-க்கு local ஆகும். வேறு வார்த்தைகளில், **அதே component-ஐ இரண்டு முறை render செய்தால், ஒவ்வொரு copy-க்கும் முழுமையாக isolated state இருக்கும்!** ஒன்றை change செய்தால் மற்றொன்று பாதிக்கப்படாது.
 
-In this example, the `Gallery` component from earlier is rendered twice with no changes to its logic. Try clicking the buttons inside each of the galleries. Notice that their state is independent:
+இந்த example-இல், முன்பு பார்த்த `Gallery` component அதன் logic-ல் எந்த மாற்றமும் இல்லாமல் இரண்டு முறை render செய்யப்படுகிறது. ஒவ்வொரு gallery-க்குள் உள்ள buttons-ஐ click செய்து பாருங்கள். அவற்றின் state independent ஆக இருப்பதை கவனிக்கவும்:
 
 <Sandpack>
 
@@ -770,17 +770,17 @@ export default function Gallery() {
   return (
     <section>
       <button onClick={handleNextClick}>
-        Next
+        அடுத்து
       </button>
       <h2>
         <i>{sculpture.name} </i>
-        by {sculpture.artist}
+        உருவாக்கியவர் {sculpture.artist}
       </h2>
       <h3>
-        ({index + 1} of {sculptureList.length})
+        ({index + 1} / {sculptureList.length})
       </h3>
       <button onClick={handleMoreClick}>
-        {showMore ? 'Hide' : 'Show'} details
+        {showMore ? 'மறை' : 'காட்டு'} விவரங்கள்
       </button>
       {showMore && <p>{sculpture.description}</p>}
       <img
@@ -891,21 +891,21 @@ button {
 
 </Sandpack>
 
-This is what makes state different from regular variables that you might declare at the top of your module. State is not tied to a particular function call or a place in the code, but it's "local" to the specific place on the screen. You rendered two `<Gallery />` components, so their state is stored separately.
+உங்கள் module-ன் top-இல் declare செய்யக்கூடிய regular variables-இலிருந்து state-ஐ வேறுபடுத்துவது இதுவே. State ஒரு குறிப்பிட்ட function call-க்கும் code-இல் உள்ள ஒரு இடத்திற்கும் கட்டுப்பட்டதல்ல; அது screen-இல் உள்ள குறிப்பிட்ட இடத்துக்கு "local" ஆகும். நீங்கள் இரண்டு `<Gallery />` components-ஐ render செய்துள்ளீர்கள், எனவே அவற்றின் state தனித்தனியாக store செய்யப்படுகிறது.
 
-Also notice how the `Page` component doesn't "know" anything about the `Gallery` state or even whether it has any. Unlike props, **state is fully private to the component declaring it.** The parent component can't change it. This lets you add state to any component or remove it without impacting the rest of the components.
+மேலும் `Page` component, `Gallery` state பற்றி அல்லது அதற்கு state ஏதேனும் இருக்கிறதா என்பது பற்றியும் எதையும் "அறியவில்லை" என்பதை கவனிக்கவும். Props-க்கு மாறாக, **state அதை declare செய்யும் component-க்கு முழுமையாக private ஆகும்.** Parent component அதை change செய்ய முடியாது. இதனால் மற்ற components-ஐ பாதிக்காமல் எந்த component-க்கும் state சேர்க்கவோ remove செய்யவோ முடியும்.
 
-What if you wanted both galleries to keep their states in sync? The right way to do it in React is to *remove* state from child components and add it to their closest shared parent. The next few pages will focus on organizing state of a single component, but we will return to this topic in [Sharing State Between Components.](/learn/sharing-state-between-components)
+இரண்டு galleries-உம் தங்கள் states-ஐ sync-இல் வைத்திருக்க வேண்டும் என்றால் என்ன செய்வது? React-இல் இதைச் செய்வதற்கான சரியான வழி, child components-இலிருந்து state-ஐ *remove* செய்து, அவற்றின் closest shared parent-க்கு அதைச் சேர்ப்பது. அடுத்த சில pages ஒரு single component-ன் state-ஐ organize செய்வதில் கவனம் செலுத்தும்; ஆனால் [Components இடையில் State-ஐ பகிர்தல்](/learn/sharing-state-between-components) பகுதியில் இந்த topic-க்கு திரும்புவோம்.
 
 <Recap>
 
-* Use a state variable when a component needs to "remember" some information between renders.
-* State variables are declared by calling the `useState` Hook.
-* Hooks are special functions that start with `use`. They let you "hook into" React features like state.
-* Hooks might remind you of imports: they need to be called unconditionally. Calling Hooks, including `useState`, is only valid at the top level of a component or another Hook.
-* The `useState` Hook returns a pair of values: the current state and the function to update it.
-* You can have more than one state variable. Internally, React matches them up by their order.
-* State is private to the component. If you render it in two places, each copy gets its own state.
+* ஒரு component renders இடையில் சில information-ஐ "நினைவில்" வைத்திருக்க வேண்டும்போது state variable-ஐ use செய்யுங்கள்.
+* `useState` Hook-ஐ call செய்வதன் மூலம் state variables declare செய்யப்படுகின்றன.
+* Hooks என்பது `use` என்று தொடங்கும் special functions. State போன்ற React features-க்கு "hook into" செய்ய அவை அனுமதிக்கின்றன.
+* Hooks imports-ஐ நினைவூட்டலாம்: அவை unconditionally call செய்யப்பட வேண்டும். `useState` உட்பட Hooks-ஐ call செய்வது component அல்லது மற்றொரு Hook-ன் top level-இல் மட்டுமே valid.
+* `useState` Hook ஒரு value pair-ஐ return செய்கிறது: current state மற்றும் அதை update செய்யும் function.
+* ஒன்றுக்கு மேற்பட்ட state variables வைத்திருக்கலாம். Internally, React அவற்றை அவற்றின் order மூலம் match செய்கிறது.
+* State component-க்கு private. அதை இரண்டு இடங்களில் render செய்தால், ஒவ்வொரு copy-க்கும் தனித் state கிடைக்கும்.
 
 </Recap>
 
@@ -913,11 +913,11 @@ What if you wanted both galleries to keep their states in sync? The right way to
 
 <Challenges>
 
-#### Complete the gallery {/*complete-the-gallery*/}
+#### Gallery-ஐ complete செய்யுங்கள் {/*complete-the-gallery*/}
 
-When you press "Next" on the last sculpture, the code crashes. Fix the logic to prevent the crash. You may do this by adding extra logic to event handler or by disabling the button when the action is not possible.
+கடைசி sculpture-இல் "அடுத்து" press செய்தால் code crash ஆகிறது. Crash-ஐத் தடுக்க logic-ஐ fix செய்யுங்கள். Event handler-க்கு extra logic சேர்ப்பதன் மூலமோ, action சாத்தியமில்லாத போது button-ஐ disable செய்வதன் மூலமோ இதைச் செய்யலாம்.
 
-After fixing the crash, add a "Previous" button that shows the previous sculpture. It shouldn't crash on the first sculpture.
+Crash-ஐ fix செய்த பிறகு, முந்தைய sculpture-ஐ காட்டும் "முந்தையது" button-ஐ சேர்க்கவும். முதல் sculpture-இல் அது crash ஆகக் கூடாது.
 
 <Sandpack>
 
@@ -941,17 +941,17 @@ export default function Gallery() {
   return (
     <>
       <button onClick={handleNextClick}>
-        Next
+        அடுத்து
       </button>
       <h2>
         <i>{sculpture.name} </i>
-        by {sculpture.artist}
+        உருவாக்கியவர் {sculpture.artist}
       </h2>
       <h3>
-        ({index + 1} of {sculptureList.length})
+        ({index + 1} / {sculptureList.length})
       </h3>
       <button onClick={handleMoreClick}>
-        {showMore ? 'Hide' : 'Show'} details
+        {showMore ? 'மறை' : 'காட்டு'} விவரங்கள்
       </button>
       {showMore && <p>{sculpture.description}</p>}
       <img
@@ -1059,7 +1059,7 @@ img { width: 120px; height: 120px; }
 
 <Solution>
 
-This adds a guarding condition inside both event handlers and disables the buttons when needed:
+இது இரண்டு event handlers-க்குள்ளும் guarding condition சேர்த்து, தேவைப்படும் போது buttons-ஐ disable செய்கிறது:
 
 <Sandpack>
 
@@ -1097,23 +1097,23 @@ export default function Gallery() {
         onClick={handlePrevClick}
         disabled={!hasPrev}
       >
-        Previous
+        முந்தையது
       </button>
       <button
         onClick={handleNextClick}
         disabled={!hasNext}
       >
-        Next
+        அடுத்து
       </button>
       <h2>
         <i>{sculpture.name} </i>
-        by {sculpture.artist}
+        உருவாக்கியவர் {sculpture.artist}
       </h2>
       <h3>
-        ({index + 1} of {sculptureList.length})
+        ({index + 1} / {sculptureList.length})
       </h3>
       <button onClick={handleMoreClick}>
-        {showMore ? 'Hide' : 'Show'} details
+        {showMore ? 'மறை' : 'காட்டு'} விவரங்கள்
       </button>
       {showMore && <p>{sculpture.description}</p>}
       <img
@@ -1219,13 +1219,13 @@ img { width: 120px; height: 120px; }
 
 </Sandpack>
 
-Notice how `hasPrev` and `hasNext` are used *both* for the returned JSX and inside the event handlers! This handy pattern works because event handler functions ["close over"](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures) any variables declared while rendering.
+`hasPrev` மற்றும் `hasNext` returned JSX-க்கும் event handlers-க்குள்ளும் *இரண்டிலும்* பயன்படுத்தப்படுகின்றன என்பதை கவனிக்கவும்! Rendering போது declare செய்யப்பட்ட எந்த variables-ஐயும் event handler functions ["close over"](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures) செய்வதால் இந்த பயனுள்ள pattern வேலை செய்கிறது.
 
 </Solution>
 
-#### Fix stuck form inputs {/*fix-stuck-form-inputs*/}
+#### சிக்கிக் கொண்ட form inputs-ஐ fix செய்யுங்கள் {/*fix-stuck-form-inputs*/}
 
-When you type into the input fields, nothing appears. It's like the input values are "stuck" with empty strings. The `value` of the first `<input>` is set to always match the `firstName` variable, and the `value` for the second `<input>` is set to always match the `lastName` variable. This is correct. Both inputs have `onChange` event handlers, which try to update the variables based on the latest user input (`e.target.value`). However, the variables don't seem to "remember" their values between re-renders. Fix this by using state variables instead.
+Input fields-இல் type செய்தால் எதுவும் தோன்றவில்லை. Input values empty strings-உடன் "stuck" ஆக இருப்பது போல உள்ளது. முதல் `<input>`-ன் `value` எப்போதும் `firstName` variable-க்கு match ஆக set செய்யப்பட்டுள்ளது; இரண்டாவது `<input>`-ன் `value` எப்போதும் `lastName` variable-க்கு match ஆக set செய்யப்பட்டுள்ளது. இது சரி. இரண்டு inputs-க்கும் `onChange` event handlers உள்ளன; அவை latest user input (`e.target.value`) அடிப்படையில் variables-ஐ update செய்ய முயற்சிக்கின்றன. ஆனால் variables re-renders இடையில் தங்கள் values-ஐ "நினைவில்" வைத்திருக்கவில்லை போல தெரிகிறது. அதற்கு பதிலாக state variables use செய்து இதை fix செய்யுங்கள்.
 
 <Sandpack>
 
@@ -1250,17 +1250,17 @@ export default function Form() {
   return (
     <form onSubmit={e => e.preventDefault()}>
       <input
-        placeholder="First name"
+        placeholder="முதல் பெயர்"
         value={firstName}
         onChange={handleFirstNameChange}
       />
       <input
-        placeholder="Last name"
+        placeholder="கடைசி பெயர்"
         value={lastName}
         onChange={handleLastNameChange}
       />
-      <h1>Hi, {firstName} {lastName}</h1>
-      <button onClick={handleReset}>Reset</button>
+      <h1>வணக்கம், {firstName} {lastName}</h1>
+      <button onClick={handleReset}>Reset செய்</button>
     </form>
   );
 }
@@ -1274,7 +1274,7 @@ h1 { margin-top: 10px; }
 
 <Solution>
 
-First, import `useState` from React. Then replace `firstName` and `lastName` with state variables declared by calling `useState`. Finally, replace every `firstName = ...` assignment with `setFirstName(...)`, and do the same for `lastName`. Don't forget to update `handleReset` too so that the reset button works.
+முதலில், React-இலிருந்து `useState`-ஐ import செய்யுங்கள். பிறகு `firstName` மற்றும் `lastName`-ஐ `useState` call செய்து declare செய்யப்பட்ட state variables-ஆல் replace செய்யுங்கள். இறுதியாக, ஒவ்வொரு `firstName = ...` assignment-ஐ `setFirstName(...)`-ஆல் replace செய்யுங்கள்; `lastName`-க்கும் அதையே செய்யுங்கள். Reset button வேலை செய்ய `handleReset`-ஐயும் update செய்ய மறக்க வேண்டாம்.
 
 <Sandpack>
 
@@ -1301,17 +1301,17 @@ export default function Form() {
   return (
     <form onSubmit={e => e.preventDefault()}>
       <input
-        placeholder="First name"
+        placeholder="முதல் பெயர்"
         value={firstName}
         onChange={handleFirstNameChange}
       />
       <input
-        placeholder="Last name"
+        placeholder="கடைசி பெயர்"
         value={lastName}
         onChange={handleLastNameChange}
       />
-      <h1>Hi, {firstName} {lastName}</h1>
-      <button onClick={handleReset}>Reset</button>
+      <h1>வணக்கம், {firstName} {lastName}</h1>
+      <button onClick={handleReset}>Reset செய்</button>
     </form>
   );
 }
@@ -1325,13 +1325,13 @@ h1 { margin-top: 10px; }
 
 </Solution>
 
-#### Fix a crash {/*fix-a-crash*/}
+#### Crash-ஐ fix செய்யுங்கள் {/*fix-a-crash*/}
 
-Here is a small form that is supposed to let the user leave some feedback. When the feedback is submitted, it's supposed to display a thank-you message. However, it crashes with an error message saying "Rendered fewer hooks than expected". Can you spot the mistake and fix it?
+பயனர் feedback விட அனுமதிக்க வேண்டிய small form இதோ. Feedback submit செய்யப்பட்டால் thank-you message காட்ட வேண்டும். ஆனால் இது "Rendered fewer hooks than expected" என்ற error message உடன் crash ஆகிறது. தவறை கண்டுபிடித்து fix செய்ய முடியுமா?
 
 <Hint>
 
-Are there any limitations on _where_ Hooks may be called? Does this component break any rules? Check if there are any comments disabling the linter checks--this is where the bugs often hide!
+Hooks எங்கு call செய்யப்படலாம் என்பதில் ஏதேனும் limitations உள்ளனவா? இந்த component ஏதேனும் rules-ஐ break செய்கிறதா? Linter checks-ஐ disable செய்யும் comments ஏதேனும் உள்ளனவா என்று check செய்யுங்கள்--bugs அடிக்கடி மறையும் இடம் இதுதான்!
 
 </Hint>
 
@@ -1343,23 +1343,23 @@ import { useState } from 'react';
 export default function FeedbackForm() {
   const [isSent, setIsSent] = useState(false);
   if (isSent) {
-    return <h1>Thank you!</h1>;
+    return <h1>நன்றி!</h1>;
   } else {
     // eslint-disable-next-line
     const [message, setMessage] = useState('');
     return (
       <form onSubmit={e => {
         e.preventDefault();
-        alert(`Sending: "${message}"`);
+        alert(`அனுப்புகிறது: "${message}"`);
         setIsSent(true);
       }}>
         <textarea
-          placeholder="Message"
+          placeholder="செய்தி"
           value={message}
           onChange={e => setMessage(e.target.value)}
         />
         <br />
-        <button type="submit">Send</button>
+        <button type="submit">அனுப்பு</button>
       </form>
     );
   }
@@ -1370,9 +1370,9 @@ export default function FeedbackForm() {
 
 <Solution>
 
-Hooks can only be called at the top level of the component function. Here, the first `isSent` definition follows this rule, but the `message` definition is nested in a condition.
+Hooks component function-ன் top level-இல் மட்டுமே call செய்யப்படலாம். இங்கே, முதல் `isSent` definition இந்த rule-ஐ பின்பற்றுகிறது; ஆனால் `message` definition ஒரு condition-க்குள் nested ஆக உள்ளது.
 
-Move it out of the condition to fix the issue:
+Issue-ஐ fix செய்ய அதை condition-க்கு வெளியே நகர்த்துங்கள்:
 
 <Sandpack>
 
@@ -1384,21 +1384,21 @@ export default function FeedbackForm() {
   const [message, setMessage] = useState('');
 
   if (isSent) {
-    return <h1>Thank you!</h1>;
+    return <h1>நன்றி!</h1>;
   } else {
     return (
       <form onSubmit={e => {
         e.preventDefault();
-        alert(`Sending: "${message}"`);
+        alert(`அனுப்புகிறது: "${message}"`);
         setIsSent(true);
       }}>
         <textarea
-          placeholder="Message"
+          placeholder="செய்தி"
           value={message}
           onChange={e => setMessage(e.target.value)}
         />
         <br />
-        <button type="submit">Send</button>
+        <button type="submit">அனுப்பு</button>
       </form>
     );
   }
@@ -1407,9 +1407,9 @@ export default function FeedbackForm() {
 
 </Sandpack>
 
-Remember, Hooks must be called unconditionally and always in the same order!
+நினைவில் கொள்ளுங்கள்: Hooks unconditionally மற்றும் எப்போதும் அதே order-இல் call செய்யப்பட வேண்டும்!
 
-You could also remove the unnecessary `else` branch to reduce the nesting. However, it's still important that all calls to Hooks happen *before* the first `return`.
+Nesting-ஐ குறைக்க தேவையற்ற `else` branch-ஐயும் remove செய்யலாம். ஆனால் Hooks-க்கான எல்லா calls-உம் முதல் `return`-க்கு *முன்* நடக்க வேண்டும் என்பதும் இன்னும் முக்கியம்.
 
 <Sandpack>
 
@@ -1421,22 +1421,22 @@ export default function FeedbackForm() {
   const [message, setMessage] = useState('');
 
   if (isSent) {
-    return <h1>Thank you!</h1>;
+    return <h1>நன்றி!</h1>;
   }
 
   return (
     <form onSubmit={e => {
       e.preventDefault();
-      alert(`Sending: "${message}"`);
+      alert(`அனுப்புகிறது: "${message}"`);
       setIsSent(true);
     }}>
       <textarea
-        placeholder="Message"
+        placeholder="செய்தி"
         value={message}
         onChange={e => setMessage(e.target.value)}
       />
       <br />
-      <button type="submit">Send</button>
+      <button type="submit">அனுப்பு</button>
     </form>
   );
 }
@@ -1444,19 +1444,19 @@ export default function FeedbackForm() {
 
 </Sandpack>
 
-Try moving the second `useState` call after the `if` condition and notice how this breaks it again.
+இரண்டாவது `useState` call-ஐ `if` condition-க்கு பிறகு நகர்த்திப் பார்த்து, அது மீண்டும் எப்படி உடைகிறது என்பதை கவனிக்கவும்.
 
-If your linter is [configured for React](/learn/editor-setup#linting), you should see a lint error when you make a mistake like this. If you don't see an error when you try the faulty code locally, you need to set up linting for your project.
+உங்கள் linter [React-க்காக configure செய்யப்பட்டிருந்தால்](/learn/editor-setup#linting), இப்படிப்பட்ட தவறு செய்தால் lint error பார்க்க வேண்டும். Faulty code-ஐ locally try செய்யும்போது error தெரியவில்லை என்றால், உங்கள் project-க்கு linting setup செய்ய வேண்டும்.
 
 </Solution>
 
-#### Remove unnecessary state {/*remove-unnecessary-state*/}
+#### தேவையற்ற state-ஐ remove செய்யுங்கள் {/*remove-unnecessary-state*/}
 
-When the button is clicked, this example should ask for the user's name and then display an alert greeting them. You tried to use state to keep the name, but for some reason the first time it shows "Hello, !", and then "Hello, [name]!" with the previous input every time after.
+Button click செய்தால், இந்த example பயனரின் பெயரை கேட்டு, அவரை greet செய்யும் alert காட்ட வேண்டும். பெயரை வைத்திருக்க state use செய்ய முயற்சித்துள்ளீர்கள், ஆனால் ஏதோ காரணத்தால் முதல் முறையில் "வணக்கம், !" என்று காட்டுகிறது; அதன் பிறகு ஒவ்வொரு முறையும் previous input உடன் "வணக்கம், [name]!" என்று காட்டுகிறது.
 
-To fix this code, remove the unnecessary state variable. (We will discuss about [why this didn't work](/learn/state-as-a-snapshot) later.)
+இந்த code-ஐ fix செய்ய, தேவையற்ற state variable-ஐ remove செய்யுங்கள். ([இது ஏன் வேலை செய்யவில்லை](/learn/state-as-a-snapshot) என்பதை பின்னர் விவாதிப்போம்.)
 
-Can you explain why this state variable was unnecessary?
+இந்த state variable ஏன் தேவையற்றது என்பதை விளக்க முடியுமா?
 
 <Sandpack>
 
@@ -1467,13 +1467,13 @@ export default function FeedbackForm() {
   const [name, setName] = useState('');
 
   function handleClick() {
-    setName(prompt('What is your name?'));
-    alert(`Hello, ${name}!`);
+    setName(prompt('உங்கள் பெயர் என்ன?'));
+    alert(`வணக்கம், ${name}!`);
   }
 
   return (
     <button onClick={handleClick}>
-      Greet
+      வாழ்த்து
     </button>
   );
 }
@@ -1483,20 +1483,20 @@ export default function FeedbackForm() {
 
 <Solution>
 
-Here is a fixed version that uses a regular `name` variable declared in the function that needs it:
+தேவைப்படும் function-இல் declare செய்யப்பட்ட regular `name` variable-ஐ use செய்யும் fixed version இதோ:
 
 <Sandpack>
 
 ```js
 export default function FeedbackForm() {
   function handleClick() {
-    const name = prompt('What is your name?');
-    alert(`Hello, ${name}!`);
+    const name = prompt('உங்கள் பெயர் என்ன?');
+    alert(`வணக்கம், ${name}!`);
   }
 
   return (
     <button onClick={handleClick}>
-      Greet
+      வாழ்த்து
     </button>
   );
 }
@@ -1504,7 +1504,7 @@ export default function FeedbackForm() {
 
 </Sandpack>
 
-A state variable is only necessary to keep information between re-renders of a component. Within a single event handler, a regular variable will do fine. Don't introduce state variables when a regular variable works well.
+ஒரு component-ன் re-renders இடையில் information-ஐ வைத்திருக்க மட்டுமே state variable தேவை. Single event handler-க்குள் regular variable போதுமானது. Regular variable நன்றாக வேலை செய்யும் போது state variables அறிமுகப்படுத்த வேண்டாம்.
 
 </Solution>
 

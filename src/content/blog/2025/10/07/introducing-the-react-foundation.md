@@ -1,11 +1,11 @@
 ---
-title: "Introducing the React Foundation"
+title: "React Foundation அறிமுகம்"
 author: Seth Webster, Matt Carroll, Joe Savona
 date: 2025/10/07
-description: Today, we're announcing our plans to create the React Foundation a new technical governance structure
+description: இன்று, React Foundation மற்றும் புதிய technical governance அமைப்பை உருவாக்கும் எங்கள் திட்டங்களை அறிவிக்கிறோம்
 ---
 
-October 7, 2025 by [Seth Webster](https://x.com/sethwebster), [Matt Carroll](https://x.com/mattcarrollcode), [Joe Savona](https://x.com/en_JS), [Sophie Alpert](https://x.com/sophiebits)
+October 7, 2025 அன்று [Seth Webster](https://x.com/sethwebster), [Matt Carroll](https://x.com/mattcarrollcode), [Joe Savona](https://x.com/en_JS), [Sophie Alpert](https://x.com/sophiebits) எழுதியது
 
 ---
 
@@ -23,27 +23,27 @@ October 7, 2025 by [Seth Webster](https://x.com/sethwebster), [Matt Carroll](htt
 
 <Intro>
 
-Today, we're announcing our plans to create the React Foundation and a new technical governance structure.
+இன்று, React Foundation மற்றும் புதிய technical governance அமைப்பை உருவாக்கும் எங்கள் திட்டங்களை அறிவிக்கிறோம்.
 
 </Intro>
 
 ---
 
-We open sourced React over a decade ago to help developers build great user experiences. From its earliest days, React has received substantial contributions from contributors outside of Meta. Over time, the number of contributors and the scope of their contributions has grown significantly. What started out as a tool developed for Meta has expanded into a project that spans multiple companies with regular contributions from across the ecosystem. React has outgrown the confines of any one company.
+Developers சிறந்த user experiences உருவாக்க உதவுவதற்காக பத்து ஆண்டுகளுக்கு முன்பே React-ஐ open source செய்தோம். ஆரம்ப நாட்களிலிருந்தே, Meta-விற்கு வெளியே உள்ள contributors-இடமிருந்து React குறிப்பிடத்தக்க பங்களிப்புகளைப் பெற்றுள்ளது. காலப்போக்கில் contributors எண்ணிக்கையும் அவர்களின் பங்களிப்புகளின் பரப்பளவும் பெரிதாக வளர்ந்துள்ளது. Meta-க்காக உருவாக்கப்பட்ட tool ஆகத் தொடங்கியது, ecosystem முழுவதிலும் இருந்து சீரான பங்களிப்புகளைப் பெறும் பல நிறுவனங்களைத் தாண்டி பரவிய project ஆக விரிந்துள்ளது. React இப்போது எந்த ஒரு நிறுவனத்தின் வரம்பையும் தாண்டி வளர்ந்துள்ளது.
 
-To better serve the React community, we are announcing our plans to move React and React Native from Meta to a new React Foundation. As a part of this change, we will also be implementing a new independent technical governance structure. We believe these changes will enable us to give React ecosystem projects more resources.
+React சமூகத்துக்கு மேலும் சிறப்பாக சேவை செய்ய, React மற்றும் React Native-ஐ Meta-விலிருந்து புதிய React Foundation-க்கு மாற்றும் எங்கள் திட்டங்களை அறிவிக்கிறோம். இந்த மாற்றத்தின் ஒரு பகுதியாக, புதிய சுயாதீன technical governance அமைப்பையும் செயல்படுத்த உள்ளோம். இந்த மாற்றங்கள் React ecosystem projects-க்கு மேலும் resources வழங்க உதவும் என்று நாங்கள் நம்புகிறோம்.
 
 ## The React Foundation {/*the-react-foundation*/}
 
-We will make the React Foundation the new home for React, React Native, and some supporting projects like JSX. The React Foundation’s mission will be to support the React community and ecosystem. Once implemented, the React Foundation will
+React, React Native, மற்றும் JSX போன்ற சில ஆதரவு projects-க்கான புதிய இல்லமாக React Foundation-ஐ உருவாக்குவோம். React சமூகத்தையும் ecosystem-ஐயும் ஆதரிப்பதே React Foundation-இன் நோக்கம். இது செயல்படுத்தப்பட்ட பிறகு, React Foundation:
 
-* Maintain React’s infrastructure like GitHub, CI, and trademarks
-* Organize React Conf
-* Create initiatives to support the React ecosystem like financial support of ecosystem projects, issuing grants, and creating programs
+* GitHub, CI, மற்றும் trademarks போன்ற React-இன் infrastructure-ஐ பராமரிக்கும்
+* React Conf-ஐ நடத்தும்
+* Ecosystem projects-க்கு நிதி ஆதரவு, grants வழங்குதல், மற்றும் programs உருவாக்குதல் போன்ற React ecosystem-ஐ ஆதரிக்கும் முயற்சிகளை உருவாக்கும்
 
-The React Foundation will be governed by a board of directors, with Seth Webster serving as the executive director. This board will direct funds and resources to support React’s development, community, and ecosystem. We believe that this is the best structure to ensure that the React Foundation is vendor-neutral and reflects the best interests of the community.
+Seth Webster executive director ஆகப் பணியாற்றும் board of directors React Foundation-ஐ நிர்வகிக்கும். இந்த board React-இன் development, community, மற்றும் ecosystem-ஐ ஆதரிக்க funds மற்றும் resources-ஐ வழிநடத்தும். React Foundation vendor-neutral ஆகவும் சமூகத்தின் சிறந்த நலன்களை பிரதிபலிப்பதாகவும் இருக்க இது சிறந்த அமைப்பு என்று நாங்கள் நம்புகிறோம்.
 
-The founding corporate members of the React Foundation will be Amazon, Callstack, Expo, Meta, Microsoft, Software Mansion, and Vercel. These companies have had a major impact on the React and React Native ecosystems and we are grateful for their support. We are excited to welcome even more members in the future.
+React Foundation-இன் founding corporate members Amazon, Callstack, Expo, Meta, Microsoft, Software Mansion, மற்றும் Vercel ஆக இருப்பார்கள். இந்த நிறுவனங்கள் React மற்றும் React Native ecosystems-இல் பெரிய தாக்கத்தை ஏற்படுத்தியுள்ளன; அவர்களின் ஆதரவுக்கு நன்றி. எதிர்காலத்தில் மேலும் பல உறுப்பினர்களை வரவேற்க ஆவலாக உள்ளோம்.
 
 <div style={{display: 'flex', justifyContent: 'center', margin: '2rem'}}>
   <picture >
@@ -56,12 +56,12 @@ The founding corporate members of the React Foundation will be Amazon, Callstack
   </picture>
 </div>
 
-## React’s technical governance {/*reacts-technical-governance*/}
+## React-இன் technical governance {/*reacts-technical-governance*/}
 
-We believe that React's technical direction should be set by the people who contribute to and maintain React. As React moves to a foundation, it is important that no single company or organization is overrepresented. To achieve this, we plan to define a new technical governance structure for React that is independent from the React Foundation.
+React-க்கு பங்களித்து அதை maintain செய்பவர்களே React-இன் technical direction-ஐ தீர்மானிக்க வேண்டும் என்று நாங்கள் நம்புகிறோம். React ஒரு foundation-க்கு மாறும் போது, எந்த ஒரு நிறுவனம் அல்லது அமைப்பும் அளவுக்கு மீறி பிரதிநிதித்துவப்படுத்தப்படாதது முக்கியம். இதை அடைய, React Foundation-இலிருந்து சுயாதீனமான புதிய technical governance அமைப்பை React-க்காக வரையறுக்க திட்டமிட்டுள்ளோம்.
 
-As a part of creating React’s new technical governance structure we will reach out to the community for feedback. Once finalized, we will share details in a future post.
+React-இன் புதிய technical governance அமைப்பை உருவாக்கும் ஒரு பகுதியாக, feedback-க்காக சமூகத்தை அணுகுவோம். அது final ஆன பிறகு, விவரங்களை எதிர்கால post ஒன்றில் பகிர்வோம்.
 
-## Thank you {/*thank-you*/}
+## நன்றி {/*thank-you*/}
 
-React's incredible growth is thanks to the thousands of people, companies, and projects that have shaped React. The creation of the React Foundation is a testament to the strength and vibrancy of the React community. Together, the React Foundation and React’s new technical governance will ensure that React’s future is secure for years to come.
+React-இன் அபாரமான வளர்ச்சி, React-ஐ வடிவமைத்த ஆயிரக்கணக்கான நபர்கள், நிறுவனங்கள், மற்றும் projects காரணமாகும். React Foundation உருவாக்கப்படுவது React சமூகத்தின் வலிமை மற்றும் உயிர்ப்புக்கான சான்றாகும். React Foundation மற்றும் React-இன் புதிய technical governance இணைந்து, வருங்கால பல ஆண்டுகளுக்கும் React-இன் எதிர்காலம் உறுதியாக இருப்பதை உறுதிசெய்யும்.

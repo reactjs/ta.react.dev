@@ -5,7 +5,7 @@ titleForTitleTag: "'use no memo' directive"
 
 <Intro>
 
-`"use no memo"` prevents a function from being optimized by React Compiler.
+`"use no memo"` ஒரு function-ஐ React Compiler optimize செய்வதைத் தடுக்கிறது.
 
 </Intro>
 
@@ -13,11 +13,11 @@ titleForTitleTag: "'use no memo' directive"
 
 ---
 
-## Reference {/*reference*/}
+## குறிப்பு {/*reference*/}
 
 ### `"use no memo"` {/*use-no-memo*/}
 
-Add `"use no memo"` at the beginning of a function to prevent React Compiler optimization.
+React Compiler optimization-ஐத் தடுக்க, ஒரு function-ன் தொடக்கத்தில் `"use no memo"` சேர்க்கவும்.
 
 ```js {1}
 function MyComponent() {
@@ -26,36 +26,36 @@ function MyComponent() {
 }
 ```
 
-When a function contains `"use no memo"`, the React Compiler will skip it entirely during optimization. This is useful as a temporary escape hatch when debugging or when dealing with code that doesn't work correctly with the compiler.
+ஒரு function-இல் `"use no memo"` இருந்தால், optimization நேரத்தில் React Compiler அதை முழுவதும் skip செய்யும். Debug செய்யும்போது அல்லது compiler உடன் சரியாக வேலை செய்யாத code-ஐ கையாளும்போது, இது தற்காலிக escape hatch-ஆக பயனுள்ளது.
 
-#### Caveats {/*caveats*/}
+#### எச்சரிக்கைகள் {/*caveats*/}
 
-* `"use no memo"` must be at the very beginning of a function body, before any imports or other code (comments are OK).
-* The directive must be written with double or single quotes, not backticks.
-* The directive must exactly match `"use no memo"` or its alias `"use no forget"`.
-* This directive takes precedence over all compilation modes and other directives.
-* It's intended as a temporary debugging tool, not a permanent solution.
+* `"use no memo"` function body-யின் முற்றிலும் தொடக்கத்தில், எந்த imports அல்லது பிற code-க்கும் முன் இருக்க வேண்டும் (comments சரி).
+* Directive double quotes அல்லது single quotes-இல் எழுதப்பட வேண்டும்; backticks-இல் அல்ல.
+* Directive துல்லியமாக `"use no memo"` அல்லது அதன் alias `"use no forget"` ஆக இருக்க வேண்டும்.
+* இந்த directive எல்லா compilation modes மற்றும் பிற directives-ஐ விட முன்னுரிமை பெறும்.
+* இது நிரந்தர தீர்வாக அல்ல, தற்காலிக debugging கருவியாகவே கருதப்படுகிறது.
 
-### How `"use no memo"` opts-out of optimization {/*how-use-no-memo-opts-out*/}
+### `"use no memo"` optimization-இலிருந்து எப்படி opt out செய்கிறது {/*how-use-no-memo-opts-out*/}
 
-React Compiler analyzes your code at build time to apply optimizations. `"use no memo"` creates an explicit boundary that tells the compiler to skip a function entirely.
+React Compiler optimizations-ஐப் பயன்படுத்த build time-இல் உங்கள் code-ஐ analyze செய்கிறது. `"use no memo"` compiler-க்கு ஒரு function-ஐ முழுவதும் skip செய்ய சொல்லும் explicit boundary-ஐ உருவாக்குகிறது.
 
-This directive takes precedence over all other settings:
-* In `all` mode: The function is skipped despite the global setting
-* In `infer` mode: The function is skipped even if heuristics would optimize it
+இந்த directive மற்ற எல்லா settings-ஐ விட முன்னுரிமை பெறுகிறது:
+* `all` mode-இல்: global setting இருந்தாலும் function skip செய்யப்படும்
+* `infer` mode-இல்: heuristics அதை optimize செய்யக் கூடியதாக இருந்தாலும் function skip செய்யப்படும்
 
-The compiler treats these functions as if the React Compiler wasn't enabled, leaving them exactly as written.
+React Compiler enable செய்யப்படாதது போலவே compiler இந்த functions-ஐ கையாளும்; அவை எழுதப்பட்டபடியே இருக்கும்.
 
-### When to use `"use no memo"` {/*when-to-use*/}
+### `"use no memo"` எப்போது பயன்படுத்த வேண்டும் {/*when-to-use*/}
 
-`"use no memo"` should be used sparingly and temporarily. Common scenarios include:
+`"use no memo"`-ஐ குறைவாகவும் தற்காலிகமாகவும் மட்டுமே பயன்படுத்த வேண்டும். பொதுவான சூழல்கள்:
 
-#### Debugging compiler issues {/*debugging-compiler*/}
-When you suspect the compiler is causing issues, temporarily disable optimization to isolate the problem:
+#### Compiler சிக்கல்களை debug செய்தல் {/*debugging-compiler*/}
+Compiler பிரச்சினை ஏற்படுத்துகிறது என்று சந்தேகித்தால், பிரச்சினையை தனியாக கண்டறிய optimization-ஐ தற்காலிகமாக disable செய்யுங்கள்:
 
 ```js
 function ProblematicComponent({ data }) {
-  "use no memo"; // TODO: Remove after fixing issue #123
+  "use no memo"; // TODO: issue #123 சரிசெய்த பிறகு அகற்றவும்
 
   // Rules of React violations that weren't statically detected
   // ...
@@ -63,22 +63,22 @@ function ProblematicComponent({ data }) {
 ```
 
 #### Third-party library integration {/*third-party*/}
-When integrating with libraries that might not be compatible with the compiler:
+Compiler உடன் compatible இல்லாமல் இருக்கக்கூடிய libraries-ஐ integrate செய்யும்போது:
 
 ```js
 function ThirdPartyWrapper() {
   "use no memo";
 
-  useThirdPartyHook(); // Has side effects that compiler might optimize incorrectly
+  useThirdPartyHook(); // Compiler தவறாக optimize செய்யக்கூடிய side effects உள்ளன
   // ...
 }
 ```
 
 ---
 
-## Usage {/*usage*/}
+## பயன்பாடு {/*usage*/}
 
-The `"use no memo"` directive is placed at the beginning of a function body to prevent React Compiler from optimizing that function:
+React Compiler அந்த function-ஐ optimize செய்வதைத் தடுக்க, `"use no memo"` directive function body-யின் தொடக்கத்தில் வைக்கப்படுகிறது:
 
 ```js
 function MyComponent() {
@@ -87,7 +87,7 @@ function MyComponent() {
 }
 ```
 
-The directive can also be placed at the top of a file to affect all functions in that module:
+அந்த module-இல் உள்ள அனைத்து functions-க்கும் பொருந்தும் வகையில் directive-ஐ file-ன் மேற்பகுதியிலும் வைக்கலாம்:
 
 ```js
 "use no memo";
@@ -95,21 +95,21 @@ The directive can also be placed at the top of a file to affect all functions in
 // All functions in this file will be skipped by the compiler
 ```
 
-`"use no memo"` at the function level overrides the module level directive.
+Function level-இல் உள்ள `"use no memo"` module level directive-ஐ override செய்கிறது.
 
 ---
 
-## Troubleshooting {/*troubleshooting*/}
+## சிக்கல் தீர்வு {/*troubleshooting*/}
 
-### Directive not preventing compilation {/*not-preventing*/}
+### Directive compilation-ஐத் தடுக்கவில்லை {/*not-preventing*/}
 
-If `"use no memo"` isn't working:
+`"use no memo"` வேலை செய்யவில்லை என்றால்:
 
 ```js
 // ❌ Wrong - directive after code
 function Component() {
   const data = getData();
-  "use no memo"; // Too late!
+  "use no memo"; // மிகவும் தாமதம்!
 }
 
 // ✅ Correct - directive first
@@ -119,18 +119,18 @@ function Component() {
 }
 ```
 
-Also check:
-* Spelling - must be exactly `"use no memo"`
-* Quotes - must use single or double quotes, not backticks
+இதையும் சரிபார்க்கவும்:
+* Spelling - துல்லியமாக `"use no memo"` ஆக இருக்க வேண்டும்
+* Quotes - single அல்லது double quotes பயன்படுத்த வேண்டும்; backticks அல்ல
 
-### Best practices {/*best-practices*/}
+### சிறந்த நடைமுறைகள் {/*best-practices*/}
 
-**Always document why** you're disabling optimization:
+நீங்கள் optimization-ஐ ஏன் disable செய்கிறீர்கள் என்பதை **எப்போதும் document செய்யுங்கள்**:
 
 ```js
 // ✅ Good - clear explanation and tracking
 function DataProcessor() {
-  "use no memo"; // TODO: Remove after fixing rule of react violation
+  "use no memo"; // TODO: Rules of React violation சரிசெய்த பிறகு அகற்றவும்
   // ...
 }
 
@@ -141,7 +141,7 @@ function Mystery() {
 }
 ```
 
-### See also {/*see-also*/}
+### மேலும் பார்க்க {/*see-also*/}
 
-* [`"use memo"`](/reference/react-compiler/directives/use-memo) - Opt into compilation
-* [React Compiler](/learn/react-compiler) - Getting started guide
+* [`"use memo"`](/reference/react-compiler/directives/use-memo) - Compilation-க்கு opt in செய்யுங்கள்
+* [React Compiler](/learn/react-compiler) - தொடங்குவதற்கான வழிகாட்டி

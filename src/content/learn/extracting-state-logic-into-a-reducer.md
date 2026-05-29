@@ -1,25 +1,25 @@
 ---
-title: Extracting State Logic into a Reducer
+title: State Logic-ஐ Reducer-க்குள் பிரித்தெடுத்தல்
 ---
 
 <Intro>
 
-Components with many state updates spread across many event handlers can get overwhelming. For these cases, you can consolidate all the state update logic outside your component in a single function, called a _reducer._
+பல event handler-களில் பரவியிருக்கும் பல state update-களை கொண்ட component-கள் சிக்கலாக மாறலாம். இத்தகைய சூழல்களில், state update logic அனைத்தையும் உங்கள் component-க்கு வெளியே உள்ள ஒரே function-இல் ஒன்றிணைக்கலாம்; அதற்குப் பெயர் _reducer._
 
 </Intro>
 
 <YouWillLearn>
 
-- What a reducer function is
-- How to refactor `useState` to `useReducer`
-- When to use a reducer
-- How to write one well
+- reducer function என்றால் என்ன
+- `useState`-ஐ `useReducer` ஆக எப்படி refactor செய்வது
+- reducer-ஐ எப்போது பயன்படுத்துவது
+- ஒன்றை நன்றாக எப்படி எழுதுவது
 
 </YouWillLearn>
 
-## Consolidate state logic with a reducer {/*consolidate-state-logic-with-a-reducer*/}
+## reducer மூலம் state logic-ஐ ஒன்றிணைக்கவும் {/*consolidate-state-logic-with-a-reducer*/}
 
-As your components grow in complexity, it can get harder to see at a glance all the different ways in which a component's state gets updated. For example, the `TaskApp` component below holds an array of `tasks` in state and uses three different event handlers to add, remove, and edit tasks:
+உங்கள் component-கள் சிக்கலாக வளரும்போது, ஒரு component-ன் state எந்தெந்த வழிகளில் update ஆகிறது என்பதை ஒரு பார்வையில் புரிந்துகொள்வது கடினமாகலாம். உதாரணமாக, கீழே உள்ள `TaskApp` component state-இல் `tasks` array-ஐ வைத்திருக்கிறது, மேலும் task-களை சேர்க்க, நீக்க, திருத்த மூன்று வேறு event handler-களைப் பயன்படுத்துகிறது:
 
 <Sandpack>
 
@@ -60,7 +60,7 @@ export default function TaskApp() {
 
   return (
     <>
-      <h1>Prague itinerary</h1>
+      <h1>Prague பயணத் திட்டம்</h1>
       <AddTask onAddTask={handleAddTask} />
       <TaskList
         tasks={tasks}
@@ -73,9 +73,9 @@ export default function TaskApp() {
 
 let nextId = 3;
 const initialTasks = [
-  {id: 0, text: 'Visit Kafka Museum', done: true},
-  {id: 1, text: 'Watch a puppet show', done: false},
-  {id: 2, text: 'Lennon Wall pic', done: false},
+  {id: 0, text: 'Kafka Museum-ஐ பார்வையிடு', done: true},
+  {id: 1, text: 'பொம்மலாட்டம் பாருங்கள்', done: false},
+  {id: 2, text: 'Lennon Wall படம்', done: false},
 ];
 ```
 
@@ -87,7 +87,7 @@ export default function AddTask({onAddTask}) {
   return (
     <>
       <input
-        placeholder="Add task"
+        placeholder="பணியைச் சேர்"
         value={text}
         onChange={(e) => setText(e.target.value)}
       />
@@ -96,7 +96,7 @@ export default function AddTask({onAddTask}) {
           setText('');
           onAddTask(text);
         }}>
-        Add
+        சேர்
       </button>
     </>
   );
@@ -133,14 +133,14 @@ function Task({task, onChange, onDelete}) {
             });
           }}
         />
-        <button onClick={() => setIsEditing(false)}>Save</button>
+        <button onClick={() => setIsEditing(false)}>சேமி</button>
       </>
     );
   } else {
     taskContent = (
       <>
         {task.text}
-        <button onClick={() => setIsEditing(true)}>Edit</button>
+        <button onClick={() => setIsEditing(true)}>திருத்து</button>
       </>
     );
   }
@@ -157,7 +157,7 @@ function Task({task, onChange, onDelete}) {
         }}
       />
       {taskContent}
-      <button onClick={() => onDelete(task.id)}>Delete</button>
+      <button onClick={() => onDelete(task.id)}>நீக்கு</button>
     </label>
   );
 }
@@ -179,17 +179,17 @@ li {
 
 </Sandpack>
 
-Each of its event handlers calls `setTasks` in order to update the state. As this component grows, so does the amount of state logic sprinkled throughout it. To reduce this complexity and keep all your logic in one easy-to-access place, you can move that state logic into a single function outside your component, **called a "reducer".**
+state-ஐ update செய்ய அதன் ஒவ்வொரு event handler-மும் `setTasks`-ஐ call செய்கிறது. இந்த component வளரும்போது, அதற்குள் சிதறிக் கிடக்கும் state logic-ன் அளவும் அதிகரிக்கும். இந்த சிக்கலைக் குறைத்து, உங்கள் logic அனைத்தையும் நேரடியாக அணுகக்கூடிய ஒரே இடத்தில் வைத்திருக்க, அந்த state logic-ஐ உங்கள் component-க்கு வெளியே உள்ள ஒரே function-க்குள் நகர்த்தலாம்; **அதற்கு "reducer" என்று பெயர்.**
 
-Reducers are a different way to handle state. You can migrate from `useState` to `useReducer` in three steps:
+Reducer-கள் state-ஐ கையாளும் வேறு வழி. `useState`-இலிருந்து `useReducer`-க்கு மூன்று படிகளில் migrate செய்யலாம்:
 
-1. **Move** from setting state to dispatching actions.
-2. **Write** a reducer function.
-3. **Use** the reducer from your component.
+1. state அமைப்பதிலிருந்து action-களை dispatch செய்வதற்கு **நகரவும்**.
+2. reducer function ஒன்றை **எழுதவும்**.
+3. உங்கள் component-இலிருந்து reducer-ஐ **பயன்படுத்தவும்**.
 
-### Step 1: Move from setting state to dispatching actions {/*step-1-move-from-setting-state-to-dispatching-actions*/}
+### படி 1: state அமைப்பதிலிருந்து action-களை dispatch செய்வதற்கு நகரவும் {/*step-1-move-from-setting-state-to-dispatching-actions*/}
 
-Your event handlers currently specify _what to do_ by setting state:
+உங்கள் event handler-கள் தற்போது state அமைப்பதன் மூலம் _என்ன செய்ய வேண்டும்_ என்பதை குறிப்பிடுகின்றன:
 
 ```js
 function handleAddTask(text) {
@@ -220,13 +220,13 @@ function handleDeleteTask(taskId) {
 }
 ```
 
-Remove all the state setting logic. What you are left with are three event handlers:
+state அமைக்கும் logic அனைத்தையும் நீக்குங்கள். மீதமிருப்பது மூன்று event handler-கள்:
 
-- `handleAddTask(text)` is called when the user presses "Add".
-- `handleChangeTask(task)` is called when the user toggles a task or presses "Save".
-- `handleDeleteTask(taskId)` is called when the user presses "Delete".
+- பயனர் "சேர்" அழுத்தும்போது `handleAddTask(text)` call செய்யப்படுகிறது.
+- பயனர் task-ஐ toggle செய்யும்போது அல்லது "சேமி" அழுத்தும்போது `handleChangeTask(task)` call செய்யப்படுகிறது.
+- பயனர் "நீக்கு" அழுத்தும்போது `handleDeleteTask(taskId)` call செய்யப்படுகிறது.
 
-Managing state with reducers is slightly different from directly setting state. Instead of telling React "what to do" by setting state, you specify "what the user just did" by dispatching "actions" from your event handlers. (The state update logic will live elsewhere!) So instead of "setting `tasks`" via an event handler, you're dispatching an "added/changed/deleted a task" action. This is more descriptive of the user's intent.
+Reducer-களுடன் state-ஐ நிர்வகிப்பது, state-ஐ நேரடியாக அமைப்பதிலிருந்து சற்று வேறுபடும். state அமைத்து React-க்கு "என்ன செய்ய வேண்டும்" என்று சொல்லுவதற்கு பதிலாக, உங்கள் event handler-களிலிருந்து "action"-களை dispatch செய்வதன் மூலம் "பயனர் இப்போது என்ன செய்தார்" என்பதை குறிப்பிடுகிறீர்கள். (state update logic வேறு இடத்தில் இருக்கும்!) அதனால் event handler வழியாக "`tasks`-ஐ அமைப்பது" அல்ல, "ஒரு task சேர்க்கப்பட்டது/மாற்றப்பட்டது/நீக்கப்பட்டது" என்ற action-ஐ dispatch செய்கிறீர்கள். இது பயனரின் நோக்கத்தை அதிகமாக விளக்குகிறது.
 
 ```js
 function handleAddTask(text) {
@@ -252,7 +252,7 @@ function handleDeleteTask(taskId) {
 }
 ```
 
-The object you pass to `dispatch` is called an "action":
+நீங்கள் `dispatch`-க்கு pass செய்யும் object "action" என்று அழைக்கப்படுகிறது:
 
 ```js {3-7}
 function handleDeleteTask(taskId) {
@@ -266,13 +266,13 @@ function handleDeleteTask(taskId) {
 }
 ```
 
-It is a regular JavaScript object. You decide what to put in it, but generally it should contain the minimal information about _what happened_. (You will add the `dispatch` function itself in a later step.)
+இது ஒரு சாதாரண JavaScript object. அதில் என்ன வைக்க வேண்டும் என்பதை நீங்கள் தீர்மானிக்கிறீர்கள்; ஆனால் பொதுவாக அது _என்ன நடந்தது_ என்பதற்கான குறைந்தபட்ச தகவலை கொண்டிருக்க வேண்டும். (`dispatch` function-ஐ பின்னர் ஒரு படியில் சேர்ப்பீர்கள்.)
 
 <Note>
 
-An action object can have any shape.
+action object எந்த வடிவத்திலும் இருக்கலாம்.
 
-By convention, it is common to give it a string `type` that describes what happened, and pass any additional information in other fields. The `type` is specific to a component, so in this example either `'added'` or `'added_task'` would be fine. Choose a name that says what happened!
+மரபுப்படி, என்ன நடந்தது என்பதை விவரிக்கும் string `type` ஒன்றை கொடுத்து, கூடுதல் தகவலை பிற field-களில் pass செய்வது பொதுவானது. `type` ஒரு component-க்கு குறிப்பிட்டதாக இருக்கும்; எனவே இந்த உதாரணத்தில் `'added'` அல்லது `'added_task'` இரண்டும் சரி. என்ன நடந்தது என்பதைச் சொல்லும் பெயரைத் தேர்ந்தெடுங்கள்!
 
 ```js
 dispatch({
@@ -284,9 +284,9 @@ dispatch({
 
 </Note>
 
-### Step 2: Write a reducer function {/*step-2-write-a-reducer-function*/}
+### படி 2: reducer function ஒன்றை எழுதுங்கள் {/*step-2-write-a-reducer-function*/}
 
-A reducer function is where you will put your state logic. It takes two arguments, the current state and the action object, and it returns the next state:
+reducer function என்பது உங்கள் state logic-ஐ வைக்கும் இடம். இது இரண்டு argument-களை எடுக்கிறது: தற்போதைய state மற்றும் action object. பின்னர் அடுத்த state-ஐ return செய்கிறது:
 
 ```js
 function yourReducer(state, action) {
@@ -294,15 +294,15 @@ function yourReducer(state, action) {
 }
 ```
 
-React will set the state to what you return from the reducer.
+reducer-இலிருந்து நீங்கள் return செய்வதையே React state ஆக அமைக்கும்.
 
-To move your state setting logic from your event handlers to a reducer function in this example, you will:
+இந்த உதாரணத்தில் உங்கள் event handler-களிலிருந்து state அமைக்கும் logic-ஐ reducer function-க்கு நகர்த்த, நீங்கள்:
 
-1. Declare the current state (`tasks`) as the first argument.
-2. Declare the `action` object as the second argument.
-3. Return the _next_ state from the reducer (which React will set the state to).
+1. தற்போதைய state-ஐ (`tasks`) முதல் argument ஆக அறிவிக்க வேண்டும்.
+2. `action` object-ஐ இரண்டாவது argument ஆக அறிவிக்க வேண்டும்.
+3. reducer-இலிருந்து _அடுத்த_ state-ஐ return செய்ய வேண்டும் (React இதையே state ஆக அமைக்கும்).
 
-Here is all the state setting logic migrated to a reducer function:
+state அமைக்கும் logic முழுவதும் reducer function-க்கு migrate செய்யப்பட்ட வடிவம் இதோ:
 
 ```js
 function tasksReducer(tasks, action) {
@@ -326,18 +326,18 @@ function tasksReducer(tasks, action) {
   } else if (action.type === 'deleted') {
     return tasks.filter((t) => t.id !== action.id);
   } else {
-    throw Error('Unknown action: ' + action.type);
+    throw Error('தெரியாத action: ' + action.type);
   }
 }
 ```
 
-Because the reducer function takes state (`tasks`) as an argument, you can **declare it outside of your component.** This decreases the indentation level and can make your code easier to read.
+reducer function state-ஐ (`tasks`) argument ஆக எடுப்பதால், அதை **உங்கள் component-க்கு வெளியே அறிவிக்கலாம்.** இது indentation அளவைக் குறைத்து, உங்கள் code-ஐ வாசிக்க உதவும்.
 
 <Note>
 
-The code above uses if/else statements, but it's a convention to use [switch statements](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/switch) inside reducers. The result is the same, but it can be easier to read switch statements at a glance.
+மேலுள்ள code if/else statement-களைப் பயன்படுத்துகிறது, ஆனால் reducer-களுக்குள் [switch statement-களை](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/switch) பயன்படுத்துவது மரபு. முடிவு ஒன்றுதான், ஆனால் switch statement-களை ஒரு பார்வையில் வாசிப்பது நேரடியாக இருக்கலாம்.
 
-We'll be using them throughout the rest of this documentation like so:
+இந்த documentation-ன் மீதமுள்ள பகுதியில் அவற்றை இவ்வாறு பயன்படுத்துவோம்:
 
 ```js
 function tasksReducer(tasks, action) {
@@ -365,25 +365,25 @@ function tasksReducer(tasks, action) {
       return tasks.filter((t) => t.id !== action.id);
     }
     default: {
-      throw Error('Unknown action: ' + action.type);
+      throw Error('தெரியாத action: ' + action.type);
     }
   }
 }
 ```
 
-We recommend wrapping each `case` block into the `{` and `}` curly braces so that variables declared inside of different `case`s don't clash with each other. Also, a `case` should usually end with a `return`. If you forget to `return`, the code will "fall through" to the next `case`, which can lead to mistakes!
+வேறு `case`-களுக்குள் அறிவிக்கப்பட்ட variable-கள் ஒன்றுடன் ஒன்று மோதாமல் இருக்க, ஒவ்வொரு `case` block-ஐயும் `{` மற்றும் `}` curly brace-களுக்குள் wrap செய்ய பரிந்துரைக்கிறோம். மேலும், ஒரு `case` பொதுவாக `return`-இல் முடிவடைய வேண்டும். `return` செய்ய மறந்தால், code அடுத்த `case`-க்கு "fall through" ஆகும்; இது பிழைகளுக்குக் காரணமாகலாம்!
 
-If you're not yet comfortable with switch statements, using if/else is completely fine.
+switch statement-களில் இன்னும் வசதியாக இல்லையெனில், if/else பயன்படுத்துவது முற்றிலும் சரி.
 
 </Note>
 
 <DeepDive>
 
-#### Why are reducers called this way? {/*why-are-reducers-called-this-way*/}
+#### reducer-கள் ஏன் இவ்வாறு அழைக்கப்படுகின்றன? {/*why-are-reducers-called-this-way*/}
 
-Although reducers can "reduce" the amount of code inside your component, they are actually named after the [`reduce()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce) operation that you can perform on arrays.
+reducer-கள் உங்கள் component-க்குள் இருக்கும் code அளவை "reduce" செய்ய முடிந்தாலும், உண்மையில் அவை array-களில் செய்யக்கூடிய [`reduce()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce) operation-ன் பெயரிலிருந்து வந்தவை.
 
-The `reduce()` operation lets you take an array and "accumulate" a single value out of many:
+`reduce()` operation ஒரு array-ஐ எடுத்து, பல மதிப்புகளிலிருந்து ஒரே மதிப்பை "accumulate" செய்ய அனுமதிக்கிறது:
 
 ```
 const arr = [1, 2, 3, 4, 5];
@@ -392,9 +392,9 @@ const sum = arr.reduce(
 ); // 1 + 2 + 3 + 4 + 5
 ```
 
-The function you pass to `reduce` is known as a "reducer". It takes the _result so far_ and the _current item,_ then it returns the _next result._ React reducers are an example of the same idea: they take the _state so far_ and the _action_, and return the _next state._ In this way, they accumulate actions over time into state.
+நீங்கள் `reduce`-க்கு pass செய்யும் function "reducer" என்று அழைக்கப்படுகிறது. அது _இதுவரை உள்ள result_ மற்றும் _தற்போதைய item_-ஐ எடுத்து, _அடுத்த result_-ஐ return செய்கிறது. React reducer-களும் இதே எண்ணத்தின் உதாரணம்: அவை _இதுவரை உள்ள state_ மற்றும் _action_-ஐ எடுத்து, _அடுத்த state_-ஐ return செய்கின்றன. இவ்வாறு, காலப்போக்கில் action-களை state ஆகச் சேர்த்துக்கொள்கின்றன.
 
-You could even use the `reduce()` method with an `initialState` and an array of `actions` to calculate the final state by passing your reducer function to it:
+உங்கள் reducer function-ஐ pass செய்து, `initialState` மற்றும் `actions` array உடன் `reduce()` method-ஐப் பயன்படுத்தி final state-ஐ கணக்கிடவும் முடியும்:
 
 <Sandpack>
 
@@ -403,10 +403,10 @@ import tasksReducer from './tasksReducer.js';
 
 let initialState = [];
 let actions = [
-  {type: 'added', id: 1, text: 'Visit Kafka Museum'},
-  {type: 'added', id: 2, text: 'Watch a puppet show'},
+  {type: 'added', id: 1, text: 'Kafka Museum-ஐ பார்வையிடு'},
+  {type: 'added', id: 2, text: 'பொம்மலாட்டம் பாருங்கள்'},
   {type: 'deleted', id: 1},
-  {type: 'added', id: 3, text: 'Lennon Wall pic'},
+  {type: 'added', id: 3, text: 'Lennon Wall படம்'},
 ];
 
 let finalState = actions.reduce(tasksReducer, initialState);
@@ -441,7 +441,7 @@ export default function tasksReducer(tasks, action) {
       return tasks.filter((t) => t.id !== action.id);
     }
     default: {
-      throw Error('Unknown action: ' + action.type);
+      throw Error('தெரியாத action: ' + action.type);
     }
   }
 }
@@ -453,43 +453,43 @@ export default function tasksReducer(tasks, action) {
 
 </Sandpack>
 
-You probably won't need to do this yourself, but this is similar to what React does!
+இதை நீங்கள் நீங்களே செய்ய வேண்டியிருப்பதில்லை, ஆனால் React செய்வதற்கு இது ஒத்ததாகும்!
 
 </DeepDive>
 
-### Step 3: Use the reducer from your component {/*step-3-use-the-reducer-from-your-component*/}
+### படி 3: உங்கள் component-இலிருந்து reducer-ஐப் பயன்படுத்துங்கள் {/*step-3-use-the-reducer-from-your-component*/}
 
-Finally, you need to hook up the `tasksReducer` to your component. Import the `useReducer` Hook from React:
+இறுதியாக, `tasksReducer`-ஐ உங்கள் component-க்கு hook up செய்ய வேண்டும். React-இலிருந்து `useReducer` Hook-ஐ import செய்யுங்கள்:
 
 ```js
 import { useReducer } from 'react';
 ```
 
-Then you can replace `useState`:
+பிறகு `useState`-ஐ மாற்றலாம்:
 
 ```js
 const [tasks, setTasks] = useState(initialTasks);
 ```
 
-with `useReducer` like so:
+இவ்வாறு `useReducer`-ஆல்:
 
 ```js
 const [tasks, dispatch] = useReducer(tasksReducer, initialTasks);
 ```
 
-The `useReducer` Hook is similar to `useState`—you must pass it an initial state and it returns a stateful value and a way to set state (in this case, the dispatch function). But it's a little different.
+`useReducer` Hook `useState`-க்கு ஒத்தது; அதற்கு initial state-ஐ pass செய்ய வேண்டும், அது stateful value-ஐயும் state அமைக்கும் வழியையும் (இந்தச் சூழலில் dispatch function) return செய்கிறது. ஆனால் இது சற்று வேறுபடும்.
 
-The `useReducer` Hook takes two arguments:
+`useReducer` Hook இரண்டு argument-களை எடுக்கிறது:
 
-1. A reducer function
-2. An initial state
+1. reducer function
+2. initial state
 
-And it returns:
+மேலும் இது return செய்கிறது:
 
-1. A stateful value
-2. A dispatch function (to "dispatch" user actions to the reducer)
+1. stateful value
+2. dispatch function (பயனர் action-களை reducer-க்கு "dispatch" செய்ய)
 
-Now it's fully wired up! Here, the reducer is declared at the bottom of the component file:
+இப்போது இது முழுமையாக இணைக்கப்பட்டுள்ளது! இங்கே, reducer component file-ன் கீழே அறிவிக்கப்பட்டுள்ளது:
 
 <Sandpack>
 
@@ -525,7 +525,7 @@ export default function TaskApp() {
 
   return (
     <>
-      <h1>Prague itinerary</h1>
+      <h1>Prague பயணத் திட்டம்</h1>
       <AddTask onAddTask={handleAddTask} />
       <TaskList
         tasks={tasks}
@@ -561,16 +561,16 @@ function tasksReducer(tasks, action) {
       return tasks.filter((t) => t.id !== action.id);
     }
     default: {
-      throw Error('Unknown action: ' + action.type);
+      throw Error('தெரியாத action: ' + action.type);
     }
   }
 }
 
 let nextId = 3;
 const initialTasks = [
-  {id: 0, text: 'Visit Kafka Museum', done: true},
-  {id: 1, text: 'Watch a puppet show', done: false},
-  {id: 2, text: 'Lennon Wall pic', done: false},
+  {id: 0, text: 'Kafka Museum-ஐ பார்வையிடு', done: true},
+  {id: 1, text: 'பொம்மலாட்டம் பாருங்கள்', done: false},
+  {id: 2, text: 'Lennon Wall படம்', done: false},
 ];
 ```
 
@@ -582,7 +582,7 @@ export default function AddTask({onAddTask}) {
   return (
     <>
       <input
-        placeholder="Add task"
+        placeholder="பணியைச் சேர்"
         value={text}
         onChange={(e) => setText(e.target.value)}
       />
@@ -591,7 +591,7 @@ export default function AddTask({onAddTask}) {
           setText('');
           onAddTask(text);
         }}>
-        Add
+        சேர்
       </button>
     </>
   );
@@ -628,14 +628,14 @@ function Task({task, onChange, onDelete}) {
             });
           }}
         />
-        <button onClick={() => setIsEditing(false)}>Save</button>
+        <button onClick={() => setIsEditing(false)}>சேமி</button>
       </>
     );
   } else {
     taskContent = (
       <>
         {task.text}
-        <button onClick={() => setIsEditing(true)}>Edit</button>
+        <button onClick={() => setIsEditing(true)}>திருத்து</button>
       </>
     );
   }
@@ -652,7 +652,7 @@ function Task({task, onChange, onDelete}) {
         }}
       />
       {taskContent}
-      <button onClick={() => onDelete(task.id)}>Delete</button>
+      <button onClick={() => onDelete(task.id)}>நீக்கு</button>
     </label>
   );
 }
@@ -674,7 +674,7 @@ li {
 
 </Sandpack>
 
-If you want, you can even move the reducer to a different file:
+விரும்பினால், reducer-ஐ வேறு file-க்குக் கூட நகர்த்தலாம்:
 
 <Sandpack>
 
@@ -711,7 +711,7 @@ export default function TaskApp() {
 
   return (
     <>
-      <h1>Prague itinerary</h1>
+      <h1>Prague பயணத் திட்டம்</h1>
       <AddTask onAddTask={handleAddTask} />
       <TaskList
         tasks={tasks}
@@ -724,9 +724,9 @@ export default function TaskApp() {
 
 let nextId = 3;
 const initialTasks = [
-  {id: 0, text: 'Visit Kafka Museum', done: true},
-  {id: 1, text: 'Watch a puppet show', done: false},
-  {id: 2, text: 'Lennon Wall pic', done: false},
+  {id: 0, text: 'Kafka Museum-ஐ பார்வையிடு', done: true},
+  {id: 1, text: 'பொம்மலாட்டம் பாருங்கள்', done: false},
+  {id: 2, text: 'Lennon Wall படம்', done: false},
 ];
 ```
 
@@ -756,7 +756,7 @@ export default function tasksReducer(tasks, action) {
       return tasks.filter((t) => t.id !== action.id);
     }
     default: {
-      throw Error('Unknown action: ' + action.type);
+      throw Error('தெரியாத action: ' + action.type);
     }
   }
 }
@@ -770,7 +770,7 @@ export default function AddTask({onAddTask}) {
   return (
     <>
       <input
-        placeholder="Add task"
+        placeholder="பணியைச் சேர்"
         value={text}
         onChange={(e) => setText(e.target.value)}
       />
@@ -779,7 +779,7 @@ export default function AddTask({onAddTask}) {
           setText('');
           onAddTask(text);
         }}>
-        Add
+        சேர்
       </button>
     </>
   );
@@ -816,14 +816,14 @@ function Task({task, onChange, onDelete}) {
             });
           }}
         />
-        <button onClick={() => setIsEditing(false)}>Save</button>
+        <button onClick={() => setIsEditing(false)}>சேமி</button>
       </>
     );
   } else {
     taskContent = (
       <>
         {task.text}
-        <button onClick={() => setIsEditing(true)}>Edit</button>
+        <button onClick={() => setIsEditing(true)}>திருத்து</button>
       </>
     );
   }
@@ -840,7 +840,7 @@ function Task({task, onChange, onDelete}) {
         }}
       />
       {taskContent}
-      <button onClick={() => onDelete(task.id)}>Delete</button>
+      <button onClick={() => onDelete(task.id)}>நீக்கு</button>
     </label>
   );
 }
@@ -862,30 +862,30 @@ li {
 
 </Sandpack>
 
-Component logic can be easier to read when you separate concerns like this. Now the event handlers only specify _what happened_ by dispatching actions, and the reducer function determines _how the state updates_ in response to them.
+இவ்வாறு concern-களைப் பிரித்தால் component logic-ஐ வாசிப்பது நேரடியாக இருக்கும். இப்போது event handler-கள் action-களை dispatch செய்வதன் மூலம் _என்ன நடந்தது_ என்பதை மட்டுமே குறிப்பிடுகின்றன; reducer function அவற்றுக்கு பதிலாக _state எப்படி update ஆகிறது_ என்பதை தீர்மானிக்கிறது.
 
-## Comparing `useState` and `useReducer` {/*comparing-usestate-and-usereducer*/}
+## `useState` மற்றும் `useReducer`-ஐ ஒப்பிடுதல் {/*comparing-usestate-and-usereducer*/}
 
-Reducers are not without downsides! Here's a few ways you can compare them:
+Reducer-களுக்கும் குறைகள் இல்லாமல் இல்லை! அவற்றை ஒப்பிட சில வழிகள் இதோ:
 
-- **Code size:** Generally, with `useState` you have to write less code upfront. With `useReducer`, you have to write both a reducer function _and_ dispatch actions. However, `useReducer` can help cut down on the code if many event handlers modify state in a similar way.
-- **Readability:** `useState` is very easy to read when the state updates are simple. When they get more complex, they can bloat your component's code and make it difficult to scan. In this case, `useReducer` lets you cleanly separate the _how_ of update logic from the _what happened_ of event handlers.
-- **Debugging:** When you have a bug with `useState`, it can be difficult to tell _where_ the state was set incorrectly, and _why_. With `useReducer`, you can add a console log into your reducer to see every state update, and _why_ it happened (due to which `action`). If each `action` is correct, you'll know that the mistake is in the reducer logic itself. However, you have to step through more code than with `useState`.
-- **Testing:** A reducer is a pure function that doesn't depend on your component. This means that you can export and test it separately in isolation. While generally it's best to test components in a more realistic environment, for complex state update logic it can be useful to assert that your reducer returns a particular state for a particular initial state and action.
-- **Personal preference:** Some people like reducers, others don't. That's okay. It's a matter of preference. You can always convert between `useState` and `useReducer` back and forth: they are equivalent!
+- **Code அளவு:** பொதுவாக `useState`-இல் தொடக்கத்தில் குறைவான code எழுத வேண்டும். `useReducer`-இல் reducer function-ஐயும் action-களை dispatch செய்வதையும் எழுத வேண்டும். ஆனால் பல event handler-கள் state-ஐ ஒரேபோன்ற முறையில் மாற்றினால், code-ஐ குறைக்க `useReducer` உதவும்.
+- **வாசிப்புத் தெளிவு:** state update-கள் நேரடியானவை என்றால் `useState`-ஐ வாசிப்பது சாத்தியம். அவை சிக்கலாகும்போது, உங்கள் component code பெரிதாகி scan செய்வது கடினமாகலாம். இந்த நிலையில், update logic-ன் _எப்படி_ என்பதையும் event handler-களின் _என்ன நடந்தது_ என்பதையும் சுத்தமாகப் பிரிக்க `useReducer` உதவும்.
+- **Debugging:** `useState` உடன் bug இருந்தால், state _எங்கே_ தவறாக அமைக்கப்பட்டது, _ஏன்_ என்று சொல்ல கடினமாகலாம். `useReducer` உடன், ஒவ்வொரு state update-யையும் அது _ஏன்_ நடந்தது (எந்த `action` காரணமாக) என்பதையும் பார்க்க reducer-க்குள் console log சேர்க்கலாம். ஒவ்வொரு `action`-மும் சரியாக இருந்தால், பிழை reducer logic-இல்தான் உள்ளது என்று தெரியும். ஆனால் `useState`-ஐ விட அதிக code வழியாக step செய்ய வேண்டும்.
+- **Testing:** reducer என்பது உங்கள் component-ஐ சாராத pure function. இதனால் அதை export செய்து தனியாக test செய்யலாம். பொதுவாக component-களை இன்னும் realistic சூழலில் test செய்வது சிறந்ததாயினும், சிக்கலான state update logic-க்கு, குறிப்பிட்ட initial state மற்றும் action-க்கு உங்கள் reducer குறிப்பிட்ட state-ஐ return செய்கிறது என்று assert செய்வது பயனுள்ளதாக இருக்கும்.
+- **தனிப்பட்ட விருப்பம்:** சிலருக்கு reducer-கள் பிடிக்கும்; சிலருக்கு பிடிக்காது. அது சரி. இது விருப்பம் சார்ந்தது. `useState` மற்றும் `useReducer` இடையே எப்போதும் முன்னும் பின்னும் convert செய்யலாம்: அவை equivalent!
 
-We recommend using a reducer if you often encounter bugs due to incorrect state updates in some component, and want to introduce more structure to its code. You don't have to use reducers for everything: feel free to mix and match! You can even `useState` and `useReducer` in the same component.
+ஒரு component-இல் தவறான state update-கள் காரணமாக அடிக்கடி bug-களைச் சந்தித்து, அதன் code-க்கு அதிக structure சேர்க்க விரும்பினால் reducer பயன்படுத்த பரிந்துரைக்கிறோம். எல்லாவற்றிற்கும் reducer பயன்படுத்த வேண்டியதில்லை: mix and match செய்யலாம்! ஒரே component-இல் `useState` மற்றும் `useReducer` இரண்டையும் பயன்படுத்தலாம்.
 
-## Writing reducers well {/*writing-reducers-well*/}
+## reducer-களை நன்றாக எழுதுதல் {/*writing-reducers-well*/}
 
-Keep these two tips in mind when writing reducers:
+reducer-களை எழுதும்போது இந்த இரண்டு குறிப்புகளை மனதில் வைத்திருங்கள்:
 
-- **Reducers must be pure.** Similar to [state updater functions](/learn/queueing-a-series-of-state-updates), reducers run during rendering! (Actions are queued until the next render.) This means that reducers [must be pure](/learn/keeping-components-pure)—same inputs always result in the same output. They should not send requests, schedule timeouts, or perform any side effects (operations that impact things outside the component). They should update [objects](/learn/updating-objects-in-state) and [arrays](/learn/updating-arrays-in-state) without mutations.
-- **Each action describes a single user interaction, even if that leads to multiple changes in the data.** For example, if a user presses "Reset" on a form with five fields managed by a reducer, it makes more sense to dispatch one `reset_form` action rather than five separate `set_field` actions. If you log every action in a reducer, that log should be clear enough for you to reconstruct what interactions or responses happened in what order. This helps with debugging!
+- **Reducer-கள் pure ஆக இருக்க வேண்டும்.** [state updater function-களைப்](/learn/queueing-a-series-of-state-updates) போலவே, reducer-களும் rendering நடக்கும் போது இயங்கும்! (Action-கள் அடுத்த render வரை queue செய்யப்படும்.) இதன் பொருள் reducer-கள் [pure ஆக இருக்க வேண்டும்](/learn/keeping-components-pure): ஒரே input-கள் எப்போதும் ஒரே output-ஐத் தர வேண்டும். அவை request-களை அனுப்பக்கூடாது, timeout-களை schedule செய்யக்கூடாது, அல்லது side effect-களை (component-க்கு வெளியே உள்ள விஷயங்களை பாதிக்கும் operation-கள்) செய்யக்கூடாது. அவை [object-களையும்](/learn/updating-objects-in-state) [array-களையும்](/learn/updating-arrays-in-state) mutation இல்லாமல் update செய்ய வேண்டும்.
+- **ஒவ்வொரு action-மும் ஒரே ஒரு பயனர் interaction-ஐ விவரிக்க வேண்டும்; அது data-வில் பல மாற்றங்களுக்கு வழிவகுத்தாலும்.** உதாரணமாக, reducer நிர்வகிக்கும் ஐந்து field-கள் உள்ள form-இல் பயனர் "மீட்டமை" அழுத்தினால், ஐந்து தனித்தனி `set_field` action-களை dispatch செய்வதைவிட ஒரே `reset_form` action-ஐ dispatch செய்வது பொருத்தமானது. reducer-இல் ஒவ்வொரு action-ஐயும் log செய்தால், எந்த interaction அல்லது response எந்த வரிசையில் நடந்தது என்பதை மீண்டும் கட்டமைக்க அந்த log போதுமான தெளிவாக இருக்க வேண்டும். இது debugging-க்கு உதவும்!
 
-## Writing concise reducers with Immer {/*writing-concise-reducers-with-immer*/}
+## Immer மூலம் சுருக்கமான reducer-களை எழுதுதல் {/*writing-concise-reducers-with-immer*/}
 
-Just like with [updating objects](/learn/updating-objects-in-state#write-concise-update-logic-with-immer) and [arrays](/learn/updating-arrays-in-state#write-concise-update-logic-with-immer) in regular state, you can use the Immer library to make reducers more concise. Here, [`useImmerReducer`](https://github.com/immerjs/use-immer#useimmerreducer) lets you mutate the state with `push` or `arr[i] =` assignment:
+சாதாரண state-இல் [object-களையும்](/learn/updating-objects-in-state#write-concise-update-logic-with-immer) [array-களையும்](/learn/updating-arrays-in-state#write-concise-update-logic-with-immer) update செய்வதைப் போலவே, reducer-களை சுருக்கமாக்க Immer library-யைப் பயன்படுத்தலாம். இங்கே, [`useImmerReducer`](https://github.com/immerjs/use-immer#useimmerreducer) `push` அல்லது `arr[i] =` assignment மூலம் state-ஐ mutate செய்ய அனுமதிக்கிறது:
 
 <Sandpack>
 
@@ -913,7 +913,7 @@ function tasksReducer(draft, action) {
       return draft.filter((t) => t.id !== action.id);
     }
     default: {
-      throw Error('Unknown action: ' + action.type);
+      throw Error('தெரியாத action: ' + action.type);
     }
   }
 }
@@ -945,7 +945,7 @@ export default function TaskApp() {
 
   return (
     <>
-      <h1>Prague itinerary</h1>
+      <h1>Prague பயணத் திட்டம்</h1>
       <AddTask onAddTask={handleAddTask} />
       <TaskList
         tasks={tasks}
@@ -958,9 +958,9 @@ export default function TaskApp() {
 
 let nextId = 3;
 const initialTasks = [
-  {id: 0, text: 'Visit Kafka Museum', done: true},
-  {id: 1, text: 'Watch a puppet show', done: false},
-  {id: 2, text: 'Lennon Wall pic', done: false},
+  {id: 0, text: 'Kafka Museum-ஐ பார்வையிடு', done: true},
+  {id: 1, text: 'பொம்மலாட்டம் பாருங்கள்', done: false},
+  {id: 2, text: 'Lennon Wall படம்', done: false},
 ];
 ```
 
@@ -972,7 +972,7 @@ export default function AddTask({onAddTask}) {
   return (
     <>
       <input
-        placeholder="Add task"
+        placeholder="பணியைச் சேர்"
         value={text}
         onChange={(e) => setText(e.target.value)}
       />
@@ -981,7 +981,7 @@ export default function AddTask({onAddTask}) {
           setText('');
           onAddTask(text);
         }}>
-        Add
+        சேர்
       </button>
     </>
   );
@@ -1018,14 +1018,14 @@ function Task({task, onChange, onDelete}) {
             });
           }}
         />
-        <button onClick={() => setIsEditing(false)}>Save</button>
+        <button onClick={() => setIsEditing(false)}>சேமி</button>
       </>
     );
   } else {
     taskContent = (
       <>
         {task.text}
-        <button onClick={() => setIsEditing(true)}>Edit</button>
+        <button onClick={() => setIsEditing(true)}>திருத்து</button>
       </>
     );
   }
@@ -1042,7 +1042,7 @@ function Task({task, onChange, onDelete}) {
         }}
       />
       {taskContent}
-      <button onClick={() => onDelete(task.id)}>Delete</button>
+      <button onClick={() => onDelete(task.id)}>நீக்கு</button>
     </label>
   );
 }
@@ -1082,34 +1082,34 @@ li {
 
 </Sandpack>
 
-Reducers must be pure, so they shouldn't mutate state. But Immer provides you with a special `draft` object which is safe to mutate. Under the hood, Immer will create a copy of your state with the changes you made to the `draft`. This is why reducers managed by `useImmerReducer` can mutate their first argument and don't need to return state.
+Reducer-கள் pure ஆக இருக்க வேண்டும், எனவே அவை state-ஐ mutate செய்யக்கூடாது. ஆனால் Immer உங்களுக்கு mutate செய்ய பாதுகாப்பான சிறப்பு `draft` object-ஐ வழங்குகிறது. உள்ளே, `draft`-இல் நீங்கள் செய்த மாற்றங்களுடன் உங்கள் state-ன் copy-ஐ Immer உருவாக்கும். அதனால் `useImmerReducer` நிர்வகிக்கும் reducer-கள் தங்கள் முதல் argument-ஐ mutate செய்ய முடியும், state-ஐ return செய்ய வேண்டியதில்லை.
 
 <Recap>
 
-- To convert from `useState` to `useReducer`:
-  1. Dispatch actions from event handlers.
-  2. Write a reducer function that returns the next state for a given state and action.
-  3. Replace `useState` with `useReducer`.
-- Reducers require you to write a bit more code, but they help with debugging and testing.
-- Reducers must be pure.
-- Each action describes a single user interaction.
-- Use Immer if you want to write reducers in a mutating style.
+- `useState`-இலிருந்து `useReducer`-க்கு மாற்ற:
+  1. event handler-களிலிருந்து action-களை dispatch செய்யுங்கள்.
+  2. கொடுக்கப்பட்ட state மற்றும் action-க்கு அடுத்த state-ஐ return செய்யும் reducer function-ஐ எழுதுங்கள்.
+  3. `useState`-ஐ `useReducer`-ஆல் மாற்றுங்கள்.
+- Reducer-கள் கொஞ்சம் அதிக code எழுதச் செய்கின்றன, ஆனால் debugging மற்றும் testing-க்கு உதவுகின்றன.
+- Reducer-கள் pure ஆக இருக்க வேண்டும்.
+- ஒவ்வொரு action-மும் ஒரே ஒரு பயனர் interaction-ஐ விவரிக்க வேண்டும்.
+- mutating style-இல் reducer-களை எழுத விரும்பினால் Immer-ஐப் பயன்படுத்துங்கள்.
 
 </Recap>
 
 <Challenges>
 
-#### Dispatch actions from event handlers {/*dispatch-actions-from-event-handlers*/}
+#### event handler-களிலிருந்து action-களை dispatch செய்யுங்கள் {/*dispatch-actions-from-event-handlers*/}
 
-Currently, the event handlers in `ContactList.js` and `Chat.js` have `// TODO` comments. This is why typing into the input doesn't work, and clicking on the buttons doesn't change the selected recipient.
+தற்போது, `ContactList.js` மற்றும் `Chat.js`-இல் உள்ள event handler-களில் `// TODO` comment-கள் உள்ளன. அதனால் input-இல் type செய்வது வேலை செய்யவில்லை; button-களை click செய்தாலும் தேர்ந்தெடுக்கப்பட்ட recipient மாறவில்லை.
 
-Replace these two `// TODO`s with the code to `dispatch` the corresponding actions. To see the expected shape and the type of the actions, check the reducer in `messengerReducer.js`. The reducer is already written so you won't need to change it. You only need to dispatch the actions in `ContactList.js` and `Chat.js`.
+இந்த இரண்டு `// TODO`-களையும் தொடர்புடைய action-களை `dispatch` செய்யும் code-ஆல் மாற்றுங்கள். action-களின் எதிர்பார்க்கப்படும் shape மற்றும் type-ஐப் பார்க்க, `messengerReducer.js`-இல் உள்ள reducer-ஐச் சரிபாருங்கள். reducer ஏற்கனவே எழுதப்பட்டுள்ளது, எனவே அதை மாற்றத் தேவையில்லை. `ContactList.js` மற்றும் `Chat.js`-இல் action-களை dispatch செய்வதுதான் தேவையானது.
 
 <Hint>
 
-The `dispatch` function is already available in both of these components because it was passed as a prop. So you need to call `dispatch` with the corresponding action object.
+`dispatch` function prop ஆக pass செய்யப்பட்டிருப்பதால், இந்த இரண்டு component-களிலும் ஏற்கனவே கிடைக்கிறது. எனவே தொடர்புடைய action object உடன் `dispatch`-ஐ call செய்ய வேண்டும்.
 
-To check the action object shape, you can look at the reducer and see which `action` fields it expects to see. For example, the `changed_selection` case in the reducer looks like this:
+action object shape-ஐச் சரிபார்க்க, reducer-ஐ பார்த்து அது எந்த `action` field-களை எதிர்பார்க்கிறது என்பதைப் பார்க்கலாம். உதாரணமாக, reducer-இல் உள்ள `changed_selection` case இதுபோல் தெரிகிறது:
 
 ```js
 case 'changed_selection': {
@@ -1120,7 +1120,7 @@ case 'changed_selection': {
 }
 ```
 
-This means that your action object should have a `type: 'changed_selection'`. You also see the `action.contactId` being used, so you need to include a `contactId` property into your action.
+இதன் பொருள், உங்கள் action object-இல் `type: 'changed_selection'` இருக்க வேண்டும். `action.contactId` பயன்படுத்தப்படுவதையும் நீங்கள் பார்க்கிறீர்கள், எனவே உங்கள் action-இல் `contactId` property-ஐ சேர்க்க வேண்டும்.
 
 </Hint>
 
@@ -1163,7 +1163,7 @@ const contacts = [
 ```js src/messengerReducer.js
 export const initialState = {
   selectedId: 0,
-  message: 'Hello',
+  message: 'வணக்கம்',
 };
 
 export function messengerReducer(state, action) {
@@ -1182,7 +1182,7 @@ export function messengerReducer(state, action) {
       };
     }
     default: {
-      throw Error('Unknown action: ' + action.type);
+      throw Error('தெரியாத action: ' + action.type);
     }
   }
 }
@@ -1217,14 +1217,14 @@ export default function Chat({contact, message, dispatch}) {
     <section className="chat">
       <textarea
         value={message}
-        placeholder={'Chat to ' + contact.name}
+        placeholder={contact.name + '-க்கு chat செய்யுங்கள்'}
         onChange={(e) => {
           // TODO: dispatch edited_message
           // (Read the input value from e.target.value)
         }}
       />
       <br />
-      <button>Send to {contact.email}</button>
+      <button>{contact.email}-க்கு அனுப்பு</button>
     </section>
   );
 }
@@ -1256,7 +1256,7 @@ textarea {
 
 <Solution>
 
-From the reducer code, you can infer that actions need to look like this:
+reducer code-இலிருந்து, action-கள் இதுபோல் இருக்க வேண்டும் என்று ஊகிக்கலாம்:
 
 ```js
 // When the user presses "Alice"
@@ -1268,11 +1268,11 @@ dispatch({
 // When user types "Hello!"
 dispatch({
   type: 'edited_message',
-  message: 'Hello!',
+  message: 'வணக்கம்!',
 });
 ```
 
-Here is the example updated to dispatch the corresponding messages:
+தொடர்புடைய message-களை dispatch செய்ய update செய்யப்பட்ட உதாரணம் இதோ:
 
 <Sandpack>
 
@@ -1313,7 +1313,7 @@ const contacts = [
 ```js src/messengerReducer.js
 export const initialState = {
   selectedId: 0,
-  message: 'Hello',
+  message: 'வணக்கம்',
 };
 
 export function messengerReducer(state, action) {
@@ -1332,7 +1332,7 @@ export function messengerReducer(state, action) {
       };
     }
     default: {
-      throw Error('Unknown action: ' + action.type);
+      throw Error('தெரியாத action: ' + action.type);
     }
   }
 }
@@ -1370,7 +1370,7 @@ export default function Chat({contact, message, dispatch}) {
     <section className="chat">
       <textarea
         value={message}
-        placeholder={'Chat to ' + contact.name}
+        placeholder={contact.name + '-க்கு chat செய்யுங்கள்'}
         onChange={(e) => {
           dispatch({
             type: 'edited_message',
@@ -1379,7 +1379,7 @@ export default function Chat({contact, message, dispatch}) {
         }}
       />
       <br />
-      <button>Send to {contact.email}</button>
+      <button>{contact.email}-க்கு அனுப்பு</button>
     </section>
   );
 }
@@ -1411,12 +1411,12 @@ textarea {
 
 </Solution>
 
-#### Clear the input on sending a message {/*clear-the-input-on-sending-a-message*/}
+#### message அனுப்பும்போது input-ஐ clear செய்யுங்கள் {/*clear-the-input-on-sending-a-message*/}
 
-Currently, pressing "Send" doesn't do anything. Add an event handler to the "Send" button that will:
+தற்போது "அனுப்பு" அழுத்தினால் எதுவும் நடக்காது. "அனுப்பு" button-க்கு இதை செய்யும் event handler ஒன்றைச் சேருங்கள்:
 
-1. Show an `alert` with the recipient's email and the message.
-2. Clear the message input.
+1. recipient-ன் email மற்றும் message உடன் `alert` காட்ட வேண்டும்.
+2. message input-ஐ clear செய்ய வேண்டும்.
 
 <Sandpack>
 
@@ -1457,7 +1457,7 @@ const contacts = [
 ```js src/messengerReducer.js
 export const initialState = {
   selectedId: 0,
-  message: 'Hello',
+  message: 'வணக்கம்',
 };
 
 export function messengerReducer(state, action) {
@@ -1476,7 +1476,7 @@ export function messengerReducer(state, action) {
       };
     }
     default: {
-      throw Error('Unknown action: ' + action.type);
+      throw Error('தெரியாத action: ' + action.type);
     }
   }
 }
@@ -1514,7 +1514,7 @@ export default function Chat({contact, message, dispatch}) {
     <section className="chat">
       <textarea
         value={message}
-        placeholder={'Chat to ' + contact.name}
+        placeholder={contact.name + '-க்கு chat செய்யுங்கள்'}
         onChange={(e) => {
           dispatch({
             type: 'edited_message',
@@ -1523,7 +1523,7 @@ export default function Chat({contact, message, dispatch}) {
         }}
       />
       <br />
-      <button>Send to {contact.email}</button>
+      <button>{contact.email}-க்கு அனுப்பு</button>
     </section>
   );
 }
@@ -1555,7 +1555,7 @@ textarea {
 
 <Solution>
 
-There are a couple of ways you could do it in the "Send" button event handler. One approach is to show an alert and then dispatch an `edited_message` action with an empty `message`:
+"அனுப்பு" button event handler-இல் இதைச் செய்ய இரண்டு வழிகள் உள்ளன. ஒரு அணுகுமுறை alert காட்டி, பிறகு காலியான `message` உடன் `edited_message` action-ஐ dispatch செய்வது:
 
 <Sandpack>
 
@@ -1596,7 +1596,7 @@ const contacts = [
 ```js src/messengerReducer.js
 export const initialState = {
   selectedId: 0,
-  message: 'Hello',
+  message: 'வணக்கம்',
 };
 
 export function messengerReducer(state, action) {
@@ -1615,7 +1615,7 @@ export function messengerReducer(state, action) {
       };
     }
     default: {
-      throw Error('Unknown action: ' + action.type);
+      throw Error('தெரியாத action: ' + action.type);
     }
   }
 }
@@ -1653,7 +1653,7 @@ export default function Chat({contact, message, dispatch}) {
     <section className="chat">
       <textarea
         value={message}
-        placeholder={'Chat to ' + contact.name}
+        placeholder={contact.name + '-க்கு chat செய்யுங்கள்'}
         onChange={(e) => {
           dispatch({
             type: 'edited_message',
@@ -1664,13 +1664,13 @@ export default function Chat({contact, message, dispatch}) {
       <br />
       <button
         onClick={() => {
-          alert(`Sending "${message}" to ${contact.email}`);
+          alert(`"${message}" என்பதை ${contact.email}-க்கு அனுப்புகிறது`);
           dispatch({
             type: 'edited_message',
             message: '',
           });
         }}>
-        Send to {contact.email}
+        {contact.email}-க்கு அனுப்பு
       </button>
     </section>
   );
@@ -1701,9 +1701,9 @@ textarea {
 
 </Sandpack>
 
-This works and clears the input when you hit "Send".
+இது வேலை செய்து, நீங்கள் "அனுப்பு" அழுத்தும்போது input-ஐ clear செய்கிறது.
 
-However, _from the user's perspective_, sending a message is a different action than editing the field. To reflect that, you could instead create a _new_ action called `sent_message`, and handle it separately in the reducer:
+ஆனால் _பயனரின் பார்வையில்_, message அனுப்புவது field-ஐ edit செய்வதிலிருந்து வேறு action. அதை பிரதிபலிக்க, அதற்கு பதிலாக `sent_message` என்ற _புதிய_ action ஒன்றை உருவாக்கி, அதை reducer-இல் தனியாக handle செய்யலாம்:
 
 <Sandpack>
 
@@ -1744,7 +1744,7 @@ const contacts = [
 ```js src/messengerReducer.js active
 export const initialState = {
   selectedId: 0,
-  message: 'Hello',
+  message: 'வணக்கம்',
 };
 
 export function messengerReducer(state, action) {
@@ -1769,7 +1769,7 @@ export function messengerReducer(state, action) {
       };
     }
     default: {
-      throw Error('Unknown action: ' + action.type);
+      throw Error('தெரியாத action: ' + action.type);
     }
   }
 }
@@ -1807,7 +1807,7 @@ export default function Chat({contact, message, dispatch}) {
     <section className="chat">
       <textarea
         value={message}
-        placeholder={'Chat to ' + contact.name}
+        placeholder={contact.name + '-க்கு chat செய்யுங்கள்'}
         onChange={(e) => {
           dispatch({
             type: 'edited_message',
@@ -1818,12 +1818,12 @@ export default function Chat({contact, message, dispatch}) {
       <br />
       <button
         onClick={() => {
-          alert(`Sending "${message}" to ${contact.email}`);
+          alert(`"${message}" என்பதை ${contact.email}-க்கு அனுப்புகிறது`);
           dispatch({
             type: 'sent_message',
           });
         }}>
-        Send to {contact.email}
+        {contact.email}-க்கு அனுப்பு
       </button>
     </section>
   );
@@ -1854,44 +1854,44 @@ textarea {
 
 </Sandpack>
 
-The resulting behavior is the same. But keep in mind that action types should ideally describe "what the user did" rather than "how you want the state to change". This makes it easier to later add more features.
+இதன் resulting behavior ஒன்றுதான். ஆனால் action type-கள் சிறந்த நிலையில் "state எப்படி மாற வேண்டும்" என்பதற்குப் பதிலாக "பயனர் என்ன செய்தார்" என்பதை விவரிக்க வேண்டும் என்பதை நினைவில் கொள்ளுங்கள். இது பின்னர் மேலும் feature-களைச் சேர்ப்பதை உதவும்.
 
-With either solution, it's important that you **don't** place the `alert` inside a reducer. The reducer should be a pure function--it should only calculate the next state. It should not "do" anything, including displaying messages to the user. That should happen in the event handler. (To help catch mistakes like this, React will call your reducers multiple times in Strict Mode. This is why, if you put an alert in a reducer, it fires twice.)
+இரண்டு தீர்வுகளில் எதைப் பயன்படுத்தினாலும், `alert`-ஐ reducer-க்குள் வைக்க **கூடாது** என்பது முக்கியம். reducer pure function ஆக இருக்க வேண்டும்: அது அடுத்த state-ஐ மட்டும் கணக்கிட வேண்டும். பயனருக்கு message காட்டுவது உட்பட அது எதையும் "செய்ய" கூடாது. அது event handler-இல் நடக்க வேண்டும். (இத்தகைய பிழைகளைப் பிடிக்க உதவ, Strict Mode-இல் React உங்கள் reducer-களை பல முறை call செய்யும். அதனால் reducer-இல் alert வைத்தால், அது இரண்டு முறை fire ஆகும்.)
 
 </Solution>
 
-#### Restore input values when switching between tabs {/*restore-input-values-when-switching-between-tabs*/}
+#### tab-களுக்கிடையே மாறும்போது input மதிப்புகளை மீட்டெடுக்கவும் {/*restore-input-values-when-switching-between-tabs*/}
 
-In this example, switching between different recipients always clears the text input:
+இந்த உதாரணத்தில், வேறு recipient-களுக்கிடையே மாறும்போது text input எப்போதும் clear ஆகிறது:
 
 ```js
 case 'changed_selection': {
   return {
     ...state,
     selectedId: action.contactId,
-    message: '' // Clears the input
+    message: '' // input-ஐ clear செய்கிறது
   };
 ```
 
-This is because you don't want to share a single message draft between several recipients. But it would be better if your app "remembered" a draft for each contact separately, restoring them when you switch contacts.
+பல recipient-களுக்கிடையே ஒரே message draft-ஐ பகிர விரும்பாததால் இது நடக்கிறது. ஆனால் ஒவ்வொரு contact-க்கும் தனித்தனி draft-ஐ உங்கள் app "நினைவில்" வைத்திருந்து, contact-களை மாற்றும்போது அவற்றை மீட்டெடுத்தால் இன்னும் நல்லது.
 
-Your task is to change the way the state is structured so that you remember a separate message draft _per contact_. You would need to make a few changes to the reducer, the initial state, and the components.
+உங்கள் பணி, _ஒவ்வொரு contact-க்கும்_ தனித்தனி message draft நினைவில் இருக்கும்படி state அமைப்பை மாற்றுவது. reducer, initial state, மற்றும் component-களில் சில மாற்றங்களைச் செய்ய வேண்டும்.
 
 <Hint>
 
-You can structure your state like this:
+உங்கள் state-ஐ இதுபோல் அமைக்கலாம்:
 
 ```js
 export const initialState = {
   selectedId: 0,
   messages: {
-    0: 'Hello, Taylor', // Draft for contactId = 0
-    1: 'Hello, Alice', // Draft for contactId = 1
+    0: 'வணக்கம், Taylor', // contactId = 0 க்கான draft
+    1: 'வணக்கம், Alice', // contactId = 1 க்கான draft
   },
 };
 ```
 
-The `[key]: value` [computed property](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer#computed_property_names) syntax can help you update the `messages` object:
+`messages` object-ஐ update செய்ய `[key]: value` [computed property](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer#computed_property_names) syntax உதவும்:
 
 ```js
 {
@@ -1941,7 +1941,7 @@ const contacts = [
 ```js src/messengerReducer.js
 export const initialState = {
   selectedId: 0,
-  message: 'Hello',
+  message: 'வணக்கம்',
 };
 
 export function messengerReducer(state, action) {
@@ -1966,7 +1966,7 @@ export function messengerReducer(state, action) {
       };
     }
     default: {
-      throw Error('Unknown action: ' + action.type);
+      throw Error('தெரியாத action: ' + action.type);
     }
   }
 }
@@ -2004,7 +2004,7 @@ export default function Chat({contact, message, dispatch}) {
     <section className="chat">
       <textarea
         value={message}
-        placeholder={'Chat to ' + contact.name}
+        placeholder={contact.name + '-க்கு chat செய்யுங்கள்'}
         onChange={(e) => {
           dispatch({
             type: 'edited_message',
@@ -2015,12 +2015,12 @@ export default function Chat({contact, message, dispatch}) {
       <br />
       <button
         onClick={() => {
-          alert(`Sending "${message}" to ${contact.email}`);
+          alert(`"${message}" என்பதை ${contact.email}-க்கு அனுப்புகிறது`);
           dispatch({
             type: 'sent_message',
           });
         }}>
-        Send to {contact.email}
+        {contact.email}-க்கு அனுப்பு
       </button>
     </section>
   );
@@ -2053,7 +2053,7 @@ textarea {
 
 <Solution>
 
-You'll need to update the reducer to store and update a separate message draft per contact:
+ஒவ்வொரு contact-க்கும் தனித்தனி message draft-ஐச் சேமித்து update செய்ய reducer-ஐ update செய்ய வேண்டும்:
 
 ```js
 // When the input is edited
@@ -2071,13 +2071,13 @@ case 'edited_message': {
 }
 ```
 
-You would also update the `Messenger` component to read the message for the currently selected contact:
+தற்போது தேர்ந்தெடுக்கப்பட்ட contact-க்கான message-ஐப் படிக்க `Messenger` component-யையும் update செய்ய வேண்டும்:
 
 ```js
 const message = state.messages[state.selectedId];
 ```
 
-Here is the complete solution:
+முழுமையான தீர்வு இதோ:
 
 <Sandpack>
 
@@ -2119,9 +2119,9 @@ const contacts = [
 export const initialState = {
   selectedId: 0,
   messages: {
-    0: 'Hello, Taylor',
-    1: 'Hello, Alice',
-    2: 'Hello, Bob',
+    0: 'வணக்கம், Taylor',
+    1: 'வணக்கம், Alice',
+    2: 'வணக்கம், Bob',
   },
 };
 
@@ -2152,7 +2152,7 @@ export function messengerReducer(state, action) {
       };
     }
     default: {
-      throw Error('Unknown action: ' + action.type);
+      throw Error('தெரியாத action: ' + action.type);
     }
   }
 }
@@ -2190,7 +2190,7 @@ export default function Chat({contact, message, dispatch}) {
     <section className="chat">
       <textarea
         value={message}
-        placeholder={'Chat to ' + contact.name}
+        placeholder={contact.name + '-க்கு chat செய்யுங்கள்'}
         onChange={(e) => {
           dispatch({
             type: 'edited_message',
@@ -2201,12 +2201,12 @@ export default function Chat({contact, message, dispatch}) {
       <br />
       <button
         onClick={() => {
-          alert(`Sending "${message}" to ${contact.email}`);
+          alert(`"${message}" என்பதை ${contact.email}-க்கு அனுப்புகிறது`);
           dispatch({
             type: 'sent_message',
           });
         }}>
-        Send to {contact.email}
+        {contact.email}-க்கு அனுப்பு
       </button>
     </section>
   );
@@ -2237,19 +2237,19 @@ textarea {
 
 </Sandpack>
 
-Notably, you didn't need to change any of the event handlers to implement this different behavior. Without a reducer, you would have to change every event handler that updates the state.
+குறிப்பாக, இந்த வேறு behavior-ஐ implement செய்ய எந்த event handler-யையும் மாற்ற வேண்டியிருக்கவில்லை. reducer இல்லாமல், state-ஐ update செய்யும் ஒவ்வொரு event handler-யையும் மாற்ற வேண்டியிருக்கும்.
 
 </Solution>
 
-#### Implement `useReducer` from scratch {/*implement-usereducer-from-scratch*/}
+#### `useReducer`-ஐ ஆரம்பத்திலிருந்து implement செய்யுங்கள் {/*implement-usereducer-from-scratch*/}
 
-In the earlier examples, you imported the `useReducer` Hook from React. This time, you will implement _the `useReducer` Hook itself!_ Here is a stub to get you started. It shouldn't take more than 10 lines of code.
+முன்னைய உதாரணங்களில், React-இலிருந்து `useReducer` Hook-ஐ import செய்தீர்கள். இந்த முறை, _`useReducer` Hook-ஐயே_ நீங்கள் implement செய்வீர்கள்! தொடங்குவதற்கான stub இதோ. இது 10 வரிகளுக்கு மேல் code எடுக்கக் கூடாது.
 
-To test your changes, try typing into the input or select a contact.
+உங்கள் மாற்றங்களை test செய்ய, input-இல் type செய்து பாருங்கள் அல்லது ஒரு contact-ஐத் தேர்ந்தெடுங்கள்.
 
 <Hint>
 
-Here is a more detailed sketch of the implementation:
+implementation-ன் மேலும் விரிவான sketch இதோ:
 
 ```js
 export function useReducer(reducer, initialState) {
@@ -2263,7 +2263,7 @@ export function useReducer(reducer, initialState) {
 }
 ```
 
-Recall that a reducer function takes two arguments--the current state and the action object--and it returns the next state. What should your `dispatch` implementation do with it?
+reducer function இரண்டு argument-களை எடுக்கும் என்பதை நினைவுபடுத்திக் கொள்ளுங்கள்: தற்போதைய state மற்றும் action object; அது அடுத்த state-ஐ return செய்கிறது. உங்கள் `dispatch` implementation அதனுடன் என்ன செய்ய வேண்டும்?
 
 </Hint>
 
@@ -2307,9 +2307,9 @@ const contacts = [
 export const initialState = {
   selectedId: 0,
   messages: {
-    0: 'Hello, Taylor',
-    1: 'Hello, Alice',
-    2: 'Hello, Bob',
+    0: 'வணக்கம், Taylor',
+    1: 'வணக்கம், Alice',
+    2: 'வணக்கம், Bob',
   },
 };
 
@@ -2340,7 +2340,7 @@ export function messengerReducer(state, action) {
       };
     }
     default: {
-      throw Error('Unknown action: ' + action.type);
+      throw Error('தெரியாத action: ' + action.type);
     }
   }
 }
@@ -2390,7 +2390,7 @@ export default function Chat({contact, message, dispatch}) {
     <section className="chat">
       <textarea
         value={message}
-        placeholder={'Chat to ' + contact.name}
+        placeholder={contact.name + '-க்கு chat செய்யுங்கள்'}
         onChange={(e) => {
           dispatch({
             type: 'edited_message',
@@ -2401,12 +2401,12 @@ export default function Chat({contact, message, dispatch}) {
       <br />
       <button
         onClick={() => {
-          alert(`Sending "${message}" to ${contact.email}`);
+          alert(`"${message}" என்பதை ${contact.email}-க்கு அனுப்புகிறது`);
           dispatch({
             type: 'sent_message',
           });
         }}>
-        Send to {contact.email}
+        {contact.email}-க்கு அனுப்பு
       </button>
     </section>
   );
@@ -2439,7 +2439,7 @@ textarea {
 
 <Solution>
 
-Dispatching an action calls a reducer with the current state and the action, and stores the result as the next state. This is what it looks like in code:
+ஒரு action-ஐ dispatch செய்வது, தற்போதைய state மற்றும் action உடன் reducer-ஐ call செய்து, அதன் result-ஐ அடுத்த state ஆகச் சேமிக்கிறது. code-இல் இது இப்படித் தெரிகிறது:
 
 <Sandpack>
 
@@ -2481,9 +2481,9 @@ const contacts = [
 export const initialState = {
   selectedId: 0,
   messages: {
-    0: 'Hello, Taylor',
-    1: 'Hello, Alice',
-    2: 'Hello, Bob',
+    0: 'வணக்கம், Taylor',
+    1: 'வணக்கம், Alice',
+    2: 'வணக்கம், Bob',
   },
 };
 
@@ -2514,7 +2514,7 @@ export function messengerReducer(state, action) {
       };
     }
     default: {
-      throw Error('Unknown action: ' + action.type);
+      throw Error('தெரியாத action: ' + action.type);
     }
   }
 }
@@ -2567,7 +2567,7 @@ export default function Chat({contact, message, dispatch}) {
     <section className="chat">
       <textarea
         value={message}
-        placeholder={'Chat to ' + contact.name}
+        placeholder={contact.name + '-க்கு chat செய்யுங்கள்'}
         onChange={(e) => {
           dispatch({
             type: 'edited_message',
@@ -2578,12 +2578,12 @@ export default function Chat({contact, message, dispatch}) {
       <br />
       <button
         onClick={() => {
-          alert(`Sending "${message}" to ${contact.email}`);
+          alert(`"${message}" என்பதை ${contact.email}-க்கு அனுப்புகிறது`);
           dispatch({
             type: 'sent_message',
           });
         }}>
-        Send to {contact.email}
+        {contact.email}-க்கு அனுப்பு
       </button>
     </section>
   );
@@ -2614,7 +2614,7 @@ textarea {
 
 </Sandpack>
 
-Though it doesn't matter in most cases, a slightly more accurate implementation looks like this:
+பெரும்பாலான சூழல்களில் இது முக்கியமில்லை என்றாலும், சற்றே அதிக துல்லியமான implementation இதுபோல் இருக்கும்:
 
 ```js
 function dispatch(action) {
@@ -2622,7 +2622,7 @@ function dispatch(action) {
 }
 ```
 
-This is because the dispatched actions are queued until the next render, [similar to the updater functions.](/learn/queueing-a-series-of-state-updates)
+ஏனெனில் dispatch செய்யப்பட்ட action-கள் அடுத்த render வரை queue செய்யப்படும்; இது [updater function-களைப்](/learn/queueing-a-series-of-state-updates) போன்றது.
 
 </Solution>
 

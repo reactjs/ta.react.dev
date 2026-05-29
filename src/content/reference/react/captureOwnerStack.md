@@ -4,7 +4,7 @@ title: captureOwnerStack
 
 <Intro>
 
-`captureOwnerStack` reads the current Owner Stack in development and returns it as a string if available.
+`captureOwnerStack` development-இல் தற்போதைய Owner Stack-ஐ read செய்து, கிடைத்தால் string ஆக return செய்கிறது.
 
 ```js
 const stack = captureOwnerStack();
@@ -16,11 +16,11 @@ const stack = captureOwnerStack();
 
 ---
 
-## Reference {/*reference*/}
+## குறிப்பு {/*reference*/}
 
 ### `captureOwnerStack()` {/*captureownerstack*/}
 
-Call `captureOwnerStack` to get the current Owner Stack.
+தற்போதைய Owner Stack-ஐ பெற `captureOwnerStack`-ஐ call செய்யுங்கள்.
 
 ```js {5,5}
 import * as React from 'react';
@@ -35,31 +35,31 @@ function Component() {
 
 #### Parameters {/*parameters*/}
 
-`captureOwnerStack` does not take any parameters.
+`captureOwnerStack` parameters எதையும் ஏற்காது.
 
 #### Returns {/*returns*/}
 
-`captureOwnerStack` returns `string | null`.
+`captureOwnerStack` `string | null` return செய்கிறது.
 
-Owner Stacks are available in
+Owner Stacks கிடைக்கும் இடங்கள்:
 - Component render
-- Effects (e.g. `useEffect`)
-- React's event handlers (e.g. `<button onClick={...} />`)
-- React error handlers ([React Root options](/reference/react-dom/client/createRoot#parameters) `onCaughtError`, `onRecoverableError`, and `onUncaughtError`)
+- Effects (எ.கா. `useEffect`)
+- React-ன் event handlers (எ.கா. `<button onClick={...} />`)
+- React error handlers ([React Root options](/reference/react-dom/client/createRoot#parameters) `onCaughtError`, `onRecoverableError`, மற்றும் `onUncaughtError`)
 
-If no Owner Stack is available, `null` is returned (see [Troubleshooting: The Owner Stack is `null`](#the-owner-stack-is-null)).
+Owner Stack கிடைக்கவில்லை என்றால், `null` return செய்யப்படும் ([சிக்கல் தீர்வு: Owner Stack `null` ஆக உள்ளது](#the-owner-stack-is-null)-ஐப் பார்க்கவும்).
 
 #### Caveats {/*caveats*/}
 
-- Owner Stacks are only available in development. `captureOwnerStack` will always return `null` outside of development.
+- Owner Stacks development-இல் மட்டுமே கிடைக்கும். Development-க்கு வெளியே `captureOwnerStack` எப்போதும் `null` return செய்யும்.
 
 <DeepDive>
 
 #### Owner Stack vs Component Stack {/*owner-stack-vs-component-stack*/}
 
-The Owner Stack is different from the Component Stack available in React error handlers like [`errorInfo.componentStack` in `onUncaughtError`](/reference/react-dom/client/hydrateRoot#error-logging-in-production).
+Owner Stack, [`onUncaughtError`-இல் உள்ள `errorInfo.componentStack`](/reference/react-dom/client/hydrateRoot#error-logging-in-production) போன்ற React error handlers-இல் கிடைக்கும் Component Stack-இலிருந்து வேறுபட்டது.
 
-For example, consider the following code:
+உதாரணமாக, பின்வரும் code-ஐ எடுத்துக் கொள்ளுங்கள்:
 
 <Sandpack>
 
@@ -136,8 +136,8 @@ createRoot(document.createElement('div'), {
 
 </Sandpack>
 
-`SubComponent` would throw an error.
-The Component Stack of that error would be
+`SubComponent` ஒரு error throw செய்யும்.
+அந்த error-ன் Component Stack:
 
 ```
 at SubComponent
@@ -148,23 +148,23 @@ at React.Suspense
 at App
 ```
 
-However, the Owner Stack would only read
+ஆனால் Owner Stack இவ்வளவு மட்டுமே காட்டும்:
 
 ```
 at Component
 ```
 
-Neither `App` nor the DOM components (e.g. `fieldset`) are considered Owners in this Stack since they didn't contribute to "creating" the node containing `SubComponent`. `App` and DOM components only forwarded the node. `App` just rendered the `children` node as opposed to `Component` which created a node containing `SubComponent` via `<SubComponent />`.
+இந்த Stack-இல் `App` அல்லது DOM components (எ.கா. `fieldset`) Owners ஆக கருதப்படாது; ஏனெனில் `SubComponent` கொண்ட node-ஐ "உருவாக்குவதில்" அவை பங்களிக்கவில்லை. `App` மற்றும் DOM components node-ஐ forward செய்தவை மட்டுமே. `App` `children` node-ஐ render செய்தது மட்டும்; ஆனால் `Component` `<SubComponent />` மூலம் `SubComponent` கொண்ட node-ஐ உருவாக்கியது.
 
-Neither `Navigation` nor `legend` are in the stack at all since it's only a sibling to a node containing `<SubComponent />`.
+`Navigation` அல்லது `legend` stack-இல் இல்லை; ஏனெனில் அது `<SubComponent />` கொண்ட node-க்கு sibling மட்டுமே.
 
-`SubComponent` is omitted because it's already part of the callstack.
+`SubComponent` ஏற்கனவே callstack-ன் பகுதியாக இருப்பதால் omit செய்யப்படுகிறது.
 
 </DeepDive>
 
-## Usage {/*usage*/}
+## பயன்பாடு {/*usage*/}
 
-### Enhance a custom error overlay {/*enhance-a-custom-error-overlay*/}
+### Custom error overlay-ஐ மேம்படுத்துதல் {/*enhance-a-custom-error-overlay*/}
 
 ```js [[1, 5, "console.error"], [4, 7, "captureOwnerStack"]]
 import { captureOwnerStack } from "react";
@@ -183,7 +183,7 @@ console.error = function patchedConsoleError(...args) {
 };
 ```
 
-If you intercept <CodeStep step={1}>`console.error`</CodeStep> calls to highlight them in an error overlay, you can call <CodeStep step={2}>`captureOwnerStack`</CodeStep> to include the Owner Stack.
+Error overlay-இல் highlight செய்ய <CodeStep step={1}>`console.error`</CodeStep> calls-ஐ intercept செய்தால், Owner Stack சேர்க்க <CodeStep step={2}>`captureOwnerStack`</CodeStep>-ஐ call செய்யலாம்.
 
 <Sandpack>
 
@@ -269,8 +269,8 @@ pre.nowrap {
 </head>
 <body>
 <!--
-  Error dialog in raw HTML
-  since an error in the React app may crash.
+  Raw HTML-இல் Error dialog,
+  ஏனெனில் React app-இல் error crash ஆகலாம்.
 -->
 <div id="error-dialog" class="hidden">
   <h1 id="error-title" class="text-red">Error</h1>
@@ -287,7 +287,7 @@ pre.nowrap {
     Close
   </button>
 </div>
-<!-- This is the DOM node -->
+<!-- இது DOM node -->
 <div id="root"></div>
 </body>
 </html>
@@ -347,13 +347,13 @@ export default function App() {
 
 </Sandpack>
 
-## Troubleshooting {/*troubleshooting*/}
+## சிக்கல் தீர்வு {/*troubleshooting*/}
 
-### The Owner Stack is `null` {/*the-owner-stack-is-null*/}
+### Owner Stack `null` ஆக உள்ளது {/*the-owner-stack-is-null*/}
 
-The call of `captureOwnerStack` happened outside of a React controlled function e.g. in a `setTimeout` callback, after a `fetch` call or in a custom DOM event handler. During render, Effects, React event handlers, and React error handlers (e.g. `hydrateRoot#options.onCaughtError`) Owner Stacks should be available.
+`captureOwnerStack` call React controlled function-க்கு வெளியே நடந்துள்ளது; எ.கா. `setTimeout` callback-இல், `fetch` call-க்கு பிறகு, அல்லது custom DOM event handler-இல். Render, Effects, React event handlers, மற்றும் React error handlers (எ.கா. `hydrateRoot#options.onCaughtError`) நேரத்தில் Owner Stacks கிடைக்க வேண்டும்.
 
-In the example below, clicking the button will log an empty Owner Stack because `captureOwnerStack` was called during a custom DOM event handler. The Owner Stack must be captured earlier e.g. by moving the call of `captureOwnerStack` into the Effect body.
+கீழே உள்ள உதாரணத்தில், button click செய்தால் empty Owner Stack log செய்யப்படும்; ஏனெனில் `captureOwnerStack` custom DOM event handler நேரத்தில் call செய்யப்பட்டது. Owner Stack முன்னதாக capture செய்யப்பட வேண்டும்; உதாரணமாக `captureOwnerStack` call-ஐ Effect body-க்குள் நகர்த்தலாம்.
 <Sandpack>
 
 ```js
@@ -381,9 +381,9 @@ export default function App() {
 
 </Sandpack>
 
-### `captureOwnerStack` is not available {/*captureownerstack-is-not-available*/}
+### `captureOwnerStack` கிடைக்கவில்லை {/*captureownerstack-is-not-available*/}
 
-`captureOwnerStack` is only exported in development builds. It will be `undefined` in production builds. If `captureOwnerStack` is used in files that are bundled for production and development, you should conditionally access it from a namespace import.
+`captureOwnerStack` development builds-இல் மட்டுமே export செய்யப்படும். Production builds-இல் இது `undefined` ஆக இருக்கும். Production மற்றும் development இரண்டிற்கும் bundled ஆகும் files-இல் `captureOwnerStack` பயன்படுத்தப்பட்டால், namespace import-இலிருந்து அதை conditionally access செய்ய வேண்டும்.
 
 ```js
 // Don't use named imports of `captureOwnerStack` in files that are bundled for development and production.

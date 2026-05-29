@@ -4,7 +4,7 @@ title: createElement
 
 <Intro>
 
-`createElement` lets you create a React element. It serves as an alternative to writing [JSX.](/learn/writing-markup-with-jsx)
+`createElement` ஒரு React element உருவாக்க உதவுகிறது. இது [JSX](/learn/writing-markup-with-jsx) எழுதுவதற்கான மாற்று வழியாக செயல்படுகிறது.
 
 ```js
 const element = createElement(type, props, ...children)
@@ -16,11 +16,11 @@ const element = createElement(type, props, ...children)
 
 ---
 
-## Reference {/*reference*/}
+## குறிப்பு {/*reference*/}
 
 ### `createElement(type, props, ...children)` {/*createelement*/}
 
-Call `createElement` to create a React element with the given `type`, `props`, and `children`.
+கொடுக்கப்பட்ட `type`, `props`, மற்றும் `children` உடன் React element உருவாக்க `createElement`-ஐ call செய்யுங்கள்.
 
 ```js
 import { createElement } from 'react';
@@ -34,44 +34,44 @@ function Greeting({ name }) {
 }
 ```
 
-[See more examples below.](#usage)
+[மேலும் உதாரணங்களை கீழே பார்க்கவும்.](#usage)
 
 #### Parameters {/*parameters*/}
 
-* `type`: The `type` argument must be a valid React component type. For example, it could be a tag name string (such as `'div'` or `'span'`), or a React component (a function, a class, or a special component like [`Fragment`](/reference/react/Fragment)).
+* `type`: `type` argument valid React component type ஆக இருக்க வேண்டும். உதாரணமாக, அது tag name string (`'div'` அல்லது `'span'` போன்றது), அல்லது React component (function, class, அல்லது [`Fragment`](/reference/react/Fragment) போன்ற special component) ஆக இருக்கலாம்.
 
-* `props`: The `props` argument must either be an object or `null`. If you pass `null`, it will be treated the same as an empty object. React will create an element with props matching the `props` you have passed. Note that `ref` and `key` from your `props` object are special and will *not* be available as `element.props.ref` and `element.props.key` on the returned `element`. They will be available as `element.ref` and `element.key`.
+* `props`: `props` argument object அல்லது `null` ஆக இருக்க வேண்டும். நீங்கள் `null` pass செய்தால், அது empty object போலவே நடத்தப்படும். நீங்கள் pass செய்த `props`-க்கு பொருந்தும் props உடன் React element உருவாக்கும். உங்கள் `props` object-இலுள்ள `ref` மற்றும் `key` special; அவை return செய்யப்பட்ட `element`-இல் `element.props.ref` மற்றும் `element.props.key` ஆக *கிடைக்காது*. அவை `element.ref` மற்றும் `element.key` ஆக கிடைக்கும்.
 
-* **optional** `...children`: Zero or more child nodes. They can be any React nodes, including React elements, strings, numbers, [portals](/reference/react-dom/createPortal), empty nodes (`null`, `undefined`, `true`, and `false`), and arrays of React nodes.
+* **optional** `...children`: பூஜ்யம் அல்லது அதற்கு மேற்பட்ட child nodes. அவை React elements, strings, numbers, [portals](/reference/react-dom/createPortal), empty nodes (`null`, `undefined`, `true`, மற்றும் `false`), மற்றும் React nodes-ன் arrays உட்பட எந்த React nodes ஆகவும் இருக்கலாம்.
 
 #### Returns {/*returns*/}
 
-`createElement` returns a React element object with a few properties:
+`createElement` சில properties கொண்ட React element object-ஐ return செய்கிறது:
 
-* `type`: The `type` you have passed.
-* `props`: The `props` you have passed except for `ref` and `key`.
-* `ref`: The `ref` you have passed. If missing, `null`.
-* `key`: The `key` you have passed, coerced to a string. If missing, `null`.
+* `type`: நீங்கள் pass செய்த `type`.
+* `props`: `ref` மற்றும் `key` தவிர நீங்கள் pass செய்த `props`.
+* `ref`: நீங்கள் pass செய்த `ref`. இல்லையெனில் `null`.
+* `key`: நீங்கள் pass செய்த `key`, string ஆக coerced செய்யப்பட்டது. இல்லையெனில் `null`.
 
-Usually, you'll return the element from your component or make it a child of another element. Although you may read the element's properties, it's best to treat every element as opaque after it's created, and only render it.
+பொதுவாக, உங்கள் component-இலிருந்து element-ஐ return செய்வீர்கள் அல்லது அதை மற்றொரு element-ன் child ஆக்குவீர்கள். Element-ன் properties-ஐ நீங்கள் read செய்யலாம் என்றாலும், element உருவாக்கப்பட்ட பிறகு அதை opaque ஆகக் கருதி render செய்வதே சிறந்தது.
 
 #### Caveats {/*caveats*/}
 
-* You must **treat React elements and their props as [immutable](https://en.wikipedia.org/wiki/Immutable_object)** and never change their contents after creation. In development, React will [freeze](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze) the returned element and its `props` property shallowly to enforce this.
+* **React elements மற்றும் அவற்றின் props-ஐ [immutable](https://en.wikipedia.org/wiki/Immutable_object) ஆக நடத்த வேண்டும்**; உருவாக்கப்பட்ட பிறகு அவற்றின் contents-ஐ மாற்றக்கூடாது. Development-இல், இதை enforce செய்ய React return செய்யப்பட்ட element மற்றும் அதன் `props` property-ஐ shallow-ஆக [freeze](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze) செய்யும்.
 
-* When you use JSX, **you must start a tag with a capital letter to render your own custom component.** In other words, `<Something />` is equivalent to `createElement(Something)`, but `<something />` (lowercase) is equivalent to `createElement('something')` (note it's a string, so it will be treated as a built-in HTML tag).
+* JSX பயன்படுத்தும்போது, **உங்கள் சொந்த custom component-ஐ render செய்ய tag capital letter-ஆல் தொடங்க வேண்டும்.** வேறு வார்த்தைகளில், `<Something />` என்பது `createElement(Something)`-க்கு equivalent; ஆனால் `<something />` (lowercase) என்பது `createElement('something')`-க்கு equivalent (இது string என்பதால் built-in HTML tag ஆக நடத்தப்படும்).
 
-* You should only **pass children as multiple arguments to `createElement` if they are all statically known,** like `createElement('h1', {}, child1, child2, child3)`. If your children are dynamic, pass the entire array as the third argument: `createElement('ul', {}, listItems)`. This ensures that React will [warn you about missing `key`s](/learn/rendering-lists#keeping-list-items-in-order-with-key) for any dynamic lists. For static lists this is not necessary because they never reorder.
+* **எல்லா children-உம் statically known ஆக இருந்தால் மட்டுமே** `createElement('h1', {}, child1, child2, child3)` போல `createElement`-க்கு children-ஐ பல arguments ஆக pass செய்யுங்கள். உங்கள் children dynamic என்றால், முழு array-ஐ மூன்றாவது argument ஆக pass செய்யுங்கள்: `createElement('ul', {}, listItems)`. இதனால் dynamic lists-க்கு missing `key`s பற்றி React [warning வழங்கும்](/learn/rendering-lists#keeping-list-items-in-order-with-key). Static lists-க்கு இது அவசியமில்லை; ஏனெனில் அவை reorder ஆகாது.
 
 ---
 
-## Usage {/*usage*/}
+## பயன்பாடு {/*usage*/}
 
-### Creating an element without JSX {/*creating-an-element-without-jsx*/}
+### JSX இல்லாமல் element உருவாக்குதல் {/*creating-an-element-without-jsx*/}
 
-If you don't like [JSX](/learn/writing-markup-with-jsx) or can't use it in your project, you can use `createElement` as an alternative.
+[JSX](/learn/writing-markup-with-jsx) உங்களுக்கு பிடிக்கவில்லை அல்லது உங்கள் project-இல் பயன்படுத்த முடியவில்லை என்றால், மாற்று வழியாக `createElement`-ஐப் பயன்படுத்தலாம்.
 
-To create an element without JSX, call `createElement` with some <CodeStep step={1}>type</CodeStep>, <CodeStep step={2}>props</CodeStep>, and <CodeStep step={3}>children</CodeStep>:
+JSX இல்லாமல் element உருவாக்க, சில <CodeStep step={1}>type</CodeStep>, <CodeStep step={2}>props</CodeStep>, மற்றும் <CodeStep step={3}>children</CodeStep> உடன் `createElement`-ஐ call செய்யுங்கள்:
 
 ```js [[1, 5, "'h1'"], [2, 6, "{ className: 'greeting' }"], [3, 7, "'Hello ',"], [3, 8, "createElement('i', null, name),"], [3, 9, "'. Welcome!'"]]
 import { createElement } from 'react';
@@ -87,7 +87,7 @@ function Greeting({ name }) {
 }
 ```
 
-The <CodeStep step={3}>children</CodeStep> are optional, and you can pass as many as you need (the example above has three children). This code will display a `<h1>` header with a greeting. For comparison, here is the same example rewritten with JSX:
+<CodeStep step={3}>children</CodeStep> optional; உங்களுக்கு தேவையான அளவு pass செய்யலாம் (மேலுள்ள உதாரணத்தில் மூன்று children உள்ளன). இந்த code greeting உடன் ஒரு `<h1>` header-ஐ display செய்யும். ஒப்பிடுவதற்காக, அதே உதாரணம் JSX-இல் இங்கே மறுபடியும் எழுதப்பட்டுள்ளது:
 
 ```js [[1, 3, "h1"], [2, 3, "className=\\"greeting\\""], [3, 4, "Hello <i>{name}</i>. Welcome!"], [1, 5, "h1"]]
 function Greeting({ name }) {
@@ -99,7 +99,7 @@ function Greeting({ name }) {
 }
 ```
 
-To render your own React component, pass a function like `Greeting` as the <CodeStep step={1}>type</CodeStep> instead of a string like `'h1'`:
+உங்கள் சொந்த React component-ஐ render செய்ய, `'h1'` போன்ற string-க்கு பதிலாக `Greeting` போன்ற function-ஐ <CodeStep step={1}>type</CodeStep> ஆக pass செய்யுங்கள்:
 
 ```js [[1, 2, "Greeting"], [2, 2, "{ name: 'Taylor' }"]]
 export default function App() {
@@ -107,7 +107,7 @@ export default function App() {
 }
 ```
 
-With JSX, it would look like this:
+JSX உடன் இது இவ்வாறு இருக்கும்:
 
 ```js [[1, 2, "Greeting"], [2, 2, "name=\\"Taylor\\""]]
 export default function App() {
@@ -115,7 +115,7 @@ export default function App() {
 }
 ```
 
-Here is a complete example written with `createElement`:
+`createElement` கொண்டு எழுதப்பட்ட முழு உதாரணம் இங்கே:
 
 <Sandpack>
 
@@ -149,7 +149,7 @@ export default function App() {
 
 </Sandpack>
 
-And here is the same example written using JSX:
+அதே உதாரணம் JSX பயன்படுத்தி இங்கே எழுதப்பட்டுள்ளது:
 
 <Sandpack>
 
@@ -176,13 +176,13 @@ export default function App() {
 
 </Sandpack>
 
-Both coding styles are fine, so you can use whichever one you prefer for your project. The main benefit of using JSX compared to `createElement` is that it's easy to see which closing tag corresponds to which opening tag.
+இரண்டு coding styles-உம் சரியானவை; உங்கள் project-க்கு விருப்பமானதை பயன்படுத்தலாம். `createElement`-ஐ ஒப்பிடும்போது JSX பயன்படுத்துவதின் முக்கிய நன்மை, எந்த closing tag எந்த opening tag-க்கு பொருந்துகிறது என்பதை நேரடியாகப் பார்க்க முடிவது.
 
 <DeepDive>
 
-#### What is a React element, exactly? {/*what-is-a-react-element-exactly*/}
+#### React element என்றால் உண்மையில் என்ன? {/*what-is-a-react-element-exactly*/}
 
-An element is a lightweight description of a piece of the user interface. For example, both `<Greeting name="Taylor" />` and `createElement(Greeting, { name: 'Taylor' })` produce an object like this:
+Element என்பது user interface-ன் ஒரு பகுதியை விவரிக்கும் lightweight description. உதாரணமாக, `<Greeting name="Taylor" />` மற்றும் `createElement(Greeting, { name: 'Taylor' })` இரண்டும் இதுபோன்ற object-ஐ உருவாக்கும்:
 
 ```js
 // Slightly simplified
@@ -196,10 +196,10 @@ An element is a lightweight description of a piece of the user interface. For ex
 }
 ```
 
-**Note that creating this object does not render the `Greeting` component or create any DOM elements.**
+**இந்த object-ஐ உருவாக்குவது `Greeting` component-ஐ render செய்யவோ DOM elements உருவாக்கவோ செய்யாது என்பதை கவனியுங்கள்.**
 
-A React element is more like a description--an instruction for React to later render the `Greeting` component. By returning this object from your `App` component, you tell React what to do next.
+React element என்பது ஒரு description போன்றது; `Greeting` component-ஐ பின்னர் render செய்ய React-க்கு கொடுக்கப்படும் instruction. உங்கள் `App` component-இலிருந்து இந்த object-ஐ return செய்வதன் மூலம், அடுத்ததாக என்ன செய்ய வேண்டும் என்பதை React-க்கு சொல்கிறீர்கள்.
 
-Creating elements is extremely cheap so you don't need to try to optimize or avoid it.
+Elements உருவாக்குவது மிகக் குறைந்த செலவுடையது; அதனால் அதை optimize செய்யவோ தவிர்க்கவோ முயற்சிக்கத் தேவையில்லை.
 
 </DeepDive>

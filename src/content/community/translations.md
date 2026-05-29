@@ -1,35 +1,35 @@
 ---
-title: Translations
+title: மொழிபெயர்ப்புகள்
 ---
 
 <Intro>
 
-React docs are translated by the global community into many languages all over the world.
+உலகம் முழுவதும் உள்ள சமூகத்தினர் React docs-ஐ பல மொழிகளில் மொழிபெயர்க்கின்றனர்.
 
 </Intro>
 
-## Source site {/*main-site*/}
+## மூல தளம் {/*main-site*/}
 
-All translations are provided from the canonical source docs:
+அனைத்து மொழிபெயர்ப்புகளும் அதிகாரப்பூர்வ மூல docs-இலிருந்து வழங்கப்படுகின்றன:
 
-- [English](https://react.dev/) &mdash; [Contribute](https://github.com/reactjs/react.dev/)
+- [English](https://react.dev/) &mdash; [பங்களிக்கவும்](https://github.com/reactjs/react.dev/)
 
-## Full translations {/*full-translations*/}
+## முழுமையான மொழிபெயர்ப்புகள் {/*full-translations*/}
 
 {/* If you are a language maintainer and want to add your language here, finish the "Core" translations and edit `deployedTranslations` under `src/utils`. */}
 
 <LanguageList progress="complete" />
 
-## In-progress translations {/*in-progress-translations*/}
+## நடந்து கொண்டிருக்கும் மொழிபெயர்ப்புகள் {/*in-progress-translations*/}
 
-For the progress of each translation, see: [Is React Translated Yet?](https://translations.react.dev/)
+ஒவ்வொரு மொழிபெயர்ப்பின் முன்னேற்றத்தையும் பார்க்க: [Is React Translated Yet?](https://translations.react.dev/)
 
 <LanguageList progress="in-progress" />
 
-## How to contribute {/*how-to-contribute*/}
+## பங்களிப்பது எப்படி {/*how-to-contribute*/}
 
-You can contribute to the translation efforts!
+மொழிபெயர்ப்பு முயற்சிகளுக்கு நீங்கள் பங்களிக்கலாம்!
 
-The community conducts the translation work for the React docs on each language-specific fork of react.dev. Typical translation work involves directly translating a Markdown file and creating a pull request. Click the "contribute" link above to the GitHub repository for your language, and follow the instructions there to help with the translation effort.
+React docs-க்கான மொழிபெயர்ப்பு பணியை, react.dev-இன் ஒவ்வொரு மொழி-specific fork-இலும் சமூகம் மேற்கொள்கிறது. வழக்கமான மொழிபெயர்ப்பு பணியில் ஒரு Markdown file-ஐ நேரடியாக மொழிபெயர்த்து pull request உருவாக்குவது அடங்கும். உங்கள் மொழிக்கான GitHub repository-க்கு செல்ல மேலுள்ள "பங்களிக்கவும்" link-ஐ கிளிக் செய்து, அங்குள்ள வழிமுறைகளைப் பின்பற்றி மொழிபெயர்ப்பு முயற்சிக்கு உதவுங்கள்.
 
-If you want to start a new translation for your language, visit: [translations.react.dev](https://github.com/reactjs/translations.react.dev)
+உங்கள் மொழிக்கான புதிய மொழிபெயர்ப்பைத் தொடங்க விரும்பினால், இங்கு செல்லுங்கள்: [translations.react.dev](https://github.com/reactjs/translations.react.dev)

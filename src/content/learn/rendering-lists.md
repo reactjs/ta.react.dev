@@ -1,24 +1,24 @@
 ---
-title: Rendering Lists
+title: Lists render செய்தல்
 ---
 
 <Intro>
 
-You will often want to display multiple similar components from a collection of data. You can use the [JavaScript array methods](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array#) to manipulate an array of data. On this page, you'll use [`filter()`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array/filter) and [`map()`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array/map) with React to filter and transform your array of data into an array of components.
+Data collection ஒன்றிலிருந்து பல ஒத்த components-ஐ display செய்ய நீங்கள் அடிக்கடி விரும்புவீர்கள். Data array-ஐ manipulate செய்ய [JavaScript array methods](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array#) பயன்படுத்தலாம். இந்த page-இல், data array-ஐ filter செய்து components array-ஆக transform செய்ய React உடன் [`filter()`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array/filter) மற்றும் [`map()`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array/map) பயன்படுத்துவீர்கள்.
 
 </Intro>
 
 <YouWillLearn>
 
-* How to render components from an array using JavaScript's `map()`
-* How to render only specific components using JavaScript's `filter()`
-* When and why to use React keys
+* JavaScript-ன் `map()` பயன்படுத்தி array-இலிருந்து components render செய்வது எப்படி
+* JavaScript-ன் `filter()` பயன்படுத்தி குறிப்பிட்ட components மட்டும் render செய்வது எப்படி
+* React keys எப்போது, ஏன் பயன்படுத்த வேண்டும்
 
 </YouWillLearn>
 
-## Rendering data from arrays {/*rendering-data-from-arrays*/}
+## Arrays-இலிருந்து data render செய்தல் {/*rendering-data-from-arrays*/}
 
-Say that you have a list of content.
+உங்களிடம் content list ஒன்று உள்ளது என்று வைத்துக்கொள்ளுங்கள்.
 
 ```js
 <ul>
@@ -30,11 +30,11 @@ Say that you have a list of content.
 </ul>
 ```
 
-The only difference among those list items is their contents, their data. You will often need to show several instances of the same component using different data when building interfaces: from lists of comments to galleries of profile images. In these situations, you can store that data in JavaScript objects and arrays and use methods like [`map()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) and [`filter()`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array/filter) to render lists of components from them.
+அந்த list items-க்கு உள்ள ஒரே வித்தியாசம் அவற்றின் contents, அதாவது அவற்றின் data. Interfaces உருவாக்கும்போது, வெவ்வேறு data பயன்படுத்தி ஒரே component-ன் பல instances-ஐ அடிக்கடி காட்ட வேண்டியிருக்கும்: comments lists முதல் profile images galleries வரை. இத்தகைய சூழல்களில், அந்த data-வை JavaScript objects மற்றும் arrays-இல் store செய்து, அவற்றிலிருந்து components lists render செய்ய [`map()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) மற்றும் [`filter()`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array/filter) போன்ற methods பயன்படுத்தலாம்.
 
-Here’s a short example of how to generate a list of items from an array:
+Array-இலிருந்து items list generate செய்வது எப்படி என்பதற்கான சுருக்கமான example:
 
-1. **Move** the data into an array:
+1. Data-வை array-க்குள் **move** செய்யுங்கள்:
 
 ```js
 const people = [
@@ -46,19 +46,19 @@ const people = [
 ];
 ```
 
-2. **Map** the `people` members into a new array of JSX nodes, `listItems`:
+2. `people` members-ஐ JSX nodes-ன் புதிய array ஆன `listItems`-க்கு **map** செய்யுங்கள்:
 
 ```js
 const listItems = people.map(person => <li>{person}</li>);
 ```
 
-3. **Return** `listItems` from your component wrapped in a `<ul>`:
+3. `<ul>`-இல் wrap செய்யப்பட்ட `listItems`-ஐ உங்கள் component-இலிருந்து **return** செய்யுங்கள்:
 
 ```js
 return <ul>{listItems}</ul>;
 ```
 
-Here is the result:
+இதோ result:
 
 <Sandpack>
 
@@ -85,7 +85,7 @@ li { margin-bottom: 10px; }
 
 </Sandpack>
 
-Notice the sandbox above displays a console error:
+மேலுள்ள sandbox console error ஒன்றை display செய்கிறது என்பதை கவனியுங்கள்:
 
 <ConsoleBlock level="error">
 
@@ -93,11 +93,11 @@ Warning: Each child in a list should have a unique "key" prop.
 
 </ConsoleBlock>
 
-You'll learn how to fix this error later on this page. Before we get to that, let's add some structure to your data.
+இந்த error-ஐ எப்படி fix செய்வது என்பதை இந்த page-இல் பின்னர் கற்பீர்கள். அதற்கு முன், உங்கள் data-க்கு சிறிது structure சேர்ப்போம்.
 
-## Filtering arrays of items {/*filtering-arrays-of-items*/}
+## Items arrays-ஐ filter செய்தல் {/*filtering-arrays-of-items*/}
 
-This data can be structured even more.
+இந்த data-வை இன்னும் structured ஆக மாற்றலாம்.
 
 ```js
 const people = [{
@@ -123,11 +123,11 @@ const people = [{
 }];
 ```
 
-Let's say you want a way to only show people whose profession is `'chemist'`. You can use JavaScript's `filter()` method to return just those people. This method takes an array of items, passes them through a “test” (a function that returns `true` or `false`), and returns a new array of only those items that passed the test (returned `true`).
+`'chemist'` profession கொண்டவர்களை மட்டும் காட்ட வேண்டும் என்று வைத்துக்கொள்ளுங்கள். அந்த people மட்டும் return செய்ய JavaScript-ன் `filter()` method பயன்படுத்தலாம். இந்த method items array ஒன்றை எடுத்து, அவற்றை “test” ( `true` அல்லது `false` return செய்யும் function) வழியாக pass செய்து, test-ஐ pass செய்த (`true` return செய்த) items மட்டுமுள்ள புதிய array-ஐ return செய்கிறது.
 
-You only want the items where `profession` is `'chemist'`. The "test" function for this looks like `(person) => person.profession === 'chemist'`. Here's how to put it together:
+`profession` `'chemist'` ஆக உள்ள items மட்டும் உங்களுக்கு வேண்டும். இதற்கான "test" function `(person) => person.profession === 'chemist'` போல இருக்கும். அதை ஒன்றாக அமைப்பது இப்படி:
 
-1. **Create** a new array of just “chemist” people, `chemists`, by calling `filter()` on the `people` filtering by `person.profession === 'chemist'`:
+1. `people` மீது `filter()` call செய்து `person.profession === 'chemist'` மூலம் filter செய்வதன் மூலம், “chemist” people மட்டும் கொண்ட புதிய array `chemists`-ஐ **create** செய்யுங்கள்:
 
 ```js
 const chemists = people.filter(person =>
@@ -135,7 +135,7 @@ const chemists = people.filter(person =>
 );
 ```
 
-2. Now **map** over `chemists`:
+2. இப்போது `chemists` மீது **map** செய்யுங்கள்:
 
 ```js {1,13}
 const listItems = chemists.map(person =>
@@ -147,13 +147,13 @@ const listItems = chemists.map(person =>
      <p>
        <b>{person.name}:</b>
        {' ' + person.profession + ' '}
-       known for {person.accomplishment}
+       இதற்குப் புகழ்பெற்றவர்: {person.accomplishment}
      </p>
   </li>
 );
 ```
 
-3. Lastly, **return** the `listItems` from your component:
+3. இறுதியாக, உங்கள் component-இலிருந்து `listItems`-ஐ **return** செய்யுங்கள்:
 
 ```js
 return <ul>{listItems}</ul>;
@@ -178,7 +178,7 @@ export default function List() {
       <p>
         <b>{person.name}:</b>
         {' ' + person.profession + ' '}
-        known for {person.accomplishment}
+        இதற்குப் புகழ்பெற்றவர்: {person.accomplishment}
       </p>
     </li>
   );
@@ -246,15 +246,15 @@ img { width: 100px; height: 100px; border-radius: 50%; }
 
 <Pitfall>
 
-Arrow functions implicitly return the expression right after `=>`, so you didn't need a `return` statement:
+Arrow functions `=>`-க்கு உடனே பின்வரும் expression-ஐ implicit ஆக return செய்யும்; எனவே `return` statement தேவையில்லை:
 
 ```js
 const listItems = chemists.map(person =>
-  <li>...</li> // Implicit return!
+  <li>...</li> // மறைமுக return!
 );
 ```
 
-However, **you must write `return` explicitly if your `=>` is followed by a `{` curly brace!**
+ஆனால், **உங்கள் `=>`-க்கு பின் `{` curly brace வந்தால் `return`-ஐ explicit ஆக எழுத வேண்டும்!**
 
 ```js
 const listItems = chemists.map(person => { // Curly brace
@@ -262,13 +262,13 @@ const listItems = chemists.map(person => { // Curly brace
 });
 ```
 
-Arrow functions containing `=> {` are said to have a ["block body".](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions#function_body) They let you write more than a single line of code, but you *have to* write a `return` statement yourself. If you forget it, nothing gets returned!
+`=> {` கொண்ட arrow functions-க்கு ["block body"](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions#function_body) உள்ளது என்று கூறப்படுகிறது. அவை single line-ஐ விட அதிக code எழுத அனுமதிக்கும்; ஆனால் `return` statement-ஐ நீங்கள் *தானாகவே* எழுத வேண்டும். அதை மறந்தால், எதுவும் return ஆகாது!
 
 </Pitfall>
 
-## Keeping list items in order with `key` {/*keeping-list-items-in-order-with-key*/}
+## `key` மூலம் list items-ஐ order-இல் வைத்தல் {/*keeping-list-items-in-order-with-key*/}
 
-Notice that all the sandboxes above show an error in the console:
+மேலுள்ள sandboxes அனைத்தும் console-இல் error காட்டுகின்றன என்பதை கவனியுங்கள்:
 
 <ConsoleBlock level="error">
 
@@ -276,7 +276,7 @@ Warning: Each child in a list should have a unique "key" prop.
 
 </ConsoleBlock>
 
-You need to give each array item a `key` -- a string or a number that uniquely identifies it among other items in that array:
+ஒவ்வொரு array item-க்கும் ஒரு `key` தர வேண்டும் -- அந்த array-இல் உள்ள பிற items இடையே அதை unique ஆக அடையாளம் காணும் string அல்லது number:
 
 ```js
 <li key={person.id}>...</li>
@@ -284,13 +284,13 @@ You need to give each array item a `key` -- a string or a number that uniquely i
 
 <Note>
 
-JSX elements directly inside a `map()` call always need keys!
+`map()` call-க்குள் நேரடியாக உள்ள JSX elements-க்கு எப்போதும் keys தேவை!
 
 </Note>
 
-Keys tell React which array item each component corresponds to, so that it can match them up later. This becomes important if your array items can move (e.g. due to sorting), get inserted, or get deleted. A well-chosen `key` helps React infer what exactly has happened, and make the correct updates to the DOM tree.
+ஒவ்வொரு component எந்த array item-க்கு corresponds செய்கிறது என்பதை keys React-க்கு தெரிவிக்கும்; இதனால் பின்னர் அவற்றை match செய்ய முடியும். உங்கள் array items move ஆகலாம் (எ.கா. sorting காரணமாக), insert ஆகலாம், அல்லது delete ஆகலாம் என்றால் இது முக்கியமாகிறது. நன்றாகத் தேர்ந்தெடுத்த `key`, என்ன நடந்தது என்பதை React infer செய்து DOM tree-க்கு சரியான updates செய்ய உதவும்.
 
-Rather than generating keys on the fly, you should include them in your data:
+Keys-ஐ on the fly generate செய்வதற்குப் பதிலாக, அவற்றை உங்கள் data-க்குள் சேர்க்க வேண்டும்:
 
 <Sandpack>
 
@@ -308,7 +308,7 @@ export default function List() {
       <p>
         <b>{person.name}</b>
           {' ' + person.profession + ' '}
-          known for {person.accomplishment}
+          இதற்குப் புகழ்பெற்றவர்: {person.accomplishment}
       </p>
     </li>
   );
@@ -318,31 +318,31 @@ export default function List() {
 
 ```js src/data.js active
 export const people = [{
-  id: 0, // Used in JSX as a key
+  id: 0, // JSX-இல் key ஆக பயன்படுத்தப்படுகிறது
   name: 'Creola Katherine Johnson',
   profession: 'mathematician',
   accomplishment: 'spaceflight calculations',
   imageId: 'MK3eW3A'
 }, {
-  id: 1, // Used in JSX as a key
+  id: 1, // JSX-இல் key ஆக பயன்படுத்தப்படுகிறது
   name: 'Mario José Molina-Pasquel Henríquez',
   profession: 'chemist',
   accomplishment: 'discovery of Arctic ozone hole',
   imageId: 'mynHUSa'
 }, {
-  id: 2, // Used in JSX as a key
+  id: 2, // JSX-இல் key ஆக பயன்படுத்தப்படுகிறது
   name: 'Mohammad Abdus Salam',
   profession: 'physicist',
   accomplishment: 'electromagnetism theory',
   imageId: 'bE7W1ji'
 }, {
-  id: 3, // Used in JSX as a key
+  id: 3, // JSX-இல் key ஆக பயன்படுத்தப்படுகிறது
   name: 'Percy Lavon Julian',
   profession: 'chemist',
   accomplishment: 'pioneering cortisone drugs, steroids and birth control pills',
   imageId: 'IOjWm71'
 }, {
-  id: 4, // Used in JSX as a key
+  id: 4, // JSX-இல் key ஆக பயன்படுத்தப்படுகிறது
   name: 'Subrahmanyan Chandrasekhar',
   profession: 'astrophysicist',
   accomplishment: 'white dwarf star mass calculations',
@@ -376,11 +376,11 @@ img { width: 100px; height: 100px; border-radius: 50%; }
 
 <DeepDive>
 
-#### Displaying several DOM nodes for each list item {/*displaying-several-dom-nodes-for-each-list-item*/}
+#### ஒவ்வொரு list item-க்கும் பல DOM nodes-ஐ காட்டுதல் {/*displaying-several-dom-nodes-for-each-list-item*/}
 
-What do you do when each item needs to render not one, but several DOM nodes?
+ஒவ்வொரு item-மும் ஒன்று அல்ல, பல DOM nodes render செய்ய வேண்டுமானால் என்ன செய்வீர்கள்?
 
-The short [`<>...</>` Fragment](/reference/react/Fragment) syntax won't let you pass a key, so you need to either group them into a single `<div>`, or use the slightly longer and [more explicit `<Fragment>` syntax:](/reference/react/Fragment#rendering-a-list-of-fragments)
+சுருக்கமான [`<>...</>` Fragment](/reference/react/Fragment) syntax key pass செய்ய அனுமதிக்காது. எனவே அவற்றை single `<div>`-க்குள் group செய்ய வேண்டும், அல்லது சற்றே நீளமான, [மேலும் explicit ஆன `<Fragment>` syntax](/reference/react/Fragment#rendering-a-list-of-fragments)-ஐ பயன்படுத்த வேண்டும்:
 
 ```js
 import { Fragment } from 'react';
@@ -395,46 +395,46 @@ const listItems = people.map(person =>
 );
 ```
 
-Fragments disappear from the DOM, so this will produce a flat list of `<h1>`, `<p>`, `<h1>`, `<p>`, and so on.
+Fragments DOM-இலிருந்து மறைந்துவிடும்; எனவே இது `<h1>`, `<p>`, `<h1>`, `<p>` போன்ற flat list ஒன்றை உருவாக்கும்.
 
 </DeepDive>
 
-### Where to get your `key` {/*where-to-get-your-key*/}
+### உங்கள் `key` எங்கிருந்து பெறுவது {/*where-to-get-your-key*/}
 
-Different sources of data provide different sources of keys:
+வெவ்வேறு data sources வெவ்வேறு key sources வழங்குகின்றன:
 
-* **Data from a database:** If your data is coming from a database, you can use the database keys/IDs, which are unique by nature.
-* **Locally generated data:** If your data is generated and persisted locally (e.g. notes in a note-taking app), use an incrementing counter, [`crypto.randomUUID()`](https://developer.mozilla.org/en-US/docs/Web/API/Crypto/randomUUID) or a package like [`uuid`](https://www.npmjs.com/package/uuid) when creating items.
+* **Database-இலிருந்து data:** உங்கள் data database-இலிருந்து வந்தால், இயல்பாகவே unique ஆன database keys/IDs பயன்படுத்தலாம்.
+* **Locally generated data:** உங்கள் data locally generate செய்து persist செய்யப்படுமானால் (எ.கா. note-taking app-இல் notes), items create செய்யும்போது incrementing counter, [`crypto.randomUUID()`](https://developer.mozilla.org/en-US/docs/Web/API/Crypto/randomUUID), அல்லது [`uuid`](https://www.npmjs.com/package/uuid) போன்ற package பயன்படுத்துங்கள்.
 
-### Rules of keys {/*rules-of-keys*/}
+### Keys-ன் விதிகள் {/*rules-of-keys*/}
 
-* **Keys must be unique among siblings.** However, it’s okay to use the same keys for JSX nodes in _different_ arrays.
-* **Keys must not change** or that defeats their purpose! Don't generate them while rendering.
+* **Keys siblings இடையே unique ஆக இருக்க வேண்டும்.** ஆனால் _வேறு_ arrays-இல் உள்ள JSX nodes-க்கு அதே keys பயன்படுத்துவது பரவாயில்லை.
+* **Keys மாறக்கூடாது**; இல்லையெனில் அவற்றின் நோக்கம் கெடும்! Rendering போது அவற்றை generate செய்ய வேண்டாம்.
 
-### Why does React need keys? {/*why-does-react-need-keys*/}
+### React-க்கு keys ஏன் தேவை? {/*why-does-react-need-keys*/}
 
-Imagine that files on your desktop didn't have names. Instead, you'd refer to them by their order -- the first file, the second file, and so on. You could get used to it, but once you delete a file, it would get confusing. The second file would become the first file, the third file would be the second file, and so on.
+உங்கள் desktop-இல் உள்ள files-க்கு பெயர்கள் இல்லை என்று கற்பனை செய்யுங்கள். அதற்கு பதிலாக, அவற்றை அவற்றின் order மூலம் குறிப்பிடுவீர்கள் -- முதல் file, இரண்டாவது file போன்றது. அதற்கு பழகிக்கொள்ளலாம்; ஆனால் ஒரு file delete செய்தவுடன் குழப்பமாகும். இரண்டாவது file முதல் file ஆகும், மூன்றாவது file இரண்டாவது file ஆகும், இப்படி தொடரும்.
 
-File names in a folder and JSX keys in an array serve a similar purpose. They let us uniquely identify an item between its siblings. A well-chosen key provides more information than the position within the array. Even if the _position_ changes due to reordering, the `key` lets React identify the item throughout its lifetime.
+Folder-இல் file names மற்றும் array-இல் JSX keys ஒரேபோன்ற நோக்கத்தை நிறைவேற்றுகின்றன. Siblings இடையே ஒரு item-ஐ unique ஆக identify செய்ய அவை உதவுகின்றன. நன்றாகத் தேர்ந்தெடுத்த key, array-க்குள் உள்ள position-ஐ விட அதிக தகவல் தரும். Reordering காரணமாக _position_ மாறினாலும், `key` அந்த item-ஐ அதன் lifetime முழுவதும் React identify செய்ய அனுமதிக்கிறது.
 
 <Pitfall>
 
-You might be tempted to use an item's index in the array as its key. In fact, that's what React will use if you don't specify a `key` at all. But the order in which you render items will change over time if an item is inserted, deleted, or if the array gets reordered. Index as a key often leads to subtle and confusing bugs.
+Array-இல் உள்ள item-ன் index-ஐ key ஆக பயன்படுத்த tempted ஆகலாம். உண்மையில், நீங்கள் `key` ஒன்றும் specify செய்யாவிட்டால் React அதையே பயன்படுத்தும். ஆனால் item insert, delete, அல்லது array reorder செய்யப்பட்டால், நீங்கள் items render செய்யும் order காலப்போக்கில் மாறும். Index-ஐ key ஆக பயன்படுத்துவது அடிக்கடி subtle மற்றும் confusing bugs-க்கு வழிவகுக்கும்.
 
-Similarly, do not generate keys on the fly, e.g. with `key={Math.random()}`. This will cause keys to never match up between renders, leading to all your components and DOM being recreated every time. Not only is this slow, but it will also lose any user input inside the list items. Instead, use a stable ID based on the data.
+அதேபோல், `key={Math.random()}` போன்ற முறையில் keys-ஐ on the fly generate செய்ய வேண்டாம். இதனால் renders இடையே keys ஒருபோதும் match ஆகாது; அதனால் உங்கள் components மற்றும் DOM ஒவ்வொரு முறையும் recreate செய்யப்படும். இது மெதுவாக இருப்பதோடு மட்டுமல்லாமல், list items-க்குள் உள்ள எந்த user input-ஐயும் இழக்கும். அதற்கு பதிலாக, data அடிப்படையிலான stable ID பயன்படுத்துங்கள்.
 
-Note that your components won't receive `key` as a prop. It's only used as a hint by React itself. If your component needs an ID, you have to pass it as a separate prop: `<Profile key={id} userId={id} />`.
+உங்கள் components `key`-ஐ prop ஆக receive செய்யாது என்பதை நினைவில் கொள்ளுங்கள். React தானாகவே hint ஆக மட்டும் இதைப் பயன்படுத்தும். உங்கள் component-க்கு ID தேவைப்பட்டால், அதை separate prop ஆக pass செய்ய வேண்டும்: `<Profile key={id} userId={id} />`.
 
 </Pitfall>
 
 <Recap>
 
-On this page you learned:
+இந்த page-இல் நீங்கள் கற்றது:
 
-* How to move data out of components and into data structures like arrays and objects.
-* How to generate sets of similar components with JavaScript's `map()`.
-* How to create arrays of filtered items with JavaScript's `filter()`.
-* Why and how to set `key` on each component in a collection so React can keep track of each of them even if their position or data changes.
+* Components-இலிருந்து data-வை arrays மற்றும் objects போன்ற data structures-க்குள் move செய்வது எப்படி.
+* JavaScript-ன் `map()` மூலம் ஒத்த components sets உருவாக்குவது எப்படி.
+* JavaScript-ன் `filter()` மூலம் filtered items arrays உருவாக்குவது எப்படி.
+* ஒரு collection-இல் ஒவ்வொரு component-க்கும் `key` ஏன், எப்படி set செய்வது; position அல்லது data மாறினாலும் React ஒவ்வொன்றையும் track செய்ய இதனால் முடியும்.
 
 </Recap>
 
@@ -442,11 +442,11 @@ On this page you learned:
 
 <Challenges>
 
-#### Splitting a list in two {/*splitting-a-list-in-two*/}
+#### List-ஐ இரண்டாகப் பிரித்தல் {/*splitting-a-list-in-two*/}
 
-This example shows a list of all people.
+இந்த example எல்லா people-ன் list-ஐ காட்டுகிறது.
 
-Change it to show two separate lists one after another: **Chemists** and **Everyone Else.** Like previously, you can determine whether a person is a chemist by checking if `person.profession === 'chemist'`.
+அதை ஒருவருக்குப் பிறகு ஒருவர் இரண்டு தனி lists காட்டுமாறு மாற்றுங்கள்: **Chemists** மற்றும் **மற்றவர்கள்.** முன்பைப் போலவே, `person.profession === 'chemist'` check செய்து ஒருவர் chemist தானா என்பதை தீர்மானிக்கலாம்.
 
 <Sandpack>
 
@@ -464,13 +464,13 @@ export default function List() {
       <p>
         <b>{person.name}:</b>
         {' ' + person.profession + ' '}
-        known for {person.accomplishment}
+        இதற்குப் புகழ்பெற்றவர்: {person.accomplishment}
       </p>
     </li>
   );
   return (
     <article>
-      <h1>Scientists</h1>
+      <h1>விஞ்ஞானிகள்</h1>
       <ul>{listItems}</ul>
     </article>
   );
@@ -537,7 +537,7 @@ img { width: 100px; height: 100px; border-radius: 50%; }
 
 <Solution>
 
-You could use `filter()` twice, creating two separate arrays, and then `map` over both of them:
+`filter()`-ஐ இருமுறை பயன்படுத்தி இரண்டு தனி arrays create செய்து, பின்னர் இரண்டிலும் `map` செய்யலாம்:
 
 <Sandpack>
 
@@ -554,7 +554,7 @@ export default function List() {
   );
   return (
     <article>
-      <h1>Scientists</h1>
+      <h1>விஞ்ஞானிகள்</h1>
       <h2>Chemists</h2>
       <ul>
         {chemists.map(person =>
@@ -566,12 +566,12 @@ export default function List() {
             <p>
               <b>{person.name}:</b>
               {' ' + person.profession + ' '}
-              known for {person.accomplishment}
+              இதற்குப் புகழ்பெற்றவர்: {person.accomplishment}
             </p>
           </li>
         )}
       </ul>
-      <h2>Everyone Else</h2>
+      <h2>மற்றவர்கள்</h2>
       <ul>
         {everyoneElse.map(person =>
           <li key={person.id}>
@@ -582,7 +582,7 @@ export default function List() {
             <p>
               <b>{person.name}:</b>
               {' ' + person.profession + ' '}
-              known for {person.accomplishment}
+              இதற்குப் புகழ்பெற்றவர்: {person.accomplishment}
             </p>
           </li>
         )}
@@ -650,9 +650,9 @@ img { width: 100px; height: 100px; border-radius: 50%; }
 
 </Sandpack>
 
-In this solution, the `map` calls are placed directly inline into the parent `<ul>` elements, but you could introduce variables for them if you find that more readable.
+இந்த solution-இல், `map` calls parent `<ul>` elements-க்குள் நேரடியாக inline ஆக வைக்கப்பட்டுள்ளன; அது மேலும் readable என்று நினைத்தால் அவற்றுக்காக variables அறிமுகப்படுத்தலாம்.
 
-There is still a bit duplication between the rendered lists. You can go further and extract the repetitive parts into a `<ListSection>` component:
+Rendered lists இடையே இன்னும் சிறிது duplication உள்ளது. மேலும் சென்று repetitive பகுதிகளை `<ListSection>` component-ஆக extract செய்யலாம்:
 
 <Sandpack>
 
@@ -674,7 +674,7 @@ function ListSection({ title, people }) {
             <p>
               <b>{person.name}:</b>
               {' ' + person.profession + ' '}
-              known for {person.accomplishment}
+              இதற்குப் புகழ்பெற்றவர்: {person.accomplishment}
             </p>
           </li>
         )}
@@ -692,13 +692,13 @@ export default function List() {
   );
   return (
     <article>
-      <h1>Scientists</h1>
+      <h1>விஞ்ஞானிகள்</h1>
       <ListSection
         title="Chemists"
         people={chemists}
       />
       <ListSection
-        title="Everyone Else"
+        title="மற்றவர்கள்"
         people={everyoneElse}
       />
     </article>
@@ -764,9 +764,9 @@ img { width: 100px; height: 100px; border-radius: 50%; }
 
 </Sandpack>
 
-A very attentive reader might notice that with two `filter` calls, we check each person's profession twice. Checking a property is very fast, so in this example it's fine. If your logic was more expensive than that, you could replace the `filter` calls with a loop that manually constructs the arrays and checks each person once.
+மிக கவனமான reader, இரண்டு `filter` calls இருப்பதால் ஒவ்வொருவரின் profession-ஐ இருமுறை check செய்கிறோம் என்பதை கவனிக்கலாம். Property check செய்வது மிகவும் வேகமானது; எனவே இந்த example-இல் இது பரவாயில்லை. உங்கள் logic அதைவிட expensive ஆக இருந்தால், `filter` calls-க்கு பதிலாக arrays-ஐ manually construct செய்து ஒவ்வொருவரையும் ஒருமுறை மட்டும் check செய்யும் loop பயன்படுத்தலாம்.
 
-In fact, if `people` never change, you could move this code out of your component. From React's perspective, all that matters is that you give it an array of JSX nodes in the end. It doesn't care how you produce that array:
+உண்மையில், `people` ஒருபோதும் மாறவில்லை என்றால், இந்த code-ஐ component-க்கு வெளியே move செய்யலாம். React-ன் பார்வையில், இறுதியில் JSX nodes array ஒன்றை கொடுக்கிறீர்களா என்பதே முக்கியம். அந்த array-ஐ எப்படி produce செய்கிறீர்கள் என்பதை அது கவலைப்படாது:
 
 <Sandpack>
 
@@ -798,7 +798,7 @@ function ListSection({ title, people }) {
             <p>
               <b>{person.name}:</b>
               {' ' + person.profession + ' '}
-              known for {person.accomplishment}
+              இதற்குப் புகழ்பெற்றவர்: {person.accomplishment}
             </p>
           </li>
         )}
@@ -810,13 +810,13 @@ function ListSection({ title, people }) {
 export default function List() {
   return (
     <article>
-      <h1>Scientists</h1>
+      <h1>விஞ்ஞானிகள்</h1>
       <ListSection
         title="Chemists"
         people={chemists}
       />
       <ListSection
-        title="Everyone Else"
+        title="மற்றவர்கள்"
         people={everyoneElse}
       />
     </article>
@@ -884,13 +884,13 @@ img { width: 100px; height: 100px; border-radius: 50%; }
 
 </Solution>
 
-#### Nested lists in one component {/*nested-lists-in-one-component*/}
+#### ஒரே component-இல் nested lists {/*nested-lists-in-one-component*/}
 
-Make a list of recipes from this array! For each recipe in the array, display its name as an `<h2>` and list its ingredients in a `<ul>`.
+இந்த array-இலிருந்து recipes list உருவாக்குங்கள்! Array-இல் உள்ள ஒவ்வொரு recipe-க்கும், அதன் name-ஐ `<h2>` ஆகவும் ingredients-ஐ `<ul>`-இல் list ஆகவும் display செய்யுங்கள்.
 
 <Hint>
 
-This will require nesting two different `map` calls.
+இதற்கு இரண்டு வெவ்வேறு `map` calls nest செய்ய வேண்டும்.
 
 </Hint>
 
@@ -902,7 +902,7 @@ import { recipes } from './data.js';
 export default function RecipeList() {
   return (
     <div>
-      <h1>Recipes</h1>
+      <h1>சமையல் குறிப்புகள்</h1>
     </div>
   );
 }
@@ -928,7 +928,7 @@ export const recipes = [{
 
 <Solution>
 
-Here is one way you could go about it:
+இதற்கு ஒரு வழி:
 
 <Sandpack>
 
@@ -938,7 +938,7 @@ import { recipes } from './data.js';
 export default function RecipeList() {
   return (
     <div>
-      <h1>Recipes</h1>
+      <h1>சமையல் குறிப்புகள்</h1>
       {recipes.map(recipe =>
         <div key={recipe.id}>
           <h2>{recipe.name}</h2>
@@ -974,13 +974,13 @@ export const recipes = [{
 
 </Sandpack>
 
-Each of the `recipes` already includes an `id` field, so that's what the outer loop uses for its `key`. There is no ID you could use to loop over ingredients. However, it's reasonable to assume that the same ingredient won't be listed twice within the same recipe, so its name can serve as a `key`. Alternatively, you could change the data structure to add IDs, or use index as a `key` (with the caveat that you can't safely reorder ingredients).
+`recipes` ஒவ்வொன்றிலும் ஏற்கனவே `id` field உள்ளது; எனவே outer loop தனது `key`-க்கு அதைப் பயன்படுத்துகிறது. Ingredients மீது loop செய்ய பயன்படுத்தக்கூடிய ID இல்லை. ஆனால் அதே recipe-க்குள் ஒரே ingredient இருமுறை list செய்யப்படாது என்று கருதுவது reasonable; எனவே அதன் name `key` ஆகச் செயல்படலாம். மாற்றாக, IDs சேர்க்க data structure-ஐ மாற்றலாம், அல்லது index-ஐ `key` ஆக பயன்படுத்தலாம் (ingredients-ஐ பாதுகாப்பாக reorder செய்ய முடியாது என்ற caveat உடன்).
 
 </Solution>
 
-#### Extracting a list item component {/*extracting-a-list-item-component*/}
+#### List item component-ஐ extract செய்தல் {/*extracting-a-list-item-component*/}
 
-This `RecipeList` component contains two nested `map` calls. To simplify it, extract a `Recipe` component from it which will accept `id`, `name`, and `ingredients` props. Where do you place the outer `key` and why?
+இந்த `RecipeList` component-இல் இரண்டு nested `map` calls உள்ளன. அதை simplify செய்ய, `id`, `name`, மற்றும் `ingredients` props ஏற்கும் `Recipe` component ஒன்றை அதிலிருந்து extract செய்யுங்கள். Outer `key`-ஐ எங்கே வைப்பீர்கள், ஏன்?
 
 <Sandpack>
 
@@ -990,7 +990,7 @@ import { recipes } from './data.js';
 export default function RecipeList() {
   return (
     <div>
-      <h1>Recipes</h1>
+      <h1>சமையல் குறிப்புகள்</h1>
       {recipes.map(recipe =>
         <div key={recipe.id}>
           <h2>{recipe.name}</h2>
@@ -1028,7 +1028,7 @@ export const recipes = [{
 
 <Solution>
 
-You can copy-paste the JSX from the outer `map` into a new `Recipe` component and return that JSX. Then you can change `recipe.name` to `name`, `recipe.id` to `id`, and so on, and pass them as props to the `Recipe`:
+Outer `map`-இலிருந்து JSX-ஐ புதிய `Recipe` component-க்குள் copy-paste செய்து அந்த JSX-ஐ return செய்யலாம். பிறகு `recipe.name`-ஐ `name`, `recipe.id`-ஐ `id` போன்றவையாக மாற்றி, அவற்றை props ஆக `Recipe`-க்கு pass செய்யலாம்:
 
 <Sandpack>
 
@@ -1053,7 +1053,7 @@ function Recipe({ id, name, ingredients }) {
 export default function RecipeList() {
   return (
     <div>
-      <h1>Recipes</h1>
+      <h1>சமையல் குறிப்புகள்</h1>
       {recipes.map(recipe =>
         <Recipe {...recipe} key={recipe.id} />
       )}
@@ -1080,36 +1080,36 @@ export const recipes = [{
 
 </Sandpack>
 
-Here, `<Recipe {...recipe} key={recipe.id} />` is a syntax shortcut saying "pass all properties of the `recipe` object as props to the `Recipe` component". You could also write each prop explicitly: `<Recipe id={recipe.id} name={recipe.name} ingredients={recipe.ingredients} key={recipe.id} />`.
+இங்கே, `<Recipe {...recipe} key={recipe.id} />` என்பது "`recipe` object-ன் எல்லா properties-ஐ `Recipe` component-க்கு props ஆக pass செய்" என்று சொல்லும் syntax shortcut. ஒவ்வொரு prop-ஐயும் explicit ஆகவும் எழுதலாம்: `<Recipe id={recipe.id} name={recipe.name} ingredients={recipe.ingredients} key={recipe.id} />`.
 
-**Note that the `key` is specified on the `<Recipe>` itself rather than on the root `<div>` returned from `Recipe`.** This is because this `key` is needed directly within the context of the surrounding array. Previously, you had an array of `<div>`s so each of them needed a `key`, but now you have an array of `<Recipe>`s. In other words, when you extract a component, don't forget to leave the `key` outside the JSX you copy and paste.
+**`key` என்பது `Recipe` return செய்யும் root `<div>`-இல் அல்ல, `<Recipe>` தன்னிலேயே specify செய்யப்பட்டிருப்பதை கவனியுங்கள்.** ஏனெனில் இந்த `key`, surrounding array context-க்குள் நேரடியாக தேவைப்படுகிறது. முன்பு உங்களிடம் `<div>`s array இருந்ததால் அவற்றில் ஒவ்வொன்றுக்கும் `key` தேவைப்பட்டது; இப்போது `<Recipe>`s array உள்ளது. வேறு வார்த்தைகளில், component extract செய்யும்போது, copy-paste செய்யும் JSX-க்கு வெளியே `key`-ஐ விட மறக்க வேண்டாம்.
 
 </Solution>
 
-#### List with a separator {/*list-with-a-separator*/}
+#### Separator உடன் list {/*list-with-a-separator*/}
 
-This example renders a famous haiku by Tachibana Hokushi, with each line wrapped in a `<p>` tag. Your job is to insert an `<hr />` separator between each paragraph. Your resulting structure should look like this:
+இந்த example Tachibana Hokushi-ன் புகழ்பெற்ற haiku ஒன்றை render செய்கிறது; ஒவ்வொரு line-உம் `<p>` tag-இல் wrap செய்யப்பட்டுள்ளது. ஒவ்வொரு paragraph இடையிலும் `<hr />` separator insert செய்வதே உங்கள் வேலை. உங்கள் final structure இப்படி இருக்க வேண்டும்:
 
 ```js
 <article>
-  <p>I write, erase, rewrite</p>
+  <p>நான் எழுதுகிறேன், அழிக்கிறேன், மீண்டும் எழுதுகிறேன்</p>
   <hr />
-  <p>Erase again, and then</p>
+  <p>மீண்டும் அழிக்கிறேன், பின்னர்</p>
   <hr />
-  <p>A poppy blooms.</p>
+  <p>ஒரு poppy மலர்கிறது.</p>
 </article>
 ```
 
-A haiku only contains three lines, but your solution should work with any number of lines. Note that `<hr />` elements only appear *between* the `<p>` elements, not in the beginning or the end!
+Haiku மூன்று lines மட்டுமே கொண்டது, ஆனால் உங்கள் solution எந்த எண்ணிக்கையிலான lines உடனும் வேலை செய்ய வேண்டும். `<hr />` elements `<p>` elements இடையில் *மட்டுமே* தோன்ற வேண்டும்; தொடக்கத்திலும் முடிவிலும் அல்ல என்பதை கவனியுங்கள்!
 
 <Sandpack>
 
 ```js
 const poem = {
   lines: [
-    'I write, erase, rewrite',
-    'Erase again, and then',
-    'A poppy blooms.'
+    'நான் எழுதுகிறேன், அழிக்கிறேன், மீண்டும் எழுதுகிறேன்',
+    'மீண்டும் அழிக்கிறேன், பின்னர்',
+    'ஒரு poppy மலர்கிறது.'
   ]
 };
 
@@ -1143,26 +1143,26 @@ hr {
 
 </Sandpack>
 
-(This is a rare case where index as a key is acceptable because a poem's lines will never reorder.)
+(கவிதை lines ஒருபோதும் reorder ஆகாது என்பதால் index-ஐ key ஆக பயன்படுத்துவது acceptable ஆன rare case இது.)
 
 <Hint>
 
-You'll either need to convert `map` to a manual loop, or use a Fragment.
+`map`-ஐ manual loop ஆக மாற்றவோ, அல்லது Fragment பயன்படுத்தவோ வேண்டும்.
 
 </Hint>
 
 <Solution>
 
-You can write a manual loop, inserting `<hr />` and `<p>...</p>` into the output array as you go:
+Manual loop எழுதலாம்; loop செய்யும்போது `<hr />` மற்றும் `<p>...</p>`-ஐ output array-க்குள் insert செய்யலாம்:
 
 <Sandpack>
 
 ```js
 const poem = {
   lines: [
-    'I write, erase, rewrite',
-    'Erase again, and then',
-    'A poppy blooms.'
+    'நான் எழுதுகிறேன், அழிக்கிறேன், மீண்டும் எழுதுகிறேன்',
+    'மீண்டும் அழிக்கிறேன், பின்னர்',
+    'ஒரு poppy மலர்கிறது.'
   ]
 };
 
@@ -1208,9 +1208,9 @@ hr {
 
 </Sandpack>
 
-Using the original line index as a `key` doesn't work anymore because each separator and paragraph are now in the same array. However, you can give each of them a distinct key using a suffix, e.g. `key={i + '-text'}`.
+Original line index-ஐ `key` ஆக பயன்படுத்துவது இனி வேலை செய்யாது; ஏனெனில் ஒவ்வொரு separator மற்றும் paragraph இப்போது ஒரே array-இல் உள்ளன. ஆனால் suffix பயன்படுத்தி ஒவ்வொன்றுக்கும் தனித்த key தரலாம், உதாரணமாக `key={i + '-text'}`.
 
-Alternatively, you could render a collection of Fragments which contain `<hr />` and `<p>...</p>`. However, the `<>...</>` shorthand syntax doesn't support passing keys, so you'd have to write `<Fragment>` explicitly:
+மாற்றாக, `<hr />` மற்றும் `<p>...</p>` கொண்ட Fragments collection ஒன்றை render செய்யலாம். ஆனால் `<>...</>` shorthand syntax keys pass செய்வதை support செய்யாது; எனவே `<Fragment>`-ஐ explicit ஆக எழுத வேண்டும்:
 
 <Sandpack>
 
@@ -1219,9 +1219,9 @@ import { Fragment } from 'react';
 
 const poem = {
   lines: [
-    'I write, erase, rewrite',
-    'Erase again, and then',
-    'A poppy blooms.'
+    'நான் எழுதுகிறேன், அழிக்கிறேன், மீண்டும் எழுதுகிறேன்',
+    'மீண்டும் அழிக்கிறேன், பின்னர்',
+    'ஒரு poppy மலர்கிறது.'
   ]
 };
 
@@ -1256,7 +1256,7 @@ hr {
 
 </Sandpack>
 
-Remember, Fragments (often written as `<> </>`) let you group JSX nodes without adding extra `<div>`s!
+நினைவில் கொள்ளுங்கள்: Fragments (அடிக்கடி `<> </>` என்று எழுதப்படும்) கூடுதல் `<div>`s சேர்க்காமல் JSX nodes-ஐ group செய்ய அனுமதிக்கின்றன!
 
 </Solution>
 

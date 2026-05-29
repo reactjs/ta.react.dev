@@ -4,37 +4,37 @@ title: "React DOM Components"
 
 <Intro>
 
-React supports all of the browser built-in [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML/Element) and [SVG](https://developer.mozilla.org/en-US/docs/Web/SVG/Element) components.
+உலாவியில் உள்ளமைந்த அனைத்து [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML/Element) மற்றும் [SVG](https://developer.mozilla.org/en-US/docs/Web/SVG/Element) components-ஐ React support செய்கிறது.
 
 </Intro>
 
 ---
 
-## Common components {/*common-components*/}
+## பொதுவான components {/*common-components*/}
 
-All of the built-in browser components support some props and events.
+உலாவியில் உள்ளமைந்த அனைத்து components சில props மற்றும் events-ஐ support செய்கின்றன.
 
-* [Common components (e.g. `<div>`)](/reference/react-dom/components/common)
+* [பொதுவான components (எ.கா. `<div>`)](/reference/react-dom/components/common)
 
-This includes React-specific props like `ref` and `dangerouslySetInnerHTML`.
+இதில் `ref` மற்றும் `dangerouslySetInnerHTML` போன்ற React-specific props அடங்கும்.
 
 ---
 
 ## Form components {/*form-components*/}
 
-These built-in browser components accept user input:
+உலாவியில் உள்ளமைந்த இந்த components user input-ஐ ஏற்கின்றன:
 
 * [`<input>`](/reference/react-dom/components/input)
 * [`<select>`](/reference/react-dom/components/select)
 * [`<textarea>`](/reference/react-dom/components/textarea)
 
-They are special in React because passing the `value` prop to them makes them *[controlled.](/reference/react-dom/components/input#controlling-an-input-with-a-state-variable)*
+இவை React-இல் சிறப்பு வாய்ந்தவை; ஏனெனில் `value` prop-ஐ இவற்றுக்கு pass செய்தால் அவை *[controlled](/reference/react-dom/components/input#controlling-an-input-with-a-state-variable)* ஆகும்.
 
 ---
 
-## Resource and Metadata Components {/*resource-and-metadata-components*/}
+## Resource மற்றும் metadata components {/*resource-and-metadata-components*/}
 
-These built-in browser components let you load external resources or annotate the document with metadata:
+உலாவியில் உள்ளமைந்த இந்த components external resources load செய்யவோ document-ஐ metadata உடன் annotate செய்யவோ உதவுகின்றன:
 
 * [`<link>`](/reference/react-dom/components/link)
 * [`<meta>`](/reference/react-dom/components/meta)
@@ -42,13 +42,13 @@ These built-in browser components let you load external resources or annotate th
 * [`<style>`](/reference/react-dom/components/style)
 * [`<title>`](/reference/react-dom/components/title)
 
-They are special in React because React can render them into the document head, suspend while resources are loading, and enact other behaviors that are described on the reference page for each specific component.
+இவை React-இல் சிறப்பு வாய்ந்தவை; ஏனெனில் React அவற்றை document head-இல் render செய்யவும், resources load ஆகும் போது suspend செய்யவும், குறிப்பிட்ட ஒவ்வொரு component-ன் reference page-இல் விவரிக்கப்பட்டுள்ள பிற behaviors-ஐ செயல்படுத்தவும் முடியும்.
 
 ---
 
-## All HTML components {/*all-html-components*/}
+## அனைத்து HTML components {/*all-html-components*/}
 
-React supports all built-in browser HTML components. This includes:
+உலாவியில் உள்ளமைந்த அனைத்து HTML components-ஐ React support செய்கிறது. இதில் அடங்குபவை:
 
 * [`<aside>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/aside)
 * [`<audio>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/audio)
@@ -154,7 +154,7 @@ React supports all built-in browser HTML components. This includes:
 
 <Note>
 
-Similar to the [DOM standard,](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model) React uses a `camelCase` convention for prop names. For example, you'll write `tabIndex` instead of `tabindex`. You can convert existing HTML to JSX with an [online converter.](https://transform.tools/html-to-jsx)
+[DOM standard](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model) போலவே, prop names-க்கு React `camelCase` convention-ஐப் பயன்படுத்துகிறது. உதாரணமாக, `tabindex`-க்கு பதிலாக `tabIndex` எழுதுவீர்கள். Existing HTML-ஐ JSX-ஆக மாற்ற [online converter](https://transform.tools/html-to-jsx) பயன்படுத்தலாம்.
 
 </Note>
 
@@ -162,31 +162,31 @@ Similar to the [DOM standard,](https://developer.mozilla.org/en-US/docs/Web/API/
 
 ### Custom HTML elements {/*custom-html-elements*/}
 
-If you render a tag with a dash, like `<my-element>`, React will assume you want to render a [custom HTML element.](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements)
+`<my-element>` போல dash கொண்ட tag-ஐ render செய்தால், நீங்கள் [custom HTML element](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements) render செய்ய விரும்புகிறீர்கள் என்று React கருதும்.
 
-If you render a built-in browser HTML element with an [`is`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/is) attribute, it will also be treated as a custom element.
+உலாவியில் உள்ளமைந்த HTML element-ஐ [`is`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/is) attribute உடன் render செய்தாலும், அது custom element ஆகவே நடத்தப்படும்.
 
-#### Setting values on custom elements {/*attributes-vs-properties*/}
+#### Custom elements-இல் values set செய்தல் {/*attributes-vs-properties*/}
 
-Custom elements have two methods of passing data into them:
+Custom elements-க்கு data pass செய்ய இரண்டு முறைகள் உள்ளன:
 
-1) Attributes: Which are displayed in markup and can only be set to string values
-2) Properties: Which are not displayed in markup and can be set to arbitrary JavaScript values
+1. Attributes: Markup-இல் display ஆகும்; string values-க்கு மட்டுமே set செய்ய முடியும்
+2. Properties: Markup-இல் display ஆகாது; arbitrary JavaScript values-க்கு set செய்ய முடியும்
 
-By default, React will pass values bound in JSX as attributes:
+Default-ஆக, JSX-இல் bound செய்யப்பட்ட values-ஐ React attributes ஆக pass செய்யும்:
 
 ```jsx
 <my-element value="Hello, world!"></my-element>
 ```
 
-Non-string JavaScript values passed to custom elements will be serialized by default:
+Custom elements-க்கு pass செய்யப்படும் non-string JavaScript values default-ஆக serialize செய்யப்படும்:
 
 ```jsx
 // Will be passed as `"1,2,3"` as the output of `[1,2,3].toString()`
 <my-element value={[1,2,3]}></my-element>
 ```
 
-React will, however, recognize an custom element's property as one that it may pass arbitrary values to if the property name shows up on the class during construction:
+ஆனால் construction நேரத்தில் class-இல் property name தோன்றினால், custom element-ன் அந்த property arbitrary values pass செய்யக்கூடியது என்று React அறிந்துகொள்ளும்:
 
 <Sandpack>
 
@@ -224,9 +224,9 @@ export function App() {
 
 </Sandpack>
 
-#### Listening for events on custom elements {/*custom-element-events*/}
+#### Custom elements-இல் events கேட்குதல் {/*custom-element-events*/}
 
-A common pattern when using custom elements is that they may dispatch [`CustomEvent`s](https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent) rather than accept a function to call when an event occur. You can listen for these events using an `on` prefix when binding to the event via JSX.
+Custom elements பயன்படுத்தும்போது பொதுவான pattern: event ஏற்படும் போது call செய்ய function ஏற்குவதற்குப் பதிலாக அவை [`CustomEvent`s](https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent) dispatch செய்யலாம். JSX மூலம் event-க்கு bind செய்யும்போது `on` prefix பயன்படுத்தி இந்த events-ஐ listen செய்யலாம்.
 
 <Sandpack>
 
@@ -285,7 +285,7 @@ export function App() {
 
 <Note>
 
-Events are case-sensitive and support dashes (`-`). Preserve the casing of the event and include all dashes when listening for custom element's events:
+Events case-sensitive; dash (`-`) support செய்கின்றன. Custom element events-ஐ listen செய்யும்போது event casing-ஐ preserve செய்து அனைத்து dashes-ஐயும் சேர்க்கவும்:
 
 ```jsx
 // Listens for `say-hi` events
@@ -297,9 +297,9 @@ Events are case-sensitive and support dashes (`-`). Preserve the casing of the e
 </Note>
 ---
 
-## All SVG components {/*all-svg-components*/}
+## அனைத்து SVG components {/*all-svg-components*/}
 
-React supports all built-in browser SVG components. This includes:
+உலாவியில் உள்ளமைந்த அனைத்து SVG components-ஐ React support செய்கிறது. இதில் அடங்குபவை:
 
 * [`<a>`](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/a)
 * [`<animate>`](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/animate)
@@ -370,20 +370,20 @@ React supports all built-in browser SVG components. This includes:
 
 <Note>
 
-Similar to the [DOM standard,](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model) React uses a `camelCase` convention for prop names. For example, you'll write `tabIndex` instead of `tabindex`. You can convert existing SVG to JSX with an [online converter.](https://transform.tools/)
+[DOM standard](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model) போலவே, prop names-க்கு React `camelCase` convention-ஐப் பயன்படுத்துகிறது. உதாரணமாக, `tabindex`-க்கு பதிலாக `tabIndex` எழுதுவீர்கள். Existing SVG-ஐ JSX-ஆக மாற்ற [online converter](https://transform.tools/) பயன்படுத்தலாம்.
 
-Namespaced attributes also have to be written without the colon:
+Namespaced attributes-ஐயும் colon இல்லாமல் எழுத வேண்டும்:
 
-* `xlink:actuate` becomes `xlinkActuate`.
-* `xlink:arcrole` becomes `xlinkArcrole`.
-* `xlink:href` becomes `xlinkHref`.
-* `xlink:role` becomes `xlinkRole`.
-* `xlink:show` becomes `xlinkShow`.
-* `xlink:title` becomes `xlinkTitle`.
-* `xlink:type` becomes `xlinkType`.
-* `xml:base` becomes `xmlBase`.
-* `xml:lang` becomes `xmlLang`.
-* `xml:space` becomes `xmlSpace`.
-* `xmlns:xlink` becomes `xmlnsXlink`.
+* `xlink:actuate` என்பது `xlinkActuate` ஆகும்.
+* `xlink:arcrole` என்பது `xlinkArcrole` ஆகும்.
+* `xlink:href` என்பது `xlinkHref` ஆகும்.
+* `xlink:role` என்பது `xlinkRole` ஆகும்.
+* `xlink:show` என்பது `xlinkShow` ஆகும்.
+* `xlink:title` என்பது `xlinkTitle` ஆகும்.
+* `xlink:type` என்பது `xlinkType` ஆகும்.
+* `xml:base` என்பது `xmlBase` ஆகும்.
+* `xml:lang` என்பது `xmlLang` ஆகும்.
+* `xml:space` என்பது `xmlSpace` ஆகும்.
+* `xmlns:xlink` என்பது `xmlnsXlink` ஆகும்.
 
 </Note>

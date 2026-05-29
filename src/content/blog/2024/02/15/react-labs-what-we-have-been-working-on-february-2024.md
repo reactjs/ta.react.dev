@@ -1,8 +1,8 @@
 ---
-title: "React Labs: What We've Been Working On – February 2024"
+title: "React Labs: நாங்கள் செய்து கொண்டிருப்பவை – February 2024"
 author: Joseph Savona, Ricky Hanlon, Andrew Clark, Matt Carroll, and Dan Abramov
 date: 2024/02/15
-description: In React Labs posts, we write about projects in active research and development. We’ve made significant progress since our last update, and we’d like to share our progress.
+description: React Labs posts-இல், active research மற்றும் development-இல் உள்ள projects பற்றி எழுதுகிறோம். எங்கள் கடைசி update-க்கு பிறகு குறிப்பிடத்தக்க முன்னேற்றம் செய்துள்ளோம்; எங்கள் முன்னேற்றத்தை பகிர விரும்புகிறோம்.
 ---
 
 February 15, 2024 by [Joseph Savona](https://twitter.com/en_JS), [Ricky Hanlon](https://twitter.com/rickhanlonii), [Andrew Clark](https://twitter.com/acdlite), [Matt Carroll](https://twitter.com/mattcarrollcode), and [Dan Abramov](https://bsky.app/profile/danabra.mov).
@@ -11,7 +11,7 @@ February 15, 2024 by [Joseph Savona](https://twitter.com/en_JS), [Ricky Hanlon](
 
 <Intro>
 
-In React Labs posts, we write about projects in active research and development. We’ve made significant progress since our [last update](/blog/2023/03/22/react-labs-what-we-have-been-working-on-march-2023), and we’d like to share our progress.
+React Labs posts-இல், active research மற்றும் development-இல் உள்ள projects பற்றி எழுதுகிறோம். எங்கள் [கடைசி update](/blog/2023/03/22/react-labs-what-we-have-been-working-on-march-2023)-க்கு பிறகு குறிப்பிடத்தக்க முன்னேற்றம் செய்துள்ளோம்; எங்கள் முன்னேற்றத்தை பகிர விரும்புகிறோம்.
 
 </Intro>
 
@@ -19,26 +19,26 @@ In React Labs posts, we write about projects in active research and development.
 
 ## React Compiler {/*react-compiler*/}
 
-React Compiler is no longer a research project: the compiler now powers instagram.com in production, and we are working to ship the compiler across additional surfaces at Meta and to prepare the first open source release.
+React Compiler இனி research project அல்ல: compiler இப்போது production-இல் instagram.com-ஐ இயக்குகிறது; மேலும் Meta-வில் கூடுதல் surfaces முழுவதும் compiler-ஐ ship செய்யவும் முதல் open source release-ஐத் தயாரிக்கவும் பணியாற்றுகிறோம்.
 
-As discussed in our [previous post](/blog/2023/03/22/react-labs-what-we-have-been-working-on-march-2023#react-optimizing-compiler), React can *sometimes* re-render too much when state changes. Since the early days of React our solution for such cases has been manual memoization. In our current APIs, this means applying the [`useMemo`](/reference/react/useMemo), [`useCallback`](/reference/react/useCallback), and [`memo`](/reference/react/memo) APIs to manually tune how much React re-renders on state changes. But manual memoization is a compromise. It clutters up our code, is easy to get wrong, and requires extra work to keep up to date.
+எங்கள் [முந்தைய post](/blog/2023/03/22/react-labs-what-we-have-been-working-on-march-2023#react-optimizing-compiler)-இல் விவாதித்தபடி, state மாறும்போது React *சில நேரங்களில்* அதிகமாக re-render செய்யலாம். React-ன் ஆரம்ப நாட்களிலிருந்தே அத்தகைய cases-க்கு எங்கள் solution manual memoization ஆக இருந்தது. தற்போதைய APIs-இல், state changes-இல் React எவ்வளவு re-render செய்ய வேண்டும் என்பதை manually tune செய்ய [`useMemo`](/reference/react/useMemo), [`useCallback`](/reference/react/useCallback), மற்றும் [`memo`](/reference/react/memo) APIs பயன்படுத்துவது என்று இதன் பொருள். ஆனால் manual memoization ஒரு compromise. அது code-ஐ clutter செய்கிறது, தவறாகப் பயன்படுத்த சாத்தியம், மேலும் update ஆக வைத்திருக்க கூடுதல் வேலை தேவை.
 
-Manual memoization is a reasonable compromise, but we weren’t satisfied. Our vision is for React to *automatically* re-render just the right parts of the UI when state changes, *without compromising on React’s core mental model*. We believe that React’s approach — UI as a simple function of state, with standard JavaScript values and idioms — is a key part of why React has been approachable for so many developers. That’s why we’ve invested in building an optimizing compiler for React.
+Manual memoization ஒரு நியாயமான compromise என்றாலும், அதில் நாங்கள் திருப்தியடையவில்லை. State மாறும் போது UI-யின் சரியான பகுதிகளை மட்டும் React *தானாக* re-render செய்ய வேண்டும், அதுவும் *React-ன் core mental model-இல் compromise இல்லாமல்* என்பதே எங்கள் vision. Standard JavaScript values மற்றும் idioms உடன் UI-ஐ state-ன் நேரடியான function ஆக பார்க்கும் React-ன் அணுகுமுறை, பல developers-க்கு React அணுகத்தக்கதாக இருந்ததற்கான முக்கிய காரணம் என்று நாங்கள் நம்புகிறோம். அதனால்தான் React-க்கான optimizing compiler உருவாக்க முதலீடு செய்துள்ளோம்.
 
-JavaScript is a notoriously challenging language to optimize, thanks to its loose rules and dynamic nature. React Compiler is able to compile code safely by modeling both the rules of JavaScript *and* the “rules of React”. For example, React components must be idempotent — returning the same value given the same inputs — and can’t mutate props or state values. These rules limit what developers can do and help to carve out a safe space for the compiler to optimize.
+JavaScript-ன் loose rules மற்றும் dynamic nature காரணமாக அதை optimize செய்வது மிகவும் சவாலானது. JavaScript-ன் rules *மற்றும்* “rules of React” இரண்டையும் model செய்வதன் மூலம் React Compiler code-ஐ பாதுகாப்பாக compile செய்ய முடிகிறது. உதாரணமாக, React components idempotent ஆக இருக்க வேண்டும், அதாவது அதே inputs கொடுத்தால் அதே value return செய்ய வேண்டும், மேலும் props அல்லது state values-ஐ mutate செய்யக்கூடாது. இந்த rules developers என்ன செய்ய முடியும் என்பதைக் கட்டுப்படுத்தி, compiler optimize செய்ய பாதுகாப்பான இடத்தை உருவாக்க உதவுகின்றன.
 
-Of course, we understand that developers sometimes bend the rules a bit, and our goal is to make React Compiler work out of the box on as much code as possible. The compiler attempts to detect when code doesn’t strictly follow React’s rules and will either compile the code where safe or skip compilation if it isn’t safe. We’re testing against Meta’s large and varied codebase in order to help validate this approach.
+நிச்சயமாக, developers சில நேரங்களில் rules-ஐ ஓரளவு வளைப்பார்கள் என்பதை நாங்கள் புரிந்துகொள்கிறோம்; React Compiler அதிகமான code-இல் out of the box வேலை செய்ய வேண்டும் என்பதே எங்கள் இலக்கு. Code React-ன் rules-ஐ strict-ஆகப் பின்பற்றாதபோது compiler அதை detect செய்ய முயற்சிக்கும்; பாதுகாப்பான இடங்களில் code-ஐ compile செய்யும் அல்லது பாதுகாப்பாக இல்லாவிட்டால் compilation-ஐ skip செய்யும். இந்த அணுகுமுறையை validate செய்ய Meta-வின் பெரிய மற்றும் பல்வகை codebase-க்கு எதிராக test செய்கிறோம்.
 
-For developers who are curious about making sure their code follows React’s rules, we recommend [enabling Strict Mode](/reference/react/StrictMode) and [configuring React’s ESLint plugin](/learn/editor-setup#linting). These tools can help to catch subtle bugs in your React code, improving the quality of your applications today, and future-proofs your applications for upcoming features such as React Compiler. We are also working on consolidated documentation of the rules of React and updates to our ESLint plugin to help teams understand and apply these rules to create more robust apps.
+தங்கள் code React-ன் rules-ஐப் பின்பற்றுகிறதா என்பதை உறுதி செய்ய ஆர்வமுள்ள developers-க்கு, [Strict Mode enable செய்ய](/reference/react/StrictMode) மற்றும் [React-ன் ESLint plugin configure செய்ய](/learn/editor-setup#linting) பரிந்துரைக்கிறோம். இந்த tools உங்கள் React code-இல் subtle bugs-ஐப் பிடிக்க உதவும்; இன்று உங்கள் applications-ன் quality-ஐ மேம்படுத்தும்; React Compiler போன்ற வரவிருக்கும் features-க்கு உங்கள் applications-ஐ future-proof செய்யும். Teams இந்த rules-ஐ புரிந்து கொண்டு apply செய்து இன்னும் robust apps உருவாக்க உதவ, React-ன் rules குறித்த consolidated documentation மற்றும் எங்கள் ESLint plugin updates-லிலும் பணியாற்றுகிறோம்.
 
-To see the compiler in action, you can check out our [talk from last fall](https://www.youtube.com/watch?v=qOQClO3g8-Y). At the time of the talk, we had early experimental data from trying React Compiler on one page of instagram.com. Since then, we shipped the compiler to production across instagram.com. We’ve also expanded our team to accelerate the rollout to additional surfaces at Meta and to open source. We’re excited about the path ahead and will have more to share in the coming months.
+Compiler செயல்படுவதைக் காண, கடந்த fall-இல் எங்கள் [talk](https://www.youtube.com/watch?v=qOQClO3g8-Y)-ஐ பார்க்கலாம். Talk நடந்த நேரத்தில், instagram.com-ன் ஒரு page-இல் React Compiler-ஐ முயற்சித்த early experimental data எங்களிடம் இருந்தது. அதன் பிறகு, instagram.com முழுவதும் compiler-ஐ production-க்கு ship செய்தோம். Meta-வில் கூடுதல் surfaces மற்றும் open source-க்கு rollout-ஐ வேகப்படுத்த எங்கள் team-ஐயும் விரிவாக்கியுள்ளோம். முன் இருக்கும் பாதையைப் பற்றி உற்சாகமாக உள்ளோம்; வரும் மாதங்களில் பகிர மேலும் விஷயங்கள் இருக்கும்.
 
 ## Actions {/*actions*/}
 
 
-We [previously shared](/blog/2023/03/22/react-labs-what-we-have-been-working-on-march-2023#react-server-components) that we were exploring solutions for sending data from the client to the server with Server Actions, so that you can execute database mutations and implement forms. During development of Server Actions, we extended these APIs to support data handling in client-only applications as well.
+Database mutations execute செய்து forms implement செய்ய, Server Actions மூலம் client-இலிருந்து server-க்கு data அனுப்ப solutions-ஐ ஆராய்ந்து வருகிறோம் என்று [முன்பு பகிர்ந்தோம்](/blog/2023/03/22/react-labs-what-we-have-been-working-on-march-2023#react-server-components). Server Actions development-இன் போது, client-only applications-இலும் data handling support செய்ய இந்த APIs-ஐ விரிவாக்கினோம்.
 
-We refer to this broader collection of features as simply "Actions". Actions allow you to pass a function to DOM elements such as [`<form/>`](/reference/react-dom/components/form):
+இந்த விரிவான feature தொகுப்பை நேரடியாக "Actions" என்று அழைக்கிறோம். Actions, [`<form/>`](/reference/react-dom/components/form) போன்ற DOM elements-க்கு function pass செய்ய அனுமதிக்கின்றன:
 
 ```js
 <form action={search}>
@@ -47,66 +47,66 @@ We refer to this broader collection of features as simply "Actions". Actions all
 </form>
 ```
 
-The `action` function can operate synchronously or asynchronously. You can define them on the client side using standard JavaScript or on the server with the  [`'use server'`](/reference/rsc/use-server) directive. When using an action, React will manage the life cycle of the data submission for you, providing hooks like [`useFormStatus`](/reference/react-dom/hooks/useFormStatus), and [`useActionState`](/reference/react/useActionState) to access the current state and response of the form action.
+`action` function synchronous-ஆகவும் asynchronous-ஆகவும் இயங்க முடியும். Standard JavaScript பயன்படுத்தி client side-இல் அல்லது [`'use server'`](/reference/rsc/use-server) directive உடன் server-இல் அவற்றை define செய்யலாம். Action பயன்படுத்தும் போது, data submission-ன் life cycle-ஐ React உங்களுக்காக manage செய்யும்; form action-ன் current state மற்றும் response-ஐ access செய்ய [`useFormStatus`](/reference/react-dom/hooks/useFormStatus) மற்றும் [`useActionState`](/reference/react/useActionState) போன்ற hooks வழங்கப்படும்.
 
-By default, Actions are submitted within a [transition](/reference/react/useTransition), keeping the current page interactive while the action is processing. Since Actions support async functions, we've also added the ability to use `async/await` in transitions. This allows you to show pending UI with the `isPending` state of a transition when an async request like `fetch` starts, and show the pending UI all the way through the update being applied.
+Default-ஆக, Actions ஒரு [transition](/reference/react/useTransition)-க்குள் submit செய்யப்படும்; action process ஆகும் போது current page interactive-ஆக இருக்கும். Actions async functions-க்கு support தருவதால், transitions-இல் `async/await` பயன்படுத்தும் திறனையும் சேர்த்துள்ளோம். `fetch` போன்ற async request தொடங்கும் போது transition-ன் `isPending` state மூலம் pending UI காட்டவும், update apply ஆகும் வரை அந்த pending UI-ஐ தொடரவும் இதனால் முடியும்.
 
-Alongside Actions, we're introducing a feature named [`useOptimistic`](/reference/react/useOptimistic) for managing optimistic state updates. With this hook, you can apply temporary updates that are automatically reverted once the final state commits. For Actions, this allows you to optimistically set the final state of the data on the client, assuming the submission is successful, and revert to the value for data received from the server. It works using regular `async`/`await`, so it works the same whether you're using `fetch` on the client, or a Server Action from the server.
+Actions-க்கு இணையாக, optimistic state updates manage செய்ய [`useOptimistic`](/reference/react/useOptimistic) என்ற feature-ஐ அறிமுகப்படுத்துகிறோம். இந்த hook மூலம், final state commit ஆனதும் தானாக revert ஆகும் temporary updates-ஐ apply செய்யலாம். Actions-க்கு, submission வெற்றிகரமாக இருக்கும் என்று கருதி client-இல் data-வின் final state-ஐ optimistically set செய்து, server-இலிருந்து கிடைக்கும் data value-க்கு revert செய்ய இது அனுமதிக்கிறது. இது சாதாரண `async`/`await` பயன்படுத்தி இயங்குவதால், client-இல் `fetch` பயன்படுத்தினாலும் server-இலிருந்து Server Action பயன்படுத்தினாலும் ஒரேபோல் வேலை செய்கிறது.
 
-Library authors can implement custom `action={fn}` props in their own components with `useTransition`. Our intent is for libraries to adopt the Actions pattern when designing their component APIs, to provide a consistent experience for React developers. For example, if your library provides a `<Calendar onSelect={eventHandler}>` component, consider also exposing a `<Calendar selectAction={action}>` API, too.
+Library authors தங்கள் சொந்த components-இல் `useTransition` மூலம் custom `action={fn}` props implement செய்யலாம். React developers-க்கு consistent experience வழங்க, component APIs design செய்யும் போது libraries Actions pattern-ஐ adopt செய்ய வேண்டும் என்பதே எங்கள் நோக்கம். உதாரணமாக, உங்கள் library `<Calendar onSelect={eventHandler}>` component வழங்கினால், `<Calendar selectAction={action}>` API-யையும் expose செய்வதை பரிசீலிக்கவும்.
 
-While we initially focused on Server Actions for client-server data transfer, our philosophy for React is to provide the same programming model across all platforms and environments. When possible, if we introduce a feature on the client, we aim to make it also work on the server, and vice versa. This philosophy allows us to create a single set of APIs that work no matter where your app runs, making it easier to upgrade to different environments later.
+முதல் கட்டத்தில் client-server data transfer-க்கான Server Actions மீது கவனம் செலுத்தினாலும், React-க்கான எங்கள் philosophy எல்லா platforms மற்றும் environments முழுவதும் ஒரே programming model வழங்குவது. சாத்தியமான போது, client-இல் feature ஒன்றை அறிமுகப்படுத்தினால் அதை server-இலும் வேலை செய்யச் செய்வதே எங்கள் நோக்கம்; அதேபோல் மாறாகவும். உங்கள் app எங்கு run ஆனாலும் வேலை செய்யும் single set of APIs உருவாக்க இந்த philosophy உதவுகிறது; பின்னர் வேறு environments-க்கு upgrade செய்வதும் மேம்படுகிறது.
 
-Actions are now available in the Canary channel and will ship in the next release of React.
+Actions இப்போது Canary channel-இல் கிடைக்கின்றன; React-ன் அடுத்த release-இல் ship ஆகும்.
 
-## New Features in React Canary {/*new-features-in-react-canary*/}
+## React Canary-யில் புதிய features {/*new-features-in-react-canary*/}
 
-We introduced [React Canaries](/blog/2023/05/03/react-canaries) as an option to adopt individual new stable features as soon as their design is close to final, before they’re released in a stable semver version.
+புதிய stable features-ன் design இறுதி நிலைக்கு நெருக்கமாக வந்தவுடன், stable semver version-இல் release ஆகும்முன் அவற்றை adopt செய்யும் option ஆக [React Canaries](/blog/2023/05/03/react-canaries)-ஐ அறிமுகப்படுத்தினோம்.
 
-Canaries are a change to the way we develop React. Previously, features would be researched and built privately inside of Meta, so users would only see the final polished product when released to Stable. With Canaries, we’re building in public with the help of the community to finalize features we share in the React Labs blog series. This means you hear about new features sooner, as they’re being finalized instead of after they’re complete.
+Canaries என்பது React-ஐ நாங்கள் develop செய்யும் முறையில் ஏற்பட்ட மாற்றம். முன்பு features Meta-க்குள் private-ஆக research செய்து build செய்யப்பட்டன; எனவே Stable-க்கு release ஆனபோது மட்டுமே users இறுதி polished product-ஐ பார்த்தனர். Canaries மூலம், React Labs blog series-இல் பகிரும் features-ஐ finalize செய்ய community உதவியுடன் public-ஆக build செய்கிறோம். இதனால் features முழுமையாக முடிந்த பிறகு அல்லாமல், அவை finalize ஆகும் போதே அவற்றைப் பற்றி நீங்கள் விரைவாகக் கேட்கிறீர்கள்.
 
-React Server Components, Asset Loading, Document Metadata, and Actions have all landed in the React Canary, and we've added docs for these features on react.dev:
+React Server Components, Asset Loading, Document Metadata, மற்றும் Actions அனைத்தும் React Canary-யில் வந்துள்ளன; react.dev-இல் இந்த features-க்கான docs சேர்த்துள்ளோம்:
 
-- **Directives**: [`"use client"`](/reference/rsc/use-client) and [`"use server"`](/reference/rsc/use-server) are bundler features designed for full-stack React frameworks. They mark the "split points" between the two environments: `"use client"` instructs the bundler to generate a `<script>` tag (like [Astro Islands](https://docs.astro.build/en/concepts/islands/#creating-an-island)), while `"use server"` tells the bundler to generate a POST endpoint (like [tRPC Mutations](https://trpc.io/docs/concepts)). Together, they let you write reusable components that compose client-side interactivity with the related server-side logic.
+- **Directives**: [`"use client"`](/reference/rsc/use-client) மற்றும் [`"use server"`](/reference/rsc/use-server) ஆகியவை full-stack React frameworks-க்காக வடிவமைக்கப்பட்ட bundler features. அவை இரண்டு environments இடையிலான "split points"-ஐ குறிக்கின்றன: `"use client"` bundler-க்கு `<script>` tag உருவாக்க சொல்லும் ([Astro Islands](https://docs.astro.build/en/concepts/islands/#creating-an-island) போல); `"use server"` bundler-க்கு POST endpoint உருவாக்க சொல்லும் ([tRPC Mutations](https://trpc.io/docs/concepts) போல). ஒன்றாக, client-side interactivity-யை தொடர்புடைய server-side logic உடன் compose செய்யும் reusable components எழுத இவை அனுமதிக்கின்றன.
 
-- **Document Metadata**: we added built-in support for rendering [`<title>`](/reference/react-dom/components/title), [`<meta>`](/reference/react-dom/components/meta), and metadata [`<link>`](/reference/react-dom/components/link) tags anywhere in your component tree. These work the same way in all environments, including fully client-side code, SSR, and RSC. This provides built-in support for features pioneered by libraries like [React Helmet](https://github.com/nfl/react-helmet).
+- **Document Metadata**: உங்கள் component tree-இல் எங்கிருந்தும் [`<title>`](/reference/react-dom/components/title), [`<meta>`](/reference/react-dom/components/meta), மற்றும் metadata [`<link>`](/reference/react-dom/components/link) tags render செய்ய built-in support சேர்த்துள்ளோம். Fully client-side code, SSR, மற்றும் RSC உட்பட எல்லா environments-லும் இவை ஒரேபோல் வேலை செய்கின்றன. [React Helmet](https://github.com/nfl/react-helmet) போன்ற libraries முன்னோடியாக கொண்டு வந்த features-க்கு built-in support இதனால் கிடைக்கிறது.
 
-- **Asset Loading**: we integrated Suspense with the loading lifecycle of resources such as stylesheets, fonts, and scripts so that React takes them into account to determine whether the content in elements like [`<style>`](/reference/react-dom/components/style), [`<link>`](/reference/react-dom/components/link), and [`<script>`](/reference/react-dom/components/script) are ready to be displayed. We’ve also added new [Resource Loading APIs](/reference/react-dom#resource-preloading-apis) like `preload` and `preinit` to provide greater control for when a resource should load and initialize.
+- **Asset Loading**: stylesheets, fonts, மற்றும் scripts போன்ற resources-ன் loading lifecycle உடன் Suspense-ஐ integrate செய்துள்ளோம்; இதனால் [`<style>`](/reference/react-dom/components/style), [`<link>`](/reference/react-dom/components/link), மற்றும் [`<script>`](/reference/react-dom/components/script) போன்ற elements-இலுள்ள content display செய்ய தயாரா என்பதை React தீர்மானிக்கும் போது அவற்றையும் கணக்கில் கொள்ளும். Resource எப்போது load மற்றும் initialize ஆக வேண்டும் என்பதில் அதிக control வழங்க, `preload` மற்றும் `preinit` போன்ற புதிய [Resource Loading APIs](/reference/react-dom#resource-preloading-apis)-யையும் சேர்த்துள்ளோம்.
 
-- **Actions**: As shared above, we've added Actions to manage sending data from the client to the server. You can add `action` to elements like [`<form/>`](/reference/react-dom/components/form), access the status with [`useFormStatus`](/reference/react-dom/hooks/useFormStatus), handle the result with [`useActionState`](/reference/react/useActionState), and optimistically update the UI with [`useOptimistic`](/reference/react/useOptimistic).
+- **Actions**: மேலே பகிர்ந்தபடி, client-இலிருந்து server-க்கு data அனுப்புவதை manage செய்ய Actions சேர்த்துள்ளோம். [`<form/>`](/reference/react-dom/components/form) போன்ற elements-க்கு `action` சேர்க்கலாம்; [`useFormStatus`](/reference/react-dom/hooks/useFormStatus) மூலம் status-ஐ access செய்யலாம்; [`useActionState`](/reference/react/useActionState) மூலம் result-ஐ handle செய்யலாம்; [`useOptimistic`](/reference/react/useOptimistic) மூலம் UI-ஐ optimistically update செய்யலாம்.
 
-Since all of these features work together, it’s difficult to release them in the Stable channel individually. Releasing Actions without the complementary hooks for accessing form states would limit the practical usability of Actions. Introducing React Server Components without integrating Server Actions would complicate modifying data on the server.
+இந்த features அனைத்தும் ஒன்றாக வேலை செய்வதால், அவற்றை Stable channel-இல் தனித்தனியாக release செய்வது கடினம். Form states access செய்ய complementary hooks இல்லாமல் Actions release செய்தால், Actions-ன் practical usability குறையும். Server Actions integrate செய்யாமல் React Server Components அறிமுகப்படுத்தினால், server-இல் data modify செய்வது சிக்கலாகும்.
 
-Before we can release a set of features to the Stable channel, we need to ensure they work cohesively and developers have everything they need to use them in production. React Canaries allow us to develop these features individually, and release the stable APIs incrementally until the entire feature set is complete.
+ஒரு feature தொகுப்பை Stable channel-க்கு release செய்யும் முன், அவை cohesively வேலை செய்கின்றனவா மற்றும் production-இல் பயன்படுத்த developers-க்கு தேவையான அனைத்தும் உள்ளதா என்பதை உறுதி செய்ய வேண்டும். React Canaries, இந்த features-ஐ தனித்தனியாக develop செய்து, முழு feature set முடியும் வரை stable APIs-ஐ incrementally release செய்ய அனுமதிக்கின்றன.
 
-The current set of features in React Canary are complete and ready to release.
+React Canary-யில் உள்ள தற்போதைய feature set முழுமையாக உள்ளது; release செய்ய தயாராக உள்ளது.
 
-## The Next Major Version of React {/*the-next-major-version-of-react*/}
+## React-ன் அடுத்த major version {/*the-next-major-version-of-react*/}
 
-After a couple of years of iteration, `react@canary` is now ready to ship to `react@latest`. The new features mentioned above are compatible with any environment your app runs in, providing everything needed for production use. Since Asset Loading and Document Metadata may be a breaking change for some apps, the next version of React will be a major version: **React 19**.
+சில ஆண்டுகள் iteration-க்கு பிறகு, `react@canary` இப்போது `react@latest`-க்கு ship ஆக தயாராக உள்ளது. மேலே கூறிய புதிய features, உங்கள் app run ஆகும் எந்த environment உடனும் compatible ஆக இருந்து, production use-க்கு தேவையான அனைத்தையும் வழங்குகின்றன. Asset Loading மற்றும் Document Metadata சில apps-க்கு breaking change ஆக இருக்கலாம் என்பதால், React-ன் அடுத்த version major version ஆக இருக்கும்: **React 19**.
 
-There’s still more to be done to prepare for release. In React 19, we’re also adding long-requested improvements which require breaking changes like support for Web Components. Our focus now is to land these changes, prepare for release, finalize docs for new features, and publish announcements for what’s included.
+Release-க்கு தயார் செய்ய இன்னும் வேலை உள்ளது. React 19-இல், Web Components support போன்ற breaking changes தேவைப்படும் நீண்ட காலமாக கேட்டுவரப்பட்ட improvements-யையும் சேர்க்கிறோம். இப்போது எங்கள் கவனம் இந்த changes-ஐ land செய்வது, release-க்கு தயார் செய்வது, புதிய features-க்கான docs-ஐ finalize செய்வது, மேலும் சேர்க்கப்பட்டவை பற்றிய announcements publish செய்வது.
 
-We’ll share more information about everything React 19 includes, how to adopt the new client features, and how to build support for React Server Components in the coming months.
+React 19-இல் உள்ள அனைத்தும், புதிய client features-ஐ எப்படி adopt செய்வது, React Server Components-க்கு support எப்படி build செய்வது பற்றிய கூடுதல் தகவலை வரும் மாதங்களில் பகிர்வோம்.
 
-## Offscreen (renamed to Activity). {/*offscreen-renamed-to-activity*/}
+## Offscreen (Activity என rename செய்யப்பட்டது). {/*offscreen-renamed-to-activity*/}
 
-Since our last update, we’ve renamed a capability we’re researching from “Offscreen” to “Activity”. The name “Offscreen” implied that it only applied to parts of the app that were not visible, but while researching the feature we realized that it’s possible for parts of the app to be visible and inactive, such as content behind a modal. The new name more closely reflects the behavior of marking certain parts of the app “active” or “inactive”.
+எங்கள் கடைசி update-க்கு பிறகு, research செய்து வந்த capability-யை “Offscreen” என்பதிலிருந்து “Activity” என rename செய்துள்ளோம். “Offscreen” என்ற பெயர் app-இன் visible அல்லாத பகுதிகளுக்கே இது பொருந்தும் என்று உணர்த்தியது; ஆனால் feature-ஐ research செய்தபோது, modal-க்கு பின்னால் உள்ள content போன்ற app-இன் சில பகுதிகள் visible ஆக இருந்தும் inactive ஆக இருக்க முடியும் என்பதை உணர்ந்தோம். App-இன் சில பகுதிகளை “active” அல்லது “inactive” என்று mark செய்யும் behavior-ஐ புதிய பெயர் இன்னும் நெருக்கமாக பிரதிபலிக்கிறது.
 
-Activity is still under research and our remaining work is to finalize the primitives that are exposed to library developers. We’ve deprioritized this area while we focus on shipping features that are more complete.
+Activity இன்னும் research-இல் உள்ளது; library developers-க்கு expose செய்யப்படும் primitives-ஐ finalize செய்வதே எங்கள் மீதமுள்ள வேலை. அதிகமாக complete ஆன features-ஐ ship செய்வதில் கவனம் செலுத்துவதால், இந்த பகுதியின் priority-ஐ குறைத்துள்ளோம்.
 
 * * *
 
-In addition to this update, our team has presented at conferences and made appearances on podcasts to speak more on our work and answer questions.
+இந்த update-க்கு கூடுதலாக, எங்கள் team conferences-இல் present செய்து, podcasts-இல் பங்கேற்று எங்கள் பணியைப் பற்றி மேலும் பேசவும் கேள்விகளுக்கு பதிலளிக்கவும் செய்துள்ளது.
 
-- [Sathya Gunasekaran](https://github.com/gsathya) spoke about the React Compiler at the [React India](https://www.youtube.com/watch?v=kjOacmVsLSE) conference
+- [Sathya Gunasekaran](https://github.com/gsathya) [React India](https://www.youtube.com/watch?v=kjOacmVsLSE) conference-இல் React Compiler பற்றி பேசினார்
 
-- [Dan Abramov](/community/team#dan-abramov) gave a talk at [RemixConf](https://www.youtube.com/watch?v=zMf_xeGPn6s) titled “React from Another Dimension” which explores an alternative history of how React Server Components and Actions could have been created
+- [Dan Abramov](/community/team#dan-abramov) [RemixConf](https://www.youtube.com/watch?v=zMf_xeGPn6s)-இல் “React from Another Dimension” என்ற talk வழங்கினார்; React Server Components மற்றும் Actions எப்படி உருவாகியிருக்கலாம் என்ற alternative history-யை அது ஆராய்கிறது
 
-- [Dan Abramov](/community/team#dan-abramov) was interviewed on [the Changelog’s JS Party podcast](https://changelog.com/jsparty/311) about React Server Components
+- [Dan Abramov](/community/team#dan-abramov) React Server Components பற்றி [Changelog-ன் JS Party podcast](https://changelog.com/jsparty/311)-இல் interview செய்யப்பட்டார்
 
-- [Matt Carroll](/community/team#matt-carroll) was interviewed on the [Front-End Fire podcast](https://www.buzzsprout.com/2226499/14462424-interview-the-two-reacts-with-rachel-nabors-evan-bacon-and-matt-carroll) where he discussed [The Two Reacts](https://overreacted.io/the-two-reacts/)
+- [Matt Carroll](/community/team#matt-carroll) [Front-End Fire podcast](https://www.buzzsprout.com/2226499/14462424-interview-the-two-reacts-with-rachel-nabors-evan-bacon-and-matt-carroll)-இல் interview செய்யப்பட்டார்; அங்கு அவர் [The Two Reacts](https://overreacted.io/the-two-reacts/) பற்றி விவாதித்தார்
 
-Thanks [Lauren Tan](https://twitter.com/potetotes), [Sophie Alpert](https://twitter.com/sophiebits), [Jason Bonta](https://threads.net/someextent), [Eli White](https://twitter.com/Eli_White), and [Sathya Gunasekaran](https://twitter.com/_gsathya) for reviewing this post.
+இந்த post-ஐ review செய்த [Lauren Tan](https://twitter.com/potetotes), [Sophie Alpert](https://twitter.com/sophiebits), [Jason Bonta](https://threads.net/someextent), [Eli White](https://twitter.com/Eli_White), மற்றும் [Sathya Gunasekaran](https://twitter.com/_gsathya)-க்கு நன்றி.
 
-Thanks for reading, and [see you at React Conf](https://conf.react.dev/)!
+படித்ததற்கு நன்றி; [React Conf-இல் சந்திப்போம்](https://conf.react.dev/)!
