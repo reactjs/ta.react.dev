@@ -2,7 +2,7 @@
 title: "React Server Components-இல் Denial of Service மற்றும் Source Code Exposure"
 author: The React Team
 date: 2025/12/11
-description: கடந்த வார critical vulnerability-யின் patches-ஐ exploit செய்ய முயன்றபோது, security researchers React Server Components-இல் Mayலும் இரண்டு vulnerabilities-ஐ கண்டறிந்து disclosure செய்துள்ளனர். High vulnerability Denial of Service (CVE-2025-55184), மற்றும் medium vulnerability Source Code Exposure (CVE-2025-55183)
+description: கடந்த வார critical vulnerability-யின் patches-ஐ exploit செய்ய முயன்றபோது, security researchers React Server Components-இல் மேலும் இரண்டு vulnerabilities-ஐ கண்டறிந்து disclosure செய்துள்ளனர். High vulnerability Denial of Service (CVE-2025-55184), மற்றும் medium vulnerability Source Code Exposure (CVE-2025-55183)
 
 
 ---

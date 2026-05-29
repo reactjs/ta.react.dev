@@ -244,7 +244,7 @@ React 18-இல் Strict Mode உடன், React development mode-இல் co
 
 #### useDeferredValue {/*usedeferredvalue*/}
 
-`useDeferredValue` tree-ன் non-urgent பகுதியை re-render செய்வதை defer செய்ய அனுமதிக்கிறது. இது debouncing போலதே, ஆனால் அதனுடன் ஒப்பிடும்போது சில advantages உள்ளது. Fixed time delay இல்லை; first render screen-இல் reflect ஆனவுடன் deferred render முயற்சிக்க React முயலும். Deferred render interruptible; user input-ஐ block செய்யாது. [Docs இங்கே பார்க்கவும்](/reference/react/useDeferredValue).
+`useDeferredValue` tree-ன் non-urgent பகுதியை re-render செய்வதை defer செய்ய அனுமதிக்கிறது. இது debouncing போலவே, ஆனால் அதனுடன் ஒப்பிடும்போது சில advantages உள்ளது. Fixed time delay இல்லை; first render screen-இல் reflect ஆனவுடன் deferred render முயற்சிக்க React முயலும். Deferred render interruptible; user input-ஐ block செய்யாது. [Docs இங்கே பார்க்கவும்](/reference/react/useDeferredValue).
 
 #### useSyncExternalStore {/*usesyncexternalstore*/}
 

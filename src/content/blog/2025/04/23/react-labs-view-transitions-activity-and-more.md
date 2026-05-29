@@ -1,5 +1,5 @@
 ---
-title: "React Labs: View Transitions, Activity, Mayலும் பல"
+title: "React Labs: View Transitions, Activity, மேலும் பல"
 author: Ricky Hanlon
 date: 2025/04/23
 description: React Labs posts-இல், active research மற்றும் development-இல் இருக்கும் projects பற்றி எழுதுகிறோம். இந்த post-இல், இன்று முயற்சிக்கத் தயாராக இருக்கும் இரண்டு புதிய experimental features-ஐயும், இப்போது நாங்கள் செய்து கொண்டிருக்கும் மற்ற பகுதிகளின் updates-ஐயும் பகிர்கிறோம்.

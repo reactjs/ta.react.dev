@@ -323,7 +323,7 @@ export default function Square() {
 
 #### `styles.css` {/*stylescss*/}
 
-CodeSandbox-ன் _Files_ பிரிவில் `styles.css` என குறிக்கப்பட்ட file-ஐ click செய்யுங்கள். இந்த file உங்கள் React app-க்கான style-களை define செய்கிறது. முதல் இரண்டு _CSS selector_-கள் (`*` மற்றும் `body`) உங்கள் app-ன் பெரிய பகுதிகளின் style-ஐ define செய்கின்றன; `.square` selector, `className` property `square` ஆக அமைக்கப்பட்டுள்ள எந்த component-னும் style-ஐ define செய்கிறது. உங்கள் code-இல், அது `App.js` file-இல் உள்ள Square component-ன் button-க்கு match ஆகும்.
+CodeSandbox-ன் _Files_ பிரிவில் `styles.css` என குறிக்கப்பட்ட file-ஐ click செய்யுங்கள். இந்த file உங்கள் React app-க்கான style-களை define செய்கிறது. முதல் இரண்டு _CSS selector_-கள் (`*` மற்றும் `body`) உங்கள் app-ன் பெரிய பகுதிகளின் style-ஐ define செய்கின்றன; `.square` selector, `className` property `square` ஆக அமைக்கப்பட்டுள்ள எந்த component-ன் style-ஐ define செய்கிறது. உங்கள் code-இல், அது `App.js` file-இல் உள்ள Square component-ன் button-க்கு match ஆகும்.
 
 #### `index.js` {/*indexjs*/}
 

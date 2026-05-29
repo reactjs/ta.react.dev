@@ -2,7 +2,7 @@
 title: "React Labs: நாங்கள் செய்து கொண்டிருப்பவை – June 2022"
 author:  Andrew Clark, Dan Abramov, Jan Kassens, Joseph Savona, Josh Story, Lauren Tan, Luna Ruan, Mengdi Chen, Rick Hanlon, Robert Zhang, Sathya Gunasekaran, Sebastian Markbage, and Xuan Huang
 date: 2022/06/15
-description: React 18 உருவாக பல ஆண்டுகள் எடுத்தது; அதனுடன் React team-க்கு மதிப்புமிக்க பாடங்களும் வந்தன. அதன் release பல ஆண்டுகளாக நடந்த ஆராய்ச்சி மற்றும் பல பாதைகளை ஆராய்ந்ததன் விளைவு. அவற்றில் சில பாதைகள் வெற்றி பெற்றன; பல பாதைகள் முட்டுக்கட்டையாக முடிந்து புதிய புரிதல்களைத் தந்தன. நாங்கள் கற்ற ஒரு பாடம்: நாங்கள் ஆராயும் பாதைகள் பற்றிய பார்வை இல்லாமல், புதிய features-க்காக community காத்திருப்பது ஏமாற்றமாக இருக்கும்.
+description: "React 18 உருவாக பல ஆண்டுகள் எடுத்தது; அதனுடன் React team-க்கு மதிப்புமிக்க பாடங்களும் வந்தன. அதன் release பல ஆண்டுகளாக நடந்த ஆராய்ச்சி மற்றும் பல பாதைகளை ஆராய்ந்ததன் விளைவு. அவற்றில் சில பாதைகள் வெற்றி பெற்றன; பல பாதைகள் முட்டுக்கட்டையாக முடிந்து புதிய புரிதல்களைத் தந்தன. நாங்கள் கற்ற ஒரு பாடம்: நாங்கள் ஆராயும் பாதைகள் பற்றிய பார்வை இல்லாமல், புதிய features-க்காக community காத்திருப்பது ஏமாற்றமாக இருக்கும்."
 ---
 
 June 15, 2022 by [Andrew Clark](https://twitter.com/acdlite), [Dan Abramov](https://bsky.app/profile/danabra.mov), [Jan Kassens](https://twitter.com/kassens), [Joseph Savona](https://twitter.com/en_JS), [Josh Story](https://twitter.com/joshcstory), [Lauren Tan](https://twitter.com/potetotes), [Luna Ruan](https://twitter.com/lunaruan), [Mengdi Chen](https://twitter.com/mengdi_en), [Rick Hanlon](https://twitter.com/rickhanlonii), [Robert Zhang](https://twitter.com/jiaxuanzhang01), [Sathya Gunasekaran](https://twitter.com/_gsathya), [Sebastian Markbåge](https://twitter.com/sebmarkbage), and [Xuan Huang](https://twitter.com/Huxpro)

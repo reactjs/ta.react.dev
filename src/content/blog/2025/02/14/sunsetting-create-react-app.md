@@ -204,7 +204,7 @@ Initial load-இல், route render ஆகும்முன் router data-வ
 
 ### Code splitting {/*code-splitting*/}
 
-Create React App-இல் இன்னொரு பொதுவான problem [code splitting](https://www.patterns.dev/vanilla/bundle-splitting). Create React App குறிப்பிட்ட code splitting solution ஒன்றை include செய்யாது. நீங்கள் இப்போது தொடங்குகிறீர்கள் என்றால், code splitting பற்றி யோசிக்கவோமல் இருக்கலாம்.
+Create React App-இல் இன்னொரு பொதுவான problem [code splitting](https://www.patterns.dev/vanilla/bundle-splitting). Create React App குறிப்பிட்ட code splitting solution ஒன்றை include செய்யாது. நீங்கள் இப்போது தொடங்குகிறீர்கள் என்றால், code splitting பற்றி யோசிக்காமல் இருக்கலாம்.
 
 இதனால் உங்கள் app ஒரே bundle ஆக ship செய்யப்படும்:
 

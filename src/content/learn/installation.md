@@ -10,7 +10,7 @@ title: நிறுவல்
 
 ## ரியாக்டை முயற்சிக்கவும் {/*try-react*/}
 
-ரியாக்டை முயற்சித்து பார்க்க எதையும் நிறுவ வேண்டியதில்லை. இந்த sandbox‑ஐத் திருத்தி முயற்சிக்கவும்!
+ரியாக்டை முயற்சித்து பார்க்க எதையும் நிறுவ வேண்டியதில்லை. இந்த sandbox-ஐத் திருத்தி முயற்சிக்கவும்!
 
 <Sandpack>
 
@@ -28,17 +28,17 @@ export default function App() {
 
 நேரடியாக இதைத் திருத்தலாம், அல்லது மேல் வலது கோணத்தில் உள்ள “Fork” பொத்தானை அழுத்தி புதிய தாவலில் திறக்கலாம்.
 
-ரியாக்ட் ஆவணங்களில் பெரும்பாலான பக்கங்களில் இப்படியான sandbox‑கள் இருக்கும். ரியாக்ட் ஆவணங்களுக்கு அப்பாலும், ரியாக்டை ஆதரிக்கும் பல ஆன்லைன் sandbox‑கள் உள்ளன: உதாரணமாக, [CodeSandbox](https://codesandbox.io/s/new), [StackBlitz](https://stackblitz.com/fork/react), அல்லது [CodePen.](https://codepen.io/pen?template=QWYVwWN)
+ரியாக்ட் ஆவணங்களில் பெரும்பாலான பக்கங்களில் இப்படியான sandbox-கள் இருக்கும். ரியாக்ட் ஆவணங்களுக்கு அப்பாலும், ரியாக்டை ஆதரிக்கும் பல ஆன்லைன் sandbox-கள் உள்ளன: உதாரணமாக, [CodeSandbox](https://codesandbox.io/s/new), [StackBlitz](https://stackblitz.com/fork/react), அல்லது [CodePen.](https://codepen.io/pen?template=QWYVwWN)
 
 உங்கள் கணினியில் லோகலாக ரியாக்டை முயற்சிக்க, [இந்த HTML பக்கத்தைப் பதிவிறக்கவும்.](https://gist.githubusercontent.com/gaearon/0275b1e1518599bbeafcde4722e79ed1/raw/db72dcbf3384ee1708c4a07d3be79860db04bff0/example.html) அதை உங்கள் திருத்தியில் (editor) மற்றும் உலாவியில் (browser) திறக்கவும்!
 
 ## ரியாக்ட் செயலியை உருவாக்குதல் {/*creating-a-react-app*/}
 
-புதிய ரியாக்ட் செயலியைத் தொடங்க விரும்பினால், பரிந்துரைக்கப்பட்ட ஒரு framework‑ஐ பயன்படுத்தி [ரியாக்ட் செயலியை உருவாக்கலாம்](/learn/creating-a-react-app).
+புதிய ரியாக்ட் செயலியைத் தொடங்க விரும்பினால், பரிந்துரைக்கப்பட்ட ஒரு framework-ஐ பயன்படுத்தி [ரியாக்ட் செயலியை உருவாக்கலாம்](/learn/creating-a-react-app).
 
 ## ஆரம்பத்திலிருந்து ரியாக்ட் செயலி உருவாக்குதல் {/*build-a-react-app-from-scratch*/}
 
-ஒரு framework உங்கள் திட்டத்துக்கு சரியாகப் பொருந்தவில்லையென்றால், உங்கள் சொந்த framework‑ஐ உருவாக்க விரும்பினால், அல்லது ரியாக்ட் செயலியின் அடிப்படைகளைப் புரிந்து கொள்ள வேண்டுமென்றால், நீங்கள் [ஆரம்பத்திலிருந்து ஒரு ரியாக்ட் செயலியை உருவாக்கலாம்](/learn/build-a-react-app-from-scratch).
+ஒரு framework உங்கள் திட்டத்துக்கு சரியாகப் பொருந்தவில்லையென்றால், உங்கள் சொந்த framework-ஐ உருவாக்க விரும்பினால், அல்லது ரியாக்ட் செயலியின் அடிப்படைகளைப் புரிந்து கொள்ள வேண்டுமென்றால், நீங்கள் [ஆரம்பத்திலிருந்து ஒரு ரியாக்ட் செயலியை உருவாக்கலாம்](/learn/build-a-react-app-from-scratch).
 
 ## இருக்கும் திட்டத்தில் ரியாக்ட் சேர்த்தல் {/*add-react-to-an-existing-project*/}
 
@@ -47,7 +47,7 @@ export default function App() {
 
 <Note>
 
-#### Create React App‑ஐ பயன்படுத்தலாமா? {/*should-i-use-create-react-app*/}
+#### Create React App-ஐ பயன்படுத்தலாமா? {/*should-i-use-create-react-app*/}
 
 இல்லை. Create React App ஓய்வு பெறப்பட்டுள்ளது (deprecated). மேலும் விவரங்களுக்கு, [Create React App ஓய்வு பெறுதல்](/blog/2025/02/14/sunsetting-create-react-app) பதிவைப் பார்க்கவும்.
 

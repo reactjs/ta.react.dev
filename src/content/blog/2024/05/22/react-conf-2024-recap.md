@@ -2,7 +2,7 @@
 title: "React Conf 2024 சுருக்கம்"
 author: Ricky Hanlon
 date: 2024/05/22
-description: கடந்த வாரம் React Conf 2024 நடத்தினோம்; Henderson, Nevada-வில் நடைபெற்ற இரண்டு நாள் conference-இல் 700-க்கும் Mayற்பட்டோர் நேரில் கூடி UI engineering-ன் சமீபத்தியவற்றை விவாதித்தனர். இந்த post-இல், நிகழ்வின் talks மற்றும் announcements-ஐ சுருக்கமாகப் பார்க்கிறோம்.
+description: கடந்த வாரம் React Conf 2024 நடத்தினோம்; Henderson, Nevada-வில் நடைபெற்ற இரண்டு நாள் conference-இல் 700-க்கும் மேற்பட்டோர் நேரில் கூடி UI engineering-ன் சமீபத்தியவற்றை விவாதித்தனர். இந்த post-இல், நிகழ்வின் talks மற்றும் announcements-ஐ சுருக்கமாகப் பார்க்கிறோம்.
 ---
 
 May 22, 2024 by [Ricky Hanlon](https://twitter.com/rickhanlonii).
@@ -11,7 +11,7 @@ May 22, 2024 by [Ricky Hanlon](https://twitter.com/rickhanlonii).
 
 <Intro>
 
-கடந்த வாரம் React Conf 2024 நடத்தினோம்; Henderson, Nevada-வில் நடைபெற்ற இரண்டு நாள் conference-இல் 700-க்கும் Mayற்பட்டோர் நேரில் கூடி UI engineering-ன் சமீபத்தியவற்றை விவாதித்தனர். 2019-க்குப் பிறகு இது எங்கள் முதல் in-person conference; community-யை மீண்டும் ஒன்றாகக் கொண்டு வர முடிந்ததில் மகிழ்ச்சி அடைந்தோம்.
+கடந்த வாரம் React Conf 2024 நடத்தினோம்; Henderson, Nevada-வில் நடைபெற்ற இரண்டு நாள் conference-இல் 700-க்கும் மேற்பட்டோர் நேரில் கூடி UI engineering-ன் சமீபத்தியவற்றை விவாதித்தனர். 2019-க்குப் பிறகு இது எங்கள் முதல் in-person conference; community-யை மீண்டும் ஒன்றாகக் கொண்டு வர முடிந்ததில் மகிழ்ச்சி அடைந்தோம்.
 
 </Intro>
 

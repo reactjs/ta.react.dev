@@ -28,7 +28,7 @@ Idiomatic React code எழுத நீங்கள் பின்பற்ற
 
 * [Components idempotent ஆக இருக்க வேண்டும்](/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent) – React components அவற்றின் inputs ஆன props, state, மற்றும் context-க்கு ஏற்ப எப்போதும் அதே output-ஐத் தரும் என்று கருதப்படுகின்றன.
 * [Side effects render-க்கு வெளியே இயங்க வேண்டும்](/reference/rules/components-and-hooks-must-be-pure#side-effects-must-run-outside-of-render) – சிறந்த user experience உருவாக்க React components-ஐ பலமுறை render செய்யலாம் என்பதால், side effects render-இல் இயங்கக்கூடாது.
-* [Props மற்றும் state immutable](/reference/rules/components-and-hooks-must-be-pure#props-and-state-are-immutable) – ஒரு render-ஐப் பொருத்தவரை component-இன் props மற்றும் state immutable snapshots ஆகும். அவற்றை நேரடியாக mutate செய்ய வேண்டாம்.
+* [Props மற்றும் state immutable](/reference/rules/components-and-hooks-must-be-pure#props-and-state-are-immutable) – ஒரு render-ஐப் பொறுத்தவரை component-இன் props மற்றும் state immutable snapshots ஆகும். அவற்றை நேரடியாக mutate செய்ய வேண்டாம்.
 * [Hooks-க்கு தரப்படும் return values மற்றும் arguments immutable](/reference/rules/components-and-hooks-must-be-pure#return-values-and-arguments-to-hooks-are-immutable) – Values ஒரு Hook-க்கு அனுப்பப்பட்ட பிறகு அவற்றை மாற்றக்கூடாது. JSX-இல் props போலவே, Hook-க்கு அனுப்பப்படும் values immutable ஆகின்றன.
 * [JSX-க்கு அனுப்பப்பட்ட பிறகு values immutable](/reference/rules/components-and-hooks-must-be-pure#values-are-immutable-after-being-passed-to-jsx) – Values JSX-இல் பயன்படுத்தப்பட்ட பிறகு அவற்றை mutate செய்ய வேண்டாம். Mutation-ஐ JSX உருவாக்கப்படுவதற்கு முன் நகர்த்துங்கள்.
 

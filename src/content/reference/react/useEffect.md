@@ -1317,7 +1317,7 @@ export function createConnection(serverUrl, roomId) {
 <Solution />
 
 
-#### Dependency array ஏதும் pass செய்யாதல் {/*passing-no-dependency-array-at-all*/}
+#### Dependency array ஏதும் pass செய்யாமல் {/*passing-no-dependency-array-at-all*/}
 
 Dependency array எதையும் pass செய்யவில்லை என்றால், உங்கள் component-ன் **ஒவ்வொரு commit-க்கும் பிறகு** உங்கள் Effect run ஆகும்.
 
