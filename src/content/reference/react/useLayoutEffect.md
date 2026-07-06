@@ -47,7 +47,11 @@ function Tooltip() {
 
 #### Parameters {/*parameters*/}
 
+<<<<<<< HEAD
 * `setup`: உங்கள் Effect-ன் logic கொண்ட function. உங்கள் setup function விருப்பமாக *cleanup* function ஒன்றையும் return செய்யலாம். உங்கள் [component commit](/learn/render-and-commit#step-3-react-commits-changes-to-the-dom) ஆகும் முன், React உங்கள் setup function-ஐ run செய்யும். Dependencies மாறிய ஒவ்வொரு commit-க்கும் பிறகு, React முதலில் பழைய values உடன் cleanup function-ஐ (நீங்கள் வழங்கியிருந்தால்) run செய்து, பின்னர் புதிய values உடன் setup function-ஐ run செய்யும். உங்கள் component DOM-இலிருந்து remove செய்யப்படுவதற்கு முன், React உங்கள் cleanup function-ஐ run செய்யும்.
+=======
+* `setup`: The function with your Effect's logic. Your setup function may also optionally return a *cleanup* function. After your [component commits](/learn/render-and-commit#step-3-react-commits-changes-to-the-dom) to the DOM and before the browser repaints the screen, React will run your setup function. After every commit with changed dependencies, React will first run the cleanup function (if you provided it) with the old values, and then run your setup function with the new values. Before your component is removed from the DOM, React will run your cleanup function.
+>>>>>>> 2639f369946f763fff9a2572b0d7c4b9e2f83ebd
 
 * **optional** `dependencies`: `setup` code-க்குள் referenced செய்யப்படும் அனைத்து reactive values-ன் list. Reactive values-ல் props, state, மேலும் உங்கள் component body-க்குள் நேரடியாக declared செய்யப்பட்ட அனைத்து variables மற்றும் functions அடங்கும். உங்கள் linter [React-க்காக configured](/learn/editor-setup#linting) செய்யப்பட்டிருந்தால், ஒவ்வொரு reactive value-மும் dependency ஆக சரியாக குறிப்பிடப்பட்டுள்ளதா என்பதை அது verify செய்யும். Dependencies list நிலையான எண்ணிக்கையிலான items கொண்டதாகவும் `[dep1, dep2, dep3]` போல inline ஆக எழுதப்பட்டதாகவும் இருக்க வேண்டும். React ஒவ்வொரு dependency-யையும் அதன் முந்தைய value-உடன் [`Object.is`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is) comparison மூலம் compare செய்யும். இந்த argument-ஐ omit செய்தால், component-ன் ஒவ்வொரு commit-க்கும் பிறகு உங்கள் Effect மீண்டும் run ஆகும்.
 
