@@ -143,7 +143,11 @@ window.React2 = require('react');
 console.log(window.React1 === window.React2);
 ```
 
+<<<<<<< HEAD
 இது `false` என அச்சிட்டால், உங்களிடம் இரண்டு React நகல்கள் இருக்கலாம்; அது ஏன் நிகழ்ந்தது என்பதைக் கண்டறிய வேண்டும். சமூகத்தினர் எதிர்கொண்ட சில பொதுவான காரணங்கள் [இந்த issue-இல்](https://github.com/facebook/react/issues/13991) உள்ளன.
+=======
+If it prints `false` then you might have two Reacts and need to figure out why that happened. [This issue](https://github.com/react/react/issues/13991) includes some common reasons encountered by the community.
+>>>>>>> 6be2b020a0cabf2fd6dbff5c42c399b8ac323bca
 
 நீங்கள் `npm link` அல்லது அதற்கு இணையான ஒன்றைப் பயன்படுத்தும்போதும் இந்தப் பிரச்சினை ஏற்படலாம். அப்போது, உங்கள் bundler இரண்டு React நகல்களைக் காணலாம்: ஒன்று செயலிக் கோப்புறையிலும் மற்றொன்று உங்கள் library கோப்புறையிலும் இருக்கும். `myapp` மற்றும் `mylib` ஆகியவை அருகருகே உள்ள கோப்புறைகள் எனக் கொண்டால், `mylib`-இலிருந்து `npm link ../myapp/node_modules/react`-ஐ இயக்குவது ஒரு சாத்தியமான தீர்வு. இதனால் library, செயலியின் React நகலைப் பயன்படுத்தும்.
 
@@ -155,4 +159,8 @@ console.log(window.React1 === window.React2);
 
 ## பிற காரணங்கள் {/*other-causes*/}
 
+<<<<<<< HEAD
 இவற்றில் எதுவும் செயல்படவில்லை எனில், [இந்த issue-இல்](https://github.com/facebook/react/issues/13991) கருத்திடவும்; உதவ முயற்சிப்போம். பிரச்சினையை மீண்டும் உருவாக்கும் ஒரு சிறிய உதாரணத்தை உருவாக்க முயற்சிக்கவும்; அதைச் செய்யும்போதே பிரச்சினையை நீங்கள் கண்டறியக்கூடும்.
+=======
+If none of this worked, please comment in [this issue](https://github.com/react/react/issues/13991) and we'll try to help. Try to create a small reproducing example — you might discover the problem as you're doing it.
+>>>>>>> 6be2b020a0cabf2fd6dbff5c42c399b8ac323bca

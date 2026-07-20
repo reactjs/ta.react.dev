@@ -4,7 +4,11 @@ title: நன்றிகள்
 
 <Intro>
 
+<<<<<<< HEAD
 React-ஐ முதலில் [Jordan Walke](https://github.com/jordwalke) உருவாக்கினார். இன்று React-க்காக [முழுநேரமாகப் பணியாற்றும் அர்ப்பணிக்கப்பட்ட team](/community/team) உள்ளது; அதோடு ஆயிரத்துக்கும் மேற்பட்ட [open source contributors](https://github.com/facebook/react/graphs/contributors) உள்ளனர்.
+=======
+React was originally created by [Jordan Walke.](https://github.com/jordwalke) Today, React has a [dedicated full-time team working on it](/community/team), as well as over a thousand [open source contributors.](https://github.com/react/react/graphs/contributors)
+>>>>>>> 6be2b020a0cabf2fd6dbff5c42c399b8ac323bca
 
 </Intro>
 
