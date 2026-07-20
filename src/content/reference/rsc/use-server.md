@@ -179,7 +179,7 @@ Server Functions exposed server endpoints ஆகும்; client code-இல்
 
 [Form](/reference/react-dom/components/form)-க்கு வெளியே Server Function பயன்படுத்தும்போது, Server Function-ஐ [Transition](/reference/react/useTransition)-இல் call செய்யுங்கள்; இது loading indicator display செய்ய, [optimistic state updates](/reference/react/useOptimistic) காட்ட, மற்றும் எதிர்பாராத errors-ஐ handle செய்ய அனுமதிக்கிறது. Forms Server Functions-ஐ தானாக transitions-இல் wrap செய்யும்.
 
-```js {9-12}
+```js {9-14}
 import incrementLike from './actions';
 import { useState, useTransition } from 'react';
 
@@ -190,7 +190,9 @@ function LikeButton() {
   const onClick = () => {
     startTransition(async () => {
       const currentCount = await incrementLike();
-      setLikeCount(currentCount);
+      startTransition(() => {
+        setLikeCount(currentCount);
+      });
     });
   };
 

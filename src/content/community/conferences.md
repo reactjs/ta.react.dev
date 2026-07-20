@@ -25,7 +25,16 @@ title: React மாநாடுகள்
 
 [வலைத்தளம்](https://conf.zurichjs.com?utm_campaign=ZurichJS_Conf&utm_source=referral&utm_content=reactjs_community_conferences) - [Twitter](https://x.com/zurichjs) - [LinkedIn](https://www.linkedin.com/company/zurichjs/)
 
+<<<<<<< HEAD
 ## கடந்த மாநாடுகள் {/*past-conferences*/}
+=======
+### React Conf Japan 2027 {/*react-conf-japan-2027*/}
+April 24,  2027. In-person in Tokyo, Japan
+
+[Website](https://reactconf.jp/) - [Twitter](https://x.com/reactconfjp)
+
+## Past Conferences {/*past-conferences*/}
+>>>>>>> 6be2b020a0cabf2fd6dbff5c42c399b8ac323bca
 
 ### CityJS New Delhi 2026 {/*cityjs-newdelhi-2026*/}
 பிப்ரவரி 12-13,  2026. New Delhi, India-இல் நேரடி நிகழ்வு

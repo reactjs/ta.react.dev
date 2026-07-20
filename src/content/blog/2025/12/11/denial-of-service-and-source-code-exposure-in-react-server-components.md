@@ -98,7 +98,11 @@ React Native-ஐ monorepo-வில் பயன்படுத்தினா�
 
 Security advisories-ஐ mitigate செய்ய இது தேவை; ஆனால் `react` மற்றும் `react-dom` update செய்ய வேண்டியதில்லை, எனவே இது React Native-இல் version mismatch error ஏற்படுத்தாது.
 
+<<<<<<< HEAD
 மேலும் தகவலுக்கு [இந்த issue](https://github.com/facebook/react-native/issues/54772#issuecomment-3617929832)-ஐ பார்க்கவும்.
+=======
+See [this issue](https://github.com/react/react-native/issues/54772#issuecomment-3617929832) for more information.
+>>>>>>> 6be2b020a0cabf2fd6dbff5c42c399b8ac323bca
 
 ---
 
