@@ -8,4 +8,8 @@ Web Accessibility Initiative (WAI) Accessible Rich Internet Application (ARIA) [
 
 2. நீங்கள் `aria-role` என எழுதியிருந்தால், `role` என்பதைக் குறிப்பிட்டிருக்கலாம்.
 
+<<<<<<< HEAD
 3. இல்லையெனில், React DOM-இன் சமீபத்திய பதிப்பைப் பயன்படுத்துவதோடு, ARIA விவரக்குறிப்பில் பட்டியலிடப்பட்ட செல்லுபடியாகும் property பெயரையே பயன்படுத்துவதை உறுதிசெய்திருந்தால், தயவுசெய்து [பிழையைப் புகாரளிக்கவும்](https://github.com/facebook/react/issues/new/choose).
+=======
+3. Otherwise, if you're on the latest version of React DOM and verified that you're using a valid property name listed in the ARIA specification, please [report a bug](https://github.com/react/react/issues/new/choose).
+>>>>>>> c7d6b700038c63d1aaf2c649af1aefe01ebbacac

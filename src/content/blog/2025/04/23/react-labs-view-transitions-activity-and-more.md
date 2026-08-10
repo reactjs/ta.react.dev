@@ -11458,7 +11458,11 @@ root.render(
 
 அவை எப்படி வேலை செய்கின்றன என்பதை மேலும் அறிய விரும்பினால், docs-இல் உள்ள [`<ViewTransition>` எப்படி வேலை செய்கிறது](/reference/react/ViewTransition#how-does-viewtransition-work) பகுதியைப் பார்க்கவும்.
 
+<<<<<<< HEAD
 _View Transitions-ஐ எவ்வாறு உருவாக்கினோம் என்ற கூடுதல் பின்னணிக்கு, [@sebmarkbage](https://twitter.com/sebmarkbage) உருவாக்கிய [#31975](https://github.com/facebook/react/pull/31975), [#32105](https://github.com/facebook/react/pull/32105), [#32041](https://github.com/facebook/react/pull/32041), [#32734](https://github.com/facebook/react/pull/32734), [#32797](https://github.com/facebook/react/pull/32797), [#31999](https://github.com/facebook/react/pull/31999), [#32031](https://github.com/facebook/react/pull/32031), [#32050](https://github.com/facebook/react/pull/32050), [#32820](https://github.com/facebook/react/pull/32820), [#32029](https://github.com/facebook/react/pull/32029), [#32028](https://github.com/facebook/react/pull/32028), மற்றும் [#32038](https://github.com/facebook/react/pull/32038)-ஐ பார்க்கவும் (நன்றி Seb!)._
+=======
+_For more background on how we built View Transitions, see: [#31975](https://github.com/react/react/pull/31975), [#32105](https://github.com/react/react/pull/32105), [#32041](https://github.com/react/react/pull/32041), [#32734](https://github.com/react/react/pull/32734), [#32797](https://github.com/react/react/pull/32797) [#31999](https://github.com/react/react/pull/31999), [#32031](https://github.com/react/react/pull/32031), [#32050](https://github.com/react/react/pull/32050), [#32820](https://github.com/react/react/pull/32820), [#32029](https://github.com/react/react/pull/32029), [#32028](https://github.com/react/react/pull/32028), and [#32038](https://github.com/react/react/pull/32038) by [@sebmarkbage](https://twitter.com/sebmarkbage) (thanks Seb!)._
+>>>>>>> c7d6b700038c63d1aaf2c649af1aefe01ebbacac
 
 ---
 
