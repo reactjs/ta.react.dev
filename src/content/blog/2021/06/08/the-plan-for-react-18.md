@@ -51,7 +51,11 @@ React 18-க்கு upgrade செய்வது பற்றிய கூட
 
 Working Group-இல் ஆரம்பத்தில் பெரும் ஆர்வம் இருக்கும் என்று எதிர்பார்ப்பதால், invited members மட்டுமே threads உருவாக்கவோ comment செய்யவோ அனுமதிக்கப்படுவர். இருப்பினும், threads முழுவதும் public-க்கு தெரியும்; எனவே அனைவருக்கும் அதே தகவல் கிடைக்கும். Working group உறுப்பினர்களுக்கு productive environment உருவாக்குவதற்கும், பெரிய சமூகத்துடன் transparency வைத்திருப்பதற்கும் இடையிலான நல்ல சமநிலை இது என்று நாங்கள் நம்புகிறோம்.
 
+<<<<<<< HEAD
 எப்போதும் போல, bug reports, கேள்விகள், மற்றும் பொதுவான feedback-ஐ எங்கள் [issue tracker](https://github.com/facebook/react/issues)-இல் submit செய்யலாம்.
+=======
+As always, you can submit bug reports, questions, and general feedback to our [issue tracker](https://github.com/react/react/issues).
+>>>>>>> 383a1e9239c8c084a16a19daa4fc2a7ad04e2a3a
 
 ## இன்று React 18 Alpha-வை முயற்சி செய்வது எப்படி {/*how-to-try-react-18-alpha-today*/}
 

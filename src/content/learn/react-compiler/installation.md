@@ -190,7 +190,11 @@ ESLint plugin install செய்யவும்:
 npm install -D eslint-plugin-react-hooks@latest
 </TerminalBlock>
 
+<<<<<<< HEAD
 eslint-plugin-react-hooks ஏற்கனவே configure செய்யப்படவில்லை என்றால், [readme-இல் உள்ள installation instructions](https://github.com/facebook/react/blob/main/packages/eslint-plugin-react-hooks/README.md#installation)-ஐ பின்பற்றவும். Compiler rules `recommended-latest` preset-இல் கிடைக்கின்றன.
+=======
+If you haven't already configured eslint-plugin-react-hooks, follow the [installation instructions in the readme](https://github.com/react/react/blob/main/packages/eslint-plugin-react-hooks/README.md#installation). The compiler rules are available in the `recommended-latest` preset.
+>>>>>>> 383a1e9239c8c084a16a19daa4fc2a7ad04e2a3a
 
 ESLint rule:
 - [React விதிகள்](/reference/rules) violations-ஐ identify செய்யும்

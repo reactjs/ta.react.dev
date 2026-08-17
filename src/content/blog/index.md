@@ -150,7 +150,11 @@ Release post-இல் பகிர்ந்தபடி, React 18 எங்க�
 
 ### அனைத்து release notes {/*all-release-notes*/}
 
+<<<<<<< HEAD
 ஒவ்வொரு React release-க்கும் தனி blog post தேவையில்லை. ஆனால் ஒவ்வொரு release-க்கும் விரிவான changelog-ஐ React repository-இல் உள்ள [`CHANGELOG.md`](https://github.com/facebook/react/blob/main/CHANGELOG.md) file-இலும் [Releases](https://github.com/facebook/react/releases) page-இலும் காணலாம்.
+=======
+Not every React release deserves its own blog post, but you can find a detailed changelog for every release in the [`CHANGELOG.md`](https://github.com/react/react/blob/main/CHANGELOG.md) file in the React repository, as well as on the [Releases](https://github.com/react/react/releases) page.
+>>>>>>> 383a1e9239c8c084a16a19daa4fc2a7ad04e2a3a
 
 ---
 

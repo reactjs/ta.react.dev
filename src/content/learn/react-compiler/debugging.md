@@ -43,10 +43,17 @@ Runtime issues-ஐ debug செய்யும்போது, ESLint rule க�
 
 ### Compiler build errors {/*compiler-build-errors*/}
 
+<<<<<<< HEAD
 உங்கள் build-ஐ எதிர்பாராத விதமாக உடைக்கும் compiler error ஏற்பட்டால், அது compiler-இல் bug ஆக இருக்கலாம். இதை பின்வரும் தகவல்களுடன் [facebook/react](https://github.com/facebook/react/issues) repository-க்கு report செய்யுங்கள்:
 - Error message
 - Error ஏற்படுத்திய code
 - உங்கள் React மற்றும் compiler versions
+=======
+If you encounter a compiler error that unexpectedly breaks your build, this is likely a bug in the compiler. Report it to the [react/react](https://github.com/react/react/issues) repository with:
+- The error message
+- The code that caused the error
+- Your React and compiler versions
+>>>>>>> 383a1e9239c8c084a16a19daa4fc2a7ad04e2a3a
 
 ### Runtime issues {/*runtime-issues*/}
 
@@ -78,11 +85,19 @@ Manual memoization (`useMemo`, `useCallback`, `memo`) அனைத்தைய�
 
 Compiler bug ஒன்றைக் கண்டுபிடித்துள்ளீர்கள் என்று நம்பினால்:
 
+<<<<<<< HEAD
 1. **இது React விதி மீறல் அல்ல என்பதை உறுதிசெய்யுங்கள்** - ESLint மூலம் சரிபார்க்கவும்
 2. **Minimal reproduction உருவாக்குங்கள்** - பிரச்சினையை சிறிய உதாரணத்தில் தனிமைப்படுத்துங்கள்
 3. **Compiler இல்லாமல் test செய்யுங்கள்** - Compilation இருந்தால் மட்டுமே பிரச்சினை ஏற்படுகிறதா என்பதை உறுதிசெய்யுங்கள்
 4. **[Issue](https://github.com/facebook/react/issues/new?template=compiler_bug_report.yml) file செய்யுங்கள்**:
    - React மற்றும் compiler versions
+=======
+1. **Verify it's not a Rules of React violation** - Check with ESLint
+2. **Create a minimal reproduction** - Isolate the issue in a small example
+3. **Test without the compiler** - Confirm the issue only occurs with compilation
+4. **File an [issue](https://github.com/react/react/issues/new?template=compiler_bug_report.yml)**:
+   - React and compiler versions
+>>>>>>> 383a1e9239c8c084a16a19daa4fc2a7ad04e2a3a
    - Minimal reproduction code
    - Expected vs actual behavior
    - ஏதேனும் error messages
