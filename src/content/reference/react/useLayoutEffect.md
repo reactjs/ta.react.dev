@@ -47,7 +47,11 @@ function Tooltip() {
 
 #### Parameters {/*parameters*/}
 
+<<<<<<< HEAD
 * `setup`: உங்கள் Effect-ன் logic கொண்ட function. உங்கள் setup function விருப்பமாக *cleanup* function ஒன்றையும் return செய்யலாம். உங்கள் [component commit](/learn/render-and-commit#step-3-react-commits-changes-to-the-dom) ஆகும் முன், React உங்கள் setup function-ஐ run செய்யும். Dependencies மாறிய ஒவ்வொரு commit-க்கும் பிறகு, React முதலில் பழைய values உடன் cleanup function-ஐ (நீங்கள் வழங்கியிருந்தால்) run செய்து, பின்னர் புதிய values உடன் setup function-ஐ run செய்யும். உங்கள் component DOM-இலிருந்து remove செய்யப்படுவதற்கு முன், React உங்கள் cleanup function-ஐ run செய்யும்.
+=======
+* `setup`: The function with your Effect's logic. Your setup function may also optionally return a *cleanup* function. After your [component commits](/learn/render-and-commit#step-3-react-commits-changes-to-the-dom) to the DOM and before the browser repaints the screen, React will run your setup function. After every commit with changed dependencies, React will first run the cleanup function (if you provided it) with the old values, and then run your setup function with the new values. Before your component is removed from the DOM, React will run your cleanup function.
+>>>>>>> 12d692da47e77cdc558b928fcfbaf4e71c6d0cec
 
 * **optional** `dependencies`: `setup` code-க்குள் referenced செய்யப்படும் அனைத்து reactive values-ன் list. Reactive values-ல் props, state, மேலும் உங்கள் component body-க்குள் நேரடியாக declared செய்யப்பட்ட அனைத்து variables மற்றும் functions அடங்கும். உங்கள் linter [React-க்காக configured](/learn/editor-setup#linting) செய்யப்பட்டிருந்தால், ஒவ்வொரு reactive value-மும் dependency ஆக சரியாக குறிப்பிடப்பட்டுள்ளதா என்பதை அது verify செய்யும். Dependencies list நிலையான எண்ணிக்கையிலான items கொண்டதாகவும் `[dep1, dep2, dep3]` போல inline ஆக எழுதப்பட்டதாகவும் இருக்க வேண்டும். React ஒவ்வொரு dependency-யையும் அதன் முந்தைய value-உடன் [`Object.is`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is) comparison மூலம் compare செய்யும். இந்த argument-ஐ omit செய்தால், component-ன் ஒவ்வொரு commit-க்கும் பிறகு உங்கள் Effect மீண்டும் run ஆகும்.
 
@@ -734,7 +738,13 @@ export default function TooltipContainer({ children, x, y, contentRef }) {
 
 - `useLayoutEffect`-ஐ [`useEffect`](/reference/react/useEffect)-ஆல் replace செய்யுங்கள். இது original HTML உங்கள் Effect run ஆகும் முன் visible ஆகிவிடுவதால், paint-ஐ block செய்யாமல் initial render result-ஐ display செய்வது பரவாயில்லை என்று React-க்கு சொல்கிறது.
 
+<<<<<<< HEAD
 - மாற்றாக, [உங்கள் component-ஐ client-only ஆக mark செய்யுங்கள்.](/reference/react/Suspense#providing-a-fallback-for-server-errors-and-client-only-content) Server rendering போது, closest [`<Suspense>`](/reference/react/Suspense) boundary வரை அதன் content-ஐ loading fallback (உதாரணமாக spinner அல்லது glimmer) ஒன்றால் replace செய்ய React-க்கு இது சொல்கிறது.
+=======
+- <CanaryBadge /> Alternatively, call [`use(browser())`](/reference/react/use#use-browser) to mark the component as browser-only. React will replace its content up to the closest [`<Suspense>`](/reference/react/Suspense) boundary with a loading fallback (for example, a spinner or a glimmer) during server rendering.
+
+- Alternatively, [mark your component as client-only.](/reference/react/Suspense#providing-a-fallback-for-server-errors-and-client-only-content) This tells React to replace its content up to the closest `<Suspense>` boundary with a loading fallback during server rendering.
+>>>>>>> 12d692da47e77cdc558b928fcfbaf4e71c6d0cec
 
 - மாற்றாக, hydration-க்கு பிறகே `useLayoutEffect` உள்ள component-ஐ render செய்யலாம். `false` ஆக initialized செய்யப்படும் boolean `isMounted` state ஒன்றை வைத்திருந்து, `useEffect` call-க்குள் அதை `true` ஆக set செய்யுங்கள். பின்னர் உங்கள் rendering logic `return isMounted ? <RealContent /> : <FallbackContent />` போல இருக்கலாம். Server-இலும் hydration நேரத்திலும், user `FallbackContent`-ஐப் பார்ப்பார்; அது `useLayoutEffect`-ஐ call செய்யக்கூடாது. பின்னர் React அதை client-இல் மட்டும் run ஆகும் மற்றும் `useLayoutEffect` calls சேர்க்கக்கூடிய `RealContent`-ஆல் replace செய்யும்.
 
