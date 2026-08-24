@@ -46,6 +46,7 @@ async function handler(request, response) {
 
 #### Parameters {/*parameters*/}
 
+<<<<<<< HEAD
 * `reactNode`: நீங்கள் `prerender` அழைத்த React node. உதாரணமாக, `<App />` போன்ற JSX element. இது முழு document-ஐ பிரதிநிதித்துவப்படுத்தும் என எதிர்பார்க்கப்படுகிறது; எனவே `App` component `<html>` tag-ஐ render செய்ய வேண்டும்.
 * `postponedState`: [prerender API](/reference/react-dom/static/index)-இலிருந்து return ஆன opaque `postpone` object; நீங்கள் அதை எங்கு சேமித்திருந்தாலும் அங்கிருந்து load செய்யப்பட்டது (உதா. redis, file, அல்லது S3).
 * **optional** `options`: Streaming options கொண்ட object.
@@ -54,6 +55,17 @@ async function handler(request, response) {
   * **optional** `onError`: Server error ஏற்படும் போதெல்லாம் fire ஆகும் callback; அது [recoverable](/reference/react-dom/server/renderToReadableStream#recovering-from-errors-outside-the-shell) ஆனதா [இல்லையா](/reference/react-dom/server/renderToReadableStream#recovering-from-errors-inside-the-shell) என்பதைக் கருத்தில் கொள்ளாது. Default ஆக இது `console.error` மட்டுமே அழைக்கும். [Crash reports log செய்ய](/reference/react-dom/server/renderToReadableStream#logging-crashes-on-the-server) இதை override செய்தால், `console.error`-ஐ இன்னும் அழைக்கிறீர்களா என்பதை உறுதிசெய்யுங்கள்.
   * **optional** `onShellReady`: [Shell](#specifying-what-goes-into-the-shell) முடிந்த உடனே fire ஆகும் callback. Streaming தொடங்க இங்கே `pipe`-ஐ அழைக்கலாம். HTML loading fallbacks-ஐ content-ஆல் மாற்றும் inline `<script>` tags-உடன், shell-க்கு பிறகு [கூடுதல் content-ஐ React stream செய்யும்](#streaming-more-content-as-it-loads).
   * **optional** `onShellError`: Shell render செய்யும்போது error ஏற்பட்டால் fire ஆகும் callback. இது error-ஐ argument ஆகப் பெறும். Stream-இலிருந்து இன்னும் bytes emit ஆகவில்லை; `onShellReady` அல்லது `onAllReady` எதுவும் அழைக்கப்படாது. எனவே நீங்கள் [fallback HTML shell-ஐ output செய்யலாம்](#recovering-from-errors-inside-the-shell) அல்லது prelude-ஐப் பயன்படுத்தலாம்.
+=======
+* `reactNode`: The React node you called `prerender` with. For example, a JSX element like `<App />`. It is expected to represent the entire document, so the `App` component should render the `<html>` tag.
+* `postponedState`: The opaque `postpone` object returned from a [prerender API](/reference/react-dom/static/index), loaded from wherever you stored it (e.g. redis, a file, or S3).
+* **optional** `options`: An object with streaming options.
+  * **optional** `nonce`: A [`nonce`](http://developer.mozilla.org/en-US/docs/Web/HTML/Element/script#nonce) string to allow scripts for [`script-src` Content-Security-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/script-src).
+  * **optional** `signal`: An [abort signal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that lets you [abort server rendering](#aborting-server-rendering) and render the rest on the client.
+  * <CanaryBadge /> **optional** `onBrowserBailout`: A callback React calls when it recovers from [`browser()`](/reference/react-dom/browser) by leaving a Suspense fallback for the browser to replace. It receives an `Error` describing the browser-only render and an `errorInfo` object containing the `componentStack`. If a reason was passed to `browser`, it is available as `error.cause`. By default, React does nothing. [See how to report browser-only rendering.](/reference/react-dom/browser#reporting-browser-only-rendering-on-the-server)
+  * **optional** `onError`: A callback that fires whenever there is a server error, whether [recoverable](/reference/react-dom/server/renderToReadableStream#recovering-from-errors-outside-the-shell) or [not.](/reference/react-dom/server/renderToReadableStream#recovering-from-errors-inside-the-shell) By default, this only calls `console.error`. If you override it to [log crash reports,](/reference/react-dom/server/renderToReadableStream#logging-crashes-on-the-server) make sure that you still call `console.error`.
+  * **optional** `onShellReady`: A callback that fires right after the [shell](#specifying-what-goes-into-the-shell) has finished. You can call `pipe` here to start streaming. React will [stream the additional content](#streaming-more-content-as-it-loads) after the shell along with the inline `<script>` tags that replace the HTML loading fallbacks with the content.
+  * **optional** `onShellError`: A callback that fires if there was an error rendering the shell. It receives the error as an argument. No bytes were emitted from the stream yet, and neither `onShellReady` nor `onAllReady` will get called, so you can [output a fallback HTML shell](#recovering-from-errors-inside-the-shell) or use the prelude.
+>>>>>>> 12d692da47e77cdc558b928fcfbaf4e71c6d0cec
 
 
 #### Returns {/*returns*/}

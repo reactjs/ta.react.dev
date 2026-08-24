@@ -10,22 +10,57 @@ title: React மாநாடுகள்
 
 ## வரவிருக்கும் மாநாடுகள் {/*upcoming-conferences*/}
 
+<<<<<<< HEAD
 ### React Paris 2026 {/*react-paris-2026*/}
 மார்ச் 26 - 27, 2026. Paris, France-இல் நேரடி நிகழ்வு (hybrid நிகழ்வு)
 
 [வலைத்தளம்](https://react.paris/) - [Twitter](https://x.com/BeJS_)
+=======
+### ZurichJS Conf 2026 {/*zurichjs-conf-2026*/}
+September 10-11,  2026. In-person in Zurich, Switzerland
+
+[Website](https://conf.zurichjs.com?utm_campaign=ZurichJS_Conf&utm_source=referral&utm_content=reactjs_community_conferences) - [Twitter](https://x.com/zurichjs) - [LinkedIn](https://www.linkedin.com/company/zurichjs/)
+
+### React Alicante 2026 {/*react-alicante-2026*/}
+Sep 24 - 26,  2026. In-person in Alicante
+
+[Website](https://reactalicante.es//) - [Twitter](https://x.com/ReactAlicante)
+
+### CityJS Athens 2026 {/*cityjs-athens-2026*/}
+October 21-23,  2026. In-person in Athens
+
+[Website](https://athens.cityjsconf.org/) - [Twitter](https://x.com/cityjsconf) - [Bluesky](https://bsky.app/profile/cityjsconf.bsky.social)
+
+
+## Past Conferences {/*past-conferences*/}
+
+
+### React Conf Japan 2027 {/*react-conf-japan-2027*/}
+April 24,  2027. In-person in Tokyo, Japan
+
+[Website](https://reactconf.jp/) - [Twitter](https://x.com/reactconfjp)
+>>>>>>> 12d692da47e77cdc558b928fcfbaf4e71c6d0cec
 
 ### CityJS London 2026 {/*cityjs-london-2026*/}
 ஏப்ரல் 14-17,  2026. London-இல் நேரடி நிகழ்வு
 
 [வலைத்தளம்](https://india.cityjsconf.org/) - [Twitter](https://x.com/cityjsconf) - [Bluesky](https://bsky.app/profile/cityjsconf.bsky.social)
 
+<<<<<<< HEAD
 ### ZurichJS Conf 2026 {/*zurichjs-conf-2026*/}
 செப்டம்பர் 10-11,  2026. Zurich, Switzerland-இல் நேரடி நிகழ்வு
 
 [வலைத்தளம்](https://conf.zurichjs.com?utm_campaign=ZurichJS_Conf&utm_source=referral&utm_content=reactjs_community_conferences) - [Twitter](https://x.com/zurichjs) - [LinkedIn](https://www.linkedin.com/company/zurichjs/)
 
 ## கடந்த மாநாடுகள் {/*past-conferences*/}
+=======
+
+### React Paris 2026 {/*react-paris-2026*/}
+March 26 - 27, 2026. In-person in Paris, France (hybrid event)
+
+[Website](https://react.paris/) - [Twitter](https://x.com/BeJS_)
+
+>>>>>>> 12d692da47e77cdc558b928fcfbaf4e71c6d0cec
 
 ### CityJS New Delhi 2026 {/*cityjs-newdelhi-2026*/}
 பிப்ரவரி 12-13,  2026. New Delhi, India-இல் நேரடி நிகழ்வு

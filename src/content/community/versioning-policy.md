@@ -134,9 +134,15 @@ React-க்கு வரும் எல்லா changes-மும் public r
   ```console
   yarn upgrade react@canary react-dom@canary
   ```
+<<<<<<< HEAD
 - Updated packages-க்கு எதிராக உங்கள் test suite-ஐ run செய்யவும்.
 - எல்லாம் pass ஆனால் சிறப்பு! உங்கள் project அடுத்த minor React release உடன் வேலை செய்யும் என்று எதிர்பார்க்கலாம்.
 - எதிர்பாராத விதமாக ஏதேனும் break ஆனால், [issue file செய்து](https://github.com/facebook/react/issues) எங்களுக்கு தெரிவிக்கவும்.
+=======
+- Run your test suite against the updated packages.
+- If everything passes, great! You can expect that your project will work with the next minor React release.
+- If something breaks unexpectedly, please let us know by [filing an issue](https://github.com/react/react/issues).
+>>>>>>> 12d692da47e77cdc558b928fcfbaf4e71c6d0cec
 
 இந்த workflow-ஐ பயன்படுத்தும் project Next.js. உதாரணமாக அவர்களின் [CircleCI configuration](https://github.com/zeit/next.js/blob/c0a1c0f93966fe33edd93fb53e5fafb0dcd80a9e/.circleci/config.yml)-ஐ பார்க்கலாம்.
 
@@ -166,4 +172,8 @@ Feature document செய்யப்படவில்லை என்றா�
 
 புதிய experiments அறிவிக்க தயாரானபோது [React blog](/blog)-இல் post செய்வோம்; ஆனால் ஒவ்வொரு experiment-யையும் publicize செய்வோம் என்று அர்த்தமில்லை.
 
+<<<<<<< HEAD
 மாற்றங்களின் முழுமையான பட்டியலுக்கு எப்போதும் எங்கள் public GitHub repository-ன் [history](https://github.com/facebook/react/commits/main)-ஐ பார்க்கலாம்.
+=======
+You can always refer to our public GitHub repository's [history](https://github.com/react/react/commits/main) for a comprehensive list of changes.
+>>>>>>> 12d692da47e77cdc558b928fcfbaf4e71c6d0cec
