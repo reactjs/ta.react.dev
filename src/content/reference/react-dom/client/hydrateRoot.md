@@ -274,7 +274,13 @@ export default function App() {
 
 ---
 
+<<<<<<< HEAD
 ### Client மற்றும் server content வேறுபட்டதை கையாளுதல் {/*handling-different-client-and-server-content*/}
+=======
+{/* TODO: Remove this subsection when browser is available in Stable. */}
+
+### Handling different client and server content {/*handling-different-client-and-server-content*/}
+>>>>>>> 7c36f7ac329fe3cf2e11222edce9a535158c2cab
 
 Server மற்றும் client-இல் திட்டமிட்டே வேறு ஒன்றை render செய்ய வேண்டுமானால், two-pass rendering செய்யலாம். Client-இல் வேறு ஒன்றை render செய்யும் components, `isClient` போன்ற [state variable](/reference/react/useState)-ஐப் படிக்கலாம்; அதை [Effect](/reference/react/useEffect)-இல் `true` ஆக set செய்யலாம்:
 
@@ -318,6 +324,10 @@ export default function App() {
 </Sandpack>
 
 இந்த வழியில் initial render pass, server போலவே அதே content render செய்து mismatches தவிர்க்கும்; ஆனால் hydration முடிந்த உடனே synchronously கூடுதல் pass நடக்கும்.
+
+Use this approach when you want the client-rendered content to be different from the initial server-rendered HTML.
+
+<Canary>If a component should render only in the browser, call [`use(browser())`](/reference/react/use#use-browser) instead of waiting for an Effect.</Canary>
 
 <Pitfall>
 
