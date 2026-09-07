@@ -755,6 +755,7 @@ User அடுத்ததாக interact செய்ய வாய்ப்ப�
 
 <Note>
 
+<<<<<<< HEAD
 **Suspense-enabled data sources மட்டுமே pre-rendering போது fetched செய்யப்படும்.** அவை:
 
 - [Relay](https://relay.dev/docs/guided-tour/rendering/loading-states/) மற்றும் [Next.js](https://nextjs.org/docs/app/building-your-application/routing/loading-ui-and-streaming#streaming-with-suspense) போன்ற Suspense-enabled frameworks மூலம் data fetching
@@ -766,6 +767,9 @@ Effect-க்குள் fetched செய்யப்படும் data-வ�
 மேலுள்ள `Posts` component-இல் data load செய்யும் exact முறை உங்கள் framework-ஐப் பொறுத்தது. Suspense-enabled framework பயன்படுத்தினால், அதன் data fetching documentation-இல் details காண்பீர்கள்.
 
 Opinionated framework இல்லாமல் Suspense-enabled data fetching இன்னும் support செய்யப்படவில்லை. Suspense-enabled data source implement செய்வதற்கான requirements unstable மற்றும் undocumented. Data sources-ஐ Suspense உடன் integrate செய்வதற்கான official API React-ன் எதிர்கால version-இல் release செய்யப்படும்.
+=======
+Only data read from a source that [activates a Suspense boundary](/reference/react/Suspense#what-activates-a-suspense-boundary), such as a Promise read with [`use`](/reference/react/use), is fetched during pre-rendering. Activity does not detect data fetched inside an Effect.
+>>>>>>> f3d9794fc31f4a3faf7e863984d37f4ae86b3290
 
 </Note>
 
