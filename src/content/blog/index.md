@@ -12,7 +12,17 @@ Bluesky-இல் [@react.dev](https://bsky.app/profile/react.dev) account-ஐ�
 
 <div className="sm:-mx-5 flex flex-col gap-5 mt-12">
 
+<<<<<<< HEAD
 <BlogCard title="React Foundation: Linux Foundation host செய்யும் React-க்கான புதிய வீடு" date="February 24, 2026" url="/blog/2026/02/24/the-react-foundation">
+=======
+<BlogCard title="React 19.3" date="September 9, 2026" url="/blog/2026/09/09/react-19-3">
+
+React 19.3 adds new features like View Transitions, Fragment Refs, browser(), Trusted Types, and more. In this post ...
+
+</BlogCard>
+
+<BlogCard title="The React Foundation: A New Home for React Hosted by the Linux Foundation" date="February 24, 2026" url="/blog/2026/02/24/the-react-foundation">
+>>>>>>> 8efce7853d0fc59e615ed1c253799cf1798b8428
 
 React Foundation, Linux Foundation கீழ் அதிகாரப்பூர்வமாக launch ஆகியுள்ளது.
 
@@ -150,7 +160,11 @@ Release post-இல் பகிர்ந்தபடி, React 18 எங்க�
 
 ### அனைத்து release notes {/*all-release-notes*/}
 
+<<<<<<< HEAD
 ஒவ்வொரு React release-க்கும் தனி blog post தேவையில்லை. ஆனால் ஒவ்வொரு release-க்கும் விரிவான changelog-ஐ React repository-இல் உள்ள [`CHANGELOG.md`](https://github.com/facebook/react/blob/main/CHANGELOG.md) file-இலும் [Releases](https://github.com/facebook/react/releases) page-இலும் காணலாம்.
+=======
+Not every React release deserves its own blog post, but you can find a detailed changelog for every release in the [`CHANGELOG.md`](https://github.com/react/react/blob/main/CHANGELOG.md) file in the React repository, as well as on the [Releases](https://github.com/react/react/releases) page.
+>>>>>>> 8efce7853d0fc59e615ed1c253799cf1798b8428
 
 ---
 

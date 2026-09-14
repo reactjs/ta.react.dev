@@ -899,6 +899,7 @@ body {
 
 ### React Developer Tools {/*react-developer-tools*/}
 
+<<<<<<< HEAD
 React DevTools உங்கள் React component-களின் props மற்றும் state-ஐச் சரிபார்க்க அனுமதிக்கிறது. CodeSandbox-இல் _browser_ பிரிவின் கீழே React DevTools tab-ஐக் காணலாம்:
 
 ![CodeSandbox-இல் React DevTools](../images/tutorial/codesandbox-devtools.png)
@@ -906,12 +907,26 @@ React DevTools உங்கள் React component-களின் props மற�
 screen-இல் குறிப்பிட்ட component-ஐ inspect செய்ய, React DevTools-ன் இடது மேல் மூலையில் உள்ள button-ஐப் பயன்படுத்துங்கள்:
 
 ![React DevTools மூலம் page-இல் component-களைத் தேர்ந்தெடுத்தல்](../images/tutorial/devtools-select.gif)
+=======
+React Developer Tools let you check the props and the state of your React components. It is available as a [Chrome](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en), [Firefox](https://addons.mozilla.org/en-US/firefox/addon/react-devtools/), and [Edge](https://microsoftedge.microsoft.com/addons/detail/react-developer-tools/gpphkfbcpidddadnkolkpfckpihlkkil) browser extension.
 
-<Note>
+After you install it, a new *Components* tab will appear in your browser Developer Tools for sites using React. If you're following along in CodeSandbox, you'd need to first open your sandbox preview in a new tab:
 
+![opening in new tab](../images/tutorial/sandbox-new-tab.png)
+
+Then, on the preview page, open your browser's DevTools and find the *Components* tab:
+>>>>>>> 8efce7853d0fc59e615ed1c253799cf1798b8428
+
+![components tab](../images/tutorial/components-tab.png)
+
+<<<<<<< HEAD
 local development-க்கு, React DevTools [Chrome](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en), [Firefox](https://addons.mozilla.org/en-US/firefox/addon/react-devtools/), மற்றும் [Edge](https://microsoftedge.microsoft.com/addons/detail/react-developer-tools/gpphkfbcpidddadnkolkpfckpihlkkil) browser extension ஆக கிடைக்கிறது. அதை install செய்தால், React பயன்படுத்தும் site-களுக்காக உங்கள் browser Developer Tools-இல் *Components* tab தோன்றும்.
+=======
+To inspect a particular component on the screen, use the button in the top left corner of the Components tab:
 
-</Note>
+![inspecting with devtools](../images/tutorial/devtools-inspect.gif)
+>>>>>>> 8efce7853d0fc59e615ed1c253799cf1798b8428
+
 
 ## game-ஐ முடித்தல் {/*completing-the-game*/}
 

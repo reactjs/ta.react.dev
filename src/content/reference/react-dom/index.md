@@ -30,6 +30,12 @@ Scripts, stylesheets, மற்றும் fonts போன்ற resources த�
 * [`preinit`](/reference/react-dom/preinit) external script ஒன்றை fetch செய்து evaluate செய்யவும், அல்லது stylesheet ஒன்றை fetch செய்து insert செய்யவும் உதவுகிறது.
 * [`preinitModule`](/reference/react-dom/preinitModule) ESM module ஒன்றை fetch செய்து evaluate செய்ய உதவுகிறது.
 
+## Server Rendering APIs {/*server-rendering-apis*/}
+
+This API controls how components render on the server:
+
+* [`browser`](/reference/react-dom/browser) lets you mark a component as browser-only during server rendering.
+
 ---
 
 ## Entry points {/*entry-points*/}

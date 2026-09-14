@@ -14,8 +14,13 @@ title: Static React DOM API-கள்
 
 இந்த methods, [Web Streams](https://developer.mozilla.org/en-US/docs/Web/API/Streams_API) உள்ள சூழல்களில் மட்டுமே கிடைக்கும். இதில் உலாவிகள், Deno, மற்றும் சில நவீன edge runtimes அடங்கும்:
 
+<<<<<<< HEAD
 * [`prerender`](/reference/react-dom/static/prerender) ஒரு React tree-ஐ [Readable Web Stream](https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream) மூலம் static HTML ஆக render செய்கிறது.
 * <ExperimentalBadge /> [`resumeAndPrerender`](/reference/react-dom/static/resumeAndPrerender) ஏற்கனவே prerender செய்யப்பட்ட React tree-ஐ [Readable Web Stream](https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream) மூலம் static HTML ஆகத் தொடர்கிறது.
+=======
+* [`prerender`](/reference/react-dom/static/prerender) renders a React tree to static HTML with a [Readable Web Stream.](https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream)
+* [`resumeAndPrerender`](/reference/react-dom/static/resumeAndPrerender) continues a prerendered React tree to static HTML with a [Readable Web Stream](https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream).
+>>>>>>> 8efce7853d0fc59e615ed1c253799cf1798b8428
 
 இணக்கத்திற்காக Node.js-லும் இந்த methods உள்ளன, ஆனால் குறைந்த செயல்திறன் காரணமாக அவை பரிந்துரைக்கப்படவில்லை. அதற்கு பதிலாக [Node.js-க்கு தனியாக உள்ள API-களை](#static-apis-for-nodejs-streams) பயன்படுத்துங்கள்.
 
@@ -23,7 +28,14 @@ title: Static React DOM API-கள்
 
 ## Node.js Streams-க்கான Static API-கள் {/*static-apis-for-nodejs-streams*/}
 
+<<<<<<< HEAD
 இந்த methods, [Node.js Streams](https://nodejs.org/api/stream.html) உள்ள சூழல்களில் மட்டுமே கிடைக்கும்:
+=======
+These methods are only available in the environments with [Node.js Streams](https://nodejs.org/api/stream.html):
+
+* [`prerenderToNodeStream`](/reference/react-dom/static/prerenderToNodeStream) renders a React tree to static HTML with a [Node.js Stream.](https://nodejs.org/api/stream.html)
+* [`resumeAndPrerenderToNodeStream`](/reference/react-dom/static/resumeAndPrerenderToNodeStream) continues a prerendered React tree to static HTML with a [Node.js Stream.](https://nodejs.org/api/stream.html)
+>>>>>>> 8efce7853d0fc59e615ed1c253799cf1798b8428
 
 * [`prerenderToNodeStream`](/reference/react-dom/static/prerenderToNodeStream) ஒரு React tree-ஐ [Node.js Stream](https://nodejs.org/api/stream.html) மூலம் static HTML ஆக render செய்கிறது.
 * <ExperimentalBadge /> [`resumeAndPrerenderToNodeStream`](/reference/react-dom/static/resumeAndPrerenderToNodeStream) ஏற்கனவே prerender செய்யப்பட்ட React tree-ஐ [Node.js Stream](https://nodejs.org/api/stream.html) மூலம் static HTML ஆகத் தொடர்கிறது.
