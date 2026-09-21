@@ -45,7 +45,11 @@ Keynote-இல் அடுத்ததாக, React 19-இல் வரும�
 - [React for Two Computers](https://www.youtube.com/watch?v=T8TZQ6k4SLE&t=18825s) - [Dan Abramov](https://bsky.app/profile/danabra.mov) வழங்கியது
 - [And Now You Understand React Server Components](https://www.youtube.com/watch?v=0ckOUBiuxVY&t=11256s) - [Kent C. Dodds](https://twitter.com/kentcdodds) வழங்கியது
 
+<<<<<<< HEAD
 இறுதியாக, React Compiler இப்போது [Open Source](https://github.com/facebook/react/pull/29061) என [Joe Savona](https://twitter.com/en_JS), [Sathya Gunasekaran](https://twitter.com/_gsathya), மற்றும் [Mofei Zhang](https://twitter.com/zmofei) அறிவித்து, முயற்சிக்க React Compiler-ன் experimental version-ஐ பகிர்ந்ததுடன் keynote-ஐ முடித்தோம்.
+=======
+Finally, we ended the keynote with [Joe Savona](https://twitter.com/en_JS), [Sathya Gunasekaran](https://twitter.com/_gsathya), and [Mofei Zhang](https://twitter.com/zmofei) announcing that the React Compiler is now [Open Source](https://github.com/react/react/pull/29061), and sharing an experimental version of the React Compiler to try out.
+>>>>>>> b011783fcc7a39da9eefd4274147a1444860a12b
 
 Compiler-ஐ பயன்படுத்துவது மற்றும் அது எப்படி வேலை செய்கிறது பற்றிய கூடுதல் தகவலுக்கு [docs](/learn/react-compiler) மற்றும் இந்த talks-ஐ பார்க்கவும்:
 

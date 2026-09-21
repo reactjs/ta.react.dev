@@ -86,6 +86,7 @@ Updates போது, <CodeStep step={2}>deferred value</CodeStep> latest <CodeS
 
 <Note>
 
+<<<<<<< HEAD
 இந்த example நீங்கள் Suspense-enabled data source பயன்படுத்துகிறீர்கள் என்று கருதுகிறது:
 
 - [Relay](https://relay.dev/docs/guided-tour/rendering/loading-states/) மற்றும் [Next.js](https://nextjs.org/docs/app/getting-started/fetching-data#with-suspense) போன்ற Suspense-enabled frameworks மூலம் data fetching
@@ -93,6 +94,11 @@ Updates போது, <CodeStep step={2}>deferred value</CodeStep> latest <CodeS
 - [`use`](/reference/react/use) மூலம் Promise-ன் value-ஐ வாசித்தல்
 
 [Suspense மற்றும் அதன் limitations பற்றி மேலும் அறிக.](/reference/react/Suspense)
+=======
+This example assumes you use a data source that [activates a Suspense boundary](/reference/react/Suspense#what-activates-a-suspense-boundary), such as a Promise you read with [`use`](/reference/react/use).
+
+[Learn more about Suspense.](/reference/react/Suspense)
+>>>>>>> b011783fcc7a39da9eefd4274147a1444860a12b
 
 </Note>
 
@@ -706,6 +712,8 @@ export default SlowList;
 ```css
 .items {
   padding: 0;
+  max-height: 300px;
+  overflow: auto;
 }
 
 .item {
@@ -783,6 +791,8 @@ export default SlowList;
 ```css
 .items {
   padding: 0;
+  max-height: 300px;
+  overflow: auto;
 }
 
 .item {
