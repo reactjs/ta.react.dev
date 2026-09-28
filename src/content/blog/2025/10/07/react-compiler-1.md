@@ -132,7 +132,11 @@ export default defineConfig([
 }
 ```
 
+<<<<<<< HEAD
 React Compiler rules enable செய்ய, `recommended` preset பயன்படுத்த பரிந்துரைக்கிறோம். கூடுதல் instructions-க்கு [README](https://github.com/facebook/react/blob/main/packages/eslint-plugin-react-hooks/README.md)-யையும் பார்க்கலாம். React Conf-இல் நாங்கள் காட்டிய சில examples:
+=======
+To enable React Compiler rules, we recommend using the `recommended` preset. You can also check out the [README](https://github.com/react/react/blob/main/packages/eslint-plugin-react-hooks/README.md) for more instructions. Here are a few examples we featured at React Conf:
+>>>>>>> 44b0b5f10b7f6477bf146d26444717fb4930439f
 
 - [`set-state-in-render`](/reference/eslint-plugin-react-hooks/lints/set-state-in-render) மூலம் render loops ஏற்படுத்தும் `setState` patterns-ஐ பிடித்தல்.
 - [`set-state-in-effect`](/reference/eslint-plugin-react-hooks/lints/set-state-in-effect) மூலம் effects உள்ளே expensive work-ஐ flag செய்தல்.
