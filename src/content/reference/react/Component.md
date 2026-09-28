@@ -1009,7 +1009,11 @@ State derive செய்வது verbose code-க்கு வழிவகு�
 
 #### Caveats {/*static-getderivedstatefromprops-caveats*/}
 
+<<<<<<< HEAD
 - இந்த method cause எதுவாக இருந்தாலும் *ஒவ்வொரு* render-இலும் fired ஆகும். Parent re-render ஏற்படுத்தும் போது மட்டும் fire ஆகும், local `setState` காரணமாக அல்லாத [`UNSAFE_componentWillReceiveProps`](#unsafe_cmoponentwillreceiveprops)-இலிருந்து இது வேறுபடும்.
+=======
+- This method is fired on *every* render, regardless of the cause. This is different from [`UNSAFE_componentWillReceiveProps`](#unsafe_componentwillreceiveprops), which only fires when the parent causes a re-render and not as a result of a local `setState`.
+>>>>>>> 44b0b5f10b7f6477bf146d26444717fb4930439f
 
 - இந்த method component instance-க்கு access இல்லை. விரும்பினால், component props மற்றும் state-ன் pure functions-ஐ class definition-க்கு வெளியே extract செய்வதன் மூலம் `static getDerivedStateFromProps` மற்றும் மற்ற class methods இடையே சில code reuse செய்யலாம்.
 

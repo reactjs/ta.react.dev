@@ -92,7 +92,11 @@ React Compiler-ஐ libraries compile செய்யவும் பயன்ப
 
 Compiler-ன் experimental release மீது feedback வழங்க, கேள்விகள் கேட்க, மற்றும் collaborate செய்ய invite-only [React Compiler Working Group](https://github.com/reactwg/react-compiler)-ஐ முன்பு React Conf-இல் அறிவித்தோம்.
 
+<<<<<<< HEAD
 இன்றிலிருந்து, React Compiler Beta release உடன், Working Group membership-ஐ அனைவருக்கும் திறக்கிறோம். Existing applications மற்றும் libraries React Compiler-ஐ smooth மற்றும் gradual-ஆக adopt செய்ய ecosystem-ஐ தயார்படுத்துவதே React Compiler Working Group-ன் இலக்கு. Bug reports-ஐ தொடர்ந்து [React repo](https://github.com/facebook/react)-இல் file செய்யுங்கள்; ஆனால் feedback வழங்க, கேள்விகள் கேட்க, அல்லது ideas பகிர [Working Group discussion forum](https://github.com/reactwg/react-compiler/discussions)-ஐ பயன்படுத்துங்கள்.
+=======
+From today, together with the Beta release of React Compiler, we are opening up Working Group membership to everyone. The goal of the React Compiler Working Group is to prepare the ecosystem for a smooth, gradual adoption of React Compiler by existing applications and libraries. Please continue to file bug reports in the [React repo](https://github.com/react/react), but please leave feedback, ask questions, or share ideas in the [Working Group discussion forum](https://github.com/reactwg/react-compiler/discussions).
+>>>>>>> 44b0b5f10b7f6477bf146d26444717fb4930439f
 
 எங்கள் research findings-ஐ பகிர core team இந்த discussions repo-வையும் பயன்படுத்தும். Stable Release நெருங்கும் போது, முக்கியமான தகவல்களும் இந்த forum-இல் post செய்யப்படும்.
 
@@ -127,7 +131,11 @@ Stable-க்கு பிறகு, மேலும் compiler optimizations �
 
 ---
 
+<<<<<<< HEAD
 [^1]: Compiler-க்கு contributions செய்த [@nikeee](https://github.com/facebook/react/pulls?q=is%3Apr+author%3Anikeee), [@henryqdineen](https://github.com/facebook/react/pulls?q=is%3Apr+author%3Ahenryqdineen), [@TrickyPi](https://github.com/facebook/react/pulls?q=is%3Apr+author%3ATrickyPi), மற்றும் பலருக்கு நன்றி.
+=======
+[^1]: Thanks [@nikeee](https://github.com/react/react/pulls?q=is%3Apr+author%3Anikeee), [@henryqdineen](https://github.com/react/react/pulls?q=is%3Apr+author%3Ahenryqdineen), [@TrickyPi](https://github.com/react/react/pulls?q=is%3Apr+author%3ATrickyPi), and several others for their contributions to the compiler.
+>>>>>>> 44b0b5f10b7f6477bf146d26444717fb4930439f
 
 [^2]: Meta-வில் React Compiler பற்றிய இந்த study-ஐ வழிநடத்தி, இந்த post-ஐ review செய்த [Vaishali Garg](https://www.linkedin.com/in/vaishaligarg09)-க்கு நன்றி.
 

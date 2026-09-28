@@ -1,8 +1,8 @@
 ---
 title: addTransitionType
-version: canary
 ---
 
+<<<<<<< HEAD
 <Canary>
 
 **`addTransitionType` API தற்போது React-ன் Canary மற்றும் Experimental channels-இல் மட்டுமே கிடைக்கிறது.**
@@ -11,6 +11,8 @@ version: canary
 
 </Canary>
 
+=======
+>>>>>>> 44b0b5f10b7f6477bf146d26444717fb4930439f
 <Intro>
 
 ஒரு transition-ன் காரணத்தை குறிப்பிட `addTransitionType` உதவுகிறது.

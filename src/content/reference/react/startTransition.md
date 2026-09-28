@@ -92,7 +92,11 @@ Transition பயன்படுத்தும்போது, re-render நட
 
 <Note>
 
+<<<<<<< HEAD
 `startTransition` என்பது [`useTransition`](/reference/react/useTransition)-க்கு மிகவும் ஒத்தது; ஆனால் Transition நடைபெறுகிறதா என்பதை track செய்ய `isPending` flag-ஐ வழங்காது. `useTransition` கிடைக்காத இடங்களில் `startTransition`-ஐ அழைக்கலாம். உதாரணமாக, data library போன்ற components-க்கு வெளியே `startTransition` வேலை செய்கிறது.
+=======
+`startTransition` is very similar to [`useTransition`](/reference/react/useTransition), except that it does not provide the `isPending` flag to track whether a Transition is ongoing. The standalone function is also not associated with a component, so if the function passed to it throws an error or returns a rejected Promise, React reports the error with [`reportError`](https://developer.mozilla.org/en-US/docs/Web/API/Window/reportError). You can call `startTransition` when `useTransition` is not available. For example, `startTransition` works outside components, such as from a data library.
+>>>>>>> 44b0b5f10b7f6477bf146d26444717fb4930439f
 
 [`useTransition` பக்கத்தில் Transitions பற்றி அறிந்து உதாரணங்களைப் பாருங்கள்.](/reference/react/useTransition)
 

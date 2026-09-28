@@ -1,12 +1,10 @@
 ---
 title: <ViewTransition>
-version: canary
 ---
-
-
 
 <Intro>
 
+<<<<<<< HEAD
 <Canary>
 
 **`<ViewTransition />` API தற்போது React-ன் Canary மற்றும் Experimental channel-களில் மட்டுமே கிடைக்கிறது.**
@@ -16,6 +14,9 @@ version: canary
 </Canary>
 
 `<ViewTransition>` Transitions மற்றும் Suspense உடன் component tree ஒன்றை animate செய்ய அனுமதிக்கிறது.
+=======
+`<ViewTransition>` lets you animate a component tree with Transitions and Suspense.
+>>>>>>> 44b0b5f10b7f6477bf146d26444717fb4930439f
 
 ```js
 import {ViewTransition} from 'react';
@@ -436,8 +437,8 @@ button:hover {
 ```json package.json hidden
 {
   "dependencies": {
-    "react": "canary",
-    "react-dom": "canary",
+    "react": "19.3.0-canary-f1f7ed2a-20260904",
+    "react-dom": "19.3.0-canary-f1f7ed2a-20260904",
     "react-scripts": "latest"
   }
 }
@@ -576,8 +577,8 @@ function Counter() {
 ```json package.json hidden
 {
   "dependencies": {
-    "react": "canary",
-    "react-dom": "canary",
+    "react": "19.3.0-canary-f1f7ed2a-20260904",
+    "react-dom": "19.3.0-canary-f1f7ed2a-20260904",
     "react-scripts": "latest"
   }
 }
@@ -800,8 +801,8 @@ button:hover {
 ```json package.json hidden
 {
   "dependencies": {
-    "react": "canary",
-    "react-dom": "canary",
+    "react": "19.3.0-canary-f1f7ed2a-20260904",
+    "react-dom": "19.3.0-canary-f1f7ed2a-20260904",
     "react-scripts": "latest"
   }
 }
@@ -1034,8 +1035,8 @@ button:hover {
 ```json package.json hidden
 {
   "dependencies": {
-    "react": "canary",
-    "react-dom": "canary",
+    "react": "19.3.0-canary-f1f7ed2a-20260904",
+    "react-dom": "19.3.0-canary-f1f7ed2a-20260904",
     "react-scripts": "latest"
   }
 }
@@ -1235,8 +1236,8 @@ button:hover {
 ```json package.json hidden
 {
   "dependencies": {
-    "react": "canary",
-    "react-dom": "canary",
+    "react": "19.3.0-canary-f1f7ed2a-20260904",
+    "react-dom": "19.3.0-canary-f1f7ed2a-20260904",
     "react-scripts": "latest"
   }
 }
@@ -1264,7 +1265,11 @@ list-களை reorder செய்யும்போது identity-ஐப் �
 
 ### Suspense content-இலிருந்து animate செய்தல் {/*animating-from-suspense-content*/}
 
+<<<<<<< HEAD
 எந்த Transition போலவே, animation ஓடுவதற்கு முன் data மற்றும் புதிய CSS (`<link rel="stylesheet" precedence="...">`) க்காக React காத்திருக்கும். இதற்கு கூடுதலாக, புதிய font-கள் பின்னர் flicker ஆகாமல் இருக்க animation தொடங்குவதற்கு முன் ViewTransition-கள் அவை load ஆக 500ms வரை காத்திருக்கும். அதே காரணத்திற்காக, ViewTransition-இல் wrap செய்யப்பட்ட image, image load ஆக காத்திருக்கும்.
+=======
+Like any Transition, React waits for data and new CSS (`<link rel="stylesheet" precedence="...">`) before running the animation. In addition to this, ViewTransitions also wait up to 500ms for new fonts to load before starting the animation to avoid them flickering in later. For the same reason, an image wrapped in ViewTransition will wait for the image to load. See examples of [waiting for a font](/reference/react/Suspense#waiting-for-a-font-to-load) and [waiting for an image](/reference/react/Suspense#waiting-for-an-image-to-load) on the Suspense page.
+>>>>>>> 44b0b5f10b7f6477bf146d26444717fb4930439f
 
 இது புதிய Suspense boundary instance-க்குள் இருந்தால், fallback முதலில் காட்டப்படும். Suspense boundary முழுமையாக load ஆன பிறகு, content reveal-ஐ animate செய்ய அது `<ViewTransition>`-ஐ trigger செய்கிறது.
 
@@ -1497,8 +1502,8 @@ button:hover {
 ```json package.json hidden
 {
   "dependencies": {
-    "react": "canary",
-    "react-dom": "canary",
+    "react": "19.3.0-canary-f1f7ed2a-20260904",
+    "react-dom": "19.3.0-canary-f1f7ed2a-20260904",
     "react-scripts": "latest"
   }
 }
@@ -1728,8 +1733,8 @@ button:hover {
 ```json package.json hidden
 {
   "dependencies": {
-    "react": "canary",
-    "react-dom": "canary",
+    "react": "19.3.0-canary-f1f7ed2a-20260904",
+    "react-dom": "19.3.0-canary-f1f7ed2a-20260904",
     "react-scripts": "latest"
   }
 }
@@ -1974,8 +1979,8 @@ button:hover {
 ```json package.json hidden
 {
   "dependencies": {
-    "react": "canary",
-    "react-dom": "canary",
+    "react": "19.3.0-canary-f1f7ed2a-20260904",
+    "react-dom": "19.3.0-canary-f1f7ed2a-20260904",
     "react-scripts": "latest"
   }
 }
@@ -2303,8 +2308,8 @@ button:hover {
 ```json package.json hidden
 {
   "dependencies": {
-    "react": "canary",
-    "react-dom": "canary",
+    "react": "19.3.0-canary-f1f7ed2a-20260904",
+    "react-dom": "19.3.0-canary-f1f7ed2a-20260904",
     "react-scripts": "latest"
   }
 }
@@ -2529,8 +2534,8 @@ button:hover {
 ```json package.json hidden
 {
   "dependencies": {
-    "react": "canary",
-    "react-dom": "canary",
+    "react": "19.3.0-canary-f1f7ed2a-20260904",
+    "react-dom": "19.3.0-canary-f1f7ed2a-20260904",
     "react-scripts": "latest"
   }
 }
@@ -2774,8 +2779,8 @@ button:hover {
 ```json package.json hidden
 {
   "dependencies": {
-    "react": "canary",
-    "react-dom": "canary",
+    "react": "19.3.0-canary-f1f7ed2a-20260904",
+    "react-dom": "19.3.0-canary-f1f7ed2a-20260904",
     "react-scripts": "latest"
   }
 }
