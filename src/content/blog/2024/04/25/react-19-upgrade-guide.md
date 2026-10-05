@@ -24,7 +24,11 @@ React 19-க்கு upgrade செய்வதை மேம்படுத்�
 
 React 19-க்கு upgrade செய்வதற்கு முன் ஏதேனும் issues உள்ளனவா கண்டறிய உதவ, முதலில் React 18.3-க்கு upgrade செய்ய பரிந்துரைக்கிறோம்.
 
+<<<<<<< HEAD
 18.3-இல் உள்ள changes list-க்கு [Release Notes](https://github.com/facebook/react/blob/main/CHANGELOG.md#1830-april-25-2024)-ஐ பார்க்கவும்.
+=======
+For a list of changes in 18.3 see the [Release Notes](https://github.com/react/react/blob/main/CHANGELOG.md#1830-april-25-2024).
+>>>>>>> 8c68ae8d2410abe59f351195780c6f8ea9f50904
 
 </Note>
 
@@ -38,7 +42,11 @@ React 19-க்கு upgrade செய்வதற்கு முன் ஏத
 - [TypeScript changes](#typescript-changes)
 - [Changelog](#changelog)
 
+<<<<<<< HEAD
 React 19-ஐ test செய்ய உதவ விரும்பினால், இந்த upgrade guide-இல் உள்ள steps-ஐப் பின்பற்றி நீங்கள் சந்திக்கும் [issues-ஐ report](https://github.com/facebook/react/issues/new?assignees=&labels=React+19&projects=&template=19.md&title=%5BReact+19%5D) செய்யுங்கள். React 19-இல் சேர்க்கப்பட்ட புதிய features list-க்கு [React 19 release post](/blog/2024/12/05/react-19)-ஐ பார்க்கவும்.
+=======
+If you'd like to help us test React 19, follow the steps in this upgrade guide and [report any issues](https://github.com/react/react/issues/new?assignees=&labels=React+19&projects=&template=19.md&title=%5BReact+19%5D) you encounter. For a list of new features added to React 19, see the [React 19 release post](/blog/2024/12/05/react-19).
+>>>>>>> 8c68ae8d2410abe59f351195780c6f8ea9f50904
 
 ---
 ## நிறுவுதல் {/*installing*/}
@@ -256,7 +264,11 @@ class Child extends React.Component {
 #### நீக்கப்பட்டது: string refs {/*removed-string-refs*/}
 String refs [மார்ச் 2018 (v16.3.0)](https://legacy.reactjs.org/blog/2018/03/27/update-on-async-rendering.html)-இல் deprecated செய்யப்பட்டது.
 
+<<<<<<< HEAD
 [பல குறைகள்](https://github.com/facebook/react/issues/1373) காரணமாக ref callbacks-ஆல் replace செய்யப்படுவதற்கு முன் class components string refs-ஐ support செய்தன. React 19-இல், React-ஐ நேரடியாகவும் புரிந்துகொள்ள திறமையாகவும் ஆக்க string refs-ஐ நீக்குகிறோம்.
+=======
+Class components supported string refs before being replaced by ref callbacks due to [multiple downsides](https://github.com/react/react/issues/1373). In React 19, we're removing string refs to make React simpler and easier to understand.
+>>>>>>> 8c68ae8d2410abe59f351195780c6f8ea9f50904
 
 Class components-இல் இன்னும் string refs பயன்படுத்தினால், ref callbacks-க்கு migrate செய்ய வேண்டும்:
 
@@ -729,6 +741,7 @@ const reducer = (state: State, action: Action) => state;
 
 ### பிற breaking changes {/*other-breaking-changes*/}
 
+<<<<<<< HEAD
 - **react-dom**: `src` மற்றும் `href`-இல் javascript URLs-க்கு error [#26507](https://github.com/facebook/react/pull/26507)
 - **react-dom**: `onRecoverableError`-இலிருந்து `errorInfo.digest` remove செய்யப்பட்டது [#28222](https://github.com/facebook/react/pull/28222)
 - **react-dom**: `unstable_flushControlled` remove செய்யப்பட்டது [#26397](https://github.com/facebook/react/pull/26397)
@@ -736,9 +749,19 @@ const reducer = (state: State, action: Action) => state;
 - **react-dom**: `unstable_renderSubtreeIntoContainer` remove செய்யப்பட்டது [#28271](https://github.com/facebook/react/pull/28271)
 - **react-dom**: `unstable_runWithPriority` remove செய்யப்பட்டது [#28271](https://github.com/facebook/react/pull/28271)
 - **react-is**: `react-is`-இலிருந்து deprecated methods remove செய்யப்பட்டது [28224](https://github.com/facebook/react/pull/28224)
+=======
+- **react-dom**: Error for javascript URLs in `src` and `href` [#26507](https://github.com/react/react/pull/26507)
+- **react-dom**: Remove `errorInfo.digest` from `onRecoverableError` [#28222](https://github.com/react/react/pull/28222)
+- **react-dom**: Remove `unstable_flushControlled` [#26397](https://github.com/react/react/pull/26397)
+- **react-dom**: Remove `unstable_createEventHandle` [#28271](https://github.com/react/react/pull/28271)
+- **react-dom**: Remove `unstable_renderSubtreeIntoContainer` [#28271](https://github.com/react/react/pull/28271)
+- **react-dom**: Remove `unstable_runWithPriority` [#28271](https://github.com/react/react/pull/28271)
+- **react-is**: Remove deprecated methods from `react-is` [28224](https://github.com/react/react/pull/28224)
+>>>>>>> 8c68ae8d2410abe59f351195780c6f8ea9f50904
 
 ### பிற notable changes {/*other-notable-changes*/}
 
+<<<<<<< HEAD
 - **react**: Batch sync, default மற்றும் continuous lanes [#25700](https://github.com/facebook/react/pull/25700)
 - **react**: Suspended component-ன் siblings-ஐ prerender செய்ய வேண்டாம் [#26380](https://github.com/facebook/react/pull/26380)
 - **react**: Render phase updates காரணமான infinite update loops detect செய்யப்பட்டது [#26625](https://github.com/facebook/react/pull/26625)
@@ -747,6 +770,16 @@ const reducer = (state: State, action: Action) => state;
 - **react-dom**: Warn செய்து src/href-க்கு empty string set செய்யாது (anchor tags தவிர) [#28124](https://github.com/facebook/react/pull/28124)
 
 Changes-ன் முழு list-க்கு [Changelog](https://github.com/facebook/react/blob/main/CHANGELOG.md#1900-december-5-2024)-ஐ பார்க்கவும்.
+=======
+- **react**: Batch sync, default and continuous lanes [#25700](https://github.com/react/react/pull/25700)
+- **react**: Don't prerender siblings of suspended component [#26380](https://github.com/react/react/pull/26380)
+- **react**: Detect infinite update loops caused by render phase updates [#26625](https://github.com/react/react/pull/26625)
+- **react-dom**: Transitions in popstate are now synchronous [#26025](https://github.com/react/react/pull/26025)
+- **react-dom**: Remove layout effect warning during SSR [#26395](https://github.com/react/react/pull/26395)
+- **react-dom**: Warn and don’t set empty string for src/href (except anchor tags) [#28124](https://github.com/react/react/pull/28124)
+
+For a full list of changes, please see the [Changelog](https://github.com/react/react/blob/main/CHANGELOG.md#1900-december-5-2024).
+>>>>>>> 8c68ae8d2410abe59f351195780c6f8ea9f50904
 
 ---
 
