@@ -13,7 +13,11 @@ March 08, 2022 அன்று [Rick Hanlon](https://twitter.com/rickhanlonii) �
 
 [Release post](/blog/2022/03/29/react-v18)-இல் பகிர்ந்தபடி, React 18 எங்கள் புதிய concurrent renderer மூலம் இயங்கும் features-ஐ, existing applications-க்கான gradual adoption strategy உடன் அறிமுகப்படுத்துகிறது. இந்த post-இல், React 18-க்கு upgrade செய்ய வேண்டிய steps வழியாக உங்களை வழிநடத்துகிறோம்.
 
+<<<<<<< HEAD
 React 18-க்கு upgrade செய்யும்போது சந்திக்கும் issues-ஐ [report செய்யவும்](https://github.com/facebook/react/issues/new/choose).
+=======
+Please [report any issues](https://github.com/react/react/issues/new/choose) you encounter while upgrading to React 18.
+>>>>>>> 8c68ae8d2410abe59f351195780c6f8ea9f50904
 
 </Intro>
 
@@ -315,11 +319,19 @@ Internet Explorer support செய்ய வேண்டுமெனில், 
 
 ### React {/*react*/}
 
+<<<<<<< HEAD
 * **Components இப்போது `undefined` render செய்யலாம்:** Component ஒன்றிலிருந்து `undefined` return செய்தால் React இனி warn செய்யாது. இது allowed component return values-ஐ component tree நடுப்பகுதியில் அனுமதிக்கப்படும் values உடன் consistent ஆக்குகிறது. JSX-க்கு முன் `return` statement மறப்பது போன்ற mistakes-ஐ தடுக்க linter பயன்படுத்த பரிந்துரைக்கிறோம்.
 * **Tests-இல், `act` warnings இப்போது opt-in:** End-to-end tests run செய்தால், `act` warnings தேவையில்லை. அவை பயனுள்ளதாக இருக்கும் unit tests-க்கு மட்டும் enable செய்ய [opt-in](https://github.com/reactwg/react-18/discussions/102) mechanism அறிமுகப்படுத்தியுள்ளோம்.
 * **Unmounted components-இல் `setState` பற்றி warning இல்லை:** முன்பு, unmounted component-இல் `setState` call செய்தால் memory leaks பற்றி React warn செய்தது. இந்த warning subscriptions-க்காக சேர்க்கப்பட்டது; ஆனால் மக்கள் பெரும்பாலும் state setting fine ஆக இருக்கும் scenarios-இல் இதை சந்தித்தனர், மேலும் workarounds code-ஐ மோசமாக்கின. இந்த warning-ஐ [remove செய்துள்ளோம்](https://github.com/facebook/react/pull/22114).
 * **Console logs suppress செய்யப்படாது:** Strict Mode பயன்படுத்தும்போது, unexpected side effects கண்டறிய React ஒவ்வொரு component-யையும் இருமுறை render செய்கிறது. React 17-இல், logs படிக்க நேரடியாக இருக்க இரண்டு renders-இல் ஒன்றுக்கான console logs suppress செய்தோம். இது confusing என்கிற [community feedback](https://github.com/facebook/react/issues/21783)-க்கு பதிலாக suppression remove செய்துள்ளோம். அதற்கு பதிலாக, React DevTools install செய்யப்பட்டிருந்தால், இரண்டாவது render-ன் logs grey-ஆக காட்டப்படும்; அவற்றை முழுமையாக suppress செய்யும் option இருக்கும் (default ஆக off).
 * **மேம்பட்ட memory usage:** Unmount போது React இப்போது அதிக internal fields clean up செய்கிறது; இதனால் உங்கள் application code-இல் இருக்கக்கூடிய unfixed memory leaks-ன் impact குறையும்.
+=======
+* **Components can now render `undefined`:** React no longer warns if you return `undefined` from a component. This makes the allowed component return values consistent with values that are allowed in the middle of a component tree. We suggest to use a linter to prevent mistakes like forgetting a `return` statement before JSX.
+* **In tests, `act` warnings are now opt-in:** If you're running end-to-end tests, the `act` warnings are unnecessary. We've introduced an [opt-in](https://github.com/reactwg/react-18/discussions/102) mechanism so you can enable them only for unit tests where they are useful and beneficial.
+* **No warning about `setState` on unmounted components:** Previously, React warned about memory leaks when you call `setState` on an unmounted component. This warning was added for subscriptions, but people primarily run into it in scenarios where setting state is fine, and workarounds make the code worse. We've [removed](https://github.com/react/react/pull/22114) this warning.
+* **No suppression of console logs:** When you use Strict Mode, React renders each component twice to help you find unexpected side effects. In React 17, we've suppressed console logs for one of the two renders to make the logs easier to read. In response to [community feedback](https://github.com/react/react/issues/21783) about this being confusing, we've removed the suppression. Instead, if you have React DevTools installed, the second log's renders will be displayed in grey, and there will be an option (off by default) to suppress them completely.
+* **Improved memory usage:** React now cleans up more internal fields on unmount, making the impact from unfixed memory leaks that may exist in your application code less severe.
+>>>>>>> 8c68ae8d2410abe59f351195780c6f8ea9f50904
 
 ### React DOM Server {/*react-dom-server*/}
 
@@ -328,4 +340,8 @@ Internet Explorer support செய்ய வேண்டுமெனில், 
 
 ## Changelog {/*changelog*/}
 
+<<<<<<< HEAD
 [முழு changelog-ஐ இங்கே](https://github.com/facebook/react/blob/main/CHANGELOG.md) பார்க்கலாம்.
+=======
+You can view the [full changelog here](https://github.com/react/react/blob/main/CHANGELOG.md).
+>>>>>>> 8c68ae8d2410abe59f351195780c6f8ea9f50904

@@ -10,7 +10,11 @@ React-க்கு கோடிக்கணக்கான developers கொண�
 
 ## நடத்தை விதிகள் {/*code-of-conduct*/}
 
+<<<<<<< HEAD
 React சமூகங்களில் பங்கேற்பதற்கு முன், [எங்கள் நடத்தை விதிகளைப் படிக்கவும்.](https://github.com/facebook/react/blob/main/CODE_OF_CONDUCT.md) நாங்கள் [Contributor Covenant](https://www.contributor-covenant.org/)-ஐ ஏற்றுள்ளோம்; அனைத்து சமூக உறுப்பினர்களும் அதில் உள்ள வழிகாட்டுதல்களைப் பின்பற்ற வேண்டும் என எதிர்பார்க்கிறோம்.
+=======
+Before participating in React's communities, [please read our Code of Conduct.](https://github.com/react/react/blob/main/CODE_OF_CONDUCT.md) We have adopted the [Contributor Covenant](https://www.contributor-covenant.org/) and we expect that all community members adhere to the guidelines within.
+>>>>>>> 8c68ae8d2410abe59f351195780c6f8ea9f50904
 
 ## Stack Overflow {/*stack-overflow*/}
 
