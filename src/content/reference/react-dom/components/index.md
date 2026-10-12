@@ -36,6 +36,7 @@ title: "React DOM Components"
 
 உலாவியில் உள்ளமைந்த இந்த components external resources load செய்யவோ document-ஐ metadata உடன் annotate செய்யவோ உதவுகின்றன:
 
+* [`<img>`](/reference/react-dom/components/img)
 * [`<link>`](/reference/react-dom/components/link)
 * [`<meta>`](/reference/react-dom/components/meta)
 * [`<script>`](/reference/react-dom/components/script)
@@ -91,7 +92,7 @@ title: "React DOM Components"
 * [`<html>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/html)
 * [`<i>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/i)
 * [`<iframe>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe)
-* [`<img>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img)
+* [`<img>`](/reference/react-dom/components/img)
 * [`<input>`](/reference/react-dom/components/input)
 * [`<ins>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ins)
 * [`<kbd>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/kbd)
