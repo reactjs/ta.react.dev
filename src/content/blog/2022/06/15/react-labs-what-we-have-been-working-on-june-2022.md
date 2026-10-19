@@ -69,7 +69,11 @@ Offscreen என்பது high level features-ஐ திறக்கும்
 
 Context இல்லாமல் தனித்தனி slow commits அல்லது components பற்றித் தெரிந்துகொள்வது developers-க்கு பெரிதாக பயனில்லை என்பதை உணர்ந்தோம். Slow commits-க்கு உண்மையில் என்ன காரணம் என்பதை அறிதல்தான் அதிக பயனுள்ளதாகும். மேலும் developers, performance regressions-ஐ கவனிக்கவும், ஒரு interaction ஏன் slow ஆனது மற்றும் அதை எப்படி சரிசெய்வது என்பதைப் புரிந்துகொள்ளவும், குறிப்பிட்ட interactions-ஐ (எ.கா. button click, initial load, அல்லது page navigation) track செய்ய விரும்புகிறார்கள்.
 
+<<<<<<< HEAD
 முன்பு [Interaction Tracing API](https://gist.github.com/bvaughn/8de925562903afd2e7a12554adcdda16) உருவாக்கி இந்த பிரச்சினையை தீர்க்க முயன்றோம்; ஆனால் ஒரு interaction ஏன் slow ஆனது என்பதை track செய்வதின் துல்லியத்தை குறைக்கும் சில அடிப்படை design flaws அதில் இருந்தன, சில நேரங்களில் interactions முடிவில்லாமல் நீடிக்கும் நிலையும் ஏற்பட்டது. இந்த பிரச்சினைகளால் இறுதியில் [இந்த API-யை அகற்றினோம்](https://github.com/facebook/react/pull/20037).
+=======
+We previously tried to solve this issue by creating an [Interaction Tracing API](https://gist.github.com/bvaughn/8de925562903afd2e7a12554adcdda16), but it had some fundamental design flaws that reduced the accuracy of tracking why an interaction was slow and sometimes resulted in interactions never ending. We ended up [removing this API](https://github.com/react/react/pull/20037) because of these issues.
+>>>>>>> 046f17d04295ba047bb5739026b4ac3110f17028
 
 இந்த பிரச்சினைகளை தீர்க்கும் Interaction Tracing API-ன் புதிய version-இல் பணியாற்றுகிறோம் (இது `startTransition` மூலம் தொடங்கப்படுவதால் தற்காலிகமாக Transition Tracing என்று அழைக்கப்படுகிறது).
 
