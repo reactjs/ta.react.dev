@@ -16,7 +16,11 @@ React-இன் memoization rules முழுமையாக document செய
 
 ## விதி விவரங்கள் {/*rule-details*/}
 
+<<<<<<< HEAD
 சில libraries React ஆதரிக்காத patterns-ஐப் பயன்படுத்துகின்றன. [அறியப்பட்ட பட்டியலில்](https://github.com/facebook/react/blob/main/compiler/packages/babel-plugin-react-compiler/src/HIR/DefaultModuleTypeProvider.ts) உள்ள இந்த API-களின் பயன்பாடுகளை linter கண்டறிந்தால், இந்த விதியின் கீழ் அவற்றை flag செய்கிறது. இதன் பொருள், உங்கள் app உடையாமல் இருக்க React Compiler இந்த incompatible APIs பயன்படுத்தும் components-ஐ தானாக skip செய்ய முடியும்.
+=======
+Some libraries use patterns that aren't supported by React. When the linter detects usages of these APIs from a [known list](https://github.com/react/react/blob/main/compiler/packages/babel-plugin-react-compiler/src/HIR/DefaultModuleTypeProvider.ts), it flags them under this rule. This means that React Compiler can automatically skip over components that use these incompatible APIs, in order to avoid breaking your app.
+>>>>>>> ae5e48074d4f73f1e349eda2a66841f9a959023e
 
 ```js
 // Example of how memoization breaks with these libraries
@@ -135,4 +139,8 @@ function Component() {
 }
 ```
 
+<<<<<<< HEAD
 சில பிற libraries-க்கு React-இன் memoization model-உடன் compatible ஆன alternative APIs இன்னும் இல்லை. இந்த API-களை அழைக்கும் உங்கள் components அல்லது hooks-ஐ linter தானாக skip செய்யவில்லை என்றால், அதை linter-இல் சேர்க்க எங்களுக்கு [issue file செய்யுங்கள்](https://github.com/facebook/react/issues).
+=======
+Some other libraries do not yet have alternative APIs that are compatible with React's memoization model. If the linter doesn't automatically skip over your components or hooks that call these APIs, please [file an issue](https://github.com/react/react/issues) so we can add it to the linter.
+>>>>>>> ae5e48074d4f73f1e349eda2a66841f9a959023e
