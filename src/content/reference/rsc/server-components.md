@@ -179,7 +179,44 @@ Bundler பின்னர் data, rendered Server Components, மற்று�
 
 Server-இலிருந்து அவற்றை re-fetch செய்வதன் மூலம் Server Components dynamic ஆக மாற்றப்படலாம்; அங்கே அவை data access செய்து மீண்டும் render செய்ய முடியும். இந்த புதிய application architecture, server-centric Multi-Page Apps-ன் நேரடியான “request/response” mental model-ஐ client-centric Single-Page Apps-ன் seamless interactivity உடன் இணைக்கிறது; இரண்டின் சிறந்த அம்சங்களையும் தருகிறது.
 
+<<<<<<< HEAD
 ### Server Components-க்கு interactivity சேர்த்தல் {/*adding-interactivity-to-server-components*/}
+=======
+### Rendering a context provider in a Server Component {/*rendering-a-context-provider-in-a-server-component*/}
+
+Server Components cannot create context, but they can render a context provider imported from a Client Component module.
+
+Create and export the context from a file with the [`'use client'`](/reference/rsc/use-client) directive:
+
+```js
+// user-context.js
+'use client';
+import { createContext } from 'react';
+
+export const UserContext = createContext(null);
+```
+
+Then import and render the context directly from a Server Component:
+
+```js
+// server-component.js
+import { UserContext } from './user-context';
+
+export async function Layout({ children }) {
+  const currentUser = await getCurrentUser();
+
+  return (
+    <UserContext value={currentUser}>
+      {children}
+    </UserContext>
+  );
+}
+```
+
+Client Components rendered inside this provider can read its value with [`use`](/reference/react/use) or [`useContext`](/reference/react/useContext).
+
+### Adding interactivity to Server Components {/*adding-interactivity-to-server-components*/}
+>>>>>>> ae5e48074d4f73f1e349eda2a66841f9a959023e
 
 Server Components browser-க்கு அனுப்பப்படாது; எனவே `useState` போன்ற interactive APIs-ஐ அவை பயன்படுத்த முடியாது. Server Components-க்கு interactivity சேர்க்க, `"use client"` directive பயன்படுத்தி அவற்றை Client Component உடன் compose செய்யலாம்.
 

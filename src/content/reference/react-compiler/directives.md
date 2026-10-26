@@ -193,6 +193,12 @@ Directives தொடர்பான குறிப்பிட்ட சிக�
 
 ## மேலும் பார்க்க {/*see-also*/}
 
+<<<<<<< HEAD
 * [`compilationMode`](/reference/react-compiler/compilationMode) - எதை optimize செய்ய வேண்டும் என்பதை compiler எப்படி தேர்வு செய்கிறது என்பதை configure செய்யுங்கள்
 * [`Configuration`](/reference/react-compiler/configuration) - முழு compiler configuration options
 * [React Compiler documentation](https://react.dev/learn/react-compiler) - தொடங்குவதற்கான வழிகாட்டி
+=======
+* [`compilationMode`](/reference/react-compiler/compilationMode) - Configure how the compiler chooses what to optimize
+* [`Configuration`](/reference/react-compiler/configuration) - Full compiler configuration options
+* [React Compiler documentation](/learn/react-compiler) - Getting started guide
+>>>>>>> ae5e48074d4f73f1e349eda2a66841f9a959023e
