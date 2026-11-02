@@ -44,12 +44,22 @@ function AppRoot() {
 
 #### Parameters {/*parameters*/}
 
+<<<<<<< HEAD
 * `href`: ஒரு string. Download செய்ய விரும்பும் module-இன் URL.
 * `options`: ஒரு object. இது பின்வரும் properties-ஐக் கொண்டுள்ளது:
   *  `as`: அவசியமான string. இது `'script'` ஆக இருக்க வேண்டும்.
   *  `crossOrigin`: ஒரு string. பயன்படுத்த வேண்டிய [CORS policy](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/crossorigin). இதன் சாத்தியமான values `anonymous` மற்றும் `use-credentials`.
   *  `integrity`: ஒரு string. Module-இன் [நம்பகத்தன்மையை சரிபார்க்க](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity) அதன் cryptographic hash.
   *  `nonce`: ஒரு string. கடுமையான Content Security Policy பயன்படுத்தும்போது [module-ஐ அனுமதிக்க cryptographic nonce](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/nonce).
+=======
+* `href`: a string. The URL of the module you want to download.
+* `options`: an object. It contains the following properties:
+  *  `as`: a required string. It must be `'script'`.
+  *  `crossOrigin`: a string. The [CORS policy](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/crossorigin) to use. Its possible values are `anonymous` and `use-credentials`.
+  *  `integrity`: a string. A cryptographic hash of the module, to [verify its authenticity](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity).
+  *  `nonce`: a string. A cryptographic [nonce to allow the module](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/nonce) when using a strict Content Security Policy.
+  *  `fetchPriority`: a string. Suggests a [relative priority](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/fetchpriority) for fetching the resource; possible values are `auto` (default), `high`, and `low`.
+>>>>>>> 0821e7d9428a6c58c922765b891bbffba9ed6249
 
 
 #### Returns {/*returns*/}
