@@ -14,8 +14,13 @@ title: Server React DOM API-கள்
 
 இந்த methods, [Web Streams](https://developer.mozilla.org/en-US/docs/Web/API/Streams_API) உள்ள சூழல்களில் மட்டுமே கிடைக்கும். இதில் உலாவிகள், Deno, மற்றும் சில நவீன edge runtimes அடங்கும்:
 
+<<<<<<< HEAD
 * [`renderToReadableStream`](/reference/react-dom/server/renderToReadableStream) ஒரு React tree-ஐ [Readable Web Stream](https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream) ஆக render செய்கிறது.
 * [`resume`](/reference/react-dom/server/renderToPipeableStream) [`prerender`](/reference/react-dom/static/prerender)-ஐ [Readable Web Stream](https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream) ஆகத் தொடர்கிறது.
+=======
+* [`renderToReadableStream`](/reference/react-dom/server/renderToReadableStream) renders a React tree to a [Readable Web Stream.](https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream)
+* [`resume`](/reference/react-dom/server/resume) resumes [`prerender`](/reference/react-dom/static/prerender) to a [Readable Web Stream](https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream).
+>>>>>>> 0821e7d9428a6c58c922765b891bbffba9ed6249
 
 
 <Note>
@@ -29,8 +34,13 @@ title: Server React DOM API-கள்
 
 இந்த methods, [Node.js Streams](https://nodejs.org/api/stream.html) உள்ள சூழல்களில் மட்டுமே கிடைக்கும்:
 
+<<<<<<< HEAD
 * [`renderToPipeableStream`](/reference/react-dom/server/renderToPipeableStream) ஒரு React tree-ஐ pipe செய்யக்கூடிய [Node.js Stream](https://nodejs.org/api/stream.html) ஆக render செய்கிறது.
 * [`resumeToPipeableStream`](/reference/react-dom/server/renderToPipeableStream) [`prerenderToNodeStream`](/reference/react-dom/static/prerenderToNodeStream)-ஐ pipe செய்யக்கூடிய [Node.js Stream](https://nodejs.org/api/stream.html) ஆகத் தொடர்கிறது.
+=======
+* [`renderToPipeableStream`](/reference/react-dom/server/renderToPipeableStream) renders a React tree to a pipeable [Node.js Stream.](https://nodejs.org/api/stream.html)
+* [`resumeToPipeableStream`](/reference/react-dom/server/resumeToPipeableStream) resumes [`prerenderToNodeStream`](/reference/react-dom/static/prerenderToNodeStream) to a pipeable [Node.js Stream.](https://nodejs.org/api/stream.html)
+>>>>>>> 0821e7d9428a6c58c922765b891bbffba9ed6249
 
 ---
 
