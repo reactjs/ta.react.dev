@@ -30,6 +30,12 @@ Scripts, stylesheets, மற்றும் fonts போன்ற resources த�
 * [`preinit`](/reference/react-dom/preinit) external script ஒன்றை fetch செய்து evaluate செய்யவும், அல்லது stylesheet ஒன்றை fetch செய்து insert செய்யவும் உதவுகிறது.
 * [`preinitModule`](/reference/react-dom/preinitModule) ESM module ஒன்றை fetch செய்து evaluate செய்ய உதவுகிறது.
 
+## Server Rendering APIs {/*server-rendering-apis*/}
+
+This API controls how components render on the server:
+
+* [`browser`](/reference/react-dom/browser) lets you mark a component as browser-only during server rendering.
+
 ---
 
 ## Entry points {/*entry-points*/}
@@ -45,9 +51,18 @@ Scripts, stylesheets, மற்றும் fonts போன்ற resources த�
 
 இந்த API-கள் React 19-இல் நீக்கப்பட்டன:
 
+<<<<<<< HEAD
 * [`findDOMNode`](https://18.react.dev/reference/react-dom/findDOMNode): [மாற்று வழிகளை](https://18.react.dev/reference/react-dom/findDOMNode#alternatives) பார்க்கவும்.
 * [`hydrate`](https://18.react.dev/reference/react-dom/hydrate): இதற்கு பதிலாக [`hydrateRoot`](/reference/react-dom/client/hydrateRoot)-ஐப் பயன்படுத்துங்கள்.
 * [`render`](https://18.react.dev/reference/react-dom/render): இதற்கு பதிலாக [`createRoot`](/reference/react-dom/client/createRoot)-ஐப் பயன்படுத்துங்கள்.
 * [`unmountComponentAtNode`](/reference/react-dom/unmountComponentAtNode): இதற்கு பதிலாக [`root.unmount()`](/reference/react-dom/client/createRoot#root-unmount)-ஐப் பயன்படுத்துங்கள்.
 * [`renderToNodeStream`](https://18.react.dev/reference/react-dom/server/renderToNodeStream): இதற்கு பதிலாக [`react-dom/server`](/reference/react-dom/server) API-களைப் பயன்படுத்துங்கள்.
 * [`renderToStaticNodeStream`](https://18.react.dev/reference/react-dom/server/renderToStaticNodeStream): இதற்கு பதிலாக [`react-dom/server`](/reference/react-dom/server) API-களைப் பயன்படுத்துங்கள்.
+=======
+* [`findDOMNode`](https://18.react.dev/reference/react-dom/findDOMNode): see [alternatives](https://18.react.dev/reference/react-dom/findDOMNode#alternatives).
+* [`hydrate`](https://18.react.dev/reference/react-dom/hydrate): use [`hydrateRoot`](/reference/react-dom/client/hydrateRoot) instead.
+* [`render`](https://18.react.dev/reference/react-dom/render): use [`createRoot`](/reference/react-dom/client/createRoot) instead.
+* [`unmountComponentAtNode`](https://18.react.dev/reference/react-dom/unmountComponentAtNode): use [`root.unmount()`](/reference/react-dom/client/createRoot#root-unmount) instead.
+* [`renderToNodeStream`](https://18.react.dev/reference/react-dom/server/renderToNodeStream): use [`react-dom/server`](/reference/react-dom/server) APIs instead.
+* [`renderToStaticNodeStream`](https://18.react.dev/reference/react-dom/server/renderToStaticNodeStream): use [`react-dom/server`](/reference/react-dom/server) APIs instead.
+>>>>>>> f5fa1e82edacdf8c6bfc4dfd9cf52029a96d5fd3

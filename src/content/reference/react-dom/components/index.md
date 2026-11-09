@@ -24,6 +24,7 @@ title: "React DOM Components"
 
 உலாவியில் உள்ளமைந்த இந்த components user input-ஐ ஏற்கின்றன:
 
+* [`<form>`](/reference/react-dom/components/form)
 * [`<input>`](/reference/react-dom/components/input)
 * [`<select>`](/reference/react-dom/components/select)
 * [`<textarea>`](/reference/react-dom/components/textarea)
@@ -36,6 +37,7 @@ title: "React DOM Components"
 
 உலாவியில் உள்ளமைந்த இந்த components external resources load செய்யவோ document-ஐ metadata உடன் annotate செய்யவோ உதவுகின்றன:
 
+* [`<img>`](/reference/react-dom/components/img)
 * [`<link>`](/reference/react-dom/components/link)
 * [`<meta>`](/reference/react-dom/components/meta)
 * [`<script>`](/reference/react-dom/components/script)
@@ -82,7 +84,7 @@ title: "React DOM Components"
 * [`<figcaption>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/figcaption)
 * [`<figure>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/figure)
 * [`<footer>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/footer)
-* [`<form>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form)
+* [`<form>`](/reference/react-dom/components/form)
 * [`<h1>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/h1)
 * [`<head>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/head)
 * [`<header>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/header)
@@ -91,19 +93,19 @@ title: "React DOM Components"
 * [`<html>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/html)
 * [`<i>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/i)
 * [`<iframe>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe)
-* [`<img>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img)
+* [`<img>`](/reference/react-dom/components/img)
 * [`<input>`](/reference/react-dom/components/input)
 * [`<ins>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ins)
 * [`<kbd>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/kbd)
 * [`<label>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/label)
 * [`<legend>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/legend)
 * [`<li>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/li)
-* [`<link>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link)
+* [`<link>`](/reference/react-dom/components/link)
 * [`<main>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/main)
 * [`<map>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/map)
 * [`<mark>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/mark)
 * [`<menu>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/menu)
-* [`<meta>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta)
+* [`<meta>`](/reference/react-dom/components/meta)
 * [`<meter>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meter)
 * [`<nav>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/nav)
 * [`<noscript>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/noscript)
@@ -122,7 +124,7 @@ title: "React DOM Components"
 * [`<ruby>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ruby)
 * [`<s>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/s)
 * [`<samp>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/samp)
-* [`<script>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script)
+* [`<script>`](/reference/react-dom/components/script)
 * [`<section>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/section)
 * [`<select>`](/reference/react-dom/components/select)
 * [`<slot>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/slot)
@@ -130,7 +132,7 @@ title: "React DOM Components"
 * [`<source>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/source)
 * [`<span>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span)
 * [`<strong>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/strong)
-* [`<style>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/style)
+* [`<style>`](/reference/react-dom/components/style)
 * [`<sub>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/sub)
 * [`<summary>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/summary)
 * [`<sup>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/sup)
@@ -143,7 +145,7 @@ title: "React DOM Components"
 * [`<th>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/th)
 * [`<thead>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/thead)
 * [`<time>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/time)
-* [`<title>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/title)
+* [`<title>`](/reference/react-dom/components/title)
 * [`<tr>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/tr)
 * [`<track>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track)
 * [`<u>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/u)
@@ -186,7 +188,11 @@ Custom elements-க்கு pass செய்யப்படும் non-strin
 <my-element value={[1,2,3]}></my-element>
 ```
 
+<<<<<<< HEAD
 ஆனால் construction நேரத்தில் class-இல் property name தோன்றினால், custom element-ன் அந்த property arbitrary values pass செய்யக்கூடியது என்று React அறிந்துகொள்ளும்:
+=======
+React will, however, recognize a custom element's property as one that it may pass arbitrary values to if the property name shows up on the class during construction:
+>>>>>>> f5fa1e82edacdf8c6bfc4dfd9cf52029a96d5fd3
 
 <Sandpack>
 

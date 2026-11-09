@@ -17,7 +17,11 @@ JavaScript codebases-க்கு type definitions சேர்க்க TypeScr
 
 ## React Developer Tools {/*react-developer-tools*/}
 
+<<<<<<< HEAD
 React Developer Tools என்பது React components-ஐ ஆய்வு செய்யவும், props மற்றும் state-ஐ திருத்தவும், செயல்திறன் பிரச்சினைகளை கண்டறியவும் உதவும் browser extension. அதை எவ்வாறு நிறுவுவது என்பதை [இங்கே](/learn/react-developer-tools) அறிக.
+=======
+React Developer Tools is a browser extension that can inspect React components, edit props and state, and identify performance problems. Learn how to install it [here](/learn/react-developer-tools).
+>>>>>>> f5fa1e82edacdf8c6bfc4dfd9cf52029a96d5fd3
 
 ## React Compiler {/*react-compiler*/}
 

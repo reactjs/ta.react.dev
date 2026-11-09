@@ -826,7 +826,7 @@ const initialTasks = [
 ```
 
 ```js src/AddTask.js
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import { useTasksDispatch } from './TasksContext.js';
 
 export default function AddTask() {
@@ -855,7 +855,7 @@ let nextId = 3;
 ```
 
 ```js src/TaskList.js
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import { useTasks, useTasksDispatch } from './TasksContext.js';
 
 export default function TaskList() {
@@ -1366,7 +1366,11 @@ Tree-இல் `value` இல்லாத provider இருக்கலாம�
 
 `value`-ஐ specify செய்ய மறந்தால், அது `value={undefined}` pass செய்வது போலாகும்.
 
+<<<<<<< HEAD
 நீங்கள் தவறுதலாக வேறு prop பெயரையும் பயன்படுத்தியிருக்கலாம்:
+=======
+You may have also used a different prop name by mistake:
+>>>>>>> f5fa1e82edacdf8c6bfc4dfd9cf52029a96d5fd3
 
 ```js {1,2}
 // 🚩 Doesn't work: prop should be called "value"

@@ -874,7 +874,11 @@ Reducer-களுக்கும் குறைகள் இல்லாமல�
 - **Testing:** reducer என்பது உங்கள் component-ஐ சாராத pure function. இதனால் அதை export செய்து தனியாக test செய்யலாம். பொதுவாக component-களை இன்னும் realistic சூழலில் test செய்வது சிறந்ததாயினும், சிக்கலான state update logic-க்கு, குறிப்பிட்ட initial state மற்றும் action-க்கு உங்கள் reducer குறிப்பிட்ட state-ஐ return செய்கிறது என்று assert செய்வது பயனுள்ளதாக இருக்கும்.
 - **தனிப்பட்ட விருப்பம்:** சிலருக்கு reducer-கள் பிடிக்கும்; சிலருக்கு பிடிக்காது. அது சரி. இது விருப்பம் சார்ந்தது. `useState` மற்றும் `useReducer` இடையே எப்போதும் முன்னும் பின்னும் convert செய்யலாம்: அவை equivalent!
 
+<<<<<<< HEAD
 ஒரு component-இல் தவறான state update-கள் காரணமாக அடிக்கடி bug-களைச் சந்தித்து, அதன் code-க்கு அதிக structure சேர்க்க விரும்பினால் reducer பயன்படுத்த பரிந்துரைக்கிறோம். எல்லாவற்றிற்கும் reducer பயன்படுத்த வேண்டியதில்லை: mix and match செய்யலாம்! ஒரே component-இல் `useState` மற்றும் `useReducer` இரண்டையும் பயன்படுத்தலாம்.
+=======
+We recommend using a reducer if you often encounter bugs due to incorrect state updates in some component, and want to introduce more structure to its code. You don't have to use reducers for everything: feel free to mix and match! You can even use `useState` and `useReducer` in the same component.
+>>>>>>> f5fa1e82edacdf8c6bfc4dfd9cf52029a96d5fd3
 
 ## reducer-களை நன்றாக எழுதுதல் {/*writing-reducers-well*/}
 

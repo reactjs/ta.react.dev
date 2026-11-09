@@ -1245,8 +1245,8 @@ root.render(
 ```json package.json hidden
 {
   "dependencies": {
-    "react": "canary",
-    "react-dom": "canary",
+    "react": "19.3.0-canary-eb8feb71-20260814",
+    "react-dom": "19.3.0-canary-eb8feb71-20260814",
     "react-scripts": "latest"
   },
   "scripts": {
@@ -2442,8 +2442,8 @@ root.render(
 ```json package.json hidden
 {
   "dependencies": {
-    "react": "canary",
-    "react-dom": "canary",
+    "react": "19.3.0-canary-eb8feb71-20260814",
+    "react-dom": "19.3.0-canary-eb8feb71-20260814",
     "react-scripts": "latest"
   },
   "scripts": {
@@ -3670,8 +3670,8 @@ root.render(
 ```json package.json hidden
 {
   "dependencies": {
-    "react": "canary",
-    "react-dom": "canary",
+    "react": "19.3.0-canary-eb8feb71-20260814",
+    "react-dom": "19.3.0-canary-eb8feb71-20260814",
     "react-scripts": "latest"
   },
   "scripts": {
@@ -4879,8 +4879,8 @@ root.render(
 ```json package.json hidden
 {
   "dependencies": {
-    "react": "canary",
-    "react-dom": "canary",
+    "react": "19.3.0-canary-eb8feb71-20260814",
+    "react-dom": "19.3.0-canary-eb8feb71-20260814",
     "react-scripts": "latest"
   },
   "scripts": {
@@ -6195,8 +6195,8 @@ root.render(
 ```json package.json hidden
 {
   "dependencies": {
-    "react": "canary",
-    "react-dom": "canary",
+    "react": "19.3.0-canary-eb8feb71-20260814",
+    "react-dom": "19.3.0-canary-eb8feb71-20260814",
     "react-scripts": "latest"
   },
   "scripts": {
@@ -7493,8 +7493,8 @@ root.render(
 ```json package.json hidden
 {
   "dependencies": {
-    "react": "canary",
-    "react-dom": "canary",
+    "react": "19.3.0-canary-eb8feb71-20260814",
+    "react-dom": "19.3.0-canary-eb8feb71-20260814",
     "react-scripts": "latest"
   },
   "scripts": {
@@ -8814,8 +8814,8 @@ root.render(
 ```json package.json hidden
 {
   "dependencies": {
-    "react": "canary",
-    "react-dom": "canary",
+    "react": "19.3.0-canary-eb8feb71-20260814",
+    "react-dom": "19.3.0-canary-eb8feb71-20260814",
     "react-scripts": "latest"
   },
   "scripts": {
@@ -10155,8 +10155,8 @@ root.render(
 ```json package.json hidden
 {
   "dependencies": {
-    "react": "canary",
-    "react-dom": "canary",
+    "react": "19.3.0-canary-eb8feb71-20260814",
+    "react-dom": "19.3.0-canary-eb8feb71-20260814",
     "react-scripts": "latest"
   },
   "scripts": {
@@ -11441,8 +11441,8 @@ root.render(
 ```json package.json hidden
 {
   "dependencies": {
-    "react": "canary",
-    "react-dom": "canary",
+    "react": "19.3.0-canary-eb8feb71-20260814",
+    "react-dom": "19.3.0-canary-eb8feb71-20260814",
     "react-scripts": "latest"
   },
   "scripts": {
@@ -11458,7 +11458,11 @@ root.render(
 
 அவை எப்படி வேலை செய்கின்றன என்பதை மேலும் அறிய விரும்பினால், docs-இல் உள்ள [`<ViewTransition>` எப்படி வேலை செய்கிறது](/reference/react/ViewTransition#how-does-viewtransition-work) பகுதியைப் பார்க்கவும்.
 
+<<<<<<< HEAD
 _View Transitions-ஐ எவ்வாறு உருவாக்கினோம் என்ற கூடுதல் பின்னணிக்கு, [@sebmarkbage](https://twitter.com/sebmarkbage) உருவாக்கிய [#31975](https://github.com/facebook/react/pull/31975), [#32105](https://github.com/facebook/react/pull/32105), [#32041](https://github.com/facebook/react/pull/32041), [#32734](https://github.com/facebook/react/pull/32734), [#32797](https://github.com/facebook/react/pull/32797), [#31999](https://github.com/facebook/react/pull/31999), [#32031](https://github.com/facebook/react/pull/32031), [#32050](https://github.com/facebook/react/pull/32050), [#32820](https://github.com/facebook/react/pull/32820), [#32029](https://github.com/facebook/react/pull/32029), [#32028](https://github.com/facebook/react/pull/32028), மற்றும் [#32038](https://github.com/facebook/react/pull/32038)-ஐ பார்க்கவும் (நன்றி Seb!)._
+=======
+_For more background on how we built View Transitions, see: [#31975](https://github.com/react/react/pull/31975), [#32105](https://github.com/react/react/pull/32105), [#32041](https://github.com/react/react/pull/32041), [#32734](https://github.com/react/react/pull/32734), [#32797](https://github.com/react/react/pull/32797) [#31999](https://github.com/react/react/pull/31999), [#32031](https://github.com/react/react/pull/32031), [#32050](https://github.com/react/react/pull/32050), [#32820](https://github.com/react/react/pull/32820), [#32029](https://github.com/react/react/pull/32029), [#32028](https://github.com/react/react/pull/32028), and [#32038](https://github.com/react/react/pull/32038) by [@sebmarkbage](https://twitter.com/sebmarkbage) (thanks Seb!)._
+>>>>>>> f5fa1e82edacdf8c6bfc4dfd9cf52029a96d5fd3
 
 ---
 
@@ -12840,8 +12844,8 @@ root.render(
 ```json package.json hidden
 {
   "dependencies": {
-    "react": "canary",
-    "react-dom": "canary",
+    "react": "19.3.0-canary-eb8feb71-20260814",
+    "react-dom": "19.3.0-canary-eb8feb71-20260814",
     "react-scripts": "latest"
   },
   "scripts": {
@@ -14178,8 +14182,8 @@ root.render(
 ```json package.json hidden
 {
   "dependencies": {
-    "react": "canary",
-    "react-dom": "canary",
+    "react": "19.3.0-canary-eb8feb71-20260814",
+    "react-dom": "19.3.0-canary-eb8feb71-20260814",
     "react-scripts": "latest"
   },
   "scripts": {
@@ -14266,7 +14270,11 @@ Hooks-ஐ release செய்தபோது, எங்களுக்கு �
 
 பல சமயங்களில், Effect தேவைப்படாத இடத்தில் Effect பயன்படுத்துவதுதான் confusion-க்கு காரணம் என்று கண்டோம். Effects சரியான solution அல்லாத பல cases-ஐ [உங்களுக்கு Effect தேவைப்படாமல் இருக்கலாம்](/learn/you-might-not-need-an-effect) guide விவரிக்கிறது. ஆனால் ஒரு problem-க்கு Effect சரியானதாக இருந்தாலும், class component lifecycles-ஐ விட Effects புரிந்துகொள்ள இன்னும் கடினமாக இருக்கலாம்.
 
+<<<<<<< HEAD
 Confusion-க்கான காரணங்களில் ஒன்று, developers Effects-ஐ _Effect_ பார்வையில் (Effect என்ன செய்கிறது) அல்லாமல், _component_ பார்வையில் (lifecycle போல) சிந்திப்பதாக இருக்கலாம் என்று நாங்கள் நம்புகிறோம்.
+=======
+We believe one of the reasons for confusion is that developers tend to think of Effects from the _component's_ perspective (like a lifecycle), instead of the _Effects_ point of view (what the Effect does).
+>>>>>>> f5fa1e82edacdf8c6bfc4dfd9cf52029a96d5fd3
 
 [Docs-இல் உள்ள](/learn/lifecycle-of-reactive-effects#thinking-from-the-effects-perspective) ஒரு example-ஐப் பார்க்கலாம்:
 

@@ -257,7 +257,11 @@ button {
 
 </Sandpack>
 
+<<<<<<< HEAD
 "டிக்கெட் சேர்" click செய்யும் ஒவ்வொரு முறையும், React `addToCartAction`-க்கு ஒரு call-ஐ queue செய்கிறது. எல்லா tickets சேர்க்கப்படும் வரை React pending state-ஐ காட்டி, பிறகு final state உடன் re-render செய்கிறது.
+=======
+Every time you click "Add Ticket", React queues a call to `addToCartAction`. React shows the pending state until all the tickets are added, and then re-renders with the final state.
+>>>>>>> f5fa1e82edacdf8c6bfc4dfd9cf52029a96d5fd3
 
 <DeepDive>
 
@@ -811,20 +815,20 @@ export default function Checkout() {
   const abortRef = useRef(null);
   const [count, dispatchAction, isPending] = useActionState(updateCartAction, 0);
 
-  async function addAction() {
+  function addAction() {
     if (abortRef.current) {
       abortRef.current.abort();
     }
     abortRef.current = new AbortController();
-    await dispatchAction({ type: 'ADD', signal: abortRef.current.signal });
+    dispatchAction({ type: 'ADD', signal: abortRef.current.signal });
   }
 
-  async function removeAction() {
+  function removeAction() {
     if (abortRef.current) {
       abortRef.current.abort();
     }
     abortRef.current = new AbortController();
-    await dispatchAction({ type: 'REMOVE', signal: abortRef.current.signal });
+    dispatchAction({ type: 'REMOVE', signal: abortRef.current.signal });
   }
 
   return (
@@ -1184,14 +1188,80 @@ hr {
 
 இந்த example-இல், பயனர் stepper arrows-ஐ click செய்தால், button form-ஐ submit செய்கிறது மற்றும் `useActionState` form data உடன் `updateCartAction`-ஐ call செய்கிறது. Server update-ஐ confirm செய்யும் போது புதிய quantity-ஐ உடனே காட்ட இந்த example `useOptimistic`-ஐ use செய்கிறது.
 
+#### Displaying validation errors and preserving form values {/*displaying-validation-errors-and-preserving-form-values*/}
+
+Return validation errors and submitted values from the Action to display an error without clearing the affected fields. Try submitting a name with fewer than three characters:
+
+<Sandpack>
+
+```js src/App.js active
+import { useActionState } from 'react';
+import { updateName } from './api.js';
+
+const initialState = {
+  error: null,
+  submitted: null,
+};
+
+export default function UpdateName() {
+  const [state, submitAction, isPending] = useActionState(
+    updateName,
+    initialState
+  );
+
+  return (
+    <form action={submitAction}>
+      <label>
+        Name:{' '}
+        <input
+          name="name"
+          defaultValue={state.submitted?.get('name') ?? ''}
+          disabled={isPending}
+        />
+      </label>
+      <button type="submit" disabled={isPending}>Save</button>
+      {state.error && <p>{state.error}</p>}
+    </form>
+  );
+}
+```
+
+```js src/api.js
+export async function updateName(previousState, formData) {
+  await new Promise(resolve => setTimeout(resolve, 1000));
+  const name = formData.get('name');
+  if (typeof name !== 'string' || name.trim().length < 3) {
+    return {
+      error: 'Name must be at least three characters long',
+      submitted: formData,
+    };
+  }
+  return {
+    error: null,
+    submitted: null,
+  };
+}
+```
+
+</Sandpack>
+
+When validation fails, `updateName` returns an error and the submitted `FormData`. The component uses the submitted name as the input's new `defaultValue`, so React's automatic form reset preserves it. When validation succeeds, `submitted` is `null`, so the automatic reset clears the field.
+
 <RSC>
 
+<<<<<<< HEAD
 [Server Function](/reference/rsc/server-functions) உடன் use செய்தால், hydration (React server-rendered HTML-க்கு attach ஆகும் நேரம்) complete ஆகும் முன் server-ன் response-ஐ காட்ட `useActionState` அனுமதிக்கிறது. Dynamic content உள்ள pages-இல் progressive enhancement-க்காக (JavaScript load ஆகும் முன் form வேலை செய்ய அனுமதிக்க) optional `permalink` parameter-ஐயும் use செய்யலாம். பொதுவாக இதை உங்கள் framework உங்கள் சார்பாக handle செய்யும்.
 
 </RSC>
 
 Forms உடன் Actions use செய்வது பற்றிய கூடுதல் தகவலுக்கு [`<form>`](/reference/react-dom/components/form#handle-form-submission-with-a-server-function) docs-ஐ பார்க்கவும்.
 
+=======
+The example above runs `updateName` in the browser. To display the error and preserve the submitted name before JavaScript loads, make `updateName` a [Server Function](/reference/rsc/server-functions). Keep passing `submitAction` to the form's `action` prop. React can then display the Server Function's returned value before hydration completes. See [preserving form values before JavaScript loads](/reference/react-dom/components/form#preserving-form-values-before-javascript-loads) for the setup. On pages with dynamic content, you can also use the optional [`permalink`](#parameters) parameter for progressive enhancement.
+
+</RSC>
+
+>>>>>>> f5fa1e82edacdf8c6bfc4dfd9cf52029a96d5fd3
 ---
 
 ### Errors-ஐ handle செய்தல் {/*handling-errors*/}
@@ -1200,7 +1270,11 @@ Forms உடன் Actions use செய்வது பற்றிய கூ�
 
 உங்கள் backend-இலிருந்து வரும் "quantity not available" போன்ற known validation errors-க்கு, அதை உங்கள் `reducerAction` state-ன் பகுதியாக return செய்து UI-இல் display செய்யலாம்.
 
+<<<<<<< HEAD
 `undefined is not a function` போன்ற unknown errors-க்கு, error throw செய்யலாம். React queued Actions அனைத்தையும் cancel செய்து, `useActionState` hook-இலிருந்து error-ஐ rethrow செய்வதன் மூலம் அருகிலுள்ள [Error Boundary](/reference/react/Component#catching-rendering-errors-with-an-error-boundary)-ஐ காட்டும்.
+=======
+For unknown errors, such as `undefined is not a function`, you can throw an error. React will cancel all queued Actions and show the nearest [Error Boundary](/reference/react/Component#catching-rendering-errors-with-an-error-boundary) by rethrowing the error from the `useActionState` hook.
+>>>>>>> f5fa1e82edacdf8c6bfc4dfd9cf52029a96d5fd3
 
 <Sandpack>
 
@@ -1216,7 +1290,11 @@ function Checkout() {
       const result = await addToCart(prevState.count, quantity);
       if (result.error) {
         // Return the error from the API as state
+<<<<<<< HEAD
         return {...prevState, error: `${quantity} அளவை சேர்க்க முடியவில்லை: ${result.error}`};
+=======
+        return {...prevState, error: `Could not add quantity ${quantity}: ${result.error}`};
+>>>>>>> f5fa1e82edacdf8c6bfc4dfd9cf52029a96d5fd3
       }
 
       if (!isPending) {

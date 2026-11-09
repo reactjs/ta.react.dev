@@ -18,7 +18,11 @@ State components-க்கு இடையில் தனிமைப்பட�
 
 ## State render tree-இல் உள்ள position-க்கு இணைக்கப்பட்டுள்ளது {/*state-is-tied-to-a-position-in-the-tree*/}
 
+<<<<<<< HEAD
 உங்கள் UI-இல் உள்ள component structure-க்காக React [render trees](learn/understanding-your-ui-as-a-tree#the-render-tree)-ஐ உருவாக்குகிறது.
+=======
+React builds [render trees](/learn/understanding-your-ui-as-a-tree#the-render-tree) for the component structure in your UI.
+>>>>>>> f5fa1e82edacdf8c6bfc4dfd9cf52029a96d5fd3
 
 ஒரு component-க்கு state கொடுத்தால், அந்த state component-க்குள் "வாழ்கிறது" என்று நீங்கள் நினைக்கலாம். ஆனால் state உண்மையில் React-க்குள் வைத்திருக்கப்படுகிறது. render tree-இல் அந்த component இருக்கும் இடத்தைப் பயன்படுத்தி, React தன்னிடம் வைத்திருக்கும் ஒவ்வொரு state துண்டையும் சரியான component-உடன் இணைக்கிறது.
 

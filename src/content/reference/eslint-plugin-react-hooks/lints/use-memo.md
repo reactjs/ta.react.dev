@@ -79,7 +79,11 @@ function Component({user}) {
 }
 ```
 
+<<<<<<< HEAD
 Side effect React state-ஐ ஏதேனும் external state-உடன் synchronize செய்தால் (அல்லது மாறாக), `useEffect` பயன்படுத்துங்கள்:
+=======
+If the side effect synchronizes React state with some external state (or vice versa), use `useEffect`:
+>>>>>>> f5fa1e82edacdf8c6bfc4dfd9cf52029a96d5fd3
 
 ```js
 // ✅ Good: Synchronization in useEffect

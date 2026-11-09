@@ -140,8 +140,13 @@ Development builds-இல், component render entry-ஐ click செய்த�
 
 Server Requests track, இறுதியில் React Server Component-இல் முடியும் எல்லா Promises-யையும் visualize செய்கிறது. இதில் `fetch` call செய்வது அல்லது async Node.js file operations போன்ற எந்த `async` operations-மும் அடங்கும்.
 
+<<<<<<< HEAD
 Third-party code-க்குள் தொடங்கப்படும் Promises-ஐ, 1st party code-ஐ block செய்யும் முழு operation duration-ஐ பிரதிநிதித்துவப்படுத்தும் single span ஆக combine செய்ய React முயற்சிக்கும்.
 உதாரணமாக, internally பலமுறை `fetch` call செய்யும் `getUser` என்ற third-party library method, பல `fetch` spans காட்டுவதற்கு பதிலாக `getUser` என்ற single span ஆக பிரதிநிதித்துவப்படுத்தப்படும்.
+=======
+React will try to combine Promises that are started from inside third-party code into a single span representing the duration of the entire operation blocking 1st party code.
+For example, a third party library method called `getUser` that calls `fetch` internally multiple times will be represented as a single span called `getUser`, instead of showing multiple `fetch` spans.
+>>>>>>> f5fa1e82edacdf8c6bfc4dfd9cf52029a96d5fd3
 
 Spans-ஐ click செய்தால், Promise எங்கு created ஆனது என்பதற்கான stack trace-யையும், கிடைத்தால் Promise resolve ஆன value-ன் view-யையும் காட்டும்.
 
@@ -155,5 +160,10 @@ Server Components tracks, React Server Components await செய்த Promises
 
 Component render duration-ஐ குறிக்க வேறு colors பயன்படுத்தப்படுகின்றன. Color இருண்டிருக்கிற அளவுக்கு duration நீளமானது.
 
+<<<<<<< HEAD
 Server Components track group எப்போதும் "Primary" track ஒன்றைக் கொண்டிருக்கும். React Server Components-ஐ concurrently render செய்ய முடிந்தால், கூடுதல் "Parallel" tracks display செய்யும்.
 8-க்கும் மேற்பட்ட Server Components concurrently render செய்யப்பட்டால், மேலும் tracks சேர்ப்பதற்கு பதிலாக கடைசி "Parallel" track உடன் அவற்றை React associate செய்யும்.
+=======
+The Server Components track group will always contain a "Primary" track. If React is able to render Server Components concurrently, it will display additional "Parallel" tracks.
+If more than 8 Server Components are rendered concurrently, React will associate them with the last "Parallel" track instead of adding more tracks.
+>>>>>>> f5fa1e82edacdf8c6bfc4dfd9cf52029a96d5fd3

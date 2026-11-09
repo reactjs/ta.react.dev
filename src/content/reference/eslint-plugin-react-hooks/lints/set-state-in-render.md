@@ -107,4 +107,8 @@ function Counter({max}) {
 
 இப்போது setter click-க்கு பதிலாக மட்டுமே இயங்கும்; React render-ஐ வழக்கம்போல் முடிக்கும்; `count` ஒருபோதும் `max`-ஐ கடக்காது.
 
+<<<<<<< HEAD
 அரிதான சில நிலைகளில், முந்தைய renders-இலிருந்து கிடைக்கும் தகவலின் அடிப்படையில் state-ஐ adjust செய்ய வேண்டியிருக்கலாம். அத்தகைய நிலைகளில், state-ஐ conditionally அமைக்கும் [இந்த pattern](https://react.dev/reference/react/useState#storing-information-from-previous-renders)-ஐப் பின்பற்றுங்கள்.
+=======
+In rare cases, you may need to adjust state based on information from previous renders. For those, follow [this pattern](/reference/react/useState#storing-information-from-previous-renders) of setting state conditionally.
+>>>>>>> f5fa1e82edacdf8c6bfc4dfd9cf52029a96d5fd3
