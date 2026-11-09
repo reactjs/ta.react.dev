@@ -196,7 +196,11 @@ useEffect(() => {
 }, []);
 ```
 
+<<<<<<< HEAD
 இது தற்போதைய render முடிவதற்கு அனுமதித்து, updates-ஐ flush செய்ய மற்றொரு synchronous render-ஐ schedule செய்யும்.
+=======
+This will allow the current render to finish and schedule another synchronous render to flush the updates.
+>>>>>>> f5fa1e82edacdf8c6bfc4dfd9cf52029a96d5fd3
 
 <Pitfall>
 

@@ -28,7 +28,11 @@ title: "பொதுவான components (எ.கா. <div>)"
 
 * `children`: ஒரு React node (element, string, number, [portal,](/reference/react-dom/createPortal) `null`, `undefined` மற்றும் booleans போன்ற empty node, அல்லது பிற React nodes-ன் array). Component-க்குள் உள்ள content-ஐ குறிப்பிடுகிறது. JSX பயன்படுத்தும்போது, பொதுவாக `<div><span /></div>` போன்ற nested tags மூலம் `children` prop-ஐ மறைமுகமாக குறிப்பிடுவீர்கள்.
 
+<<<<<<< HEAD
 * `dangerouslySetInnerHTML`: உள்ளே raw HTML string கொண்ட `{ __html: '<p>some html</p>' }` வடிவ object. DOM node-ன் [`innerHTML`](https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML) property-ஐ override செய்து, pass செய்யப்பட்ட HTML-ஐ உள்ளே காட்டுகிறது. இதை மிகுந்த கவனத்துடன் மட்டுமே பயன்படுத்த வேண்டும்! உள்ளிருக்கும் HTML நம்பத்தகுந்ததல்ல என்றால் (உதாரணமாக, அது user data அடிப்படையாக இருந்தால்), [XSS](https://en.wikipedia.org/wiki/Cross-site_scripting) vulnerability சேர்க்கும் அபாயம் உண்டு. [`dangerouslySetInnerHTML` பயன்படுத்துவது பற்றி மேலும் வாசிக்கவும்.](#dangerously-setting-the-inner-html)
+=======
+* `dangerouslySetInnerHTML`: An object of the form `{ __html: '<p>some html</p>' }` with a raw HTML string or [`TrustedHTML`](https://developer.mozilla.org/en-US/docs/Web/API/TrustedHTML) value inside. Overrides the [`innerHTML`](https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML) property of the DOM node and displays the passed HTML inside. This should be used with extreme caution! If the HTML inside isn't trusted (for example, if it's based on user data), you risk introducing an [XSS](https://en.wikipedia.org/wiki/Cross-site_scripting) vulnerability. [Read more about using `dangerouslySetInnerHTML`.](#dangerously-setting-the-inner-html)
+>>>>>>> f5fa1e82edacdf8c6bfc4dfd9cf52029a96d5fd3
 
 * `ref`: [`useRef`](/reference/react/useRef) அல்லது [`createRef`](/reference/react/createRef)-இலிருந்து கிடைக்கும் ref object, [`ref` callback function,](#ref-callback) அல்லது [legacy refs](https://reactjs.org/docs/refs-and-the-dom.html#legacy-api-string-refs)-க்கான string. இந்த node-க்கான DOM element உங்கள் ref-இல் நிரப்பப்படும். [Refs மூலம் DOM-ஐ கையாளுவது பற்றி மேலும் வாசிக்கவும்.](#manipulating-a-dom-node-with-a-ref)
 
@@ -36,7 +40,11 @@ title: "பொதுவான components (எ.கா. <div>)"
 
 * `suppressHydrationWarning`: ஒரு boolean. நீங்கள் [server rendering](/reference/react-dom/server) பயன்படுத்தினால், server மற்றும் client வேறு content render செய்யும்போது பொதுவாக warning வரும். சில அரிய சந்தர்ப்பங்களில் (timestamps போன்றவை), exact match-ஐ உறுதி செய்வது மிகவும் கடினமாகவோ சாத்தியமற்றதாகவோ இருக்கும். `suppressHydrationWarning`-ஐ `true` ஆக set செய்தால், அந்த element-ன் attributes மற்றும் content-இல் உள்ள mismatches குறித்து React warning காட்டாது. இது ஒரு level ஆழம் மட்டுமே வேலை செய்யும்; escape hatch ஆகப் பயன்படுத்துவதற்கானது. இதை மிகையாகப் பயன்படுத்த வேண்டாம். [Hydration errors-ஐ suppress செய்வது பற்றி வாசிக்கவும்.](/reference/react-dom/client/hydrateRoot#suppressing-unavoidable-hydration-mismatch-errors)
 
+<<<<<<< HEAD
 * `style`: CSS styles கொண்ட object, உதாரணமாக `{ fontWeight: 'bold', margin: 20 }`. DOM [`style`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/style) property போலவே, CSS property பெயர்கள் `font-weight` என்பதற்குப் பதிலாக `fontWeight` போன்ற `camelCase` வடிவில் எழுதப்பட வேண்டும். Values ஆக strings அல்லது numbers pass செய்யலாம். `width: 100` போன்ற number pass செய்தால், அது [unitless property](https://github.com/facebook/react/blob/81d4ee9ca5c405dce62f64e61506b8e155f38d8d/packages/react-dom-bindings/src/shared/CSSProperty.js#L8-L57) அல்லாத வரை React value-க்கு தானாக `px` ("pixels") சேர்க்கும். Style values முன்கூட்டியே தெரியாத dynamic styles-க்கு மட்டும் `style` பயன்படுத்த பரிந்துரைக்கிறோம். மற்ற சந்தர்ப்பங்களில், `className` மூலம் plain CSS classes பயன்படுத்துவது அதிக திறனானது. [`className` மற்றும் `style` பற்றி மேலும் வாசிக்கவும்.](#applying-css-styles)
+=======
+* `style`: An object with CSS styles, for example `{ fontWeight: 'bold', margin: 20 }`. Similarly to the DOM [`style`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/style) property, the CSS property names need to be written as `camelCase`, for example `fontWeight` instead of `font-weight`. You can pass strings or numbers as values. If you pass a number, like `width: 100`, React will automatically append `px` ("pixels") to the value unless it's a [unitless property.](https://github.com/react/react/blob/81d4ee9ca5c405dce62f64e61506b8e155f38d8d/packages/react-dom-bindings/src/shared/CSSProperty.js#L8-L57) We recommend using `style` only for dynamic styles where you don't know the style values ahead of time. In other cases, applying plain CSS classes with `className` is more efficient. [Read more about `className` and `style`.](#applying-css-styles)
+>>>>>>> f5fa1e82edacdf8c6bfc4dfd9cf52029a96d5fd3
 
 இந்த standard DOM props-உம் எல்லா built-in components-க்கும் support செய்யப்படுகின்றன:
 
@@ -257,9 +265,15 @@ Ref object-க்கு பதிலாக ([`useRef`](/reference/react/useRef#m
 
 [`ref` callback பயன்படுத்தும் உதாரணத்தை பார்க்கவும்.](/learn/manipulating-the-dom-with-refs#how-to-manage-a-list-of-refs-using-a-ref-callback)
 
+<<<<<<< HEAD
 `<div>` DOM node screen-க்கு சேர்க்கப்படும் போது, DOM `node`-ஐ argument ஆக வைத்து React உங்கள் `ref` callback-ஐ call செய்யும். அந்த `<div>` DOM node நீக்கப்படும் போது, callback return செய்த cleanup function-ஐ React call செய்யும்.
 
 நீங்கள் *வேறு* `ref` callback pass செய்யும் ஒவ்வொரு முறையும் React உங்கள் `ref` callback-ஐ call செய்யும். மேலுள்ள உதாரணத்தில், `(node) => { ... }` ஒவ்வொரு render-இலும் வேறு function ஆகும். உங்கள் component re-render ஆகும்போது, *முந்தைய* function `null` argument-உடன் call செய்யப்படும்; *அடுத்த* function DOM node-உடன் call செய்யப்படும்.
+=======
+When the `<div>` DOM node is added to the screen, React will call your `ref` callback with the DOM `node` as the argument. When that `<div>` DOM node is removed, React will call the cleanup function returned from the callback.
+
+React will also call your `ref` callback whenever you pass a *different* `ref` callback. In the above example, `(node) => { ... }` is a different function on every render. When your component re-renders, the cleanup function returned by the *previous* function will be called, and the *next* function will be called with the DOM node. If no cleanup function is returned, the *previous* function will be called with `null` as the argument instead.
+>>>>>>> f5fa1e82edacdf8c6bfc4dfd9cf52029a96d5fd3
 
 #### Parameters {/*ref-callback-parameters*/}
 
@@ -924,7 +938,11 @@ Refs மூலம் [DOM-ஐ கையாளுவது பற்றி மே
 
 ### Inner HTML-ஐ ஆபத்தான முறையில் set செய்தல் {/*dangerously-setting-the-inner-html*/}
 
+<<<<<<< HEAD
 Raw HTML string-ஐ ஒரு element-க்கு இவ்வாறு pass செய்யலாம்:
+=======
+You can pass a raw HTML string or a [`TrustedHTML`](https://developer.mozilla.org/en-US/docs/Web/API/TrustedHTML) value to an element like so:
+>>>>>>> f5fa1e82edacdf8c6bfc4dfd9cf52029a96d5fd3
 
 ```js
 const markup = { __html: '<p>சில raw html</p>' };
@@ -933,7 +951,13 @@ return <div dangerouslySetInnerHTML={markup} />;
 
 **இது ஆபத்தானது. Underlying DOM [`innerHTML`](https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML) property போலவே, நீங்கள் மிகுந்த கவனத்துடன் நடக்க வேண்டும்! Markup முற்றிலும் நம்பத்தகுந்த source-இலிருந்து வராத வரை, இவ்வாறு [XSS](https://en.wikipedia.org/wiki/Cross-site_scripting) vulnerability உருவாக்குவது சாத்தியம்.**
 
+<<<<<<< HEAD
 உதாரணமாக, Markdown-ஐ HTML ஆக மாற்றும் Markdown library பயன்படுத்தினால், அதன் parser-இல் bugs இல்லை என்று நீங்கள் நம்பினால், மற்றும் user தன்னுடைய input-ஐ மட்டுமே பார்க்கிறான் என்றால், கிடைக்கும் HTML-ஐ இவ்வாறு காட்டலாம்:
+=======
+If your site enforces [Trusted Types](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API), pass a `TrustedHTML` value created by your security policy as `__html`. React passes the value to the browser without converting it to a string, allowing the browser to validate it. Your policy must still ensure that any input used to create the value is trusted and sanitized.
+
+For example, if you use a Markdown library that converts Markdown to HTML, you trust that its parser doesn't contain bugs, and the user only sees their own input, you can display the resulting HTML like this:
+>>>>>>> f5fa1e82edacdf8c6bfc4dfd9cf52029a96d5fd3
 
 <Sandpack>
 

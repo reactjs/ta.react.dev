@@ -1049,8 +1049,13 @@ Effects-க்குள் `fetch` calls எழுதுவது, குறி�
 
 இந்த downsides list React-க்கு மட்டும் குறிப்பானது அல்ல. எந்த library-யுடனும் mount போது data fetch செய்வதற்கு இது பொருந்தும். Routing போலவே, data fetching-ஐ நன்றாக செய்வது trivial அல்ல; எனவே பின்வரும் approaches-ஐ பரிந்துரைக்கிறோம்:
 
+<<<<<<< HEAD
 - **நீங்கள் [framework](/learn/creating-a-react-app#full-stack-frameworks) use செய்தால், அதன் built-in data fetching mechanism-ஐ use செய்யுங்கள்.** Modern React frameworks efficient ஆன, மேலுள்ள pitfalls இல்லாத integrated data fetching mechanisms கொண்டுள்ளன.
 - **இல்லையெனில், client-side cache use செய்வதையோ build செய்வதையோ consider செய்யுங்கள்.** Popular open source solutions-இல் [TanStack Query](https://tanstack.com/query/latest/), [useSWR](https://swr.vercel.app/), மற்றும் [React Router 6.4+](https://beta.reactrouter.com/en/main/start/overview) அடங்கும். உங்கள் சொந்த solution-ஐயும் build செய்யலாம்; அப்போது under the hood Effects use செய்வீர்கள், ஆனால் requests-ஐ deduplicate செய்தல், responses-ஐ cache செய்தல், மற்றும் network waterfalls தவிர்த்தல் (data preload செய்வதன் மூலம் அல்லது data requirements-ஐ routes-க்கு hoist செய்வதன் மூலம்) ஆகிய logic சேர்ப்பீர்கள்.
+=======
+- **If you use a [framework](/learn/creating-a-react-app#full-stack-frameworks), use its built-in data fetching mechanism.** Modern React frameworks have integrated data fetching mechanisms that are efficient and don't suffer from the above pitfalls.
+- **Otherwise, consider using or building a client-side cache.** Popular open source solutions include [TanStack Query](https://tanstack.com/query/latest/), [useSWR](https://swr.vercel.app/), and [React Router](https://reactrouter.com/). You can build your own solution too, in which case you would use Effects under the hood but also add logic for deduplicating requests, caching responses, and avoiding network waterfalls (by preloading data or hoisting data requirements to routes).
+>>>>>>> f5fa1e82edacdf8c6bfc4dfd9cf52029a96d5fd3
 
 இந்த approaches எதுவும் உங்களுக்கு பொருந்தவில்லை என்றால், Effects-இல் நேரடியாக data fetch செய்வதைத் தொடரலாம்.
 
@@ -1597,8 +1602,13 @@ function ChatRoom({ roomId }) {
   }
 
   useEffect(() => {
+<<<<<<< HEAD
     const options = createOptions(); // இது Effect-க்குள் use செய்யப்படுகிறது
     const connection = createConnection();
+=======
+    const options = createOptions(); // It's used inside the Effect
+    const connection = createConnection(options);
+>>>>>>> f5fa1e82edacdf8c6bfc4dfd9cf52029a96d5fd3
     connection.connect();
     return () => connection.disconnect();
   }, [createOptions]); // 🚩 அதன் விளைவாக, இந்த dependencies ஒவ்வொரு commit-இலும் எப்போதும் வேறுபடும்

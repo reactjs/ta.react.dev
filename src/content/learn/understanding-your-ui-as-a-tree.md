@@ -135,7 +135,11 @@ React render tree-இல் root node என்பது app-ன் [root compon
 
 #### Render tree-இல் HTML tags எங்கே? {/*where-are-the-html-elements-in-the-render-tree*/}
 
+<<<<<<< HEAD
 மேலுள்ள render tree-இல், ஒவ்வொரு component render செய்யும் HTML tags பற்றி mention இல்லை என்பதை கவனிப்பீர்கள். ஏனெனில் render tree, React [components](learn/your-first-component#components-ui-building-blocks) மட்டுமே கொண்டதாக இருக்கும்.
+=======
+You'll notice in the above render tree, there is no mention of the HTML tags that each component renders. This is because the render tree is only composed of React [components](/learn/your-first-component#components-ui-building-blocks).
+>>>>>>> f5fa1e82edacdf8c6bfc4dfd9cf52029a96d5fd3
 
 React, UI framework ஆக, platform agnostic. react.dev-இல், web-க்கு render செய்யும் examples-ஐ நாங்கள் காட்டுகிறோம்; web, HTML markup-ஐ அதன் UI primitives ஆக பயன்படுத்துகிறது. ஆனால் React app ஒன்று mobile அல்லது desktop platform-க்கும் render செய்யலாம்; அவை [UIView](https://developer.apple.com/documentation/uikit/uiview) அல்லது [FrameworkElement](https://learn.microsoft.com/en-us/dotnet/api/system.windows.frameworkelement?view=windowsdesktop-7.0) போன்ற வேறு UI primitives பயன்படுத்தலாம்.
 

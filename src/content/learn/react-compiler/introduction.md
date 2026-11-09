@@ -144,7 +144,11 @@ function TableContainer({ items }) {
 - React Compiler, React components மற்றும் hooks-ஐ மட்டுமே memoize செய்கிறது; எல்லா functions-ஐயும் அல்ல
 - React Compiler-ன் memoization பல components அல்லது hooks இடையே shared ஆகாது
 
+<<<<<<< HEAD
 அதனால் `expensivelyProcessAReallyLargeArrayOfObjects` பல வேறு components-இல் பயன்படுத்தப்பட்டிருந்தால், அதே exact items pass செய்யப்பட்டிருந்தாலும் அந்த expensive calculation மீண்டும் மீண்டும் run ஆகும். Code-ஐ மேலும் சிக்கலாக்குவதற்கு முன் அது உண்மையிலேயே இத்தனை expensive ஆக உள்ளதா என்பதை அறிய முதலில் [profiling](reference/react/useMemo#how-to-tell-if-a-calculation-is-expensive) செய்ய பரிந்துரைக்கிறோம்.
+=======
+So if `expensivelyProcessAReallyLargeArrayOfObjects` was used in many different components, even if the same exact items were passed down, that expensive calculation would be run repeatedly. We recommend [profiling](/reference/react/useMemo#how-to-tell-if-a-calculation-is-expensive) first to see if it really is that expensive before making code more complicated.
+>>>>>>> f5fa1e82edacdf8c6bfc4dfd9cf52029a96d5fd3
 </DeepDive>
 
 ## Compiler-ஐ நான் முயற்சிக்க வேண்டுமா? {/*should-i-try-out-the-compiler*/}

@@ -182,7 +182,11 @@ const [error, submitAction, isPending] = useActionState(
 
 `React.useActionState` Canary releases-இல் முன்பு `ReactDOM.useFormState` என்று அழைக்கப்பட்டது; அதை rename செய்து `useFormState`-ஐ deprecated செய்துள்ளோம்.
 
+<<<<<<< HEAD
 மேலும் தகவலுக்கு [#28491](https://github.com/facebook/react/pull/28491)-ஐ பார்க்கவும்.
+=======
+See [#28491](https://github.com/react/react/pull/28491) for more info.
+>>>>>>> f5fa1e82edacdf8c6bfc4dfd9cf52029a96d5fd3
 
 </Note>
 
@@ -388,7 +392,11 @@ Server Actions, server-இல் execute செய்யப்படும் as
 
 Server Actions Server Components-இல் உருவாக்கப்பட்டு Client Components-க்கு props ஆக pass செய்யப்படலாம், அல்லது Client Components-இல் import செய்து பயன்படுத்தப்படலாம்.
 
+<<<<<<< HEAD
 மேலும் அறிய [React Server Actions](/reference/rsc/server-actions) docs-ஐ பார்க்கவும்.
+=======
+For more, see the docs for [React Server Actions](/reference/rsc/server-functions).
+>>>>>>> f5fa1e82edacdf8c6bfc4dfd9cf52029a96d5fd3
 
 ## React 19-இல் improvements {/*improvements-in-react-19*/}
 

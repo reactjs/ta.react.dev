@@ -91,7 +91,11 @@ experimental_taintUniqueValue(
 );
 ```
 
+<<<<<<< HEAD
 Tainted value-ன் lifespan ஒரு object-இன் lifespan-ஐ சார்ந்திருந்தால், `lifetime` அந்த value-ஐ encapsulate செய்யும் object ஆக இருக்க வேண்டும். இதனால் encapsulating object-ன் lifetime முழுவதும் tainted value பாதுகாக்கப்பட்டிருப்பது உறுதியாகும்.
+=======
+If the tainted value's lifespan is tied to an object, the `lifetime` should be the object that encapsulates the value. This ensures the tainted value remains protected for the lifetime of the encapsulating object.
+>>>>>>> f5fa1e82edacdf8c6bfc4dfd9cf52029a96d5fd3
 
 ```js
 import {experimental_taintUniqueValue} from 'react';
@@ -130,7 +134,11 @@ const uppercasePassword = password.toUpperCase() // `uppercasePassword` tainted 
 
 இந்த உதாரணத்தில், constant `password` tainted. பிறகு `password` மீது `toUpperCase` method call செய்து புதிய value `uppercasePassword` உருவாக்கப்படுகிறது. புதிதாக உருவாக்கப்பட்ட `uppercasePassword` tainted அல்ல.
 
+<<<<<<< HEAD
 Tainted values-இலிருந்து புதிய values derive செய்யும் இதுபோன்ற பிற வழிகள், உதாரணமாக பெரிய string-க்கு concatenate செய்தல், base64-க்கு convert செய்தல், அல்லது substring return செய்தல் ஆகியவை untainted values-ஐ உருவாக்கும்.
+=======
+Other similar ways of deriving new values from tainted values like concatenating it into a larger string, converting it to base64, or returning a substring create untainted values.
+>>>>>>> f5fa1e82edacdf8c6bfc4dfd9cf52029a96d5fd3
 
 Secret values-ஐ client-க்கு explicit-ஆக pass செய்வது போன்ற நேரடியான தவறுகளிலிருந்து மட்டுமே tainting பாதுகாக்கிறது. Corresponding lifetime object இல்லாமல் React-க்கு வெளியே global store பயன்படுத்துவது போன்ற `taintUniqueValue` call-இல் உள்ள தவறுகள், tainted value untainted ஆகிவிட காரணமாகலாம். Tainting ஒரு பாதுகாப்பு layer; secure app-ல் பல protection layers, நன்றாக வடிவமைக்கப்பட்ட APIs, மற்றும் isolation patterns இருக்கும்.
 

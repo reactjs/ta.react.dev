@@ -16,8 +16,14 @@ title: "உள்ளமைந்த React Hooks"
 
 ஒரு component-க்கு state சேர்க்க, இந்த Hooks-இல் ஒன்றைப் பயன்படுத்துங்கள்:
 
+<<<<<<< HEAD
 * [`useState`](/reference/react/useState) நேரடியாக update செய்யக்கூடிய state variable ஒன்றை declare செய்கிறது.
 * [`useReducer`](/reference/react/useReducer) update logic-ஐ [reducer function](/learn/extracting-state-logic-into-a-reducer)-க்குள் கொண்ட state variable ஒன்றை declare செய்கிறது.
+=======
+* [`useState`](/reference/react/useState) declares a state variable that you can update directly.
+* [`useReducer`](/reference/react/useReducer) declares a state variable with the update logic inside a [reducer function.](/learn/extracting-state-logic-into-a-reducer)
+* [`useOptimistic`](/reference/react/useOptimistic) lets you show a different state while an async action is pending.
+>>>>>>> f5fa1e82edacdf8c6bfc4dfd9cf52029a96d5fd3
 
 ```js
 function ImageGallery() {

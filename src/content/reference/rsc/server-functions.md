@@ -34,7 +34,11 @@ Server Functions Server Components-இல் உருவாக்கப்ப�
 
 ## பயன்பாடு {/*usage*/}
 
+<<<<<<< HEAD
 ### Server Component-இலிருந்து Server Function உருவாக்குதல் {/*creating-a-server-function-from-a-server-component*/}
+=======
+### Creating a Server Function in a Server Component {/*creating-a-server-function-from-a-server-component*/}
+>>>>>>> f5fa1e82edacdf8c6bfc4dfd9cf52029a96d5fd3
 
 Server Components `"use server"` directive மூலம் Server Functions define செய்யலாம்:
 
@@ -42,7 +46,7 @@ Server Components `"use server"` directive மூலம் Server Functions defi
 // Server Component
 import Button from './Button';
 
-function EmptyNote () {
+function EmptyNote() {
   async function createNoteAction() {
     // Server Function
     'use server';
@@ -50,7 +54,7 @@ function EmptyNote () {
     await db.notes.create();
   }
 
-  return <Button onClick={createNoteAction}/>;
+  return <Button onClick={createNoteAction} />;
 }
 ```
 
@@ -62,46 +66,57 @@ React `EmptyNote` Server Component-ஐ render செய்யும்போத�
 export default function Button({onClick}) {
   console.log(onClick);
   // {$$typeof: Symbol.for("react.server.reference"), $$id: 'createNoteAction'}
-  return <button onClick={() => onClick()}>Create Empty Note</button>
+  return <button onClick={() => onClick()}>Create Empty Note</button>;
 }
 ```
 
 மேலும் அறிய [`"use server"`](/reference/rsc/use-server) docs-ஐப் பார்க்கவும்.
 
+<<<<<<< HEAD
 
 ### Client Components-இலிருந்து Server Functions import செய்தல் {/*importing-server-functions-from-client-components*/}
+=======
+### Importing a Server Function into a Client Component {/*importing-server-functions-from-client-components*/}
+>>>>>>> f5fa1e82edacdf8c6bfc4dfd9cf52029a96d5fd3
 
 `"use server"` directive பயன்படுத்தும் files-இலிருந்து Client Components Server Functions import செய்யலாம்:
 
-```js [[1, 3, "createNote"]]
+```js [[1, 4, "createNote"]]
+// actions.js
 "use server";
 
 export async function createNote() {
   await db.notes.create();
 }
-
 ```
 
 Bundler `EmptyNote` Client Component-ஐ build செய்யும்போது, bundle-இல் `createNote` function-க்கு reference உருவாக்கும். `button` click செய்யப்படும்போது, வழங்கப்பட்ட reference-ஐப் பயன்படுத்தி `createNote` function execute செய்ய React server-க்கு request அனுப்பும்:
 
-```js [[1, 2, "createNote"], [1, 5, "createNote"], [1, 7, "createNote"]]
+```js [[1, 4, "createNote"], [1, 7, "createNote"], [1, 9, "createNote"]]
+// EmptyNote.js
 "use client";
+
 import {createNote} from './actions';
 
 function EmptyNote() {
   console.log(createNote);
   // {$$typeof: Symbol.for("react.server.reference"), $$id: 'createNote'}
-  <button onClick={() => createNote()} />
+  return <button onClick={() => createNote()}>Create Empty Note</button>;
 }
 ```
 
 மேலும் அறிய [`"use server"`](/reference/rsc/use-server) docs-ஐப் பார்க்கவும்.
 
+<<<<<<< HEAD
 ### Actions உடன் Server Functions {/*server-functions-with-actions*/}
+=======
+### Calling a Server Function from an Action {/*server-functions-with-actions*/}
+>>>>>>> f5fa1e82edacdf8c6bfc4dfd9cf52029a96d5fd3
 
 Server Functions client-இல் உள்ள Actions-இலிருந்து call செய்யப்படலாம்:
 
-```js [[1, 3, "updateName"]]
+```js [[1, 4, "updateName"]]
+// actions.js
 "use server";
 
 export async function updateName(name) {
@@ -109,12 +124,15 @@ export async function updateName(name) {
     return {error: 'Name is required'};
   }
   await db.users.updateName(name);
+  return {error: null};
 }
 ```
 
-```js [[1, 3, "updateName"], [1, 13, "updateName"], [2, 11, "submitAction"],  [2, 23, "submitAction"]]
+```js [[1, 5, "updateName"], [1, 15, "updateName"], [2, 13, "submitAction"], [2, 28, "submitAction"]]
+// UpdateName.js
 "use client";
 
+import {useState, useTransition} from 'react';
 import {updateName} from './actions';
 
 function UpdateName() {
@@ -123,38 +141,70 @@ function UpdateName() {
 
   const [isPending, startTransition] = useTransition();
 
-  const submitAction = async () => {
+  function submitAction() {
     startTransition(async () => {
       const {error} = await updateName(name);
-      if (error) {
+      // State updates after await aren't automatically marked as Transitions,
+      // so wrap them in another startTransition.
+      startTransition(() => {
         setError(error);
-      } else {
-        setName('');
-      }
-    })
+        if (!error) {
+          setName('');
+        }
+      });
+    });
   }
 
   return (
     <form action={submitAction}>
-      <input type="text" name="name" disabled={isPending}/>
+      <input
+        type="text"
+        name="name"
+        value={name}
+        onChange={event => setName(event.target.value)}
+        disabled={isPending}
+      />
       {error && <span>Failed: {error}</span>}
     </form>
-  )
+  );
 }
 ```
 
 Client-இல் அதை Action-இல் wrap செய்வதன் மூலம் Server Function-ன் `isPending` state-ஐ access செய்ய இது அனுமதிக்கிறது.
 
+<<<<<<< HEAD
 மேலும் அறிய [`<form>`-க்கு வெளியே Server Function call செய்தல்](/reference/rsc/use-server#calling-a-server-function-outside-of-form) docs-ஐப் பார்க்கவும்.
 
 ### Form Actions உடன் Server Functions {/*using-server-functions-with-form-actions*/}
+=======
+For more, see the docs for [Calling a Server Function outside of `<form>`](/reference/rsc/use-server#calling-a-server-function-outside-of-form).
+
+### Passing a Server Function to the `<form>` `action` prop {/*using-server-functions-with-form-actions*/}
+>>>>>>> f5fa1e82edacdf8c6bfc4dfd9cf52029a96d5fd3
 
 Server Functions React 19-ன் புதிய Form features உடன் வேலை செய்கின்றன.
 
+<<<<<<< HEAD
 Form-ஐ server-க்கு தானாக submit செய்ய, Server Function-ஐ Form-க்கு pass செய்யலாம்:
+=======
+Pass a Server Function to the `<form>` `action` prop to submit the form to the server. React passes the submitted [`FormData`](https://developer.mozilla.org/en-US/docs/Web/API/FormData) to the Server Function as its first argument:
+>>>>>>> f5fa1e82edacdf8c6bfc4dfd9cf52029a96d5fd3
 
+```js [[1, 4, "updateName"]]
+// actions.js
+"use server";
 
-```js [[1, 3, "updateName"], [1, 7, "updateName"]]
+export async function updateName(formData) {
+  const name = formData.get('name');
+  if (typeof name !== 'string' || !name) {
+    throw new Error('Name is required');
+  }
+  await db.users.updateName(name);
+}
+```
+
+```js [[1, 4, "updateName"], [1, 8, "updateName"]]
+// UpdateName.js
 "use client";
 
 import {updateName} from './actions';
@@ -164,21 +214,47 @@ function UpdateName() {
     <form action={updateName}>
       <input type="text" name="name" />
     </form>
-  )
+  );
 }
 ```
 
+<<<<<<< HEAD
 Form submission வெற்றி பெற்றால், React form-ஐ தானாக reset செய்யும். Pending state, last response access செய்ய, அல்லது progressive enhancement support செய்ய `useActionState` சேர்க்கலாம்.
+=======
+When the Server Function passed to the `<form>` `action` prop succeeds, React automatically resets the form's uncontrolled fields. Users can submit the form before its JavaScript bundle loads. Use `useActionState` to access the Action's pending state and most recent return value.
+>>>>>>> f5fa1e82edacdf8c6bfc4dfd9cf52029a96d5fd3
 
 மேலும் அறிய [Forms-இல் Server Functions](/reference/rsc/use-server#server-functions-in-forms) docs-ஐப் பார்க்கவும்.
 
+<<<<<<< HEAD
 ### `useActionState` உடன் Server Functions {/*server-functions-with-use-action-state*/}
 
 Action pending state மற்றும் கடைசியாக return செய்யப்பட்ட response மட்டும் access செய்ய வேண்டிய பொதுவான சூழலில், `useActionState` உடன் Server Functions-ஐ call செய்யலாம்:
+=======
+### Calling a Server Function with `useActionState` {/*server-functions-with-use-action-state*/}
 
-```js [[1, 3, "updateName"], [1, 6, "updateName"], [2, 6, "submitAction"], [2, 9, "submitAction"]]
+Call a Server Function with `useActionState` to access the Action's pending state and most recent return value. The Server Function receives the previous state as its first argument and the submitted [`FormData`](https://developer.mozilla.org/en-US/docs/Web/API/FormData) as its second argument. Its return value becomes the next state:
+>>>>>>> f5fa1e82edacdf8c6bfc4dfd9cf52029a96d5fd3
+
+```js [[1, 4, "updateName"]]
+// actions.js
+"use server";
+
+export async function updateName(previousState, formData) {
+  const name = formData.get('name');
+  if (typeof name !== 'string' || !name) {
+    return {error: 'Name is required'};
+  }
+  await db.users.updateName(name);
+  return {error: null};
+}
+```
+
+```js [[1, 5, "updateName"], [1, 8, "updateName"], [2, 8, "submitAction"], [2, 11, "submitAction"]]
+// UpdateName.js
 "use client";
 
+import {useActionState} from 'react';
 import {updateName} from './actions';
 
 function UpdateName() {
@@ -186,28 +262,40 @@ function UpdateName() {
 
   return (
     <form action={submitAction}>
-      <input type="text" name="name" disabled={isPending}/>
+      <input type="text" name="name" disabled={isPending} />
       {state.error && <span>Failed: {state.error}</span>}
     </form>
   );
 }
 ```
 
+<<<<<<< HEAD
 Server Functions உடன் `useActionState` பயன்படுத்தும்போது, hydration முடிவதற்கு முன் செய்யப்பட்ட form submissions-ஐயும் React தானாக replay செய்யும். இதன் பொருள் app hydrate ஆகும் முன்பே users உங்கள் app உடன் interact செய்ய முடியும்.
+=======
+When the function passed to `useActionState` is a Server Function, users can submit the form before hydration finishes. React can display the Server Function's return value before JavaScript loads.
+>>>>>>> f5fa1e82edacdf8c6bfc4dfd9cf52029a96d5fd3
 
 மேலும் அறிய [`useActionState`](/reference/react/useActionState) docs-ஐப் பார்க்கவும்.
 
+<<<<<<< HEAD
 ### `useActionState` உடன் progressive enhancement {/*progressive-enhancement-with-useactionstate*/}
+=======
+To keep submitted values or control when the form resets, see [Preserving form values after an Action](/reference/react-dom/components/form#preserve-form-values-after-an-action).
+
+### Supporting progressive enhancement with `useActionState` {/*progressive-enhancement-with-useactionstate*/}
+>>>>>>> f5fa1e82edacdf8c6bfc4dfd9cf52029a96d5fd3
 
 Server Functions `useActionState`-ன் மூன்றாவது argument மூலம் progressive enhancement-ஐயும் support செய்கின்றன.
 
-```js [[1, 3, "updateName"], [1, 6, "updateName"], [2, 6, "/name/update"], [3, 6, "submitAction"], [3, 9, "submitAction"]]
+```js [[1, 5, "updateName"], [1, 8, "updateName"], [2, 8, "/name/update"], [3, 8, "submitAction"], [3, 11, "submitAction"]]
+// UpdateName.js
 "use client";
 
+import {useActionState} from 'react';
 import {updateName} from './actions';
 
 function UpdateName() {
-  const [, submitAction] = useActionState(updateName, null, `/name/update`);
+  const [, submitAction] = useActionState(updateName, {error: null}, `/name/update`);
 
   return (
     <form action={submitAction}>
@@ -217,6 +305,10 @@ function UpdateName() {
 }
 ```
 
+<<<<<<< HEAD
 <CodeStep step={2}>permalink</CodeStep> `useActionState`-க்கு வழங்கப்பட்டால், JavaScript bundle load ஆகும் முன் form submit செய்யப்பட்டால் React வழங்கப்பட்ட URL-க்கு redirect செய்யும்.
+=======
+If you pass the <CodeStep step={2}>`permalink`</CodeStep> to `useActionState`, the browser navigates to that URL when the form is submitted before the JavaScript bundle loads. At the destination, render the same form component with the same Server Function and `permalink` so React can pass the returned state to it.
+>>>>>>> f5fa1e82edacdf8c6bfc4dfd9cf52029a96d5fd3
 
 மேலும் அறிய [`useActionState`](/reference/react/useActionState) docs-ஐப் பார்க்கவும்.

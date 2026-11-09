@@ -899,6 +899,7 @@ body {
 
 ### React Developer Tools {/*react-developer-tools*/}
 
+<<<<<<< HEAD
 React DevTools உங்கள் React component-களின் props மற்றும் state-ஐச் சரிபார்க்க அனுமதிக்கிறது. CodeSandbox-இல் _browser_ பிரிவின் கீழே React DevTools tab-ஐக் காணலாம்:
 
 ![CodeSandbox-இல் React DevTools](../images/tutorial/codesandbox-devtools.png)
@@ -906,12 +907,26 @@ React DevTools உங்கள் React component-களின் props மற�
 screen-இல் குறிப்பிட்ட component-ஐ inspect செய்ய, React DevTools-ன் இடது மேல் மூலையில் உள்ள button-ஐப் பயன்படுத்துங்கள்:
 
 ![React DevTools மூலம் page-இல் component-களைத் தேர்ந்தெடுத்தல்](../images/tutorial/devtools-select.gif)
+=======
+React Developer Tools let you check the props and the state of your React components. It is available as a [Chrome](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en), [Firefox](https://addons.mozilla.org/en-US/firefox/addon/react-devtools/), and [Edge](https://microsoftedge.microsoft.com/addons/detail/react-developer-tools/gpphkfbcpidddadnkolkpfckpihlkkil) browser extension.
 
-<Note>
+After you install it, a new *Components* tab will appear in your browser Developer Tools for sites using React. If you're following along in CodeSandbox, you'd need to first open your sandbox preview in a new tab:
 
+![opening in new tab](../images/tutorial/sandbox-new-tab.png)
+
+Then, on the preview page, open your browser's DevTools and find the *Components* tab:
+>>>>>>> f5fa1e82edacdf8c6bfc4dfd9cf52029a96d5fd3
+
+![components tab](../images/tutorial/components-tab.png)
+
+<<<<<<< HEAD
 local development-க்கு, React DevTools [Chrome](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en), [Firefox](https://addons.mozilla.org/en-US/firefox/addon/react-devtools/), மற்றும் [Edge](https://microsoftedge.microsoft.com/addons/detail/react-developer-tools/gpphkfbcpidddadnkolkpfckpihlkkil) browser extension ஆக கிடைக்கிறது. அதை install செய்தால், React பயன்படுத்தும் site-களுக்காக உங்கள் browser Developer Tools-இல் *Components* tab தோன்றும்.
+=======
+To inspect a particular component on the screen, use the button in the top left corner of the Components tab:
 
-</Note>
+![inspecting with devtools](../images/tutorial/devtools-inspect.gif)
+>>>>>>> f5fa1e82edacdf8c6bfc4dfd9cf52029a96d5fd3
+
 
 ## game-ஐ முடித்தல் {/*completing-the-game*/}
 
@@ -1137,7 +1152,11 @@ JavaScript [closure-களை](https://developer.mozilla.org/en-US/docs/Web/Java
 
 </Note>
 
+<<<<<<< HEAD
 இப்போது board-க்கு X-களைச் சேர்க்கலாம்... ஆனால் மேலே இடதுபுற square-க்கு மட்டும். உங்கள் `handleClick` function மேல் இடதுபுற square (`0`) index-ஐ update செய்ய hardcode செய்யப்பட்டுள்ளது. எந்த square-யையும் update செய்ய முடியும் வகையில் `handleClick`-ஐ update செய்வோம். update செய்ய வேண்டிய square-ன் index-ஐ எடுக்க `handleClick` function-க்கு `i` என்ற argument சேர்க்கவும்:
+=======
+Now you can add X's to the board...  but only to the upper left square. Your `handleClick` function is hardcoded to update the index for the upper left square (`0`). Let's update `handleClick` to be able to update any square. Add a parameter `i` to the `handleClick` function that takes the index of the square to update:
+>>>>>>> f5fa1e82edacdf8c6bfc4dfd9cf52029a96d5fd3
 
 ```js {4,6}
 export default function Board() {

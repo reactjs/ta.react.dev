@@ -732,8 +732,13 @@ Effects-க்குள் `fetch` calls எழுதுவது [data fetch �
 
 இந்த downsides பட்டியல் React-க்கு மட்டும் உரியது அல்ல. எந்த library-யாக இருந்தாலும் mount போது data fetch செய்வதற்கு இது பொருந்தும். Routing போல, data fetching-ஐ நன்றாக செய்வது சுலபமல்ல, எனவே பின்வரும் approaches-ஐ பரிந்துரைக்கிறோம்:
 
+<<<<<<< HEAD
 - **நீங்கள் [framework](/learn/creating-a-react-app#full-stack-frameworks) use செய்தால், அதன் built-in data fetching mechanism-ஐ use செய்யுங்கள்.** Modern React frameworks-க்கு efficient ஆன, மேலுள்ள pitfalls இல்லாத integrated data fetching mechanisms உள்ளன.
 - **இல்லையெனில், client-side cache use செய்வதையோ build செய்வதையோ பரிசீலிக்கவும்.** Popular open source solutions-ல் [TanStack Query](https://tanstack.com/query/latest), [useSWR](https://swr.vercel.app/), மற்றும் [React Router 6.4+](https://beta.reactrouter.com/en/main/start/overview) அடங்கும். உங்கள் சொந்த solution-ஐயும் build செய்யலாம்; அப்போது under the hood Effects use செய்யப்படும், ஆனால் requests deduplicate செய்தல், responses cache செய்தல், network waterfalls தவிர்த்தல் (data preload செய்வதன் மூலம் அல்லது data requirements-ஐ routes-க்கு hoist செய்வதன் மூலம்) ஆகிய logic-ஐ சேர்ப்பீர்கள்.
+=======
+- **If you use a [framework](/learn/creating-a-react-app#full-stack-frameworks), use its built-in data fetching mechanism.** Modern React frameworks have integrated data fetching mechanisms that are efficient and don't suffer from the above pitfalls.
+- **Otherwise, consider using or building a client-side cache.** Popular open source solutions include [TanStack Query](https://tanstack.com/query/latest), [useSWR](https://swr.vercel.app/), and [React Router](https://reactrouter.com/). You can build your own solution too, in which case you would use Effects under the hood, but add logic for deduplicating requests, caching responses, and avoiding network waterfalls (by preloading data or hoisting data requirements to routes).
+>>>>>>> f5fa1e82edacdf8c6bfc4dfd9cf52029a96d5fd3
 
 இந்த approaches எதுவும் உங்களுக்கு பொருந்தவில்லை என்றால், Effects-இல் நேரடியாக data fetch செய்வதைத் தொடரலாம்.
 

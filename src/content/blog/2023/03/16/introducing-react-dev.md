@@ -41,8 +41,13 @@ March 16, 2023 அன்று [Dan Abramov](https://bsky.app/profile/danabra.mo
 
 **புதிய docs React-ஐ ஆரம்பத்திலிருந்தே Hooks உடன் கற்றுக்கொடுக்கும்.** Docs இரண்டு முக்கிய பிரிவுகளாகப் பிரிக்கப்பட்டுள்ளன:
 
+<<<<<<< HEAD
 * **[Learn React](/learn)** என்பது React-ஐ அடிப்படையிலிருந்து கற்றுக்கொடுக்கும் self-paced course.
 * **[API Reference](/reference)** ஒவ்வொரு React API-க்கும் விவரங்களையும் usage examples-ஐயும் வழங்குகிறது.
+=======
+* **[Learn React](/learn)** is a self-paced course that teaches React from scratch.
+* **[API Reference](/reference/react)** provides the details and usage examples for every React API.
+>>>>>>> f5fa1e82edacdf8c6bfc4dfd9cf52029a96d5fd3
 
 ஒவ்வொரு பிரிவிலும் என்ன கிடைக்கும் என்பதை நெருக்கமாகப் பார்ப்போம்.
 
@@ -459,11 +464,19 @@ Docs முழுவதும் சில illustrations-ஐயும் கா�
 
 [API Reference](/reference/react)-இல், ஒவ்வொரு React API-க்கும் இப்போது தனிப்பட்ட page உள்ளது. இதில் எல்லா வகையான APIs-மும் அடங்கும்:
 
+<<<<<<< HEAD
 - [`useState`](/reference/react/useState) போன்ற built-in Hooks.
 - [`<Suspense>`](/reference/react/Suspense) போன்ற built-in components.
 - [`<input>`](/reference/react-dom/components/input) போன்ற built-in browser components.
 - [`renderToPipeableStream`](/reference/react-dom/server/renderToReadableStream) போன்ற framework-oriented APIs.
 - [`memo`](/reference/react/memo) போன்ற பிற React APIs.
+=======
+- Built-in Hooks like [`useState`](/reference/react/useState).
+- Built-in components like [`<Suspense>`](/reference/react/Suspense).
+- Built-in browser components like [`<input>`](/reference/react-dom/components/input).
+- Framework-oriented APIs like [`renderToPipeableStream`](/reference/react-dom/server/renderToPipeableStream).
+- Other React APIs like [`memo`](/reference/react/memo).
+>>>>>>> f5fa1e82edacdf8c6bfc4dfd9cf52029a96d5fd3
 
 ஒவ்வொரு API page-மும் குறைந்தது இரண்டு பகுதிகளாகப் பிரிக்கப்பட்டிருப்பதை கவனிப்பீர்கள்: *Reference* மற்றும் *Usage*.
 
@@ -607,7 +620,11 @@ button { display: block; margin-top: 10px; }
 
 </Recipes>
 
+<<<<<<< HEAD
 சில API pages-இல் [Troubleshooting](/reference/react/useEffect#troubleshooting) (பொதுவான problems-க்காக) மற்றும் [Alternatives](/reference/react-dom/findDOMNode#alternatives) (deprecated APIs-க்காக) ஆகியவையும் உள்ளன.
+=======
+Some API pages also include [Troubleshooting](/reference/react/useEffect#troubleshooting) (for common problems) and [Alternatives](https://18.react.dev/reference/react-dom/findDOMNode#alternatives) (for deprecated APIs).
+>>>>>>> f5fa1e82edacdf8c6bfc4dfd9cf52029a96d5fd3
 
 இந்த அணுகுமுறை, API reference-ஐ ஒரு argument-ஐ lookup செய்யும் வழியாக மட்டுமல்லாமல், குறிப்பிட்ட API கொண்டு நீங்கள் செய்யக்கூடிய பல்வேறு விஷயங்களையும் அது பிற APIs-உடன் எப்படி இணைகிறது என்பதையும் பார்க்கும் வழியாகவும் பயனுள்ளதாக ஆக்கும் என்று நம்புகிறோம்.
 

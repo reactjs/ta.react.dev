@@ -76,7 +76,11 @@ Critical vulnerability ஒன்று disclosed செய்யப்பட்�
 
 ### பாதிக்கப்பட்ட frameworks மற்றும் bundlers {/*affected-frameworks-and-bundlers*/}
 
+<<<<<<< HEAD
 சில React frameworks மற்றும் bundlers vulnerable React packages மீது depended on, peer dependencies வைத்திருந்தன, அல்லது அவற்றை include செய்திருந்தன. பின்வரும் React frameworks மற்றும் bundlers பாதிக்கப்பட்டுள்ளன: [next](https://www.npmjs.com/package/next), [react-router](https://www.npmjs.com/package/react-router), [waku](https://www.npmjs.com/package/waku), [@parcel/rsc](https://www.npmjs.com/package/@parcel/rsc), [@vite/rsc-plugin](https://www.npmjs.com/package/@vitejs/plugin-rsc), மற்றும் [rwsdk](https://www.npmjs.com/package/rwsdk).
+=======
+Some React frameworks and bundlers depended on, had peer dependencies for, or included the vulnerable React packages. The following React frameworks & bundlers are affected: [next](https://www.npmjs.com/package/next), [react-router](https://www.npmjs.com/package/react-router), [waku](https://www.npmjs.com/package/waku), [@parcel/rsc](https://www.npmjs.com/package/@parcel/rsc), [@vitejs/plugin-rsc](https://www.npmjs.com/package/@vitejs/plugin-rsc), and [rwsdk](https://www.npmjs.com/package/rwsdk).
+>>>>>>> f5fa1e82edacdf8c6bfc4dfd9cf52029a96d5fd3
 
 Upgrade steps-க்கு [முந்தைய post-இல் உள்ள instructions](/blog/2025/12/03/critical-security-vulnerability-in-react-server-components#update-instructions)-ஐ பார்க்கவும்.
 
@@ -98,7 +102,11 @@ React Native-ஐ monorepo-வில் பயன்படுத்தினா�
 
 Security advisories-ஐ mitigate செய்ய இது தேவை; ஆனால் `react` மற்றும் `react-dom` update செய்ய வேண்டியதில்லை, எனவே இது React Native-இல் version mismatch error ஏற்படுத்தாது.
 
+<<<<<<< HEAD
 மேலும் தகவலுக்கு [இந்த issue](https://github.com/facebook/react-native/issues/54772#issuecomment-3617929832)-ஐ பார்க்கவும்.
+=======
+See [this issue](https://github.com/react/react-native/issues/54772#issuecomment-3617929832) for more information.
+>>>>>>> f5fa1e82edacdf8c6bfc4dfd9cf52029a96d5fd3
 
 ---
 

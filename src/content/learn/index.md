@@ -336,7 +336,11 @@ function MyButton() {
 }
 ```
 
+<<<<<<< HEAD
 ரியாக்ட் உங்கள் காம்போனென்ட் செயல்பாட்டை மீண்டும் அழைக்கும். அப்போதோ, `count` `1` ஆகும். அதன் பின்னர் `2`. இப்படிப் தொடரும்.
+=======
+Calling `setCount` tells React to call your component function again. This is called a *re-render*. This time, `count` will be `1`. Then it will be `2`. And so on.
+>>>>>>> f5fa1e82edacdf8c6bfc4dfd9cf52029a96d5fd3
 
 அதே காம்போனென்டை பல முறை ரெண்டர் செய்தால், ஒவ்வொன்றுக்கும் தனித்தனி state இருக்கும். ஒவ்வொரு பொத்தானையும் தனித்தனியாக சொடுக்கிப் பாருங்கள்:
 

@@ -530,7 +530,11 @@ Components மற்றும் modules இடையிலான relationships-
 
 React render tree என்பது components இடையிலான parent மற்றும் child relationship-ன் representation.
 
+<<<<<<< HEAD
 <Diagram name="generic_render_tree" height={250} width={500} alt="ஐந்து nodes கொண்ட tree graph; ஒவ்வொரு node-உம் component ஒன்றை குறிக்கிறது. Root node tree graph-ன் மேற்பகுதியில் உள்ளது; அது 'Root Component' என்று label செய்யப்பட்டுள்ளது. அதிலிருந்து 'Component A' மற்றும் 'Component C' என்று label செய்யப்பட்ட இரண்டு nodes-க்கு இரண்டு arrows கீழே நீள்கின்றன. ஒவ்வொரு arrow-உம் 'renders' என்று label செய்யப்பட்டுள்ளது. 'Component A'-இல் இருந்து 'Component B' என்று label செய்யப்பட்ட node-க்கு ஒரு 'renders' arrow உள்ளது. 'Component C'-இல் இருந்து 'Component D' என்று label செய்யப்பட்ட node-க்கு ஒரு 'renders' arrow உள்ளது.">
+=======
+<Diagram name="generic_render_tree" height={250} width={500} alt="A tree graph with five nodes, with each node representing a component. The root node is located at the top of the tree graph and is labelled 'Root Component'. It has two arrows extending down to two nodes labelled 'Component A' and 'Component C'. Each of the arrows is labelled with 'renders'. 'Component A' has a single 'renders' arrow to a node labelled 'Component B'. 'Component C' has a single 'renders' arrow to a node labelled 'Component D'.">
+>>>>>>> f5fa1e82edacdf8c6bfc4dfd9cf52029a96d5fd3
 
 React render tree-க்கான example.
 
