@@ -335,7 +335,11 @@ function MyComponent() {
 
 </Note>
 
+<<<<<<< HEAD
 [`useMemo`](/reference/react/useMemo) Hook, function call-இலிருந்து memorized value ஒன்றை create/re-access செய்யும்; 2வது parameter ஆக pass செய்யப்பட்ட dependencies மாறும்போது மட்டுமே function மீண்டும் run ஆகும். Hook call செய்த result, முதல் parameter-இல் உள்ள function return value-இலிருந்து infer செய்யப்படுகிறது. Hook-க்கு type argument வழங்கி மேலும் explicit ஆகலாம்.
+=======
+The [`useMemo`](/reference/react/useMemo) Hooks will create/re-access a memoized value from a function call, re-running the function only when dependencies passed as the 2nd parameter are changed. The result of calling the Hook is inferred from the return value from the function in the first parameter. You can be more explicit by providing a type argument to the Hook.
+>>>>>>> 46a54e0592729712b7640308b53268e84fdc7c9f
 
 ```ts
 // The type of visibleTodos is inferred from the return value of filterTodos
