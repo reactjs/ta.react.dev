@@ -14,8 +14,14 @@ title: React DOM API-கள்
 
 இந்த API-களை உங்கள் components-இலிருந்து import செய்யலாம். அவை அரிதாகவே பயன்படுத்தப்படுகின்றன:
 
+<<<<<<< HEAD
 * [`createPortal`](/reference/react-dom/createPortal) child components-ஐ DOM tree-இன் வேறு பகுதியில் render செய்ய உதவுகிறது.
 * [`flushSync`](/reference/react-dom/flushSync) ஒரு state update-ஐ flush செய்து DOM-ஐ synchronously update செய்ய React-ஐ கட்டாயப்படுத்த உதவுகிறது.
+=======
+* [`createPortal`](/reference/react-dom/createPortal) lets you render child components in a different part of the DOM tree.
+* [`flushSync`](/reference/react-dom/flushSync) lets you force React to flush a state update and update the DOM synchronously.
+* [`requestFormReset`](/reference/react-dom/requestFormReset) lets you request a form reset when handling submissions with custom Actions or Transitions.
+>>>>>>> 46a54e0592729712b7640308b53268e84fdc7c9f
 
 ## Resource Preloading API-கள் {/*resource-preloading-apis*/}
 
@@ -29,6 +35,12 @@ Scripts, stylesheets, மற்றும் fonts போன்ற resources த�
 * [`preloadModule`](/reference/react-dom/preloadModule) நீங்கள் பயன்படுத்தப் போகிறீர்கள் என்று எதிர்பார்க்கும் ESM module-ஐ fetch செய்ய உதவுகிறது.
 * [`preinit`](/reference/react-dom/preinit) external script ஒன்றை fetch செய்து evaluate செய்யவும், அல்லது stylesheet ஒன்றை fetch செய்து insert செய்யவும் உதவுகிறது.
 * [`preinitModule`](/reference/react-dom/preinitModule) ESM module ஒன்றை fetch செய்து evaluate செய்ய உதவுகிறது.
+
+## Server Rendering APIs {/*server-rendering-apis*/}
+
+This API controls how components render on the server:
+
+* [`browser`](/reference/react-dom/browser) lets you mark a component as browser-only during server rendering.
 
 ---
 
@@ -45,9 +57,18 @@ Scripts, stylesheets, மற்றும் fonts போன்ற resources த�
 
 இந்த API-கள் React 19-இல் நீக்கப்பட்டன:
 
+<<<<<<< HEAD
 * [`findDOMNode`](https://18.react.dev/reference/react-dom/findDOMNode): [மாற்று வழிகளை](https://18.react.dev/reference/react-dom/findDOMNode#alternatives) பார்க்கவும்.
 * [`hydrate`](https://18.react.dev/reference/react-dom/hydrate): இதற்கு பதிலாக [`hydrateRoot`](/reference/react-dom/client/hydrateRoot)-ஐப் பயன்படுத்துங்கள்.
 * [`render`](https://18.react.dev/reference/react-dom/render): இதற்கு பதிலாக [`createRoot`](/reference/react-dom/client/createRoot)-ஐப் பயன்படுத்துங்கள்.
 * [`unmountComponentAtNode`](/reference/react-dom/unmountComponentAtNode): இதற்கு பதிலாக [`root.unmount()`](/reference/react-dom/client/createRoot#root-unmount)-ஐப் பயன்படுத்துங்கள்.
 * [`renderToNodeStream`](https://18.react.dev/reference/react-dom/server/renderToNodeStream): இதற்கு பதிலாக [`react-dom/server`](/reference/react-dom/server) API-களைப் பயன்படுத்துங்கள்.
 * [`renderToStaticNodeStream`](https://18.react.dev/reference/react-dom/server/renderToStaticNodeStream): இதற்கு பதிலாக [`react-dom/server`](/reference/react-dom/server) API-களைப் பயன்படுத்துங்கள்.
+=======
+* [`findDOMNode`](https://18.react.dev/reference/react-dom/findDOMNode): see [alternatives](https://18.react.dev/reference/react-dom/findDOMNode#alternatives).
+* [`hydrate`](https://18.react.dev/reference/react-dom/hydrate): use [`hydrateRoot`](/reference/react-dom/client/hydrateRoot) instead.
+* [`render`](https://18.react.dev/reference/react-dom/render): use [`createRoot`](/reference/react-dom/client/createRoot) instead.
+* [`unmountComponentAtNode`](https://18.react.dev/reference/react-dom/unmountComponentAtNode): use [`root.unmount()`](/reference/react-dom/client/createRoot#root-unmount) instead.
+* [`renderToNodeStream`](https://18.react.dev/reference/react-dom/server/renderToNodeStream): use [`react-dom/server`](/reference/react-dom/server) APIs instead.
+* [`renderToStaticNodeStream`](https://18.react.dev/reference/react-dom/server/renderToStaticNodeStream): use [`react-dom/server`](/reference/react-dom/server) APIs instead.
+>>>>>>> 46a54e0592729712b7640308b53268e84fdc7c9f
